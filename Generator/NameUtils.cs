@@ -19,6 +19,10 @@ namespace Gen
 
 		// TextInfo (for casing) for default culture
 		private static readonly TextInfo TEXT_INFO = CultureInfo.InvariantCulture.TextInfo;
+		// Known typing prefixes for field names
+		private static readonly string[] FIELD_PREFIXES = new[] { 
+			"p", "pp", "ppp", "pppp", "s", "pfn"
+		};
 
 
 		// Parses enum/bitmask/struct names into their component parts, returns if the name could be converted
@@ -89,6 +93,24 @@ namespace Gen
 				name = 'E' + name;
 			}
 			
+			return true;
+		}
+
+		// Converts struct field names from the spec format to C# format
+		// Performs the following operations:
+		//   1. Removes leading "s", "p", "pp", "pfn" type notation characters
+		//   2. Converts the name to TitleCase
+		public static bool ConvertStructField(string vkname, out string name)
+		{
+			// Cut off the type prefix
+			var capIdx = vkname.TakeWhile(nc => char.IsLower(nc)).Count();
+			var prefix = vkname.Substring(capIdx);
+			if (prefix.Length > 0 && FIELD_PREFIXES.Contains(prefix)) {
+				vkname = vkname.Substring(prefix.Length);
+			}
+
+			// Create TitleCase
+			name = char.IsLower(vkname[0]) ? TEXT_INFO.ToTitleCase(vkname) : vkname;
 			return true;
 		}
 	}

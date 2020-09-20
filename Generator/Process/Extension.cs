@@ -27,12 +27,14 @@ namespace Gen
 
 		// Objects in extension namespace
 		public readonly List<EnumOut> Enums;
+		public readonly List<StructOut> Structs;
 		#endregion // Fields
 
 		public Extension(string name)
 		{
 			Name = name;
 			Enums = new();
+			Structs = new();
 		}
 	}
 }

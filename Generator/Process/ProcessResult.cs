@@ -45,6 +45,9 @@ namespace Gen
 			if (!ProcessEnums(spec, proc)) {
 				return false;
 			}
+			if (!ProcessStructs(spec, proc)) {
+				return false;
+			}
 
 			return true;
 		}
@@ -55,16 +58,38 @@ namespace Gen
 			Console.WriteLine("Processing enum types...");
 
 			foreach (var enumSpec in spec.Enums) {
-				// Try to parse
+				// Try to process
 				if (!EnumOut.TryProcess(enumSpec, out var enumOut)) {
-					continue;
+					return false;
 				}
 
 				// Add to extension
 				var ext = proc.GetOrCreateExtension(enumOut!.Extension);
-				ext.Enums.Add(enumOut);
+				ext.Enums.Add(enumOut!);
 				if (ArgParse.Verbose) {
-					Console.WriteLine($"\tProcessed enum {enumSpec.Name} -> {enumOut.FullName}");
+					Console.WriteLine($"\tProcessed enum {enumSpec.Name} -> {enumOut!.FullName}");
+				}
+			}
+
+			return true;
+		}
+
+		// Processing for structs
+		private static bool ProcessStructs(ParseResult spec, ProcessResult proc)
+		{
+			Console.WriteLine("Processing struct types...");
+
+			foreach (var structSpec in spec.Structs) {
+				// try to process
+				if (!StructOut.TryProcess(structSpec, out var structOut)) {
+					return false;
+				}
+
+				// Add to extension
+				var ext = proc.GetOrCreateExtension(structOut!.Extension);
+				ext.Structs.Add(structOut!);
+				if (ArgParse.Verbose) {
+					Console.WriteLine($"\tProcessed struct {structSpec.Name} -> {structOut!.FullName}");
 				}
 			}
 

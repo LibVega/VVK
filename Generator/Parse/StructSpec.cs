@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO.Pipes;
 using System.Xml;
 
 namespace Gen
@@ -67,7 +66,9 @@ namespace Gen
 
 			// Validate type node
 			if ((xml.Attributes?["category"] is not XmlAttribute catAttr) ||
-				(xml.Attributes?["name"] is not XmlAttribute nameAttr)) {
+				(xml.Attributes?["name"] is not XmlAttribute nameAttr) ||
+				(catAttr.Value is null) ||
+				(nameAttr.Value is null)) {
 				return false;
 			}
 			if (catAttr.Value != "struct") {
@@ -108,7 +109,7 @@ namespace Gen
 			var isPtr = xml.InnerText.Contains('*');
 
 			// Create and return
-			field = new(nameNode.Value!, typeNode.Value!, cmtNode?.Value, isPtr);
+			field = new(nameNode.InnerText!, typeNode.InnerText!, cmtNode?.InnerText, isPtr);
 			return true;
 		}
 	}
