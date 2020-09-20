@@ -63,6 +63,12 @@ namespace Gen
 				ents.Add(new(entName, entry.Value, entry.Comment));
 			}
 
+			// Additionally add an explicit "None = 0" for flag types that dont have it
+			// Unlike C, C# does not allow a 0 to be implicitly converted to an enum value
+			if (spec.IsBitmask && ents.FindIndex(e => e.Name == "None") == -1) {
+				ents.Add(new("None", 0, "Default zero value (added by VVK)"));
+			}
+
 			// Create and return
 			output = new(outName, outExt, spec, ents);
 			return true;
