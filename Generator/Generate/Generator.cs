@@ -16,7 +16,22 @@ namespace Gen
 		{
 			Console.WriteLine("Generating source...");
 
-			using (var file = new FileGenerator("./Vulkan.cs", "Main file")) {
+			// Generate each of the types in order
+			if (!GenerateEnums(spec)) {
+				return false;
+			}
+
+			return true;
+		}
+
+		// Enum and bitmask generation
+		private static bool GenerateEnums(ParseResult spec)
+		{
+			Console.WriteLine("Generating enums...");
+
+			// Top-level file and namespace block
+			using var file = new FileGenerator("Vk.Enums.cs", "Contains the enums for the core namespace.");
+			using (var nsBlock = file.PushBlock("namespace Vk")) {
 
 			}
 

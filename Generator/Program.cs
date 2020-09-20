@@ -40,28 +40,36 @@ namespace Gen
 
 			// Try to parse the spec file
 			ParseResult? result = null;
+#if !DEBUG
 			try {
+#endif
 				if (!ParseResult.Parse(ArgParse.InputFile, out result)) {
 					PrintError("Failed to parse specification file, exiting...");
 					return;
 				}
+#if !DEBUG
 			}
 			catch (Exception e) {
 				PrintError($"Unhandled parse exception ({e.GetType().Name}) - {e.Message}");
 				return;
 			}
+#endif
 
-			// Run the generation task
+// Run the generation task
+#if !DEBUG
 			try {
+#endif
 				if (!Generator.Generate(result!)) {
 					PrintError("Failed to generate source, exiting...");
 					return;
 				}
+#if !DEBUG
 			}
 			catch (Exception e) {
 				PrintError($"Unhandled generation exception ({e.GetType().Name}) - {e.Message}");
 				return;
 			}
+#endif
 		}
 
 		// Prints a colored error message to the console

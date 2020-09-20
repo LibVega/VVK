@@ -4,9 +4,9 @@
  * file at the root of this repository, or online at <https://opensource.org/licenses/MIT>.
  */
 
+using Gen.Generate;
 using System;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Gen
@@ -19,7 +19,7 @@ namespace Gen
 		private readonly StreamWriter _file;
 
 		// Indent values
-		public uint IndentLevel { get; private set; } = 0;
+		public uint BlockLevel { get; private set; } = 0;
 		private string _indentString = "";
 
 		// If the generator has been disposed
@@ -28,13 +28,13 @@ namespace Gen
 
 		public FileGenerator(string path, string fileComment)
 		{
-			var dirName = Path.GetDirectoryName(path);
+			var filePath = Path.Combine(ArgParse.OutputPath, path);
+			var dirName = Path.GetDirectoryName(filePath);
 			if (!Directory.Exists(dirName)) {
 				Directory.CreateDirectory(dirName!);
 			}
 
-			_file = new StreamWriter(
-				File.Open(Path.Combine(ArgParse.OutputPath, path), FileMode.Create, FileAccess.Write, FileShare.None), 
+			_file = new StreamWriter(File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None),
 				leaveOpen: false);
 
 			writeHeader(fileComment);
@@ -47,37 +47,58 @@ namespace Gen
 		#region File-Level
 		// Writes a line to the file, respecting the current indent level
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private void writeLine(string line) => _file.WriteLine(_indentString + line);
+		public void WriteLine(string line) => _file.WriteLine(_indentString + line);
 
 		// Writes a blank line to the file
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private void writeLine() => _file.WriteLine();
+		public void WriteLine() => _file.WriteLine();
 
 		// Writes the file header
 		private void writeHeader(string comment)
 		{
 			// License text
-			writeLine("/*");
-			writeLine(" * MIT License - Copyright (c) 2020 Sean Moss");
-			writeLine(" * This file is subject to the terms and conditions of the MIT License, the text of which can be found in the 'LICENSE'");
-			writeLine(" * file at the root of this repository, or online at <https://opensource.org/licenses/MIT>.");
-			writeLine(" */");
+			WriteLine("/*");
+			WriteLine(" * MIT License - Copyright (c) 2020 Sean Moss");
+			WriteLine(" * This file is subject to the terms and conditions of the MIT License, the text of which can be found in the 'LICENSE'");
+			WriteLine(" * file at the root of this repository, or online at <https://opensource.org/licenses/MIT>.");
+			WriteLine(" */");
 
 			// Write generation notice
-			writeLine();
-			writeLine("/* This file was generated using VVKGen. */");
-			writeLine("/* This file should not be edited by hand. All edits will be lost on next generation. */");
+			WriteLine();
+			WriteLine("/* This file was generated using VVKGen. */");
+			WriteLine("/* This file should not be edited by hand. All edits will be lost on next generation. */");
 
 			// Write comment
-			writeLine();
-			writeLine($"/* {comment} */");
+			WriteLine();
+			WriteLine($"/* {comment} */");
 
 			// Write standard using statements
-			writeLine();
-			writeLine("using System;");
-			writeLine();
+			WriteLine();
+			WriteLine("using System;");
+			WriteLine();
 		}
 		#endregion // File-Level
+
+		#region Blocks
+		// Opens a new block context with the given header, increasing the indent level
+		public BlockWriter PushBlock(string? header)
+		{
+			var b = new BlockWriter(this, header);
+			BlockLevel += 1;
+			_indentString += "\t";
+			return b;
+		}
+
+		// Pops an indent level from the source
+		public void PopBlock()
+		{
+			if (BlockLevel == 0) {
+				throw new InvalidOperationException("Too many block pops in FileGenerator");
+			}
+			BlockLevel -= 1;
+			_indentString = _indentString.Substring(0, _indentString.Length - 1);
+		}
+		#endregion // Blocks
 
 		#region IDisposable
 		public void Dispose()
