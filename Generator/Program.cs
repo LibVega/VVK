@@ -36,6 +36,19 @@ namespace Gen
 					return;
 				}
 			}
+
+			// Try to parse the spec file
+			ParseResult? result = null;
+			try {
+				if (!ParseResult.Parse(ArgParse.InputFile, out result)) {
+					PrintError("Failed to parse specification file, exiting...");
+					return;
+				}
+			}
+			catch (Exception e) {
+				PrintError($"Unhandled parse exception ({e.GetType().Name}) - {e.Message}");
+				return;
+			}
 		}
 
 		// Prints a colored error message to the console
