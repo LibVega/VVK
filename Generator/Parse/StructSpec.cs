@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 
 namespace Gen
@@ -18,7 +19,8 @@ namespace Gen
 			string Name, 
 			string Type, 
 			string? Comment,
-			bool IsPtr
+			uint PointerDepth,
+			string? EnumName // Filled out for fixed-size arrays with the array size
 		);
 
 		#region Fields
@@ -106,10 +108,12 @@ namespace Gen
 
 			// Get other values
 			var cmtNode = xml.SelectSingleNode("comment");
-			var isPtr = xml.InnerText.Contains('*');
+			var enumNode = xml.SelectSingleNode("enum");
+			var ptrCnt = xml.InnerText.Count(ch => ch == '*');
 
 			// Create and return
-			field = new(nameNode.InnerText!, typeNode.InnerText!, cmtNode?.InnerText, isPtr);
+			field = 
+				new(nameNode.InnerText!, typeNode.InnerText!, cmtNode?.InnerText, (uint)ptrCnt, enumNode?.InnerText);
 			return true;
 		}
 	}

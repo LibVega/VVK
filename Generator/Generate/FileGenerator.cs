@@ -75,6 +75,7 @@ namespace Gen
 			// Write standard using statements
 			WriteLine();
 			WriteLine("using System;");
+			WriteLine("using System.Runtime.InteropServices;");
 			WriteLine();
 		}
 		#endregion // File-Level

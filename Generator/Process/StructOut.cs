@@ -17,8 +17,7 @@ namespace Gen
 			string Name, 
 			string Type, 
 			string? Comment,
-			uint Offset,
-			uint Size
+			StructSpec.Field Spec
 		);
 
 		#region Fields
@@ -36,6 +35,7 @@ namespace Gen
 
 		// Forward
 		public bool IsTyped => Spec.IsTyped;
+		public string? Comment => Spec.Comment;
 		#endregion // Fields
 
 		private StructOut(string name, string ext, StructSpec spec, List<Field> fields)
@@ -60,11 +60,22 @@ namespace Gen
 			// Convert all of the fields
 			List<Field> fields = new();
 			foreach (var fld in spec.Fields) {
+				// Create field name
 				if (!NameUtils.ConvertStructField(fld.Name, out var fieldName)) {
 					Program.PrintError($"Failed to process struct field '{fld.Name}'");
 					return false;
 				}
-				fields.Add(new(fieldName, fld.Type, fld.Comment, 0, 0));
+
+				// Get the gen type name, and apply other type effects to it
+				if (!NameUtils.ConvertFieldTypeName(fld.Type, out var fieldType)) {
+					Program.PrintError($"Failed to process struct field type {fld.Type}");
+					return false;
+				}
+				if (fld.PointerDepth > 0) {
+					fieldType += new string('*', (int)fld.PointerDepth);
+				}
+
+				fields.Add(new(fieldName, fieldType, fld.Comment, fld));
 			}
 
 			// Create and return

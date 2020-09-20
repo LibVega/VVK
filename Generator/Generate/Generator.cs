@@ -32,6 +32,12 @@ namespace Gen
 					return false;
 				} 
 			}
+			Console.WriteLine("Generating structs...");
+			foreach (var ext in spec.Extensions) {
+				if (!GenerateStructs(ext.Value)) {
+					return false;
+				}
+			}
 
 			return true;
 		}
@@ -39,6 +45,9 @@ namespace Gen
 		// Enum and bitmask generation
 		private static bool GenerateEnums(Extension ext)
 		{
+			if (ext.Enums.Count == 0) {
+				return true;
+			}
 			if (ArgParse.Verbose) {
 				Console.WriteLine($"Generating enums for {ext.DisplayName}...");
 			}
@@ -53,7 +62,7 @@ namespace Gen
 					// Write the block comment
 					if (enumType.Comment is not null) {
 						nsBlock.WriteLine( "/// <summary>");
-						nsBlock.WriteLine($"/// {enumType.Comment!}");
+						nsBlock.WriteLine($"/// {enumType.Comment}");
 						nsBlock.WriteLine( "/// </summary>");
 					}
 
@@ -76,6 +85,64 @@ namespace Gen
 
 					if (ArgParse.Verbose) {
 						Console.WriteLine($"\tGenerated code for {enumType.FullName}");
+					}
+				}
+			}
+
+			return true;
+		}
+
+		// Struct generation
+		private static bool GenerateStructs(Extension ext)
+		{
+			if (ext.Structs.Count == 0) {
+				return true;
+			}
+			if (ArgParse.Verbose) {
+				Console.WriteLine($"Generating structs for {ext.DisplayName}...");
+			}
+
+			// Top-level file and namespace block
+			var fileName = Path.Combine(ext.FolderName, $"{ext.DisplayName}.Structs.cs");
+			var fileCom = $"Contains the {(ext.IsCore ? "core" : $"{ext.DisplayName} extension")} struct types.";
+			using var file = new FileGenerator(fileName, fileCom);
+			using (var nsBlock = file.PushBlock($"namespace {ext.NamespaceName}")) {
+				// Loop over extension structs
+				foreach (var structType in ext.Structs) {
+					// Write the block comment
+					if (structType.Comment is not null) {
+						nsBlock.WriteLine( "/// <summary>");
+						nsBlock.WriteLine($"/// {structType.Comment}");
+						nsBlock.WriteLine( "/// </summary>");
+					}
+
+					// Open the block
+					nsBlock.WriteLine("[StructLayout(LayoutKind.Sequential)]");
+					using var typeBlock =
+						nsBlock.PushBlock($"public unsafe partial struct {structType.Name}");
+
+					// Write the fields
+					typeBlock.WriteLine("/* Fields */");
+					foreach (var field in structType.Fields) {
+						// Write field comment
+						if (field.Comment is not null) {
+							typeBlock.WriteLine( "/// <summary>");
+							typeBlock.WriteLine($"/// {field.Comment}");
+							typeBlock.WriteLine( "/// </summary>");
+						}
+
+						// Write field
+						if (field.Spec.EnumName is not null) {
+							typeBlock.WriteLine($"public fixed {field.Type} {field.Name}[{field.Spec.EnumName}];");
+						}
+						else {
+							typeBlock.WriteLine($"public {field.Type} {field.Name};");
+						}
+					}
+
+					// Report
+					if (ArgParse.Verbose) {
+						Console.WriteLine($"\tGenerated code for {structType.FullName}");
 					}
 				}
 			}

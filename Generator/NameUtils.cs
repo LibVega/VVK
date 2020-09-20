@@ -20,8 +20,21 @@ namespace Gen
 		// TextInfo (for casing) for default culture
 		private static readonly TextInfo TEXT_INFO = CultureInfo.InvariantCulture.TextInfo;
 		// Known typing prefixes for field names
-		private static readonly string[] FIELD_PREFIXES = new[] { 
+		private static readonly string[] FIELD_PREFIXES = new[] {
 			"p", "pp", "ppp", "pppp", "s", "pfn"
+		};
+		// Known builtin primitive types and their mappings
+		private static readonly Dictionary<string, string> VK_TYPEDEFS = new() {
+			{ "VkDeviceSize", "ulong" }, { "VkDeviceAddress", "ulong" }, { "VkSampleMask", "uint" }
+		};
+		private static readonly Dictionary<string, string> PRIMITIVE_TYPES = new() {
+			{ "uint8_t", "byte" }, { "int8_t", "sbyte" },
+			{ "uint16_t", "ushort" }, { "int16_t", "short" },
+			{ "uint32_t", "uint" }, { "int32_t", "int" },
+			{ "uint64_t", "ulong" }, { "int64_t", "long" },
+			{ "size_t", "ulong" }, { "char", "byte" },
+			{ "float", "float" }, { "double", "double" },
+			{ "void", "void" }
 		};
 
 
@@ -104,14 +117,50 @@ namespace Gen
 		{
 			// Cut off the type prefix
 			var capIdx = vkname.TakeWhile(nc => char.IsLower(nc)).Count();
-			var prefix = vkname.Substring(capIdx);
+			var prefix = vkname.Substring(0, capIdx);
 			if (prefix.Length > 0 && FIELD_PREFIXES.Contains(prefix)) {
-				vkname = vkname.Substring(prefix.Length);
+				vkname = vkname.Substring(capIdx);
 			}
 
 			// Create TitleCase
-			name = char.IsLower(vkname[0]) ? TEXT_INFO.ToTitleCase(vkname) : vkname;
+			name = char.IsLower(vkname[0]) ? (char.ToUpper(vkname[0]) + vkname.Substring(1)) : vkname;
 			return true;
+		}
+
+		// Converts the general spec type name into the corresponding C# type name
+		// It checks for the following:
+		//   1. A small subset of Vulkan typedefs
+		//   2. Checks if it is a Vulkan type (starts with "Vk")
+		//   3. Checks if the type is a builtin primitive
+		public static bool ConvertFieldTypeName(string vkname, out string name)
+		{
+			// Check against the Vulkan typedefs
+			if (VK_TYPEDEFS.TryGetValue(vkname, out var typedef)) {
+				name = typedef;
+				return true;
+			}
+
+			// Check if it is a function handle
+			if (vkname.StartsWith("PFN_")) {
+				name = "FUNCTION";
+				return true;
+			}
+
+			// Try to convert it to a Vulkan type (this is very fast if the name does not start with "Vk")
+			if (ConvertTypeName(vkname, out var vkName, out var vkExt)) {
+				name = (vkExt.Length == 0) ? $"Vk.{vkName}" : $"Vk.{vkExt}.{vkName}";
+				return true;
+			}
+
+			// Check the primitive names
+			if (PRIMITIVE_TYPES.TryGetValue(vkname, out var primType)) {
+				name = primType;
+				return true;
+			}
+
+			// Could not convert
+			name = String.Empty;
+			return false;
 		}
 	}
 }
