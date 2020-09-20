@@ -63,6 +63,20 @@ namespace Gen
 					}
 					using var typeBlock = 
 						nsBlock.PushBlock($"public enum {enumType.Name} : {(enumType.IsBitmask ? "uint" : "int")}");
+
+					// Write the values
+					foreach (var entry in enumType.Entries) {
+						if (entry.Comment is not null) {
+							typeBlock.WriteLine( "/// <summary>");
+							typeBlock.WriteLine($"/// {entry.Comment}");
+							typeBlock.WriteLine( "/// </summary>");
+						}
+						typeBlock.WriteLine($"{entry.Name} = {entry.Value},");
+					}
+
+					if (ArgParse.Verbose) {
+						Console.WriteLine($"\tGenerated code for {enumType.FullName}");
+					}
 				}
 			}
 

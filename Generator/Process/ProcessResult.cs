@@ -64,8 +64,7 @@ namespace Gen
 				var ext = proc.GetOrCreateExtension(enumOut!.Extension);
 				ext.Enums.Add(enumOut);
 				if (ArgParse.Verbose) {
-					Console.Write($"\tProcessed enum {enumSpec.Name} -> ");
-					Console.WriteLine(ext.IsCore ? $"Vk.{enumOut.Name}" : $"Vk.{enumOut.Extension}.{enumOut.Name}");
+					Console.WriteLine($"\tProcessed enum {enumSpec.Name} -> {enumOut.FullName}");
 				}
 			}
 

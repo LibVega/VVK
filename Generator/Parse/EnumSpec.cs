@@ -84,7 +84,12 @@ namespace Gen
 				// Get attributes
 				var enumName = enumNode.Attributes?["name"]?.Value;
 				var enumComment = enumNode.Attributes?["comment"]?.Value;
-				var enumValue = enumNode.Attributes?["value"]?.Value ?? enumNode.Attributes?["bitpos"]?.Value;
+				bool bitpos = false;
+				var enumValue = enumNode.Attributes?["value"]?.Value;
+				if (enumValue is null) {
+					enumValue = enumNode.Attributes?["bitpos"]?.Value;
+					bitpos = true;
+				}
 				if (enumName is null || enumValue is null) {
 					continue;
 				}
@@ -93,7 +98,7 @@ namespace Gen
 					isHex ? NumberStyles.HexNumber : NumberStyles.Integer);
 
 				// Add entry
-				spec.Entries.Add(new(enumName, bitmask ? (1 << value) : value, enumComment));
+				spec.Entries.Add(new(enumName, bitpos ? (1 << value) : value, enumComment));
 			}
 			
 			// Successful parse
