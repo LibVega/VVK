@@ -6,6 +6,7 @@
 
 using System;
 using System.IO;
+using System.Threading.Tasks.Sources;
 
 namespace Gen
 {
@@ -60,6 +61,15 @@ namespace Gen
 			if (help) {
 				Console.WriteLine("Use '-h', '-help', or '-?' to get command line help.");
 			}
+			Console.ForegroundColor = old;
+		}
+
+		// Prints a colored warning message to the console
+		public static void PrintWarning(string msg)
+		{
+			var old = Console.ForegroundColor;
+			Console.ForegroundColor = ConsoleColor.DarkYellow;
+			Console.WriteLine(msg);
 			Console.ForegroundColor = old;
 		}
 	}

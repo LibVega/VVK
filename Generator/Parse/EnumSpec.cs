@@ -22,22 +22,41 @@ namespace Gen
 		// The name of the enum
 		public readonly string Name;
 		// The optional comment of the enum
-		public readonly string? Comment;
+		public string? Comment => Alias?.Comment ?? _comment;
 		// If the enum type is a bitmask (annotates with [Flags])
-		public readonly bool Bitmask;
+		public bool Bitmask => Alias?.Bitmask ?? _bitmask;
 		// The enum values
-		public readonly List<Entry> Entries;
+		public List<Entry> Entries => Alias?.Entries ?? _entries!;
+		// The enum type that is aliased by this one.
+		public readonly EnumSpec? Alias;
+		// If this enum is an alias of another
+		public bool IsAlias => Alias is not null;
+
+		// Internal values
+		private readonly string? _comment;
+		private readonly bool _bitmask;
+		private readonly List<Entry>? _entries;
 		#endregion // Fields
 
 		private EnumSpec(string name, string? comment, bool bitmask)
 		{
 			Name = name;
-			Comment = comment;
-			Bitmask = bitmask;
-			Entries = new();
+			_comment = comment;
+			_bitmask = bitmask;
+			_entries = new();
+			Alias = null;
+		}
+		private EnumSpec(string name, EnumSpec alias)
+		{
+			Name = name;
+			_comment = null;
+			_bitmask = alias.Bitmask;
+			_entries = null;
+			Alias = alias;
 		}
 
-		public static bool TryParse(XmlNode xml, out EnumSpec? spec)
+		// Parser for enum definition nodes
+		public static bool TryParseEnum(XmlNode xml, out EnumSpec? spec)
 		{
 			spec = null;
 
@@ -66,7 +85,7 @@ namespace Gen
 				var enumName = enumNode.Attributes?["name"]?.Value;
 				var enumComment = enumNode.Attributes?["comment"]?.Value;
 				var enumValue = enumNode.Attributes?["value"]?.Value ?? enumNode.Attributes?["bitpos"]?.Value;
-				if (enumName == null || enumValue == null) {
+				if (enumName is null || enumValue is null) {
 					continue;
 				}
 				var isHex = enumValue.StartsWith("0x");
@@ -79,6 +98,37 @@ namespace Gen
 			
 			// Successful parse
 			return true;
+		}
+
+		// Parser for enum alias nodes
+		public static bool TryParseAlias(XmlNode xml, List<EnumSpec> enums, out EnumSpec? spec)
+		{
+			spec = null;
+
+			// Validate the name, category, and alias attributes
+			if ((xml.Attributes?["name"] is not XmlAttribute nameAttr) ||
+				(xml.Attributes?["category"] is not XmlAttribute catAttr) ||
+				(xml.Attributes?["alias"] is not XmlAttribute aliasAttr)) {
+				return false;
+			}
+			if (catAttr.Value != "enum") {
+				return false;
+			}
+
+			// Pull the values
+			var enumName = nameAttr.Value;
+			var enumAlias = aliasAttr.Value;
+
+			// Find the aliased object and assign
+			var alias = enums.Find(e => e.Name == enumAlias);
+			if (alias is not null) {
+				spec = new(enumName, alias);
+				return true;
+			}
+			else {
+				Program.PrintWarning($"The enum alias '{enumAlias}' does not exist, skipping...");
+				return false;
+			}
 		}
 	}
 }

@@ -19,6 +19,8 @@ namespace Gen
 		private static readonly string ROOT_NODE_NAME = "registry";
 		// Enum node type name
 		private static readonly string ENUM_NODE_NAME = "enums";
+		// General type node name
+		private static readonly string TYPE_NODE_NAME = "type";
 		#endregion // Constants
 
 		// Performs the top-level parsing
@@ -48,16 +50,20 @@ namespace Gen
 			// Scan over each of the expected types
 			Console.WriteLine("Parsing enum types...");
 			var enums = ParseEnumTypes(xml.DocumentElement!);
+			if (enums is null) {
+				return false;
+			}
 
 			result = new();
 			return true;
 		}
 
 		// Scans and parses enum and bitmask types
-		private static List<EnumSpec> ParseEnumTypes(XmlNode root)
+		private static List<EnumSpec>? ParseEnumTypes(XmlNode root)
 		{
 			List<EnumSpec> enums = new();
 
+			// Parse the enum definitions first
 			foreach (var child in root.ChildNodes) {
 				// Perform filtering
 				if ((child is not XmlNode enumNode) ||
@@ -66,10 +72,32 @@ namespace Gen
 				}
 
 				// Try to parse the node
-				if (EnumSpec.TryParse(enumNode, out var spec)) {
+				if (EnumSpec.TryParseEnum(enumNode, out var spec)) {
 					enums.Add(spec!);
 					if (ArgParse.Verbose) {
 						Console.WriteLine($"\tFound {(spec!.Bitmask ? "bitmask" : "enum")}: {spec!.Name}");
+					}
+				}
+			}
+
+			// Go back through the type listing to find enum aliases
+			var typesNode = root.SelectSingleNode("types");
+			if (typesNode is null) {
+				Program.PrintError("Invalid spec file - could not find types node");
+				return null;
+			}
+			foreach (var child in typesNode.ChildNodes) {
+				// Perform filtering
+				if ((child is not XmlNode typeNode) ||
+					(typeNode.Name != TYPE_NODE_NAME)) {
+					continue;
+				}
+
+				// Try to parse the alias
+				if (EnumSpec.TryParseAlias(typeNode, enums, out var alias)) {
+					enums.Add(alias!);
+					if (ArgParse.Verbose) {
+						Console.WriteLine($"\tFound enum alias: {alias!.Name} -> {alias!.Alias!.Name}");
 					}
 				}
 			}
