@@ -23,6 +23,18 @@ namespace Gen
 		private static readonly string TYPE_NODE_NAME = "type";
 		#endregion // Constants
 
+		#region Fields
+
+		public readonly List<EnumSpec> Enums;
+		#endregion // Fields
+
+		private ParseResult(
+			List<EnumSpec> enums
+		)
+		{
+			Enums = enums;
+		}
+
 		// Performs the top-level parsing
 		public static bool Parse(string file, out ParseResult? result)
 		{
@@ -54,7 +66,7 @@ namespace Gen
 				return false;
 			}
 
-			result = new();
+			result = new(enums);
 			return true;
 		}
 

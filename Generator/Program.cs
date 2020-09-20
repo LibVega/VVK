@@ -50,6 +50,18 @@ namespace Gen
 				PrintError($"Unhandled parse exception ({e.GetType().Name}) - {e.Message}");
 				return;
 			}
+
+			// Run the generation task
+			try {
+				if (!Generator.Generate(result!)) {
+					PrintError("Failed to generate source, exiting...");
+					return;
+				}
+			}
+			catch (Exception e) {
+				PrintError($"Unhandled generation exception ({e.GetType().Name}) - {e.Message}");
+				return;
+			}
 		}
 
 		// Prints a colored error message to the console
