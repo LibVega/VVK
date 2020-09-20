@@ -47,8 +47,23 @@ namespace Gen
 			var fileName = Path.Combine(ext.FolderName, $"{ext.DisplayName}.Enums.cs");
 			var fileCom = $"Contains the {(ext.IsCore ? "core" : $"{ext.DisplayName} extension")} enum types.";
 			using var file = new FileGenerator(fileName, fileCom);
-			using (var nsBlock = file.PushBlock("namespace Vk")) {
+			using (var nsBlock = file.PushBlock($"namespace {ext.NamespaceName}")) {
+				// Loop over extension enums
+				foreach (var enumType in ext.Enums) {
+					// Write the block comment
+					if (enumType.Comment is not null) {
+						nsBlock.WriteLine( "/// <summary>");
+						nsBlock.WriteLine($"/// {enumType.Comment!}");
+						nsBlock.WriteLine( "/// </summary>");
+					}
 
+					// Open the block
+					if (enumType.IsBitmask) {
+						nsBlock.WriteLine("[Flags]");
+					}
+					using var typeBlock = 
+						nsBlock.PushBlock($"public enum {enumType.Name} : {(enumType.IsBitmask ? "uint" : "int")}");
+				}
 			}
 
 			return true;

@@ -24,7 +24,7 @@ namespace Gen
 		// The optional comment of the enum
 		public string? Comment => Alias?.Comment ?? _comment;
 		// If the enum type is a bitmask (annotates with [Flags])
-		public bool Bitmask => Alias?.Bitmask ?? _bitmask;
+		public bool IsBitmask => Alias?.IsBitmask ?? _isBitmask;
 		// The enum values
 		public List<Entry> Entries => Alias?.Entries ?? _entries!;
 		// The enum type that is aliased by this one.
@@ -34,7 +34,7 @@ namespace Gen
 
 		// Internal values
 		private readonly string? _comment;
-		private readonly bool _bitmask;
+		private readonly bool _isBitmask;
 		private readonly List<Entry>? _entries;
 		#endregion // Fields
 
@@ -42,7 +42,7 @@ namespace Gen
 		{
 			Name = name;
 			_comment = comment;
-			_bitmask = bitmask;
+			_isBitmask = bitmask;
 			_entries = new();
 			Alias = null;
 		}
@@ -50,7 +50,7 @@ namespace Gen
 		{
 			Name = name;
 			_comment = null;
-			_bitmask = alias.Bitmask;
+			_isBitmask = alias.IsBitmask;
 			_entries = null;
 			Alias = alias;
 		}

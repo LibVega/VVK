@@ -12,12 +12,23 @@ namespace Gen
 	public sealed class EnumOut
 	{
 		#region Fields
+		// The processed name of the type (will be written to the C# source)
+		public readonly string Name;
+		// The extension namespace of the type (will be empty for the core namespace)
+		public readonly string Extension;
 		// The spec object that this object was generated from
 		public readonly EnumSpec Spec;
+
+		// Forward values
+		public bool IsBitmask => Spec.IsBitmask;
+		public bool IsAlias => Spec.IsAlias;
+		public string? Comment => Spec.Comment;
 		#endregion // Fields
 
-		private EnumOut(EnumSpec spec)
+		private EnumOut(string name, string ext, EnumSpec spec)
 		{
+			Name = name;
+			Extension = ext;
 			Spec = spec;
 		}
 
@@ -26,6 +37,14 @@ namespace Gen
 		{
 			output = null;
 
+			// Try to parse the name and extension
+			if (!NameUtils.ConvertTypeName(spec.Name, out var outName, out var outExt)) {
+				Program.PrintWarning($"Failed to process enum '{spec.Name}'");
+				return false;
+			}
+
+			// Create and return
+			output = new(outName, outExt, spec);
 			return true;
 		}
 	}

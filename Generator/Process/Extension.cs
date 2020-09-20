@@ -19,6 +19,8 @@ namespace Gen
 		public string DisplayName => !IsCore ? Name : "Vk";
 		// The name of the folder (same as Name, except uses "." for core objects)
 		public string FolderName => !IsCore ? Name : ".";
+		// The namespace of the extension in the generated code
+		public string NamespaceName => IsCore ? "Vk" : $"Vk.{Name}";
 
 		// Gets if this is the core namespace
 		public bool IsCore => Name.Length == 0;

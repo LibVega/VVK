@@ -126,7 +126,7 @@ namespace Gen
 				if (EnumSpec.TryParseEnum(enumNode, out var spec)) {
 					enums.Add(spec!);
 					if (ArgParse.Verbose) {
-						Console.WriteLine($"\tFound {(spec!.Bitmask ? "bitmask" : "enum")}: {spec!.Name}");
+						Console.WriteLine($"\tFound {(spec!.IsBitmask ? "bitmask" : "enum")}: {spec!.Name}");
 					}
 				}
 			}
