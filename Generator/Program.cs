@@ -39,11 +39,11 @@ namespace Gen
 			}
 
 			// Try to parse the spec file
-			ParseResult? result = null;
+			ParseResult? parseRes = null;
 #if !DEBUG
 			try {
 #endif
-				if (!ParseResult.Parse(ArgParse.InputFile, out result)) {
+				if (!ParseResult.Parse(ArgParse.InputFile, out parseRes)) {
 					PrintError("Failed to parse specification file, exiting...");
 					return;
 				}
@@ -55,11 +55,29 @@ namespace Gen
 			}
 #endif
 
-// Run the generation task
+			// Run the processing task
+			ProcessResult? procRes = null;
 #if !DEBUG
 			try {
 #endif
-				if (!Generator.Generate(result!)) {
+				if (!ProcessResult.Process(parseRes!, out procRes)) {
+					PrintError("Failed to process specifiction types, exiting...");
+					return;
+				}
+#if !DEBUG
+			}
+			catch (Exception e) {
+				PrintError($"Unhandled process exception ({e.GetType().Name}) - {e.Message}");
+				return;
+			}
+#endif
+
+
+			// Run the generation task
+#if !DEBUG
+			try {
+#endif
+				if (!Generator.Generate(procRes)) {
 					PrintError("Failed to generate source, exiting...");
 					return;
 				}

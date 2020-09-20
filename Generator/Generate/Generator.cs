@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.IO;
 
 namespace Gen
 {
@@ -12,25 +13,40 @@ namespace Gen
 	public static partial class Generator
 	{
 		// Top-level generation function
-		public static bool Generate(ParseResult spec)
+		public static bool Generate(ProcessResult spec)
 		{
 			Console.WriteLine("Generating source...");
 
+			// Make sure all of the extension folders are generated
+			foreach (var ext in spec.Extensions) {
+				var dirPath = Path.Combine(ArgParse.OutputPath, ext.Value.FolderName);
+				if (!Directory.Exists(dirPath)) {
+					Directory.CreateDirectory(dirPath);
+				}
+			}
+
 			// Generate each of the types in order
-			if (!GenerateEnums(spec)) {
-				return false;
+			Console.WriteLine("Generating enums...");
+			foreach (var ext in spec.Extensions) {
+				if (!GenerateEnums(ext.Value)) {
+					return false;
+				} 
 			}
 
 			return true;
 		}
 
 		// Enum and bitmask generation
-		private static bool GenerateEnums(ParseResult spec)
+		private static bool GenerateEnums(Extension ext)
 		{
-			Console.WriteLine("Generating enums...");
+			if (ArgParse.Verbose) {
+				Console.WriteLine($"Generating enums for {ext.DisplayName}...");
+			}
 
 			// Top-level file and namespace block
-			using var file = new FileGenerator("Vk.Enums.cs", "Contains the enums for the core namespace.");
+			var fileName = Path.Combine(ext.FolderName, $"{ext.DisplayName}.Enums.cs");
+			var fileCom = $"Contains the {(ext.IsCore ? "core" : $"{ext.DisplayName} extension")} enum types.";
+			using var file = new FileGenerator(fileName, fileCom);
 			using (var nsBlock = file.PushBlock("namespace Vk")) {
 
 			}
