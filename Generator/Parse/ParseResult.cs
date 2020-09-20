@@ -28,15 +28,19 @@ namespace Gen
 		public readonly List<string> Extensions;
 		// All enum or bitmask types discovered
 		public readonly List<EnumSpec> Enums;
+		// All struct types discovered
+		public readonly List<StructSpec> Structs;
 		#endregion // Fields
 
 		private ParseResult(
 			List<string> exts,
-			List<EnumSpec> enums
+			List<EnumSpec> enums,
+			List<StructSpec> structs
 		)
 		{
 			Extensions = exts;
 			Enums = enums;
+			Structs = structs;
 		}
 
 		// Performs the top-level parsing
@@ -71,13 +75,18 @@ namespace Gen
 			}
 
 			// Scan over each of the expected types
-			Console.WriteLine("Parsing enum types...");
+			Console.WriteLine("Discovering enum types...");
 			var enums = ParseEnumTypes(xml.DocumentElement!);
 			if (enums is null) {
 				return false;
 			}
+			Console.WriteLine("Discovering struct types...");
+			var structs = ParseStructTypes(xml.DocumentElement!);
+			if (structs is null) {
+				return false;
+			}
 
-			result = new(exts, enums);
+			result = new(exts, enums, structs);
 			return true;
 		}
 
@@ -153,6 +162,37 @@ namespace Gen
 			}
 
 			return enums;
+		}
+
+		// Scans and parses struct types
+		private static List<StructSpec>? ParseStructTypes(XmlNode root)
+		{
+			List<StructSpec> structs = new();
+
+			// Get the types node
+			var typesNode = root.SelectSingleNode("types");
+			if (typesNode is null) {
+				Program.PrintError("Invalid spec file - could not find types node");
+				return null;
+			}
+
+			// Iterate of the type nodes
+			foreach (var child in typesNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode typeNode) || (typeNode.Name != TYPE_NODE_NAME)) {
+					continue;
+				}
+
+				// Try to parse the struct
+				if (StructSpec.TryParseStruct(typeNode, out var spec)) {
+					structs.Add(spec!);
+					if (ArgParse.Verbose) {
+						Console.WriteLine($"\tFound struct: {spec!.Name}");
+					}
+				}
+			}
+
+			return structs;
 		}
     }
 }
