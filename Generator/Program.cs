@@ -47,6 +47,8 @@ namespace Gen
 					PrintError("Failed to parse specification file, exiting...");
 					return;
 				}
+				NameUtils.EXTENSION_NAMES.Clear();
+				NameUtils.EXTENSION_NAMES.AddRange(parseRes!.Extensions);
 #if !DEBUG
 			}
 			catch (Exception e) {

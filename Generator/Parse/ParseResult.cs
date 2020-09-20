@@ -24,14 +24,18 @@ namespace Gen
 		#endregion // Constants
 
 		#region Fields
-
+		// All extension names discovered
+		public readonly List<string> Extensions;
+		// All enum or bitmask types discovered
 		public readonly List<EnumSpec> Enums;
 		#endregion // Fields
 
 		private ParseResult(
+			List<string> exts,
 			List<EnumSpec> enums
 		)
 		{
+			Extensions = exts;
 			Enums = enums;
 		}
 
@@ -59,6 +63,13 @@ namespace Gen
 				return false;
 			}
 
+			// Get the extensions
+			Console.WriteLine("Discovering extension names...");
+			var exts = ParseExtensionNames(xml.DocumentElement!);
+			if (exts is null) {
+				return false;
+			}
+
 			// Scan over each of the expected types
 			Console.WriteLine("Parsing enum types...");
 			var enums = ParseEnumTypes(xml.DocumentElement!);
@@ -66,8 +77,37 @@ namespace Gen
 				return false;
 			}
 
-			result = new(enums);
+			result = new(exts, enums);
 			return true;
+		}
+
+		// Scans and parses the valid extension names
+		private static List<string>? ParseExtensionNames(XmlNode root)
+		{
+			List<string> exts = new();
+
+			// Get the tags node
+			var tagsNode = root.SelectSingleNode("tags");
+			if (tagsNode is null) {
+				Program.PrintError("Invalid spec file - could not find tags node");
+				return null;
+			}
+
+			// Loop over the extensions
+			foreach (var child in tagsNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode tagNode) || (tagNode.Name != "tag")) {
+					continue;
+				}
+
+				// Add the extension
+				var nameAttr = tagNode.Attributes?["name"];
+				if (nameAttr is not null) {
+					exts.Add(nameAttr.Value);
+				}
+			}
+
+			return exts;
 		}
 
 		// Scans and parses enum and bitmask types
@@ -78,8 +118,7 @@ namespace Gen
 			// Parse the enum definitions first
 			foreach (var child in root.ChildNodes) {
 				// Perform filtering
-				if ((child is not XmlNode enumNode) ||
-					(enumNode.Name != ENUM_NODE_NAME)) {
+				if ((child is not XmlNode enumNode) || (enumNode.Name != ENUM_NODE_NAME)) {
 					continue;
 				}
 
@@ -100,8 +139,7 @@ namespace Gen
 			}
 			foreach (var child in typesNode.ChildNodes) {
 				// Perform filtering
-				if ((child is not XmlNode typeNode) ||
-					(typeNode.Name != TYPE_NODE_NAME)) {
+				if ((child is not XmlNode typeNode) || (typeNode.Name != TYPE_NODE_NAME)) {
 					continue;
 				}
 

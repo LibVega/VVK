@@ -5,7 +5,7 @@
  */
 
 using System;
-using System.IO;
+using System.Collections.Generic;
 
 namespace Gen
 {
@@ -22,11 +22,15 @@ namespace Gen
 
 		// Gets if this is the core namespace
 		public bool IsCore => Name.Length == 0;
+
+		// Objects in extension namespace
+		public readonly List<EnumOut> Enums;
 		#endregion // Fields
 
 		public Extension(string name)
 		{
 			Name = name;
+			Enums = new();
 		}
 	}
 }
