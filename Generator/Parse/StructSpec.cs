@@ -62,7 +62,7 @@ namespace Gen
 		}
 
 		// Parser for struct definitions
-		public static bool TryParseStruct(XmlNode xml, out StructSpec? spec)
+		public static bool TryParseStruct(XmlNode xml, List<StructSpec> structs, out StructSpec? spec)
 		{
 			spec = null;
 
@@ -75,6 +75,20 @@ namespace Gen
 			}
 			if (catAttr.Value != "struct") {
 				return false;
+			}
+
+			// Check for alias, exit early
+			var aliasAttr = xml.Attributes?["alias"];
+			if (aliasAttr is not null) {
+				var alias = structs.Find(ss => ss.Name == aliasAttr.Value);
+				if (alias is null) {
+					Program.PrintError($"Failed to find alias struct type '{aliasAttr.Value}'");
+					return false;
+				}
+				else {
+					spec = new(nameAttr.Value, alias);
+					return true;
+				}
 			}
 
 			// Create object

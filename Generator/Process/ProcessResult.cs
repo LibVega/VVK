@@ -80,11 +80,6 @@ namespace Gen
 			Console.WriteLine("Processing struct types...");
 
 			foreach (var structSpec in spec.Structs) {
-				// Skip typed structs for now
-				if (structSpec.IsTyped) {
-					continue;
-				}
-
 				// try to process
 				if (!StructOut.TryProcess(structSpec, out var structOut)) {
 					return false;

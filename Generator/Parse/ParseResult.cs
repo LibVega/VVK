@@ -184,10 +184,15 @@ namespace Gen
 				}
 
 				// Try to parse the struct
-				if (StructSpec.TryParseStruct(typeNode, out var spec)) {
+				if (StructSpec.TryParseStruct(typeNode, structs, out var spec)) {
 					structs.Add(spec!);
 					if (ArgParse.Verbose) {
-						Console.WriteLine($"\tFound struct: {spec!.Name}");
+						if (spec!.IsAlias) {
+							Console.WriteLine($"\tFound struct alias: {spec!.Name} -> {spec.Alias!.Name}");
+						}
+						else {
+							Console.WriteLine($"\tFound struct: {spec!.Name}");
+						}
 					}
 				}
 			}

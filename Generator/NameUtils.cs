@@ -23,18 +23,36 @@ namespace Gen
 		private static readonly string[] FIELD_PREFIXES = new[] {
 			"p", "pp", "ppp", "pppp", "s", "pfn"
 		};
-		// Known builtin primitive types and their mappings
+		// Typedefs in the Vulkan spec
 		private static readonly Dictionary<string, string> VK_TYPEDEFS = new() {
 			{ "VkDeviceSize", "ulong" }, { "VkDeviceAddress", "ulong" }, { "VkSampleMask", "uint" }
 		};
+		// Known builtin primitive types and their mappings
 		private static readonly Dictionary<string, string> PRIMITIVE_TYPES = new() {
 			{ "uint8_t", "byte" }, { "int8_t", "sbyte" },
 			{ "uint16_t", "ushort" }, { "int16_t", "short" },
-			{ "uint32_t", "uint" }, { "int32_t", "int" },
+			{ "uint32_t", "uint" }, { "int32_t", "int" }, { "int", "int" },
 			{ "uint64_t", "ulong" }, { "int64_t", "long" },
 			{ "size_t", "ulong" }, { "char", "byte" },
 			{ "float", "float" }, { "double", "double" },
 			{ "void", "void" }
+		};
+		// Platform-specific types that show up in the spec (mostly WSI stuff)
+		// "void*" marks it as actually being a void* value
+		// "void" marks it as a struct that is unknown, and should be used as a pointer
+		private static readonly Dictionary<string, string> PLATFORM_TYPES = new() {
+			{ "ANativeWindow", "void" }, { "ANativeBuffer", "void" }, { "AHardwareBuffer", "void" },
+			{ "HINSTANCE", "void*" }, { "HWND", "void*" }, { "HANDLE", "void*" },
+				{ "HMONITOR", "void*" },
+			{ "wl_display", "void" }, { "wl_surface", "void" },
+			{ "Display", "void" }, { "Window", "ulong" },
+			{ "xcb_connection_t", "void" }, { "xcb_window_t", "uint" },
+			{ "IDirectFB", "void" }, { "IDirectFBSurface", "void" },
+			{ "zx_handle_t", "uint" },
+			{ "GgpStreamDescriptor", "uint" }, { "GgpFrameToken", "uint" },
+			{ "SECURITY_ATTRIBUTES", "void" }, { "DWORD", "uint" }, { "LPCWSTR", "ushort*" },
+			{ "CAMetalLayer", "void" },
+
 		};
 
 
@@ -132,6 +150,7 @@ namespace Gen
 		//   1. A small subset of Vulkan typedefs
 		//   2. Checks if it is a Vulkan type (starts with "Vk")
 		//   3. Checks if the type is a builtin primitive
+		//   4. Returns "void" if the type is a known opaque handle type (should be treated as "void*")
 		public static bool ConvertFieldTypeName(string vkname, out string name)
 		{
 			// Check against the Vulkan typedefs
@@ -155,6 +174,12 @@ namespace Gen
 			// Check the primitive names
 			if (PRIMITIVE_TYPES.TryGetValue(vkname, out var primType)) {
 				name = primType;
+				return true;
+			}
+
+			// Last chance, see if it is a known platform type
+			if (PLATFORM_TYPES.TryGetValue(vkname, out var platType)) {
+				name = platType;
 				return true;
 			}
 

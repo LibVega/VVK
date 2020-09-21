@@ -71,8 +71,9 @@ namespace Gen
 					Program.PrintError($"Failed to process struct field type {fld.Type}");
 					return false;
 				}
-				if (fld.PointerDepth > 0) {
-					fieldType += new string('*', (int)fld.PointerDepth);
+				// "void" is a valid return type from ConvertFieldTypeName for opaque handles
+				if (fld.PointerDepth > 0 || fieldType == "void") {
+					fieldType += new string('*', Math.Max((int)fld.PointerDepth, 1));
 				}
 
 				fields.Add(new(fieldName, fieldType, fld.Comment, fld));
