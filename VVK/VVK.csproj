@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Platforms>x64</Platforms>
+    <RootNamespace>Vk</RootNamespace>
+    <Version>1.2.153.0</Version>
+    <Authors>Sean Moss</Authors>
+    <Company>N/A</Company>
+    <Description>C# bindings and utilities for Vulkan in .NET 5</Description>
+    <Copyright>Copyright © 2020 Sean Moss</Copyright>
+    <PackageProjectUrl>https://github.com/VegaLib/VVK</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VegaLib/VVK</RepositoryUrl>
+    <PackageTags>Vulkan, Graphics, Wrapper, Utilities</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+</Project>

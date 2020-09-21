@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30509.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Generator.csproj", "{4648FB29-0E37-4B8B-8D85-512B0CD16C2C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VVK", "VVK\VVK.csproj", "{C95F04E2-2025-4EC9-8E40-DFA021B5AD0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{4648FB29-0E37-4B8B-8D85-512B0CD16C2C}.Debug|x64.Build.0 = Debug|x64
 		{4648FB29-0E37-4B8B-8D85-512B0CD16C2C}.Release|x64.ActiveCfg = Release|x64
 		{4648FB29-0E37-4B8B-8D85-512B0CD16C2C}.Release|x64.Build.0 = Release|x64
+		{C95F04E2-2025-4EC9-8E40-DFA021B5AD0F}.Debug|x64.ActiveCfg = Debug|x64
+		{C95F04E2-2025-4EC9-8E40-DFA021B5AD0F}.Debug|x64.Build.0 = Debug|x64
+		{C95F04E2-2025-4EC9-8E40-DFA021B5AD0F}.Release|x64.ActiveCfg = Release|x64
+		{C95F04E2-2025-4EC9-8E40-DFA021B5AD0F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
