@@ -6,7 +6,6 @@
 
 using System;
 using System.IO;
-using System.Threading.Tasks.Sources;
 
 namespace Gen
 {
@@ -38,6 +37,7 @@ namespace Gen
 				}
 			}
 
+			/*
 			// Try to parse the spec file
 			ParseResult? parseRes = null;
 #if !DEBUG
@@ -56,7 +56,9 @@ namespace Gen
 				return;
 			}
 #endif
+			*/
 
+			/*
 			// Run the processing task
 			ProcessResult? procRes = null;
 #if !DEBUG
@@ -73,8 +75,9 @@ namespace Gen
 				return;
 			}
 #endif
+			*/
 
-
+			/*
 			// Run the generation task
 #if !DEBUG
 			try {
@@ -90,6 +93,7 @@ namespace Gen
 				return;
 			}
 #endif
+			*/
 		}
 
 		// Prints a colored error message to the console
