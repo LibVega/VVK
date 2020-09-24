@@ -29,6 +29,8 @@ namespace Gen
 		public readonly Dictionary<string, FuncSpec> FuncPointers;
 		// The API constants
 		public readonly Dictionary<string, ConstantSpec> Constants;
+		// The commands (API functions)
+		public readonly Dictionary<string, CommandSpec> Commands;
 		#endregion Fields
 
 		private ParseResults()
@@ -40,6 +42,7 @@ namespace Gen
 			Structs = new();
 			FuncPointers = new();
 			Constants = new();
+			Commands = new();
 		}
 
 		// Performs the top-level spec file parsing
@@ -81,6 +84,11 @@ namespace Gen
 				return false;
 			}
 			if (!PopulateFuncArguments(regNode, spec)) {
+				return false;
+			}
+
+			// Get the commands
+			if (!DiscoverCommands(regNode, spec)) {
 				return false;
 			}
 
@@ -327,6 +335,40 @@ namespace Gen
 				}
 
 				Program.PrintVerbose($"\tFound {funcSpec.Arguments.Count} arguments for {funcSpec.Name}");
+			}
+
+			return true;
+		}
+
+		// Parses the commands
+		private static bool DiscoverCommands(XmlNode regNode, ParseResults spec)
+		{
+			Console.WriteLine("Discovering API functions...");
+
+			// Try to get the commands node
+			if (regNode.SelectSingleNode("commands") is not XmlNode commandsNode) {
+				Program.PrintError("Spec does not have an entry for 'commands'");
+				return false;
+			}
+
+			// Loop over the commands
+			foreach (var child in commandsNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode cmdNode) || (cmdNode.Name != "command")) {
+					continue;
+				}
+
+				// Try to parse
+				if (CommandSpec.TryParse(cmdNode, spec.Commands, out var cmdSpec)) {
+					spec.Commands.Add(cmdSpec!.Name, cmdSpec!);
+					if (cmdSpec!.IsAlias) {
+						Program.PrintVerbose($"\tFound API function alias {cmdSpec!.Name} -> {cmdSpec.Alias!.Name}");
+					}
+					else {
+						Program.PrintVerbose($"\tFound API function {cmdSpec!.Name} ({cmdSpec!.Arguments.Count} args)");
+					}
+				}
+				else return false;
 			}
 
 			return true;
