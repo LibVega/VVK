@@ -37,18 +37,17 @@ namespace Gen
 				}
 			}
 
-			/*
 			// Try to parse the spec file
-			ParseResult? parseRes = null;
+			ParseResults? parseRes = null;
 #if !DEBUG
 			try {
 #endif
-				if (!ParseResult.Parse(ArgParse.InputFile, out parseRes)) {
-					PrintError("Failed to parse specification file, exiting...");
+				if (!ParseResults.TryParse(ArgParse.InputFile, out parseRes)) {
+					PrintError("Failed to load specification file, exiting...");
 					return;
 				}
-				NameUtils.EXTENSION_NAMES.Clear();
-				NameUtils.EXTENSION_NAMES.AddRange(parseRes!.Extensions);
+				//NameUtils.EXTENSION_NAMES.Clear();
+				//NameUtils.EXTENSION_NAMES.AddRange(parseRes!.Extensions);
 #if !DEBUG
 			}
 			catch (Exception e) {
@@ -56,7 +55,6 @@ namespace Gen
 				return;
 			}
 #endif
-			*/
 
 			/*
 			// Run the processing task
@@ -113,6 +111,16 @@ namespace Gen
 		{
 			var old = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.DarkYellow;
+			Console.WriteLine(msg);
+			Console.ForegroundColor = old;
+		}
+
+		// Prints a normal message to the console, if verbose logging has been requested
+		public static void PrintVerbose(string msg)
+		{
+			if (!ArgParse.Verbose) return;
+			var old = Console.ForegroundColor;
+			Console.ForegroundColor = ConsoleColor.DarkGray;
 			Console.WriteLine(msg);
 			Console.ForegroundColor = old;
 		}
