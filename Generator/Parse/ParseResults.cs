@@ -27,6 +27,8 @@ namespace Gen
 		public readonly Dictionary<string, StructSpec> Structs;
 		// The function pointer specs
 		public readonly Dictionary<string, FuncSpec> FuncPointers;
+		// The API constants
+		public readonly Dictionary<string, ConstantSpec> Constants;
 		#endregion Fields
 
 		private ParseResults()
@@ -37,6 +39,7 @@ namespace Gen
 			Handles = new();
 			Structs = new();
 			FuncPointers = new();
+			Constants = new();
 		}
 
 		// Performs the top-level spec file parsing
@@ -67,6 +70,17 @@ namespace Gen
 
 			// Perform initial type discovery
 			if (!TryInitialTypeDiscovery(regNode, spec)) {
+				return false;
+			}
+
+			// Populate the types
+			if (!PopulateEnumValues(regNode, spec)) {
+				return false;
+			}
+			if (!PopulateStructFields(regNode, spec)) {
+				return false;
+			}
+			if (!PopulateFuncArguments(regNode, spec)) {
 				return false;
 			}
 
@@ -117,10 +131,7 @@ namespace Gen
 							spec.Bitmasks.Add(bitmaskSpec!.Name, bitmaskSpec!);
 							Program.PrintVerbose($"\tFound bitmask type {bitmaskSpec!.Name}");
 						}
-						else {
-							Program.PrintError("Failed to parse bitmask type");
-							return false;
-						}
+						else return false;
 					} break;
 					case "enum": {
 						if (EnumSpec.TryParse(typeNode, spec.Enums, out var enumSpec)) {
@@ -128,10 +139,7 @@ namespace Gen
 							Program.PrintVerbose($"\tFound enum type {enumSpec!.Name}" +
 								$"{(enumSpec!.IsAlias ? $" -> {enumSpec!.Alias!.Name}" : "")}");
 						}
-						else {
-							Program.PrintError("Failed to parse enum type");
-							return false;
-						}
+						else return false;
 					} break;
 					case "handle": {
 						if (HandleSpec.TryParse(typeNode, spec.Handles, out var handleSpec)) {
@@ -139,10 +147,7 @@ namespace Gen
 							Program.PrintVerbose($"\tFound handle type {handleSpec!.Name}" +
 								$"{(handleSpec!.IsAlias ? $" -> {handleSpec!.AliasName!}" : "")}");
 						}
-						else {
-							Program.PrintError("Failed to parse handle type");
-							return false;
-						}
+						else return false;
 					} break;
 					case "struct": {
 						if (StructSpec.TryParse(typeNode, spec.Structs, out var structSpec)) {
@@ -150,20 +155,14 @@ namespace Gen
 							Program.PrintVerbose($"\tFound struct type {structSpec!.Name}" +
 								$"{(structSpec!.IsAlias ? $" -> {structSpec!.Alias!.Name}" : "")}");
 						}
-						else {
-							Program.PrintError("Failed to parse struct type");
-							return false;
-						}
+						else return false;
 					} break;
 					case "funcpointer": {
 						if (FuncSpec.TryParse(typeNode, out var funcSpec)) {
 							spec.FuncPointers.Add(funcSpec!.Name, funcSpec!);
 							Program.PrintVerbose($"\tFound function pointer type {funcSpec!.Name}");
 						}
-						else {
-							Program.PrintError("Failed to parse function pointer type");
-							return false;
-						}
+						else return false;
 					} break;
 				}
 			}
@@ -185,6 +184,151 @@ namespace Gen
 			}
 
 			// Success
+			return true;
+		}
+
+		// Populate the values for enums
+		private static bool PopulateEnumValues(XmlNode regNode, ParseResults spec)
+		{
+			Console.WriteLine("Populating enum values...");
+
+			// Iterate over all "<enums>" nodes
+			foreach (var child in regNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode enumsNode) || (enumsNode.Name != "enums")) {
+					continue;
+				}
+				if (enumsNode.Attributes?["name"] is not XmlAttribute nameAttr) {
+					continue;
+				}
+				var typeAttr = enumsNode.Attributes?["type"];
+				
+				// Treat API constants separately
+				if (typeAttr is null) {
+					if (nameAttr.Value != "API Constants") {
+						Program.PrintError("Found type-less enums entry");
+						return false;
+					}
+					
+					// Loop over enum entries
+					foreach (var enumChild in enumsNode.ChildNodes) {
+						// Filter
+						if ((enumChild is not XmlNode enumNode) || (enumNode.Name != "enum")) {
+							continue;
+						}
+
+						// Parse
+						if (ConstantSpec.TryParse(enumNode, spec.Constants, out var constantSpec)) {
+							spec.Constants.Add(constantSpec!.Name, constantSpec!);
+							Program.PrintVerbose($"\tFound API constant {constantSpec!.Name} = {constantSpec!.Value}");
+						}
+						else return false;
+					}
+				}
+				else { // Handle enums and bitmasks
+					// Find the associated enum
+					if (!spec.Enums.TryGetValue(nameAttr.Value, out var enumSpec)) {
+						if (nameAttr.Value.EndsWith("FlagBits")) { // Likely a zero-value bitmask
+							continue;
+						}
+						else {
+							Program.PrintError($"Failed to find enum type '{nameAttr.Value}' for values");
+							return false;
+						}
+					}
+
+					// Loop over enum entries
+					foreach (var enumChild in enumsNode.ChildNodes) {
+						// Filter
+						if ((enumChild is not XmlNode enumNode) || (enumNode.Name != "enum")) {
+							continue;
+						}
+
+						// Parse
+						if (EnumSpec.TryParseValue(enumNode, enumSpec.Values, out var entry)) {
+							enumSpec.Values.Add(entry!);
+						}
+						else return false;
+					}
+
+					Program.PrintVerbose($"\tFound {enumSpec.Values.Count} entries for enum {nameAttr.Value}");
+				}
+			}
+
+			return true;
+		}
+
+		// Populate struct fields
+		private static bool PopulateStructFields(XmlNode regNode, ParseResults spec)
+		{
+			Console.WriteLine("Populating struct fields...");
+
+			// Loop over type node
+			var typeNode = regNode.SelectSingleNode("types")!;
+			foreach (var child in typeNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode structNode) || (structNode.Name != "type")) {
+					continue;
+				}
+				if ((structNode.Attributes?["category"] is not XmlAttribute catAttr) || (catAttr.Value != "struct")) {
+					continue;
+				}
+
+				// Get the name and spec (skip alias structs)
+				var name = structNode.Attributes["name"]!.Value;
+				var structSpec = spec.Structs[name];
+				if (structSpec.IsAlias) {
+					continue;
+				}
+
+				// Parse out the members
+				foreach (var memChild in structNode.ChildNodes) {
+					// Filter
+					if ((memChild is not XmlNode memNode) || (memNode.Name != "member")) {
+						continue;
+					}
+
+					// Parse
+					if (StructSpec.TryParseField(memNode, out var field)) {
+						structSpec.Fields.Add(field!);
+					}
+					else return false;
+				}
+
+				Program.PrintVerbose($"\tFound {structSpec.Fields.Count} entries for struct {structSpec.Name}");
+			}
+
+			return true;
+		}
+
+		// Parses the arguments to func pointer types
+		private static bool PopulateFuncArguments(XmlNode regNode, ParseResults spec)
+		{
+			Console.WriteLine("Populating function pointer arguments...");
+
+			// Loop over the type nodes
+			var typeNode = regNode.SelectSingleNode("types")!;
+			foreach (var child in typeNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode funcNode) || (funcNode.Name != "type")) {
+					continue;
+				}
+				if ((funcNode.Attributes?["category"] is not XmlAttribute catAttr) || (catAttr.Value != "funcpointer")) {
+					continue;
+				}
+
+				// Get the name and spec (skip alias structs)
+				var name = funcNode.SelectSingleNode("name")!.InnerText;
+				var funcSpec = spec.FuncPointers[name];
+
+				// Parse the arguments
+				if (!FuncSpec.TryParseArgs(funcNode, funcSpec.Arguments)) {
+					return false;
+				}
+
+				Program.PrintVerbose($"\tFound {funcSpec.Arguments.Count} arguments for {funcSpec.Name}");
+			}
+
 			return true;
 		}
 	}

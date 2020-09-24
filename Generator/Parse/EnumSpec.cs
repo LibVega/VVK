@@ -6,6 +6,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Xml;
 
 namespace Gen
@@ -13,6 +15,9 @@ namespace Gen
 	// Represents unprocessed enum/bitmask info loaded from the spec file
 	public sealed class EnumSpec
 	{
+		// Represents an entry in the enum
+		public record Entry(string Name, int Value);
+
 		#region Fields
 		// The raw typename in the spec
 		public readonly string Name;
@@ -25,6 +30,9 @@ namespace Gen
 		// If the type is a bitmask (VkFlags)
 		public bool IsBitmask => Alias?._isBitmask ?? _isBitmask;
 		private readonly bool _isBitmask;
+		// The values of the enums
+		public List<Entry> Values => Alias?._values! ?? _values!;
+		private readonly List<Entry>? _values;
 		#endregion // Fields
 
 		private EnumSpec(string name, bool isBitmask)
@@ -32,11 +40,14 @@ namespace Gen
 			Name = name;
 			Alias = null;
 			_isBitmask = isBitmask;
+			_values = new();
 		}
 		private EnumSpec(string name, EnumSpec alias)
 		{
 			Name = name;
 			Alias = alias;
+			_isBitmask = false;
+			_values = null;
 		}
 
 		// Parse the initial type from XML
@@ -64,6 +75,55 @@ namespace Gen
 
 			// Normal return
 			spec = new(nameAttr.Value, nameAttr.Value.Contains("FlagBits"));
+			return true;
+		}
+
+		// Parse an enum value (xml is an <enum> node within <enums>)
+		public static bool TryParseValue(XmlNode xml, List<Entry> seen, out Entry? entry)
+		{
+			entry = null;
+
+			// Get entry name
+			if (xml.Attributes?["name"] is not XmlAttribute nameAttr) {
+				Program.PrintError("Enum entry has no name");
+				return false;
+			}
+
+			// Check for alias first
+			if (xml.Attributes?["alias"] is XmlAttribute aliasAttr) {
+				var alias = seen.FirstOrDefault(entry => entry.Name == aliasAttr.Value);
+				if (alias is null) {
+					Program.PrintError($"Unknown enum value alias target '{aliasAttr.Value}'");
+					return false;
+				}
+				entry = new(nameAttr.Value, alias.Value);
+				return true;
+			}
+
+			// Get the value
+			int value;
+			if (xml.Attributes?["value"] is XmlAttribute valueAttr) {
+				bool isHex = valueAttr.Value.StartsWith("0x");
+				var valueStr = isHex ? valueAttr.Value.Substring(2) : valueAttr.Value;
+				if (!Int32.TryParse(valueStr, isHex ? NumberStyles.HexNumber : NumberStyles.Number, null, out value)) {
+					Program.PrintError($"Could not parse value '{valueAttr.Value}' for enum {nameAttr.Value}");
+					return false;
+				}
+			}
+			else if (xml.Attributes?["bitpos"] is XmlAttribute bitposAttr) {
+				if (!Int32.TryParse(bitposAttr.Value, out value)) {
+					Program.PrintError($"Could not parse bitpos '{bitposAttr.Value}' for enum {nameAttr.Value}");
+					return false;
+				}
+				value = 1 << value;
+			}
+			else {
+				Program.PrintError($"Enum {nameAttr.Value} does not have a value or bitpos entry");
+				return false;
+			}
+
+			// Return
+			entry = new(nameAttr.Value, value);
 			return true;
 		}
 	}
