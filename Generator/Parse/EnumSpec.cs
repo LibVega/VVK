@@ -50,8 +50,47 @@ namespace Gen
 			_values = null;
 		}
 
-		// Parse the initial type from XML
-		public static bool TryParse(XmlNode xml, Dictionary<string, EnumSpec> seen, out EnumSpec? spec)
+		// Parse the type from xml (<type> category="bitmask")
+		// This will create a new enum called "...FlagBits", not "...Flags"
+		// Some of these will be caught later with (<type> category="enum"), which is fine
+		public static bool TryParseBitmask(XmlNode xml, Dictionary<string, EnumSpec> seen, out EnumSpec? spec)
+		{
+			spec = null;
+
+			// Get name
+			string name;
+			if (xml.Attributes?["name"] is XmlAttribute nameAttr) {
+				name = nameAttr.Value;
+			}
+			else if (xml.SelectSingleNode("name") is XmlNode nameNode) {
+				name = nameNode.InnerText;
+			}
+			else {
+				Program.PrintError($"Bitmask spec type does not have name");
+				return false;
+			}
+			name = name.Replace("Flags", "FlagBits");
+
+			// Optional alias
+			if (xml.Attributes?["alias"] is XmlAttribute aliasAttr) {
+				var aliasName = aliasAttr.Value.Replace("Flags", "FlagBits");
+				if (seen.TryGetValue(aliasName, out var alias)) {
+					spec = new(name, alias);
+					return true;
+				}
+				else {
+					Program.PrintError($"Unknown enum alias target '{aliasAttr.Value}'");
+					return false;
+				}
+			}
+
+			// Return
+			spec = new(name, true);
+			return true;
+		}
+
+		// Parse the initial type from XML (<type> category="enum")
+		public static bool TryParseEnum(XmlNode xml, Dictionary<string, EnumSpec> seen, out EnumSpec? spec)
 		{
 			spec = null;
 

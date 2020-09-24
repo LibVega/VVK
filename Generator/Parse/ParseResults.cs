@@ -15,10 +15,8 @@ namespace Gen
 	public sealed class ParseResults
 	{
 		#region Fields
-		// The valid extension names
-		public readonly List<string> ExtensionNames;
-		// The bitmask specs
-		public readonly Dictionary<string, BitmaskSpec> Bitmasks;
+		// The valid vendor names
+		public readonly List<string> VendorNames;
 		// The enum specs
 		public readonly Dictionary<string, EnumSpec> Enums;
 		// The handle specs
@@ -35,8 +33,7 @@ namespace Gen
 
 		private ParseResults()
 		{
-			ExtensionNames = new();
-			Bitmasks = new();
+			VendorNames = new();
 			Enums = new();
 			Handles = new();
 			Structs = new();
@@ -108,8 +105,8 @@ namespace Gen
 				return false;
 			}
 
-			// Scan the valid extension names
-			Console.WriteLine("Discovering extensions...");
+			// Scan the valid vendor names
+			Console.WriteLine("Discovering vendors...");
 			foreach (var child in tagsNode.ChildNodes) {
 				// Filter
 				if ((child is not XmlNode tagNode) || (tagNode.Name != "tag")) {
@@ -118,8 +115,8 @@ namespace Gen
 
 				// Add as known extension
 				if ((tagNode.Attributes?["name"] is XmlAttribute nameAttr)) {
-					spec.ExtensionNames.Add(nameAttr.Value);
-					Program.PrintVerbose($"\tFound extension {nameAttr.Value}");
+					spec.VendorNames.Add(nameAttr.Value);
+					Program.PrintVerbose($"\tFound vendor {nameAttr.Value}");
 				}
 			}
 
@@ -135,15 +132,15 @@ namespace Gen
 				// Try to parse based on the type
 				switch (catAttr.Value) {
 					case "bitmask": {
-						if (BitmaskSpec.TryParse(typeNode, out var bitmaskSpec)) {
-							spec.Bitmasks.Add(bitmaskSpec!.Name, bitmaskSpec!);
+						if (EnumSpec.TryParseBitmask(typeNode, spec.Enums, out var bitmaskSpec)) {
+							spec.Enums.Add(bitmaskSpec!.Name, bitmaskSpec!);
 							Program.PrintVerbose($"\tFound bitmask type {bitmaskSpec!.Name}");
 						}
 						else return false;
 					} break;
 					case "enum": {
-						if (EnumSpec.TryParse(typeNode, spec.Enums, out var enumSpec)) {
-							spec.Enums.Add(enumSpec!.Name, enumSpec!);
+						if (EnumSpec.TryParseEnum(typeNode, spec.Enums, out var enumSpec)) {
+							spec.Enums[enumSpec!.Name] = enumSpec!;
 							Program.PrintVerbose($"\tFound enum type {enumSpec!.Name}" +
 								$"{(enumSpec!.IsAlias ? $" -> {enumSpec!.Alias!.Name}" : "")}");
 						}
@@ -172,22 +169,6 @@ namespace Gen
 						}
 						else return false;
 					} break;
-				}
-			}
-
-			// Match up bitmasks to their enum backers
-			foreach (var bitmask in spec.Bitmasks) {
-				if (bitmask.Value.BackingName is null) {
-					continue;
-				}
-
-				if (spec.Enums.TryGetValue(bitmask.Value.BackingName, out var backer)) {
-					bitmask.Value.BackingType = backer;
-				}
-				else {
-					Program.PrintError($"Failed to find backing type for bitmask '{bitmask.Key}' " +
-						$"({bitmask.Value.BackingName})");
-					return false;
 				}
 			}
 
