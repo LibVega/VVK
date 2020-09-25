@@ -28,6 +28,10 @@ namespace Gen
 
 		// The enum entries
 		public readonly List<Entry> Values;
+
+		// Forward
+		public bool IsBitmask => Spec.IsBitmask;
+		public bool IsAlias => Spec.IsAlias;
 		#endregion // Fields
 
 		private EnumOut(EnumSpec spec, string name, string vendor, List<Entry> entries)

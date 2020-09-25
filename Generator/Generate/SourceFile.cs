@@ -22,6 +22,10 @@ namespace Gen
 		// The file namespace
 		public readonly string Namespace;
 
+		// The current block depth
+		public uint BlockDepth { get; private set; } = 0;
+		private string _indentString = "";
+
 		// The file handle
 		private readonly StreamWriter _file;
 		#endregion // Fields
@@ -36,9 +40,61 @@ namespace Gen
 			_file.WriteLine($"namespace {@namespace}\n{{\n");
 		}
 
+		public void WriteLine(string line)
+		{
+			_file.Write(_indentString);
+			_file.WriteLine(line);
+		}
+
+		public void WriteLine() => _file.WriteLine();
+
+		// Only call when there are no active blocks
+		public SourceBlock PushBlock(string? header)
+		{
+			if (BlockDepth != 0) {
+				throw new InvalidOperationException("A block is already active in the source file");
+			}
+
+			if (header is not null) {
+				_file.WriteLine(header);
+			}
+			_file.WriteLine("{");
+
+			BlockDepth = 1;
+			_indentString = "\t";
+			return new(this);
+		}
+
+		// Only call this from SourceBlock
+		public void PushBlock(uint depth)
+		{
+			if (depth != BlockDepth) {
+				throw new InvalidOperationException("Cannot push a new source block at the current depth");
+			}
+
+			BlockDepth += 1;
+			_indentString = new string('\t', (int)BlockDepth);
+		}
+
+		// Only call this from SourceBlock
+		public void PopBlock(uint depth)
+		{
+			if (BlockDepth != depth) {
+				throw new InvalidOperationException("Mismatch in block depth of popped block");
+			}
+
+			BlockDepth -= 1;
+			_indentString = new string('\t', (int)BlockDepth);
+			_file.WriteLine("}\n");
+		}
+
 		#region IDisposable
 		public void Dispose()
 		{
+			if (BlockDepth != 0) {
+				throw new InvalidOperationException("Disposed of file without disposing of source blocks");
+			}
+
 			_file.WriteLine($"}} // namespace {Namespace}");
 			_file.Flush();
 			_file.Close();

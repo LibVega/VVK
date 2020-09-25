@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Gen
 {
@@ -19,6 +20,8 @@ namespace Gen
 		public string NamespaceName => IsCore ? "VVK.Vk" : $"VVK.Vk.{Name}";
 		// If this is the core vendor
 		public bool IsCore => Name.Length == 0;
+		// The display name of the vendor (taking into account if the vendor is core)
+		public string DisplayName => IsCore ? "Core Vulkan" : Name;
 
 		// The enums contained in this Vendor
 		public readonly Dictionary<string, EnumOut> Enums;
@@ -29,5 +32,9 @@ namespace Gen
 			Name = name;
 			Enums = new();
 		}
+
+		// Combines the filename with the directory for the vendor
+		public string GetSourceFilename(string srctype) =>
+			IsCore ? $"Vk.{srctype}.cs" : Path.Combine(Name, $"{Name}.{srctype}.cs");
 	}
 }
