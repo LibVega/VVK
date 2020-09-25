@@ -56,13 +56,12 @@ namespace Gen
 			}
 #endif
 
-			/*
 			// Run the processing task
-			ProcessResult? procRes = null;
+			ProcessResults? procRes = null;
 #if !DEBUG
 			try {
 #endif
-				if (!ProcessResult.Process(parseRes!, out procRes)) {
+				if (!ProcessResults.TryProcess(parseRes!, out procRes)) {
 					PrintError("Failed to process specifiction types, exiting...");
 					return;
 				}
@@ -73,7 +72,6 @@ namespace Gen
 				return;
 			}
 #endif
-			*/
 
 			/*
 			// Run the generation task
