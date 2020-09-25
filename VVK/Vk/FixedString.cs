@@ -39,7 +39,8 @@ namespace VVK.Vk
 		public readonly byte this [int index] => 
 			(index >= 0 && index <= SIZE) ? _data[index] : throw new ArgumentOutOfRangeException();
 
-		[FieldOffset(0)] private fixed byte _data[(int)Constants.MAX_PHYSICAL_DEVICE_NAME_SIZE];
+		[FieldOffset(0)] private fixed byte _data[SIZE];
+		[FieldOffset(0)] private fixed int _intData[SIZE / sizeof(int)];
 		#endregion // Fields
 
 		/// <summary>
@@ -51,13 +52,27 @@ namespace VVK.Vk
 			var len = Math.Min(str.Length, SIZE - 1);
 			var strData = Encoding.ASCII.GetBytes(str);
 
-			fixed (byte* ptr = _data) {
-				for (int i = 0; i < len; ++i) {
-					ptr[i] = strData[i];
-				}
-				for (int i = len; len < SIZE; ++i) {
-					ptr[i] = 0; // Fill rest of buffer will null terminator
-				}
+			for (int i = 0; i < len; ++i) {
+				_data[i] = strData[i];
+			}
+			for (int i = len; len < SIZE; ++i) {
+				_data[i] = 0; // Fill rest of buffer will null terminator
+			}
+		}
+		/// <summary>
+		/// Creates a new fixed string by copying existing string data into the buffer.
+		/// </summary>
+		/// <param name="str">The existing string data to copy.</param>
+		/// <param name="length">The length of the existing string data.</param>
+		public FixedString(byte* str, int length)
+		{
+			var len = Math.Min(length, SIZE - 1);
+
+			for (int i = 0; i < len; ++i) {
+				_data[i] = str[i];
+			}
+			for (int i = len; len < SIZE; ++i) {
+				_data[i] = 0; // Fill rest of buffer will null terminator
 			}
 		}
 
@@ -69,8 +84,16 @@ namespace VVK.Vk
 		public readonly override bool Equals(object? obj) =>
 			((obj is FixedString fs) && (fs == this)) || ((obj is string str) && (str == this));
 
+		public readonly override int GetHashCode()
+		{
+			const int LEN = SIZE / sizeof(int);
 
-		public readonly override int GetHashCode() => ToString().GetHashCode();
+			int hash = 0;
+			for (int i = 0; i < LEN; ++i) {
+				hash ^= _intData[i];
+			}
+			return hash;
+		}
 
 		public readonly override string ToString()
 		{
