@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection.Metadata;
 
 namespace Gen
 {
@@ -43,6 +42,9 @@ namespace Gen
 					return false;
 				}
 				if (!GenerateStructs(vendor.Value, res.Constants)) {
+					return false;
+				}
+				if (!GenerateHandles(vendor.Value)) {
 					return false;
 				}
 			}
@@ -151,6 +153,45 @@ namespace Gen
 			}
 			catch (Exception ex) {
 				Program.PrintError($"Failed to generate structs for {vendor.DisplayName} - {ex.Message}");
+				return false;
+			}
+
+			return true;
+		}
+
+		// Handle generation
+		private static bool GenerateHandles(Vendor vendor)
+		{
+			if (vendor.Handles.Count == 0) {
+				return true;
+			}
+
+			Program.PrintVerbose($"\tGenerating structs for {vendor.DisplayName}");
+
+			try {
+				// File context
+				using var file = new SourceFile(vendor.GetSourceFilename("Handles"), vendor.NamespaceName);
+
+				// Visit each handle
+				foreach (var handleSpec in vendor.Handles.Values) {
+					// Write the header
+					file.WriteLine("[StructLayout(LayoutKind.Explicit, Size = 8)]");
+					using var handleBlock = file.PushBlock($"public unsafe partial struct {handleSpec.Name}");
+
+					// Write the fields
+					handleBlock.WriteLine($"public static readonly {handleSpec.Name} Null = new(0);");
+					handleBlock.WriteLine();
+					handleBlock.WriteLine("[FieldOffset(0)] public readonly void* Handle;");
+					handleBlock.WriteLine("public readonly ulong LongHandle => (ulong)Handle;");
+					handleBlock.WriteLine();
+
+					// Write the constructors
+					handleBlock.WriteLine($"public {handleSpec.Name}(void* handle) => Handle = handle;");
+					handleBlock.WriteLine($"public {handleSpec.Name}(ulong handle) => Handle = (void*)handle;");
+				}
+			}
+			catch (Exception ex) {
+				Program.PrintError($"Failed to generate handles for {vendor.DisplayName} - {ex.Message}");
 				return false;
 			}
 

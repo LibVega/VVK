@@ -27,6 +27,8 @@ namespace Gen
 		public readonly Dictionary<string, EnumOut> Enums;
 		// The structs contained in this Vendor
 		public readonly Dictionary<string, StructOut> Structs;
+		// The handles contained in this Vendor
+		public readonly Dictionary<string, HandleOut> Handles;
 		#endregion // Fields
 
 		public Vendor(string name)
@@ -34,6 +36,7 @@ namespace Gen
 			Name = name;
 			Enums = new();
 			Structs = new();
+			Handles = new();
 		}
 
 		// Combines the filename with the directory for the vendor

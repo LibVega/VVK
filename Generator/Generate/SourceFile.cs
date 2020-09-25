@@ -36,7 +36,8 @@ namespace Gen
 		{
 			RelativePath = path;
 			Namespace = @namespace;
-			_file = new StreamWriter(File.OpenWrite(FullPath), Encoding.UTF8, leaveOpen: false);
+			var file = File.Open(FullPath, FileMode.Create, FileAccess.Write, FileShare.None);
+			_file = new StreamWriter(file, Encoding.UTF8, leaveOpen: false);
 
 			_file.WriteLine(STANDARD_HEADER);
 			_file.WriteLine($"namespace {@namespace}{NL}{{{NL}");
@@ -88,6 +89,7 @@ namespace Gen
 			BlockDepth -= 1;
 			_indentString = new string('\t', (int)BlockDepth);
 			_file.WriteLine("}" + NL);
+			_file.Flush();
 		}
 
 		#region IDisposable

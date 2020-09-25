@@ -38,15 +38,49 @@ namespace Gen
 			{ "int8_t", "sbyte" }, { "int16_t", "short" }, { "int32_t", "int" }, { "int64_t", "long" },
 			{ "size_t", "ulong" }, { "int", "int" }
 		};
+		// Known platform types
+		private static readonly Dictionary<string, string> PLATFORM_TYPES = new() {
+			{ "ANativeWindow", "void" },
+			{ "wl_display", "void" },
+			{ "wl_surface", "void" },
+			{ "HINSTANCE", "void*" },
+			{ "HWND", "void*" },
+			{ "Display", "void" },
+			{ "Window", "ulong" },
+			{ "xcb_connection_t", "void" },
+			{ "xcb_window_t", "uint" },
+			{ "IDirectFB", "void" },
+			{ "IDirectFBSurface", "void" },
+			{ "zx_handle_t", "uint" },
+			{ "GgpStreamDescriptor", "uint" },
+			{ "HANDLE", "void*" },
+			{ "SECURITY_ATTRIBUTES", "void" },
+			{ "DWORD", "uint" },
+			{ "LPCWSTR", "ushort*" },
+			{ "CAMetalLayer", "void" },
+			{ "AHardwareBuffer", "void" },
+			{ "GgpFrameToken", "uint" },
+			{ "HMONITOR", "void*" }
+		};
 
 		#region Fields
 		// The list of known vendor names from the spec
 		public readonly List<string> VendorNames;
+		// The registered function prototypes
+		public readonly Dictionary<string, string> FunctionPrototypes;
 		#endregion // Fields
 
 		public NameHelper(List<string> vendors)
 		{
 			VendorNames = vendors;
+			FunctionPrototypes = new();
+		}
+
+		public void RegisterFunctions(Dictionary<string, FuncOut> funcs)
+		{
+			foreach (var pair in funcs) {
+				FunctionPrototypes[pair.Value.Name] = pair.Value.Prototype;
+			}
 		}
 
 		// Processes a spec enum or struct name into components for an output type
@@ -115,10 +149,26 @@ namespace Gen
 				return true;
 			}
 
+			// Check for function types
+			if (name.StartsWith("PFN_")) {
+				if (FunctionPrototypes.TryGetValue(name, out var proto)) {
+					outname = proto;
+					return true;
+				}
+				else {
+					Program.PrintWarning($"Unknown function prototype '{name}'");
+					return false;
+				}
+			}
+
+			// Check for platform types
+			if (PLATFORM_TYPES.TryGetValue(name, out var platformType)) {
+				outname = platformType + ptrstr;
+				return true;
+			}
+
 			// Report failure
-			Program.PrintWarning($"Unknown typename '{name}'");
-			outname = "UNKNOWN" + ptrstr;
-			return true;
+			return false;
 		}
 
 		// Processes a spec enum value name into a C# friendly name

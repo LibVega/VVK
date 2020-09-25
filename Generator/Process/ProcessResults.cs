@@ -15,6 +15,8 @@ namespace Gen
 		#region Fields
 		// The list of API constants
 		public readonly Dictionary<string, ConstantOut> Constants;
+		// The list of function pointer types
+		public readonly Dictionary<string, FuncOut> FuncPointers;
 		// The list of vendors
 		public readonly Dictionary<string, Vendor> Vendors;
 		#endregion // Fields
@@ -22,6 +24,7 @@ namespace Gen
 		private ProcessResults()
 		{
 			Constants = new();
+			FuncPointers = new();
 			Vendors = new();
 			Vendors.Add("", new Vendor(""));
 		}
@@ -45,6 +48,17 @@ namespace Gen
 				Program.PrintVerbose($"\tProcessed constant {constOut.Name} = {constOut.Value}");
 			}
 
+			// Process the functions and add them to the name helper
+			Console.WriteLine("Processing function pointers...");
+			foreach (var funcSpec in spec.FuncPointers) {
+				if (FuncOut.TryProcess(funcSpec.Value, names) is not FuncOut funcOut) {
+					return false;
+				}
+				proc.FuncPointers.Add(funcOut.Name, funcOut);
+				Program.PrintVerbose($"\tProcessed function {funcOut.Name}");
+			}
+			names.RegisterFunctions(proc.FuncPointers);
+
 			// Process the enums
 			Console.WriteLine("Processing enum types...");
 			foreach (var enumSpec in spec.Enums) {
@@ -63,6 +77,16 @@ namespace Gen
 				}
 				proc.getOrCreateVendor(structOut.VendorName).Structs.Add(structOut.Name, structOut);
 				Program.PrintVerbose($"\tProcessed struct {structOut.Name}");
+			}
+
+			// Process the handles
+			Console.WriteLine("Processing handle types...");
+			foreach (var handleSpec in spec.Handles.Values) {
+				if (HandleOut.TryProcess(handleSpec, names) is not HandleOut handleOut) {
+					return false;
+				}
+				proc.getOrCreateVendor(handleOut.VendorName).Handles.Add(handleOut.Name, handleOut);
+				Program.PrintVerbose($"\tProcessed handle {handleOut.Name}");
 			}
 
 			return true;

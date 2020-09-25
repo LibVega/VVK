@@ -104,7 +104,7 @@ namespace Gen
 		public static void PrintWarning(string msg)
 		{
 			var old = Console.ForegroundColor;
-			Console.ForegroundColor = ConsoleColor.DarkYellow;
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("Warning: " + msg);
 			Console.ForegroundColor = old;
 		}
