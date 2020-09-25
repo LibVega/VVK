@@ -7,12 +7,12 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Vk
+namespace VVK.Vk
 {
 	/// <summary>
 	/// Represents VkBool32, a 4-byte type that tolds true/false values.
 	/// </summary>
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Explicit, Size = 4)]
 	public struct Bool32 : IEquatable<Bool32>, IEquatable<bool>
 	{
 		/// <summary>
@@ -33,7 +33,7 @@ namespace Vk
 			readonly get => _value;
 			set => _value = (value >= 1 ? 1 : 0);
 		}
-		private uint _value;
+		[FieldOffset(0)] private uint _value;
 		#endregion // Fields
 
 		/// <summary>
@@ -58,6 +58,12 @@ namespace Vk
 
 		public readonly override string ToString() => (Value == 0) ? "false" : "true";
 		#endregion // Overrides
+
+		#region Operators
+		public static bool operator == (in Bool32 l, in Bool32 r) => l.Value == r.Value;
+
+		public static bool operator != (in Bool32 l, in Bool32 r) => l.Value != r.Value;
+		#endregion // Operators
 
 		#region Casting
 		public static implicit operator bool (in Bool32 b) => b.Value != 0;
