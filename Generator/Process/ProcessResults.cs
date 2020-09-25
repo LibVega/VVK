@@ -13,12 +13,15 @@ namespace Gen
 	public sealed class ProcessResults
 	{
 		#region Fields
+		// The list of API constants
+		public readonly Dictionary<string, ConstantOut> Constants;
 		// The list of vendors
 		public readonly Dictionary<string, Vendor> Vendors;
 		#endregion // Fields
 
 		private ProcessResults()
 		{
+			Constants = new();
 			Vendors = new();
 			Vendors.Add("", new Vendor(""));
 		}
@@ -32,13 +35,23 @@ namespace Gen
 			proc = new();
 			var names = new NameHelper(spec.VendorNames);
 
+			// Process the constants
+			Console.WriteLine("Processing API constants...");
+			foreach (var constSpec in spec.Constants) {
+				if (ConstantOut.TryProcess(constSpec.Value) is not ConstantOut constOut) {
+					return false;
+				}
+				proc.Constants.Add(constOut.Name, constOut);
+				Program.PrintVerbose($"\tProcessed constant {constOut.Name} = {constOut.Value}");
+			}
+
 			// Process the enums
 			Console.WriteLine("Processing enum types...");
 			foreach (var enumSpec in spec.Enums) {
 				if (EnumOut.TryProcess(enumSpec.Value, names) is not EnumOut enumOut) {
 					return false;
 				}
-				proc.getOrCreateVendor(enumOut.VendorName).Enums.Add(enumOut);
+				proc.getOrCreateVendor(enumOut.VendorName).Enums.Add(enumOut.Name, enumOut);
 				Program.PrintVerbose($"\tProcessed enum {enumOut.ProcessedName}");
 			}
 

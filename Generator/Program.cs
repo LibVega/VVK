@@ -46,8 +46,6 @@ namespace Gen
 					PrintError("Failed to load specification file, exiting...");
 					return;
 				}
-				//NameUtils.EXTENSION_NAMES.Clear();
-				//NameUtils.EXTENSION_NAMES.AddRange(parseRes!.Extensions);
 #if !DEBUG
 			}
 			catch (Exception e) {
@@ -73,12 +71,11 @@ namespace Gen
 			}
 #endif
 
-			/*
 			// Run the generation task
 #if !DEBUG
 			try {
 #endif
-				if (!Generator.Generate(procRes)) {
+				if (!APIGenerator.GenerateResults(procRes!)) {
 					PrintError("Failed to generate source, exiting...");
 					return;
 				}
@@ -89,7 +86,6 @@ namespace Gen
 				return;
 			}
 #endif
-			*/
 		}
 
 		// Prints a colored error message to the console

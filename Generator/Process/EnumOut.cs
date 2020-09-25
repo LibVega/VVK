@@ -52,7 +52,7 @@ namespace Gen
 				if (!names.ProcessEnumValueName(ent.Name, baseName, out var entryName)) {
 					return null;
 				}
-				Program.PrintVerbose($"Field name {ent.Name} -> {entryName}");
+				entries.Add(new(entryName, ent.Value));
 			}
 
 			// Add named default value to bitmasks

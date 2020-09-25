@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Gen
 {
@@ -22,7 +21,7 @@ namespace Gen
 		public bool IsCore => Name.Length == 0;
 
 		// The enums contained in this Vendor
-		public readonly List<EnumOut> Enums;
+		public readonly Dictionary<string, EnumOut> Enums;
 		#endregion // Fields
 
 		public Vendor(string name)
