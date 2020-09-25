@@ -105,7 +105,7 @@ namespace Gen
 		{
 			var old = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.DarkYellow;
-			Console.WriteLine(msg);
+			Console.WriteLine("Warning: " + msg);
 			Console.ForegroundColor = old;
 		}
 

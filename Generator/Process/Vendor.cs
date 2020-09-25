@@ -25,12 +25,15 @@ namespace Gen
 
 		// The enums contained in this Vendor
 		public readonly Dictionary<string, EnumOut> Enums;
+		// The structs contained in this Vendor
+		public readonly Dictionary<string, StructOut> Structs;
 		#endregion // Fields
 
 		public Vendor(string name)
 		{
 			Name = name;
 			Enums = new();
+			Structs = new();
 		}
 
 		// Combines the filename with the directory for the vendor

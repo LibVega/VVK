@@ -5,8 +5,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Reflection.Metadata;
 
 namespace Gen
 {
@@ -39,6 +40,9 @@ namespace Gen
 			foreach (var vendor in res.Vendors) {
 				Console.WriteLine($"Generating files for {vendor.Value.DisplayName} ...");
 				if (!GenerateEnums(vendor.Value)) {
+					return false;
+				}
+				if (!GenerateStructs(vendor.Value, res.Constants)) {
 					return false;
 				}
 			}
@@ -98,6 +102,55 @@ namespace Gen
 			}
 			catch (Exception ex) {
 				Program.PrintError($"Failed to generate enums for {vendor.DisplayName} - {ex.Message}");
+				return false;
+			}
+
+			return true;
+		}
+
+		// Struct generation
+		private static bool GenerateStructs(Vendor vendor, Dictionary<string, ConstantOut> consts)
+		{
+			if (vendor.Structs.Count == 0) {
+				return true;
+			}
+
+			Program.PrintVerbose($"\tGenerating structs for {vendor.DisplayName}");
+
+			try {
+				// File context
+				using var file = new SourceFile(vendor.GetSourceFilename("Structs"), vendor.NamespaceName);
+
+				// Visit each struct
+				foreach (var structSpec in vendor.Structs.Values) {
+					// Write the struct header
+					file.WriteLine("[StructLayout(LayoutKind.Sequential)]");
+					using var enumBlock = file.PushBlock($"public unsafe partial struct {structSpec.Name}");
+
+					// Visit the fields
+					foreach (var field in structSpec.Fields) {
+						if (field.SizeLiteral is not null) {
+							if (field.IsFixed) {
+								enumBlock.WriteLine($"public fixed {field.Type} {field.Name}[{field.SizeLiteral}];");
+							}
+							else {
+								var literal = Char.IsDigit(field.SizeLiteral[0]) 
+									? field.SizeLiteral 
+									: consts[field.SizeLiteral.Substring(field.SizeLiteral.LastIndexOf('.') + 1)].Value;
+								var count = Int32.Parse(literal);
+								for (int i = 0; i < count; ++i) {
+									enumBlock.WriteLine($"public {field.Type} {field.Name}_{i};");
+								}
+							}
+						}
+						else {
+							enumBlock.WriteLine($"public {field.Type} {field.Name};");
+						}
+					}
+				}
+			}
+			catch (Exception ex) {
+				Program.PrintError($"Failed to generate structs for {vendor.DisplayName} - {ex.Message}");
 				return false;
 			}
 

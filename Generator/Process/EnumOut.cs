@@ -46,7 +46,8 @@ namespace Gen
 		public static EnumOut? TryProcess(EnumSpec spec, NameHelper names)
 		{
 			// Try to convert the name
-			if (!names.ProcessEnumName(spec.Name, out var baseName, out var vendorName)) {
+			if (!names.ProcessVkTypeName(spec.Name, out var baseName, out var vendorName)) {
+				Program.PrintError($"Invalid enum name: {spec.Name}");
 				return null;
 			}
 

@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Gen
 {
@@ -22,6 +23,21 @@ namespace Gen
 			{ "VK_QUERY_SCOPE_RENDER_PASS_KHR", "CommandBuffer_ALIAS" },
 			{ "VK_QUERY_SCOPE_COMMAND_KHR", "CommandBuffer_ALIAS" }
 		};
+		// Known Vk* typedefs
+		private static readonly Dictionary<string, string> VK_TYPEDEFS = new() {
+			{ "VkDeviceAddress", "ulong" },
+			{ "VkSampleMask", "uint" },
+			{ "VkFlags", "uint" }
+		};
+		// Known C++ -> C# types
+		private static readonly Dictionary<string, string> CPP_TYPES = new() {
+			{ "void", "void" },
+			{ "char", "byte" },
+			{ "float", "float" }, { "double", "double" },
+			{ "uint8_t", "byte" }, { "uint16_t", "ushort" }, { "uint32_t", "uint" }, { "uint64_t", "ulong" },
+			{ "int8_t", "sbyte" }, { "int16_t", "short" }, { "int32_t", "int" }, { "int64_t", "long" },
+			{ "size_t", "ulong" }, { "int", "int" }
+		};
 
 		#region Fields
 		// The list of known vendor names from the spec
@@ -33,17 +49,22 @@ namespace Gen
 			VendorNames = vendors;
 		}
 
-		// Processes a spec enum name into components for an output enum
+		// Processes a spec enum or struct name into components for an output type
 		// Ex: VkEnumNameEXT -> Vk.EXT.EnumName     (vendor extraction)
 		// Ex: VkBitmaskNameFlagBits -> Vk.BitmaskNameFlags     (bitmask aware)
-		public bool ProcessEnumName(string vkname, out string outname, out string? vendor)
+		public bool ProcessVkTypeName(string vkname, out string outname, out string? vendor)
 		{
 			outname = vkname;
 			vendor = null;
 
 			// Validate
 			if (!vkname.StartsWith("Vk")) {
-				Program.PrintError($"The enum name '{vkname}' is invalid");
+				return false;
+			}
+
+			// Check for the typedefs
+			if (VK_TYPEDEFS.TryGetValue(vkname, out var typedef)) {
+				outname = typedef;
 				return false;
 			}
 
@@ -61,6 +82,42 @@ namespace Gen
 				outname = outname.Replace("FlagBits", "Flags");
 			}
 
+			return true;
+		}
+
+		// Processes a generaal type name (either some spec name, or some default type)
+		public bool ProcessGeneralTypeName(string name, out string outname)
+		{
+			outname = String.Empty;
+
+			// Save and strip pointer info
+			string ptrstr = String.Empty;
+			if (name.EndsWith('*')) {
+				var ptrCount = name.Count(c => c == '*');
+				ptrstr = new string('*', ptrCount);
+				name = name.Substring(0, name.Length - ptrCount);
+			}
+
+			// Try to parse a Vulkan type first
+			if (ProcessVkTypeName(name, out outname, out var vendor)) {
+				outname = (vendor is not null) ? $"Vk.{vendor}.{outname}" : $"Vk.{outname}";
+				outname += ptrstr;
+				return true;
+			}
+
+			// Check Vulkan typedefs and known types
+			if (VK_TYPEDEFS.TryGetValue(name, out var typedef)) {
+				outname = typedef + ptrstr;
+				return true;
+			}
+			if (CPP_TYPES.TryGetValue(name, out var cppType)) {
+				outname = cppType + ptrstr;
+				return true;
+			}
+
+			// Report failure
+			Program.PrintWarning($"Unknown typename '{name}'");
+			outname = "UNKNOWN" + ptrstr;
 			return true;
 		}
 
@@ -109,5 +166,30 @@ namespace Gen
 
 			return true;
 		}
+
+		// Processes a struct field into a C#-style name
+		// Ex: structFieldName -> StructFieldName           (TitleCase)
+		// Ex: pName -> Name              (Remove type prefixes)
+		public bool ProcessStructFieldName(string fname, out string outname)
+		{
+			outname = fname;
+
+			// Check for type prefix
+			if (fname[0] == 'p' || fname[0] == 's') {
+				if (fname.StartsWith("pfn")) outname = outname.Substring(3);
+				else if (fname.Length > 2 && Char.IsUpper(fname[1])) outname = outname.Substring(1);
+				else if (fname.Length > 3 && fname[1] == 'p' && Char.IsUpper(fname[2])) outname = outname.Substring(2);
+			}
+
+			// Switch to TitleCase
+			if (Char.IsLower(outname[0])) {
+				outname = Char.ToUpperInvariant(outname[0]) + outname.Substring(1);
+			}
+
+			return true;
+		}
+
+		// Check if a type name can be a fixed buffer
+		public bool IsFixedType(string typename) => CPP_TYPES.Values.Contains(typename);
 	}
 }

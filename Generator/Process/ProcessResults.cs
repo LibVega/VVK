@@ -55,6 +55,16 @@ namespace Gen
 				Program.PrintVerbose($"\tProcessed enum {enumOut.ProcessedName}");
 			}
 
+			// Process the structs
+			Console.WriteLine("Processing struct types...");
+			foreach (var structSpec in spec.Structs) {
+				if (StructOut.TryProcess(structSpec.Value, names) is not StructOut structOut) {
+					return false;
+				}
+				proc.getOrCreateVendor(structOut.VendorName).Structs.Add(structOut.Name, structOut);
+				Program.PrintVerbose($"\tProcessed struct {structOut.Name}");
+			}
+
 			return true;
 		}
 	}

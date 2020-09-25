@@ -93,12 +93,10 @@ namespace Gen
 			string[]? sizes = null;
 			if (xml.InnerText.Contains('[') && !xml.InnerText.Contains("[]")) {
 				// Do a regex search for "[<size>]" fields
-				var matches = Regex.Matches(xml.InnerText, @"\[(.+?)\]");
-				if (matches.Count == 0) {
-					Program.PrintError($"Unable to parse size constants for struct field {nameNode.Value}");
-					return false;
+				var matches = Regex.Matches(xml.InnerText, @"\[((\d+)|(VK_.*?))\]");
+				if (matches.Count > 0) {
+					sizes = matches.Select(mch => mch.Groups[1].Value).ToArray();
 				}
-				sizes = matches.Select(mch => mch.Groups[1].Value).ToArray();
 			}
 
 			// Return
