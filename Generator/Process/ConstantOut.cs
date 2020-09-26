@@ -40,14 +40,15 @@ namespace Gen
 			var type =
 				spec.Value.EndsWith("f") ? "float" :
 				spec.Value.Contains("0ULL") ? "ulong" :
-				spec.Value.Contains("0U") ? "uint" : "uint";
-
+				spec.Value.Contains("0U") ? "uint" :
+				spec.Value.StartsWith('"') ? "string" : "uint";
 
 			// Get the correct value string
 			var value = type switch {
 				"float" => spec.Value,
 				"ulong" => spec.Value.Replace("ULL", "UL"),
 				"uint" => spec.Value,
+				"string" => spec.Value,
 				_ => spec.Value
 			};
 

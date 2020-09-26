@@ -29,6 +29,8 @@ namespace Gen
 		public readonly Dictionary<string, ConstantSpec> Constants;
 		// The commands (API functions)
 		public readonly Dictionary<string, CommandSpec> Commands;
+		// The extensions
+		public readonly Dictionary<string, ExtensionSpec> Extensions;
 		#endregion Fields
 
 		private ParseResults()
@@ -40,6 +42,7 @@ namespace Gen
 			FuncPointers = new();
 			Constants = new();
 			Commands = new();
+			Extensions = new();
 		}
 
 		// Performs the top-level spec file parsing
@@ -86,6 +89,11 @@ namespace Gen
 
 			// Get the commands
 			if (!DiscoverCommands(regNode, spec)) {
+				return false;
+			}
+
+			// Discover and apply the extensions
+			if (!DiscoverExtensions(regNode, spec)) {
 				return false;
 			}
 
@@ -352,6 +360,37 @@ namespace Gen
 					}
 				}
 				else return false;
+			}
+
+			return true;
+		}
+
+		// Parses the extensions
+		private static bool DiscoverExtensions(XmlNode regNode, ParseResults spec)
+		{
+			Console.WriteLine("Discovering extensions...");
+
+			// Try to get the extensions node
+			if (regNode.SelectSingleNode("extensions") is not XmlNode extsNode) {
+				Program.PrintError("Spec does not have entry for 'extensions'");
+				return false;
+			}
+
+			// Loop over extensions
+			foreach (var child in extsNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode extNode) || (extNode.Name != "extension")) {
+					continue;
+				}
+
+				// Try to parse
+				if (ExtensionSpec.TryParse(extNode, out var extSpec, out var enabled)) {
+					spec.Extensions.Add(extSpec!.Name, extSpec!);
+					spec.Constants.Add(extSpec!.NameSpec.Name, extSpec!.NameSpec);
+					spec.Constants.Add(extSpec!.VersionSpec.Name, extSpec!.VersionSpec);
+					Program.PrintVerbose($"\tFound extension {extSpec!.Number} '{extSpec!.Name}' (v. {extSpec!.Version})");
+				}
+				else if (enabled) return false;
 			}
 
 			return true;

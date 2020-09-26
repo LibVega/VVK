@@ -20,7 +20,7 @@ namespace Gen
 		public readonly string Value;
 		#endregion // Fields
 
-		private ConstantSpec(string name, string value)
+		public ConstantSpec(string name, string value)
 		{
 			Name = name;
 			Value = value;
