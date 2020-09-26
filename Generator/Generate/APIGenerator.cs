@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Gen
 {
@@ -30,8 +31,11 @@ namespace Gen
 				return false;
 			}
 
-			// Write the API constants
+			// Write the API constants and functions
 			if (!GenerateConstants(res)) {
+				return false;
+			}
+			if (!GenerateCommands(res)) {
 				return false;
 			}
 
@@ -69,6 +73,46 @@ namespace Gen
 			}
 			catch (Exception ex) {
 				Program.PrintError($"Failed to generate API constants - {ex.Message}");
+				return false;
+			}
+
+			return true;
+		}
+
+		// Command generation
+		private static bool GenerateCommands(ProcessResults res)
+		{
+			Console.WriteLine("Generating API functions...");
+
+			try {
+				// File context
+				using var file = new SourceFile("Vk.Commands.cs", "VVK.Vk");
+
+				// Loop over the global and instance functions
+				using (var block = file.PushBlock("public unsafe sealed class InstanceFunctionTable")) {
+					// Global functions
+					block.WriteLine("/* Global Functions */");
+					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Global)) {
+						block.WriteLine($"public static readonly {cmd.Prototype} {cmd.Name};");
+					}
+					block.WriteLine();
+
+					// Instance functions
+					block.WriteLine("/* Instance Functions */");
+					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Instance)) {
+						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name};");
+					}
+				}
+
+				// Loop over the device functions
+				using (var block = file.PushBlock("public unsafe sealed class DeviceFunctionTable")) {
+					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Device)) {
+						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name};");
+					}
+				}
+			}
+			catch (Exception ex) {
+				Program.PrintError($"Failed to generate API functions - {ex.Message}");
 				return false;
 			}
 

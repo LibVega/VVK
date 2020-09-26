@@ -17,6 +17,8 @@ namespace Gen
 		public readonly Dictionary<string, ConstantOut> Constants;
 		// The list of function pointer types
 		public readonly Dictionary<string, FuncOut> FuncPointers;
+		// The list of commands
+		public readonly Dictionary<string, CommandOut> Commands;
 		// The list of vendors
 		public readonly Dictionary<string, Vendor> Vendors;
 		#endregion // Fields
@@ -25,6 +27,7 @@ namespace Gen
 		{
 			Constants = new();
 			FuncPointers = new();
+			Commands = new();
 			Vendors = new();
 			Vendors.Add("", new Vendor(""));
 		}
@@ -87,6 +90,16 @@ namespace Gen
 				}
 				proc.getOrCreateVendor(handleOut.VendorName).Handles.Add(handleOut.Name, handleOut);
 				Program.PrintVerbose($"\tProcessed handle {handleOut.Name}");
+			}
+
+			// Process the commands
+			Console.WriteLine("Processing API functions...");
+			foreach (var commandSpec in spec.Commands.Values) {
+				if (CommandOut.TryProcess(commandSpec, names) is not CommandOut commandOut) {
+					return false;
+				}
+				proc.Commands.Add(commandOut.Name, commandOut);
+				Program.PrintVerbose($"\tProcessed API function {commandOut.Name}");
 			}
 
 			return true;

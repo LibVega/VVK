@@ -61,7 +61,10 @@ namespace Gen
 			{ "CAMetalLayer", "void" },
 			{ "AHardwareBuffer", "void" },
 			{ "GgpFrameToken", "uint" },
-			{ "HMONITOR", "void*" }
+			{ "HMONITOR", "void*" },
+			{ "VisualID", "ulong" },
+			{ "xcb_visualid_t", "uint" },
+			{ "RROutput", "ulong" }
 		};
 
 		#region Fields

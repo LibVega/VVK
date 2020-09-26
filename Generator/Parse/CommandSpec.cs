@@ -15,7 +15,7 @@ namespace Gen
 	public sealed class CommandSpec
 	{
 		// A function argument
-		public record Argument(string Name, string Value);
+		public record Argument(string Name, string Type);
 
 		#region Fields
 		// The function name
