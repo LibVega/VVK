@@ -33,6 +33,9 @@ namespace Gen
 		public readonly bool HasSType;
 		// if the struct has a (pNext) field 
 		public readonly bool HasPNext;
+
+		// Forward
+		public bool IsUnion => Spec.IsUnion;
 		#endregion // Fields
 
 		private StructOut(StructSpec spec, string name, string vendor, List<Field> fields)
@@ -42,7 +45,7 @@ namespace Gen
 			VendorName = vendor;
 			Fields = fields;
 
-			HasSType = fields[0] is ("Type", "Vk.StructureType", null, _);
+			HasSType = (fields.Count > 0) && fields[0] is ("Type", "Vk.StructureType", null, _);
 			HasPNext = (fields.Count > 1) && fields[1] is ("Next", "void*", null, _);
 		}
 
@@ -68,9 +71,14 @@ namespace Gen
 					return null;
 				}
 
+				// Fix error where names overlap
+				if (fieldName == baseName) {
+					fieldName += "_";
+				}
+
 				// Process the size literals
 				string? size = null;
-				bool @fixed = false;
+				bool @fixed = names.IsFixedType(fieldType);
 				if (field.Sizes is not null) {
 					// Detect use of FixedString type and API constant sizes
 					if (field.Sizes.Length == 1 && field.Sizes[0].StartsWith("VK_")) {
@@ -81,7 +89,6 @@ namespace Gen
 								"Vk.FixedString";
 						}
 						else size = $"(int)Vk.Constants.{field.Sizes[0].Substring(3)}";
-						@fixed = names.IsFixedType(fieldType);
 					}
 					else {
 						int sizeVal = 1;

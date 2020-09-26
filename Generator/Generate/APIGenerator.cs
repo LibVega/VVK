@@ -126,14 +126,21 @@ namespace Gen
 				// Visit each struct
 				foreach (var structSpec in vendor.Structs.Values) {
 					// Write the struct header
-					file.WriteLine("[StructLayout(LayoutKind.Sequential)]");
+					if (structSpec.IsUnion) {
+						file.WriteLine("[StructLayout(LayoutKind.Explicit)]");
+					}
+					else {
+						file.WriteLine("[StructLayout(LayoutKind.Sequential)]");
+					}
 					using var enumBlock = file.PushBlock($"public unsafe partial struct {structSpec.Name}");
 
 					// Visit the fields
+					var fprefix = structSpec.IsUnion ? "[FieldOffset(0)] " : "";
 					foreach (var field in structSpec.Fields) {
 						if (field.SizeLiteral is not null) {
 							if (field.IsFixed) {
-								enumBlock.WriteLine($"public fixed {field.Type} {field.Name}[{field.SizeLiteral}];");
+								enumBlock.WriteLine(
+									$"{fprefix}public fixed {field.Type} {field.Name}[{field.SizeLiteral}];");
 							}
 							else {
 								var literal = Char.IsDigit(field.SizeLiteral[0]) 
@@ -141,12 +148,12 @@ namespace Gen
 									: consts[field.SizeLiteral.Substring(field.SizeLiteral.LastIndexOf('.') + 1)].Value;
 								var count = Int32.Parse(literal);
 								for (int i = 0; i < count; ++i) {
-									enumBlock.WriteLine($"public {field.Type} {field.Name}_{i};");
+									enumBlock.WriteLine($"{fprefix}public {field.Type} {field.Name}_{i};");
 								}
 							}
 						}
 						else {
-							enumBlock.WriteLine($"public {field.Type} {field.Name};");
+							enumBlock.WriteLine($"{fprefix}public {field.Type} {field.Name};");
 						}
 					}
 				}
@@ -188,6 +195,7 @@ namespace Gen
 					// Write the constructors
 					handleBlock.WriteLine($"public {handleSpec.Name}(void* handle) => Handle = handle;");
 					handleBlock.WriteLine($"public {handleSpec.Name}(ulong handle) => Handle = (void*)handle;");
+					handleBlock.WriteLine($"public {handleSpec.Name}(IntPtr handle) => Handle = handle.ToPointer();");
 				}
 			}
 			catch (Exception ex) {

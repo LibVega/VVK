@@ -27,21 +27,27 @@ namespace Gen
 		// If this struct type is an alias
 		public bool IsAlias => Alias is not null;
 
+		// If the struct is actually a union
+		public bool IsUnion => Alias?._isUnion ?? _isUnion;
+		private readonly bool _isUnion;
+
 		// The struct fields
 		public List<Field> Fields => Alias?._fields! ?? _fields!;
 		private readonly List<Field>? _fields;
 		#endregion // Fields
 
-		private StructSpec(string name)
+		private StructSpec(string name, bool union)
 		{
 			Name = name;
 			Alias = null;
+			_isUnion = union;
 			_fields = new();
 		}
 		private StructSpec(string name, StructSpec alias)
 		{
 			Name = name;
 			Alias = alias;
+			_isUnion = false;
 			_fields = null;
 		}
 
@@ -56,6 +62,9 @@ namespace Gen
 				return false;
 			}
 
+			// Get the union status
+			bool union = (xml.Attributes!["category"]!.Value == "union");
+
 			// Get alias and return early
 			if (xml.Attributes?["alias"] is XmlAttribute aliasAttr) {
 				if (seen.TryGetValue(aliasAttr.Value, out var alias)) {
@@ -69,7 +78,7 @@ namespace Gen
 			}
 
 			// Return
-			spec = new(nameAttr.Value);
+			spec = new(nameAttr.Value, union);
 			return true;
 		}
 
@@ -91,7 +100,7 @@ namespace Gen
 
 			// Get the size constant (Regex is *very* expensive, so check Contains() first)
 			string[]? sizes = null;
-			if (xml.InnerText.Contains('[') && !xml.InnerText.Contains("[]")) {
+			if (xml.InnerText.Contains('[')) {
 				// Do a regex search for "[<size>]" fields
 				var matches = Regex.Matches(xml.InnerText, @"\[((\d+)|(VK_.*?))\]");
 				if (matches.Count > 0) {

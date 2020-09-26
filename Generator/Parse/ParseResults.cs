@@ -154,6 +154,7 @@ namespace Gen
 						}
 						else return false;
 					} break;
+					case "union":
 					case "struct": {
 						if (StructSpec.TryParse(typeNode, spec.Structs, out var structSpec)) {
 							spec.Structs.Add(structSpec!.Name, structSpec!);
@@ -259,7 +260,8 @@ namespace Gen
 				if ((child is not XmlNode structNode) || (structNode.Name != "type")) {
 					continue;
 				}
-				if ((structNode.Attributes?["category"] is not XmlAttribute catAttr) || (catAttr.Value != "struct")) {
+				if ((structNode.Attributes?["category"] is not XmlAttribute catAttr) || 
+					((catAttr.Value != "struct") && (catAttr.Value != "union"))) {
 					continue;
 				}
 

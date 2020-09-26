@@ -31,7 +31,7 @@ namespace Gen
 		public static FuncOut? TryProcess(FuncSpec spec, NameHelper names)
 		{
 			// Get the arg type names
-			var args = new string[spec.Arguments.Count];
+			var args = new string[spec.Arguments.Count + 1];
 			int aidx = 0;
 			foreach (var arg in spec.Arguments) {
 				if (!names.ProcessGeneralTypeName(arg.Type, out args[aidx++])) {
@@ -39,6 +39,13 @@ namespace Gen
 					return null;
 				}
 			}
+			
+			// Get the return type
+			if (!names.ProcessGeneralTypeName(spec.ReturnType, out var retType)) {
+				Program.PrintError($"Failed to parse func return type '{spec.ReturnType}'");
+				return null;
+			}
+			args[^1] = retType;
 
 			// Return
 			return new(spec, spec.Name, $"delegate* managed<{String.Join(", ", args)}>");

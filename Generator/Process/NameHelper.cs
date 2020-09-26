@@ -20,8 +20,9 @@ namespace Gen
 		private static readonly Dictionary<string, string> OVERRIDES = new() {
 			{ "VK_STENCIL_FRONT_AND_BACK", "FrontAndBack_ALIAS" },
 			{ "VK_QUERY_SCOPE_COMMAND_BUFFER_KHR", "CommandBuffer_ALIAS" },
-			{ "VK_QUERY_SCOPE_RENDER_PASS_KHR", "CommandBuffer_ALIAS" },
-			{ "VK_QUERY_SCOPE_COMMAND_KHR", "CommandBuffer_ALIAS" }
+			{ "VK_QUERY_SCOPE_RENDER_PASS_KHR", "RenderPass_ALIAS" },
+			{ "VK_QUERY_SCOPE_COMMAND_KHR", "Command_ALIAS" },
+			{ "VK_COLORSPACE_SRGB_NONLINEAR_KHR", "SrgbNonlinear_ALIAS" }
 		};
 		// Known Vk* typedefs
 		private static readonly Dictionary<string, string> VK_TYPEDEFS = new() {
@@ -226,6 +227,9 @@ namespace Gen
 
 			// Check for type prefix
 			if (fname[0] == 'p' || fname[0] == 's') {
+				if (fname == "sType") return true;
+				if (fname == "pNext") return true;
+
 				if (fname.StartsWith("pfn")) outname = outname.Substring(3);
 				else if (fname.Length > 2 && Char.IsUpper(fname[1])) outname = outname.Substring(1);
 				else if (fname.Length > 3 && fname[1] == 'p' && Char.IsUpper(fname[2])) outname = outname.Substring(2);
