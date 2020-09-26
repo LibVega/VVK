@@ -241,14 +241,20 @@ namespace Gen
 					else {
 						file.WriteLine("[StructLayout(LayoutKind.Sequential)]");
 					}
-					using var enumBlock = file.PushBlock($"public unsafe partial struct {structSpec.Name}");
+					using var structBlock = file.PushBlock($"public unsafe partial struct {structSpec.Name}");
+
+					// Write the struct type literal, if needed
+					if (structSpec.HasSType) {
+						structBlock.WriteLine($"public const Vk.StructureType TYPE = {structSpec.Fields[0].Value};");
+						structBlock.WriteLine();
+					}
 
 					// Visit the fields
 					var fprefix = structSpec.IsUnion ? "[FieldOffset(0)] " : "";
 					foreach (var field in structSpec.Fields) {
 						if (field.SizeLiteral is not null) {
 							if (field.IsFixed) {
-								enumBlock.WriteLine(
+								structBlock.WriteLine(
 									$"{fprefix}public fixed {field.Type} {field.Name}[{field.SizeLiteral}];");
 							}
 							else {
@@ -257,13 +263,28 @@ namespace Gen
 									: consts[field.SizeLiteral.Substring(field.SizeLiteral.LastIndexOf('.') + 1)].Value;
 								var count = Int32.Parse(literal);
 								for (int i = 0; i < count; ++i) {
-									enumBlock.WriteLine($"{fprefix}public {field.Type} {field.Name}_{i};");
+									structBlock.WriteLine($"{fprefix}public {field.Type} {field.Name}_{i};");
 								}
 							}
 						}
 						else {
-							enumBlock.WriteLine($"{fprefix}public {field.Type} {field.Name};");
+							structBlock.WriteLine($"{fprefix}public {field.Type} {field.Name};");
 						}
+					}
+
+					// Generate the initialization functions for typed structs
+					if (structSpec.HasSType) {
+						structBlock.WriteLine();
+						structBlock.WriteLine(
+							$"/// <summary>Creates a new {structSpec.Name} value with the correct type field.</summary>");
+						structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						structBlock.WriteLine(
+							$"public static void New(out {structSpec.Name} value) => value = new() {{ sType = TYPE }};");
+						structBlock.WriteLine(
+							$"/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>");
+						structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						structBlock.WriteLine(
+							$"public static void Init(ref {structSpec.Name} value) {{ value.sType = TYPE; value.pNext = null; }}");
 					}
 				}
 			}

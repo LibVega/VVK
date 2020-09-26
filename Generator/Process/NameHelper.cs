@@ -180,7 +180,7 @@ namespace Gen
 		// Ex: VK_ENUM_NAME_ENUM_VALUE -> EnumValue         (enum name aware)
 		// Ex: VK_ENUM_NAME_VALUE_EXT -> Value             (vendor name aware)
 		// Ex: VK_ENUM_NAME_20 -> E20                     (digit aware)
-		public bool ProcessEnumValueName(string vkname, string enumvkname, out string outname)
+		public bool ProcessEnumValueName(string vkname, string enumspecname, out string outname)
 		{
 			outname = vkname;
 
@@ -189,14 +189,14 @@ namespace Gen
 				outname = @override;
 				return true;
 			}
-			if (enumvkname == "Result") { // Tricky enum that does not follow naming rules at all
+			if (enumspecname == "Result") { // Tricky enum that does not follow naming rules at all
 				outname = TEXT_INFO.ToTitleCase(outname.ToLower()).Replace("_", "");
 				outname = outname.Substring(outname.StartsWith("VkError") ? "VkError".Length : "Vk".Length);
 				return true;
 			}
 
 			// Check for the vendor and _BIT
-			if (enumvkname != "VendorId") {
+			if (enumspecname != "VendorId") {
 				var vidx = VendorNames.FindIndex(ven => vkname.EndsWith(ven));
 				if (vidx >= 0) {
 					outname = outname.Substring(0, outname.Length - VendorNames[vidx].Length - 1);
@@ -210,7 +210,7 @@ namespace Gen
 			outname = TEXT_INFO.ToTitleCase(outname.ToLower()).Replace("_", "");
 
 			// Remove the enum name
-			var enumLen = enumvkname.Length - (enumvkname.Contains("Flags") ? "Flags".Length : 0);
+			var enumLen = enumspecname.Length - (enumspecname.Contains("Flags") ? "Flags".Length : 0);
 			outname = outname.Substring(enumLen + 2);
 
 			// Prepend E for digits

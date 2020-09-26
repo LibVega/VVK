@@ -16,7 +16,7 @@ namespace Gen
 	public sealed class StructSpec
 	{
 		// Repesents a field in the struct
-		public record Field(string Name, string Type, string[]? Sizes);
+		public record Field(string Name, string Type, string[]? Sizes, string? Value);
 
 		#region Fields
 		// The name of the struct
@@ -108,8 +108,14 @@ namespace Gen
 				}
 			}
 
+			// Check if the member has a set value
+			string? value = null;
+			if (xml.Attributes?["values"] is XmlAttribute valueAttr) {
+				value = valueAttr.Value;
+			}
+
 			// Return
-			field = new(nameNode.InnerText, typeNode.InnerText + new string('*', ptrCount), sizes);
+			field = new(nameNode.InnerText, typeNode.InnerText + new string('*', ptrCount), sizes, value);
 			return true;
 		}
 	}

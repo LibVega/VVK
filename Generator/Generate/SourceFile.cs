@@ -114,6 +114,7 @@ namespace Gen
 			"" + NL +
 			"using System;" + NL +
 			"using System.Runtime.InteropServices;" + NL +
+			"using System.Runtime.CompilerServices;" + NL +
 			"" + NL;
 	}
 }

@@ -13,7 +13,7 @@ namespace Gen
 	public sealed class StructOut
 	{
 		// Represents a struct field
-		public record Field(string Name, string Type, string? SizeLiteral, bool IsFixed = false);
+		public record Field(string Name, string Type, string? SizeLiteral, string? Value, bool IsFixed);
 
 		#region Fields
 		// The spec that this struct was processed from
@@ -45,8 +45,8 @@ namespace Gen
 			VendorName = vendor;
 			Fields = fields;
 
-			HasSType = (fields.Count > 0) && fields[0] is ("Type", "Vk.StructureType", null, _);
-			HasPNext = (fields.Count > 1) && fields[1] is ("Next", "void*", null, _);
+			HasSType = (fields.Count > 0) && fields[0] is ("sType", "Vk.StructureType", null, _, _);
+			HasPNext = (fields.Count > 1) && fields[1] is ("pNext", "void*", null, _, _);
 		}
 
 		// Processing for struct specs
@@ -105,7 +105,30 @@ namespace Gen
 					}
 				}
 
-				fields.Add(new(fieldName, fieldType, size, @fixed));
+				// Process the field value
+				string? value = field.Value;
+				if (fieldName == "sType") {
+					// Skip a few special cases
+					if (baseName == "BaseOutStructure" || baseName == "BaseInStructure") {
+						value = "(Vk.StructureType)0x7FFFFFFF";
+					}
+					else {
+						// Special check for the StructureType field
+						if ((value is null) || !value.StartsWith("VK_STRUCTURE_TYPE_")) {
+							Program.PrintError($"The sType field for '{spec.Name}' does not have an sType value.");
+							return null;
+						}
+
+						// Get the value name
+						if (!names.ProcessEnumValueName(value, "StructureType", out var enumValue)) {
+							Program.PrintError($"The structure type '{value}' is invalid");
+							return null;
+						}
+						value = $"Vk.StructureType.{enumValue}";
+					}
+				}
+
+				fields.Add(new(fieldName, fieldType, size, value, @fixed));
 			}
 
 			// Return
