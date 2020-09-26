@@ -459,7 +459,7 @@ namespace Gen
 					continue;
 				}
 				// Each extension gets 1000 values starting at 1_000_000_000 for extension enum values
-				uint extBase = 1_000_000_000 + (extSpec.Number * 1_000);
+				uint extBase = 1_000_000_000 + ((extSpec.Number - 1) * 1_000);
 
 				// Loop over the enum blocks in the require blocks
 				foreach (var extChild in extNode.ChildNodes) {

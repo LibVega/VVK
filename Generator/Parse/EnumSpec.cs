@@ -213,7 +213,7 @@ namespace Gen
 						Program.PrintError($"Failed to parse extension number '{extNumberAttr.Value}' for '{entryName}'");
 						return false;
 					}
-					extBase = (uint)(1_000_000_000 + (extNum * 1_000));
+					extBase = (uint)(1_000_000_000 + ((extNum - 1) * 1_000));
 				}
 
 				if (!Int32.TryParse(offsetAttr.Value, out value)) {
