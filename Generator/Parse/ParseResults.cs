@@ -14,6 +14,13 @@ namespace Gen
 	// Contains the spec file parsing functionality and unprocessed results
 	public sealed class ParseResults
 	{
+		// Special list of *internal only* types that should be ignored (thanks ANDROID)
+		private static readonly List<string> INTERNAL_TYPES = new() {
+			"VkNativeBufferANDROID",
+			"VkSwapchainImageCreateInfoANDROID",
+			"VkPhysicalDevicePresentationPropertiesANDROID"
+		};
+
 		#region Fields
 		// The valid vendor names
 		public readonly List<string> VendorNames;
@@ -96,6 +103,9 @@ namespace Gen
 			if (!DiscoverExtensions(regNode, spec)) {
 				return false;
 			}
+			if (!DiscoverAdditions(regNode, spec)) {
+				return false;
+			}
 
 			return true;
 		}
@@ -165,9 +175,11 @@ namespace Gen
 					case "union":
 					case "struct": {
 						if (StructSpec.TryParse(typeNode, spec.Structs, out var structSpec)) {
-							spec.Structs.Add(structSpec!.Name, structSpec!);
-							Program.PrintVerbose($"\tFound struct type {structSpec!.Name}" +
-								$"{(structSpec!.IsAlias ? $" -> {structSpec!.Alias!.Name}" : "")}");
+							if (!INTERNAL_TYPES.Contains(structSpec!.Name)) {
+								spec.Structs.Add(structSpec!.Name, structSpec!);
+								Program.PrintVerbose($"\tFound struct type {structSpec!.Name}" +
+									$"{(structSpec!.IsAlias ? $" -> {structSpec!.Alias!.Name}" : "")}");
+							}
 						}
 						else return false;
 					} break;
@@ -273,8 +285,11 @@ namespace Gen
 					continue;
 				}
 
-				// Get the name and spec (skip alias structs)
+				// Get the name and spec (skip alias structs and internal types)
 				var name = structNode.Attributes["name"]!.Value;
+				if (INTERNAL_TYPES.Contains(name)) {
+					continue;
+				}
 				var structSpec = spec.Structs[name];
 				if (structSpec.IsAlias) {
 					continue;
@@ -391,6 +406,79 @@ namespace Gen
 					Program.PrintVerbose($"\tFound extension {extSpec!.Number} '{extSpec!.Name}' (v. {extSpec!.Version})");
 				}
 				else if (enabled) return false;
+			}
+
+			return true;
+		}
+
+		// Parses enum additions (enum values that are added by <require> nodes)
+		private static bool DiscoverAdditions(XmlNode regNode, ParseResults spec)
+		{
+			Console.WriteLine("Applying extensions and promotions...");
+
+			// Loop over the promoted values
+			foreach (var child in regNode.ChildNodes) {
+				if ((child is not XmlNode featureNode) || (featureNode.Name != "feature")) {
+					continue;
+				}
+				foreach (var featureChild in featureNode.ChildNodes) {
+					if ((featureChild is not XmlNode reqNode) || (reqNode.Name != "require")) {
+						continue;
+					}
+					foreach (var reqChild in reqNode.ChildNodes) {
+						if ((reqChild is not XmlNode enumNode) || (enumNode.Name != "enum")) {
+							continue;
+						}
+
+						// Try to parse (and check for null entry (skip))
+						if (EnumSpec.TryParseAddition(enumNode, spec.Enums, null, out var entry, out var enumSpec) &&
+								(entry is not null)) {
+							enumSpec!.Values.Add(entry);
+							Program.PrintVerbose($"\tFound promoted enum '{entry.Value}'");
+						}
+					}
+				}
+			}
+
+			// Try to get the extensions node
+			if (regNode.SelectSingleNode("extensions") is not XmlNode extsNode) {
+				Program.PrintError("Spec does not have entry for 'extensions'");
+				return false;
+			}
+
+			// Loop over the extensions
+			foreach (var child in extsNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode extNode) || (extNode.Name != "extension")) {
+					continue;
+				}
+				if (extNode.Attributes?["name"] is not XmlAttribute nameAttr) {
+					continue;
+				}
+				if (!spec.Extensions.TryGetValue(nameAttr.Value, out var extSpec)) {
+					continue;
+				}
+				// Each extension gets 1000 values starting at 1_000_000_000 for extension enum values
+				uint extBase = 1_000_000_000 + (extSpec.Number * 1_000);
+
+				// Loop over the enum blocks in the require blocks
+				foreach (var extChild in extNode.ChildNodes) {
+					if ((extChild is not XmlNode reqNode) || (reqNode.Name != "require")) {
+						continue;
+					}
+					foreach (var reqChild in reqNode.ChildNodes) {
+						if ((reqChild is not XmlNode enumNode) || (enumNode.Name != "enum")) {
+							continue;
+						}
+
+						// Try to parse (also need to check the returned value for null (skip))
+						if (EnumSpec.TryParseAddition(enumNode, spec.Enums, extBase, out var entry, out var enumSpec) &&
+								(entry is not null)) {
+							enumSpec!.Values.Add(entry);
+							Program.PrintVerbose($"\tFound extension enum '{entry.Name}'");
+						}
+					}
+				}
 			}
 
 			return true;

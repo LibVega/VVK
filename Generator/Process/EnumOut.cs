@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gen
 {
@@ -57,7 +58,11 @@ namespace Gen
 				if (!names.ProcessEnumValueName(ent.Name, baseName, out var entryName)) {
 					return null;
 				}
-				entries.Add(new(entryName, ent.Value));
+				
+				// Check for duplicate entries (can happen due to extensions and promotions)
+				if (entries.FirstOrDefault(e => e.Name == entryName) is null) {
+					entries.Add(new(entryName, ent.Value));
+				}
 			}
 
 			// Add named default value to bitmasks

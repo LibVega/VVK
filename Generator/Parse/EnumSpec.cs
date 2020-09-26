@@ -165,5 +165,84 @@ namespace Gen
 			entry = new(nameAttr.Value, value);
 			return true;
 		}
+
+		// Parse an enum addition value (an <enum> in a <require> node)
+		public static bool TryParseAddition(XmlNode xml, Dictionary<string, EnumSpec> seen, uint? extBase, 
+			out Entry? entry, out EnumSpec? enumSpec)
+		{
+			entry = null;
+			enumSpec = null;
+
+			// Get the enum name
+			if (xml.Attributes?["name"] is not XmlAttribute nameAttr) {
+				Program.PrintError("Extension enum does not have a name");
+				return false;
+			}
+			var entryName = nameAttr.Value;
+
+			// Get the extended enum type
+			if (xml.Attributes?["extends"] is not XmlAttribute extAttr) {
+				return true; // This + entry == null indicates a skip, not an error
+			}
+			if (!seen.TryGetValue(extAttr.Value, out enumSpec)) {
+				Program.PrintError($"The enum extension target '{extAttr.Value}' does not exist.");
+				return false;
+			}
+
+			// Check for an alias
+			if (xml.Attributes?["alias"] is XmlAttribute aliasAttr) {
+				var alias = enumSpec.Values.FirstOrDefault(v => v.Name == aliasAttr.Value);
+				if (alias is null) {
+					Program.PrintError($"The enum value alias target '{aliasAttr.Value}' does not exist");
+					return false;
+				}
+				entry = new(entryName, alias.Value);
+				return true;
+			}
+
+			// Get the offset, value, or bitpos value for the enum
+			int value = 0;
+			if (xml.Attributes?["offset"] is XmlAttribute offsetAttr) {
+				// Get the extension number, if needed
+				if (!extBase.HasValue) {
+					if (xml.Attributes?["extnumber"] is not XmlAttribute extNumberAttr) {
+						Program.PrintError($"The enum extension '{entryName}' is missing the extension number");
+						return false;
+					}
+					if (!Int32.TryParse(extNumberAttr.Value, out var extNum)) {
+						Program.PrintError($"Failed to parse extension number '{extNumberAttr.Value}' for '{entryName}'");
+						return false;
+					}
+					extBase = (uint)(1_000_000_000 + (extNum * 1_000));
+				}
+
+				if (!Int32.TryParse(offsetAttr.Value, out value)) {
+					Program.PrintError($"Failed to parse offset '{offsetAttr.Value}' for '{entryName}'");
+					return false;
+				}
+				value += (int)extBase.Value;
+			}
+			else if (xml.Attributes?["bitpos"] is XmlAttribute bitposAttr) {
+				if (!Int32.TryParse(bitposAttr.Value, out value)) {
+					Program.PrintError($"Failed to parse bitpos '{bitposAttr.Value}' for '{entryName}'");
+					return false;
+				}
+				value = 1 << value;
+			}
+			else if (xml.Attributes?["value"] is XmlAttribute valueAttr) {
+				if (!Int32.TryParse(valueAttr.Value, out value)) {
+					Program.PrintError($"Failed to parse value '{valueAttr.Value}' for '{entryName}'");
+					return false;
+				}
+			}
+			else {
+				Program.PrintError($"Enum value '{entryName}' is missing a value");
+				return false;
+			}
+
+			// Return
+			entry = new(entryName, value);
+			return true;
+		}
 	}
 }

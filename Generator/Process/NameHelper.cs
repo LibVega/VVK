@@ -178,7 +178,6 @@ namespace Gen
 		// Processes a spec enum value name into a C# friendly name
 		// Requires the processed enum name for correct reduction
 		// Ex: VK_ENUM_NAME_ENUM_VALUE -> EnumValue         (enum name aware)
-		// Ex: VK_ENUM_NAME_VALUE_EXT -> Value             (vendor name aware)
 		// Ex: VK_ENUM_NAME_20 -> E20                     (digit aware)
 		public bool ProcessEnumValueName(string vkname, string enumspecname, out string outname)
 		{
@@ -196,10 +195,12 @@ namespace Gen
 			}
 
 			// Check for the vendor and _BIT
+			string? vendor = null;
 			if (enumspecname != "VendorId") {
 				var vidx = VendorNames.FindIndex(ven => vkname.EndsWith(ven));
 				if (vidx >= 0) {
-					outname = outname.Substring(0, outname.Length - VendorNames[vidx].Length - 1);
+					vendor = VendorNames[vidx];
+					outname = outname.Substring(0, outname.Length - vendor.Length - 1);
 				}
 			}
 			if (outname.EndsWith("_BIT")) {
@@ -216,6 +217,11 @@ namespace Gen
 			// Prepend E for digits
 			if (Char.IsDigit(outname[0])) {
 				outname = 'E' + outname;
+			}
+
+			// Re-add vendor name
+			if (vendor is not null) {
+				outname += vendor;
 			}
 
 			return true;
