@@ -248,5 +248,9 @@ namespace Gen
 
 		// Check if a type name can be a fixed buffer
 		public bool IsFixedType(string typename) => CPP_TYPES.Values.Contains(typename);
+
+		// Check if the spec name is a vendor addition
+		public bool IsVendorType(string typename) => 
+			VendorNames.FirstOrDefault(ven => typename.EndsWith(ven)) is not null;
 	}
 }

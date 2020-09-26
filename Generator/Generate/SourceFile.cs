@@ -63,8 +63,7 @@ namespace Gen
 			}
 			_file.WriteLine("{");
 
-			BlockDepth = 1;
-			_indentString = "\t";
+			PushBlock(0);
 			return new(this);
 		}
 
@@ -88,8 +87,6 @@ namespace Gen
 
 			BlockDepth -= 1;
 			_indentString = new string('\t', (int)BlockDepth);
-			_file.WriteLine("}" + NL);
-			_file.Flush();
 		}
 
 		#region IDisposable

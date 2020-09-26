@@ -15,10 +15,12 @@ namespace Gen
 		// The known global scope functions
 		private static readonly List<string> GLOBAL_FUNCTIONS = new() {
 			"vkCreateInstance", "vkEnumerateInstanceExtensionProperties",
-			"vkEnumerateInstanceLayerProperties", "vkEnumerateInstanceVersion"
+			"vkEnumerateInstanceLayerProperties", "vkEnumerateInstanceVersion",
+			"vkGetInstanceProcAddr",
+			"vkGetDeviceProcAddr" // Not *technically* a global function, but can and is used as such
 		};
 
-		#region // Fields
+		#region Fields
 		// The spec that this command was generated from
 		public readonly CommandSpec Spec;
 		// The name of the function
@@ -27,14 +29,21 @@ namespace Gen
 		public readonly string Prototype;
 		// The load level for the function
 		public readonly CommandScope Scope;
+		// If the function is a core function
+		public readonly bool IsCore;
+
+		// Forward
+		public bool IsAlias => Spec.IsAlias;
+		public CommandSpec? Alias => Spec.Alias;
 		#endregion // Fields
 
-		private CommandOut(CommandSpec spec, string name, string proto, CommandScope scope)
+		private CommandOut(CommandSpec spec, string name, string proto, CommandScope scope, bool core)
 		{
 			Spec = spec;
 			Name = name;
 			Prototype = proto;
 			Scope = scope;
+			IsCore = core;
 		}
 
 		// Process
@@ -71,7 +80,8 @@ namespace Gen
 			}
 
 			// Return
-			return new(spec, spec.Name, $"delegate* unmanaged<{String.Join(", ", args)}>", scope);
+			return new(spec, spec.Name, $"delegate* unmanaged<{String.Join(", ", args)}>", scope, 
+				!names.IsVendorType(spec.Name));
 		}
 	}
 

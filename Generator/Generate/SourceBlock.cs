@@ -44,12 +44,20 @@ namespace Gen
 			File.WriteLine(line);
 		}
 
-		public void WriteLine() => File.WriteLine();
+		public void WriteLine()
+		{
+			if (File.BlockDepth != Depth) {
+				throw new InvalidOperationException("Cannot write to block the current depth");
+			}
+			File.WriteLine();
+		}
 
 		#region IDisposable
 		public void Dispose()
 		{
 			File.PopBlock(Depth);
+			File.WriteLine("}");
+			File.WriteLine();
 		}
 		#endregion // IDisposable
 	}

@@ -89,25 +89,90 @@ namespace Gen
 				using var file = new SourceFile("Vk.Commands.cs", "VVK.Vk");
 
 				// Loop over the global and instance functions
-				using (var block = file.PushBlock("public unsafe sealed class InstanceFunctionTable")) {
+				using (var block = file.PushBlock("public unsafe sealed partial class InstanceFunctionTable")) {
 					// Global functions
 					block.WriteLine("/* Global Functions */");
 					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Global)) {
-						block.WriteLine($"public static readonly {cmd.Prototype} {cmd.Name};");
+						block.WriteLine($"public static readonly {cmd.Prototype} {cmd.Name} = null;");
 					}
 					block.WriteLine();
 
 					// Instance functions
 					block.WriteLine("/* Instance Functions */");
 					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Instance)) {
-						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name};");
+						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name} = null;");
+					}
+					block.WriteLine();
+
+					// Write the loading constructor
+					block.WriteLine("/// <summary>");
+					block.WriteLine("/// Creates a new function table and loads the functions.");
+					block.WriteLine("/// </summary>");
+					block.WriteLine("/// <param name=\"inst\">The instance to load the functions for.</param>");
+					using (var ctor = block.PushBlock("public InstanceFunctionTable(Vk.Instance inst)")) {
+						ctor.WriteLine("void* addr = (void*)0;");
+						ctor.WriteLine();
+
+						// Loop over the loadable instance functions
+						foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Instance)) {
+							if (cmd.IsAlias) {
+								ctor.WriteLine($"{cmd.Name} = {cmd.Alias!.Name};");
+							}
+							else if (cmd.IsCore) { // Throw exception when we cant load core functions
+								ctor.WriteLine($"{cmd.Name} =");
+								ctor.WriteLine($"\t({cmd.Prototype})LoadFunc(inst, \"{cmd.Name}\");");
+							}
+							else { // Don't throw exception for vendor functions
+								ctor.WriteLine($"if (TryLoadFunc(inst, \"{cmd.Name}\", out addr)) {{");
+								ctor.WriteLine($"\t{cmd.Name} =");
+								ctor.WriteLine($"\t\t({cmd.Prototype})addr;");
+								ctor.WriteLine($"}}");
+							}
+						}
+					}
+
+					// Write the static constructor
+					using (var ctor = block.PushBlock("static InstanceFunctionTable()")) {
+						foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Global)) {
+							ctor.WriteLine($"{cmd.Name} =");
+							ctor.WriteLine($"\t({cmd.Prototype})VulkanLibrary.GetExport(\"{cmd.Name}\").ToPointer();");
+						}
 					}
 				}
 
 				// Loop over the device functions
-				using (var block = file.PushBlock("public unsafe sealed class DeviceFunctionTable")) {
+				using (var block = file.PushBlock("public unsafe sealed partial class DeviceFunctionTable")) {
+					// Write the fields
 					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Device)) {
-						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name};");
+						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name} = null;");
+					}
+					block.WriteLine();
+
+					// Write the constructor
+					block.WriteLine("/// <summary>");
+					block.WriteLine("/// Creates a new function table and loads the functions.");
+					block.WriteLine("/// </summary>");
+					block.WriteLine("/// <param name=\"dev\">The device to load the functions for.</param>");
+					using (var ctor = block.PushBlock("public DeviceFunctionTable(Vk.Device dev)")) {
+						ctor.WriteLine("void* addr = (void*)0;");
+						ctor.WriteLine();
+
+						// Loop over the loadable instance functions
+						foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Device)) {
+							if (cmd.IsAlias) {
+								ctor.WriteLine($"{cmd.Name} = {cmd.Alias!.Name};");
+							}
+							else if (cmd.IsCore) { // Throw exception when we cant load core functions
+								ctor.WriteLine($"{cmd.Name} =");
+								ctor.WriteLine($"\t({cmd.Prototype})LoadFunc(dev, \"{cmd.Name}\");");
+							}
+							else { // Don't throw exception for vendor functions
+								ctor.WriteLine($"if (TryLoadFunc(dev, \"{cmd.Name}\", out addr)) {{");
+								ctor.WriteLine($"\t{cmd.Name} =");
+								ctor.WriteLine($"\t\t({cmd.Prototype})addr;");
+								ctor.WriteLine($"}}");
+							}
+						}
 					}
 				}
 			}
@@ -217,7 +282,7 @@ namespace Gen
 				return true;
 			}
 
-			Program.PrintVerbose($"\tGenerating structs for {vendor.DisplayName}");
+			Program.PrintVerbose($"\tGenerating handles for {vendor.DisplayName}");
 
 			try {
 				// File context
