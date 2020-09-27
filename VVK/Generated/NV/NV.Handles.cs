@@ -15,7 +15,7 @@ namespace VVK.Vk.NV
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct IndirectCommandsLayout
+public unsafe partial struct IndirectCommandsLayout : IEquatable<IndirectCommandsLayout>
 {
 	public static readonly IndirectCommandsLayout Null = new(0);
 
@@ -25,10 +25,19 @@ public unsafe partial struct IndirectCommandsLayout
 	public IndirectCommandsLayout(void* handle) => Handle = handle;
 	public IndirectCommandsLayout(ulong handle) => Handle = (void*)handle;
 	public IndirectCommandsLayout(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<IndirectCommandsLayout>.Equals(IndirectCommandsLayout other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is IndirectCommandsLayout handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[IndirectCommandsLayout 0x{LongHandle:X16}]";
+
+	public static bool operator == (IndirectCommandsLayout l, IndirectCommandsLayout r) => l.Handle == r.Handle;
+	public static bool operator != (IndirectCommandsLayout l, IndirectCommandsLayout r) => l.Handle != r.Handle;
+	public static implicit operator bool (IndirectCommandsLayout handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct AccelerationStructure
+public unsafe partial struct AccelerationStructure : IEquatable<AccelerationStructure>
 {
 	public static readonly AccelerationStructure Null = new(0);
 
@@ -38,6 +47,15 @@ public unsafe partial struct AccelerationStructure
 	public AccelerationStructure(void* handle) => Handle = handle;
 	public AccelerationStructure(ulong handle) => Handle = (void*)handle;
 	public AccelerationStructure(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<AccelerationStructure>.Equals(AccelerationStructure other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is AccelerationStructure handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[AccelerationStructure 0x{LongHandle:X16}]";
+
+	public static bool operator == (AccelerationStructure l, AccelerationStructure r) => l.Handle == r.Handle;
+	public static bool operator != (AccelerationStructure l, AccelerationStructure r) => l.Handle != r.Handle;
+	public static implicit operator bool (AccelerationStructure handle) => handle.Handle != null;
 }
 
 } // namespace VVK.Vk.NV

@@ -15,7 +15,7 @@ namespace VVK.Vk.INTEL
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct PerformanceConfiguration
+public unsafe partial struct PerformanceConfiguration : IEquatable<PerformanceConfiguration>
 {
 	public static readonly PerformanceConfiguration Null = new(0);
 
@@ -25,6 +25,15 @@ public unsafe partial struct PerformanceConfiguration
 	public PerformanceConfiguration(void* handle) => Handle = handle;
 	public PerformanceConfiguration(ulong handle) => Handle = (void*)handle;
 	public PerformanceConfiguration(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<PerformanceConfiguration>.Equals(PerformanceConfiguration other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is PerformanceConfiguration handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[PerformanceConfiguration 0x{LongHandle:X16}]";
+
+	public static bool operator == (PerformanceConfiguration l, PerformanceConfiguration r) => l.Handle == r.Handle;
+	public static bool operator != (PerformanceConfiguration l, PerformanceConfiguration r) => l.Handle != r.Handle;
+	public static implicit operator bool (PerformanceConfiguration handle) => handle.Handle != null;
 }
 
 } // namespace VVK.Vk.INTEL

@@ -104,10 +104,13 @@ namespace Gen
 					}
 					block.WriteLine();
 
+					// Write default constructor
+					block.WriteLine("/// <summary>Creates a new function table with all null pointers.</summary>");
+					block.WriteLine("public InstanceFunctionTable() { }");
+					block.WriteLine();
+
 					// Write the loading constructor
-					block.WriteLine("/// <summary>");
-					block.WriteLine("/// Creates a new function table and loads the functions.");
-					block.WriteLine("/// </summary>");
+					block.WriteLine("/// <summary>Creates a new function table and loads the functions.</summary>");
 					block.WriteLine("/// <param name=\"inst\">The instance to load the functions for.</param>");
 					using (var ctor = block.PushBlock("public InstanceFunctionTable(Vk.Instance inst)")) {
 						ctor.WriteLine("void* addr = (void*)0;");
@@ -146,6 +149,11 @@ namespace Gen
 					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Device)) {
 						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name} = null;");
 					}
+					block.WriteLine();
+
+					// Write default constructor
+					block.WriteLine("/// <summary>Creates a new function table with all null pointers.</summary>");
+					block.WriteLine("public DeviceFunctionTable() { }");
 					block.WriteLine();
 
 					// Write the constructor
@@ -313,7 +321,7 @@ namespace Gen
 				foreach (var handleSpec in vendor.Handles.Values) {
 					// Write the header
 					file.WriteLine("[StructLayout(LayoutKind.Explicit, Size = 8)]");
-					using var handleBlock = file.PushBlock($"public unsafe partial struct {handleSpec.Name}");
+					using var handleBlock = file.PushBlock($"public unsafe partial struct {handleSpec.Name} : IEquatable<{handleSpec.Name}>");
 
 					// Write the fields
 					handleBlock.WriteLine($"public static readonly {handleSpec.Name} Null = new(0);");
@@ -326,6 +334,19 @@ namespace Gen
 					handleBlock.WriteLine($"public {handleSpec.Name}(void* handle) => Handle = handle;");
 					handleBlock.WriteLine($"public {handleSpec.Name}(ulong handle) => Handle = (void*)handle;");
 					handleBlock.WriteLine($"public {handleSpec.Name}(IntPtr handle) => Handle = handle.ToPointer();");
+					handleBlock.WriteLine();
+
+					// Write the functions
+					handleBlock.WriteLine($"readonly bool IEquatable<{handleSpec.Name}>.Equals({handleSpec.Name} other) => other.Handle == Handle;");
+					handleBlock.WriteLine($"public readonly override bool Equals(object? other) => (other is {handleSpec.Name} handle) && handle.Handle == Handle;");
+					handleBlock.WriteLine($"public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);");
+					handleBlock.WriteLine($"public readonly override string ToString() => $\"[{handleSpec.Name} 0x{{LongHandle:X16}}]\";");
+					handleBlock.WriteLine();
+
+					// Write the operators
+					handleBlock.WriteLine($"public static bool operator == ({handleSpec.Name} l, {handleSpec.Name} r) => l.Handle == r.Handle;");
+					handleBlock.WriteLine($"public static bool operator != ({handleSpec.Name} l, {handleSpec.Name} r) => l.Handle != r.Handle;");
+					handleBlock.WriteLine($"public static implicit operator bool ({handleSpec.Name} handle) => handle.Handle != null;");
 				}
 			}
 			catch (Exception ex) {

@@ -15,7 +15,7 @@ namespace VVK.Vk
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Instance
+public unsafe partial struct Instance : IEquatable<Instance>
 {
 	public static readonly Instance Null = new(0);
 
@@ -25,10 +25,19 @@ public unsafe partial struct Instance
 	public Instance(void* handle) => Handle = handle;
 	public Instance(ulong handle) => Handle = (void*)handle;
 	public Instance(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Instance>.Equals(Instance other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Instance handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Instance 0x{LongHandle:X16}]";
+
+	public static bool operator == (Instance l, Instance r) => l.Handle == r.Handle;
+	public static bool operator != (Instance l, Instance r) => l.Handle != r.Handle;
+	public static implicit operator bool (Instance handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct PhysicalDevice
+public unsafe partial struct PhysicalDevice : IEquatable<PhysicalDevice>
 {
 	public static readonly PhysicalDevice Null = new(0);
 
@@ -38,10 +47,19 @@ public unsafe partial struct PhysicalDevice
 	public PhysicalDevice(void* handle) => Handle = handle;
 	public PhysicalDevice(ulong handle) => Handle = (void*)handle;
 	public PhysicalDevice(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<PhysicalDevice>.Equals(PhysicalDevice other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is PhysicalDevice handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[PhysicalDevice 0x{LongHandle:X16}]";
+
+	public static bool operator == (PhysicalDevice l, PhysicalDevice r) => l.Handle == r.Handle;
+	public static bool operator != (PhysicalDevice l, PhysicalDevice r) => l.Handle != r.Handle;
+	public static implicit operator bool (PhysicalDevice handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Device
+public unsafe partial struct Device : IEquatable<Device>
 {
 	public static readonly Device Null = new(0);
 
@@ -51,10 +69,19 @@ public unsafe partial struct Device
 	public Device(void* handle) => Handle = handle;
 	public Device(ulong handle) => Handle = (void*)handle;
 	public Device(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Device>.Equals(Device other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Device handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Device 0x{LongHandle:X16}]";
+
+	public static bool operator == (Device l, Device r) => l.Handle == r.Handle;
+	public static bool operator != (Device l, Device r) => l.Handle != r.Handle;
+	public static implicit operator bool (Device handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Queue
+public unsafe partial struct Queue : IEquatable<Queue>
 {
 	public static readonly Queue Null = new(0);
 
@@ -64,10 +91,19 @@ public unsafe partial struct Queue
 	public Queue(void* handle) => Handle = handle;
 	public Queue(ulong handle) => Handle = (void*)handle;
 	public Queue(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Queue>.Equals(Queue other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Queue handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Queue 0x{LongHandle:X16}]";
+
+	public static bool operator == (Queue l, Queue r) => l.Handle == r.Handle;
+	public static bool operator != (Queue l, Queue r) => l.Handle != r.Handle;
+	public static implicit operator bool (Queue handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct CommandBuffer
+public unsafe partial struct CommandBuffer : IEquatable<CommandBuffer>
 {
 	public static readonly CommandBuffer Null = new(0);
 
@@ -77,10 +113,19 @@ public unsafe partial struct CommandBuffer
 	public CommandBuffer(void* handle) => Handle = handle;
 	public CommandBuffer(ulong handle) => Handle = (void*)handle;
 	public CommandBuffer(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<CommandBuffer>.Equals(CommandBuffer other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is CommandBuffer handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[CommandBuffer 0x{LongHandle:X16}]";
+
+	public static bool operator == (CommandBuffer l, CommandBuffer r) => l.Handle == r.Handle;
+	public static bool operator != (CommandBuffer l, CommandBuffer r) => l.Handle != r.Handle;
+	public static implicit operator bool (CommandBuffer handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct DeviceMemory
+public unsafe partial struct DeviceMemory : IEquatable<DeviceMemory>
 {
 	public static readonly DeviceMemory Null = new(0);
 
@@ -90,10 +135,19 @@ public unsafe partial struct DeviceMemory
 	public DeviceMemory(void* handle) => Handle = handle;
 	public DeviceMemory(ulong handle) => Handle = (void*)handle;
 	public DeviceMemory(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<DeviceMemory>.Equals(DeviceMemory other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is DeviceMemory handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[DeviceMemory 0x{LongHandle:X16}]";
+
+	public static bool operator == (DeviceMemory l, DeviceMemory r) => l.Handle == r.Handle;
+	public static bool operator != (DeviceMemory l, DeviceMemory r) => l.Handle != r.Handle;
+	public static implicit operator bool (DeviceMemory handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct CommandPool
+public unsafe partial struct CommandPool : IEquatable<CommandPool>
 {
 	public static readonly CommandPool Null = new(0);
 
@@ -103,10 +157,19 @@ public unsafe partial struct CommandPool
 	public CommandPool(void* handle) => Handle = handle;
 	public CommandPool(ulong handle) => Handle = (void*)handle;
 	public CommandPool(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<CommandPool>.Equals(CommandPool other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is CommandPool handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[CommandPool 0x{LongHandle:X16}]";
+
+	public static bool operator == (CommandPool l, CommandPool r) => l.Handle == r.Handle;
+	public static bool operator != (CommandPool l, CommandPool r) => l.Handle != r.Handle;
+	public static implicit operator bool (CommandPool handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Buffer
+public unsafe partial struct Buffer : IEquatable<Buffer>
 {
 	public static readonly Buffer Null = new(0);
 
@@ -116,10 +179,19 @@ public unsafe partial struct Buffer
 	public Buffer(void* handle) => Handle = handle;
 	public Buffer(ulong handle) => Handle = (void*)handle;
 	public Buffer(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Buffer>.Equals(Buffer other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Buffer handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Buffer 0x{LongHandle:X16}]";
+
+	public static bool operator == (Buffer l, Buffer r) => l.Handle == r.Handle;
+	public static bool operator != (Buffer l, Buffer r) => l.Handle != r.Handle;
+	public static implicit operator bool (Buffer handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct BufferView
+public unsafe partial struct BufferView : IEquatable<BufferView>
 {
 	public static readonly BufferView Null = new(0);
 
@@ -129,10 +201,19 @@ public unsafe partial struct BufferView
 	public BufferView(void* handle) => Handle = handle;
 	public BufferView(ulong handle) => Handle = (void*)handle;
 	public BufferView(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<BufferView>.Equals(BufferView other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is BufferView handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[BufferView 0x{LongHandle:X16}]";
+
+	public static bool operator == (BufferView l, BufferView r) => l.Handle == r.Handle;
+	public static bool operator != (BufferView l, BufferView r) => l.Handle != r.Handle;
+	public static implicit operator bool (BufferView handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Image
+public unsafe partial struct Image : IEquatable<Image>
 {
 	public static readonly Image Null = new(0);
 
@@ -142,10 +223,19 @@ public unsafe partial struct Image
 	public Image(void* handle) => Handle = handle;
 	public Image(ulong handle) => Handle = (void*)handle;
 	public Image(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Image>.Equals(Image other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Image handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Image 0x{LongHandle:X16}]";
+
+	public static bool operator == (Image l, Image r) => l.Handle == r.Handle;
+	public static bool operator != (Image l, Image r) => l.Handle != r.Handle;
+	public static implicit operator bool (Image handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct ImageView
+public unsafe partial struct ImageView : IEquatable<ImageView>
 {
 	public static readonly ImageView Null = new(0);
 
@@ -155,10 +245,19 @@ public unsafe partial struct ImageView
 	public ImageView(void* handle) => Handle = handle;
 	public ImageView(ulong handle) => Handle = (void*)handle;
 	public ImageView(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<ImageView>.Equals(ImageView other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is ImageView handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[ImageView 0x{LongHandle:X16}]";
+
+	public static bool operator == (ImageView l, ImageView r) => l.Handle == r.Handle;
+	public static bool operator != (ImageView l, ImageView r) => l.Handle != r.Handle;
+	public static implicit operator bool (ImageView handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct ShaderModule
+public unsafe partial struct ShaderModule : IEquatable<ShaderModule>
 {
 	public static readonly ShaderModule Null = new(0);
 
@@ -168,10 +267,19 @@ public unsafe partial struct ShaderModule
 	public ShaderModule(void* handle) => Handle = handle;
 	public ShaderModule(ulong handle) => Handle = (void*)handle;
 	public ShaderModule(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<ShaderModule>.Equals(ShaderModule other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is ShaderModule handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[ShaderModule 0x{LongHandle:X16}]";
+
+	public static bool operator == (ShaderModule l, ShaderModule r) => l.Handle == r.Handle;
+	public static bool operator != (ShaderModule l, ShaderModule r) => l.Handle != r.Handle;
+	public static implicit operator bool (ShaderModule handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Pipeline
+public unsafe partial struct Pipeline : IEquatable<Pipeline>
 {
 	public static readonly Pipeline Null = new(0);
 
@@ -181,10 +289,19 @@ public unsafe partial struct Pipeline
 	public Pipeline(void* handle) => Handle = handle;
 	public Pipeline(ulong handle) => Handle = (void*)handle;
 	public Pipeline(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Pipeline>.Equals(Pipeline other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Pipeline handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Pipeline 0x{LongHandle:X16}]";
+
+	public static bool operator == (Pipeline l, Pipeline r) => l.Handle == r.Handle;
+	public static bool operator != (Pipeline l, Pipeline r) => l.Handle != r.Handle;
+	public static implicit operator bool (Pipeline handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct PipelineLayout
+public unsafe partial struct PipelineLayout : IEquatable<PipelineLayout>
 {
 	public static readonly PipelineLayout Null = new(0);
 
@@ -194,10 +311,19 @@ public unsafe partial struct PipelineLayout
 	public PipelineLayout(void* handle) => Handle = handle;
 	public PipelineLayout(ulong handle) => Handle = (void*)handle;
 	public PipelineLayout(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<PipelineLayout>.Equals(PipelineLayout other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is PipelineLayout handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[PipelineLayout 0x{LongHandle:X16}]";
+
+	public static bool operator == (PipelineLayout l, PipelineLayout r) => l.Handle == r.Handle;
+	public static bool operator != (PipelineLayout l, PipelineLayout r) => l.Handle != r.Handle;
+	public static implicit operator bool (PipelineLayout handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Sampler
+public unsafe partial struct Sampler : IEquatable<Sampler>
 {
 	public static readonly Sampler Null = new(0);
 
@@ -207,10 +333,19 @@ public unsafe partial struct Sampler
 	public Sampler(void* handle) => Handle = handle;
 	public Sampler(ulong handle) => Handle = (void*)handle;
 	public Sampler(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Sampler>.Equals(Sampler other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Sampler handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Sampler 0x{LongHandle:X16}]";
+
+	public static bool operator == (Sampler l, Sampler r) => l.Handle == r.Handle;
+	public static bool operator != (Sampler l, Sampler r) => l.Handle != r.Handle;
+	public static implicit operator bool (Sampler handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct DescriptorSet
+public unsafe partial struct DescriptorSet : IEquatable<DescriptorSet>
 {
 	public static readonly DescriptorSet Null = new(0);
 
@@ -220,10 +355,19 @@ public unsafe partial struct DescriptorSet
 	public DescriptorSet(void* handle) => Handle = handle;
 	public DescriptorSet(ulong handle) => Handle = (void*)handle;
 	public DescriptorSet(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<DescriptorSet>.Equals(DescriptorSet other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is DescriptorSet handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[DescriptorSet 0x{LongHandle:X16}]";
+
+	public static bool operator == (DescriptorSet l, DescriptorSet r) => l.Handle == r.Handle;
+	public static bool operator != (DescriptorSet l, DescriptorSet r) => l.Handle != r.Handle;
+	public static implicit operator bool (DescriptorSet handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct DescriptorSetLayout
+public unsafe partial struct DescriptorSetLayout : IEquatable<DescriptorSetLayout>
 {
 	public static readonly DescriptorSetLayout Null = new(0);
 
@@ -233,10 +377,19 @@ public unsafe partial struct DescriptorSetLayout
 	public DescriptorSetLayout(void* handle) => Handle = handle;
 	public DescriptorSetLayout(ulong handle) => Handle = (void*)handle;
 	public DescriptorSetLayout(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<DescriptorSetLayout>.Equals(DescriptorSetLayout other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is DescriptorSetLayout handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[DescriptorSetLayout 0x{LongHandle:X16}]";
+
+	public static bool operator == (DescriptorSetLayout l, DescriptorSetLayout r) => l.Handle == r.Handle;
+	public static bool operator != (DescriptorSetLayout l, DescriptorSetLayout r) => l.Handle != r.Handle;
+	public static implicit operator bool (DescriptorSetLayout handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct DescriptorPool
+public unsafe partial struct DescriptorPool : IEquatable<DescriptorPool>
 {
 	public static readonly DescriptorPool Null = new(0);
 
@@ -246,10 +399,19 @@ public unsafe partial struct DescriptorPool
 	public DescriptorPool(void* handle) => Handle = handle;
 	public DescriptorPool(ulong handle) => Handle = (void*)handle;
 	public DescriptorPool(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<DescriptorPool>.Equals(DescriptorPool other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is DescriptorPool handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[DescriptorPool 0x{LongHandle:X16}]";
+
+	public static bool operator == (DescriptorPool l, DescriptorPool r) => l.Handle == r.Handle;
+	public static bool operator != (DescriptorPool l, DescriptorPool r) => l.Handle != r.Handle;
+	public static implicit operator bool (DescriptorPool handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Fence
+public unsafe partial struct Fence : IEquatable<Fence>
 {
 	public static readonly Fence Null = new(0);
 
@@ -259,10 +421,19 @@ public unsafe partial struct Fence
 	public Fence(void* handle) => Handle = handle;
 	public Fence(ulong handle) => Handle = (void*)handle;
 	public Fence(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Fence>.Equals(Fence other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Fence handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Fence 0x{LongHandle:X16}]";
+
+	public static bool operator == (Fence l, Fence r) => l.Handle == r.Handle;
+	public static bool operator != (Fence l, Fence r) => l.Handle != r.Handle;
+	public static implicit operator bool (Fence handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Semaphore
+public unsafe partial struct Semaphore : IEquatable<Semaphore>
 {
 	public static readonly Semaphore Null = new(0);
 
@@ -272,10 +443,19 @@ public unsafe partial struct Semaphore
 	public Semaphore(void* handle) => Handle = handle;
 	public Semaphore(ulong handle) => Handle = (void*)handle;
 	public Semaphore(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Semaphore>.Equals(Semaphore other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Semaphore handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Semaphore 0x{LongHandle:X16}]";
+
+	public static bool operator == (Semaphore l, Semaphore r) => l.Handle == r.Handle;
+	public static bool operator != (Semaphore l, Semaphore r) => l.Handle != r.Handle;
+	public static implicit operator bool (Semaphore handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Event
+public unsafe partial struct Event : IEquatable<Event>
 {
 	public static readonly Event Null = new(0);
 
@@ -285,10 +465,19 @@ public unsafe partial struct Event
 	public Event(void* handle) => Handle = handle;
 	public Event(ulong handle) => Handle = (void*)handle;
 	public Event(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Event>.Equals(Event other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Event handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Event 0x{LongHandle:X16}]";
+
+	public static bool operator == (Event l, Event r) => l.Handle == r.Handle;
+	public static bool operator != (Event l, Event r) => l.Handle != r.Handle;
+	public static implicit operator bool (Event handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct QueryPool
+public unsafe partial struct QueryPool : IEquatable<QueryPool>
 {
 	public static readonly QueryPool Null = new(0);
 
@@ -298,10 +487,19 @@ public unsafe partial struct QueryPool
 	public QueryPool(void* handle) => Handle = handle;
 	public QueryPool(ulong handle) => Handle = (void*)handle;
 	public QueryPool(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<QueryPool>.Equals(QueryPool other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is QueryPool handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[QueryPool 0x{LongHandle:X16}]";
+
+	public static bool operator == (QueryPool l, QueryPool r) => l.Handle == r.Handle;
+	public static bool operator != (QueryPool l, QueryPool r) => l.Handle != r.Handle;
+	public static implicit operator bool (QueryPool handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct Framebuffer
+public unsafe partial struct Framebuffer : IEquatable<Framebuffer>
 {
 	public static readonly Framebuffer Null = new(0);
 
@@ -311,10 +509,19 @@ public unsafe partial struct Framebuffer
 	public Framebuffer(void* handle) => Handle = handle;
 	public Framebuffer(ulong handle) => Handle = (void*)handle;
 	public Framebuffer(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<Framebuffer>.Equals(Framebuffer other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is Framebuffer handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[Framebuffer 0x{LongHandle:X16}]";
+
+	public static bool operator == (Framebuffer l, Framebuffer r) => l.Handle == r.Handle;
+	public static bool operator != (Framebuffer l, Framebuffer r) => l.Handle != r.Handle;
+	public static implicit operator bool (Framebuffer handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct RenderPass
+public unsafe partial struct RenderPass : IEquatable<RenderPass>
 {
 	public static readonly RenderPass Null = new(0);
 
@@ -324,10 +531,19 @@ public unsafe partial struct RenderPass
 	public RenderPass(void* handle) => Handle = handle;
 	public RenderPass(ulong handle) => Handle = (void*)handle;
 	public RenderPass(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<RenderPass>.Equals(RenderPass other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is RenderPass handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[RenderPass 0x{LongHandle:X16}]";
+
+	public static bool operator == (RenderPass l, RenderPass r) => l.Handle == r.Handle;
+	public static bool operator != (RenderPass l, RenderPass r) => l.Handle != r.Handle;
+	public static implicit operator bool (RenderPass handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct PipelineCache
+public unsafe partial struct PipelineCache : IEquatable<PipelineCache>
 {
 	public static readonly PipelineCache Null = new(0);
 
@@ -337,10 +553,19 @@ public unsafe partial struct PipelineCache
 	public PipelineCache(void* handle) => Handle = handle;
 	public PipelineCache(ulong handle) => Handle = (void*)handle;
 	public PipelineCache(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<PipelineCache>.Equals(PipelineCache other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is PipelineCache handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[PipelineCache 0x{LongHandle:X16}]";
+
+	public static bool operator == (PipelineCache l, PipelineCache r) => l.Handle == r.Handle;
+	public static bool operator != (PipelineCache l, PipelineCache r) => l.Handle != r.Handle;
+	public static implicit operator bool (PipelineCache handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct DescriptorUpdateTemplate
+public unsafe partial struct DescriptorUpdateTemplate : IEquatable<DescriptorUpdateTemplate>
 {
 	public static readonly DescriptorUpdateTemplate Null = new(0);
 
@@ -350,10 +575,19 @@ public unsafe partial struct DescriptorUpdateTemplate
 	public DescriptorUpdateTemplate(void* handle) => Handle = handle;
 	public DescriptorUpdateTemplate(ulong handle) => Handle = (void*)handle;
 	public DescriptorUpdateTemplate(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<DescriptorUpdateTemplate>.Equals(DescriptorUpdateTemplate other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is DescriptorUpdateTemplate handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[DescriptorUpdateTemplate 0x{LongHandle:X16}]";
+
+	public static bool operator == (DescriptorUpdateTemplate l, DescriptorUpdateTemplate r) => l.Handle == r.Handle;
+	public static bool operator != (DescriptorUpdateTemplate l, DescriptorUpdateTemplate r) => l.Handle != r.Handle;
+	public static implicit operator bool (DescriptorUpdateTemplate handle) => handle.Handle != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct SamplerYcbcrConversion
+public unsafe partial struct SamplerYcbcrConversion : IEquatable<SamplerYcbcrConversion>
 {
 	public static readonly SamplerYcbcrConversion Null = new(0);
 
@@ -363,6 +597,15 @@ public unsafe partial struct SamplerYcbcrConversion
 	public SamplerYcbcrConversion(void* handle) => Handle = handle;
 	public SamplerYcbcrConversion(ulong handle) => Handle = (void*)handle;
 	public SamplerYcbcrConversion(IntPtr handle) => Handle = handle.ToPointer();
+
+	readonly bool IEquatable<SamplerYcbcrConversion>.Equals(SamplerYcbcrConversion other) => other.Handle == Handle;
+	public readonly override bool Equals(object? other) => (other is SamplerYcbcrConversion handle) && handle.Handle == Handle;
+	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
+	public readonly override string ToString() => $"[SamplerYcbcrConversion 0x{LongHandle:X16}]";
+
+	public static bool operator == (SamplerYcbcrConversion l, SamplerYcbcrConversion r) => l.Handle == r.Handle;
+	public static bool operator != (SamplerYcbcrConversion l, SamplerYcbcrConversion r) => l.Handle != r.Handle;
+	public static implicit operator bool (SamplerYcbcrConversion handle) => handle.Handle != null;
 }
 
 } // namespace VVK.Vk

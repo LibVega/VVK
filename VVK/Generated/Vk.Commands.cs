@@ -116,9 +116,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public readonly delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.NV.FramebufferMixedSamplesCombination*, Vk.Result> vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV = null;
 	public readonly delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.EXT.PhysicalDeviceToolProperties*, Vk.Result> vkGetPhysicalDeviceToolPropertiesEXT = null;
 
-	/// <summary>
-	/// Creates a new function table and loads the functions.
-	/// </summary>
+	/// <summary>Creates a new function table with all null pointers.</summary>
+	public InstanceFunctionTable() { }
+
+	/// <summary>Creates a new function table and loads the functions.</summary>
 	/// <param name="inst">The instance to load the functions for.</param>
 	public InstanceFunctionTable(Vk.Instance inst)
 	{
@@ -769,6 +770,9 @@ public unsafe sealed partial class DeviceFunctionTable
 	public readonly delegate* unmanaged<Vk.Device, Vk.EXT.PrivateDataSlot, Vk.AllocationCallbacks*, void> vkDestroyPrivateDataSlotEXT = null;
 	public readonly delegate* unmanaged<Vk.Device, Vk.ObjectType, ulong, Vk.EXT.PrivateDataSlot, ulong, Vk.Result> vkSetPrivateDataEXT = null;
 	public readonly delegate* unmanaged<Vk.Device, Vk.ObjectType, ulong, Vk.EXT.PrivateDataSlot, ulong*, void> vkGetPrivateDataEXT = null;
+
+	/// <summary>Creates a new function table with all null pointers.</summary>
+	public DeviceFunctionTable() { }
 
 	/// <summary>
 	/// Creates a new function table and loads the functions.
