@@ -8,7 +8,10 @@ using System;
 
 namespace VVK.Vk
 {
-	// Loader functions
+	/// <summary>
+	/// Contains a table of loaded function pointers for VkInstance-scope functions. Also contains the static
+	/// global-scope functions.
+	/// </summary>
 	public unsafe sealed partial class InstanceFunctionTable
 	{
 		private static void* LoadFunc(Vk.Instance inst, string name)
@@ -31,7 +34,9 @@ namespace VVK.Vk
 		}
 	}
 
-	// Loader functions
+	/// <summary>
+	/// Contains a table of loaded function pointers for VkDevice-scope functions.
+	/// </summary>
 	public unsafe sealed partial class DeviceFunctionTable
 	{
 		private static void* LoadFunc(Vk.Device dev, string name)
