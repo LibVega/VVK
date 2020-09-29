@@ -53,6 +53,11 @@ namespace Gen
 				}
 			}
 
+			// Generate the wrapper calls
+			if (!GenerateWrappers(res)) {
+				return false;
+			}
+
 			return true;
 		}
 
@@ -93,14 +98,14 @@ namespace Gen
 					// Global functions
 					block.WriteLine("/* Global Functions */");
 					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Global)) {
-						block.WriteLine($"public static readonly {cmd.Prototype} {cmd.Name} = null;");
+						block.WriteLine($"public static readonly {cmd.PtrPrototype} {cmd.Name} = null;");
 					}
 					block.WriteLine();
 
 					// Instance functions
 					block.WriteLine("/* Instance Functions */");
 					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Instance)) {
-						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name} = null;");
+						block.WriteLine($"public readonly {cmd.PtrPrototype} {cmd.Name} = null;");
 					}
 					block.WriteLine();
 
@@ -123,12 +128,12 @@ namespace Gen
 							}
 							else if (cmd.IsCore) { // Throw exception when we cant load core functions
 								ctor.WriteLine($"{cmd.Name} =");
-								ctor.WriteLine($"\t({cmd.Prototype})LoadFunc(inst, \"{cmd.Name}\");");
+								ctor.WriteLine($"\t({cmd.PtrPrototype})LoadFunc(inst, \"{cmd.Name}\");");
 							}
 							else { // Don't throw exception for vendor functions
 								ctor.WriteLine($"if (TryLoadFunc(inst, \"{cmd.Name}\", out addr)) {{");
 								ctor.WriteLine($"\t{cmd.Name} =");
-								ctor.WriteLine($"\t\t({cmd.Prototype})addr;");
+								ctor.WriteLine($"\t\t({cmd.PtrPrototype})addr;");
 								ctor.WriteLine($"}}");
 							}
 						}
@@ -138,7 +143,7 @@ namespace Gen
 					using (var ctor = block.PushBlock("static InstanceFunctionTable()")) {
 						foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Global)) {
 							ctor.WriteLine($"{cmd.Name} =");
-							ctor.WriteLine($"\t({cmd.Prototype})VulkanLibrary.GetExport(\"{cmd.Name}\").ToPointer();");
+							ctor.WriteLine($"\t({cmd.PtrPrototype})VulkanLibrary.GetExport(\"{cmd.Name}\").ToPointer();");
 						}
 					}
 				}
@@ -147,7 +152,7 @@ namespace Gen
 				using (var block = file.PushBlock("public unsafe sealed partial class DeviceFunctionTable")) {
 					// Write the fields
 					foreach (var cmd in res.Commands.Values.Where(c => c.Scope == CommandScope.Device)) {
-						block.WriteLine($"public readonly {cmd.Prototype} {cmd.Name} = null;");
+						block.WriteLine($"public readonly {cmd.PtrPrototype} {cmd.Name} = null;");
 					}
 					block.WriteLine();
 
@@ -172,12 +177,12 @@ namespace Gen
 							}
 							else if (cmd.IsCore) { // Throw exception when we cant load core functions
 								ctor.WriteLine($"{cmd.Name} =");
-								ctor.WriteLine($"\t({cmd.Prototype})LoadFunc(dev, \"{cmd.Name}\");");
+								ctor.WriteLine($"\t({cmd.PtrPrototype})LoadFunc(dev, \"{cmd.Name}\");");
 							}
 							else { // Don't throw exception for vendor functions
 								ctor.WriteLine($"if (TryLoadFunc(dev, \"{cmd.Name}\", out addr)) {{");
 								ctor.WriteLine($"\t{cmd.Name} =");
-								ctor.WriteLine($"\t\t({cmd.Prototype})addr;");
+								ctor.WriteLine($"\t\t({cmd.PtrPrototype})addr;");
 								ctor.WriteLine($"}}");
 							}
 						}
@@ -351,6 +356,80 @@ namespace Gen
 			}
 			catch (Exception ex) {
 				Program.PrintError($"Failed to generate handles for {vendor.DisplayName} - {ex.Message}");
+				return false;
+			}
+
+			return true;
+		}
+
+		// Wrapper generation (call wrappers for Vulkan* wrapper objects)
+		private static bool GenerateWrappers(ProcessResults proc)
+		{
+			Console.WriteLine("Generating wrapper calls...");
+
+			// Generate instance wrappers
+			try {
+				using var file = new SourceFile("VulkanInstance.cs", "VVK");
+				using var block = file.PushBlock("public unsafe sealed partial class VulkanInstance : IDisposable");
+
+				// Loop over global functions
+				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.Scope == CommandScope.Global)) {
+					var argStr = String.Join(", ", cmdSpec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
+					var callStr = String.Join(", ", cmdSpec.Arguments.Select(arg => arg.Name));
+					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					block.WriteLine($"public static {cmdSpec.ReturnType} {cmdSpec.Name.Substring(2)}({argStr})");
+					block.WriteLine($"\t=> Vk.InstanceFunctionTable.{cmdSpec.Name}({callStr});");
+					block.WriteLine();
+				}
+
+				// Loop over instance functions
+				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.Scope == CommandScope.Instance)) {
+					var argStr = String.Join(", ", cmdSpec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
+					var callStr = String.Join(", ", cmdSpec.Arguments.Select(arg => arg.Name));
+					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					block.WriteLine($"public {cmdSpec.ReturnType} {cmdSpec.Name.Substring(2)}({argStr})");
+					if (cmdSpec.IsCore) {
+						block.WriteLine($"\t=> Functions.{cmdSpec.Name}({callStr});");
+					}
+					else {
+						block.WriteLine( "{");
+						block.WriteLine($"\tif (Functions.{cmdSpec.Name} == null) {{ throw new VVK.FunctionNotLoadedException(\"{cmdSpec.Name}\"); }}");
+						block.WriteLine($"\t{((cmdSpec.ReturnType == "void") ? "" : "return ")}Functions.{cmdSpec.Name}({callStr});");
+						block.WriteLine( "}");
+					}
+					block.WriteLine();
+				}
+			}
+			catch (Exception ex) {
+				Program.PrintError($"Failed to generate VulkanInstance wrappers - {ex.Message}");
+				return false;
+			}
+
+			// Generate device wrappers
+			try {
+				using var file = new SourceFile("VulkanDevice.cs", "VVK");
+				using var block = file.PushBlock("public unsafe sealed partial class VulkanDevice : IDisposable");
+
+				// Loop over device functions
+				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.Scope == CommandScope.Device)) {
+					var argStr = String.Join(", ", cmdSpec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
+					var callStr = String.Join(", ", cmdSpec.Arguments.Select(arg => arg.Name));
+					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					block.WriteLine($"public {cmdSpec.ReturnType} {cmdSpec.Name.Substring(2)}({argStr})");
+					if (cmdSpec.IsCore) {
+						block.WriteLine($"\t=> Functions.{cmdSpec.Name}({callStr});");
+					}
+					else {
+						block.WriteLine("{");
+						block.WriteLine($"\tif (Functions.{cmdSpec.Name} == null) {{ throw new VVK.FunctionNotLoadedException(\"{cmdSpec.Name}\"); }}");
+						block.WriteLine($"\t{((cmdSpec.ReturnType == "void") ? "" : "return ")}Functions.{cmdSpec.Name}({callStr});");
+						block.WriteLine("}");
+					}
+					block.WriteLine();
+				}
+			}
+			catch (Exception ex) {
+				Program.PrintError($"Failed to generate VulkanDevice wrappers - {ex.Message}");
 				return false;
 			}
 

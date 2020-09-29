@@ -18,8 +18,8 @@ public unsafe sealed partial class InstanceFunctionTable
 {
 	/* Global Functions */
 	public static readonly delegate* unmanaged<Vk.InstanceCreateInfo*, Vk.AllocationCallbacks*, Vk.Instance*, Vk.Result> vkCreateInstance = null;
-	public static readonly delegate* unmanaged<Vk.Device, byte*, delegate* managed<void>> vkGetDeviceProcAddr = null;
-	public static readonly delegate* unmanaged<Vk.Instance, byte*, delegate* managed<void>> vkGetInstanceProcAddr = null;
+	public static readonly delegate* unmanaged<Vk.Device, byte*, delegate* unmanaged<void>> vkGetDeviceProcAddr = null;
+	public static readonly delegate* unmanaged<Vk.Instance, byte*, delegate* unmanaged<void>> vkGetInstanceProcAddr = null;
 	public static readonly delegate* unmanaged<uint*, Vk.Result> vkEnumerateInstanceVersion = null;
 	public static readonly delegate* unmanaged<uint*, Vk.LayerProperties*, Vk.Result> vkEnumerateInstanceLayerProperties = null;
 	public static readonly delegate* unmanaged<byte*, uint*, Vk.ExtensionProperties*, Vk.Result> vkEnumerateInstanceExtensionProperties = null;
@@ -413,9 +413,9 @@ public unsafe sealed partial class InstanceFunctionTable
 		vkCreateInstance =
 			(delegate* unmanaged<Vk.InstanceCreateInfo*, Vk.AllocationCallbacks*, Vk.Instance*, Vk.Result>)VulkanLibrary.GetExport("vkCreateInstance").ToPointer();
 		vkGetDeviceProcAddr =
-			(delegate* unmanaged<Vk.Device, byte*, delegate* managed<void>>)VulkanLibrary.GetExport("vkGetDeviceProcAddr").ToPointer();
+			(delegate* unmanaged<Vk.Device, byte*, delegate* unmanaged<void>>)VulkanLibrary.GetExport("vkGetDeviceProcAddr").ToPointer();
 		vkGetInstanceProcAddr =
-			(delegate* unmanaged<Vk.Instance, byte*, delegate* managed<void>>)VulkanLibrary.GetExport("vkGetInstanceProcAddr").ToPointer();
+			(delegate* unmanaged<Vk.Instance, byte*, delegate* unmanaged<void>>)VulkanLibrary.GetExport("vkGetInstanceProcAddr").ToPointer();
 		vkEnumerateInstanceVersion =
 			(delegate* unmanaged<uint*, Vk.Result>)VulkanLibrary.GetExport("vkEnumerateInstanceVersion").ToPointer();
 		vkEnumerateInstanceLayerProperties =
