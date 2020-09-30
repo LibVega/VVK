@@ -41,169 +41,169 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 		=> new(Vk.InstanceFunctionTable.vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties), "vkEnumerateInstanceExtensionProperties");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DestroyInstance(Vk.Instance instance, Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyInstance(instance, pAllocator);
+	public void DestroyInstance(Vk.AllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyInstance(Handle, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EnumeratePhysicalDevices(Vk.Instance instance, uint* pPhysicalDeviceCount, Vk.PhysicalDevice* pPhysicalDevices)
-		=> new(Functions.vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices), "vkEnumeratePhysicalDevices");
+	public VulkanResult EnumeratePhysicalDevices(uint* pPhysicalDeviceCount, Vk.PhysicalDevice* pPhysicalDevices)
+		=> new(Functions.vkEnumeratePhysicalDevices(Handle, pPhysicalDeviceCount, pPhysicalDevices), "vkEnumeratePhysicalDevices");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateAndroidSurfaceKHR(Vk.Instance instance, Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateAndroidSurfaceKHR(Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateAndroidSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateAndroidSurfaceKHR"); }
-		return new(Functions.vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateAndroidSurfaceKHR");
+		return new(Functions.vkCreateAndroidSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateAndroidSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateDisplayPlaneSurfaceKHR(Vk.Instance instance, Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateDisplayPlaneSurfaceKHR(Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateDisplayPlaneSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateDisplayPlaneSurfaceKHR"); }
-		return new(Functions.vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateDisplayPlaneSurfaceKHR");
+		return new(Functions.vkCreateDisplayPlaneSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateDisplayPlaneSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DestroySurfaceKHR(Vk.Instance instance, Vk.KHR.Surface surface, Vk.AllocationCallbacks* pAllocator)
+	public void DestroySurfaceKHR(Vk.KHR.Surface surface, Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroySurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkDestroySurfaceKHR"); }
-		Functions.vkDestroySurfaceKHR(instance, surface, pAllocator);
+		Functions.vkDestroySurfaceKHR(Handle, surface, pAllocator);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateViSurfaceNN(Vk.Instance instance, Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateViSurfaceNN(Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateViSurfaceNN == null) { throw new VVK.FunctionNotLoadedException("vkCreateViSurfaceNN"); }
-		return new(Functions.vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface), "vkCreateViSurfaceNN");
+		return new(Functions.vkCreateViSurfaceNN(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateViSurfaceNN");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateWaylandSurfaceKHR(Vk.Instance instance, Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateWaylandSurfaceKHR(Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateWaylandSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateWaylandSurfaceKHR"); }
-		return new(Functions.vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateWaylandSurfaceKHR");
+		return new(Functions.vkCreateWaylandSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateWaylandSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateWin32SurfaceKHR(Vk.Instance instance, Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateWin32SurfaceKHR(Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateWin32SurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateWin32SurfaceKHR"); }
-		return new(Functions.vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateWin32SurfaceKHR");
+		return new(Functions.vkCreateWin32SurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateWin32SurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateXlibSurfaceKHR(Vk.Instance instance, Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateXlibSurfaceKHR(Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateXlibSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateXlibSurfaceKHR"); }
-		return new(Functions.vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateXlibSurfaceKHR");
+		return new(Functions.vkCreateXlibSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateXlibSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateXcbSurfaceKHR(Vk.Instance instance, Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateXcbSurfaceKHR(Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateXcbSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateXcbSurfaceKHR"); }
-		return new(Functions.vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateXcbSurfaceKHR");
+		return new(Functions.vkCreateXcbSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateXcbSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateDirectFBSurfaceEXT(Vk.Instance instance, Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateDirectFBSurfaceEXT(Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateDirectFBSurfaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateDirectFBSurfaceEXT"); }
-		return new(Functions.vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface), "vkCreateDirectFBSurfaceEXT");
+		return new(Functions.vkCreateDirectFBSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateDirectFBSurfaceEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateImagePipeSurfaceFUCHSIA(Vk.Instance instance, Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateImagePipeSurfaceFUCHSIA(Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateImagePipeSurfaceFUCHSIA == null) { throw new VVK.FunctionNotLoadedException("vkCreateImagePipeSurfaceFUCHSIA"); }
-		return new(Functions.vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface), "vkCreateImagePipeSurfaceFUCHSIA");
+		return new(Functions.vkCreateImagePipeSurfaceFUCHSIA(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateImagePipeSurfaceFUCHSIA");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateStreamDescriptorSurfaceGGP(Vk.Instance instance, Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateStreamDescriptorSurfaceGGP(Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateStreamDescriptorSurfaceGGP == null) { throw new VVK.FunctionNotLoadedException("vkCreateStreamDescriptorSurfaceGGP"); }
-		return new(Functions.vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface), "vkCreateStreamDescriptorSurfaceGGP");
+		return new(Functions.vkCreateStreamDescriptorSurfaceGGP(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateStreamDescriptorSurfaceGGP");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateDebugReportCallbackEXT(Vk.Instance instance, Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugReportCallback* pCallback)
+	public VulkanResult CreateDebugReportCallbackEXT(Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugReportCallback* pCallback)
 	{
 		if (Functions.vkCreateDebugReportCallbackEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateDebugReportCallbackEXT"); }
-		return new(Functions.vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback), "vkCreateDebugReportCallbackEXT");
+		return new(Functions.vkCreateDebugReportCallbackEXT(Handle, pCreateInfo, pAllocator, pCallback), "vkCreateDebugReportCallbackEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DestroyDebugReportCallbackEXT(Vk.Instance instance, Vk.EXT.DebugReportCallback callback, Vk.AllocationCallbacks* pAllocator)
+	public void DestroyDebugReportCallbackEXT(Vk.EXT.DebugReportCallback callback, Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroyDebugReportCallbackEXT == null) { throw new VVK.FunctionNotLoadedException("vkDestroyDebugReportCallbackEXT"); }
-		Functions.vkDestroyDebugReportCallbackEXT(instance, callback, pAllocator);
+		Functions.vkDestroyDebugReportCallbackEXT(Handle, callback, pAllocator);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DebugReportMessageEXT(Vk.Instance instance, Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, byte* pLayerPrefix, byte* pMessage)
+	public void DebugReportMessageEXT(Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, byte* pLayerPrefix, byte* pMessage)
 	{
 		if (Functions.vkDebugReportMessageEXT == null) { throw new VVK.FunctionNotLoadedException("vkDebugReportMessageEXT"); }
-		Functions.vkDebugReportMessageEXT(instance, flags, objectType, @object, location, messageCode, pLayerPrefix, pMessage);
+		Functions.vkDebugReportMessageEXT(Handle, flags, objectType, @object, location, messageCode, pLayerPrefix, pMessage);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EnumeratePhysicalDeviceGroups(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
-		=> new(Functions.vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties), "vkEnumeratePhysicalDeviceGroups");
+	public VulkanResult EnumeratePhysicalDeviceGroups(uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+		=> new(Functions.vkEnumeratePhysicalDeviceGroups(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties), "vkEnumeratePhysicalDeviceGroups");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EnumeratePhysicalDeviceGroupsKHR(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+	public VulkanResult EnumeratePhysicalDeviceGroupsKHR(uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 	{
 		if (Functions.vkEnumeratePhysicalDeviceGroupsKHR == null) { throw new VVK.FunctionNotLoadedException("vkEnumeratePhysicalDeviceGroupsKHR"); }
-		return new(Functions.vkEnumeratePhysicalDeviceGroupsKHR(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties), "vkEnumeratePhysicalDeviceGroupsKHR");
+		return new(Functions.vkEnumeratePhysicalDeviceGroupsKHR(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties), "vkEnumeratePhysicalDeviceGroupsKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateIOSSurfaceMVK(Vk.Instance instance, Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateIOSSurfaceMVK(Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateIOSSurfaceMVK == null) { throw new VVK.FunctionNotLoadedException("vkCreateIOSSurfaceMVK"); }
-		return new(Functions.vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface), "vkCreateIOSSurfaceMVK");
+		return new(Functions.vkCreateIOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateIOSSurfaceMVK");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateMacOSSurfaceMVK(Vk.Instance instance, Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateMacOSSurfaceMVK(Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateMacOSSurfaceMVK == null) { throw new VVK.FunctionNotLoadedException("vkCreateMacOSSurfaceMVK"); }
-		return new(Functions.vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface), "vkCreateMacOSSurfaceMVK");
+		return new(Functions.vkCreateMacOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateMacOSSurfaceMVK");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateMetalSurfaceEXT(Vk.Instance instance, Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateMetalSurfaceEXT(Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateMetalSurfaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateMetalSurfaceEXT"); }
-		return new(Functions.vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface), "vkCreateMetalSurfaceEXT");
+		return new(Functions.vkCreateMetalSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateMetalSurfaceEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateDebugUtilsMessengerEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugUtilsMessenger* pMessenger)
+	public VulkanResult CreateDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugUtilsMessenger* pMessenger)
 	{
 		if (Functions.vkCreateDebugUtilsMessengerEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateDebugUtilsMessengerEXT"); }
-		return new(Functions.vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger), "vkCreateDebugUtilsMessengerEXT");
+		return new(Functions.vkCreateDebugUtilsMessengerEXT(Handle, pCreateInfo, pAllocator, pMessenger), "vkCreateDebugUtilsMessengerEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DestroyDebugUtilsMessengerEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessenger messenger, Vk.AllocationCallbacks* pAllocator)
+	public void DestroyDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessenger messenger, Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroyDebugUtilsMessengerEXT == null) { throw new VVK.FunctionNotLoadedException("vkDestroyDebugUtilsMessengerEXT"); }
-		Functions.vkDestroyDebugUtilsMessengerEXT(instance, messenger, pAllocator);
+		Functions.vkDestroyDebugUtilsMessengerEXT(Handle, messenger, pAllocator);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void SubmitDebugUtilsMessageEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity, Vk.EXT.DebugUtilsMessageTypeFlags messageTypes, Vk.EXT.DebugUtilsMessengerCallbackData* pCallbackData)
+	public void SubmitDebugUtilsMessageEXT(Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity, Vk.EXT.DebugUtilsMessageTypeFlags messageTypes, Vk.EXT.DebugUtilsMessengerCallbackData* pCallbackData)
 	{
 		if (Functions.vkSubmitDebugUtilsMessageEXT == null) { throw new VVK.FunctionNotLoadedException("vkSubmitDebugUtilsMessageEXT"); }
-		Functions.vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, pCallbackData);
+		Functions.vkSubmitDebugUtilsMessageEXT(Handle, messageSeverity, messageTypes, pCallbackData);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateHeadlessSurfaceEXT(Vk.Instance instance, Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateHeadlessSurfaceEXT(Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateHeadlessSurfaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateHeadlessSurfaceEXT"); }
-		return new(Functions.vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface), "vkCreateHeadlessSurfaceEXT");
+		return new(Functions.vkCreateHeadlessSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface), "vkCreateHeadlessSurfaceEXT");
 	}
 
 }

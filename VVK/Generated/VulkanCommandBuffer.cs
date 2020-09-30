@@ -17,695 +17,695 @@ namespace VVK
 public unsafe sealed partial class VulkanCommandBuffer
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult BeginCommandBuffer(Vk.CommandBuffer commandBuffer, Vk.CommandBufferBeginInfo* pBeginInfo)
-		=> new(Parent.Functions.vkBeginCommandBuffer(commandBuffer, pBeginInfo), "vkBeginCommandBuffer");
+	public VulkanResult BeginCommandBuffer(Vk.CommandBufferBeginInfo* pBeginInfo)
+		=> new(Parent.Functions.vkBeginCommandBuffer(Handle, pBeginInfo), "vkBeginCommandBuffer");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EndCommandBuffer(Vk.CommandBuffer commandBuffer)
-		=> new(Parent.Functions.vkEndCommandBuffer(commandBuffer), "vkEndCommandBuffer");
+	public VulkanResult EndCommandBuffer()
+		=> new(Parent.Functions.vkEndCommandBuffer(Handle), "vkEndCommandBuffer");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult ResetCommandBuffer(Vk.CommandBuffer commandBuffer, Vk.CommandBufferResetFlags flags)
-		=> new(Parent.Functions.vkResetCommandBuffer(commandBuffer, flags), "vkResetCommandBuffer");
+	public VulkanResult ResetCommandBuffer(Vk.CommandBufferResetFlags flags)
+		=> new(Parent.Functions.vkResetCommandBuffer(Handle, flags), "vkResetCommandBuffer");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindPipeline(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline)
-		=> Parent.Functions.vkCmdBindPipeline(commandBuffer, pipelineBindPoint, pipeline);
+	public void BindPipeline(Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline)
+		=> Parent.Functions.vkCmdBindPipeline(Handle, pipelineBindPoint, pipeline);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewport(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.Viewport* pViewports)
-		=> Parent.Functions.vkCmdSetViewport(commandBuffer, firstViewport, viewportCount, pViewports);
+	public void SetViewport(uint firstViewport, uint viewportCount, Vk.Viewport* pViewports)
+		=> Parent.Functions.vkCmdSetViewport(Handle, firstViewport, viewportCount, pViewports);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetScissor(Vk.CommandBuffer commandBuffer, uint firstScissor, uint scissorCount, Vk.Rect2D* pScissors)
-		=> Parent.Functions.vkCmdSetScissor(commandBuffer, firstScissor, scissorCount, pScissors);
+	public void SetScissor(uint firstScissor, uint scissorCount, Vk.Rect2D* pScissors)
+		=> Parent.Functions.vkCmdSetScissor(Handle, firstScissor, scissorCount, pScissors);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetLineWidth(Vk.CommandBuffer commandBuffer, float lineWidth)
-		=> Parent.Functions.vkCmdSetLineWidth(commandBuffer, lineWidth);
+	public void SetLineWidth(float lineWidth)
+		=> Parent.Functions.vkCmdSetLineWidth(Handle, lineWidth);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthBias(Vk.CommandBuffer commandBuffer, float depthBiasConstantFactor, float depthBiasClamp, float depthBiasSlopeFactor)
-		=> Parent.Functions.vkCmdSetDepthBias(commandBuffer, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
+	public void SetDepthBias(float depthBiasConstantFactor, float depthBiasClamp, float depthBiasSlopeFactor)
+		=> Parent.Functions.vkCmdSetDepthBias(Handle, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetBlendConstants(Vk.CommandBuffer commandBuffer, float* blendConstants)
-		=> Parent.Functions.vkCmdSetBlendConstants(commandBuffer, blendConstants);
+	public void SetBlendConstants(float* blendConstants)
+		=> Parent.Functions.vkCmdSetBlendConstants(Handle, blendConstants);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthBounds(Vk.CommandBuffer commandBuffer, float minDepthBounds, float maxDepthBounds)
-		=> Parent.Functions.vkCmdSetDepthBounds(commandBuffer, minDepthBounds, maxDepthBounds);
+	public void SetDepthBounds(float minDepthBounds, float maxDepthBounds)
+		=> Parent.Functions.vkCmdSetDepthBounds(Handle, minDepthBounds, maxDepthBounds);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilCompareMask(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, uint compareMask)
-		=> Parent.Functions.vkCmdSetStencilCompareMask(commandBuffer, faceMask, compareMask);
+	public void SetStencilCompareMask(Vk.StencilFaceFlags faceMask, uint compareMask)
+		=> Parent.Functions.vkCmdSetStencilCompareMask(Handle, faceMask, compareMask);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilWriteMask(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, uint writeMask)
-		=> Parent.Functions.vkCmdSetStencilWriteMask(commandBuffer, faceMask, writeMask);
+	public void SetStencilWriteMask(Vk.StencilFaceFlags faceMask, uint writeMask)
+		=> Parent.Functions.vkCmdSetStencilWriteMask(Handle, faceMask, writeMask);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilReference(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, uint reference)
-		=> Parent.Functions.vkCmdSetStencilReference(commandBuffer, faceMask, reference);
+	public void SetStencilReference(Vk.StencilFaceFlags faceMask, uint reference)
+		=> Parent.Functions.vkCmdSetStencilReference(Handle, faceMask, reference);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindDescriptorSets(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint firstSet, uint descriptorSetCount, Vk.DescriptorSet* pDescriptorSets, uint dynamicOffsetCount, uint* pDynamicOffsets)
-		=> Parent.Functions.vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
+	public void BindDescriptorSets(Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint firstSet, uint descriptorSetCount, Vk.DescriptorSet* pDescriptorSets, uint dynamicOffsetCount, uint* pDynamicOffsets)
+		=> Parent.Functions.vkCmdBindDescriptorSets(Handle, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindIndexBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.IndexType indexType)
-		=> Parent.Functions.vkCmdBindIndexBuffer(commandBuffer, buffer, offset, indexType);
+	public void BindIndexBuffer(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.IndexType indexType)
+		=> Parent.Functions.vkCmdBindIndexBuffer(Handle, buffer, offset, indexType);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindVertexBuffers(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets)
-		=> Parent.Functions.vkCmdBindVertexBuffers(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets);
+	public void BindVertexBuffers(uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets)
+		=> Parent.Functions.vkCmdBindVertexBuffers(Handle, firstBinding, bindingCount, pBuffers, pOffsets);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDraw(Vk.CommandBuffer commandBuffer, uint vertexCount, uint instanceCount, uint firstVertex, uint firstInstance)
-		=> Parent.Functions.vkCmdDraw(commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
+	public void Draw(uint vertexCount, uint instanceCount, uint firstVertex, uint firstInstance)
+		=> Parent.Functions.vkCmdDraw(Handle, vertexCount, instanceCount, firstVertex, firstInstance);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexed(Vk.CommandBuffer commandBuffer, uint indexCount, uint instanceCount, uint firstIndex, int vertexOffset, uint firstInstance)
-		=> Parent.Functions.vkCmdDrawIndexed(commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+	public void DrawIndexed(uint indexCount, uint instanceCount, uint firstIndex, int vertexOffset, uint firstInstance)
+		=> Parent.Functions.vkCmdDrawIndexed(Handle, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirect(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
-		=> Parent.Functions.vkCmdDrawIndirect(commandBuffer, buffer, offset, drawCount, stride);
+	public void DrawIndirect(Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
+		=> Parent.Functions.vkCmdDrawIndirect(Handle, buffer, offset, drawCount, stride);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirect(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
-		=> Parent.Functions.vkCmdDrawIndexedIndirect(commandBuffer, buffer, offset, drawCount, stride);
+	public void DrawIndexedIndirect(Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
+		=> Parent.Functions.vkCmdDrawIndexedIndirect(Handle, buffer, offset, drawCount, stride);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatch(Vk.CommandBuffer commandBuffer, uint groupCountX, uint groupCountY, uint groupCountZ)
-		=> Parent.Functions.vkCmdDispatch(commandBuffer, groupCountX, groupCountY, groupCountZ);
+	public void Dispatch(uint groupCountX, uint groupCountY, uint groupCountZ)
+		=> Parent.Functions.vkCmdDispatch(Handle, groupCountX, groupCountY, groupCountZ);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatchIndirect(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset)
-		=> Parent.Functions.vkCmdDispatchIndirect(commandBuffer, buffer, offset);
+	public void DispatchIndirect(Vk.Buffer buffer, Vk.DeviceSize offset)
+		=> Parent.Functions.vkCmdDispatchIndirect(Handle, buffer, offset);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferCopy* pRegions)
-		=> Parent.Functions.vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, regionCount, pRegions);
+	public void CopyBuffer(Vk.Buffer srcBuffer, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferCopy* pRegions)
+		=> Parent.Functions.vkCmdCopyBuffer(Handle, srcBuffer, dstBuffer, regionCount, pRegions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageCopy* pRegions)
-		=> Parent.Functions.vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+	public void CopyImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageCopy* pRegions)
+		=> Parent.Functions.vkCmdCopyImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBlitImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageBlit* pRegions, Vk.Filter filter)
-		=> Parent.Functions.vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
+	public void BlitImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageBlit* pRegions, Vk.Filter filter)
+		=> Parent.Functions.vkCmdBlitImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyBufferToImage(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.BufferImageCopy* pRegions)
-		=> Parent.Functions.vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
+	public void CopyBufferToImage(Vk.Buffer srcBuffer, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.BufferImageCopy* pRegions)
+		=> Parent.Functions.vkCmdCopyBufferToImage(Handle, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyImageToBuffer(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferImageCopy* pRegions)
-		=> Parent.Functions.vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
+	public void CopyImageToBuffer(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferImageCopy* pRegions)
+		=> Parent.Functions.vkCmdCopyImageToBuffer(Handle, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdUpdateBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize dataSize, void* pData)
-		=> Parent.Functions.vkCmdUpdateBuffer(commandBuffer, dstBuffer, dstOffset, dataSize, pData);
+	public void UpdateBuffer(Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize dataSize, void* pData)
+		=> Parent.Functions.vkCmdUpdateBuffer(Handle, dstBuffer, dstOffset, dataSize, pData);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdFillBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize size, uint data)
-		=> Parent.Functions.vkCmdFillBuffer(commandBuffer, dstBuffer, dstOffset, size, data);
+	public void FillBuffer(Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize size, uint data)
+		=> Parent.Functions.vkCmdFillBuffer(Handle, dstBuffer, dstOffset, size, data);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdClearColorImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearColorValue* pColor, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
-		=> Parent.Functions.vkCmdClearColorImage(commandBuffer, image, imageLayout, pColor, rangeCount, pRanges);
+	public void ClearColorImage(Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearColorValue* pColor, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
+		=> Parent.Functions.vkCmdClearColorImage(Handle, image, imageLayout, pColor, rangeCount, pRanges);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdClearDepthStencilImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearDepthStencilValue* pDepthStencil, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
-		=> Parent.Functions.vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, pDepthStencil, rangeCount, pRanges);
+	public void ClearDepthStencilImage(Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearDepthStencilValue* pDepthStencil, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
+		=> Parent.Functions.vkCmdClearDepthStencilImage(Handle, image, imageLayout, pDepthStencil, rangeCount, pRanges);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdClearAttachments(Vk.CommandBuffer commandBuffer, uint attachmentCount, Vk.ClearAttachment* pAttachments, uint rectCount, Vk.ClearRect* pRects)
-		=> Parent.Functions.vkCmdClearAttachments(commandBuffer, attachmentCount, pAttachments, rectCount, pRects);
+	public void ClearAttachments(uint attachmentCount, Vk.ClearAttachment* pAttachments, uint rectCount, Vk.ClearRect* pRects)
+		=> Parent.Functions.vkCmdClearAttachments(Handle, attachmentCount, pAttachments, rectCount, pRects);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdResolveImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageResolve* pRegions)
-		=> Parent.Functions.vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+	public void ResolveImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageResolve* pRegions)
+		=> Parent.Functions.vkCmdResolveImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetEvent(Vk.CommandBuffer commandBuffer, Vk.Event @event, Vk.PipelineStageFlags stageMask)
-		=> Parent.Functions.vkCmdSetEvent(commandBuffer, @event, stageMask);
+	public void SetEvent(Vk.Event @event, Vk.PipelineStageFlags stageMask)
+		=> Parent.Functions.vkCmdSetEvent(Handle, @event, stageMask);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdResetEvent(Vk.CommandBuffer commandBuffer, Vk.Event @event, Vk.PipelineStageFlags stageMask)
-		=> Parent.Functions.vkCmdResetEvent(commandBuffer, @event, stageMask);
+	public void ResetEvent(Vk.Event @event, Vk.PipelineStageFlags stageMask)
+		=> Parent.Functions.vkCmdResetEvent(Handle, @event, stageMask);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWaitEvents(Vk.CommandBuffer commandBuffer, uint eventCount, Vk.Event* pEvents, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
-		=> Parent.Functions.vkCmdWaitEvents(commandBuffer, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+	public void WaitEvents(uint eventCount, Vk.Event* pEvents, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
+		=> Parent.Functions.vkCmdWaitEvents(Handle, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPipelineBarrier(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, Vk.DependencyFlags dependencyFlags, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
-		=> Parent.Functions.vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+	public void PipelineBarrier(Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, Vk.DependencyFlags dependencyFlags, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
+		=> Parent.Functions.vkCmdPipelineBarrier(Handle, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginQuery(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags)
-		=> Parent.Functions.vkCmdBeginQuery(commandBuffer, queryPool, query, flags);
+	public void BeginQuery(Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags)
+		=> Parent.Functions.vkCmdBeginQuery(Handle, queryPool, query, flags);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndQuery(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query)
-		=> Parent.Functions.vkCmdEndQuery(commandBuffer, queryPool, query);
+	public void EndQuery(Vk.QueryPool queryPool, uint query)
+		=> Parent.Functions.vkCmdEndQuery(Handle, queryPool, query);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginConditionalRenderingEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.ConditionalRenderingBeginInfo* pConditionalRenderingBegin)
+	public void BeginConditionalRenderingEXT(Vk.EXT.ConditionalRenderingBeginInfo* pConditionalRenderingBegin)
 	{
 		if (Parent.Functions.vkCmdBeginConditionalRenderingEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginConditionalRenderingEXT"); }
-		Parent.Functions.vkCmdBeginConditionalRenderingEXT(commandBuffer, pConditionalRenderingBegin);
+		Parent.Functions.vkCmdBeginConditionalRenderingEXT(Handle, pConditionalRenderingBegin);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndConditionalRenderingEXT(Vk.CommandBuffer commandBuffer)
+	public void EndConditionalRenderingEXT()
 	{
 		if (Parent.Functions.vkCmdEndConditionalRenderingEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndConditionalRenderingEXT"); }
-		Parent.Functions.vkCmdEndConditionalRenderingEXT(commandBuffer);
+		Parent.Functions.vkCmdEndConditionalRenderingEXT(Handle);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdResetQueryPool(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint firstQuery, uint queryCount)
-		=> Parent.Functions.vkCmdResetQueryPool(commandBuffer, queryPool, firstQuery, queryCount);
+	public void ResetQueryPool(Vk.QueryPool queryPool, uint firstQuery, uint queryCount)
+		=> Parent.Functions.vkCmdResetQueryPool(Handle, queryPool, firstQuery, queryCount);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteTimestamp(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags pipelineStage, Vk.QueryPool queryPool, uint query)
-		=> Parent.Functions.vkCmdWriteTimestamp(commandBuffer, pipelineStage, queryPool, query);
+	public void WriteTimestamp(Vk.PipelineStageFlags pipelineStage, Vk.QueryPool queryPool, uint query)
+		=> Parent.Functions.vkCmdWriteTimestamp(Handle, pipelineStage, queryPool, query);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyQueryPoolResults(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint firstQuery, uint queryCount, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize stride, Vk.QueryResultFlags flags)
-		=> Parent.Functions.vkCmdCopyQueryPoolResults(commandBuffer, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
+	public void CopyQueryPoolResults(Vk.QueryPool queryPool, uint firstQuery, uint queryCount, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize stride, Vk.QueryResultFlags flags)
+		=> Parent.Functions.vkCmdCopyQueryPoolResults(Handle, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPushConstants(Vk.CommandBuffer commandBuffer, Vk.PipelineLayout layout, Vk.ShaderStageFlags stageFlags, uint offset, uint size, void* pValues)
-		=> Parent.Functions.vkCmdPushConstants(commandBuffer, layout, stageFlags, offset, size, pValues);
+	public void PushConstants(Vk.PipelineLayout layout, Vk.ShaderStageFlags stageFlags, uint offset, uint size, void* pValues)
+		=> Parent.Functions.vkCmdPushConstants(Handle, layout, stageFlags, offset, size, pValues);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginRenderPass(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassContents contents)
-		=> Parent.Functions.vkCmdBeginRenderPass(commandBuffer, pRenderPassBegin, contents);
+	public void BeginRenderPass(Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassContents contents)
+		=> Parent.Functions.vkCmdBeginRenderPass(Handle, pRenderPassBegin, contents);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdNextSubpass(Vk.CommandBuffer commandBuffer, Vk.SubpassContents contents)
-		=> Parent.Functions.vkCmdNextSubpass(commandBuffer, contents);
+	public void NextSubpass(Vk.SubpassContents contents)
+		=> Parent.Functions.vkCmdNextSubpass(Handle, contents);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndRenderPass(Vk.CommandBuffer commandBuffer)
-		=> Parent.Functions.vkCmdEndRenderPass(commandBuffer);
+	public void EndRenderPass()
+		=> Parent.Functions.vkCmdEndRenderPass(Handle);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdExecuteCommands(Vk.CommandBuffer commandBuffer, uint commandBufferCount, Vk.CommandBuffer* pCommandBuffers)
-		=> Parent.Functions.vkCmdExecuteCommands(commandBuffer, commandBufferCount, pCommandBuffers);
+	public void ExecuteCommands(uint commandBufferCount, Vk.CommandBuffer* pCommandBuffers)
+		=> Parent.Functions.vkCmdExecuteCommands(Handle, commandBufferCount, pCommandBuffers);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDebugMarkerBeginEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
+	public void DebugMarkerBeginEXT(Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
 	{
 		if (Parent.Functions.vkCmdDebugMarkerBeginEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDebugMarkerBeginEXT"); }
-		Parent.Functions.vkCmdDebugMarkerBeginEXT(commandBuffer, pMarkerInfo);
+		Parent.Functions.vkCmdDebugMarkerBeginEXT(Handle, pMarkerInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDebugMarkerEndEXT(Vk.CommandBuffer commandBuffer)
+	public void DebugMarkerEndEXT()
 	{
 		if (Parent.Functions.vkCmdDebugMarkerEndEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDebugMarkerEndEXT"); }
-		Parent.Functions.vkCmdDebugMarkerEndEXT(commandBuffer);
+		Parent.Functions.vkCmdDebugMarkerEndEXT(Handle);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDebugMarkerInsertEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
+	public void DebugMarkerInsertEXT(Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
 	{
 		if (Parent.Functions.vkCmdDebugMarkerInsertEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDebugMarkerInsertEXT"); }
-		Parent.Functions.vkCmdDebugMarkerInsertEXT(commandBuffer, pMarkerInfo);
+		Parent.Functions.vkCmdDebugMarkerInsertEXT(Handle, pMarkerInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdExecuteGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, Vk.Bool32 isPreprocessed, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
+	public void ExecuteGeneratedCommandsNV(Vk.Bool32 isPreprocessed, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
 	{
 		if (Parent.Functions.vkCmdExecuteGeneratedCommandsNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdExecuteGeneratedCommandsNV"); }
-		Parent.Functions.vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, pGeneratedCommandsInfo);
+		Parent.Functions.vkCmdExecuteGeneratedCommandsNV(Handle, isPreprocessed, pGeneratedCommandsInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPreprocessGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
+	public void PreprocessGeneratedCommandsNV(Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
 	{
 		if (Parent.Functions.vkCmdPreprocessGeneratedCommandsNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdPreprocessGeneratedCommandsNV"); }
-		Parent.Functions.vkCmdPreprocessGeneratedCommandsNV(commandBuffer, pGeneratedCommandsInfo);
+		Parent.Functions.vkCmdPreprocessGeneratedCommandsNV(Handle, pGeneratedCommandsInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindPipelineShaderGroupNV(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline, uint groupIndex)
+	public void BindPipelineShaderGroupNV(Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline, uint groupIndex)
 	{
 		if (Parent.Functions.vkCmdBindPipelineShaderGroupNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindPipelineShaderGroupNV"); }
-		Parent.Functions.vkCmdBindPipelineShaderGroupNV(commandBuffer, pipelineBindPoint, pipeline, groupIndex);
+		Parent.Functions.vkCmdBindPipelineShaderGroupNV(Handle, pipelineBindPoint, pipeline, groupIndex);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPushDescriptorSetKHR(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint set, uint descriptorWriteCount, Vk.WriteDescriptorSet* pDescriptorWrites)
+	public void PushDescriptorSetKHR(Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint set, uint descriptorWriteCount, Vk.WriteDescriptorSet* pDescriptorWrites)
 	{
 		if (Parent.Functions.vkCmdPushDescriptorSetKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdPushDescriptorSetKHR"); }
-		Parent.Functions.vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
+		Parent.Functions.vkCmdPushDescriptorSetKHR(Handle, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDeviceMask(Vk.CommandBuffer commandBuffer, uint deviceMask)
-		=> Parent.Functions.vkCmdSetDeviceMask(commandBuffer, deviceMask);
+	public void SetDeviceMask(uint deviceMask)
+		=> Parent.Functions.vkCmdSetDeviceMask(Handle, deviceMask);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDeviceMaskKHR(Vk.CommandBuffer commandBuffer, uint deviceMask)
+	public void SetDeviceMaskKHR(uint deviceMask)
 	{
 		if (Parent.Functions.vkCmdSetDeviceMaskKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDeviceMaskKHR"); }
-		Parent.Functions.vkCmdSetDeviceMaskKHR(commandBuffer, deviceMask);
+		Parent.Functions.vkCmdSetDeviceMaskKHR(Handle, deviceMask);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatchBase(Vk.CommandBuffer commandBuffer, uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
-		=> Parent.Functions.vkCmdDispatchBase(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
+	public void DispatchBase(uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
+		=> Parent.Functions.vkCmdDispatchBase(Handle, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatchBaseKHR(Vk.CommandBuffer commandBuffer, uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
+	public void DispatchBaseKHR(uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
 	{
 		if (Parent.Functions.vkCmdDispatchBaseKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdDispatchBaseKHR"); }
-		Parent.Functions.vkCmdDispatchBaseKHR(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
+		Parent.Functions.vkCmdDispatchBaseKHR(Handle, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPushDescriptorSetWithTemplateKHR(Vk.CommandBuffer commandBuffer, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, Vk.PipelineLayout layout, uint set, void* pData)
+	public void PushDescriptorSetWithTemplateKHR(Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, Vk.PipelineLayout layout, uint set, void* pData)
 	{
 		if (Parent.Functions.vkCmdPushDescriptorSetWithTemplateKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdPushDescriptorSetWithTemplateKHR"); }
-		Parent.Functions.vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer, descriptorUpdateTemplate, layout, set, pData);
+		Parent.Functions.vkCmdPushDescriptorSetWithTemplateKHR(Handle, descriptorUpdateTemplate, layout, set, pData);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewportWScalingNV(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.NV.ViewportWScaling* pViewportWScalings)
+	public void SetViewportWScalingNV(uint firstViewport, uint viewportCount, Vk.NV.ViewportWScaling* pViewportWScalings)
 	{
 		if (Parent.Functions.vkCmdSetViewportWScalingNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetViewportWScalingNV"); }
-		Parent.Functions.vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, viewportCount, pViewportWScalings);
+		Parent.Functions.vkCmdSetViewportWScalingNV(Handle, firstViewport, viewportCount, pViewportWScalings);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDiscardRectangleEXT(Vk.CommandBuffer commandBuffer, uint firstDiscardRectangle, uint discardRectangleCount, Vk.Rect2D* pDiscardRectangles)
+	public void SetDiscardRectangleEXT(uint firstDiscardRectangle, uint discardRectangleCount, Vk.Rect2D* pDiscardRectangles)
 	{
 		if (Parent.Functions.vkCmdSetDiscardRectangleEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDiscardRectangleEXT"); }
-		Parent.Functions.vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
+		Parent.Functions.vkCmdSetDiscardRectangleEXT(Handle, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetSampleLocationsEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.SampleLocationsInfo* pSampleLocationsInfo)
+	public void SetSampleLocationsEXT(Vk.EXT.SampleLocationsInfo* pSampleLocationsInfo)
 	{
 		if (Parent.Functions.vkCmdSetSampleLocationsEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetSampleLocationsEXT"); }
-		Parent.Functions.vkCmdSetSampleLocationsEXT(commandBuffer, pSampleLocationsInfo);
+		Parent.Functions.vkCmdSetSampleLocationsEXT(Handle, pSampleLocationsInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugUtilsLabel* pLabelInfo)
+	public void BeginDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 	{
 		if (Parent.Functions.vkCmdBeginDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginDebugUtilsLabelEXT"); }
-		Parent.Functions.vkCmdBeginDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
+		Parent.Functions.vkCmdBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer)
+	public void EndDebugUtilsLabelEXT()
 	{
 		if (Parent.Functions.vkCmdEndDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndDebugUtilsLabelEXT"); }
-		Parent.Functions.vkCmdEndDebugUtilsLabelEXT(commandBuffer);
+		Parent.Functions.vkCmdEndDebugUtilsLabelEXT(Handle);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdInsertDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugUtilsLabel* pLabelInfo)
+	public void InsertDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 	{
 		if (Parent.Functions.vkCmdInsertDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdInsertDebugUtilsLabelEXT"); }
-		Parent.Functions.vkCmdInsertDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
+		Parent.Functions.vkCmdInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteBufferMarkerAMD(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags pipelineStage, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, uint marker)
+	public void WriteBufferMarkerAMD(Vk.PipelineStageFlags pipelineStage, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, uint marker)
 	{
 		if (Parent.Functions.vkCmdWriteBufferMarkerAMD == null) { throw new VVK.FunctionNotLoadedException("vkCmdWriteBufferMarkerAMD"); }
-		Parent.Functions.vkCmdWriteBufferMarkerAMD(commandBuffer, pipelineStage, dstBuffer, dstOffset, marker);
+		Parent.Functions.vkCmdWriteBufferMarkerAMD(Handle, pipelineStage, dstBuffer, dstOffset, marker);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginRenderPass2(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
-		=> Parent.Functions.vkCmdBeginRenderPass2(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
+	public void BeginRenderPass2(Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
+		=> Parent.Functions.vkCmdBeginRenderPass2(Handle, pRenderPassBegin, pSubpassBeginInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginRenderPass2KHR(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
+	public void BeginRenderPass2KHR(Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
 	{
 		if (Parent.Functions.vkCmdBeginRenderPass2KHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginRenderPass2KHR"); }
-		Parent.Functions.vkCmdBeginRenderPass2KHR(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
+		Parent.Functions.vkCmdBeginRenderPass2KHR(Handle, pRenderPassBegin, pSubpassBeginInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdNextSubpass2(Vk.CommandBuffer commandBuffer, Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
-		=> Parent.Functions.vkCmdNextSubpass2(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
+	public void NextSubpass2(Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
+		=> Parent.Functions.vkCmdNextSubpass2(Handle, pSubpassBeginInfo, pSubpassEndInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdNextSubpass2KHR(Vk.CommandBuffer commandBuffer, Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
+	public void NextSubpass2KHR(Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
 	{
 		if (Parent.Functions.vkCmdNextSubpass2KHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdNextSubpass2KHR"); }
-		Parent.Functions.vkCmdNextSubpass2KHR(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
+		Parent.Functions.vkCmdNextSubpass2KHR(Handle, pSubpassBeginInfo, pSubpassEndInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndRenderPass2(Vk.CommandBuffer commandBuffer, Vk.SubpassEndInfo* pSubpassEndInfo)
-		=> Parent.Functions.vkCmdEndRenderPass2(commandBuffer, pSubpassEndInfo);
+	public void EndRenderPass2(Vk.SubpassEndInfo* pSubpassEndInfo)
+		=> Parent.Functions.vkCmdEndRenderPass2(Handle, pSubpassEndInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndRenderPass2KHR(Vk.CommandBuffer commandBuffer, Vk.SubpassEndInfo* pSubpassEndInfo)
+	public void EndRenderPass2KHR(Vk.SubpassEndInfo* pSubpassEndInfo)
 	{
 		if (Parent.Functions.vkCmdEndRenderPass2KHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndRenderPass2KHR"); }
-		Parent.Functions.vkCmdEndRenderPass2KHR(commandBuffer, pSubpassEndInfo);
+		Parent.Functions.vkCmdEndRenderPass2KHR(Handle, pSubpassEndInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectCount(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-		=> Parent.Functions.vkCmdDrawIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+	public void DrawIndirectCount(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
+		=> Parent.Functions.vkCmdDrawIndirectCount(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectCountKHR(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
+	public void DrawIndirectCountKHR(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
 	{
 		if (Parent.Functions.vkCmdDrawIndirectCountKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndirectCountKHR"); }
-		Parent.Functions.vkCmdDrawIndirectCountKHR(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+		Parent.Functions.vkCmdDrawIndirectCountKHR(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectCountAMD(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
+	public void DrawIndirectCountAMD(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
 	{
 		if (Parent.Functions.vkCmdDrawIndirectCountAMD == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndirectCountAMD"); }
-		Parent.Functions.vkCmdDrawIndirectCountAMD(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+		Parent.Functions.vkCmdDrawIndirectCountAMD(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirectCount(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-		=> Parent.Functions.vkCmdDrawIndexedIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+	public void DrawIndexedIndirectCount(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
+		=> Parent.Functions.vkCmdDrawIndexedIndirectCount(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirectCountKHR(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
+	public void DrawIndexedIndirectCountKHR(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
 	{
 		if (Parent.Functions.vkCmdDrawIndexedIndirectCountKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndexedIndirectCountKHR"); }
-		Parent.Functions.vkCmdDrawIndexedIndirectCountKHR(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+		Parent.Functions.vkCmdDrawIndexedIndirectCountKHR(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirectCountAMD(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
+	public void DrawIndexedIndirectCountAMD(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
 	{
 		if (Parent.Functions.vkCmdDrawIndexedIndirectCountAMD == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndexedIndirectCountAMD"); }
-		Parent.Functions.vkCmdDrawIndexedIndirectCountAMD(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+		Parent.Functions.vkCmdDrawIndexedIndirectCountAMD(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetCheckpointNV(Vk.CommandBuffer commandBuffer, void* pCheckpointMarker)
+	public void SetCheckpointNV(void* pCheckpointMarker)
 	{
 		if (Parent.Functions.vkCmdSetCheckpointNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetCheckpointNV"); }
-		Parent.Functions.vkCmdSetCheckpointNV(commandBuffer, pCheckpointMarker);
+		Parent.Functions.vkCmdSetCheckpointNV(Handle, pCheckpointMarker);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindTransformFeedbackBuffersEXT(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes)
+	public void BindTransformFeedbackBuffersEXT(uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes)
 	{
 		if (Parent.Functions.vkCmdBindTransformFeedbackBuffersEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindTransformFeedbackBuffersEXT"); }
-		Parent.Functions.vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
+		Parent.Functions.vkCmdBindTransformFeedbackBuffersEXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
+	public void BeginTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
 	{
 		if (Parent.Functions.vkCmdBeginTransformFeedbackEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginTransformFeedbackEXT"); }
-		Parent.Functions.vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+		Parent.Functions.vkCmdBeginTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
+	public void EndTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
 	{
 		if (Parent.Functions.vkCmdEndTransformFeedbackEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndTransformFeedbackEXT"); }
-		Parent.Functions.vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+		Parent.Functions.vkCmdEndTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginQueryIndexedEXT(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags, uint index)
+	public void BeginQueryIndexedEXT(Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags, uint index)
 	{
 		if (Parent.Functions.vkCmdBeginQueryIndexedEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginQueryIndexedEXT"); }
-		Parent.Functions.vkCmdBeginQueryIndexedEXT(commandBuffer, queryPool, query, flags, index);
+		Parent.Functions.vkCmdBeginQueryIndexedEXT(Handle, queryPool, query, flags, index);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndQueryIndexedEXT(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query, uint index)
+	public void EndQueryIndexedEXT(Vk.QueryPool queryPool, uint query, uint index)
 	{
 		if (Parent.Functions.vkCmdEndQueryIndexedEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndQueryIndexedEXT"); }
-		Parent.Functions.vkCmdEndQueryIndexedEXT(commandBuffer, queryPool, query, index);
+		Parent.Functions.vkCmdEndQueryIndexedEXT(Handle, queryPool, query, index);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectByteCountEXT(Vk.CommandBuffer commandBuffer, uint instanceCount, uint firstInstance, Vk.Buffer counterBuffer, Vk.DeviceSize counterBufferOffset, uint counterOffset, uint vertexStride)
+	public void DrawIndirectByteCountEXT(uint instanceCount, uint firstInstance, Vk.Buffer counterBuffer, Vk.DeviceSize counterBufferOffset, uint counterOffset, uint vertexStride)
 	{
 		if (Parent.Functions.vkCmdDrawIndirectByteCountEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndirectByteCountEXT"); }
-		Parent.Functions.vkCmdDrawIndirectByteCountEXT(commandBuffer, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
+		Parent.Functions.vkCmdDrawIndirectByteCountEXT(Handle, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetExclusiveScissorNV(Vk.CommandBuffer commandBuffer, uint firstExclusiveScissor, uint exclusiveScissorCount, Vk.Rect2D* pExclusiveScissors)
+	public void SetExclusiveScissorNV(uint firstExclusiveScissor, uint exclusiveScissorCount, Vk.Rect2D* pExclusiveScissors)
 	{
 		if (Parent.Functions.vkCmdSetExclusiveScissorNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetExclusiveScissorNV"); }
-		Parent.Functions.vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
+		Parent.Functions.vkCmdSetExclusiveScissorNV(Handle, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindShadingRateImageNV(Vk.CommandBuffer commandBuffer, Vk.ImageView imageView, Vk.ImageLayout imageLayout)
+	public void BindShadingRateImageNV(Vk.ImageView imageView, Vk.ImageLayout imageLayout)
 	{
 		if (Parent.Functions.vkCmdBindShadingRateImageNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindShadingRateImageNV"); }
-		Parent.Functions.vkCmdBindShadingRateImageNV(commandBuffer, imageView, imageLayout);
+		Parent.Functions.vkCmdBindShadingRateImageNV(Handle, imageView, imageLayout);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewportShadingRatePaletteNV(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.NV.ShadingRatePalette* pShadingRatePalettes)
+	public void SetViewportShadingRatePaletteNV(uint firstViewport, uint viewportCount, Vk.NV.ShadingRatePalette* pShadingRatePalettes)
 	{
 		if (Parent.Functions.vkCmdSetViewportShadingRatePaletteNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetViewportShadingRatePaletteNV"); }
-		Parent.Functions.vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, viewportCount, pShadingRatePalettes);
+		Parent.Functions.vkCmdSetViewportShadingRatePaletteNV(Handle, firstViewport, viewportCount, pShadingRatePalettes);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetCoarseSampleOrderNV(Vk.CommandBuffer commandBuffer, Vk.NV.CoarseSampleOrderType sampleOrderType, uint customSampleOrderCount, Vk.NV.CoarseSampleOrderCustom* pCustomSampleOrders)
+	public void SetCoarseSampleOrderNV(Vk.NV.CoarseSampleOrderType sampleOrderType, uint customSampleOrderCount, Vk.NV.CoarseSampleOrderCustom* pCustomSampleOrders)
 	{
 		if (Parent.Functions.vkCmdSetCoarseSampleOrderNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetCoarseSampleOrderNV"); }
-		Parent.Functions.vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
+		Parent.Functions.vkCmdSetCoarseSampleOrderNV(Handle, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawMeshTasksNV(Vk.CommandBuffer commandBuffer, uint taskCount, uint firstTask)
+	public void DrawMeshTasksNV(uint taskCount, uint firstTask)
 	{
 		if (Parent.Functions.vkCmdDrawMeshTasksNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawMeshTasksNV"); }
-		Parent.Functions.vkCmdDrawMeshTasksNV(commandBuffer, taskCount, firstTask);
+		Parent.Functions.vkCmdDrawMeshTasksNV(Handle, taskCount, firstTask);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawMeshTasksIndirectNV(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
+	public void DrawMeshTasksIndirectNV(Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
 	{
 		if (Parent.Functions.vkCmdDrawMeshTasksIndirectNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawMeshTasksIndirectNV"); }
-		Parent.Functions.vkCmdDrawMeshTasksIndirectNV(commandBuffer, buffer, offset, drawCount, stride);
+		Parent.Functions.vkCmdDrawMeshTasksIndirectNV(Handle, buffer, offset, drawCount, stride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawMeshTasksIndirectCountNV(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
+	public void DrawMeshTasksIndirectCountNV(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
 	{
 		if (Parent.Functions.vkCmdDrawMeshTasksIndirectCountNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawMeshTasksIndirectCountNV"); }
-		Parent.Functions.vkCmdDrawMeshTasksIndirectCountNV(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+		Parent.Functions.vkCmdDrawMeshTasksIndirectCountNV(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyAccelerationStructureNV(Vk.CommandBuffer commandBuffer, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.KHR.CopyAccelerationStructureMode mode)
+	public void CopyAccelerationStructureNV(Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.KHR.CopyAccelerationStructureMode mode)
 	{
 		if (Parent.Functions.vkCmdCopyAccelerationStructureNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyAccelerationStructureNV"); }
-		Parent.Functions.vkCmdCopyAccelerationStructureNV(commandBuffer, dst, src, mode);
+		Parent.Functions.vkCmdCopyAccelerationStructureNV(Handle, dst, src, mode);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyAccelerationStructureInfo* pInfo)
+	public void CopyAccelerationStructureKHR(Vk.KHR.CopyAccelerationStructureInfo* pInfo)
 	{
 		if (Parent.Functions.vkCmdCopyAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyAccelerationStructureKHR"); }
-		Parent.Functions.vkCmdCopyAccelerationStructureKHR(commandBuffer, pInfo);
+		Parent.Functions.vkCmdCopyAccelerationStructureKHR(Handle, pInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyAccelerationStructureToMemoryKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyAccelerationStructureToMemoryInfo* pInfo)
+	public void CopyAccelerationStructureToMemoryKHR(Vk.KHR.CopyAccelerationStructureToMemoryInfo* pInfo)
 	{
 		if (Parent.Functions.vkCmdCopyAccelerationStructureToMemoryKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyAccelerationStructureToMemoryKHR"); }
-		Parent.Functions.vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, pInfo);
+		Parent.Functions.vkCmdCopyAccelerationStructureToMemoryKHR(Handle, pInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyMemoryToAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyMemoryToAccelerationStructureInfo* pInfo)
+	public void CopyMemoryToAccelerationStructureKHR(Vk.KHR.CopyMemoryToAccelerationStructureInfo* pInfo)
 	{
 		if (Parent.Functions.vkCmdCopyMemoryToAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyMemoryToAccelerationStructureKHR"); }
-		Parent.Functions.vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, pInfo);
+		Parent.Functions.vkCmdCopyMemoryToAccelerationStructureKHR(Handle, pInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteAccelerationStructuresPropertiesKHR(Vk.CommandBuffer commandBuffer, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
+	public void WriteAccelerationStructuresPropertiesKHR(uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
 	{
 		if (Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdWriteAccelerationStructuresPropertiesKHR"); }
-		Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+		Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteAccelerationStructuresPropertiesNV(Vk.CommandBuffer commandBuffer, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
+	public void WriteAccelerationStructuresPropertiesNV(uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
 	{
 		if (Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdWriteAccelerationStructuresPropertiesNV"); }
-		Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+		Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesNV(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureNV(Vk.CommandBuffer commandBuffer, Vk.NV.AccelerationStructureInfo* pInfo, Vk.Buffer instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.Buffer scratch, Vk.DeviceSize scratchOffset)
+	public void BuildAccelerationStructureNV(Vk.NV.AccelerationStructureInfo* pInfo, Vk.Buffer instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.Buffer scratch, Vk.DeviceSize scratchOffset)
 	{
 		if (Parent.Functions.vkCmdBuildAccelerationStructureNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureNV"); }
-		Parent.Functions.vkCmdBuildAccelerationStructureNV(commandBuffer, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+		Parent.Functions.vkCmdBuildAccelerationStructureNV(Handle, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, uint width, uint height, uint depth)
+	public void TraceRaysKHR(Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, uint width, uint height, uint depth)
 	{
 		if (Parent.Functions.vkCmdTraceRaysKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysKHR"); }
-		Parent.Functions.vkCmdTraceRaysKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
+		Parent.Functions.vkCmdTraceRaysKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysNV(Vk.CommandBuffer commandBuffer, Vk.Buffer raygenShaderBindingTableBuffer, Vk.DeviceSize raygenShaderBindingOffset, Vk.Buffer missShaderBindingTableBuffer, Vk.DeviceSize missShaderBindingOffset, Vk.DeviceSize missShaderBindingStride, Vk.Buffer hitShaderBindingTableBuffer, Vk.DeviceSize hitShaderBindingOffset, Vk.DeviceSize hitShaderBindingStride, Vk.Buffer callableShaderBindingTableBuffer, Vk.DeviceSize callableShaderBindingOffset, Vk.DeviceSize callableShaderBindingStride, uint width, uint height, uint depth)
+	public void TraceRaysNV(Vk.Buffer raygenShaderBindingTableBuffer, Vk.DeviceSize raygenShaderBindingOffset, Vk.Buffer missShaderBindingTableBuffer, Vk.DeviceSize missShaderBindingOffset, Vk.DeviceSize missShaderBindingStride, Vk.Buffer hitShaderBindingTableBuffer, Vk.DeviceSize hitShaderBindingOffset, Vk.DeviceSize hitShaderBindingStride, Vk.Buffer callableShaderBindingTableBuffer, Vk.DeviceSize callableShaderBindingOffset, Vk.DeviceSize callableShaderBindingStride, uint width, uint height, uint depth)
 	{
 		if (Parent.Functions.vkCmdTraceRaysNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysNV"); }
-		Parent.Functions.vkCmdTraceRaysNV(commandBuffer, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
+		Parent.Functions.vkCmdTraceRaysNV(Handle, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysIndirectKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, Vk.Buffer buffer, Vk.DeviceSize offset)
+	public void TraceRaysIndirectKHR(Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, Vk.Buffer buffer, Vk.DeviceSize offset)
 	{
 		if (Parent.Functions.vkCmdTraceRaysIndirectKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysIndirectKHR"); }
-		Parent.Functions.vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
+		Parent.Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CmdSetPerformanceMarkerINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceMarkerInfo* pMarkerInfo)
+	public VulkanResult SetPerformanceMarkerINTEL(Vk.INTEL.PerformanceMarkerInfo* pMarkerInfo)
 	{
 		if (Parent.Functions.vkCmdSetPerformanceMarkerINTEL == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPerformanceMarkerINTEL"); }
-		return new(Parent.Functions.vkCmdSetPerformanceMarkerINTEL(commandBuffer, pMarkerInfo), "vkCmdSetPerformanceMarkerINTEL");
+		return new(Parent.Functions.vkCmdSetPerformanceMarkerINTEL(Handle, pMarkerInfo), "vkCmdSetPerformanceMarkerINTEL");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CmdSetPerformanceStreamMarkerINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceStreamMarkerInfo* pMarkerInfo)
+	public VulkanResult SetPerformanceStreamMarkerINTEL(Vk.INTEL.PerformanceStreamMarkerInfo* pMarkerInfo)
 	{
 		if (Parent.Functions.vkCmdSetPerformanceStreamMarkerINTEL == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPerformanceStreamMarkerINTEL"); }
-		return new(Parent.Functions.vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, pMarkerInfo), "vkCmdSetPerformanceStreamMarkerINTEL");
+		return new(Parent.Functions.vkCmdSetPerformanceStreamMarkerINTEL(Handle, pMarkerInfo), "vkCmdSetPerformanceStreamMarkerINTEL");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CmdSetPerformanceOverrideINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceOverrideInfo* pOverrideInfo)
+	public VulkanResult SetPerformanceOverrideINTEL(Vk.INTEL.PerformanceOverrideInfo* pOverrideInfo)
 	{
 		if (Parent.Functions.vkCmdSetPerformanceOverrideINTEL == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPerformanceOverrideINTEL"); }
-		return new(Parent.Functions.vkCmdSetPerformanceOverrideINTEL(commandBuffer, pOverrideInfo), "vkCmdSetPerformanceOverrideINTEL");
+		return new(Parent.Functions.vkCmdSetPerformanceOverrideINTEL(Handle, pOverrideInfo), "vkCmdSetPerformanceOverrideINTEL");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetLineStippleEXT(Vk.CommandBuffer commandBuffer, uint lineStippleFactor, ushort lineStipplePattern)
+	public void SetLineStippleEXT(uint lineStippleFactor, ushort lineStipplePattern)
 	{
 		if (Parent.Functions.vkCmdSetLineStippleEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetLineStippleEXT"); }
-		Parent.Functions.vkCmdSetLineStippleEXT(commandBuffer, lineStippleFactor, lineStipplePattern);
+		Parent.Functions.vkCmdSetLineStippleEXT(Handle, lineStippleFactor, lineStipplePattern);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, uint infoCount, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
+	public void BuildAccelerationStructureKHR(uint infoCount, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
 	{
 		if (Parent.Functions.vkCmdBuildAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureKHR"); }
-		Parent.Functions.vkCmdBuildAccelerationStructureKHR(commandBuffer, infoCount, pInfos, ppOffsetInfos);
+		Parent.Functions.vkCmdBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureIndirectKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfo, Vk.Buffer indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
+	public void BuildAccelerationStructureIndirectKHR(Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfo, Vk.Buffer indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
 	{
 		if (Parent.Functions.vkCmdBuildAccelerationStructureIndirectKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureIndirectKHR"); }
-		Parent.Functions.vkCmdBuildAccelerationStructureIndirectKHR(commandBuffer, pInfo, indirectBuffer, indirectOffset, indirectStride);
+		Parent.Functions.vkCmdBuildAccelerationStructureIndirectKHR(Handle, pInfo, indirectBuffer, indirectOffset, indirectStride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetCullModeEXT(Vk.CommandBuffer commandBuffer, Vk.CullModeFlags cullMode)
+	public void SetCullModeEXT(Vk.CullModeFlags cullMode)
 	{
 		if (Parent.Functions.vkCmdSetCullModeEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetCullModeEXT"); }
-		Parent.Functions.vkCmdSetCullModeEXT(commandBuffer, cullMode);
+		Parent.Functions.vkCmdSetCullModeEXT(Handle, cullMode);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetFrontFaceEXT(Vk.CommandBuffer commandBuffer, Vk.FrontFace frontFace)
+	public void SetFrontFaceEXT(Vk.FrontFace frontFace)
 	{
 		if (Parent.Functions.vkCmdSetFrontFaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetFrontFaceEXT"); }
-		Parent.Functions.vkCmdSetFrontFaceEXT(commandBuffer, frontFace);
+		Parent.Functions.vkCmdSetFrontFaceEXT(Handle, frontFace);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetPrimitiveTopologyEXT(Vk.CommandBuffer commandBuffer, Vk.PrimitiveTopology primitiveTopology)
+	public void SetPrimitiveTopologyEXT(Vk.PrimitiveTopology primitiveTopology)
 	{
 		if (Parent.Functions.vkCmdSetPrimitiveTopologyEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPrimitiveTopologyEXT"); }
-		Parent.Functions.vkCmdSetPrimitiveTopologyEXT(commandBuffer, primitiveTopology);
+		Parent.Functions.vkCmdSetPrimitiveTopologyEXT(Handle, primitiveTopology);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewportWithCountEXT(Vk.CommandBuffer commandBuffer, uint viewportCount, Vk.Viewport* pViewports)
+	public void SetViewportWithCountEXT(uint viewportCount, Vk.Viewport* pViewports)
 	{
 		if (Parent.Functions.vkCmdSetViewportWithCountEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetViewportWithCountEXT"); }
-		Parent.Functions.vkCmdSetViewportWithCountEXT(commandBuffer, viewportCount, pViewports);
+		Parent.Functions.vkCmdSetViewportWithCountEXT(Handle, viewportCount, pViewports);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetScissorWithCountEXT(Vk.CommandBuffer commandBuffer, uint scissorCount, Vk.Rect2D* pScissors)
+	public void SetScissorWithCountEXT(uint scissorCount, Vk.Rect2D* pScissors)
 	{
 		if (Parent.Functions.vkCmdSetScissorWithCountEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetScissorWithCountEXT"); }
-		Parent.Functions.vkCmdSetScissorWithCountEXT(commandBuffer, scissorCount, pScissors);
+		Parent.Functions.vkCmdSetScissorWithCountEXT(Handle, scissorCount, pScissors);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindVertexBuffers2EXT(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes, Vk.DeviceSize* pStrides)
+	public void BindVertexBuffers2EXT(uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes, Vk.DeviceSize* pStrides)
 	{
 		if (Parent.Functions.vkCmdBindVertexBuffers2EXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindVertexBuffers2EXT"); }
-		Parent.Functions.vkCmdBindVertexBuffers2EXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
+		Parent.Functions.vkCmdBindVertexBuffers2EXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthTestEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 depthTestEnable)
+	public void SetDepthTestEnableEXT(Vk.Bool32 depthTestEnable)
 	{
 		if (Parent.Functions.vkCmdSetDepthTestEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthTestEnableEXT"); }
-		Parent.Functions.vkCmdSetDepthTestEnableEXT(commandBuffer, depthTestEnable);
+		Parent.Functions.vkCmdSetDepthTestEnableEXT(Handle, depthTestEnable);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthWriteEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 depthWriteEnable)
+	public void SetDepthWriteEnableEXT(Vk.Bool32 depthWriteEnable)
 	{
 		if (Parent.Functions.vkCmdSetDepthWriteEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthWriteEnableEXT"); }
-		Parent.Functions.vkCmdSetDepthWriteEnableEXT(commandBuffer, depthWriteEnable);
+		Parent.Functions.vkCmdSetDepthWriteEnableEXT(Handle, depthWriteEnable);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthCompareOpEXT(Vk.CommandBuffer commandBuffer, Vk.CompareOp depthCompareOp)
+	public void SetDepthCompareOpEXT(Vk.CompareOp depthCompareOp)
 	{
 		if (Parent.Functions.vkCmdSetDepthCompareOpEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthCompareOpEXT"); }
-		Parent.Functions.vkCmdSetDepthCompareOpEXT(commandBuffer, depthCompareOp);
+		Parent.Functions.vkCmdSetDepthCompareOpEXT(Handle, depthCompareOp);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthBoundsTestEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 depthBoundsTestEnable)
+	public void SetDepthBoundsTestEnableEXT(Vk.Bool32 depthBoundsTestEnable)
 	{
 		if (Parent.Functions.vkCmdSetDepthBoundsTestEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthBoundsTestEnableEXT"); }
-		Parent.Functions.vkCmdSetDepthBoundsTestEnableEXT(commandBuffer, depthBoundsTestEnable);
+		Parent.Functions.vkCmdSetDepthBoundsTestEnableEXT(Handle, depthBoundsTestEnable);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilTestEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 stencilTestEnable)
+	public void SetStencilTestEnableEXT(Vk.Bool32 stencilTestEnable)
 	{
 		if (Parent.Functions.vkCmdSetStencilTestEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetStencilTestEnableEXT"); }
-		Parent.Functions.vkCmdSetStencilTestEnableEXT(commandBuffer, stencilTestEnable);
+		Parent.Functions.vkCmdSetStencilTestEnableEXT(Handle, stencilTestEnable);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilOpEXT(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, Vk.StencilOp failOp, Vk.StencilOp passOp, Vk.StencilOp depthFailOp, Vk.CompareOp compareOp)
+	public void SetStencilOpEXT(Vk.StencilFaceFlags faceMask, Vk.StencilOp failOp, Vk.StencilOp passOp, Vk.StencilOp depthFailOp, Vk.CompareOp compareOp)
 	{
 		if (Parent.Functions.vkCmdSetStencilOpEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetStencilOpEXT"); }
-		Parent.Functions.vkCmdSetStencilOpEXT(commandBuffer, faceMask, failOp, passOp, depthFailOp, compareOp);
+		Parent.Functions.vkCmdSetStencilOpEXT(Handle, faceMask, failOp, passOp, depthFailOp, compareOp);
 	}
 
 }

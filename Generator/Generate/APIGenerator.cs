@@ -390,7 +390,7 @@ namespace Gen
 
 				// Loop over instance functions
 				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.ObjectScope == ObjectScope.Instance)) {
-					_WriteCommand(block, cmdSpec, "Functions");
+					_WriteCommand(block, cmdSpec, "Functions", ObjectScope.Instance);
 				}
 			}
 			catch (Exception ex) {
@@ -413,7 +413,7 @@ namespace Gen
 					using var block = file.PushBlock($"public unsafe sealed partial class {@class}");
 
 					foreach (var spec in proc.Commands.Values.Where(c => c.ObjectScope == scope)) {
-						_WriteCommand(block, spec, table);
+						_WriteCommand(block, spec, table, scope);
 					}
 				}
 				catch (Exception ex) {
@@ -424,16 +424,40 @@ namespace Gen
 			}
 
 			// Used to open a file
-			static void _WriteCommand(SourceBlock block, CommandOut spec, string table)
+			static void _WriteCommand(SourceBlock block, CommandOut spec, string table, ObjectScope scope)
 			{
 				// Build the function strings
-				var argStr = String.Join(", ", spec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
-				var callStr = String.Join(", ", spec.Arguments.Select(arg => arg.Name));
+				var argCount = spec.Arguments.Count - 1;
+				var argStr = String.Join(", ", spec.Arguments.TakeLast(argCount).Select(arg => $"{arg.Type} {arg.Name}"));
+				var callStr = "Handle, " + String.Join(", ", spec.Arguments.TakeLast(argCount).Select(arg => arg.Name));
+				if (callStr.EndsWith(", ")) {
+					callStr = "Handle"; // No-args case
+				}
 				var ret = (spec.ReturnType == "Vk.Result") ? "VulkanResult" : spec.ReturnType;
+
+				// Adjust the function name
+				var funcName = spec.Name.Substring(2);
+				if (scope == ObjectScope.CommandBuffer && funcName.StartsWith("Cmd")) {
+					funcName = funcName.Substring("Cmd".Length);
+				}
+				else if (scope == ObjectScope.PhysicalDevice && funcName.StartsWith("GetPhysicalDevice")) {
+					funcName = "Get" + funcName.Substring("GetPhysicalDevice".Length);
+				}
+				else if (scope == ObjectScope.Queue) {
+					if (funcName.StartsWith("Queue")) {
+						funcName = funcName.Substring("Queue".Length);
+					}
+					else if (funcName.StartsWith("GetQueue")) {
+						funcName = "Get" + funcName.Substring("GetQueue".Length);
+					}
+				}
+				else if (scope == ObjectScope.Device && funcName.StartsWith("Device")) {
+					funcName = funcName.Substring("Device".Length);
+				}
 
 				// Open the function
 				block.WriteLine( "[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-				block.WriteLine($"public {ret} {spec.Name.Substring(2)}({argStr})");
+				block.WriteLine($"public {ret} {funcName}({argStr})");
 
 				// Switch on core functions (don't need to check load status)
 				// Then switch on return type (need to handle void, Vk.Result, and others correctly)

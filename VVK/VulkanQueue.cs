@@ -61,7 +61,7 @@ namespace VVK
 			QueueIndex = queueIdx;
 
 			Vk.Queue handle;
-			parent.GetDeviceQueue(parent.Handle, familyIdx, queueIdx, &handle);
+			parent.GetDeviceQueue(familyIdx, queueIdx, &handle);
 			if (!handle) {
 				throw new ArgumentException($"The device {parent} does not have a queue at [{familyIdx}:{queueIdx}]");
 			}

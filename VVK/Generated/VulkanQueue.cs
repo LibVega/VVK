@@ -17,64 +17,64 @@ namespace VVK
 public unsafe sealed partial class VulkanQueue
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueSubmit(Vk.Queue queue, uint submitCount, Vk.SubmitInfo* pSubmits, Vk.Fence fence)
-		=> new(Parent.Functions.vkQueueSubmit(queue, submitCount, pSubmits, fence), "vkQueueSubmit");
+	public VulkanResult Submit(uint submitCount, Vk.SubmitInfo* pSubmits, Vk.Fence fence)
+		=> new(Parent.Functions.vkQueueSubmit(Handle, submitCount, pSubmits, fence), "vkQueueSubmit");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueWaitIdle(Vk.Queue queue)
-		=> new(Parent.Functions.vkQueueWaitIdle(queue), "vkQueueWaitIdle");
+	public VulkanResult WaitIdle()
+		=> new(Parent.Functions.vkQueueWaitIdle(Handle), "vkQueueWaitIdle");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueBindSparse(Vk.Queue queue, uint bindInfoCount, Vk.BindSparseInfo* pBindInfo, Vk.Fence fence)
-		=> new(Parent.Functions.vkQueueBindSparse(queue, bindInfoCount, pBindInfo, fence), "vkQueueBindSparse");
+	public VulkanResult BindSparse(uint bindInfoCount, Vk.BindSparseInfo* pBindInfo, Vk.Fence fence)
+		=> new(Parent.Functions.vkQueueBindSparse(Handle, bindInfoCount, pBindInfo, fence), "vkQueueBindSparse");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueuePresentKHR(Vk.Queue queue, Vk.KHR.PresentInfo* pPresentInfo)
+	public VulkanResult PresentKHR(Vk.KHR.PresentInfo* pPresentInfo)
 	{
 		if (Parent.Functions.vkQueuePresentKHR == null) { throw new VVK.FunctionNotLoadedException("vkQueuePresentKHR"); }
-		return new(Parent.Functions.vkQueuePresentKHR(queue, pPresentInfo), "vkQueuePresentKHR");
+		return new(Parent.Functions.vkQueuePresentKHR(Handle, pPresentInfo), "vkQueuePresentKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueSignalReleaseImageANDROID(Vk.Queue queue, uint waitSemaphoreCount, Vk.Semaphore* pWaitSemaphores, Vk.Image image, int* pNativeFenceFd)
+	public VulkanResult SignalReleaseImageANDROID(uint waitSemaphoreCount, Vk.Semaphore* pWaitSemaphores, Vk.Image image, int* pNativeFenceFd)
 	{
 		if (Parent.Functions.vkQueueSignalReleaseImageANDROID == null) { throw new VVK.FunctionNotLoadedException("vkQueueSignalReleaseImageANDROID"); }
-		return new(Parent.Functions.vkQueueSignalReleaseImageANDROID(queue, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd), "vkQueueSignalReleaseImageANDROID");
+		return new(Parent.Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd), "vkQueueSignalReleaseImageANDROID");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void QueueBeginDebugUtilsLabelEXT(Vk.Queue queue, Vk.EXT.DebugUtilsLabel* pLabelInfo)
+	public void BeginDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 	{
 		if (Parent.Functions.vkQueueBeginDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueBeginDebugUtilsLabelEXT"); }
-		Parent.Functions.vkQueueBeginDebugUtilsLabelEXT(queue, pLabelInfo);
+		Parent.Functions.vkQueueBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void QueueEndDebugUtilsLabelEXT(Vk.Queue queue)
+	public void EndDebugUtilsLabelEXT()
 	{
 		if (Parent.Functions.vkQueueEndDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueEndDebugUtilsLabelEXT"); }
-		Parent.Functions.vkQueueEndDebugUtilsLabelEXT(queue);
+		Parent.Functions.vkQueueEndDebugUtilsLabelEXT(Handle);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void QueueInsertDebugUtilsLabelEXT(Vk.Queue queue, Vk.EXT.DebugUtilsLabel* pLabelInfo)
+	public void InsertDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 	{
 		if (Parent.Functions.vkQueueInsertDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueInsertDebugUtilsLabelEXT"); }
-		Parent.Functions.vkQueueInsertDebugUtilsLabelEXT(queue, pLabelInfo);
+		Parent.Functions.vkQueueInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetQueueCheckpointDataNV(Vk.Queue queue, uint* pCheckpointDataCount, Vk.NV.CheckpointData* pCheckpointData)
+	public void GetCheckpointDataNV(uint* pCheckpointDataCount, Vk.NV.CheckpointData* pCheckpointData)
 	{
 		if (Parent.Functions.vkGetQueueCheckpointDataNV == null) { throw new VVK.FunctionNotLoadedException("vkGetQueueCheckpointDataNV"); }
-		Parent.Functions.vkGetQueueCheckpointDataNV(queue, pCheckpointDataCount, pCheckpointData);
+		Parent.Functions.vkGetQueueCheckpointDataNV(Handle, pCheckpointDataCount, pCheckpointData);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueSetPerformanceConfigurationINTEL(Vk.Queue queue, Vk.INTEL.PerformanceConfiguration configuration)
+	public VulkanResult SetPerformanceConfigurationINTEL(Vk.INTEL.PerformanceConfiguration configuration)
 	{
 		if (Parent.Functions.vkQueueSetPerformanceConfigurationINTEL == null) { throw new VVK.FunctionNotLoadedException("vkQueueSetPerformanceConfigurationINTEL"); }
-		return new(Parent.Functions.vkQueueSetPerformanceConfigurationINTEL(queue, configuration), "vkQueueSetPerformanceConfigurationINTEL");
+		return new(Parent.Functions.vkQueueSetPerformanceConfigurationINTEL(Handle, configuration), "vkQueueSetPerformanceConfigurationINTEL");
 	}
 
 }
