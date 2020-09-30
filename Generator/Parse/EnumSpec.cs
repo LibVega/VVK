@@ -240,8 +240,14 @@ namespace Gen
 				return false;
 			}
 
+			// Check for negative flag
+			bool neg = false;
+			if ((xml.Attributes?["dir"] is XmlAttribute dirAttr) && (dirAttr.Value == "-")) {
+				neg = true;
+			}
+
 			// Return
-			entry = new(entryName, value);
+			entry = new(entryName, neg ? -value : value);
 			return true;
 		}
 	}

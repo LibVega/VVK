@@ -25,4 +25,36 @@ namespace VVK
 			FunctionName = func;
 		}
 	}
+
+	/// <summary>
+	/// Exception that is thrown for <see cref="Vk.Result"/> error codes.
+	/// </summary>
+	public sealed class VulkanResultException : Exception
+	{
+		/// <summary>
+		/// The result code that generated the exception.
+		/// </summary>
+		public readonly Vk.Result Result;
+		/// <summary>
+		/// The name of the Vulkan API function that generated the result.
+		/// </summary>
+		public readonly string FunctionName;
+		/// <summary>
+		/// The caller name that generated the result exception.
+		/// </summary>
+		public readonly string CallerName;
+		/// <summary>
+		/// The source line that generated the result exception.
+		/// </summary>
+		public readonly uint CallerLine;
+
+		internal VulkanResultException(Vk.Result result, string func, string name, uint line) :
+			base($"Call '{func}' failed with code {result} at [{name}:{line}]")
+		{
+			Result = result;
+			FunctionName = func;
+			CallerName = name;
+			CallerLine = line;
+		}
+	}
 }

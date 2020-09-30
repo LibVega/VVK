@@ -17,8 +17,8 @@ namespace VVK
 public unsafe sealed partial class VulkanInstance : IDisposable
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result CreateInstance(Vk.InstanceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Instance* pInstance)
-		=> Vk.InstanceFunctionTable.vkCreateInstance(pCreateInfo, pAllocator, pInstance);
+	public static VulkanResult CreateInstance(Vk.InstanceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Instance* pInstance)
+		=> new(Vk.InstanceFunctionTable.vkCreateInstance(pCreateInfo, pAllocator, pInstance), "vkCreateInstance");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Device device, byte* pName)
@@ -29,119 +29,143 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 		=> Vk.InstanceFunctionTable.vkGetInstanceProcAddr(instance, pName);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceVersion(uint* pApiVersion)
-		=> Vk.InstanceFunctionTable.vkEnumerateInstanceVersion(pApiVersion);
+	public static VulkanResult EnumerateInstanceVersion(uint* pApiVersion)
+		=> new(Vk.InstanceFunctionTable.vkEnumerateInstanceVersion(pApiVersion), "vkEnumerateInstanceVersion");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceLayerProperties(uint* pPropertyCount, Vk.LayerProperties* pProperties)
-		=> Vk.InstanceFunctionTable.vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
+	public static VulkanResult EnumerateInstanceLayerProperties(uint* pPropertyCount, Vk.LayerProperties* pProperties)
+		=> new(Vk.InstanceFunctionTable.vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties), "vkEnumerateInstanceLayerProperties");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceExtensionProperties(byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
-		=> Vk.InstanceFunctionTable.vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
+	public static VulkanResult EnumerateInstanceExtensionProperties(byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
+		=> new(Vk.InstanceFunctionTable.vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties), "vkEnumerateInstanceExtensionProperties");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyInstance(Vk.Instance instance, Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyInstance(instance, pAllocator);
+	{
+		Functions.vkDestroyInstance(instance, pAllocator);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDevices(Vk.Instance instance, uint* pPhysicalDeviceCount, Vk.PhysicalDevice* pPhysicalDevices)
-		=> Functions.vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices);
+	public VulkanResult EnumeratePhysicalDevices(Vk.Instance instance, uint* pPhysicalDeviceCount, Vk.PhysicalDevice* pPhysicalDevices)
+	{
+		return new(Functions.vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices), "vkEnumeratePhysicalDevices");
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceProperties* pProperties)
-		=> Functions.vkGetPhysicalDeviceProperties(physicalDevice, pProperties);
+	{
+		Functions.vkGetPhysicalDeviceProperties(physicalDevice, pProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties(Vk.PhysicalDevice physicalDevice, uint* pQueueFamilyPropertyCount, Vk.QueueFamilyProperties* pQueueFamilyProperties)
-		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+	{
+		Functions.vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceMemoryProperties* pMemoryProperties)
-		=> Functions.vkGetPhysicalDeviceMemoryProperties(physicalDevice, pMemoryProperties);
+	{
+		Functions.vkGetPhysicalDeviceMemoryProperties(physicalDevice, pMemoryProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceFeatures* pFeatures)
-		=> Functions.vkGetPhysicalDeviceFeatures(physicalDevice, pFeatures);
+	{
+		Functions.vkGetPhysicalDeviceFeatures(physicalDevice, pFeatures);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.FormatProperties* pFormatProperties)
-		=> Functions.vkGetPhysicalDeviceFormatProperties(physicalDevice, format, pFormatProperties);
+	{
+		Functions.vkGetPhysicalDeviceFormatProperties(physicalDevice, format, pFormatProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceImageFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.ImageFormatProperties* pImageFormatProperties)
-		=> Functions.vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, pImageFormatProperties);
+	public VulkanResult GetPhysicalDeviceImageFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.ImageFormatProperties* pImageFormatProperties)
+	{
+		return new(Functions.vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, pImageFormatProperties), "vkGetPhysicalDeviceImageFormatProperties");
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDevice(Vk.PhysicalDevice physicalDevice, Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Device* pDevice)
-		=> Functions.vkCreateDevice(physicalDevice, pCreateInfo, pAllocator, pDevice);
+	public VulkanResult CreateDevice(Vk.PhysicalDevice physicalDevice, Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Device* pDevice)
+	{
+		return new(Functions.vkCreateDevice(physicalDevice, pCreateInfo, pAllocator, pDevice), "vkCreateDevice");
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceLayerProperties(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.LayerProperties* pProperties)
-		=> Functions.vkEnumerateDeviceLayerProperties(physicalDevice, pPropertyCount, pProperties);
+	public VulkanResult EnumerateDeviceLayerProperties(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.LayerProperties* pProperties)
+	{
+		return new(Functions.vkEnumerateDeviceLayerProperties(physicalDevice, pPropertyCount, pProperties), "vkEnumerateDeviceLayerProperties");
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(Vk.PhysicalDevice physicalDevice, byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
-		=> Functions.vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, pPropertyCount, pProperties);
+	public VulkanResult EnumerateDeviceExtensionProperties(Vk.PhysicalDevice physicalDevice, byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
+	{
+		return new(Functions.vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, pPropertyCount, pProperties), "vkEnumerateDeviceExtensionProperties");
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.SampleCountFlags samples, Vk.ImageUsageFlags usage, Vk.ImageTiling tiling, uint* pPropertyCount, Vk.SparseImageFormatProperties* pProperties)
-		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, pPropertyCount, pProperties);
+	{
+		Functions.vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, pPropertyCount, pProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateAndroidSurfaceKHR(Vk.Instance instance, Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateAndroidSurfaceKHR(Vk.Instance instance, Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateAndroidSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateAndroidSurfaceKHR"); }
-		return Functions.vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateAndroidSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayPropertiesKHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayProperties* pProperties)
+	public VulkanResult GetPhysicalDeviceDisplayPropertiesKHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayProperties* pProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceDisplayPropertiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceDisplayPropertiesKHR"); }
-		return Functions.vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, pPropertyCount, pProperties);
+		return new(Functions.vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayPropertiesKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayPlanePropertiesKHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties* pProperties)
+	public VulkanResult GetPhysicalDeviceDisplayPlanePropertiesKHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties* pProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceDisplayPlanePropertiesKHR"); }
-		return Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, pPropertyCount, pProperties);
+		return new(Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(Vk.PhysicalDevice physicalDevice, uint planeIndex, uint* pDisplayCount, Vk.KHR.Display* pDisplays)
+	public VulkanResult GetDisplayPlaneSupportedDisplaysKHR(Vk.PhysicalDevice physicalDevice, uint planeIndex, uint* pDisplayCount, Vk.KHR.Display* pDisplays)
 	{
 		if (Functions.vkGetDisplayPlaneSupportedDisplaysKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetDisplayPlaneSupportedDisplaysKHR"); }
-		return Functions.vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, pDisplayCount, pDisplays);
+		return new(Functions.vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, pDisplayCount, pDisplays), "vkGetDisplayPlaneSupportedDisplaysKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayModePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties* pProperties)
+	public VulkanResult GetDisplayModePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties* pProperties)
 	{
 		if (Functions.vkGetDisplayModePropertiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetDisplayModePropertiesKHR"); }
-		return Functions.vkGetDisplayModePropertiesKHR(physicalDevice, display, pPropertyCount, pProperties);
+		return new(Functions.vkGetDisplayModePropertiesKHR(physicalDevice, display, pPropertyCount, pProperties), "vkGetDisplayModePropertiesKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayModeKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.DisplayMode* pMode)
+	public VulkanResult CreateDisplayModeKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.DisplayMode* pMode)
 	{
 		if (Functions.vkCreateDisplayModeKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateDisplayModeKHR"); }
-		return Functions.vkCreateDisplayModeKHR(physicalDevice, display, pCreateInfo, pAllocator, pMode);
+		return new(Functions.vkCreateDisplayModeKHR(physicalDevice, display, pCreateInfo, pAllocator, pMode), "vkCreateDisplayModeKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayPlaneCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.DisplayMode mode, uint planeIndex, Vk.KHR.DisplayPlaneCapabilities* pCapabilities)
+	public VulkanResult GetDisplayPlaneCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.DisplayMode mode, uint planeIndex, Vk.KHR.DisplayPlaneCapabilities* pCapabilities)
 	{
 		if (Functions.vkGetDisplayPlaneCapabilitiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetDisplayPlaneCapabilitiesKHR"); }
-		return Functions.vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, pCapabilities);
+		return new(Functions.vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, pCapabilities), "vkGetDisplayPlaneCapabilitiesKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayPlaneSurfaceKHR(Vk.Instance instance, Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateDisplayPlaneSurfaceKHR(Vk.Instance instance, Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateDisplayPlaneSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateDisplayPlaneSurfaceKHR"); }
-		return Functions.vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateDisplayPlaneSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -152,45 +176,45 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceSupportKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, Vk.KHR.Surface surface, Vk.Bool32* pSupported)
+	public VulkanResult GetPhysicalDeviceSurfaceSupportKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, Vk.KHR.Surface surface, Vk.Bool32* pSupported)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfaceSupportKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceSupportKHR"); }
-		return Functions.vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, pSupported);
+		return new(Functions.vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, pSupported), "vkGetPhysicalDeviceSurfaceSupportKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, Vk.KHR.SurfaceCapabilities* pSurfaceCapabilities)
+	public VulkanResult GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, Vk.KHR.SurfaceCapabilities* pSurfaceCapabilities)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceCapabilitiesKHR"); }
-		return Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, pSurfaceCapabilities);
+		return new(Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, pSurfaceCapabilities), "vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat* pSurfaceFormats)
+	public VulkanResult GetPhysicalDeviceSurfaceFormatsKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat* pSurfaceFormats)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfaceFormatsKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceFormatsKHR"); }
-		return Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, pSurfaceFormatCount, pSurfaceFormats);
+		return new(Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, pSurfaceFormatCount, pSurfaceFormats), "vkGetPhysicalDeviceSurfaceFormatsKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
+	public VulkanResult GetPhysicalDeviceSurfacePresentModesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfacePresentModesKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfacePresentModesKHR"); }
-		return Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, pPresentModeCount, pPresentModes);
+		return new(Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, pPresentModeCount, pPresentModes), "vkGetPhysicalDeviceSurfacePresentModesKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateViSurfaceNN(Vk.Instance instance, Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateViSurfaceNN(Vk.Instance instance, Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateViSurfaceNN == null) { throw new VVK.FunctionNotLoadedException("vkCreateViSurfaceNN"); }
-		return Functions.vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface), "vkCreateViSurfaceNN");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateWaylandSurfaceKHR(Vk.Instance instance, Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateWaylandSurfaceKHR(Vk.Instance instance, Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateWaylandSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateWaylandSurfaceKHR"); }
-		return Functions.vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateWaylandSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -201,10 +225,10 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateWin32SurfaceKHR(Vk.Instance instance, Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateWin32SurfaceKHR(Vk.Instance instance, Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateWin32SurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateWin32SurfaceKHR"); }
-		return Functions.vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateWin32SurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -215,10 +239,10 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateXlibSurfaceKHR(Vk.Instance instance, Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateXlibSurfaceKHR(Vk.Instance instance, Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateXlibSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateXlibSurfaceKHR"); }
-		return Functions.vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateXlibSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -229,10 +253,10 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateXcbSurfaceKHR(Vk.Instance instance, Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateXcbSurfaceKHR(Vk.Instance instance, Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateXcbSurfaceKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateXcbSurfaceKHR"); }
-		return Functions.vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface), "vkCreateXcbSurfaceKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -243,10 +267,10 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDirectFBSurfaceEXT(Vk.Instance instance, Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateDirectFBSurfaceEXT(Vk.Instance instance, Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateDirectFBSurfaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateDirectFBSurfaceEXT"); }
-		return Functions.vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface), "vkCreateDirectFBSurfaceEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -257,24 +281,24 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateImagePipeSurfaceFUCHSIA(Vk.Instance instance, Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateImagePipeSurfaceFUCHSIA(Vk.Instance instance, Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateImagePipeSurfaceFUCHSIA == null) { throw new VVK.FunctionNotLoadedException("vkCreateImagePipeSurfaceFUCHSIA"); }
-		return Functions.vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface), "vkCreateImagePipeSurfaceFUCHSIA");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateStreamDescriptorSurfaceGGP(Vk.Instance instance, Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateStreamDescriptorSurfaceGGP(Vk.Instance instance, Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateStreamDescriptorSurfaceGGP == null) { throw new VVK.FunctionNotLoadedException("vkCreateStreamDescriptorSurfaceGGP"); }
-		return Functions.vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface), "vkCreateStreamDescriptorSurfaceGGP");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDebugReportCallbackEXT(Vk.Instance instance, Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugReportCallback* pCallback)
+	public VulkanResult CreateDebugReportCallbackEXT(Vk.Instance instance, Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugReportCallback* pCallback)
 	{
 		if (Functions.vkCreateDebugReportCallbackEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateDebugReportCallbackEXT"); }
-		return Functions.vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback);
+		return new(Functions.vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback), "vkCreateDebugReportCallbackEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -292,15 +316,17 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceExternalImageFormatPropertiesNV(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.NV.ExternalMemoryHandleTypeFlags externalHandleType, Vk.NV.ExternalImageFormatProperties* pExternalImageFormatProperties)
+	public VulkanResult GetPhysicalDeviceExternalImageFormatPropertiesNV(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.NV.ExternalMemoryHandleTypeFlags externalHandleType, Vk.NV.ExternalImageFormatProperties* pExternalImageFormatProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceExternalImageFormatPropertiesNV"); }
-		return Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
+		return new(Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties), "vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceFeatures2* pFeatures)
-		=> Functions.vkGetPhysicalDeviceFeatures2(physicalDevice, pFeatures);
+	{
+		Functions.vkGetPhysicalDeviceFeatures2(physicalDevice, pFeatures);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceFeatures2* pFeatures)
@@ -311,7 +337,9 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceProperties2* pProperties)
-		=> Functions.vkGetPhysicalDeviceProperties2(physicalDevice, pProperties);
+	{
+		Functions.vkGetPhysicalDeviceProperties2(physicalDevice, pProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceProperties2* pProperties)
@@ -322,7 +350,9 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.FormatProperties2* pFormatProperties)
-		=> Functions.vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, pFormatProperties);
+	{
+		Functions.vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, pFormatProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.FormatProperties2* pFormatProperties)
@@ -332,19 +362,23 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceImageFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
-		=> Functions.vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, pImageFormatInfo, pImageFormatProperties);
+	public VulkanResult GetPhysicalDeviceImageFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
+	{
+		return new(Functions.vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, pImageFormatInfo, pImageFormatProperties), "vkGetPhysicalDeviceImageFormatProperties2");
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceImageFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
+	public VulkanResult GetPhysicalDeviceImageFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceImageFormatProperties2KHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceImageFormatProperties2KHR"); }
-		return Functions.vkGetPhysicalDeviceImageFormatProperties2KHR(physicalDevice, pImageFormatInfo, pImageFormatProperties);
+		return new(Functions.vkGetPhysicalDeviceImageFormatProperties2KHR(physicalDevice, pImageFormatInfo, pImageFormatProperties), "vkGetPhysicalDeviceImageFormatProperties2KHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties2(Vk.PhysicalDevice physicalDevice, uint* pQueueFamilyPropertyCount, Vk.QueueFamilyProperties2* pQueueFamilyProperties)
-		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+	{
+		Functions.vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pQueueFamilyPropertyCount, Vk.QueueFamilyProperties2* pQueueFamilyProperties)
@@ -355,7 +389,9 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceMemoryProperties2* pMemoryProperties)
-		=> Functions.vkGetPhysicalDeviceMemoryProperties2(physicalDevice, pMemoryProperties);
+	{
+		Functions.vkGetPhysicalDeviceMemoryProperties2(physicalDevice, pMemoryProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceMemoryProperties2* pMemoryProperties)
@@ -366,7 +402,9 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, Vk.SparseImageFormatProperties2* pProperties)
-		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
+	{
+		Functions.vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, Vk.SparseImageFormatProperties2* pProperties)
@@ -377,7 +415,9 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalBufferProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalBufferInfo* pExternalBufferInfo, Vk.ExternalBufferProperties* pExternalBufferProperties)
-		=> Functions.vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
+	{
+		Functions.vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalBufferPropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalBufferInfo* pExternalBufferInfo, Vk.ExternalBufferProperties* pExternalBufferProperties)
@@ -388,7 +428,9 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalSemaphoreProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, Vk.ExternalSemaphoreProperties* pExternalSemaphoreProperties)
-		=> Functions.vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+	{
+		Functions.vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalSemaphorePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, Vk.ExternalSemaphoreProperties* pExternalSemaphoreProperties)
@@ -399,7 +441,9 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalFenceProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalFenceInfo* pExternalFenceInfo, Vk.ExternalFenceProperties* pExternalFenceProperties)
-		=> Functions.vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
+	{
+		Functions.vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalFencePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalFenceInfo* pExternalFenceInfo, Vk.ExternalFenceProperties* pExternalFenceProperties)
@@ -409,70 +453,72 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result ReleaseDisplayEXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display)
+	public VulkanResult ReleaseDisplayEXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display)
 	{
 		if (Functions.vkReleaseDisplayEXT == null) { throw new VVK.FunctionNotLoadedException("vkReleaseDisplayEXT"); }
-		return Functions.vkReleaseDisplayEXT(physicalDevice, display);
+		return new(Functions.vkReleaseDisplayEXT(physicalDevice, display), "vkReleaseDisplayEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result AcquireXlibDisplayEXT(Vk.PhysicalDevice physicalDevice, void* dpy, Vk.KHR.Display display)
+	public VulkanResult AcquireXlibDisplayEXT(Vk.PhysicalDevice physicalDevice, void* dpy, Vk.KHR.Display display)
 	{
 		if (Functions.vkAcquireXlibDisplayEXT == null) { throw new VVK.FunctionNotLoadedException("vkAcquireXlibDisplayEXT"); }
-		return Functions.vkAcquireXlibDisplayEXT(physicalDevice, dpy, display);
+		return new(Functions.vkAcquireXlibDisplayEXT(physicalDevice, dpy, display), "vkAcquireXlibDisplayEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetRandROutputDisplayEXT(Vk.PhysicalDevice physicalDevice, void* dpy, ulong rrOutput, Vk.KHR.Display* pDisplay)
+	public VulkanResult GetRandROutputDisplayEXT(Vk.PhysicalDevice physicalDevice, void* dpy, ulong rrOutput, Vk.KHR.Display* pDisplay)
 	{
 		if (Functions.vkGetRandROutputDisplayEXT == null) { throw new VVK.FunctionNotLoadedException("vkGetRandROutputDisplayEXT"); }
-		return Functions.vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, pDisplay);
+		return new(Functions.vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, pDisplay), "vkGetRandROutputDisplayEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, Vk.EXT.SurfaceCapabilities2* pSurfaceCapabilities)
+	public VulkanResult GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, Vk.EXT.SurfaceCapabilities2* pSurfaceCapabilities)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceCapabilities2EXT"); }
-		return Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, pSurfaceCapabilities);
+		return new(Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, pSurfaceCapabilities), "vkGetPhysicalDeviceSurfaceCapabilities2EXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDeviceGroups(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
-		=> Functions.vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
+	public VulkanResult EnumeratePhysicalDeviceGroups(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+	{
+		return new(Functions.vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties), "vkEnumeratePhysicalDeviceGroups");
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+	public VulkanResult EnumeratePhysicalDeviceGroupsKHR(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 	{
 		if (Functions.vkEnumeratePhysicalDeviceGroupsKHR == null) { throw new VVK.FunctionNotLoadedException("vkEnumeratePhysicalDeviceGroupsKHR"); }
-		return Functions.vkEnumeratePhysicalDeviceGroupsKHR(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
+		return new(Functions.vkEnumeratePhysicalDeviceGroupsKHR(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties), "vkEnumeratePhysicalDeviceGroupsKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pRectCount, Vk.Rect2D* pRects)
+	public VulkanResult GetPhysicalDevicePresentRectanglesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pRectCount, Vk.Rect2D* pRects)
 	{
 		if (Functions.vkGetPhysicalDevicePresentRectanglesKHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDevicePresentRectanglesKHR"); }
-		return Functions.vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, pRectCount, pRects);
+		return new(Functions.vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, pRectCount, pRects), "vkGetPhysicalDevicePresentRectanglesKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateIOSSurfaceMVK(Vk.Instance instance, Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateIOSSurfaceMVK(Vk.Instance instance, Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateIOSSurfaceMVK == null) { throw new VVK.FunctionNotLoadedException("vkCreateIOSSurfaceMVK"); }
-		return Functions.vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface), "vkCreateIOSSurfaceMVK");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateMacOSSurfaceMVK(Vk.Instance instance, Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateMacOSSurfaceMVK(Vk.Instance instance, Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateMacOSSurfaceMVK == null) { throw new VVK.FunctionNotLoadedException("vkCreateMacOSSurfaceMVK"); }
-		return Functions.vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface), "vkCreateMacOSSurfaceMVK");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateMetalSurfaceEXT(Vk.Instance instance, Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateMetalSurfaceEXT(Vk.Instance instance, Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateMetalSurfaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateMetalSurfaceEXT"); }
-		return Functions.vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface), "vkCreateMetalSurfaceEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -483,59 +529,59 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, Vk.KHR.SurfaceCapabilities2* pSurfaceCapabilities)
+	public VulkanResult GetPhysicalDeviceSurfaceCapabilities2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, Vk.KHR.SurfaceCapabilities2* pSurfaceCapabilities)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceCapabilities2KHR"); }
-		return Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, pSurfaceInfo, pSurfaceCapabilities);
+		return new(Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, pSurfaceInfo, pSurfaceCapabilities), "vkGetPhysicalDeviceSurfaceCapabilities2KHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceFormats2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat2* pSurfaceFormats)
+	public VulkanResult GetPhysicalDeviceSurfaceFormats2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat2* pSurfaceFormats)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfaceFormats2KHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceFormats2KHR"); }
-		return Functions.vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
+		return new(Functions.vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats), "vkGetPhysicalDeviceSurfaceFormats2KHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayProperties2* pProperties)
+	public VulkanResult GetPhysicalDeviceDisplayProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayProperties2* pProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceDisplayProperties2KHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceDisplayProperties2KHR"); }
-		return Functions.vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, pPropertyCount, pProperties);
+		return new(Functions.vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayProperties2KHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayPlaneProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties2* pProperties)
+	public VulkanResult GetPhysicalDeviceDisplayPlaneProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties2* pProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceDisplayPlaneProperties2KHR"); }
-		return Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, pPropertyCount, pProperties);
+		return new(Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayModeProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties2* pProperties)
+	public VulkanResult GetDisplayModeProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties2* pProperties)
 	{
 		if (Functions.vkGetDisplayModeProperties2KHR == null) { throw new VVK.FunctionNotLoadedException("vkGetDisplayModeProperties2KHR"); }
-		return Functions.vkGetDisplayModeProperties2KHR(physicalDevice, display, pPropertyCount, pProperties);
+		return new(Functions.vkGetDisplayModeProperties2KHR(physicalDevice, display, pPropertyCount, pProperties), "vkGetDisplayModeProperties2KHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayPlaneCapabilities2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.DisplayPlaneInfo2* pDisplayPlaneInfo, Vk.KHR.DisplayPlaneCapabilities2* pCapabilities)
+	public VulkanResult GetDisplayPlaneCapabilities2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.DisplayPlaneInfo2* pDisplayPlaneInfo, Vk.KHR.DisplayPlaneCapabilities2* pCapabilities)
 	{
 		if (Functions.vkGetDisplayPlaneCapabilities2KHR == null) { throw new VVK.FunctionNotLoadedException("vkGetDisplayPlaneCapabilities2KHR"); }
-		return Functions.vkGetDisplayPlaneCapabilities2KHR(physicalDevice, pDisplayPlaneInfo, pCapabilities);
+		return new(Functions.vkGetDisplayPlaneCapabilities2KHR(physicalDevice, pDisplayPlaneInfo, pCapabilities), "vkGetDisplayPlaneCapabilities2KHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceCalibrateableTimeDomainsEXT(Vk.PhysicalDevice physicalDevice, uint* pTimeDomainCount, Vk.EXT.TimeDomain* pTimeDomains)
+	public VulkanResult GetPhysicalDeviceCalibrateableTimeDomainsEXT(Vk.PhysicalDevice physicalDevice, uint* pTimeDomainCount, Vk.EXT.TimeDomain* pTimeDomains)
 	{
 		if (Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceCalibrateableTimeDomainsEXT"); }
-		return Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, pTimeDomainCount, pTimeDomains);
+		return new(Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, pTimeDomainCount, pTimeDomains), "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDebugUtilsMessengerEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugUtilsMessenger* pMessenger)
+	public VulkanResult CreateDebugUtilsMessengerEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugUtilsMessenger* pMessenger)
 	{
 		if (Functions.vkCreateDebugUtilsMessengerEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateDebugUtilsMessengerEXT"); }
-		return Functions.vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger);
+		return new(Functions.vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger), "vkCreateDebugUtilsMessengerEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -553,24 +599,24 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceCooperativeMatrixPropertiesNV(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.NV.CooperativeMatrixProperties* pProperties)
+	public VulkanResult GetPhysicalDeviceCooperativeMatrixPropertiesNV(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.NV.CooperativeMatrixProperties* pProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV"); }
-		return Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, pPropertyCount, pProperties);
+		return new(Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, pPropertyCount, pProperties), "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfacePresentModes2EXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
+	public VulkanResult GetPhysicalDeviceSurfacePresentModes2EXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
 	{
 		if (Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfacePresentModes2EXT"); }
-		return Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes);
+		return new(Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes), "vkGetPhysicalDeviceSurfacePresentModes2EXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, uint* pCounterCount, Vk.KHR.PerformanceCounter* pCounters, Vk.KHR.PerformanceCounterDescription* pCounterDescriptions)
+	public VulkanResult EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, uint* pCounterCount, Vk.KHR.PerformanceCounter* pCounters, Vk.KHR.PerformanceCounterDescription* pCounterDescriptions)
 	{
 		if (Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR == null) { throw new VVK.FunctionNotLoadedException("vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR"); }
-		return Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
+		return new(Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions), "vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -581,24 +627,24 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateHeadlessSurfaceEXT(Vk.Instance instance, Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
+	public VulkanResult CreateHeadlessSurfaceEXT(Vk.Instance instance, Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 	{
 		if (Functions.vkCreateHeadlessSurfaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCreateHeadlessSurfaceEXT"); }
-		return Functions.vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+		return new(Functions.vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface), "vkCreateHeadlessSurfaceEXT");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Vk.PhysicalDevice physicalDevice, uint* pCombinationCount, Vk.NV.FramebufferMixedSamplesCombination* pCombinations)
+	public VulkanResult GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Vk.PhysicalDevice physicalDevice, uint* pCombinationCount, Vk.NV.FramebufferMixedSamplesCombination* pCombinations)
 	{
 		if (Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV"); }
-		return Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, pCombinationCount, pCombinations);
+		return new(Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, pCombinationCount, pCombinations), "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceToolPropertiesEXT(Vk.PhysicalDevice physicalDevice, uint* pToolCount, Vk.EXT.PhysicalDeviceToolProperties* pToolProperties)
+	public VulkanResult GetPhysicalDeviceToolPropertiesEXT(Vk.PhysicalDevice physicalDevice, uint* pToolCount, Vk.EXT.PhysicalDeviceToolProperties* pToolProperties)
 	{
 		if (Functions.vkGetPhysicalDeviceToolPropertiesEXT == null) { throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceToolPropertiesEXT"); }
-		return Functions.vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, pToolCount, pToolProperties);
+		return new(Functions.vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, pToolCount, pToolProperties), "vkGetPhysicalDeviceToolPropertiesEXT");
 	}
 
 }

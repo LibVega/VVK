@@ -376,9 +376,15 @@ namespace Gen
 				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.Scope == CommandScope.Global)) {
 					var argStr = String.Join(", ", cmdSpec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
 					var callStr = String.Join(", ", cmdSpec.Arguments.Select(arg => arg.Name));
+					var ret = (cmdSpec.ReturnType == "Vk.Result") ? "VulkanResult" : cmdSpec.ReturnType;
 					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					block.WriteLine($"public static {cmdSpec.ReturnType} {cmdSpec.Name.Substring(2)}({argStr})");
-					block.WriteLine($"\t=> Vk.InstanceFunctionTable.{cmdSpec.Name}({callStr});");
+					block.WriteLine($"public static {ret} {cmdSpec.Name.Substring(2)}({argStr})");
+					if (ret == "VulkanResult") {
+						block.WriteLine($"\t=> new(Vk.InstanceFunctionTable.{cmdSpec.Name}({callStr}), \"{cmdSpec.Name}\");");
+					}
+					else {
+						block.WriteLine($"\t=> Vk.InstanceFunctionTable.{cmdSpec.Name}({callStr});");
+					}
 					block.WriteLine();
 				}
 
@@ -386,17 +392,23 @@ namespace Gen
 				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.Scope == CommandScope.Instance)) {
 					var argStr = String.Join(", ", cmdSpec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
 					var callStr = String.Join(", ", cmdSpec.Arguments.Select(arg => arg.Name));
+					var ret = (cmdSpec.ReturnType == "Vk.Result") ? "VulkanResult" : cmdSpec.ReturnType;
 					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					block.WriteLine($"public {cmdSpec.ReturnType} {cmdSpec.Name.Substring(2)}({argStr})");
-					if (cmdSpec.IsCore) {
-						block.WriteLine($"\t=> Functions.{cmdSpec.Name}({callStr});");
+					block.WriteLine($"public {ret} {cmdSpec.Name.Substring(2)}({argStr})");
+					block.WriteLine( "{");
+					if (!cmdSpec.IsCore) {
+						block.WriteLine($"\tif (Functions.{cmdSpec.Name} == null) {{ throw new VVK.FunctionNotLoadedException(\"{cmdSpec.Name}\"); }}");
+					}
+					if (cmdSpec.ReturnType == "void") {
+						block.WriteLine($"\tFunctions.{cmdSpec.Name}({callStr});");
+					}
+					else if (cmdSpec.ReturnType == "Vk.Result") {
+						block.WriteLine($"\treturn new(Functions.{cmdSpec.Name}({callStr}), \"{cmdSpec.Name}\");");
 					}
 					else {
-						block.WriteLine( "{");
-						block.WriteLine($"\tif (Functions.{cmdSpec.Name} == null) {{ throw new VVK.FunctionNotLoadedException(\"{cmdSpec.Name}\"); }}");
-						block.WriteLine($"\t{((cmdSpec.ReturnType == "void") ? "" : "return ")}Functions.{cmdSpec.Name}({callStr});");
-						block.WriteLine( "}");
+						block.WriteLine($"\treturn Functions.{cmdSpec.Name}({callStr});");
 					}
+					block.WriteLine( "}");
 					block.WriteLine();
 				}
 			}
@@ -414,17 +426,23 @@ namespace Gen
 				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.Scope == CommandScope.Device)) {
 					var argStr = String.Join(", ", cmdSpec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
 					var callStr = String.Join(", ", cmdSpec.Arguments.Select(arg => arg.Name));
+					var ret = (cmdSpec.ReturnType == "Vk.Result") ? "VulkanResult" : cmdSpec.ReturnType;
 					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					block.WriteLine($"public {cmdSpec.ReturnType} {cmdSpec.Name.Substring(2)}({argStr})");
-					if (cmdSpec.IsCore) {
-						block.WriteLine($"\t=> Functions.{cmdSpec.Name}({callStr});");
+					block.WriteLine($"public {ret} {cmdSpec.Name.Substring(2)}({argStr})");
+					block.WriteLine("{");
+					if (!cmdSpec.IsCore) {
+						block.WriteLine($"\tif (Functions.{cmdSpec.Name} == null) {{ throw new VVK.FunctionNotLoadedException(\"{cmdSpec.Name}\"); }}");
+					}
+					if (cmdSpec.ReturnType == "void") {
+						block.WriteLine($"\tFunctions.{cmdSpec.Name}({callStr});");
+					}
+					else if (cmdSpec.ReturnType == "Vk.Result") {
+						block.WriteLine($"\treturn new(Functions.{cmdSpec.Name}({callStr}), \"{cmdSpec.Name}\");");
 					}
 					else {
-						block.WriteLine("{");
-						block.WriteLine($"\tif (Functions.{cmdSpec.Name} == null) {{ throw new VVK.FunctionNotLoadedException(\"{cmdSpec.Name}\"); }}");
-						block.WriteLine($"\t{((cmdSpec.ReturnType == "void") ? "" : "return ")}Functions.{cmdSpec.Name}({callStr});");
-						block.WriteLine("}");
+						block.WriteLine($"\treturn Functions.{cmdSpec.Name}({callStr});");
 					}
+					block.WriteLine("}");
 					block.WriteLine();
 				}
 			}
