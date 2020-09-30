@@ -9,7 +9,7 @@ using System;
 namespace VVK
 {
 	/// <summary>
-	/// Wraps a VkDevice object at a higher level, providing an OOP approach to VKDevice resources and functions.
+	/// Wraps a VkDevice object at a higher level, providing an OOP approach to VkDevice resources and functions.
 	/// </summary>
 	public unsafe sealed partial class VulkanDevice : IDisposable
 	{

@@ -9,6 +9,25 @@ using System.Collections.Generic;
 
 namespace Gen
 {
+	// The scope of a command within the Global/Instance/Device distinction space
+	public enum CommandScope
+	{
+		Global,   // Function is loaded at the global level
+		Instance, // Function is loaded on an instant object
+		Device    // Function is loaded on a device object
+	}
+
+	// The scope of a command with object space (which object is the command's first argument)
+	public enum ObjectScope
+	{
+		Global,         // Function is called globally (same as CommandScope.Global)
+		Instance,       // Function is called on an instance
+		PhysicalDevice, // Function is called on a physical device
+		Device,         // Function is called on a logical device
+		Queue,          // Function is called on a device queue
+		CommandBuffer   // Function is called on a command buffer
+	}
+
 	// Processed command from the spec
 	public sealed class CommandOut
 	{
@@ -34,8 +53,10 @@ namespace Gen
 		public readonly string Name;
 		// The C# function pointer prototype
 		public readonly string PtrPrototype;
-		// The load level for the function
-		public readonly CommandScope Scope;
+		// The load scope for the function
+		public readonly CommandScope CommandScope;
+		// The object scope for the function
+		public readonly ObjectScope ObjectScope;
 		// If the function is a core function
 		public readonly bool IsCore;
 		// The arguments of the function
@@ -48,13 +69,14 @@ namespace Gen
 		public CommandSpec? Alias => Spec.Alias;
 		#endregion // Fields
 
-		private CommandOut(CommandSpec spec, string name, string proto, CommandScope scope, bool core,
-			List<Argument> args, string retType)
+		private CommandOut(CommandSpec spec, string name, string proto, CommandScope cmdScope, ObjectScope objScope, 
+			bool core, List<Argument> args, string retType)
 		{
 			Spec = spec;
 			Name = name;
 			PtrPrototype = proto;
-			Scope = scope;
+			CommandScope = cmdScope;
+			ObjectScope = objScope;
 			IsCore = core;
 			Arguments = args;
 			ReturnType = retType;
@@ -101,16 +123,19 @@ namespace Gen
 				argProto[^1] = "delegate* unmanaged<void>";
 			}
 
+			// Get the object scope
+			var objScope = (scope == CommandScope.Global) ? ObjectScope.Global : argProto[0] switch { 
+				"Vk.Instance" => ObjectScope.Instance,
+				"Vk.PhysicalDevice" => ObjectScope.PhysicalDevice,
+				"Vk.Device" => ObjectScope.Device,
+				"Vk.Queue" => ObjectScope.Queue,
+				"Vk.CommandBuffer" => ObjectScope.CommandBuffer,
+				_ => throw new NotImplementedException("Failed to get the command object scope")
+			};
+
 			// Return
-			return new(spec, spec.Name, $"delegate* unmanaged<{String.Join(", ", argProto)}>", scope, 
+			return new(spec, spec.Name, $"delegate* unmanaged<{String.Join(", ", argProto)}>", scope, objScope,
 				!names.IsVendorType(spec.Name), args, argProto[^1]);
 		}
-	}
-
-	public enum CommandScope
-	{
-		Global, // Function is loaded at the global level
-		Instance, // Function is loaded on an instant object
-		Device, // Function is loaded on a device object
 	}
 }

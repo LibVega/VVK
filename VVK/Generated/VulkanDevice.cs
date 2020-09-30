@@ -14,211 +14,131 @@ using System.Runtime.CompilerServices;
 namespace VVK
 {
 
-public unsafe sealed partial class VulkanDevice : IDisposable
+public unsafe sealed partial class VulkanDevice
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDevice(Vk.Device device, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyDevice(device, pAllocator);
-	}
+		=> Functions.vkDestroyDevice(device, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue(Vk.Device device, uint queueFamilyIndex, uint queueIndex, Vk.Queue* pQueue)
-	{
-		Functions.vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueSubmit(Vk.Queue queue, uint submitCount, Vk.SubmitInfo* pSubmits, Vk.Fence fence)
-	{
-		return new(Functions.vkQueueSubmit(queue, submitCount, pSubmits, fence), "vkQueueSubmit");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueWaitIdle(Vk.Queue queue)
-	{
-		return new(Functions.vkQueueWaitIdle(queue), "vkQueueWaitIdle");
-	}
+		=> Functions.vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult DeviceWaitIdle(Vk.Device device)
-	{
-		return new(Functions.vkDeviceWaitIdle(device), "vkDeviceWaitIdle");
-	}
+		=> new(Functions.vkDeviceWaitIdle(device), "vkDeviceWaitIdle");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult AllocateMemory(Vk.Device device, Vk.MemoryAllocateInfo* pAllocateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DeviceMemory* pMemory)
-	{
-		return new(Functions.vkAllocateMemory(device, pAllocateInfo, pAllocator, pMemory), "vkAllocateMemory");
-	}
+		=> new(Functions.vkAllocateMemory(device, pAllocateInfo, pAllocator, pMemory), "vkAllocateMemory");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void FreeMemory(Vk.Device device, Vk.DeviceMemory memory, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkFreeMemory(device, memory, pAllocator);
-	}
+		=> Functions.vkFreeMemory(device, memory, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult MapMemory(Vk.Device device, Vk.DeviceMemory memory, Vk.DeviceSize offset, Vk.DeviceSize size, Vk.MemoryMapFlags flags, void** ppData)
-	{
-		return new(Functions.vkMapMemory(device, memory, offset, size, flags, ppData), "vkMapMemory");
-	}
+		=> new(Functions.vkMapMemory(device, memory, offset, size, flags, ppData), "vkMapMemory");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UnmapMemory(Vk.Device device, Vk.DeviceMemory memory)
-	{
-		Functions.vkUnmapMemory(device, memory);
-	}
+		=> Functions.vkUnmapMemory(device, memory);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult FlushMappedMemoryRanges(Vk.Device device, uint memoryRangeCount, Vk.MappedMemoryRange* pMemoryRanges)
-	{
-		return new(Functions.vkFlushMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges), "vkFlushMappedMemoryRanges");
-	}
+		=> new(Functions.vkFlushMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges), "vkFlushMappedMemoryRanges");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult InvalidateMappedMemoryRanges(Vk.Device device, uint memoryRangeCount, Vk.MappedMemoryRange* pMemoryRanges)
-	{
-		return new(Functions.vkInvalidateMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges), "vkInvalidateMappedMemoryRanges");
-	}
+		=> new(Functions.vkInvalidateMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges), "vkInvalidateMappedMemoryRanges");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceMemoryCommitment(Vk.Device device, Vk.DeviceMemory memory, Vk.DeviceSize* pCommittedMemoryInBytes)
-	{
-		Functions.vkGetDeviceMemoryCommitment(device, memory, pCommittedMemoryInBytes);
-	}
+		=> Functions.vkGetDeviceMemoryCommitment(device, memory, pCommittedMemoryInBytes);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements(Vk.Device device, Vk.Buffer buffer, Vk.MemoryRequirements* pMemoryRequirements)
-	{
-		Functions.vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
-	}
+		=> Functions.vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult BindBufferMemory(Vk.Device device, Vk.Buffer buffer, Vk.DeviceMemory memory, Vk.DeviceSize memoryOffset)
-	{
-		return new(Functions.vkBindBufferMemory(device, buffer, memory, memoryOffset), "vkBindBufferMemory");
-	}
+		=> new(Functions.vkBindBufferMemory(device, buffer, memory, memoryOffset), "vkBindBufferMemory");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements(Vk.Device device, Vk.Image image, Vk.MemoryRequirements* pMemoryRequirements)
-	{
-		Functions.vkGetImageMemoryRequirements(device, image, pMemoryRequirements);
-	}
+		=> Functions.vkGetImageMemoryRequirements(device, image, pMemoryRequirements);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult BindImageMemory(Vk.Device device, Vk.Image image, Vk.DeviceMemory memory, Vk.DeviceSize memoryOffset)
-	{
-		return new(Functions.vkBindImageMemory(device, image, memory, memoryOffset), "vkBindImageMemory");
-	}
+		=> new(Functions.vkBindImageMemory(device, image, memory, memoryOffset), "vkBindImageMemory");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements(Vk.Device device, Vk.Image image, uint* pSparseMemoryRequirementCount, Vk.SparseImageMemoryRequirements* pSparseMemoryRequirements)
-	{
-		Functions.vkGetImageSparseMemoryRequirements(device, image, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueBindSparse(Vk.Queue queue, uint bindInfoCount, Vk.BindSparseInfo* pBindInfo, Vk.Fence fence)
-	{
-		return new(Functions.vkQueueBindSparse(queue, bindInfoCount, pBindInfo, fence), "vkQueueBindSparse");
-	}
+		=> Functions.vkGetImageSparseMemoryRequirements(device, image, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateFence(Vk.Device device, Vk.FenceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Fence* pFence)
-	{
-		return new(Functions.vkCreateFence(device, pCreateInfo, pAllocator, pFence), "vkCreateFence");
-	}
+		=> new(Functions.vkCreateFence(device, pCreateInfo, pAllocator, pFence), "vkCreateFence");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyFence(Vk.Device device, Vk.Fence fence, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyFence(device, fence, pAllocator);
-	}
+		=> Functions.vkDestroyFence(device, fence, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult ResetFences(Vk.Device device, uint fenceCount, Vk.Fence* pFences)
-	{
-		return new(Functions.vkResetFences(device, fenceCount, pFences), "vkResetFences");
-	}
+		=> new(Functions.vkResetFences(device, fenceCount, pFences), "vkResetFences");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetFenceStatus(Vk.Device device, Vk.Fence fence)
-	{
-		return new(Functions.vkGetFenceStatus(device, fence), "vkGetFenceStatus");
-	}
+		=> new(Functions.vkGetFenceStatus(device, fence), "vkGetFenceStatus");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult WaitForFences(Vk.Device device, uint fenceCount, Vk.Fence* pFences, Vk.Bool32 waitAll, ulong timeout)
-	{
-		return new(Functions.vkWaitForFences(device, fenceCount, pFences, waitAll, timeout), "vkWaitForFences");
-	}
+		=> new(Functions.vkWaitForFences(device, fenceCount, pFences, waitAll, timeout), "vkWaitForFences");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateSemaphore(Vk.Device device, Vk.SemaphoreCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Semaphore* pSemaphore)
-	{
-		return new(Functions.vkCreateSemaphore(device, pCreateInfo, pAllocator, pSemaphore), "vkCreateSemaphore");
-	}
+		=> new(Functions.vkCreateSemaphore(device, pCreateInfo, pAllocator, pSemaphore), "vkCreateSemaphore");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySemaphore(Vk.Device device, Vk.Semaphore semaphore, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroySemaphore(device, semaphore, pAllocator);
-	}
+		=> Functions.vkDestroySemaphore(device, semaphore, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateEvent(Vk.Device device, Vk.EventCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Event* pEvent)
-	{
-		return new(Functions.vkCreateEvent(device, pCreateInfo, pAllocator, pEvent), "vkCreateEvent");
-	}
+		=> new(Functions.vkCreateEvent(device, pCreateInfo, pAllocator, pEvent), "vkCreateEvent");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyEvent(Vk.Device device, Vk.Event @event, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyEvent(device, @event, pAllocator);
-	}
+		=> Functions.vkDestroyEvent(device, @event, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetEventStatus(Vk.Device device, Vk.Event @event)
-	{
-		return new(Functions.vkGetEventStatus(device, @event), "vkGetEventStatus");
-	}
+		=> new(Functions.vkGetEventStatus(device, @event), "vkGetEventStatus");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult SetEvent(Vk.Device device, Vk.Event @event)
-	{
-		return new(Functions.vkSetEvent(device, @event), "vkSetEvent");
-	}
+		=> new(Functions.vkSetEvent(device, @event), "vkSetEvent");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult ResetEvent(Vk.Device device, Vk.Event @event)
-	{
-		return new(Functions.vkResetEvent(device, @event), "vkResetEvent");
-	}
+		=> new(Functions.vkResetEvent(device, @event), "vkResetEvent");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateQueryPool(Vk.Device device, Vk.QueryPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.QueryPool* pQueryPool)
-	{
-		return new(Functions.vkCreateQueryPool(device, pCreateInfo, pAllocator, pQueryPool), "vkCreateQueryPool");
-	}
+		=> new(Functions.vkCreateQueryPool(device, pCreateInfo, pAllocator, pQueryPool), "vkCreateQueryPool");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyQueryPool(Vk.Device device, Vk.QueryPool queryPool, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyQueryPool(device, queryPool, pAllocator);
-	}
+		=> Functions.vkDestroyQueryPool(device, queryPool, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetQueryPoolResults(Vk.Device device, Vk.QueryPool queryPool, uint firstQuery, uint queryCount, ulong dataSize, void* pData, Vk.DeviceSize stride, Vk.QueryResultFlags flags)
-	{
-		return new(Functions.vkGetQueryPoolResults(device, queryPool, firstQuery, queryCount, dataSize, pData, stride, flags), "vkGetQueryPoolResults");
-	}
+		=> new(Functions.vkGetQueryPoolResults(device, queryPool, firstQuery, queryCount, dataSize, pData, stride, flags), "vkGetQueryPoolResults");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ResetQueryPool(Vk.Device device, Vk.QueryPool queryPool, uint firstQuery, uint queryCount)
-	{
-		Functions.vkResetQueryPool(device, queryPool, firstQuery, queryCount);
-	}
+		=> Functions.vkResetQueryPool(device, queryPool, firstQuery, queryCount);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ResetQueryPoolEXT(Vk.Device device, Vk.QueryPool queryPool, uint firstQuery, uint queryCount)
@@ -229,539 +149,163 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateBuffer(Vk.Device device, Vk.BufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Buffer* pBuffer)
-	{
-		return new(Functions.vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer), "vkCreateBuffer");
-	}
+		=> new(Functions.vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer), "vkCreateBuffer");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyBuffer(Vk.Device device, Vk.Buffer buffer, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyBuffer(device, buffer, pAllocator);
-	}
+		=> Functions.vkDestroyBuffer(device, buffer, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateBufferView(Vk.Device device, Vk.BufferViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.BufferView* pView)
-	{
-		return new(Functions.vkCreateBufferView(device, pCreateInfo, pAllocator, pView), "vkCreateBufferView");
-	}
+		=> new(Functions.vkCreateBufferView(device, pCreateInfo, pAllocator, pView), "vkCreateBufferView");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyBufferView(Vk.Device device, Vk.BufferView bufferView, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyBufferView(device, bufferView, pAllocator);
-	}
+		=> Functions.vkDestroyBufferView(device, bufferView, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateImage(Vk.Device device, Vk.ImageCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Image* pImage)
-	{
-		return new(Functions.vkCreateImage(device, pCreateInfo, pAllocator, pImage), "vkCreateImage");
-	}
+		=> new(Functions.vkCreateImage(device, pCreateInfo, pAllocator, pImage), "vkCreateImage");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyImage(Vk.Device device, Vk.Image image, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyImage(device, image, pAllocator);
-	}
+		=> Functions.vkDestroyImage(device, image, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSubresourceLayout(Vk.Device device, Vk.Image image, Vk.ImageSubresource* pSubresource, Vk.SubresourceLayout* pLayout)
-	{
-		Functions.vkGetImageSubresourceLayout(device, image, pSubresource, pLayout);
-	}
+		=> Functions.vkGetImageSubresourceLayout(device, image, pSubresource, pLayout);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateImageView(Vk.Device device, Vk.ImageViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.ImageView* pView)
-	{
-		return new(Functions.vkCreateImageView(device, pCreateInfo, pAllocator, pView), "vkCreateImageView");
-	}
+		=> new(Functions.vkCreateImageView(device, pCreateInfo, pAllocator, pView), "vkCreateImageView");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyImageView(Vk.Device device, Vk.ImageView imageView, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyImageView(device, imageView, pAllocator);
-	}
+		=> Functions.vkDestroyImageView(device, imageView, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateShaderModule(Vk.Device device, Vk.ShaderModuleCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.ShaderModule* pShaderModule)
-	{
-		return new(Functions.vkCreateShaderModule(device, pCreateInfo, pAllocator, pShaderModule), "vkCreateShaderModule");
-	}
+		=> new(Functions.vkCreateShaderModule(device, pCreateInfo, pAllocator, pShaderModule), "vkCreateShaderModule");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyShaderModule(Vk.Device device, Vk.ShaderModule shaderModule, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyShaderModule(device, shaderModule, pAllocator);
-	}
+		=> Functions.vkDestroyShaderModule(device, shaderModule, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreatePipelineCache(Vk.Device device, Vk.PipelineCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.PipelineCache* pPipelineCache)
-	{
-		return new(Functions.vkCreatePipelineCache(device, pCreateInfo, pAllocator, pPipelineCache), "vkCreatePipelineCache");
-	}
+		=> new(Functions.vkCreatePipelineCache(device, pCreateInfo, pAllocator, pPipelineCache), "vkCreatePipelineCache");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipelineCache(Vk.Device device, Vk.PipelineCache pipelineCache, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyPipelineCache(device, pipelineCache, pAllocator);
-	}
+		=> Functions.vkDestroyPipelineCache(device, pipelineCache, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetPipelineCacheData(Vk.Device device, Vk.PipelineCache pipelineCache, ulong* pDataSize, void* pData)
-	{
-		return new(Functions.vkGetPipelineCacheData(device, pipelineCache, pDataSize, pData), "vkGetPipelineCacheData");
-	}
+		=> new(Functions.vkGetPipelineCacheData(device, pipelineCache, pDataSize, pData), "vkGetPipelineCacheData");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult MergePipelineCaches(Vk.Device device, Vk.PipelineCache dstCache, uint srcCacheCount, Vk.PipelineCache* pSrcCaches)
-	{
-		return new(Functions.vkMergePipelineCaches(device, dstCache, srcCacheCount, pSrcCaches), "vkMergePipelineCaches");
-	}
+		=> new(Functions.vkMergePipelineCaches(device, dstCache, srcCacheCount, pSrcCaches), "vkMergePipelineCaches");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateGraphicsPipelines(Vk.Device device, Vk.PipelineCache pipelineCache, uint createInfoCount, Vk.GraphicsPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Pipeline* pPipelines)
-	{
-		return new(Functions.vkCreateGraphicsPipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines), "vkCreateGraphicsPipelines");
-	}
+		=> new(Functions.vkCreateGraphicsPipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines), "vkCreateGraphicsPipelines");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateComputePipelines(Vk.Device device, Vk.PipelineCache pipelineCache, uint createInfoCount, Vk.ComputePipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Pipeline* pPipelines)
-	{
-		return new(Functions.vkCreateComputePipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines), "vkCreateComputePipelines");
-	}
+		=> new(Functions.vkCreateComputePipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines), "vkCreateComputePipelines");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipeline(Vk.Device device, Vk.Pipeline pipeline, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyPipeline(device, pipeline, pAllocator);
-	}
+		=> Functions.vkDestroyPipeline(device, pipeline, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreatePipelineLayout(Vk.Device device, Vk.PipelineLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.PipelineLayout* pPipelineLayout)
-	{
-		return new(Functions.vkCreatePipelineLayout(device, pCreateInfo, pAllocator, pPipelineLayout), "vkCreatePipelineLayout");
-	}
+		=> new(Functions.vkCreatePipelineLayout(device, pCreateInfo, pAllocator, pPipelineLayout), "vkCreatePipelineLayout");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipelineLayout(Vk.Device device, Vk.PipelineLayout pipelineLayout, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyPipelineLayout(device, pipelineLayout, pAllocator);
-	}
+		=> Functions.vkDestroyPipelineLayout(device, pipelineLayout, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateSampler(Vk.Device device, Vk.SamplerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Sampler* pSampler)
-	{
-		return new(Functions.vkCreateSampler(device, pCreateInfo, pAllocator, pSampler), "vkCreateSampler");
-	}
+		=> new(Functions.vkCreateSampler(device, pCreateInfo, pAllocator, pSampler), "vkCreateSampler");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySampler(Vk.Device device, Vk.Sampler sampler, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroySampler(device, sampler, pAllocator);
-	}
+		=> Functions.vkDestroySampler(device, sampler, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateDescriptorSetLayout(Vk.Device device, Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorSetLayout* pSetLayout)
-	{
-		return new(Functions.vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, pSetLayout), "vkCreateDescriptorSetLayout");
-	}
+		=> new(Functions.vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, pSetLayout), "vkCreateDescriptorSetLayout");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorSetLayout(Vk.Device device, Vk.DescriptorSetLayout descriptorSetLayout, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyDescriptorSetLayout(device, descriptorSetLayout, pAllocator);
-	}
+		=> Functions.vkDestroyDescriptorSetLayout(device, descriptorSetLayout, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateDescriptorPool(Vk.Device device, Vk.DescriptorPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorPool* pDescriptorPool)
-	{
-		return new(Functions.vkCreateDescriptorPool(device, pCreateInfo, pAllocator, pDescriptorPool), "vkCreateDescriptorPool");
-	}
+		=> new(Functions.vkCreateDescriptorPool(device, pCreateInfo, pAllocator, pDescriptorPool), "vkCreateDescriptorPool");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorPool(Vk.Device device, Vk.DescriptorPool descriptorPool, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyDescriptorPool(device, descriptorPool, pAllocator);
-	}
+		=> Functions.vkDestroyDescriptorPool(device, descriptorPool, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult ResetDescriptorPool(Vk.Device device, Vk.DescriptorPool descriptorPool, Vk.DescriptorPoolResetFlags flags)
-	{
-		return new(Functions.vkResetDescriptorPool(device, descriptorPool, flags), "vkResetDescriptorPool");
-	}
+		=> new(Functions.vkResetDescriptorPool(device, descriptorPool, flags), "vkResetDescriptorPool");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult AllocateDescriptorSets(Vk.Device device, Vk.DescriptorSetAllocateInfo* pAllocateInfo, Vk.DescriptorSet* pDescriptorSets)
-	{
-		return new(Functions.vkAllocateDescriptorSets(device, pAllocateInfo, pDescriptorSets), "vkAllocateDescriptorSets");
-	}
+		=> new(Functions.vkAllocateDescriptorSets(device, pAllocateInfo, pDescriptorSets), "vkAllocateDescriptorSets");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult FreeDescriptorSets(Vk.Device device, Vk.DescriptorPool descriptorPool, uint descriptorSetCount, Vk.DescriptorSet* pDescriptorSets)
-	{
-		return new(Functions.vkFreeDescriptorSets(device, descriptorPool, descriptorSetCount, pDescriptorSets), "vkFreeDescriptorSets");
-	}
+		=> new(Functions.vkFreeDescriptorSets(device, descriptorPool, descriptorSetCount, pDescriptorSets), "vkFreeDescriptorSets");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateDescriptorSets(Vk.Device device, uint descriptorWriteCount, Vk.WriteDescriptorSet* pDescriptorWrites, uint descriptorCopyCount, Vk.CopyDescriptorSet* pDescriptorCopies)
-	{
-		Functions.vkUpdateDescriptorSets(device, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
-	}
+		=> Functions.vkUpdateDescriptorSets(device, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateFramebuffer(Vk.Device device, Vk.FramebufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Framebuffer* pFramebuffer)
-	{
-		return new(Functions.vkCreateFramebuffer(device, pCreateInfo, pAllocator, pFramebuffer), "vkCreateFramebuffer");
-	}
+		=> new(Functions.vkCreateFramebuffer(device, pCreateInfo, pAllocator, pFramebuffer), "vkCreateFramebuffer");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyFramebuffer(Vk.Device device, Vk.Framebuffer framebuffer, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyFramebuffer(device, framebuffer, pAllocator);
-	}
+		=> Functions.vkDestroyFramebuffer(device, framebuffer, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateRenderPass(Vk.Device device, Vk.RenderPassCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.RenderPass* pRenderPass)
-	{
-		return new(Functions.vkCreateRenderPass(device, pCreateInfo, pAllocator, pRenderPass), "vkCreateRenderPass");
-	}
+		=> new(Functions.vkCreateRenderPass(device, pCreateInfo, pAllocator, pRenderPass), "vkCreateRenderPass");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyRenderPass(Vk.Device device, Vk.RenderPass renderPass, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyRenderPass(device, renderPass, pAllocator);
-	}
+		=> Functions.vkDestroyRenderPass(device, renderPass, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetRenderAreaGranularity(Vk.Device device, Vk.RenderPass renderPass, Vk.Extent2D* pGranularity)
-	{
-		Functions.vkGetRenderAreaGranularity(device, renderPass, pGranularity);
-	}
+		=> Functions.vkGetRenderAreaGranularity(device, renderPass, pGranularity);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateCommandPool(Vk.Device device, Vk.CommandPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.CommandPool* pCommandPool)
-	{
-		return new(Functions.vkCreateCommandPool(device, pCreateInfo, pAllocator, pCommandPool), "vkCreateCommandPool");
-	}
+		=> new(Functions.vkCreateCommandPool(device, pCreateInfo, pAllocator, pCommandPool), "vkCreateCommandPool");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyCommandPool(Vk.Device device, Vk.CommandPool commandPool, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyCommandPool(device, commandPool, pAllocator);
-	}
+		=> Functions.vkDestroyCommandPool(device, commandPool, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult ResetCommandPool(Vk.Device device, Vk.CommandPool commandPool, Vk.CommandPoolResetFlags flags)
-	{
-		return new(Functions.vkResetCommandPool(device, commandPool, flags), "vkResetCommandPool");
-	}
+		=> new(Functions.vkResetCommandPool(device, commandPool, flags), "vkResetCommandPool");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult AllocateCommandBuffers(Vk.Device device, Vk.CommandBufferAllocateInfo* pAllocateInfo, Vk.CommandBuffer* pCommandBuffers)
-	{
-		return new(Functions.vkAllocateCommandBuffers(device, pAllocateInfo, pCommandBuffers), "vkAllocateCommandBuffers");
-	}
+		=> new(Functions.vkAllocateCommandBuffers(device, pAllocateInfo, pCommandBuffers), "vkAllocateCommandBuffers");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void FreeCommandBuffers(Vk.Device device, Vk.CommandPool commandPool, uint commandBufferCount, Vk.CommandBuffer* pCommandBuffers)
-	{
-		Functions.vkFreeCommandBuffers(device, commandPool, commandBufferCount, pCommandBuffers);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult BeginCommandBuffer(Vk.CommandBuffer commandBuffer, Vk.CommandBufferBeginInfo* pBeginInfo)
-	{
-		return new(Functions.vkBeginCommandBuffer(commandBuffer, pBeginInfo), "vkBeginCommandBuffer");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EndCommandBuffer(Vk.CommandBuffer commandBuffer)
-	{
-		return new(Functions.vkEndCommandBuffer(commandBuffer), "vkEndCommandBuffer");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult ResetCommandBuffer(Vk.CommandBuffer commandBuffer, Vk.CommandBufferResetFlags flags)
-	{
-		return new(Functions.vkResetCommandBuffer(commandBuffer, flags), "vkResetCommandBuffer");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindPipeline(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline)
-	{
-		Functions.vkCmdBindPipeline(commandBuffer, pipelineBindPoint, pipeline);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewport(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.Viewport* pViewports)
-	{
-		Functions.vkCmdSetViewport(commandBuffer, firstViewport, viewportCount, pViewports);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetScissor(Vk.CommandBuffer commandBuffer, uint firstScissor, uint scissorCount, Vk.Rect2D* pScissors)
-	{
-		Functions.vkCmdSetScissor(commandBuffer, firstScissor, scissorCount, pScissors);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetLineWidth(Vk.CommandBuffer commandBuffer, float lineWidth)
-	{
-		Functions.vkCmdSetLineWidth(commandBuffer, lineWidth);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthBias(Vk.CommandBuffer commandBuffer, float depthBiasConstantFactor, float depthBiasClamp, float depthBiasSlopeFactor)
-	{
-		Functions.vkCmdSetDepthBias(commandBuffer, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetBlendConstants(Vk.CommandBuffer commandBuffer, float* blendConstants)
-	{
-		Functions.vkCmdSetBlendConstants(commandBuffer, blendConstants);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthBounds(Vk.CommandBuffer commandBuffer, float minDepthBounds, float maxDepthBounds)
-	{
-		Functions.vkCmdSetDepthBounds(commandBuffer, minDepthBounds, maxDepthBounds);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilCompareMask(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, uint compareMask)
-	{
-		Functions.vkCmdSetStencilCompareMask(commandBuffer, faceMask, compareMask);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilWriteMask(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, uint writeMask)
-	{
-		Functions.vkCmdSetStencilWriteMask(commandBuffer, faceMask, writeMask);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilReference(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, uint reference)
-	{
-		Functions.vkCmdSetStencilReference(commandBuffer, faceMask, reference);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindDescriptorSets(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint firstSet, uint descriptorSetCount, Vk.DescriptorSet* pDescriptorSets, uint dynamicOffsetCount, uint* pDynamicOffsets)
-	{
-		Functions.vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindIndexBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.IndexType indexType)
-	{
-		Functions.vkCmdBindIndexBuffer(commandBuffer, buffer, offset, indexType);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindVertexBuffers(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets)
-	{
-		Functions.vkCmdBindVertexBuffers(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDraw(Vk.CommandBuffer commandBuffer, uint vertexCount, uint instanceCount, uint firstVertex, uint firstInstance)
-	{
-		Functions.vkCmdDraw(commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexed(Vk.CommandBuffer commandBuffer, uint indexCount, uint instanceCount, uint firstIndex, int vertexOffset, uint firstInstance)
-	{
-		Functions.vkCmdDrawIndexed(commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirect(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
-	{
-		Functions.vkCmdDrawIndirect(commandBuffer, buffer, offset, drawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirect(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
-	{
-		Functions.vkCmdDrawIndexedIndirect(commandBuffer, buffer, offset, drawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatch(Vk.CommandBuffer commandBuffer, uint groupCountX, uint groupCountY, uint groupCountZ)
-	{
-		Functions.vkCmdDispatch(commandBuffer, groupCountX, groupCountY, groupCountZ);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatchIndirect(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset)
-	{
-		Functions.vkCmdDispatchIndirect(commandBuffer, buffer, offset);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferCopy* pRegions)
-	{
-		Functions.vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, regionCount, pRegions);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageCopy* pRegions)
-	{
-		Functions.vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBlitImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageBlit* pRegions, Vk.Filter filter)
-	{
-		Functions.vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyBufferToImage(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.BufferImageCopy* pRegions)
-	{
-		Functions.vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyImageToBuffer(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferImageCopy* pRegions)
-	{
-		Functions.vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdUpdateBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize dataSize, void* pData)
-	{
-		Functions.vkCmdUpdateBuffer(commandBuffer, dstBuffer, dstOffset, dataSize, pData);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdFillBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize size, uint data)
-	{
-		Functions.vkCmdFillBuffer(commandBuffer, dstBuffer, dstOffset, size, data);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdClearColorImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearColorValue* pColor, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
-	{
-		Functions.vkCmdClearColorImage(commandBuffer, image, imageLayout, pColor, rangeCount, pRanges);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdClearDepthStencilImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearDepthStencilValue* pDepthStencil, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
-	{
-		Functions.vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, pDepthStencil, rangeCount, pRanges);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdClearAttachments(Vk.CommandBuffer commandBuffer, uint attachmentCount, Vk.ClearAttachment* pAttachments, uint rectCount, Vk.ClearRect* pRects)
-	{
-		Functions.vkCmdClearAttachments(commandBuffer, attachmentCount, pAttachments, rectCount, pRects);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdResolveImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageResolve* pRegions)
-	{
-		Functions.vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetEvent(Vk.CommandBuffer commandBuffer, Vk.Event @event, Vk.PipelineStageFlags stageMask)
-	{
-		Functions.vkCmdSetEvent(commandBuffer, @event, stageMask);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdResetEvent(Vk.CommandBuffer commandBuffer, Vk.Event @event, Vk.PipelineStageFlags stageMask)
-	{
-		Functions.vkCmdResetEvent(commandBuffer, @event, stageMask);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWaitEvents(Vk.CommandBuffer commandBuffer, uint eventCount, Vk.Event* pEvents, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
-	{
-		Functions.vkCmdWaitEvents(commandBuffer, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPipelineBarrier(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, Vk.DependencyFlags dependencyFlags, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
-	{
-		Functions.vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginQuery(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags)
-	{
-		Functions.vkCmdBeginQuery(commandBuffer, queryPool, query, flags);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndQuery(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query)
-	{
-		Functions.vkCmdEndQuery(commandBuffer, queryPool, query);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginConditionalRenderingEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.ConditionalRenderingBeginInfo* pConditionalRenderingBegin)
-	{
-		if (Functions.vkCmdBeginConditionalRenderingEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginConditionalRenderingEXT"); }
-		Functions.vkCmdBeginConditionalRenderingEXT(commandBuffer, pConditionalRenderingBegin);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndConditionalRenderingEXT(Vk.CommandBuffer commandBuffer)
-	{
-		if (Functions.vkCmdEndConditionalRenderingEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndConditionalRenderingEXT"); }
-		Functions.vkCmdEndConditionalRenderingEXT(commandBuffer);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdResetQueryPool(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint firstQuery, uint queryCount)
-	{
-		Functions.vkCmdResetQueryPool(commandBuffer, queryPool, firstQuery, queryCount);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteTimestamp(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags pipelineStage, Vk.QueryPool queryPool, uint query)
-	{
-		Functions.vkCmdWriteTimestamp(commandBuffer, pipelineStage, queryPool, query);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyQueryPoolResults(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint firstQuery, uint queryCount, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize stride, Vk.QueryResultFlags flags)
-	{
-		Functions.vkCmdCopyQueryPoolResults(commandBuffer, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPushConstants(Vk.CommandBuffer commandBuffer, Vk.PipelineLayout layout, Vk.ShaderStageFlags stageFlags, uint offset, uint size, void* pValues)
-	{
-		Functions.vkCmdPushConstants(commandBuffer, layout, stageFlags, offset, size, pValues);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginRenderPass(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassContents contents)
-	{
-		Functions.vkCmdBeginRenderPass(commandBuffer, pRenderPassBegin, contents);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdNextSubpass(Vk.CommandBuffer commandBuffer, Vk.SubpassContents contents)
-	{
-		Functions.vkCmdNextSubpass(commandBuffer, contents);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndRenderPass(Vk.CommandBuffer commandBuffer)
-	{
-		Functions.vkCmdEndRenderPass(commandBuffer);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdExecuteCommands(Vk.CommandBuffer commandBuffer, uint commandBufferCount, Vk.CommandBuffer* pCommandBuffers)
-	{
-		Functions.vkCmdExecuteCommands(commandBuffer, commandBufferCount, pCommandBuffers);
-	}
+		=> Functions.vkFreeCommandBuffers(device, commandPool, commandBufferCount, pCommandBuffers);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateSharedSwapchainsKHR(Vk.Device device, uint swapchainCount, Vk.KHR.SwapchainCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Swapchain* pSwapchains)
@@ -799,13 +343,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueuePresentKHR(Vk.Queue queue, Vk.KHR.PresentInfo* pPresentInfo)
-	{
-		if (Functions.vkQueuePresentKHR == null) { throw new VVK.FunctionNotLoadedException("vkQueuePresentKHR"); }
-		return new(Functions.vkQueuePresentKHR(queue, pPresentInfo), "vkQueuePresentKHR");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult DebugMarkerSetObjectNameEXT(Vk.Device device, Vk.EXT.DebugMarkerObjectNameInfo* pNameInfo)
 	{
 		if (Functions.vkDebugMarkerSetObjectNameEXT == null) { throw new VVK.FunctionNotLoadedException("vkDebugMarkerSetObjectNameEXT"); }
@@ -820,52 +357,10 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDebugMarkerBeginEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
-	{
-		if (Functions.vkCmdDebugMarkerBeginEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDebugMarkerBeginEXT"); }
-		Functions.vkCmdDebugMarkerBeginEXT(commandBuffer, pMarkerInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDebugMarkerEndEXT(Vk.CommandBuffer commandBuffer)
-	{
-		if (Functions.vkCmdDebugMarkerEndEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDebugMarkerEndEXT"); }
-		Functions.vkCmdDebugMarkerEndEXT(commandBuffer);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDebugMarkerInsertEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
-	{
-		if (Functions.vkCmdDebugMarkerInsertEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDebugMarkerInsertEXT"); }
-		Functions.vkCmdDebugMarkerInsertEXT(commandBuffer, pMarkerInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetMemoryWin32HandleNV(Vk.Device device, Vk.DeviceMemory memory, Vk.NV.ExternalMemoryHandleTypeFlags handleType, void** pHandle)
 	{
 		if (Functions.vkGetMemoryWin32HandleNV == null) { throw new VVK.FunctionNotLoadedException("vkGetMemoryWin32HandleNV"); }
 		return new(Functions.vkGetMemoryWin32HandleNV(device, memory, handleType, pHandle), "vkGetMemoryWin32HandleNV");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdExecuteGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, Vk.Bool32 isPreprocessed, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
-	{
-		if (Functions.vkCmdExecuteGeneratedCommandsNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdExecuteGeneratedCommandsNV"); }
-		Functions.vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, pGeneratedCommandsInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPreprocessGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
-	{
-		if (Functions.vkCmdPreprocessGeneratedCommandsNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdPreprocessGeneratedCommandsNV"); }
-		Functions.vkCmdPreprocessGeneratedCommandsNV(commandBuffer, pGeneratedCommandsInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindPipelineShaderGroupNV(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline, uint groupIndex)
-	{
-		if (Functions.vkCmdBindPipelineShaderGroupNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindPipelineShaderGroupNV"); }
-		Functions.vkCmdBindPipelineShaderGroupNV(commandBuffer, pipelineBindPoint, pipeline, groupIndex);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -890,17 +385,8 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPushDescriptorSetKHR(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint set, uint descriptorWriteCount, Vk.WriteDescriptorSet* pDescriptorWrites)
-	{
-		if (Functions.vkCmdPushDescriptorSetKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdPushDescriptorSetKHR"); }
-		Functions.vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void TrimCommandPool(Vk.Device device, Vk.CommandPool commandPool, Vk.CommandPoolTrimFlags flags)
-	{
-		Functions.vkTrimCommandPool(device, commandPool, flags);
-	}
+		=> Functions.vkTrimCommandPool(device, commandPool, flags);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void TrimCommandPoolKHR(Vk.Device device, Vk.CommandPool commandPool, Vk.CommandPoolTrimFlags flags)
@@ -1023,9 +509,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceGroupPeerMemoryFeatures(Vk.Device device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, Vk.PeerMemoryFeatureFlags* pPeerMemoryFeatures)
-	{
-		Functions.vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
-	}
+		=> Functions.vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceGroupPeerMemoryFeaturesKHR(Vk.Device device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, Vk.PeerMemoryFeatureFlags* pPeerMemoryFeatures)
@@ -1036,9 +520,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult BindBufferMemory2(Vk.Device device, uint bindInfoCount, Vk.BindBufferMemoryInfo* pBindInfos)
-	{
-		return new(Functions.vkBindBufferMemory2(device, bindInfoCount, pBindInfos), "vkBindBufferMemory2");
-	}
+		=> new(Functions.vkBindBufferMemory2(device, bindInfoCount, pBindInfos), "vkBindBufferMemory2");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult BindBufferMemory2KHR(Vk.Device device, uint bindInfoCount, Vk.BindBufferMemoryInfo* pBindInfos)
@@ -1049,28 +531,13 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult BindImageMemory2(Vk.Device device, uint bindInfoCount, Vk.BindImageMemoryInfo* pBindInfos)
-	{
-		return new(Functions.vkBindImageMemory2(device, bindInfoCount, pBindInfos), "vkBindImageMemory2");
-	}
+		=> new(Functions.vkBindImageMemory2(device, bindInfoCount, pBindInfos), "vkBindImageMemory2");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult BindImageMemory2KHR(Vk.Device device, uint bindInfoCount, Vk.BindImageMemoryInfo* pBindInfos)
 	{
 		if (Functions.vkBindImageMemory2KHR == null) { throw new VVK.FunctionNotLoadedException("vkBindImageMemory2KHR"); }
 		return new(Functions.vkBindImageMemory2KHR(device, bindInfoCount, pBindInfos), "vkBindImageMemory2KHR");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDeviceMask(Vk.CommandBuffer commandBuffer, uint deviceMask)
-	{
-		Functions.vkCmdSetDeviceMask(commandBuffer, deviceMask);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDeviceMaskKHR(Vk.CommandBuffer commandBuffer, uint deviceMask)
-	{
-		if (Functions.vkCmdSetDeviceMaskKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDeviceMaskKHR"); }
-		Functions.vkCmdSetDeviceMaskKHR(commandBuffer, deviceMask);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1095,23 +562,8 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatchBase(Vk.CommandBuffer commandBuffer, uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
-	{
-		Functions.vkCmdDispatchBase(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDispatchBaseKHR(Vk.CommandBuffer commandBuffer, uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
-	{
-		if (Functions.vkCmdDispatchBaseKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdDispatchBaseKHR"); }
-		Functions.vkCmdDispatchBaseKHR(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateDescriptorUpdateTemplate(Vk.Device device, Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorUpdateTemplate* pDescriptorUpdateTemplate)
-	{
-		return new(Functions.vkCreateDescriptorUpdateTemplate(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate), "vkCreateDescriptorUpdateTemplate");
-	}
+		=> new(Functions.vkCreateDescriptorUpdateTemplate(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate), "vkCreateDescriptorUpdateTemplate");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateDescriptorUpdateTemplateKHR(Vk.Device device, Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorUpdateTemplate* pDescriptorUpdateTemplate)
@@ -1122,9 +574,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorUpdateTemplate(Vk.Device device, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, pAllocator);
-	}
+		=> Functions.vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorUpdateTemplateKHR(Vk.Device device, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, Vk.AllocationCallbacks* pAllocator)
@@ -1135,22 +585,13 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateDescriptorSetWithTemplate(Vk.Device device, Vk.DescriptorSet descriptorSet, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, void* pData)
-	{
-		Functions.vkUpdateDescriptorSetWithTemplate(device, descriptorSet, descriptorUpdateTemplate, pData);
-	}
+		=> Functions.vkUpdateDescriptorSetWithTemplate(device, descriptorSet, descriptorUpdateTemplate, pData);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateDescriptorSetWithTemplateKHR(Vk.Device device, Vk.DescriptorSet descriptorSet, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, void* pData)
 	{
 		if (Functions.vkUpdateDescriptorSetWithTemplateKHR == null) { throw new VVK.FunctionNotLoadedException("vkUpdateDescriptorSetWithTemplateKHR"); }
 		Functions.vkUpdateDescriptorSetWithTemplateKHR(device, descriptorSet, descriptorUpdateTemplate, pData);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdPushDescriptorSetWithTemplateKHR(Vk.CommandBuffer commandBuffer, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, Vk.PipelineLayout layout, uint set, void* pData)
-	{
-		if (Functions.vkCmdPushDescriptorSetWithTemplateKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdPushDescriptorSetWithTemplateKHR"); }
-		Functions.vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer, descriptorUpdateTemplate, layout, set, pData);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1182,31 +623,8 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewportWScalingNV(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.NV.ViewportWScaling* pViewportWScalings)
-	{
-		if (Functions.vkCmdSetViewportWScalingNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetViewportWScalingNV"); }
-		Functions.vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, viewportCount, pViewportWScalings);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDiscardRectangleEXT(Vk.CommandBuffer commandBuffer, uint firstDiscardRectangle, uint discardRectangleCount, Vk.Rect2D* pDiscardRectangles)
-	{
-		if (Functions.vkCmdSetDiscardRectangleEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDiscardRectangleEXT"); }
-		Functions.vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetSampleLocationsEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.SampleLocationsInfo* pSampleLocationsInfo)
-	{
-		if (Functions.vkCmdSetSampleLocationsEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetSampleLocationsEXT"); }
-		Functions.vkCmdSetSampleLocationsEXT(commandBuffer, pSampleLocationsInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements2(Vk.Device device, Vk.BufferMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
-	{
-		Functions.vkGetBufferMemoryRequirements2(device, pInfo, pMemoryRequirements);
-	}
+		=> Functions.vkGetBufferMemoryRequirements2(device, pInfo, pMemoryRequirements);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements2KHR(Vk.Device device, Vk.BufferMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
@@ -1217,9 +635,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements2(Vk.Device device, Vk.ImageMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
-	{
-		Functions.vkGetImageMemoryRequirements2(device, pInfo, pMemoryRequirements);
-	}
+		=> Functions.vkGetImageMemoryRequirements2(device, pInfo, pMemoryRequirements);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements2KHR(Vk.Device device, Vk.ImageMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
@@ -1230,9 +646,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements2(Vk.Device device, Vk.ImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, Vk.SparseImageMemoryRequirements2* pSparseMemoryRequirements)
-	{
-		Functions.vkGetImageSparseMemoryRequirements2(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
-	}
+		=> Functions.vkGetImageSparseMemoryRequirements2(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements2KHR(Vk.Device device, Vk.ImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, Vk.SparseImageMemoryRequirements2* pSparseMemoryRequirements)
@@ -1243,9 +657,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateSamplerYcbcrConversion(Vk.Device device, Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.SamplerYcbcrConversion* pYcbcrConversion)
-	{
-		return new(Functions.vkCreateSamplerYcbcrConversion(device, pCreateInfo, pAllocator, pYcbcrConversion), "vkCreateSamplerYcbcrConversion");
-	}
+		=> new(Functions.vkCreateSamplerYcbcrConversion(device, pCreateInfo, pAllocator, pYcbcrConversion), "vkCreateSamplerYcbcrConversion");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateSamplerYcbcrConversionKHR(Vk.Device device, Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.SamplerYcbcrConversion* pYcbcrConversion)
@@ -1256,9 +668,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySamplerYcbcrConversion(Vk.Device device, Vk.SamplerYcbcrConversion ycbcrConversion, Vk.AllocationCallbacks* pAllocator)
-	{
-		Functions.vkDestroySamplerYcbcrConversion(device, ycbcrConversion, pAllocator);
-	}
+		=> Functions.vkDestroySamplerYcbcrConversion(device, ycbcrConversion, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySamplerYcbcrConversionKHR(Vk.Device device, Vk.SamplerYcbcrConversion ycbcrConversion, Vk.AllocationCallbacks* pAllocator)
@@ -1269,9 +679,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue2(Vk.Device device, Vk.DeviceQueueInfo2* pQueueInfo, Vk.Queue* pQueue)
-	{
-		Functions.vkGetDeviceQueue2(device, pQueueInfo, pQueue);
-	}
+		=> Functions.vkGetDeviceQueue2(device, pQueueInfo, pQueue);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateValidationCacheEXT(Vk.Device device, Vk.EXT.ValidationCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.ValidationCache* pValidationCache)
@@ -1303,9 +711,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDescriptorSetLayoutSupport(Vk.Device device, Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.DescriptorSetLayoutSupport* pSupport)
-	{
-		Functions.vkGetDescriptorSetLayoutSupport(device, pCreateInfo, pSupport);
-	}
+		=> Functions.vkGetDescriptorSetLayoutSupport(device, pCreateInfo, pSupport);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDescriptorSetLayoutSupportKHR(Vk.Device device, Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.DescriptorSetLayoutSupport* pSupport)
@@ -1333,13 +739,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	{
 		if (Functions.vkAcquireImageANDROID == null) { throw new VVK.FunctionNotLoadedException("vkAcquireImageANDROID"); }
 		return new(Functions.vkAcquireImageANDROID(device, image, nativeFenceFd, semaphore, fence), "vkAcquireImageANDROID");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueSignalReleaseImageANDROID(Vk.Queue queue, uint waitSemaphoreCount, Vk.Semaphore* pWaitSemaphores, Vk.Image image, int* pNativeFenceFd)
-	{
-		if (Functions.vkQueueSignalReleaseImageANDROID == null) { throw new VVK.FunctionNotLoadedException("vkQueueSignalReleaseImageANDROID"); }
-		return new(Functions.vkQueueSignalReleaseImageANDROID(queue, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd), "vkQueueSignalReleaseImageANDROID");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1378,48 +777,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void QueueBeginDebugUtilsLabelEXT(Vk.Queue queue, Vk.EXT.DebugUtilsLabel* pLabelInfo)
-	{
-		if (Functions.vkQueueBeginDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueBeginDebugUtilsLabelEXT"); }
-		Functions.vkQueueBeginDebugUtilsLabelEXT(queue, pLabelInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void QueueEndDebugUtilsLabelEXT(Vk.Queue queue)
-	{
-		if (Functions.vkQueueEndDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueEndDebugUtilsLabelEXT"); }
-		Functions.vkQueueEndDebugUtilsLabelEXT(queue);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void QueueInsertDebugUtilsLabelEXT(Vk.Queue queue, Vk.EXT.DebugUtilsLabel* pLabelInfo)
-	{
-		if (Functions.vkQueueInsertDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueInsertDebugUtilsLabelEXT"); }
-		Functions.vkQueueInsertDebugUtilsLabelEXT(queue, pLabelInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugUtilsLabel* pLabelInfo)
-	{
-		if (Functions.vkCmdBeginDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginDebugUtilsLabelEXT"); }
-		Functions.vkCmdBeginDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer)
-	{
-		if (Functions.vkCmdEndDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndDebugUtilsLabelEXT"); }
-		Functions.vkCmdEndDebugUtilsLabelEXT(commandBuffer);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdInsertDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugUtilsLabel* pLabelInfo)
-	{
-		if (Functions.vkCmdInsertDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdInsertDebugUtilsLabelEXT"); }
-		Functions.vkCmdInsertDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetMemoryHostPointerPropertiesEXT(Vk.Device device, Vk.ExternalMemoryHandleTypeFlags handleType, void* pHostPointer, Vk.EXT.MemoryHostPointerProperties* pMemoryHostPointerProperties)
 	{
 		if (Functions.vkGetMemoryHostPointerPropertiesEXT == null) { throw new VVK.FunctionNotLoadedException("vkGetMemoryHostPointerPropertiesEXT"); }
@@ -1427,17 +784,8 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteBufferMarkerAMD(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags pipelineStage, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, uint marker)
-	{
-		if (Functions.vkCmdWriteBufferMarkerAMD == null) { throw new VVK.FunctionNotLoadedException("vkCmdWriteBufferMarkerAMD"); }
-		Functions.vkCmdWriteBufferMarkerAMD(commandBuffer, pipelineStage, dstBuffer, dstOffset, marker);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateRenderPass2(Vk.Device device, Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.RenderPass* pRenderPass)
-	{
-		return new(Functions.vkCreateRenderPass2(device, pCreateInfo, pAllocator, pRenderPass), "vkCreateRenderPass2");
-	}
+		=> new(Functions.vkCreateRenderPass2(device, pCreateInfo, pAllocator, pRenderPass), "vkCreateRenderPass2");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateRenderPass2KHR(Vk.Device device, Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.RenderPass* pRenderPass)
@@ -1447,49 +795,8 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginRenderPass2(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
-	{
-		Functions.vkCmdBeginRenderPass2(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginRenderPass2KHR(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
-	{
-		if (Functions.vkCmdBeginRenderPass2KHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginRenderPass2KHR"); }
-		Functions.vkCmdBeginRenderPass2KHR(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdNextSubpass2(Vk.CommandBuffer commandBuffer, Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
-	{
-		Functions.vkCmdNextSubpass2(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdNextSubpass2KHR(Vk.CommandBuffer commandBuffer, Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
-	{
-		if (Functions.vkCmdNextSubpass2KHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdNextSubpass2KHR"); }
-		Functions.vkCmdNextSubpass2KHR(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndRenderPass2(Vk.CommandBuffer commandBuffer, Vk.SubpassEndInfo* pSubpassEndInfo)
-	{
-		Functions.vkCmdEndRenderPass2(commandBuffer, pSubpassEndInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndRenderPass2KHR(Vk.CommandBuffer commandBuffer, Vk.SubpassEndInfo* pSubpassEndInfo)
-	{
-		if (Functions.vkCmdEndRenderPass2KHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndRenderPass2KHR"); }
-		Functions.vkCmdEndRenderPass2KHR(commandBuffer, pSubpassEndInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetSemaphoreCounterValue(Vk.Device device, Vk.Semaphore semaphore, ulong* pValue)
-	{
-		return new(Functions.vkGetSemaphoreCounterValue(device, semaphore, pValue), "vkGetSemaphoreCounterValue");
-	}
+		=> new(Functions.vkGetSemaphoreCounterValue(device, semaphore, pValue), "vkGetSemaphoreCounterValue");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetSemaphoreCounterValueKHR(Vk.Device device, Vk.Semaphore semaphore, ulong* pValue)
@@ -1500,9 +807,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult WaitSemaphores(Vk.Device device, Vk.SemaphoreWaitInfo* pWaitInfo, ulong timeout)
-	{
-		return new(Functions.vkWaitSemaphores(device, pWaitInfo, timeout), "vkWaitSemaphores");
-	}
+		=> new(Functions.vkWaitSemaphores(device, pWaitInfo, timeout), "vkWaitSemaphores");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult WaitSemaphoresKHR(Vk.Device device, Vk.SemaphoreWaitInfo* pWaitInfo, ulong timeout)
@@ -1513,9 +818,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult SignalSemaphore(Vk.Device device, Vk.SemaphoreSignalInfo* pSignalInfo)
-	{
-		return new(Functions.vkSignalSemaphore(device, pSignalInfo), "vkSignalSemaphore");
-	}
+		=> new(Functions.vkSignalSemaphore(device, pSignalInfo), "vkSignalSemaphore");
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult SignalSemaphoreKHR(Vk.Device device, Vk.SemaphoreSignalInfo* pSignalInfo)
@@ -1536,151 +839,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	{
 		if (Functions.vkGetMemoryAndroidHardwareBufferANDROID == null) { throw new VVK.FunctionNotLoadedException("vkGetMemoryAndroidHardwareBufferANDROID"); }
 		return new(Functions.vkGetMemoryAndroidHardwareBufferANDROID(device, pInfo, pBuffer), "vkGetMemoryAndroidHardwareBufferANDROID");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectCount(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-	{
-		Functions.vkCmdDrawIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectCountKHR(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-	{
-		if (Functions.vkCmdDrawIndirectCountKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndirectCountKHR"); }
-		Functions.vkCmdDrawIndirectCountKHR(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectCountAMD(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-	{
-		if (Functions.vkCmdDrawIndirectCountAMD == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndirectCountAMD"); }
-		Functions.vkCmdDrawIndirectCountAMD(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirectCount(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-	{
-		Functions.vkCmdDrawIndexedIndirectCount(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirectCountKHR(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-	{
-		if (Functions.vkCmdDrawIndexedIndirectCountKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndexedIndirectCountKHR"); }
-		Functions.vkCmdDrawIndexedIndirectCountKHR(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndexedIndirectCountAMD(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-	{
-		if (Functions.vkCmdDrawIndexedIndirectCountAMD == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndexedIndirectCountAMD"); }
-		Functions.vkCmdDrawIndexedIndirectCountAMD(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetCheckpointNV(Vk.CommandBuffer commandBuffer, void* pCheckpointMarker)
-	{
-		if (Functions.vkCmdSetCheckpointNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetCheckpointNV"); }
-		Functions.vkCmdSetCheckpointNV(commandBuffer, pCheckpointMarker);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetQueueCheckpointDataNV(Vk.Queue queue, uint* pCheckpointDataCount, Vk.NV.CheckpointData* pCheckpointData)
-	{
-		if (Functions.vkGetQueueCheckpointDataNV == null) { throw new VVK.FunctionNotLoadedException("vkGetQueueCheckpointDataNV"); }
-		Functions.vkGetQueueCheckpointDataNV(queue, pCheckpointDataCount, pCheckpointData);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindTransformFeedbackBuffersEXT(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes)
-	{
-		if (Functions.vkCmdBindTransformFeedbackBuffersEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindTransformFeedbackBuffersEXT"); }
-		Functions.vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
-	{
-		if (Functions.vkCmdBeginTransformFeedbackEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginTransformFeedbackEXT"); }
-		Functions.vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
-	{
-		if (Functions.vkCmdEndTransformFeedbackEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndTransformFeedbackEXT"); }
-		Functions.vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBeginQueryIndexedEXT(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags, uint index)
-	{
-		if (Functions.vkCmdBeginQueryIndexedEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBeginQueryIndexedEXT"); }
-		Functions.vkCmdBeginQueryIndexedEXT(commandBuffer, queryPool, query, flags, index);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdEndQueryIndexedEXT(Vk.CommandBuffer commandBuffer, Vk.QueryPool queryPool, uint query, uint index)
-	{
-		if (Functions.vkCmdEndQueryIndexedEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdEndQueryIndexedEXT"); }
-		Functions.vkCmdEndQueryIndexedEXT(commandBuffer, queryPool, query, index);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawIndirectByteCountEXT(Vk.CommandBuffer commandBuffer, uint instanceCount, uint firstInstance, Vk.Buffer counterBuffer, Vk.DeviceSize counterBufferOffset, uint counterOffset, uint vertexStride)
-	{
-		if (Functions.vkCmdDrawIndirectByteCountEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawIndirectByteCountEXT"); }
-		Functions.vkCmdDrawIndirectByteCountEXT(commandBuffer, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetExclusiveScissorNV(Vk.CommandBuffer commandBuffer, uint firstExclusiveScissor, uint exclusiveScissorCount, Vk.Rect2D* pExclusiveScissors)
-	{
-		if (Functions.vkCmdSetExclusiveScissorNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetExclusiveScissorNV"); }
-		Functions.vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindShadingRateImageNV(Vk.CommandBuffer commandBuffer, Vk.ImageView imageView, Vk.ImageLayout imageLayout)
-	{
-		if (Functions.vkCmdBindShadingRateImageNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindShadingRateImageNV"); }
-		Functions.vkCmdBindShadingRateImageNV(commandBuffer, imageView, imageLayout);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewportShadingRatePaletteNV(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.NV.ShadingRatePalette* pShadingRatePalettes)
-	{
-		if (Functions.vkCmdSetViewportShadingRatePaletteNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetViewportShadingRatePaletteNV"); }
-		Functions.vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, viewportCount, pShadingRatePalettes);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetCoarseSampleOrderNV(Vk.CommandBuffer commandBuffer, Vk.NV.CoarseSampleOrderType sampleOrderType, uint customSampleOrderCount, Vk.NV.CoarseSampleOrderCustom* pCustomSampleOrders)
-	{
-		if (Functions.vkCmdSetCoarseSampleOrderNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetCoarseSampleOrderNV"); }
-		Functions.vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawMeshTasksNV(Vk.CommandBuffer commandBuffer, uint taskCount, uint firstTask)
-	{
-		if (Functions.vkCmdDrawMeshTasksNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawMeshTasksNV"); }
-		Functions.vkCmdDrawMeshTasksNV(commandBuffer, taskCount, firstTask);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawMeshTasksIndirectNV(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, uint drawCount, uint stride)
-	{
-		if (Functions.vkCmdDrawMeshTasksIndirectNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawMeshTasksIndirectNV"); }
-		Functions.vkCmdDrawMeshTasksIndirectNV(commandBuffer, buffer, offset, drawCount, stride);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdDrawMeshTasksIndirectCountNV(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
-	{
-		if (Functions.vkCmdDrawMeshTasksIndirectCountNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdDrawMeshTasksIndirectCountNV"); }
-		Functions.vkCmdDrawMeshTasksIndirectCountNV(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1740,31 +898,10 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyAccelerationStructureNV(Vk.CommandBuffer commandBuffer, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.KHR.CopyAccelerationStructureMode mode)
-	{
-		if (Functions.vkCmdCopyAccelerationStructureNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyAccelerationStructureNV"); }
-		Functions.vkCmdCopyAccelerationStructureNV(commandBuffer, dst, src, mode);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyAccelerationStructureInfo* pInfo)
-	{
-		if (Functions.vkCmdCopyAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyAccelerationStructureKHR"); }
-		Functions.vkCmdCopyAccelerationStructureKHR(commandBuffer, pInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CopyAccelerationStructureKHR(Vk.Device device, Vk.KHR.CopyAccelerationStructureInfo* pInfo)
 	{
 		if (Functions.vkCopyAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCopyAccelerationStructureKHR"); }
 		return new(Functions.vkCopyAccelerationStructureKHR(device, pInfo), "vkCopyAccelerationStructureKHR");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyAccelerationStructureToMemoryKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyAccelerationStructureToMemoryInfo* pInfo)
-	{
-		if (Functions.vkCmdCopyAccelerationStructureToMemoryKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyAccelerationStructureToMemoryKHR"); }
-		Functions.vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, pInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1775,13 +912,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyMemoryToAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyMemoryToAccelerationStructureInfo* pInfo)
-	{
-		if (Functions.vkCmdCopyMemoryToAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdCopyMemoryToAccelerationStructureKHR"); }
-		Functions.vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, pInfo);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CopyMemoryToAccelerationStructureKHR(Vk.Device device, Vk.KHR.CopyMemoryToAccelerationStructureInfo* pInfo)
 	{
 		if (Functions.vkCopyMemoryToAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCopyMemoryToAccelerationStructureKHR"); }
@@ -1789,45 +919,10 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteAccelerationStructuresPropertiesKHR(Vk.CommandBuffer commandBuffer, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
-	{
-		if (Functions.vkCmdWriteAccelerationStructuresPropertiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdWriteAccelerationStructuresPropertiesKHR"); }
-		Functions.vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteAccelerationStructuresPropertiesNV(Vk.CommandBuffer commandBuffer, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
-	{
-		if (Functions.vkCmdWriteAccelerationStructuresPropertiesNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdWriteAccelerationStructuresPropertiesNV"); }
-		Functions.vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureNV(Vk.CommandBuffer commandBuffer, Vk.NV.AccelerationStructureInfo* pInfo, Vk.Buffer instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.Buffer scratch, Vk.DeviceSize scratchOffset)
-	{
-		if (Functions.vkCmdBuildAccelerationStructureNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureNV"); }
-		Functions.vkCmdBuildAccelerationStructureNV(commandBuffer, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult WriteAccelerationStructuresPropertiesKHR(Vk.Device device, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, ulong dataSize, void* pData, ulong stride)
 	{
 		if (Functions.vkWriteAccelerationStructuresPropertiesKHR == null) { throw new VVK.FunctionNotLoadedException("vkWriteAccelerationStructuresPropertiesKHR"); }
 		return new(Functions.vkWriteAccelerationStructuresPropertiesKHR(device, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride), "vkWriteAccelerationStructuresPropertiesKHR");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, uint width, uint height, uint depth)
-	{
-		if (Functions.vkCmdTraceRaysKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysKHR"); }
-		Functions.vkCmdTraceRaysKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysNV(Vk.CommandBuffer commandBuffer, Vk.Buffer raygenShaderBindingTableBuffer, Vk.DeviceSize raygenShaderBindingOffset, Vk.Buffer missShaderBindingTableBuffer, Vk.DeviceSize missShaderBindingOffset, Vk.DeviceSize missShaderBindingStride, Vk.Buffer hitShaderBindingTableBuffer, Vk.DeviceSize hitShaderBindingOffset, Vk.DeviceSize hitShaderBindingStride, Vk.Buffer callableShaderBindingTableBuffer, Vk.DeviceSize callableShaderBindingOffset, Vk.DeviceSize callableShaderBindingStride, uint width, uint height, uint depth)
-	{
-		if (Functions.vkCmdTraceRaysNV == null) { throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysNV"); }
-		Functions.vkCmdTraceRaysNV(commandBuffer, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1870,13 +965,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	{
 		if (Functions.vkCreateRayTracingPipelinesKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateRayTracingPipelinesKHR"); }
 		return new(Functions.vkCreateRayTracingPipelinesKHR(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines), "vkCreateRayTracingPipelinesKHR");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysIndirectKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, Vk.Buffer buffer, Vk.DeviceSize offset)
-	{
-		if (Functions.vkCmdTraceRaysIndirectKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysIndirectKHR"); }
-		Functions.vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1944,9 +1032,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferOpaqueCaptureAddress(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
-	{
-		return Functions.vkGetBufferOpaqueCaptureAddress(device, pInfo);
-	}
+		=> Functions.vkGetBufferOpaqueCaptureAddress(device, pInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferOpaqueCaptureAddressKHR(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
@@ -1957,9 +1043,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddress(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
-	{
-		return Functions.vkGetBufferDeviceAddress(device, pInfo);
-	}
+		=> Functions.vkGetBufferDeviceAddress(device, pInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddressKHR(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
@@ -1990,27 +1074,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CmdSetPerformanceMarkerINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceMarkerInfo* pMarkerInfo)
-	{
-		if (Functions.vkCmdSetPerformanceMarkerINTEL == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPerformanceMarkerINTEL"); }
-		return new(Functions.vkCmdSetPerformanceMarkerINTEL(commandBuffer, pMarkerInfo), "vkCmdSetPerformanceMarkerINTEL");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CmdSetPerformanceStreamMarkerINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceStreamMarkerInfo* pMarkerInfo)
-	{
-		if (Functions.vkCmdSetPerformanceStreamMarkerINTEL == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPerformanceStreamMarkerINTEL"); }
-		return new(Functions.vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, pMarkerInfo), "vkCmdSetPerformanceStreamMarkerINTEL");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CmdSetPerformanceOverrideINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceOverrideInfo* pOverrideInfo)
-	{
-		if (Functions.vkCmdSetPerformanceOverrideINTEL == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPerformanceOverrideINTEL"); }
-		return new(Functions.vkCmdSetPerformanceOverrideINTEL(commandBuffer, pOverrideInfo), "vkCmdSetPerformanceOverrideINTEL");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult AcquirePerformanceConfigurationINTEL(Vk.Device device, Vk.INTEL.PerformanceConfigurationAcquireInfo* pAcquireInfo, Vk.INTEL.PerformanceConfiguration* pConfiguration)
 	{
 		if (Functions.vkAcquirePerformanceConfigurationINTEL == null) { throw new VVK.FunctionNotLoadedException("vkAcquirePerformanceConfigurationINTEL"); }
@@ -2025,13 +1088,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult QueueSetPerformanceConfigurationINTEL(Vk.Queue queue, Vk.INTEL.PerformanceConfiguration configuration)
-	{
-		if (Functions.vkQueueSetPerformanceConfigurationINTEL == null) { throw new VVK.FunctionNotLoadedException("vkQueueSetPerformanceConfigurationINTEL"); }
-		return new(Functions.vkQueueSetPerformanceConfigurationINTEL(queue, configuration), "vkQueueSetPerformanceConfigurationINTEL");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult GetPerformanceParameterINTEL(Vk.Device device, Vk.INTEL.PerformanceParameterType parameter, Vk.INTEL.PerformanceValue* pValue)
 	{
 		if (Functions.vkGetPerformanceParameterINTEL == null) { throw new VVK.FunctionNotLoadedException("vkGetPerformanceParameterINTEL"); }
@@ -2040,9 +1096,7 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetDeviceMemoryOpaqueCaptureAddress(Vk.Device device, Vk.DeviceMemoryOpaqueCaptureAddressInfo* pInfo)
-	{
-		return Functions.vkGetDeviceMemoryOpaqueCaptureAddress(device, pInfo);
-	}
+		=> Functions.vkGetDeviceMemoryOpaqueCaptureAddress(device, pInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetDeviceMemoryOpaqueCaptureAddressKHR(Vk.Device device, Vk.DeviceMemoryOpaqueCaptureAddressInfo* pInfo)
@@ -2073,31 +1127,10 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetLineStippleEXT(Vk.CommandBuffer commandBuffer, uint lineStippleFactor, ushort lineStipplePattern)
-	{
-		if (Functions.vkCmdSetLineStippleEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetLineStippleEXT"); }
-		Functions.vkCmdSetLineStippleEXT(commandBuffer, lineStippleFactor, lineStipplePattern);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult CreateAccelerationStructureKHR(Vk.Device device, Vk.KHR.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.AccelerationStructure* pAccelerationStructure)
 	{
 		if (Functions.vkCreateAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCreateAccelerationStructureKHR"); }
 		return new(Functions.vkCreateAccelerationStructureKHR(device, pCreateInfo, pAllocator, pAccelerationStructure), "vkCreateAccelerationStructureKHR");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, uint infoCount, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
-	{
-		if (Functions.vkCmdBuildAccelerationStructureKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureKHR"); }
-		Functions.vkCmdBuildAccelerationStructureKHR(commandBuffer, infoCount, pInfos, ppOffsetInfos);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureIndirectKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfo, Vk.Buffer indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
-	{
-		if (Functions.vkCmdBuildAccelerationStructureIndirectKHR == null) { throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureIndirectKHR"); }
-		Functions.vkCmdBuildAccelerationStructureIndirectKHR(commandBuffer, pInfo, indirectBuffer, indirectOffset, indirectStride);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2147,90 +1180,6 @@ public unsafe sealed partial class VulkanDevice : IDisposable
 	{
 		if (Functions.vkDeferredOperationJoinKHR == null) { throw new VVK.FunctionNotLoadedException("vkDeferredOperationJoinKHR"); }
 		return new(Functions.vkDeferredOperationJoinKHR(device, operation), "vkDeferredOperationJoinKHR");
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetCullModeEXT(Vk.CommandBuffer commandBuffer, Vk.CullModeFlags cullMode)
-	{
-		if (Functions.vkCmdSetCullModeEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetCullModeEXT"); }
-		Functions.vkCmdSetCullModeEXT(commandBuffer, cullMode);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetFrontFaceEXT(Vk.CommandBuffer commandBuffer, Vk.FrontFace frontFace)
-	{
-		if (Functions.vkCmdSetFrontFaceEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetFrontFaceEXT"); }
-		Functions.vkCmdSetFrontFaceEXT(commandBuffer, frontFace);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetPrimitiveTopologyEXT(Vk.CommandBuffer commandBuffer, Vk.PrimitiveTopology primitiveTopology)
-	{
-		if (Functions.vkCmdSetPrimitiveTopologyEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetPrimitiveTopologyEXT"); }
-		Functions.vkCmdSetPrimitiveTopologyEXT(commandBuffer, primitiveTopology);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetViewportWithCountEXT(Vk.CommandBuffer commandBuffer, uint viewportCount, Vk.Viewport* pViewports)
-	{
-		if (Functions.vkCmdSetViewportWithCountEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetViewportWithCountEXT"); }
-		Functions.vkCmdSetViewportWithCountEXT(commandBuffer, viewportCount, pViewports);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetScissorWithCountEXT(Vk.CommandBuffer commandBuffer, uint scissorCount, Vk.Rect2D* pScissors)
-	{
-		if (Functions.vkCmdSetScissorWithCountEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetScissorWithCountEXT"); }
-		Functions.vkCmdSetScissorWithCountEXT(commandBuffer, scissorCount, pScissors);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBindVertexBuffers2EXT(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes, Vk.DeviceSize* pStrides)
-	{
-		if (Functions.vkCmdBindVertexBuffers2EXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdBindVertexBuffers2EXT"); }
-		Functions.vkCmdBindVertexBuffers2EXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthTestEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 depthTestEnable)
-	{
-		if (Functions.vkCmdSetDepthTestEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthTestEnableEXT"); }
-		Functions.vkCmdSetDepthTestEnableEXT(commandBuffer, depthTestEnable);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthWriteEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 depthWriteEnable)
-	{
-		if (Functions.vkCmdSetDepthWriteEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthWriteEnableEXT"); }
-		Functions.vkCmdSetDepthWriteEnableEXT(commandBuffer, depthWriteEnable);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthCompareOpEXT(Vk.CommandBuffer commandBuffer, Vk.CompareOp depthCompareOp)
-	{
-		if (Functions.vkCmdSetDepthCompareOpEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthCompareOpEXT"); }
-		Functions.vkCmdSetDepthCompareOpEXT(commandBuffer, depthCompareOp);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetDepthBoundsTestEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 depthBoundsTestEnable)
-	{
-		if (Functions.vkCmdSetDepthBoundsTestEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetDepthBoundsTestEnableEXT"); }
-		Functions.vkCmdSetDepthBoundsTestEnableEXT(commandBuffer, depthBoundsTestEnable);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilTestEnableEXT(Vk.CommandBuffer commandBuffer, Vk.Bool32 stencilTestEnable)
-	{
-		if (Functions.vkCmdSetStencilTestEnableEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetStencilTestEnableEXT"); }
-		Functions.vkCmdSetStencilTestEnableEXT(commandBuffer, stencilTestEnable);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdSetStencilOpEXT(Vk.CommandBuffer commandBuffer, Vk.StencilFaceFlags faceMask, Vk.StencilOp failOp, Vk.StencilOp passOp, Vk.StencilOp depthFailOp, Vk.CompareOp compareOp)
-	{
-		if (Functions.vkCmdSetStencilOpEXT == null) { throw new VVK.FunctionNotLoadedException("vkCmdSetStencilOpEXT"); }
-		Functions.vkCmdSetStencilOpEXT(commandBuffer, faceMask, failOp, passOp, depthFailOp, compareOp);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
