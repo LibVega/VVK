@@ -98,7 +98,7 @@ namespace VVK.Vk
 		public readonly override string ToString()
 		{
 			fixed (byte* ptr = _data) {
-				return Marshal.PtrToStringAnsi(new IntPtr(ptr), Strlen(ptr));
+				return Marshal.PtrToStringAnsi(new IntPtr(ptr), NativeString.Strlen(ptr, SIZE));
 			}
 		}
 		#endregion // Overrides
@@ -107,14 +107,14 @@ namespace VVK.Vk
 		public static bool operator == (in FixedString str1, in FixedString str2)
 		{
 			fixed (byte* ptr1 = str1._data, ptr2 = str2._data) {
-				return Strcmp(ptr1, ptr2) == 0;
+				return NativeString.Strcmp(ptr1, ptr2) == 0;
 			}
 		}
 		
 		public static bool operator != (in FixedString str1, in FixedString str2)
 		{
 			fixed (byte* ptr1 = str1._data, ptr2 = str2._data) {
-				return Strcmp(ptr1, ptr2) != 0;
+				return NativeString.Strcmp(ptr1, ptr2) != 0;
 			}
 		}
 
@@ -122,7 +122,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr1 = str1._data) {
 				fixed (char* ptr2 = str2) {
-					return Strcmp(ptr1, (byte*)ptr2) == 0;
+					return NativeString.Strcmp(ptr1, (byte*)ptr2) == 0;
 				}
 			}
 		}
@@ -131,7 +131,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr1 = str1._data) {
 				fixed (char* ptr2 = str2) {
-					return Strcmp(ptr1, (byte*)ptr2) != 0;
+					return NativeString.Strcmp(ptr1, (byte*)ptr2) != 0;
 				}
 			}
 		}
@@ -140,7 +140,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr2 = str2._data) {
 				fixed (char* ptr1 = str1) {
-					return Strcmp(ptr2, (byte*)ptr1) == 0;
+					return NativeString.Strcmp(ptr2, (byte*)ptr1) == 0;
 				}
 			}
 		}
@@ -149,7 +149,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr2 = str2._data) {
 				fixed (char* ptr1 = str1) {
-					return Strcmp(ptr2, (byte*)ptr1) != 0;
+					return NativeString.Strcmp(ptr2, (byte*)ptr1) != 0;
 				}
 			}
 		}
@@ -167,46 +167,7 @@ namespace VVK.Vk
 		/// <returns></returns>
 		public readonly int GetLength()
 		{
-			fixed (byte* ptr = _data) { return Strlen(ptr); }
+			fixed (byte* ptr = _data) { return NativeString.Strlen(ptr, SIZE); }
 		}
-
-		#region C-String
-		/// <summary>
-		/// Returns the length of the c-string by counting to the null terminator (like <c>strlen()</c>).
-		/// </summary>
-		/// <param name="data">The c-string to find the length of.</param>
-		public static int Strlen(byte* data)
-		{
-			if (data == (byte*)0) {
-				return 0;
-			}
-			int len = 0;
-			while ((*(data++) != 0) && (len < SIZE)) ++len;
-			return len;
-		}
-
-		/// <summary>
-		/// Performs an ordinal comparison between the strings, returning 0 if they are equal.
-		/// </summary>
-		/// <param name="str1">The first string to compare.</param>
-		/// <param name="str2">The seconds string to comapre.</param>
-		public static int Strcmp(byte* str1, byte* str2)
-		{
-			if (str1 == (byte*)0 && str2 == (byte*)0) {
-				return 0;
-			}
-			if (str1 == (byte*)0 && str2 != (byte*)0) {
-				return Int32.MinValue;
-			}
-			if (str2 != (byte*)0 && str2 == (byte*)0) {
-				return Int32.MaxValue;
-			}
-
-			int off = 0;
-			while ((str1[off] != 0) && (str1[off] == str2[off])) { ++off; }
-
-			return (int)str1[off] - (int)str2[off];
-		}
-		#endregion // C-String
 	}
 }
