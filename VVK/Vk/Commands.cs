@@ -16,21 +16,19 @@ namespace VVK.Vk
 	{
 		private static void* LoadFunc(Vk.Instance inst, string name)
 		{
-			fixed (char* nptr = name) {
-				var addr = vkGetInstanceProcAddr(inst, (byte*)nptr);
-				if (addr == (void*)0) {
-					throw new ArgumentException($"The function '{name}' was not found", nameof(name));
-				}
-				return addr;
+			using var nname = new NativeString(name);
+			var addr = vkGetInstanceProcAddr(inst, nname.Data);
+			if (addr == (void*)0) {
+				throw new ArgumentException($"The function '{nname}' was not found", nameof(name));
 			}
+			return addr;
 		}
 
 		private static bool TryLoadFunc(Vk.Instance inst, string name, out void* addr)
 		{
-			fixed (char* nptr = name) {
-				addr = vkGetInstanceProcAddr(inst, (byte*)nptr);
-				return addr != (void*)0;
-			}
+			using var nname = new NativeString(name);
+			addr = vkGetInstanceProcAddr(inst, nname.Data);
+			return addr != (void*)0;
 		}
 	}
 
@@ -41,21 +39,19 @@ namespace VVK.Vk
 	{
 		private static void* LoadFunc(Vk.Device dev, string name)
 		{
-			fixed (char* nptr = name) {
-				var addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, (byte*)nptr);
-				if (addr == (void*)0) {
-					throw new ArgumentException($"The function '{name}' was not found", nameof(name));
-				}
-				return addr;
+			using var nname = new NativeString(name);
+			var addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);
+			if (addr == (void*)0) {
+				throw new ArgumentException($"The function '{name}' was not found", nameof(name));
 			}
+			return addr;
 		}
 
 		private static bool TryLoadFunc(Vk.Device dev, string name, out void* addr)
 		{
-			fixed (char* nptr = name) {
-				addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, (byte*)nptr);
-				return addr != (void*)0;
-			}
+			using var nname = new NativeString(name);
+			addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);
+			return addr != (void*)0;
 		}
 	}
 }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace VVK
 {
@@ -75,7 +76,12 @@ namespace VVK
 			}
 
 			// Add unmanaged string
-			Data[Count++] = (byte*)Marshal.StringToHGlobalAnsi(str);
+			var strdata = stackalloc byte[str.Length * 4]; // Worst-case length
+			var len = Encoding.UTF8.GetBytes(str, new Span<byte>(strdata, str.Length * 4));
+			var nstr = (byte*)Marshal.AllocHGlobal(len + 1).ToPointer();
+			Buffer.MemoryCopy(strdata, nstr, len, len);
+			nstr[len] = 0;
+			Data[Count++] = nstr;
 		}
 
 		/// <summary>

@@ -15,6 +15,19 @@ namespace VVK.Vk
 	[StructLayout(LayoutKind.Explicit, Size = 4)]
 	public struct Version : IEquatable<Version>, IComparable<Version>
 	{
+		/// <summary>
+		/// API version 1.0.0.
+		/// </summary>
+		public static readonly Version VK_VERSION_1_0 = new Version(1, 0, 0);
+		/// <summary>
+		/// API version 1.1.0.
+		/// </summary>
+		public static readonly Version VK_VERSION_1_1 = new Version(1, 1, 0);
+		/// <summary>
+		/// API version 1.2.0.
+		/// </summary>
+		public static readonly Version VK_VERSION_1_2 = new Version(1, 2, 0);
+
 		#region Fields
 		/// <summary>
 		/// The packed version value.

@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -14,6 +15,7 @@ namespace VVK
 	/// IDisposable-friendly wrapper around an unmanaged pointer containing native string data. This type directly
 	/// exposes the <c>byte*</c> handle for the string data.
 	/// </summary>
+	[DebuggerDisplay("String = {ToString()}")]
 	public unsafe sealed class NativeString : IDisposable, IEquatable<NativeString>, IEquatable<string>,
 		IComparable<NativeString>, IComparable<string>
 	{
@@ -78,13 +80,12 @@ namespace VVK
 		/// <param name="str">The string object to copy.</param>
 		public NativeString(string str)
 		{
-			fixed (char* sptr = str) {
-				int len = Encoding.ASCII.GetByteCount(str);
-				Data = (byte*)Marshal.AllocHGlobal(len + 1).ToPointer();
-				Buffer.MemoryCopy((byte*)sptr, Data, len, len);
-				Data[len] = 0;
-				Length = (uint)len;
-			}
+			var strdata = stackalloc byte[str.Length * 4]; // Worst-case length
+			var len = Encoding.UTF8.GetBytes(str, new Span<byte>(strdata, str.Length * 4));
+			Data = (byte*)Marshal.AllocHGlobal(len + 1).ToPointer();
+			Buffer.MemoryCopy(strdata, Data, len, len);
+			Data[len] = 0;
+			Length = (uint)len;
 		}
 		~NativeString()
 		{
