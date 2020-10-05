@@ -35,6 +35,10 @@ namespace VVK
 		/// </summary>
 		public Vk.Instance Handle { get; private set; } = Vk.Instance.Null;
 		/// <summary>
+		/// The core API version that the instance was created with.
+		/// </summary>
+		public readonly Vk.Version ApiVersion;
+		/// <summary>
 		/// The table of loaded functions for the instance.
 		/// </summary>
 		public Vk.InstanceFunctionTable Functions { get; private set; }
@@ -64,10 +68,12 @@ namespace VVK
 		/// Creates a new instance wrapper from the existing instance object handle.
 		/// </summary>
 		/// <param name="inst">The pre-created instance handle.</param>
-		public VulkanInstance(Vk.Instance inst)
+		/// <param name="version">The highest core API version to support on the instance.</param>
+		public VulkanInstance(Vk.Instance inst, Vk.Version version)
 		{
 			Handle = inst;
-			Functions = new(inst);
+			ApiVersion = version;
+			Functions = new(inst, ApiVersion);
 
 			// Enumerate the physical devices
 			uint count = 0;
@@ -196,7 +202,7 @@ namespace VVK
 			CreateInstance(&ici, null, &handle).Throw();
 
 			// Return
-			return new(handle);
+			return new(handle, apiVersion);
 		}
 
 		// Callback function for the debug utils messenger object

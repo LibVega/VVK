@@ -18,63 +18,82 @@ public unsafe sealed partial class VulkanQueue
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult Submit(uint submitCount, Vk.SubmitInfo* pSubmits, Vk.Fence fence)
-		=> new(Parent.Functions.vkQueueSubmit(Handle, submitCount, pSubmits, fence), "vkQueueSubmit");
+	{
+		lock (_lock) {
+			return new(Parent.Functions.vkQueueSubmit(Handle, submitCount, pSubmits, fence), "vkQueueSubmit");
+		}
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult WaitIdle()
-		=> new(Parent.Functions.vkQueueWaitIdle(Handle), "vkQueueWaitIdle");
+	{
+		lock (_lock) {
+			return new(Parent.Functions.vkQueueWaitIdle(Handle), "vkQueueWaitIdle");
+		}
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult BindSparse(uint bindInfoCount, Vk.BindSparseInfo* pBindInfo, Vk.Fence fence)
-		=> new(Parent.Functions.vkQueueBindSparse(Handle, bindInfoCount, pBindInfo, fence), "vkQueueBindSparse");
+	{
+		lock (_lock) {
+			return new(Parent.Functions.vkQueueBindSparse(Handle, bindInfoCount, pBindInfo, fence), "vkQueueBindSparse");
+		}
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult PresentKHR(Vk.KHR.PresentInfo* pPresentInfo)
 	{
-		if (Parent.Functions.vkQueuePresentKHR == null) { throw new VVK.FunctionNotLoadedException("vkQueuePresentKHR"); }
-		return new(Parent.Functions.vkQueuePresentKHR(Handle, pPresentInfo), "vkQueuePresentKHR");
+		lock (_lock) {
+			return new(Parent.Functions.vkQueuePresentKHR(Handle, pPresentInfo), "vkQueuePresentKHR");
+		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult SignalReleaseImageANDROID(uint waitSemaphoreCount, Vk.Semaphore* pWaitSemaphores, Vk.Image image, int* pNativeFenceFd)
 	{
-		if (Parent.Functions.vkQueueSignalReleaseImageANDROID == null) { throw new VVK.FunctionNotLoadedException("vkQueueSignalReleaseImageANDROID"); }
-		return new(Parent.Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd), "vkQueueSignalReleaseImageANDROID");
+		lock (_lock) {
+			return new(Parent.Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd), "vkQueueSignalReleaseImageANDROID");
+		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 	{
-		if (Parent.Functions.vkQueueBeginDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueBeginDebugUtilsLabelEXT"); }
-		Parent.Functions.vkQueueBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
+		lock (_lock) {
+			Parent.Functions.vkQueueBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
+		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void EndDebugUtilsLabelEXT()
 	{
-		if (Parent.Functions.vkQueueEndDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueEndDebugUtilsLabelEXT"); }
-		Parent.Functions.vkQueueEndDebugUtilsLabelEXT(Handle);
+		lock (_lock) {
+			Parent.Functions.vkQueueEndDebugUtilsLabelEXT(Handle);
+		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void InsertDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 	{
-		if (Parent.Functions.vkQueueInsertDebugUtilsLabelEXT == null) { throw new VVK.FunctionNotLoadedException("vkQueueInsertDebugUtilsLabelEXT"); }
-		Parent.Functions.vkQueueInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
+		lock (_lock) {
+			Parent.Functions.vkQueueInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
+		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetCheckpointDataNV(uint* pCheckpointDataCount, Vk.NV.CheckpointData* pCheckpointData)
 	{
-		if (Parent.Functions.vkGetQueueCheckpointDataNV == null) { throw new VVK.FunctionNotLoadedException("vkGetQueueCheckpointDataNV"); }
-		Parent.Functions.vkGetQueueCheckpointDataNV(Handle, pCheckpointDataCount, pCheckpointData);
+		lock (_lock) {
+			Parent.Functions.vkGetQueueCheckpointDataNV(Handle, pCheckpointDataCount, pCheckpointData);
+		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VulkanResult SetPerformanceConfigurationINTEL(Vk.INTEL.PerformanceConfiguration configuration)
 	{
-		if (Parent.Functions.vkQueueSetPerformanceConfigurationINTEL == null) { throw new VVK.FunctionNotLoadedException("vkQueueSetPerformanceConfigurationINTEL"); }
-		return new(Parent.Functions.vkQueueSetPerformanceConfigurationINTEL(Handle, configuration), "vkQueueSetPerformanceConfigurationINTEL");
+		lock (_lock) {
+			return new(Parent.Functions.vkQueueSetPerformanceConfigurationINTEL(Handle, configuration), "vkQueueSetPerformanceConfigurationINTEL");
+		}
 	}
 
 }

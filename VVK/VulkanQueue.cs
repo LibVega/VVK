@@ -9,7 +9,8 @@ using System;
 namespace VVK
 {
 	/// <summary>
-	/// Wraps a VkQueue object at a higher level, providing an OOP approach to VkQueue resources and functions.
+	/// Wraps a VkQueue object at a higher level, providing an OOP approach to VkQueue resources and functions. Queue
+	/// functions are thread-safe.
 	/// </summary>
 	public unsafe sealed partial class VulkanQueue
 	{
@@ -30,6 +31,9 @@ namespace VVK
 		/// The index of the queue within the queue family.
 		/// </summary>
 		public readonly uint QueueIndex;
+
+		// Submission lock
+		private readonly object _lock = new();
 		#endregion // Fields
 
 		/// <summary>

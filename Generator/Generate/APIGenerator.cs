@@ -481,9 +481,8 @@ namespace Gen
 				block.WriteLine( "[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 				block.WriteLine($"public {ret} {funcName}({argStr})");
 
-				// Switch on core functions (don't need to check load status)
-				// Then switch on return type (need to handle void, Vk.Result, and others correctly)
-				if (spec.IsCore) {
+				// Function body (queues have synchronization)
+				if (scope != ObjectScope.Queue) {
 					if (ret == "VulkanResult") {
 						block.WriteLine($"\t=> new({table}.{spec.Name}({callStr}), \"{spec.Name}\");");
 					}
@@ -492,17 +491,18 @@ namespace Gen
 					}
 				}
 				else {
-					block.WriteLine( "{");
-					block.WriteLine($"\tif ({table}.{spec.Name} == null) {{ throw new VVK.FunctionNotLoadedException(\"{spec.Name}\"); }}");
+					block.WriteLine("{");
+					block.WriteLine("\tlock (_lock) {");
 					if (ret == "VulkanResult") {
-						block.WriteLine($"\treturn new({table}.{spec.Name}({callStr}), \"{spec.Name}\");");
+						block.WriteLine($"\t\treturn new({table}.{spec.Name}({callStr}), \"{spec.Name}\");");
 					}
 					else if (ret == "void") {
-						block.WriteLine($"\t{table}.{spec.Name}({callStr});");
+						block.WriteLine($"\t\t{table}.{spec.Name}({callStr});");
 					}
 					else {
-						block.WriteLine($"\treturn {table}.{spec.Name}({callStr});");
+						block.WriteLine($"\t\treturn {table}.{spec.Name}({callStr});");
 					}
+					block.WriteLine("\t}");
 					block.WriteLine("}");
 				}
 
