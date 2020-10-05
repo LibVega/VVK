@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.GGP
+namespace Vk.GGP
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -49,4 +49,4 @@ public unsafe partial struct PresentFrameToken
 	public static void Init(ref PresentFrameToken value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.GGP
+} // namespace Vk.GGP

@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.KHR
+namespace Vk.KHR
 {
 
 [Flags]
@@ -559,4 +559,4 @@ public enum PipelineExecutableStatisticFormat : int
 	Float64KHR = 3,
 }
 
-} // namespace VVK.Vk.KHR
+} // namespace Vk.KHR

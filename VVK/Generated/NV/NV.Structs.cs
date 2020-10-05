@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.NV
+namespace Vk.NV
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1272,4 +1272,4 @@ public unsafe partial struct DeviceDiagnosticsConfigCreateInfo
 	public static void Init(ref DeviceDiagnosticsConfigCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.NV
+} // namespace Vk.NV

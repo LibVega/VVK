@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk
+namespace Vk
 {
 
 public unsafe sealed partial class InstanceFunctionTable
@@ -506,17 +506,17 @@ public unsafe sealed partial class InstanceFunctionTable
 	static InstanceFunctionTable()
 	{
 		vkCreateInstance =
-			(delegate* unmanaged<Vk.InstanceCreateInfo*, Vk.AllocationCallbacks*, Vk.Instance*, Vk.Result>)VulkanLibrary.GetExport("vkCreateInstance").ToPointer();
+			(delegate* unmanaged<Vk.InstanceCreateInfo*, Vk.AllocationCallbacks*, Vk.Instance*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkCreateInstance").ToPointer();
 		vkGetDeviceProcAddr =
-			(delegate* unmanaged<Vk.Device, byte*, delegate* unmanaged<void>>)VulkanLibrary.GetExport("vkGetDeviceProcAddr").ToPointer();
+			(delegate* unmanaged<Vk.Device, byte*, delegate* unmanaged<void>>)VVK.VulkanLibrary.GetExport("vkGetDeviceProcAddr").ToPointer();
 		vkGetInstanceProcAddr =
-			(delegate* unmanaged<Vk.Instance, byte*, delegate* unmanaged<void>>)VulkanLibrary.GetExport("vkGetInstanceProcAddr").ToPointer();
+			(delegate* unmanaged<Vk.Instance, byte*, delegate* unmanaged<void>>)VVK.VulkanLibrary.GetExport("vkGetInstanceProcAddr").ToPointer();
 		vkEnumerateInstanceVersion =
-			(delegate* unmanaged<uint*, Vk.Result>)VulkanLibrary.GetExport("vkEnumerateInstanceVersion").ToPointer();
+			(delegate* unmanaged<uint*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkEnumerateInstanceVersion").ToPointer();
 		vkEnumerateInstanceLayerProperties =
-			(delegate* unmanaged<uint*, Vk.LayerProperties*, Vk.Result>)VulkanLibrary.GetExport("vkEnumerateInstanceLayerProperties").ToPointer();
+			(delegate* unmanaged<uint*, Vk.LayerProperties*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkEnumerateInstanceLayerProperties").ToPointer();
 		vkEnumerateInstanceExtensionProperties =
-			(delegate* unmanaged<byte*, uint*, Vk.ExtensionProperties*, Vk.Result>)VulkanLibrary.GetExport("vkEnumerateInstanceExtensionProperties").ToPointer();
+			(delegate* unmanaged<byte*, uint*, Vk.ExtensionProperties*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkEnumerateInstanceExtensionProperties").ToPointer();
 	}
 
 }
@@ -2289,4 +2289,4 @@ public unsafe sealed partial class DeviceFunctionTable
 
 }
 
-} // namespace VVK.Vk
+} // namespace Vk

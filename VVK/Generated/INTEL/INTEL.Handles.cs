@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.INTEL
+namespace Vk.INTEL
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
@@ -36,4 +36,4 @@ public unsafe partial struct PerformanceConfiguration : IEquatable<PerformanceCo
 	public static implicit operator bool (PerformanceConfiguration handle) => handle.Handle != null;
 }
 
-} // namespace VVK.Vk.INTEL
+} // namespace Vk.INTEL

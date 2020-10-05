@@ -17,7 +17,7 @@ namespace Gen
 		// The name of the vendor (used to parse spec names and as the C# output namespace)
 		public readonly string Name;
 		// The qualified name of the C# namespace for this vendor
-		public string NamespaceName => IsCore ? "VVK.Vk" : $"VVK.Vk.{Name}";
+		public string NamespaceName => IsCore ? "Vk" : $"Vk.{Name}";
 		// If this is the core vendor
 		public bool IsCore => Name.Length == 0;
 		// The display name of the vendor (taking into account if the vendor is core)

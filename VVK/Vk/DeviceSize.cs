@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace VVK.Vk
+namespace Vk
 {
 	/// <summary>
 	/// Represents VkDeviceSize, which is an 8-byte unsigned integer giving a memory size in bytes.

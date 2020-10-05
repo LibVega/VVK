@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.INTEL
+namespace Vk.INTEL
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -169,4 +169,4 @@ public unsafe partial struct PerformanceConfigurationAcquireInfo
 	public static void Init(ref PerformanceConfigurationAcquireInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.INTEL
+} // namespace Vk.INTEL

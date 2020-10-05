@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.NVX
+namespace Vk.NVX
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -68,4 +68,4 @@ public unsafe partial struct ImageViewAddressProperties
 	public static void Init(ref ImageViewAddressProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.NVX
+} // namespace Vk.NVX

@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.GOOGLE
+namespace Vk.GOOGLE
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -55,4 +55,4 @@ public unsafe partial struct PresentTime
 	public ulong DesiredPresentTime;
 }
 
-} // namespace VVK.Vk.GOOGLE
+} // namespace Vk.GOOGLE

@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.AMD
+namespace Vk.AMD
 {
 
 [Flags]
@@ -46,4 +46,4 @@ public enum RasterizationOrder : int
 	RelaxedAMD = 1,
 }
 
-} // namespace VVK.Vk.AMD
+} // namespace Vk.AMD

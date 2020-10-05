@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace VVK.Vk
+namespace Vk
 {
 	/// <summary>
 	/// Represents VkBool32, a 4-byte type that tolds true/false values.

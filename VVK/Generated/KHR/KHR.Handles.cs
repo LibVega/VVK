@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.KHR
+namespace Vk.KHR
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
@@ -190,4 +190,4 @@ public unsafe partial struct Swapchain : IEquatable<Swapchain>
 	public static implicit operator bool (Swapchain handle) => handle.Handle != null;
 }
 
-} // namespace VVK.Vk.KHR
+} // namespace Vk.KHR

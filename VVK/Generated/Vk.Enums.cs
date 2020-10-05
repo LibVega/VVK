@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk
+namespace Vk
 {
 
 [Flags]
@@ -2309,4 +2309,4 @@ public enum DriverId : int
 	BroadcomProprietaryKHR = 12,
 }
 
-} // namespace VVK.Vk
+} // namespace Vk

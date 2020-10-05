@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.INTEL
+namespace Vk.INTEL
 {
 
 public enum PerformanceConfigurationType : int
@@ -45,4 +45,4 @@ public enum PerformanceValueType : int
 	StringINTEL = 4,
 }
 
-} // namespace VVK.Vk.INTEL
+} // namespace Vk.INTEL

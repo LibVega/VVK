@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.EXT
+namespace Vk.EXT
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2300,4 +2300,4 @@ public unsafe partial struct PhysicalDevice4444FormatsFeatures
 	public static void Init(ref PhysicalDevice4444FormatsFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.EXT
+} // namespace Vk.EXT

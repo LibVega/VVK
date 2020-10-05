@@ -68,7 +68,7 @@ namespace Gen
 
 			try {
 				// Constants file context and class context
-				using var file = new SourceFile("Vk.Constants.cs", "VVK.Vk");
+				using var file = new SourceFile("Vk.Constants.cs", "Vk");
 				using var constClass = file.PushBlock("public static class Constants");
 
 				// Write each constant
@@ -91,7 +91,7 @@ namespace Gen
 
 			try {
 				// File context
-				using var file = new SourceFile("Vk.Commands.cs", "VVK.Vk");
+				using var file = new SourceFile("Vk.Commands.cs", "Vk");
 
 				// Loop over the global and instance functions
 				using (var block = file.PushBlock("public unsafe sealed partial class InstanceFunctionTable")) {
@@ -154,7 +154,7 @@ namespace Gen
 					using (var ctor = block.PushBlock("static InstanceFunctionTable()")) {
 						foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Global)) {
 							ctor.WriteLine($"{cmd.Name} =");
-							ctor.WriteLine($"\t({cmd.PtrPrototype})VulkanLibrary.GetExport(\"{cmd.Name}\").ToPointer();");
+							ctor.WriteLine($"\t({cmd.PtrPrototype})VVK.VulkanLibrary.GetExport(\"{cmd.Name}\").ToPointer();");
 						}
 					}
 				}

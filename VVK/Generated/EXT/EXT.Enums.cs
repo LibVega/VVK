@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.EXT
+namespace Vk.EXT
 {
 
 [Flags]
@@ -314,4 +314,4 @@ public enum FullScreenExclusive : int
 	ApplicationControlledEXT = 3,
 }
 
-} // namespace VVK.Vk.EXT
+} // namespace Vk.EXT

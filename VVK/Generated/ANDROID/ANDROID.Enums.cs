@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.ANDROID
+namespace Vk.ANDROID
 {
 
 [Flags]
@@ -21,4 +21,4 @@ public enum SwapchainImageUsageFlags : uint
 	NoFlags = 0,
 }
 
-} // namespace VVK.Vk.ANDROID
+} // namespace Vk.ANDROID

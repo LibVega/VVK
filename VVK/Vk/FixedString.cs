@@ -8,19 +8,19 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace VVK.Vk
+namespace Vk
 {
 	/// <summary>
 	/// Represents a fixed string buffer of size <see cref="Constants.MAX_PHYSICAL_DEVICE_NAME_SIZE"/>. Technically,
 	/// fixed strings in Vulkan can have different sizes, but for now all string constant sizes are the same.
 	/// </summary>
-	[StructLayout(LayoutKind.Explicit, Size = (int)Constants.MAX_PHYSICAL_DEVICE_NAME_SIZE)]
+	[StructLayout(LayoutKind.Explicit, Size = (int)Vk.Constants.MAX_PHYSICAL_DEVICE_NAME_SIZE)]
 	public unsafe struct FixedString : IEquatable<FixedString>, IEquatable<string>
 	{
 		/// <summary>
 		/// The size of the fixed string buffer in this type.
 		/// </summary>
-		public const int SIZE = (int)Constants.MAX_PHYSICAL_DEVICE_NAME_SIZE;
+		public const int SIZE = (int)Vk.Constants.MAX_PHYSICAL_DEVICE_NAME_SIZE;
 
 		#region Fields
 		/// <summary>
@@ -98,7 +98,7 @@ namespace VVK.Vk
 		public readonly override string ToString()
 		{
 			fixed (byte* ptr = _data) {
-				return Marshal.PtrToStringAnsi(new IntPtr(ptr), NativeString.Strlen(ptr, SIZE));
+				return Marshal.PtrToStringAnsi(new IntPtr(ptr), VVK.NativeString.Strlen(ptr, SIZE));
 			}
 		}
 		#endregion // Overrides
@@ -107,14 +107,14 @@ namespace VVK.Vk
 		public static bool operator == (in FixedString str1, in FixedString str2)
 		{
 			fixed (byte* ptr1 = str1._data, ptr2 = str2._data) {
-				return NativeString.Strcmp(ptr1, ptr2) == 0;
+				return VVK.NativeString.Strcmp(ptr1, ptr2) == 0;
 			}
 		}
 		
 		public static bool operator != (in FixedString str1, in FixedString str2)
 		{
 			fixed (byte* ptr1 = str1._data, ptr2 = str2._data) {
-				return NativeString.Strcmp(ptr1, ptr2) != 0;
+				return VVK.NativeString.Strcmp(ptr1, ptr2) != 0;
 			}
 		}
 
@@ -122,7 +122,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr1 = str1._data) {
 				fixed (char* ptr2 = str2) {
-					return NativeString.Strcmp(ptr1, (byte*)ptr2) == 0;
+					return VVK.NativeString.Strcmp(ptr1, (byte*)ptr2) == 0;
 				}
 			}
 		}
@@ -131,7 +131,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr1 = str1._data) {
 				fixed (char* ptr2 = str2) {
-					return NativeString.Strcmp(ptr1, (byte*)ptr2) != 0;
+					return VVK.NativeString.Strcmp(ptr1, (byte*)ptr2) != 0;
 				}
 			}
 		}
@@ -140,7 +140,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr2 = str2._data) {
 				fixed (char* ptr1 = str1) {
-					return NativeString.Strcmp(ptr2, (byte*)ptr1) == 0;
+					return VVK.NativeString.Strcmp(ptr2, (byte*)ptr1) == 0;
 				}
 			}
 		}
@@ -149,7 +149,7 @@ namespace VVK.Vk
 		{
 			fixed (byte* ptr2 = str2._data) {
 				fixed (char* ptr1 = str1) {
-					return NativeString.Strcmp(ptr2, (byte*)ptr1) != 0;
+					return VVK.NativeString.Strcmp(ptr2, (byte*)ptr1) != 0;
 				}
 			}
 		}
@@ -167,7 +167,7 @@ namespace VVK.Vk
 		/// <returns></returns>
 		public readonly int GetLength()
 		{
-			fixed (byte* ptr = _data) { return NativeString.Strlen(ptr, SIZE); }
+			fixed (byte* ptr = _data) { return VVK.NativeString.Strlen(ptr, SIZE); }
 		}
 	}
 }

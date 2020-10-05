@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.NN
+namespace Vk.NN
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -32,4 +32,4 @@ public unsafe partial struct ViSurfaceCreateInfo
 	public static void Init(ref ViSurfaceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.NN
+} // namespace Vk.NN

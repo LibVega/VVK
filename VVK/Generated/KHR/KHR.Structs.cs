@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.KHR
+namespace Vk.KHR
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3658,4 +3658,4 @@ public unsafe partial struct PipelineLibraryCreateInfo
 	public static void Init(ref PipelineLibraryCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.KHR
+} // namespace Vk.KHR

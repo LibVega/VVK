@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.ANDROID
+namespace Vk.ANDROID
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -131,4 +131,4 @@ public unsafe partial struct ExternalFormat
 	public static void Init(ref ExternalFormat value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.ANDROID
+} // namespace Vk.ANDROID

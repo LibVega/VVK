@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.FUCHSIA
+namespace Vk.FUCHSIA
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -32,4 +32,4 @@ public unsafe partial struct ImagePipeSurfaceCreateInfo
 	public static void Init(ref ImagePipeSurfaceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.FUCHSIA
+} // namespace Vk.FUCHSIA

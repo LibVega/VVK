@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.AMD
+namespace Vk.AMD
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -203,4 +203,4 @@ public unsafe partial struct PhysicalDeviceCoherentMemoryFeatures
 	public static void Init(ref PhysicalDeviceCoherentMemoryFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.AMD
+} // namespace Vk.AMD

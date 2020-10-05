@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.MVK
+namespace Vk.MVK
 {
 
 [Flags]
@@ -26,4 +26,4 @@ public enum MacOSSurfaceCreateFlags : uint
 	NoFlags = 0,
 }
 
-} // namespace VVK.Vk.MVK
+} // namespace Vk.MVK

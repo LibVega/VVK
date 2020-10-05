@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk
+namespace Vk
 {
 
 public static class Constants
@@ -468,4 +468,4 @@ public static class Constants
 	public const uint EXT_DIRECTFB_SURFACE_SPEC_VERSION = 1;
 }
 
-} // namespace VVK.Vk
+} // namespace Vk

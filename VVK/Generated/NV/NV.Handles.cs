@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.NV
+namespace Vk.NV
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
@@ -58,4 +58,4 @@ public unsafe partial struct AccelerationStructure : IEquatable<AccelerationStru
 	public static implicit operator bool (AccelerationStructure handle) => handle.Handle != null;
 }
 
-} // namespace VVK.Vk.NV
+} // namespace Vk.NV

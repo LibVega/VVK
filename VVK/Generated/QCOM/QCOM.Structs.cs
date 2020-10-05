@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.QCOM
+namespace Vk.QCOM
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -49,4 +49,4 @@ public unsafe partial struct CommandBufferInheritanceRenderPassTransformInfo
 	public static void Init(ref CommandBufferInheritanceRenderPassTransformInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk.QCOM
+} // namespace Vk.QCOM

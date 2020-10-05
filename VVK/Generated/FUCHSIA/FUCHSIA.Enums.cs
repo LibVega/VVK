@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.FUCHSIA
+namespace Vk.FUCHSIA
 {
 
 [Flags]
@@ -20,4 +20,4 @@ public enum ImagePipeSurfaceCreateFlags : uint
 	NoFlags = 0,
 }
 
-} // namespace VVK.Vk.FUCHSIA
+} // namespace Vk.FUCHSIA

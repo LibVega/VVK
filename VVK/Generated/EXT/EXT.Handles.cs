@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.EXT
+namespace Vk.EXT
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
@@ -102,4 +102,4 @@ public unsafe partial struct DebugUtilsMessenger : IEquatable<DebugUtilsMessenge
 	public static implicit operator bool (DebugUtilsMessenger handle) => handle.Handle != null;
 }
 
-} // namespace VVK.Vk.EXT
+} // namespace Vk.EXT

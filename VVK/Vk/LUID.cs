@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace VVK.Vk
+namespace Vk
 {
 	/// <summary>
 	/// Represents a locally unique identifier in a fixed buffer of size <see cref="Constants.LUID_SIZE"/>.

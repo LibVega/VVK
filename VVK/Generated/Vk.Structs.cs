@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk
+namespace Vk
 {
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4186,4 +4186,4 @@ public unsafe partial struct PhysicalDeviceVulkan12Properties
 	public static void Init(ref PhysicalDeviceVulkan12Properties value) { value.sType = TYPE; value.pNext = null; }
 }
 
-} // namespace VVK.Vk
+} // namespace Vk

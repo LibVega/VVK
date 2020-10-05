@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk.GGP
+namespace Vk.GGP
 {
 
 [Flags]
@@ -20,4 +20,4 @@ public enum StreamDescriptorSurfaceCreateFlags : uint
 	NoFlags = 0,
 }
 
-} // namespace VVK.Vk.GGP
+} // namespace Vk.GGP

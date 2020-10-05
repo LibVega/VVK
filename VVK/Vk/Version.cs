@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace VVK.Vk
+namespace Vk
 {
 	/// <summary>
 	/// Wraps a version value (compatible with VK_MAKE_VERSION).

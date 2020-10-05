@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 
-namespace VVK.Vk
+namespace Vk
 {
 
 [StructLayout(LayoutKind.Explicit, Size = 8)]
@@ -608,4 +608,4 @@ public unsafe partial struct SamplerYcbcrConversion : IEquatable<SamplerYcbcrCon
 	public static implicit operator bool (SamplerYcbcrConversion handle) => handle.Handle != null;
 }
 
-} // namespace VVK.Vk
+} // namespace Vk
