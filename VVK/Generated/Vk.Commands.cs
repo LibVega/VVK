@@ -121,34 +121,63 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>Creates a new function table and loads the functions.</summary>
 	/// <param name="inst">The instance to load the functions for.</param>
-	public InstanceFunctionTable(Vk.Instance inst)
+	/// <param name="version">The core API version that the instance was created with.</param>
+	public InstanceFunctionTable(Vk.Instance inst, Vk.Version version)
 	{
-		void* addr = (void*)0;
+		void* addr = null;
+		CoreVersion = version;
+		Vk.Version V10 = new(1, 0, 0);
+		Vk.Version V11 = new(1, 1, 0);
+		Vk.Version V12 = new(1, 2, 0);
 
-		vkDestroyInstance =
-			(delegate* unmanaged<Vk.Instance, Vk.AllocationCallbacks*, void>)LoadFunc(inst, "vkDestroyInstance");
-		vkEnumeratePhysicalDevices =
-			(delegate* unmanaged<Vk.Instance, uint*, Vk.PhysicalDevice*, Vk.Result>)LoadFunc(inst, "vkEnumeratePhysicalDevices");
-		vkGetPhysicalDeviceProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceProperties");
-		vkGetPhysicalDeviceQueueFamilyProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.QueueFamilyProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceQueueFamilyProperties");
-		vkGetPhysicalDeviceMemoryProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceMemoryProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceMemoryProperties");
-		vkGetPhysicalDeviceFeatures =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceFeatures*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFeatures");
-		vkGetPhysicalDeviceFormatProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.FormatProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFormatProperties");
-		vkGetPhysicalDeviceImageFormatProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.ImageType, Vk.ImageTiling, Vk.ImageUsageFlags, Vk.ImageCreateFlags, Vk.ImageFormatProperties*, Vk.Result>)LoadFunc(inst, "vkGetPhysicalDeviceImageFormatProperties");
-		vkCreateDevice =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.DeviceCreateInfo*, Vk.AllocationCallbacks*, Vk.Device*, Vk.Result>)LoadFunc(inst, "vkCreateDevice");
-		vkEnumerateDeviceLayerProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.LayerProperties*, Vk.Result>)LoadFunc(inst, "vkEnumerateDeviceLayerProperties");
-		vkEnumerateDeviceExtensionProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, byte*, uint*, Vk.ExtensionProperties*, Vk.Result>)LoadFunc(inst, "vkEnumerateDeviceExtensionProperties");
-		vkGetPhysicalDeviceSparseImageFormatProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.ImageType, Vk.SampleCountFlags, Vk.ImageUsageFlags, Vk.ImageTiling, uint*, Vk.SparseImageFormatProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceSparseImageFormatProperties");
+		if (version >= V10) {
+			vkDestroyInstance =
+				(delegate* unmanaged<Vk.Instance, Vk.AllocationCallbacks*, void>)LoadFunc(inst, "vkDestroyInstance");
+		}
+		if (version >= V10) {
+			vkEnumeratePhysicalDevices =
+				(delegate* unmanaged<Vk.Instance, uint*, Vk.PhysicalDevice*, Vk.Result>)LoadFunc(inst, "vkEnumeratePhysicalDevices");
+		}
+		if (version >= V10) {
+			vkGetPhysicalDeviceProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceProperties");
+		}
+		if (version >= V10) {
+			vkGetPhysicalDeviceQueueFamilyProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.QueueFamilyProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceQueueFamilyProperties");
+		}
+		if (version >= V10) {
+			vkGetPhysicalDeviceMemoryProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceMemoryProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceMemoryProperties");
+		}
+		if (version >= V10) {
+			vkGetPhysicalDeviceFeatures =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceFeatures*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFeatures");
+		}
+		if (version >= V10) {
+			vkGetPhysicalDeviceFormatProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.FormatProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFormatProperties");
+		}
+		if (version >= V10) {
+			vkGetPhysicalDeviceImageFormatProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.ImageType, Vk.ImageTiling, Vk.ImageUsageFlags, Vk.ImageCreateFlags, Vk.ImageFormatProperties*, Vk.Result>)LoadFunc(inst, "vkGetPhysicalDeviceImageFormatProperties");
+		}
+		if (version >= V10) {
+			vkCreateDevice =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.DeviceCreateInfo*, Vk.AllocationCallbacks*, Vk.Device*, Vk.Result>)LoadFunc(inst, "vkCreateDevice");
+		}
+		if (version >= V10) {
+			vkEnumerateDeviceLayerProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.LayerProperties*, Vk.Result>)LoadFunc(inst, "vkEnumerateDeviceLayerProperties");
+		}
+		if (version >= V10) {
+			vkEnumerateDeviceExtensionProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, byte*, uint*, Vk.ExtensionProperties*, Vk.Result>)LoadFunc(inst, "vkEnumerateDeviceExtensionProperties");
+		}
+		if (version >= V10) {
+			vkGetPhysicalDeviceSparseImageFormatProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.ImageType, Vk.SampleCountFlags, Vk.ImageUsageFlags, Vk.ImageTiling, uint*, Vk.SparseImageFormatProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceSparseImageFormatProperties");
+		}
 		if (TryLoadFunc(inst, "vkCreateAndroidSurfaceKHR", out addr)) {
 			vkCreateAndroidSurfaceKHR =
 				(delegate* unmanaged<Vk.Instance, Vk.KHR.AndroidSurfaceCreateInfo*, Vk.AllocationCallbacks*, Vk.KHR.Surface*, Vk.Result>)addr;
@@ -269,36 +298,96 @@ public unsafe sealed partial class InstanceFunctionTable
 			vkGetPhysicalDeviceExternalImageFormatPropertiesNV =
 				(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.ImageType, Vk.ImageTiling, Vk.ImageUsageFlags, Vk.ImageCreateFlags, Vk.NV.ExternalMemoryHandleTypeFlags, Vk.NV.ExternalImageFormatProperties*, Vk.Result>)addr;
 		}
-		vkGetPhysicalDeviceFeatures2 =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceFeatures2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFeatures2");
+		if (version >= V11) {
+			vkGetPhysicalDeviceFeatures2 =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceFeatures2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFeatures2");
+		}
 		vkGetPhysicalDeviceFeatures2KHR = vkGetPhysicalDeviceFeatures2;
-		vkGetPhysicalDeviceProperties2 =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceProperties2");
+		if ((vkGetPhysicalDeviceFeatures2KHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceFeatures2KHR", out addr)) {
+			vkGetPhysicalDeviceFeatures2KHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceFeatures2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceProperties2 =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceProperties2");
+		}
 		vkGetPhysicalDeviceProperties2KHR = vkGetPhysicalDeviceProperties2;
-		vkGetPhysicalDeviceFormatProperties2 =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.FormatProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFormatProperties2");
+		if ((vkGetPhysicalDeviceProperties2KHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceProperties2KHR", out addr)) {
+			vkGetPhysicalDeviceProperties2KHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceProperties2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceFormatProperties2 =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.FormatProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFormatProperties2");
+		}
 		vkGetPhysicalDeviceFormatProperties2KHR = vkGetPhysicalDeviceFormatProperties2;
-		vkGetPhysicalDeviceImageFormatProperties2 =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceImageFormatInfo2*, Vk.ImageFormatProperties2*, Vk.Result>)LoadFunc(inst, "vkGetPhysicalDeviceImageFormatProperties2");
+		if ((vkGetPhysicalDeviceFormatProperties2KHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceFormatProperties2KHR", out addr)) {
+			vkGetPhysicalDeviceFormatProperties2KHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.Format, Vk.FormatProperties2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceImageFormatProperties2 =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceImageFormatInfo2*, Vk.ImageFormatProperties2*, Vk.Result>)LoadFunc(inst, "vkGetPhysicalDeviceImageFormatProperties2");
+		}
 		vkGetPhysicalDeviceImageFormatProperties2KHR = vkGetPhysicalDeviceImageFormatProperties2;
-		vkGetPhysicalDeviceQueueFamilyProperties2 =
-			(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.QueueFamilyProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceQueueFamilyProperties2");
+		if ((vkGetPhysicalDeviceImageFormatProperties2KHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceImageFormatProperties2KHR", out addr)) {
+			vkGetPhysicalDeviceImageFormatProperties2KHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceImageFormatInfo2*, Vk.ImageFormatProperties2*, Vk.Result>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceQueueFamilyProperties2 =
+				(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.QueueFamilyProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceQueueFamilyProperties2");
+		}
 		vkGetPhysicalDeviceQueueFamilyProperties2KHR = vkGetPhysicalDeviceQueueFamilyProperties2;
-		vkGetPhysicalDeviceMemoryProperties2 =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceMemoryProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceMemoryProperties2");
+		if ((vkGetPhysicalDeviceQueueFamilyProperties2KHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceQueueFamilyProperties2KHR", out addr)) {
+			vkGetPhysicalDeviceQueueFamilyProperties2KHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.QueueFamilyProperties2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceMemoryProperties2 =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceMemoryProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceMemoryProperties2");
+		}
 		vkGetPhysicalDeviceMemoryProperties2KHR = vkGetPhysicalDeviceMemoryProperties2;
-		vkGetPhysicalDeviceSparseImageFormatProperties2 =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceSparseImageFormatInfo2*, uint*, Vk.SparseImageFormatProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceSparseImageFormatProperties2");
+		if ((vkGetPhysicalDeviceMemoryProperties2KHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceMemoryProperties2KHR", out addr)) {
+			vkGetPhysicalDeviceMemoryProperties2KHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceMemoryProperties2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceSparseImageFormatProperties2 =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceSparseImageFormatInfo2*, uint*, Vk.SparseImageFormatProperties2*, void>)LoadFunc(inst, "vkGetPhysicalDeviceSparseImageFormatProperties2");
+		}
 		vkGetPhysicalDeviceSparseImageFormatProperties2KHR = vkGetPhysicalDeviceSparseImageFormatProperties2;
-		vkGetPhysicalDeviceExternalBufferProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalBufferInfo*, Vk.ExternalBufferProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceExternalBufferProperties");
+		if ((vkGetPhysicalDeviceSparseImageFormatProperties2KHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceSparseImageFormatProperties2KHR", out addr)) {
+			vkGetPhysicalDeviceSparseImageFormatProperties2KHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceSparseImageFormatInfo2*, uint*, Vk.SparseImageFormatProperties2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceExternalBufferProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalBufferInfo*, Vk.ExternalBufferProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceExternalBufferProperties");
+		}
 		vkGetPhysicalDeviceExternalBufferPropertiesKHR = vkGetPhysicalDeviceExternalBufferProperties;
-		vkGetPhysicalDeviceExternalSemaphoreProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalSemaphoreInfo*, Vk.ExternalSemaphoreProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceExternalSemaphoreProperties");
+		if ((vkGetPhysicalDeviceExternalBufferPropertiesKHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceExternalBufferPropertiesKHR", out addr)) {
+			vkGetPhysicalDeviceExternalBufferPropertiesKHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalBufferInfo*, Vk.ExternalBufferProperties*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceExternalSemaphoreProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalSemaphoreInfo*, Vk.ExternalSemaphoreProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceExternalSemaphoreProperties");
+		}
 		vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = vkGetPhysicalDeviceExternalSemaphoreProperties;
-		vkGetPhysicalDeviceExternalFenceProperties =
-			(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalFenceInfo*, Vk.ExternalFenceProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceExternalFenceProperties");
+		if ((vkGetPhysicalDeviceExternalSemaphorePropertiesKHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceExternalSemaphorePropertiesKHR", out addr)) {
+			vkGetPhysicalDeviceExternalSemaphorePropertiesKHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalSemaphoreInfo*, Vk.ExternalSemaphoreProperties*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetPhysicalDeviceExternalFenceProperties =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalFenceInfo*, Vk.ExternalFenceProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceExternalFenceProperties");
+		}
 		vkGetPhysicalDeviceExternalFencePropertiesKHR = vkGetPhysicalDeviceExternalFenceProperties;
+		if ((vkGetPhysicalDeviceExternalFencePropertiesKHR == null) && TryLoadFunc(inst, "vkGetPhysicalDeviceExternalFencePropertiesKHR", out addr)) {
+			vkGetPhysicalDeviceExternalFencePropertiesKHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, Vk.PhysicalDeviceExternalFenceInfo*, Vk.ExternalFenceProperties*, void>)addr;
+		}
 		if (TryLoadFunc(inst, "vkReleaseDisplayEXT", out addr)) {
 			vkReleaseDisplayEXT =
 				(delegate* unmanaged<Vk.PhysicalDevice, Vk.KHR.Display, Vk.Result>)addr;
@@ -315,9 +404,15 @@ public unsafe sealed partial class InstanceFunctionTable
 			vkGetPhysicalDeviceSurfaceCapabilities2EXT =
 				(delegate* unmanaged<Vk.PhysicalDevice, Vk.KHR.Surface, Vk.EXT.SurfaceCapabilities2*, Vk.Result>)addr;
 		}
-		vkEnumeratePhysicalDeviceGroups =
-			(delegate* unmanaged<Vk.Instance, uint*, Vk.PhysicalDeviceGroupProperties*, Vk.Result>)LoadFunc(inst, "vkEnumeratePhysicalDeviceGroups");
+		if (version >= V11) {
+			vkEnumeratePhysicalDeviceGroups =
+				(delegate* unmanaged<Vk.Instance, uint*, Vk.PhysicalDeviceGroupProperties*, Vk.Result>)LoadFunc(inst, "vkEnumeratePhysicalDeviceGroups");
+		}
 		vkEnumeratePhysicalDeviceGroupsKHR = vkEnumeratePhysicalDeviceGroups;
+		if ((vkEnumeratePhysicalDeviceGroupsKHR == null) && TryLoadFunc(inst, "vkEnumeratePhysicalDeviceGroupsKHR", out addr)) {
+			vkEnumeratePhysicalDeviceGroupsKHR =
+				(delegate* unmanaged<Vk.Instance, uint*, Vk.PhysicalDeviceGroupProperties*, Vk.Result>)addr;
+		}
 		if (TryLoadFunc(inst, "vkGetPhysicalDevicePresentRectanglesKHR", out addr)) {
 			vkGetPhysicalDevicePresentRectanglesKHR =
 				(delegate* unmanaged<Vk.PhysicalDevice, Vk.KHR.Surface, uint*, Vk.Rect2D*, Vk.Result>)addr;
@@ -778,237 +873,472 @@ public unsafe sealed partial class DeviceFunctionTable
 	/// Creates a new function table and loads the functions.
 	/// </summary>
 	/// <param name="dev">The device to load the functions for.</param>
-	public DeviceFunctionTable(Vk.Device dev)
+	/// <param name="version">The core API version that the device was created with.</param>
+	public DeviceFunctionTable(Vk.Device dev, Vk.Version version)
 	{
-		void* addr = (void*)0;
+		void* addr = null;
+		CoreVersion = version;
+		Vk.Version V10 = new(1, 0, 0);
+		Vk.Version V11 = new(1, 1, 0);
+		Vk.Version V12 = new(1, 2, 0);
 
-		vkDestroyDevice =
-			(delegate* unmanaged<Vk.Device, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDevice");
-		vkGetDeviceQueue =
-			(delegate* unmanaged<Vk.Device, uint, uint, Vk.Queue*, void>)LoadFunc(dev, "vkGetDeviceQueue");
-		vkQueueSubmit =
-			(delegate* unmanaged<Vk.Queue, uint, Vk.SubmitInfo*, Vk.Fence, Vk.Result>)LoadFunc(dev, "vkQueueSubmit");
-		vkQueueWaitIdle =
-			(delegate* unmanaged<Vk.Queue, Vk.Result>)LoadFunc(dev, "vkQueueWaitIdle");
-		vkDeviceWaitIdle =
-			(delegate* unmanaged<Vk.Device, Vk.Result>)LoadFunc(dev, "vkDeviceWaitIdle");
-		vkAllocateMemory =
-			(delegate* unmanaged<Vk.Device, Vk.MemoryAllocateInfo*, Vk.AllocationCallbacks*, Vk.DeviceMemory*, Vk.Result>)LoadFunc(dev, "vkAllocateMemory");
-		vkFreeMemory =
-			(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkFreeMemory");
-		vkMapMemory =
-			(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, Vk.DeviceSize, Vk.DeviceSize, Vk.MemoryMapFlags, void**, Vk.Result>)LoadFunc(dev, "vkMapMemory");
-		vkUnmapMemory =
-			(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, void>)LoadFunc(dev, "vkUnmapMemory");
-		vkFlushMappedMemoryRanges =
-			(delegate* unmanaged<Vk.Device, uint, Vk.MappedMemoryRange*, Vk.Result>)LoadFunc(dev, "vkFlushMappedMemoryRanges");
-		vkInvalidateMappedMemoryRanges =
-			(delegate* unmanaged<Vk.Device, uint, Vk.MappedMemoryRange*, Vk.Result>)LoadFunc(dev, "vkInvalidateMappedMemoryRanges");
-		vkGetDeviceMemoryCommitment =
-			(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, Vk.DeviceSize*, void>)LoadFunc(dev, "vkGetDeviceMemoryCommitment");
-		vkGetBufferMemoryRequirements =
-			(delegate* unmanaged<Vk.Device, Vk.Buffer, Vk.MemoryRequirements*, void>)LoadFunc(dev, "vkGetBufferMemoryRequirements");
-		vkBindBufferMemory =
-			(delegate* unmanaged<Vk.Device, Vk.Buffer, Vk.DeviceMemory, Vk.DeviceSize, Vk.Result>)LoadFunc(dev, "vkBindBufferMemory");
-		vkGetImageMemoryRequirements =
-			(delegate* unmanaged<Vk.Device, Vk.Image, Vk.MemoryRequirements*, void>)LoadFunc(dev, "vkGetImageMemoryRequirements");
-		vkBindImageMemory =
-			(delegate* unmanaged<Vk.Device, Vk.Image, Vk.DeviceMemory, Vk.DeviceSize, Vk.Result>)LoadFunc(dev, "vkBindImageMemory");
-		vkGetImageSparseMemoryRequirements =
-			(delegate* unmanaged<Vk.Device, Vk.Image, uint*, Vk.SparseImageMemoryRequirements*, void>)LoadFunc(dev, "vkGetImageSparseMemoryRequirements");
-		vkQueueBindSparse =
-			(delegate* unmanaged<Vk.Queue, uint, Vk.BindSparseInfo*, Vk.Fence, Vk.Result>)LoadFunc(dev, "vkQueueBindSparse");
-		vkCreateFence =
-			(delegate* unmanaged<Vk.Device, Vk.FenceCreateInfo*, Vk.AllocationCallbacks*, Vk.Fence*, Vk.Result>)LoadFunc(dev, "vkCreateFence");
-		vkDestroyFence =
-			(delegate* unmanaged<Vk.Device, Vk.Fence, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyFence");
-		vkResetFences =
-			(delegate* unmanaged<Vk.Device, uint, Vk.Fence*, Vk.Result>)LoadFunc(dev, "vkResetFences");
-		vkGetFenceStatus =
-			(delegate* unmanaged<Vk.Device, Vk.Fence, Vk.Result>)LoadFunc(dev, "vkGetFenceStatus");
-		vkWaitForFences =
-			(delegate* unmanaged<Vk.Device, uint, Vk.Fence*, Vk.Bool32, ulong, Vk.Result>)LoadFunc(dev, "vkWaitForFences");
-		vkCreateSemaphore =
-			(delegate* unmanaged<Vk.Device, Vk.SemaphoreCreateInfo*, Vk.AllocationCallbacks*, Vk.Semaphore*, Vk.Result>)LoadFunc(dev, "vkCreateSemaphore");
-		vkDestroySemaphore =
-			(delegate* unmanaged<Vk.Device, Vk.Semaphore, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroySemaphore");
-		vkCreateEvent =
-			(delegate* unmanaged<Vk.Device, Vk.EventCreateInfo*, Vk.AllocationCallbacks*, Vk.Event*, Vk.Result>)LoadFunc(dev, "vkCreateEvent");
-		vkDestroyEvent =
-			(delegate* unmanaged<Vk.Device, Vk.Event, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyEvent");
-		vkGetEventStatus =
-			(delegate* unmanaged<Vk.Device, Vk.Event, Vk.Result>)LoadFunc(dev, "vkGetEventStatus");
-		vkSetEvent =
-			(delegate* unmanaged<Vk.Device, Vk.Event, Vk.Result>)LoadFunc(dev, "vkSetEvent");
-		vkResetEvent =
-			(delegate* unmanaged<Vk.Device, Vk.Event, Vk.Result>)LoadFunc(dev, "vkResetEvent");
-		vkCreateQueryPool =
-			(delegate* unmanaged<Vk.Device, Vk.QueryPoolCreateInfo*, Vk.AllocationCallbacks*, Vk.QueryPool*, Vk.Result>)LoadFunc(dev, "vkCreateQueryPool");
-		vkDestroyQueryPool =
-			(delegate* unmanaged<Vk.Device, Vk.QueryPool, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyQueryPool");
-		vkGetQueryPoolResults =
-			(delegate* unmanaged<Vk.Device, Vk.QueryPool, uint, uint, ulong, void*, Vk.DeviceSize, Vk.QueryResultFlags, Vk.Result>)LoadFunc(dev, "vkGetQueryPoolResults");
-		vkResetQueryPool =
-			(delegate* unmanaged<Vk.Device, Vk.QueryPool, uint, uint, void>)LoadFunc(dev, "vkResetQueryPool");
+		if (version >= V10) {
+			vkDestroyDevice =
+				(delegate* unmanaged<Vk.Device, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDevice");
+		}
+		if (version >= V10) {
+			vkGetDeviceQueue =
+				(delegate* unmanaged<Vk.Device, uint, uint, Vk.Queue*, void>)LoadFunc(dev, "vkGetDeviceQueue");
+		}
+		if (version >= V10) {
+			vkQueueSubmit =
+				(delegate* unmanaged<Vk.Queue, uint, Vk.SubmitInfo*, Vk.Fence, Vk.Result>)LoadFunc(dev, "vkQueueSubmit");
+		}
+		if (version >= V10) {
+			vkQueueWaitIdle =
+				(delegate* unmanaged<Vk.Queue, Vk.Result>)LoadFunc(dev, "vkQueueWaitIdle");
+		}
+		if (version >= V10) {
+			vkDeviceWaitIdle =
+				(delegate* unmanaged<Vk.Device, Vk.Result>)LoadFunc(dev, "vkDeviceWaitIdle");
+		}
+		if (version >= V10) {
+			vkAllocateMemory =
+				(delegate* unmanaged<Vk.Device, Vk.MemoryAllocateInfo*, Vk.AllocationCallbacks*, Vk.DeviceMemory*, Vk.Result>)LoadFunc(dev, "vkAllocateMemory");
+		}
+		if (version >= V10) {
+			vkFreeMemory =
+				(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkFreeMemory");
+		}
+		if (version >= V10) {
+			vkMapMemory =
+				(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, Vk.DeviceSize, Vk.DeviceSize, Vk.MemoryMapFlags, void**, Vk.Result>)LoadFunc(dev, "vkMapMemory");
+		}
+		if (version >= V10) {
+			vkUnmapMemory =
+				(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, void>)LoadFunc(dev, "vkUnmapMemory");
+		}
+		if (version >= V10) {
+			vkFlushMappedMemoryRanges =
+				(delegate* unmanaged<Vk.Device, uint, Vk.MappedMemoryRange*, Vk.Result>)LoadFunc(dev, "vkFlushMappedMemoryRanges");
+		}
+		if (version >= V10) {
+			vkInvalidateMappedMemoryRanges =
+				(delegate* unmanaged<Vk.Device, uint, Vk.MappedMemoryRange*, Vk.Result>)LoadFunc(dev, "vkInvalidateMappedMemoryRanges");
+		}
+		if (version >= V10) {
+			vkGetDeviceMemoryCommitment =
+				(delegate* unmanaged<Vk.Device, Vk.DeviceMemory, Vk.DeviceSize*, void>)LoadFunc(dev, "vkGetDeviceMemoryCommitment");
+		}
+		if (version >= V10) {
+			vkGetBufferMemoryRequirements =
+				(delegate* unmanaged<Vk.Device, Vk.Buffer, Vk.MemoryRequirements*, void>)LoadFunc(dev, "vkGetBufferMemoryRequirements");
+		}
+		if (version >= V10) {
+			vkBindBufferMemory =
+				(delegate* unmanaged<Vk.Device, Vk.Buffer, Vk.DeviceMemory, Vk.DeviceSize, Vk.Result>)LoadFunc(dev, "vkBindBufferMemory");
+		}
+		if (version >= V10) {
+			vkGetImageMemoryRequirements =
+				(delegate* unmanaged<Vk.Device, Vk.Image, Vk.MemoryRequirements*, void>)LoadFunc(dev, "vkGetImageMemoryRequirements");
+		}
+		if (version >= V10) {
+			vkBindImageMemory =
+				(delegate* unmanaged<Vk.Device, Vk.Image, Vk.DeviceMemory, Vk.DeviceSize, Vk.Result>)LoadFunc(dev, "vkBindImageMemory");
+		}
+		if (version >= V10) {
+			vkGetImageSparseMemoryRequirements =
+				(delegate* unmanaged<Vk.Device, Vk.Image, uint*, Vk.SparseImageMemoryRequirements*, void>)LoadFunc(dev, "vkGetImageSparseMemoryRequirements");
+		}
+		if (version >= V10) {
+			vkQueueBindSparse =
+				(delegate* unmanaged<Vk.Queue, uint, Vk.BindSparseInfo*, Vk.Fence, Vk.Result>)LoadFunc(dev, "vkQueueBindSparse");
+		}
+		if (version >= V10) {
+			vkCreateFence =
+				(delegate* unmanaged<Vk.Device, Vk.FenceCreateInfo*, Vk.AllocationCallbacks*, Vk.Fence*, Vk.Result>)LoadFunc(dev, "vkCreateFence");
+		}
+		if (version >= V10) {
+			vkDestroyFence =
+				(delegate* unmanaged<Vk.Device, Vk.Fence, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyFence");
+		}
+		if (version >= V10) {
+			vkResetFences =
+				(delegate* unmanaged<Vk.Device, uint, Vk.Fence*, Vk.Result>)LoadFunc(dev, "vkResetFences");
+		}
+		if (version >= V10) {
+			vkGetFenceStatus =
+				(delegate* unmanaged<Vk.Device, Vk.Fence, Vk.Result>)LoadFunc(dev, "vkGetFenceStatus");
+		}
+		if (version >= V10) {
+			vkWaitForFences =
+				(delegate* unmanaged<Vk.Device, uint, Vk.Fence*, Vk.Bool32, ulong, Vk.Result>)LoadFunc(dev, "vkWaitForFences");
+		}
+		if (version >= V10) {
+			vkCreateSemaphore =
+				(delegate* unmanaged<Vk.Device, Vk.SemaphoreCreateInfo*, Vk.AllocationCallbacks*, Vk.Semaphore*, Vk.Result>)LoadFunc(dev, "vkCreateSemaphore");
+		}
+		if (version >= V10) {
+			vkDestroySemaphore =
+				(delegate* unmanaged<Vk.Device, Vk.Semaphore, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroySemaphore");
+		}
+		if (version >= V10) {
+			vkCreateEvent =
+				(delegate* unmanaged<Vk.Device, Vk.EventCreateInfo*, Vk.AllocationCallbacks*, Vk.Event*, Vk.Result>)LoadFunc(dev, "vkCreateEvent");
+		}
+		if (version >= V10) {
+			vkDestroyEvent =
+				(delegate* unmanaged<Vk.Device, Vk.Event, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyEvent");
+		}
+		if (version >= V10) {
+			vkGetEventStatus =
+				(delegate* unmanaged<Vk.Device, Vk.Event, Vk.Result>)LoadFunc(dev, "vkGetEventStatus");
+		}
+		if (version >= V10) {
+			vkSetEvent =
+				(delegate* unmanaged<Vk.Device, Vk.Event, Vk.Result>)LoadFunc(dev, "vkSetEvent");
+		}
+		if (version >= V10) {
+			vkResetEvent =
+				(delegate* unmanaged<Vk.Device, Vk.Event, Vk.Result>)LoadFunc(dev, "vkResetEvent");
+		}
+		if (version >= V10) {
+			vkCreateQueryPool =
+				(delegate* unmanaged<Vk.Device, Vk.QueryPoolCreateInfo*, Vk.AllocationCallbacks*, Vk.QueryPool*, Vk.Result>)LoadFunc(dev, "vkCreateQueryPool");
+		}
+		if (version >= V10) {
+			vkDestroyQueryPool =
+				(delegate* unmanaged<Vk.Device, Vk.QueryPool, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyQueryPool");
+		}
+		if (version >= V10) {
+			vkGetQueryPoolResults =
+				(delegate* unmanaged<Vk.Device, Vk.QueryPool, uint, uint, ulong, void*, Vk.DeviceSize, Vk.QueryResultFlags, Vk.Result>)LoadFunc(dev, "vkGetQueryPoolResults");
+		}
+		if (version >= V12) {
+			vkResetQueryPool =
+				(delegate* unmanaged<Vk.Device, Vk.QueryPool, uint, uint, void>)LoadFunc(dev, "vkResetQueryPool");
+		}
 		vkResetQueryPoolEXT = vkResetQueryPool;
-		vkCreateBuffer =
-			(delegate* unmanaged<Vk.Device, Vk.BufferCreateInfo*, Vk.AllocationCallbacks*, Vk.Buffer*, Vk.Result>)LoadFunc(dev, "vkCreateBuffer");
-		vkDestroyBuffer =
-			(delegate* unmanaged<Vk.Device, Vk.Buffer, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyBuffer");
-		vkCreateBufferView =
-			(delegate* unmanaged<Vk.Device, Vk.BufferViewCreateInfo*, Vk.AllocationCallbacks*, Vk.BufferView*, Vk.Result>)LoadFunc(dev, "vkCreateBufferView");
-		vkDestroyBufferView =
-			(delegate* unmanaged<Vk.Device, Vk.BufferView, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyBufferView");
-		vkCreateImage =
-			(delegate* unmanaged<Vk.Device, Vk.ImageCreateInfo*, Vk.AllocationCallbacks*, Vk.Image*, Vk.Result>)LoadFunc(dev, "vkCreateImage");
-		vkDestroyImage =
-			(delegate* unmanaged<Vk.Device, Vk.Image, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyImage");
-		vkGetImageSubresourceLayout =
-			(delegate* unmanaged<Vk.Device, Vk.Image, Vk.ImageSubresource*, Vk.SubresourceLayout*, void>)LoadFunc(dev, "vkGetImageSubresourceLayout");
-		vkCreateImageView =
-			(delegate* unmanaged<Vk.Device, Vk.ImageViewCreateInfo*, Vk.AllocationCallbacks*, Vk.ImageView*, Vk.Result>)LoadFunc(dev, "vkCreateImageView");
-		vkDestroyImageView =
-			(delegate* unmanaged<Vk.Device, Vk.ImageView, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyImageView");
-		vkCreateShaderModule =
-			(delegate* unmanaged<Vk.Device, Vk.ShaderModuleCreateInfo*, Vk.AllocationCallbacks*, Vk.ShaderModule*, Vk.Result>)LoadFunc(dev, "vkCreateShaderModule");
-		vkDestroyShaderModule =
-			(delegate* unmanaged<Vk.Device, Vk.ShaderModule, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyShaderModule");
-		vkCreatePipelineCache =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineCacheCreateInfo*, Vk.AllocationCallbacks*, Vk.PipelineCache*, Vk.Result>)LoadFunc(dev, "vkCreatePipelineCache");
-		vkDestroyPipelineCache =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineCache, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyPipelineCache");
-		vkGetPipelineCacheData =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineCache, ulong*, void*, Vk.Result>)LoadFunc(dev, "vkGetPipelineCacheData");
-		vkMergePipelineCaches =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineCache, uint, Vk.PipelineCache*, Vk.Result>)LoadFunc(dev, "vkMergePipelineCaches");
-		vkCreateGraphicsPipelines =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineCache, uint, Vk.GraphicsPipelineCreateInfo*, Vk.AllocationCallbacks*, Vk.Pipeline*, Vk.Result>)LoadFunc(dev, "vkCreateGraphicsPipelines");
-		vkCreateComputePipelines =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineCache, uint, Vk.ComputePipelineCreateInfo*, Vk.AllocationCallbacks*, Vk.Pipeline*, Vk.Result>)LoadFunc(dev, "vkCreateComputePipelines");
-		vkDestroyPipeline =
-			(delegate* unmanaged<Vk.Device, Vk.Pipeline, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyPipeline");
-		vkCreatePipelineLayout =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineLayoutCreateInfo*, Vk.AllocationCallbacks*, Vk.PipelineLayout*, Vk.Result>)LoadFunc(dev, "vkCreatePipelineLayout");
-		vkDestroyPipelineLayout =
-			(delegate* unmanaged<Vk.Device, Vk.PipelineLayout, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyPipelineLayout");
-		vkCreateSampler =
-			(delegate* unmanaged<Vk.Device, Vk.SamplerCreateInfo*, Vk.AllocationCallbacks*, Vk.Sampler*, Vk.Result>)LoadFunc(dev, "vkCreateSampler");
-		vkDestroySampler =
-			(delegate* unmanaged<Vk.Device, Vk.Sampler, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroySampler");
-		vkCreateDescriptorSetLayout =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorSetLayoutCreateInfo*, Vk.AllocationCallbacks*, Vk.DescriptorSetLayout*, Vk.Result>)LoadFunc(dev, "vkCreateDescriptorSetLayout");
-		vkDestroyDescriptorSetLayout =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorSetLayout, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDescriptorSetLayout");
-		vkCreateDescriptorPool =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorPoolCreateInfo*, Vk.AllocationCallbacks*, Vk.DescriptorPool*, Vk.Result>)LoadFunc(dev, "vkCreateDescriptorPool");
-		vkDestroyDescriptorPool =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorPool, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDescriptorPool");
-		vkResetDescriptorPool =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorPool, Vk.DescriptorPoolResetFlags, Vk.Result>)LoadFunc(dev, "vkResetDescriptorPool");
-		vkAllocateDescriptorSets =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorSetAllocateInfo*, Vk.DescriptorSet*, Vk.Result>)LoadFunc(dev, "vkAllocateDescriptorSets");
-		vkFreeDescriptorSets =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorPool, uint, Vk.DescriptorSet*, Vk.Result>)LoadFunc(dev, "vkFreeDescriptorSets");
-		vkUpdateDescriptorSets =
-			(delegate* unmanaged<Vk.Device, uint, Vk.WriteDescriptorSet*, uint, Vk.CopyDescriptorSet*, void>)LoadFunc(dev, "vkUpdateDescriptorSets");
-		vkCreateFramebuffer =
-			(delegate* unmanaged<Vk.Device, Vk.FramebufferCreateInfo*, Vk.AllocationCallbacks*, Vk.Framebuffer*, Vk.Result>)LoadFunc(dev, "vkCreateFramebuffer");
-		vkDestroyFramebuffer =
-			(delegate* unmanaged<Vk.Device, Vk.Framebuffer, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyFramebuffer");
-		vkCreateRenderPass =
-			(delegate* unmanaged<Vk.Device, Vk.RenderPassCreateInfo*, Vk.AllocationCallbacks*, Vk.RenderPass*, Vk.Result>)LoadFunc(dev, "vkCreateRenderPass");
-		vkDestroyRenderPass =
-			(delegate* unmanaged<Vk.Device, Vk.RenderPass, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyRenderPass");
-		vkGetRenderAreaGranularity =
-			(delegate* unmanaged<Vk.Device, Vk.RenderPass, Vk.Extent2D*, void>)LoadFunc(dev, "vkGetRenderAreaGranularity");
-		vkCreateCommandPool =
-			(delegate* unmanaged<Vk.Device, Vk.CommandPoolCreateInfo*, Vk.AllocationCallbacks*, Vk.CommandPool*, Vk.Result>)LoadFunc(dev, "vkCreateCommandPool");
-		vkDestroyCommandPool =
-			(delegate* unmanaged<Vk.Device, Vk.CommandPool, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyCommandPool");
-		vkResetCommandPool =
-			(delegate* unmanaged<Vk.Device, Vk.CommandPool, Vk.CommandPoolResetFlags, Vk.Result>)LoadFunc(dev, "vkResetCommandPool");
-		vkAllocateCommandBuffers =
-			(delegate* unmanaged<Vk.Device, Vk.CommandBufferAllocateInfo*, Vk.CommandBuffer*, Vk.Result>)LoadFunc(dev, "vkAllocateCommandBuffers");
-		vkFreeCommandBuffers =
-			(delegate* unmanaged<Vk.Device, Vk.CommandPool, uint, Vk.CommandBuffer*, void>)LoadFunc(dev, "vkFreeCommandBuffers");
-		vkBeginCommandBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.CommandBufferBeginInfo*, Vk.Result>)LoadFunc(dev, "vkBeginCommandBuffer");
-		vkEndCommandBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Result>)LoadFunc(dev, "vkEndCommandBuffer");
-		vkResetCommandBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.CommandBufferResetFlags, Vk.Result>)LoadFunc(dev, "vkResetCommandBuffer");
-		vkCmdBindPipeline =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineBindPoint, Vk.Pipeline, void>)LoadFunc(dev, "vkCmdBindPipeline");
-		vkCmdSetViewport =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, uint, Vk.Viewport*, void>)LoadFunc(dev, "vkCmdSetViewport");
-		vkCmdSetScissor =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, uint, Vk.Rect2D*, void>)LoadFunc(dev, "vkCmdSetScissor");
-		vkCmdSetLineWidth =
-			(delegate* unmanaged<Vk.CommandBuffer, float, void>)LoadFunc(dev, "vkCmdSetLineWidth");
-		vkCmdSetDepthBias =
-			(delegate* unmanaged<Vk.CommandBuffer, float, float, float, void>)LoadFunc(dev, "vkCmdSetDepthBias");
-		vkCmdSetBlendConstants =
-			(delegate* unmanaged<Vk.CommandBuffer, float*, void>)LoadFunc(dev, "vkCmdSetBlendConstants");
-		vkCmdSetDepthBounds =
-			(delegate* unmanaged<Vk.CommandBuffer, float, float, void>)LoadFunc(dev, "vkCmdSetDepthBounds");
-		vkCmdSetStencilCompareMask =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.StencilFaceFlags, uint, void>)LoadFunc(dev, "vkCmdSetStencilCompareMask");
-		vkCmdSetStencilWriteMask =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.StencilFaceFlags, uint, void>)LoadFunc(dev, "vkCmdSetStencilWriteMask");
-		vkCmdSetStencilReference =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.StencilFaceFlags, uint, void>)LoadFunc(dev, "vkCmdSetStencilReference");
-		vkCmdBindDescriptorSets =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineBindPoint, Vk.PipelineLayout, uint, uint, Vk.DescriptorSet*, uint, uint*, void>)LoadFunc(dev, "vkCmdBindDescriptorSets");
-		vkCmdBindIndexBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.IndexType, void>)LoadFunc(dev, "vkCmdBindIndexBuffer");
-		vkCmdBindVertexBuffers =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, uint, Vk.Buffer*, Vk.DeviceSize*, void>)LoadFunc(dev, "vkCmdBindVertexBuffers");
-		vkCmdDraw =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, uint, void>)LoadFunc(dev, "vkCmdDraw");
-		vkCmdDrawIndexed =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, int, uint, void>)LoadFunc(dev, "vkCmdDrawIndexed");
-		vkCmdDrawIndirect =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndirect");
-		vkCmdDrawIndexedIndirect =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndexedIndirect");
-		vkCmdDispatch =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, void>)LoadFunc(dev, "vkCmdDispatch");
-		vkCmdDispatchIndirect =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, void>)LoadFunc(dev, "vkCmdDispatchIndirect");
-		vkCmdCopyBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.Buffer, uint, Vk.BufferCopy*, void>)LoadFunc(dev, "vkCmdCopyBuffer");
-		vkCmdCopyImage =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Image, Vk.ImageLayout, uint, Vk.ImageCopy*, void>)LoadFunc(dev, "vkCmdCopyImage");
-		vkCmdBlitImage =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Image, Vk.ImageLayout, uint, Vk.ImageBlit*, Vk.Filter, void>)LoadFunc(dev, "vkCmdBlitImage");
-		vkCmdCopyBufferToImage =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.Image, Vk.ImageLayout, uint, Vk.BufferImageCopy*, void>)LoadFunc(dev, "vkCmdCopyBufferToImage");
-		vkCmdCopyImageToBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Buffer, uint, Vk.BufferImageCopy*, void>)LoadFunc(dev, "vkCmdCopyImageToBuffer");
-		vkCmdUpdateBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.DeviceSize, void*, void>)LoadFunc(dev, "vkCmdUpdateBuffer");
-		vkCmdFillBuffer =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.DeviceSize, uint, void>)LoadFunc(dev, "vkCmdFillBuffer");
-		vkCmdClearColorImage =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.ClearColorValue*, uint, Vk.ImageSubresourceRange*, void>)LoadFunc(dev, "vkCmdClearColorImage");
-		vkCmdClearDepthStencilImage =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.ClearDepthStencilValue*, uint, Vk.ImageSubresourceRange*, void>)LoadFunc(dev, "vkCmdClearDepthStencilImage");
-		vkCmdClearAttachments =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.ClearAttachment*, uint, Vk.ClearRect*, void>)LoadFunc(dev, "vkCmdClearAttachments");
-		vkCmdResolveImage =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Image, Vk.ImageLayout, uint, Vk.ImageResolve*, void>)LoadFunc(dev, "vkCmdResolveImage");
-		vkCmdSetEvent =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Event, Vk.PipelineStageFlags, void>)LoadFunc(dev, "vkCmdSetEvent");
-		vkCmdResetEvent =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Event, Vk.PipelineStageFlags, void>)LoadFunc(dev, "vkCmdResetEvent");
-		vkCmdWaitEvents =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.Event*, Vk.PipelineStageFlags, Vk.PipelineStageFlags, uint, Vk.MemoryBarrier*, uint, Vk.BufferMemoryBarrier*, uint, Vk.ImageMemoryBarrier*, void>)LoadFunc(dev, "vkCmdWaitEvents");
-		vkCmdPipelineBarrier =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineStageFlags, Vk.PipelineStageFlags, Vk.DependencyFlags, uint, Vk.MemoryBarrier*, uint, Vk.BufferMemoryBarrier*, uint, Vk.ImageMemoryBarrier*, void>)LoadFunc(dev, "vkCmdPipelineBarrier");
-		vkCmdBeginQuery =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, Vk.QueryControlFlags, void>)LoadFunc(dev, "vkCmdBeginQuery");
-		vkCmdEndQuery =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, void>)LoadFunc(dev, "vkCmdEndQuery");
+		if ((vkResetQueryPoolEXT == null) && TryLoadFunc(dev, "vkResetQueryPoolEXT", out addr)) {
+			vkResetQueryPoolEXT =
+				(delegate* unmanaged<Vk.Device, Vk.QueryPool, uint, uint, void>)addr;
+		}
+		if (version >= V10) {
+			vkCreateBuffer =
+				(delegate* unmanaged<Vk.Device, Vk.BufferCreateInfo*, Vk.AllocationCallbacks*, Vk.Buffer*, Vk.Result>)LoadFunc(dev, "vkCreateBuffer");
+		}
+		if (version >= V10) {
+			vkDestroyBuffer =
+				(delegate* unmanaged<Vk.Device, Vk.Buffer, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyBuffer");
+		}
+		if (version >= V10) {
+			vkCreateBufferView =
+				(delegate* unmanaged<Vk.Device, Vk.BufferViewCreateInfo*, Vk.AllocationCallbacks*, Vk.BufferView*, Vk.Result>)LoadFunc(dev, "vkCreateBufferView");
+		}
+		if (version >= V10) {
+			vkDestroyBufferView =
+				(delegate* unmanaged<Vk.Device, Vk.BufferView, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyBufferView");
+		}
+		if (version >= V10) {
+			vkCreateImage =
+				(delegate* unmanaged<Vk.Device, Vk.ImageCreateInfo*, Vk.AllocationCallbacks*, Vk.Image*, Vk.Result>)LoadFunc(dev, "vkCreateImage");
+		}
+		if (version >= V10) {
+			vkDestroyImage =
+				(delegate* unmanaged<Vk.Device, Vk.Image, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyImage");
+		}
+		if (version >= V10) {
+			vkGetImageSubresourceLayout =
+				(delegate* unmanaged<Vk.Device, Vk.Image, Vk.ImageSubresource*, Vk.SubresourceLayout*, void>)LoadFunc(dev, "vkGetImageSubresourceLayout");
+		}
+		if (version >= V10) {
+			vkCreateImageView =
+				(delegate* unmanaged<Vk.Device, Vk.ImageViewCreateInfo*, Vk.AllocationCallbacks*, Vk.ImageView*, Vk.Result>)LoadFunc(dev, "vkCreateImageView");
+		}
+		if (version >= V10) {
+			vkDestroyImageView =
+				(delegate* unmanaged<Vk.Device, Vk.ImageView, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyImageView");
+		}
+		if (version >= V10) {
+			vkCreateShaderModule =
+				(delegate* unmanaged<Vk.Device, Vk.ShaderModuleCreateInfo*, Vk.AllocationCallbacks*, Vk.ShaderModule*, Vk.Result>)LoadFunc(dev, "vkCreateShaderModule");
+		}
+		if (version >= V10) {
+			vkDestroyShaderModule =
+				(delegate* unmanaged<Vk.Device, Vk.ShaderModule, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyShaderModule");
+		}
+		if (version >= V10) {
+			vkCreatePipelineCache =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineCacheCreateInfo*, Vk.AllocationCallbacks*, Vk.PipelineCache*, Vk.Result>)LoadFunc(dev, "vkCreatePipelineCache");
+		}
+		if (version >= V10) {
+			vkDestroyPipelineCache =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineCache, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyPipelineCache");
+		}
+		if (version >= V10) {
+			vkGetPipelineCacheData =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineCache, ulong*, void*, Vk.Result>)LoadFunc(dev, "vkGetPipelineCacheData");
+		}
+		if (version >= V10) {
+			vkMergePipelineCaches =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineCache, uint, Vk.PipelineCache*, Vk.Result>)LoadFunc(dev, "vkMergePipelineCaches");
+		}
+		if (version >= V10) {
+			vkCreateGraphicsPipelines =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineCache, uint, Vk.GraphicsPipelineCreateInfo*, Vk.AllocationCallbacks*, Vk.Pipeline*, Vk.Result>)LoadFunc(dev, "vkCreateGraphicsPipelines");
+		}
+		if (version >= V10) {
+			vkCreateComputePipelines =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineCache, uint, Vk.ComputePipelineCreateInfo*, Vk.AllocationCallbacks*, Vk.Pipeline*, Vk.Result>)LoadFunc(dev, "vkCreateComputePipelines");
+		}
+		if (version >= V10) {
+			vkDestroyPipeline =
+				(delegate* unmanaged<Vk.Device, Vk.Pipeline, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyPipeline");
+		}
+		if (version >= V10) {
+			vkCreatePipelineLayout =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineLayoutCreateInfo*, Vk.AllocationCallbacks*, Vk.PipelineLayout*, Vk.Result>)LoadFunc(dev, "vkCreatePipelineLayout");
+		}
+		if (version >= V10) {
+			vkDestroyPipelineLayout =
+				(delegate* unmanaged<Vk.Device, Vk.PipelineLayout, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyPipelineLayout");
+		}
+		if (version >= V10) {
+			vkCreateSampler =
+				(delegate* unmanaged<Vk.Device, Vk.SamplerCreateInfo*, Vk.AllocationCallbacks*, Vk.Sampler*, Vk.Result>)LoadFunc(dev, "vkCreateSampler");
+		}
+		if (version >= V10) {
+			vkDestroySampler =
+				(delegate* unmanaged<Vk.Device, Vk.Sampler, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroySampler");
+		}
+		if (version >= V10) {
+			vkCreateDescriptorSetLayout =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorSetLayoutCreateInfo*, Vk.AllocationCallbacks*, Vk.DescriptorSetLayout*, Vk.Result>)LoadFunc(dev, "vkCreateDescriptorSetLayout");
+		}
+		if (version >= V10) {
+			vkDestroyDescriptorSetLayout =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorSetLayout, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDescriptorSetLayout");
+		}
+		if (version >= V10) {
+			vkCreateDescriptorPool =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorPoolCreateInfo*, Vk.AllocationCallbacks*, Vk.DescriptorPool*, Vk.Result>)LoadFunc(dev, "vkCreateDescriptorPool");
+		}
+		if (version >= V10) {
+			vkDestroyDescriptorPool =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorPool, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDescriptorPool");
+		}
+		if (version >= V10) {
+			vkResetDescriptorPool =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorPool, Vk.DescriptorPoolResetFlags, Vk.Result>)LoadFunc(dev, "vkResetDescriptorPool");
+		}
+		if (version >= V10) {
+			vkAllocateDescriptorSets =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorSetAllocateInfo*, Vk.DescriptorSet*, Vk.Result>)LoadFunc(dev, "vkAllocateDescriptorSets");
+		}
+		if (version >= V10) {
+			vkFreeDescriptorSets =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorPool, uint, Vk.DescriptorSet*, Vk.Result>)LoadFunc(dev, "vkFreeDescriptorSets");
+		}
+		if (version >= V10) {
+			vkUpdateDescriptorSets =
+				(delegate* unmanaged<Vk.Device, uint, Vk.WriteDescriptorSet*, uint, Vk.CopyDescriptorSet*, void>)LoadFunc(dev, "vkUpdateDescriptorSets");
+		}
+		if (version >= V10) {
+			vkCreateFramebuffer =
+				(delegate* unmanaged<Vk.Device, Vk.FramebufferCreateInfo*, Vk.AllocationCallbacks*, Vk.Framebuffer*, Vk.Result>)LoadFunc(dev, "vkCreateFramebuffer");
+		}
+		if (version >= V10) {
+			vkDestroyFramebuffer =
+				(delegate* unmanaged<Vk.Device, Vk.Framebuffer, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyFramebuffer");
+		}
+		if (version >= V10) {
+			vkCreateRenderPass =
+				(delegate* unmanaged<Vk.Device, Vk.RenderPassCreateInfo*, Vk.AllocationCallbacks*, Vk.RenderPass*, Vk.Result>)LoadFunc(dev, "vkCreateRenderPass");
+		}
+		if (version >= V10) {
+			vkDestroyRenderPass =
+				(delegate* unmanaged<Vk.Device, Vk.RenderPass, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyRenderPass");
+		}
+		if (version >= V10) {
+			vkGetRenderAreaGranularity =
+				(delegate* unmanaged<Vk.Device, Vk.RenderPass, Vk.Extent2D*, void>)LoadFunc(dev, "vkGetRenderAreaGranularity");
+		}
+		if (version >= V10) {
+			vkCreateCommandPool =
+				(delegate* unmanaged<Vk.Device, Vk.CommandPoolCreateInfo*, Vk.AllocationCallbacks*, Vk.CommandPool*, Vk.Result>)LoadFunc(dev, "vkCreateCommandPool");
+		}
+		if (version >= V10) {
+			vkDestroyCommandPool =
+				(delegate* unmanaged<Vk.Device, Vk.CommandPool, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyCommandPool");
+		}
+		if (version >= V10) {
+			vkResetCommandPool =
+				(delegate* unmanaged<Vk.Device, Vk.CommandPool, Vk.CommandPoolResetFlags, Vk.Result>)LoadFunc(dev, "vkResetCommandPool");
+		}
+		if (version >= V10) {
+			vkAllocateCommandBuffers =
+				(delegate* unmanaged<Vk.Device, Vk.CommandBufferAllocateInfo*, Vk.CommandBuffer*, Vk.Result>)LoadFunc(dev, "vkAllocateCommandBuffers");
+		}
+		if (version >= V10) {
+			vkFreeCommandBuffers =
+				(delegate* unmanaged<Vk.Device, Vk.CommandPool, uint, Vk.CommandBuffer*, void>)LoadFunc(dev, "vkFreeCommandBuffers");
+		}
+		if (version >= V10) {
+			vkBeginCommandBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.CommandBufferBeginInfo*, Vk.Result>)LoadFunc(dev, "vkBeginCommandBuffer");
+		}
+		if (version >= V10) {
+			vkEndCommandBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Result>)LoadFunc(dev, "vkEndCommandBuffer");
+		}
+		if (version >= V10) {
+			vkResetCommandBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.CommandBufferResetFlags, Vk.Result>)LoadFunc(dev, "vkResetCommandBuffer");
+		}
+		if (version >= V10) {
+			vkCmdBindPipeline =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineBindPoint, Vk.Pipeline, void>)LoadFunc(dev, "vkCmdBindPipeline");
+		}
+		if (version >= V10) {
+			vkCmdSetViewport =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, Vk.Viewport*, void>)LoadFunc(dev, "vkCmdSetViewport");
+		}
+		if (version >= V10) {
+			vkCmdSetScissor =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, Vk.Rect2D*, void>)LoadFunc(dev, "vkCmdSetScissor");
+		}
+		if (version >= V10) {
+			vkCmdSetLineWidth =
+				(delegate* unmanaged<Vk.CommandBuffer, float, void>)LoadFunc(dev, "vkCmdSetLineWidth");
+		}
+		if (version >= V10) {
+			vkCmdSetDepthBias =
+				(delegate* unmanaged<Vk.CommandBuffer, float, float, float, void>)LoadFunc(dev, "vkCmdSetDepthBias");
+		}
+		if (version >= V10) {
+			vkCmdSetBlendConstants =
+				(delegate* unmanaged<Vk.CommandBuffer, float*, void>)LoadFunc(dev, "vkCmdSetBlendConstants");
+		}
+		if (version >= V10) {
+			vkCmdSetDepthBounds =
+				(delegate* unmanaged<Vk.CommandBuffer, float, float, void>)LoadFunc(dev, "vkCmdSetDepthBounds");
+		}
+		if (version >= V10) {
+			vkCmdSetStencilCompareMask =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.StencilFaceFlags, uint, void>)LoadFunc(dev, "vkCmdSetStencilCompareMask");
+		}
+		if (version >= V10) {
+			vkCmdSetStencilWriteMask =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.StencilFaceFlags, uint, void>)LoadFunc(dev, "vkCmdSetStencilWriteMask");
+		}
+		if (version >= V10) {
+			vkCmdSetStencilReference =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.StencilFaceFlags, uint, void>)LoadFunc(dev, "vkCmdSetStencilReference");
+		}
+		if (version >= V10) {
+			vkCmdBindDescriptorSets =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineBindPoint, Vk.PipelineLayout, uint, uint, Vk.DescriptorSet*, uint, uint*, void>)LoadFunc(dev, "vkCmdBindDescriptorSets");
+		}
+		if (version >= V10) {
+			vkCmdBindIndexBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.IndexType, void>)LoadFunc(dev, "vkCmdBindIndexBuffer");
+		}
+		if (version >= V10) {
+			vkCmdBindVertexBuffers =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, Vk.Buffer*, Vk.DeviceSize*, void>)LoadFunc(dev, "vkCmdBindVertexBuffers");
+		}
+		if (version >= V10) {
+			vkCmdDraw =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, uint, void>)LoadFunc(dev, "vkCmdDraw");
+		}
+		if (version >= V10) {
+			vkCmdDrawIndexed =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, int, uint, void>)LoadFunc(dev, "vkCmdDrawIndexed");
+		}
+		if (version >= V10) {
+			vkCmdDrawIndirect =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndirect");
+		}
+		if (version >= V10) {
+			vkCmdDrawIndexedIndirect =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndexedIndirect");
+		}
+		if (version >= V10) {
+			vkCmdDispatch =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, void>)LoadFunc(dev, "vkCmdDispatch");
+		}
+		if (version >= V10) {
+			vkCmdDispatchIndirect =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, void>)LoadFunc(dev, "vkCmdDispatchIndirect");
+		}
+		if (version >= V10) {
+			vkCmdCopyBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.Buffer, uint, Vk.BufferCopy*, void>)LoadFunc(dev, "vkCmdCopyBuffer");
+		}
+		if (version >= V10) {
+			vkCmdCopyImage =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Image, Vk.ImageLayout, uint, Vk.ImageCopy*, void>)LoadFunc(dev, "vkCmdCopyImage");
+		}
+		if (version >= V10) {
+			vkCmdBlitImage =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Image, Vk.ImageLayout, uint, Vk.ImageBlit*, Vk.Filter, void>)LoadFunc(dev, "vkCmdBlitImage");
+		}
+		if (version >= V10) {
+			vkCmdCopyBufferToImage =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.Image, Vk.ImageLayout, uint, Vk.BufferImageCopy*, void>)LoadFunc(dev, "vkCmdCopyBufferToImage");
+		}
+		if (version >= V10) {
+			vkCmdCopyImageToBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Buffer, uint, Vk.BufferImageCopy*, void>)LoadFunc(dev, "vkCmdCopyImageToBuffer");
+		}
+		if (version >= V10) {
+			vkCmdUpdateBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.DeviceSize, void*, void>)LoadFunc(dev, "vkCmdUpdateBuffer");
+		}
+		if (version >= V10) {
+			vkCmdFillBuffer =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.DeviceSize, uint, void>)LoadFunc(dev, "vkCmdFillBuffer");
+		}
+		if (version >= V10) {
+			vkCmdClearColorImage =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.ClearColorValue*, uint, Vk.ImageSubresourceRange*, void>)LoadFunc(dev, "vkCmdClearColorImage");
+		}
+		if (version >= V10) {
+			vkCmdClearDepthStencilImage =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.ClearDepthStencilValue*, uint, Vk.ImageSubresourceRange*, void>)LoadFunc(dev, "vkCmdClearDepthStencilImage");
+		}
+		if (version >= V10) {
+			vkCmdClearAttachments =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.ClearAttachment*, uint, Vk.ClearRect*, void>)LoadFunc(dev, "vkCmdClearAttachments");
+		}
+		if (version >= V10) {
+			vkCmdResolveImage =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Image, Vk.ImageLayout, Vk.Image, Vk.ImageLayout, uint, Vk.ImageResolve*, void>)LoadFunc(dev, "vkCmdResolveImage");
+		}
+		if (version >= V10) {
+			vkCmdSetEvent =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Event, Vk.PipelineStageFlags, void>)LoadFunc(dev, "vkCmdSetEvent");
+		}
+		if (version >= V10) {
+			vkCmdResetEvent =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Event, Vk.PipelineStageFlags, void>)LoadFunc(dev, "vkCmdResetEvent");
+		}
+		if (version >= V10) {
+			vkCmdWaitEvents =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.Event*, Vk.PipelineStageFlags, Vk.PipelineStageFlags, uint, Vk.MemoryBarrier*, uint, Vk.BufferMemoryBarrier*, uint, Vk.ImageMemoryBarrier*, void>)LoadFunc(dev, "vkCmdWaitEvents");
+		}
+		if (version >= V10) {
+			vkCmdPipelineBarrier =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineStageFlags, Vk.PipelineStageFlags, Vk.DependencyFlags, uint, Vk.MemoryBarrier*, uint, Vk.BufferMemoryBarrier*, uint, Vk.ImageMemoryBarrier*, void>)LoadFunc(dev, "vkCmdPipelineBarrier");
+		}
+		if (version >= V10) {
+			vkCmdBeginQuery =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, Vk.QueryControlFlags, void>)LoadFunc(dev, "vkCmdBeginQuery");
+		}
+		if (version >= V10) {
+			vkCmdEndQuery =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, void>)LoadFunc(dev, "vkCmdEndQuery");
+		}
 		if (TryLoadFunc(dev, "vkCmdBeginConditionalRenderingEXT", out addr)) {
 			vkCmdBeginConditionalRenderingEXT =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.EXT.ConditionalRenderingBeginInfo*, void>)addr;
@@ -1017,22 +1347,38 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkCmdEndConditionalRenderingEXT =
 				(delegate* unmanaged<Vk.CommandBuffer, void>)addr;
 		}
-		vkCmdResetQueryPool =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, uint, void>)LoadFunc(dev, "vkCmdResetQueryPool");
-		vkCmdWriteTimestamp =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineStageFlags, Vk.QueryPool, uint, void>)LoadFunc(dev, "vkCmdWriteTimestamp");
-		vkCmdCopyQueryPoolResults =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, uint, Vk.Buffer, Vk.DeviceSize, Vk.DeviceSize, Vk.QueryResultFlags, void>)LoadFunc(dev, "vkCmdCopyQueryPoolResults");
-		vkCmdPushConstants =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineLayout, Vk.ShaderStageFlags, uint, uint, void*, void>)LoadFunc(dev, "vkCmdPushConstants");
-		vkCmdBeginRenderPass =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.RenderPassBeginInfo*, Vk.SubpassContents, void>)LoadFunc(dev, "vkCmdBeginRenderPass");
-		vkCmdNextSubpass =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassContents, void>)LoadFunc(dev, "vkCmdNextSubpass");
-		vkCmdEndRenderPass =
-			(delegate* unmanaged<Vk.CommandBuffer, void>)LoadFunc(dev, "vkCmdEndRenderPass");
-		vkCmdExecuteCommands =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.CommandBuffer*, void>)LoadFunc(dev, "vkCmdExecuteCommands");
+		if (version >= V10) {
+			vkCmdResetQueryPool =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, uint, void>)LoadFunc(dev, "vkCmdResetQueryPool");
+		}
+		if (version >= V10) {
+			vkCmdWriteTimestamp =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineStageFlags, Vk.QueryPool, uint, void>)LoadFunc(dev, "vkCmdWriteTimestamp");
+		}
+		if (version >= V10) {
+			vkCmdCopyQueryPoolResults =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.QueryPool, uint, uint, Vk.Buffer, Vk.DeviceSize, Vk.DeviceSize, Vk.QueryResultFlags, void>)LoadFunc(dev, "vkCmdCopyQueryPoolResults");
+		}
+		if (version >= V10) {
+			vkCmdPushConstants =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineLayout, Vk.ShaderStageFlags, uint, uint, void*, void>)LoadFunc(dev, "vkCmdPushConstants");
+		}
+		if (version >= V10) {
+			vkCmdBeginRenderPass =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.RenderPassBeginInfo*, Vk.SubpassContents, void>)LoadFunc(dev, "vkCmdBeginRenderPass");
+		}
+		if (version >= V10) {
+			vkCmdNextSubpass =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassContents, void>)LoadFunc(dev, "vkCmdNextSubpass");
+		}
+		if (version >= V10) {
+			vkCmdEndRenderPass =
+				(delegate* unmanaged<Vk.CommandBuffer, void>)LoadFunc(dev, "vkCmdEndRenderPass");
+		}
+		if (version >= V10) {
+			vkCmdExecuteCommands =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.CommandBuffer*, void>)LoadFunc(dev, "vkCmdExecuteCommands");
+		}
 		if (TryLoadFunc(dev, "vkCreateSharedSwapchainsKHR", out addr)) {
 			vkCreateSharedSwapchainsKHR =
 				(delegate* unmanaged<Vk.Device, uint, Vk.KHR.SwapchainCreateInfo*, Vk.AllocationCallbacks*, Vk.KHR.Swapchain*, Vk.Result>)addr;
@@ -1109,9 +1455,15 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkCmdPushDescriptorSetKHR =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineBindPoint, Vk.PipelineLayout, uint, uint, Vk.WriteDescriptorSet*, void>)addr;
 		}
-		vkTrimCommandPool =
-			(delegate* unmanaged<Vk.Device, Vk.CommandPool, Vk.CommandPoolTrimFlags, void>)LoadFunc(dev, "vkTrimCommandPool");
+		if (version >= V11) {
+			vkTrimCommandPool =
+				(delegate* unmanaged<Vk.Device, Vk.CommandPool, Vk.CommandPoolTrimFlags, void>)LoadFunc(dev, "vkTrimCommandPool");
+		}
 		vkTrimCommandPoolKHR = vkTrimCommandPool;
+		if ((vkTrimCommandPoolKHR == null) && TryLoadFunc(dev, "vkTrimCommandPoolKHR", out addr)) {
+			vkTrimCommandPoolKHR =
+				(delegate* unmanaged<Vk.Device, Vk.CommandPool, Vk.CommandPoolTrimFlags, void>)addr;
+		}
 		if (TryLoadFunc(dev, "vkGetMemoryWin32HandleKHR", out addr)) {
 			vkGetMemoryWin32HandleKHR =
 				(delegate* unmanaged<Vk.Device, Vk.KHR.MemoryGetWin32HandleInfo*, void**, Vk.Result>)addr;
@@ -1176,18 +1528,42 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkGetSwapchainCounterEXT =
 				(delegate* unmanaged<Vk.Device, Vk.KHR.Swapchain, Vk.EXT.SurfaceCounterFlags, ulong*, Vk.Result>)addr;
 		}
-		vkGetDeviceGroupPeerMemoryFeatures =
-			(delegate* unmanaged<Vk.Device, uint, uint, uint, Vk.PeerMemoryFeatureFlags*, void>)LoadFunc(dev, "vkGetDeviceGroupPeerMemoryFeatures");
+		if (version >= V11) {
+			vkGetDeviceGroupPeerMemoryFeatures =
+				(delegate* unmanaged<Vk.Device, uint, uint, uint, Vk.PeerMemoryFeatureFlags*, void>)LoadFunc(dev, "vkGetDeviceGroupPeerMemoryFeatures");
+		}
 		vkGetDeviceGroupPeerMemoryFeaturesKHR = vkGetDeviceGroupPeerMemoryFeatures;
-		vkBindBufferMemory2 =
-			(delegate* unmanaged<Vk.Device, uint, Vk.BindBufferMemoryInfo*, Vk.Result>)LoadFunc(dev, "vkBindBufferMemory2");
+		if ((vkGetDeviceGroupPeerMemoryFeaturesKHR == null) && TryLoadFunc(dev, "vkGetDeviceGroupPeerMemoryFeaturesKHR", out addr)) {
+			vkGetDeviceGroupPeerMemoryFeaturesKHR =
+				(delegate* unmanaged<Vk.Device, uint, uint, uint, Vk.PeerMemoryFeatureFlags*, void>)addr;
+		}
+		if (version >= V11) {
+			vkBindBufferMemory2 =
+				(delegate* unmanaged<Vk.Device, uint, Vk.BindBufferMemoryInfo*, Vk.Result>)LoadFunc(dev, "vkBindBufferMemory2");
+		}
 		vkBindBufferMemory2KHR = vkBindBufferMemory2;
-		vkBindImageMemory2 =
-			(delegate* unmanaged<Vk.Device, uint, Vk.BindImageMemoryInfo*, Vk.Result>)LoadFunc(dev, "vkBindImageMemory2");
+		if ((vkBindBufferMemory2KHR == null) && TryLoadFunc(dev, "vkBindBufferMemory2KHR", out addr)) {
+			vkBindBufferMemory2KHR =
+				(delegate* unmanaged<Vk.Device, uint, Vk.BindBufferMemoryInfo*, Vk.Result>)addr;
+		}
+		if (version >= V11) {
+			vkBindImageMemory2 =
+				(delegate* unmanaged<Vk.Device, uint, Vk.BindImageMemoryInfo*, Vk.Result>)LoadFunc(dev, "vkBindImageMemory2");
+		}
 		vkBindImageMemory2KHR = vkBindImageMemory2;
-		vkCmdSetDeviceMask =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, void>)LoadFunc(dev, "vkCmdSetDeviceMask");
+		if ((vkBindImageMemory2KHR == null) && TryLoadFunc(dev, "vkBindImageMemory2KHR", out addr)) {
+			vkBindImageMemory2KHR =
+				(delegate* unmanaged<Vk.Device, uint, Vk.BindImageMemoryInfo*, Vk.Result>)addr;
+		}
+		if (version >= V11) {
+			vkCmdSetDeviceMask =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, void>)LoadFunc(dev, "vkCmdSetDeviceMask");
+		}
 		vkCmdSetDeviceMaskKHR = vkCmdSetDeviceMask;
+		if ((vkCmdSetDeviceMaskKHR == null) && TryLoadFunc(dev, "vkCmdSetDeviceMaskKHR", out addr)) {
+			vkCmdSetDeviceMaskKHR =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, void>)addr;
+		}
 		if (TryLoadFunc(dev, "vkGetDeviceGroupPresentCapabilitiesKHR", out addr)) {
 			vkGetDeviceGroupPresentCapabilitiesKHR =
 				(delegate* unmanaged<Vk.Device, Vk.KHR.DeviceGroupPresentCapabilities*, Vk.Result>)addr;
@@ -1200,18 +1576,42 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkAcquireNextImage2KHR =
 				(delegate* unmanaged<Vk.Device, Vk.KHR.AcquireNextImageInfo*, uint*, Vk.Result>)addr;
 		}
-		vkCmdDispatchBase =
-			(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, uint, uint, uint, void>)LoadFunc(dev, "vkCmdDispatchBase");
+		if (version >= V11) {
+			vkCmdDispatchBase =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, uint, uint, uint, void>)LoadFunc(dev, "vkCmdDispatchBase");
+		}
 		vkCmdDispatchBaseKHR = vkCmdDispatchBase;
-		vkCreateDescriptorUpdateTemplate =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorUpdateTemplateCreateInfo*, Vk.AllocationCallbacks*, Vk.DescriptorUpdateTemplate*, Vk.Result>)LoadFunc(dev, "vkCreateDescriptorUpdateTemplate");
+		if ((vkCmdDispatchBaseKHR == null) && TryLoadFunc(dev, "vkCmdDispatchBaseKHR", out addr)) {
+			vkCmdDispatchBaseKHR =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, uint, uint, uint, uint, uint, void>)addr;
+		}
+		if (version >= V11) {
+			vkCreateDescriptorUpdateTemplate =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorUpdateTemplateCreateInfo*, Vk.AllocationCallbacks*, Vk.DescriptorUpdateTemplate*, Vk.Result>)LoadFunc(dev, "vkCreateDescriptorUpdateTemplate");
+		}
 		vkCreateDescriptorUpdateTemplateKHR = vkCreateDescriptorUpdateTemplate;
-		vkDestroyDescriptorUpdateTemplate =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorUpdateTemplate, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDescriptorUpdateTemplate");
+		if ((vkCreateDescriptorUpdateTemplateKHR == null) && TryLoadFunc(dev, "vkCreateDescriptorUpdateTemplateKHR", out addr)) {
+			vkCreateDescriptorUpdateTemplateKHR =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorUpdateTemplateCreateInfo*, Vk.AllocationCallbacks*, Vk.DescriptorUpdateTemplate*, Vk.Result>)addr;
+		}
+		if (version >= V11) {
+			vkDestroyDescriptorUpdateTemplate =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorUpdateTemplate, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroyDescriptorUpdateTemplate");
+		}
 		vkDestroyDescriptorUpdateTemplateKHR = vkDestroyDescriptorUpdateTemplate;
-		vkUpdateDescriptorSetWithTemplate =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorSet, Vk.DescriptorUpdateTemplate, void*, void>)LoadFunc(dev, "vkUpdateDescriptorSetWithTemplate");
+		if ((vkDestroyDescriptorUpdateTemplateKHR == null) && TryLoadFunc(dev, "vkDestroyDescriptorUpdateTemplateKHR", out addr)) {
+			vkDestroyDescriptorUpdateTemplateKHR =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorUpdateTemplate, Vk.AllocationCallbacks*, void>)addr;
+		}
+		if (version >= V11) {
+			vkUpdateDescriptorSetWithTemplate =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorSet, Vk.DescriptorUpdateTemplate, void*, void>)LoadFunc(dev, "vkUpdateDescriptorSetWithTemplate");
+		}
 		vkUpdateDescriptorSetWithTemplateKHR = vkUpdateDescriptorSetWithTemplate;
+		if ((vkUpdateDescriptorSetWithTemplateKHR == null) && TryLoadFunc(dev, "vkUpdateDescriptorSetWithTemplateKHR", out addr)) {
+			vkUpdateDescriptorSetWithTemplateKHR =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorSet, Vk.DescriptorUpdateTemplate, void*, void>)addr;
+		}
 		if (TryLoadFunc(dev, "vkCmdPushDescriptorSetWithTemplateKHR", out addr)) {
 			vkCmdPushDescriptorSetWithTemplateKHR =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.DescriptorUpdateTemplate, Vk.PipelineLayout, uint, void*, void>)addr;
@@ -1244,23 +1644,55 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkCmdSetSampleLocationsEXT =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.EXT.SampleLocationsInfo*, void>)addr;
 		}
-		vkGetBufferMemoryRequirements2 =
-			(delegate* unmanaged<Vk.Device, Vk.BufferMemoryRequirementsInfo2*, Vk.MemoryRequirements2*, void>)LoadFunc(dev, "vkGetBufferMemoryRequirements2");
+		if (version >= V11) {
+			vkGetBufferMemoryRequirements2 =
+				(delegate* unmanaged<Vk.Device, Vk.BufferMemoryRequirementsInfo2*, Vk.MemoryRequirements2*, void>)LoadFunc(dev, "vkGetBufferMemoryRequirements2");
+		}
 		vkGetBufferMemoryRequirements2KHR = vkGetBufferMemoryRequirements2;
-		vkGetImageMemoryRequirements2 =
-			(delegate* unmanaged<Vk.Device, Vk.ImageMemoryRequirementsInfo2*, Vk.MemoryRequirements2*, void>)LoadFunc(dev, "vkGetImageMemoryRequirements2");
+		if ((vkGetBufferMemoryRequirements2KHR == null) && TryLoadFunc(dev, "vkGetBufferMemoryRequirements2KHR", out addr)) {
+			vkGetBufferMemoryRequirements2KHR =
+				(delegate* unmanaged<Vk.Device, Vk.BufferMemoryRequirementsInfo2*, Vk.MemoryRequirements2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetImageMemoryRequirements2 =
+				(delegate* unmanaged<Vk.Device, Vk.ImageMemoryRequirementsInfo2*, Vk.MemoryRequirements2*, void>)LoadFunc(dev, "vkGetImageMemoryRequirements2");
+		}
 		vkGetImageMemoryRequirements2KHR = vkGetImageMemoryRequirements2;
-		vkGetImageSparseMemoryRequirements2 =
-			(delegate* unmanaged<Vk.Device, Vk.ImageSparseMemoryRequirementsInfo2*, uint*, Vk.SparseImageMemoryRequirements2*, void>)LoadFunc(dev, "vkGetImageSparseMemoryRequirements2");
+		if ((vkGetImageMemoryRequirements2KHR == null) && TryLoadFunc(dev, "vkGetImageMemoryRequirements2KHR", out addr)) {
+			vkGetImageMemoryRequirements2KHR =
+				(delegate* unmanaged<Vk.Device, Vk.ImageMemoryRequirementsInfo2*, Vk.MemoryRequirements2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetImageSparseMemoryRequirements2 =
+				(delegate* unmanaged<Vk.Device, Vk.ImageSparseMemoryRequirementsInfo2*, uint*, Vk.SparseImageMemoryRequirements2*, void>)LoadFunc(dev, "vkGetImageSparseMemoryRequirements2");
+		}
 		vkGetImageSparseMemoryRequirements2KHR = vkGetImageSparseMemoryRequirements2;
-		vkCreateSamplerYcbcrConversion =
-			(delegate* unmanaged<Vk.Device, Vk.SamplerYcbcrConversionCreateInfo*, Vk.AllocationCallbacks*, Vk.SamplerYcbcrConversion*, Vk.Result>)LoadFunc(dev, "vkCreateSamplerYcbcrConversion");
+		if ((vkGetImageSparseMemoryRequirements2KHR == null) && TryLoadFunc(dev, "vkGetImageSparseMemoryRequirements2KHR", out addr)) {
+			vkGetImageSparseMemoryRequirements2KHR =
+				(delegate* unmanaged<Vk.Device, Vk.ImageSparseMemoryRequirementsInfo2*, uint*, Vk.SparseImageMemoryRequirements2*, void>)addr;
+		}
+		if (version >= V11) {
+			vkCreateSamplerYcbcrConversion =
+				(delegate* unmanaged<Vk.Device, Vk.SamplerYcbcrConversionCreateInfo*, Vk.AllocationCallbacks*, Vk.SamplerYcbcrConversion*, Vk.Result>)LoadFunc(dev, "vkCreateSamplerYcbcrConversion");
+		}
 		vkCreateSamplerYcbcrConversionKHR = vkCreateSamplerYcbcrConversion;
-		vkDestroySamplerYcbcrConversion =
-			(delegate* unmanaged<Vk.Device, Vk.SamplerYcbcrConversion, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroySamplerYcbcrConversion");
+		if ((vkCreateSamplerYcbcrConversionKHR == null) && TryLoadFunc(dev, "vkCreateSamplerYcbcrConversionKHR", out addr)) {
+			vkCreateSamplerYcbcrConversionKHR =
+				(delegate* unmanaged<Vk.Device, Vk.SamplerYcbcrConversionCreateInfo*, Vk.AllocationCallbacks*, Vk.SamplerYcbcrConversion*, Vk.Result>)addr;
+		}
+		if (version >= V11) {
+			vkDestroySamplerYcbcrConversion =
+				(delegate* unmanaged<Vk.Device, Vk.SamplerYcbcrConversion, Vk.AllocationCallbacks*, void>)LoadFunc(dev, "vkDestroySamplerYcbcrConversion");
+		}
 		vkDestroySamplerYcbcrConversionKHR = vkDestroySamplerYcbcrConversion;
-		vkGetDeviceQueue2 =
-			(delegate* unmanaged<Vk.Device, Vk.DeviceQueueInfo2*, Vk.Queue*, void>)LoadFunc(dev, "vkGetDeviceQueue2");
+		if ((vkDestroySamplerYcbcrConversionKHR == null) && TryLoadFunc(dev, "vkDestroySamplerYcbcrConversionKHR", out addr)) {
+			vkDestroySamplerYcbcrConversionKHR =
+				(delegate* unmanaged<Vk.Device, Vk.SamplerYcbcrConversion, Vk.AllocationCallbacks*, void>)addr;
+		}
+		if (version >= V11) {
+			vkGetDeviceQueue2 =
+				(delegate* unmanaged<Vk.Device, Vk.DeviceQueueInfo2*, Vk.Queue*, void>)LoadFunc(dev, "vkGetDeviceQueue2");
+		}
 		if (TryLoadFunc(dev, "vkCreateValidationCacheEXT", out addr)) {
 			vkCreateValidationCacheEXT =
 				(delegate* unmanaged<Vk.Device, Vk.EXT.ValidationCacheCreateInfo*, Vk.AllocationCallbacks*, Vk.EXT.ValidationCache*, Vk.Result>)addr;
@@ -1277,9 +1709,15 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkMergeValidationCachesEXT =
 				(delegate* unmanaged<Vk.Device, Vk.EXT.ValidationCache, uint, Vk.EXT.ValidationCache*, Vk.Result>)addr;
 		}
-		vkGetDescriptorSetLayoutSupport =
-			(delegate* unmanaged<Vk.Device, Vk.DescriptorSetLayoutCreateInfo*, Vk.DescriptorSetLayoutSupport*, void>)LoadFunc(dev, "vkGetDescriptorSetLayoutSupport");
+		if (version >= V11) {
+			vkGetDescriptorSetLayoutSupport =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorSetLayoutCreateInfo*, Vk.DescriptorSetLayoutSupport*, void>)LoadFunc(dev, "vkGetDescriptorSetLayoutSupport");
+		}
 		vkGetDescriptorSetLayoutSupportKHR = vkGetDescriptorSetLayoutSupport;
+		if ((vkGetDescriptorSetLayoutSupportKHR == null) && TryLoadFunc(dev, "vkGetDescriptorSetLayoutSupportKHR", out addr)) {
+			vkGetDescriptorSetLayoutSupportKHR =
+				(delegate* unmanaged<Vk.Device, Vk.DescriptorSetLayoutCreateInfo*, Vk.DescriptorSetLayoutSupport*, void>)addr;
+		}
 		if (TryLoadFunc(dev, "vkGetSwapchainGrallocUsageANDROID", out addr)) {
 			vkGetSwapchainGrallocUsageANDROID =
 				(delegate* unmanaged<Vk.Device, Vk.Format, Vk.ImageUsageFlags, int*, Vk.Result>)addr;
@@ -1348,27 +1786,69 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkCmdWriteBufferMarkerAMD =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.PipelineStageFlags, Vk.Buffer, Vk.DeviceSize, uint, void>)addr;
 		}
-		vkCreateRenderPass2 =
-			(delegate* unmanaged<Vk.Device, Vk.RenderPassCreateInfo2*, Vk.AllocationCallbacks*, Vk.RenderPass*, Vk.Result>)LoadFunc(dev, "vkCreateRenderPass2");
+		if (version >= V12) {
+			vkCreateRenderPass2 =
+				(delegate* unmanaged<Vk.Device, Vk.RenderPassCreateInfo2*, Vk.AllocationCallbacks*, Vk.RenderPass*, Vk.Result>)LoadFunc(dev, "vkCreateRenderPass2");
+		}
 		vkCreateRenderPass2KHR = vkCreateRenderPass2;
-		vkCmdBeginRenderPass2 =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.RenderPassBeginInfo*, Vk.SubpassBeginInfo*, void>)LoadFunc(dev, "vkCmdBeginRenderPass2");
+		if ((vkCreateRenderPass2KHR == null) && TryLoadFunc(dev, "vkCreateRenderPass2KHR", out addr)) {
+			vkCreateRenderPass2KHR =
+				(delegate* unmanaged<Vk.Device, Vk.RenderPassCreateInfo2*, Vk.AllocationCallbacks*, Vk.RenderPass*, Vk.Result>)addr;
+		}
+		if (version >= V12) {
+			vkCmdBeginRenderPass2 =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.RenderPassBeginInfo*, Vk.SubpassBeginInfo*, void>)LoadFunc(dev, "vkCmdBeginRenderPass2");
+		}
 		vkCmdBeginRenderPass2KHR = vkCmdBeginRenderPass2;
-		vkCmdNextSubpass2 =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassBeginInfo*, Vk.SubpassEndInfo*, void>)LoadFunc(dev, "vkCmdNextSubpass2");
+		if ((vkCmdBeginRenderPass2KHR == null) && TryLoadFunc(dev, "vkCmdBeginRenderPass2KHR", out addr)) {
+			vkCmdBeginRenderPass2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.RenderPassBeginInfo*, Vk.SubpassBeginInfo*, void>)addr;
+		}
+		if (version >= V12) {
+			vkCmdNextSubpass2 =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassBeginInfo*, Vk.SubpassEndInfo*, void>)LoadFunc(dev, "vkCmdNextSubpass2");
+		}
 		vkCmdNextSubpass2KHR = vkCmdNextSubpass2;
-		vkCmdEndRenderPass2 =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassEndInfo*, void>)LoadFunc(dev, "vkCmdEndRenderPass2");
+		if ((vkCmdNextSubpass2KHR == null) && TryLoadFunc(dev, "vkCmdNextSubpass2KHR", out addr)) {
+			vkCmdNextSubpass2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassBeginInfo*, Vk.SubpassEndInfo*, void>)addr;
+		}
+		if (version >= V12) {
+			vkCmdEndRenderPass2 =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassEndInfo*, void>)LoadFunc(dev, "vkCmdEndRenderPass2");
+		}
 		vkCmdEndRenderPass2KHR = vkCmdEndRenderPass2;
-		vkGetSemaphoreCounterValue =
-			(delegate* unmanaged<Vk.Device, Vk.Semaphore, ulong*, Vk.Result>)LoadFunc(dev, "vkGetSemaphoreCounterValue");
+		if ((vkCmdEndRenderPass2KHR == null) && TryLoadFunc(dev, "vkCmdEndRenderPass2KHR", out addr)) {
+			vkCmdEndRenderPass2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.SubpassEndInfo*, void>)addr;
+		}
+		if (version >= V12) {
+			vkGetSemaphoreCounterValue =
+				(delegate* unmanaged<Vk.Device, Vk.Semaphore, ulong*, Vk.Result>)LoadFunc(dev, "vkGetSemaphoreCounterValue");
+		}
 		vkGetSemaphoreCounterValueKHR = vkGetSemaphoreCounterValue;
-		vkWaitSemaphores =
-			(delegate* unmanaged<Vk.Device, Vk.SemaphoreWaitInfo*, ulong, Vk.Result>)LoadFunc(dev, "vkWaitSemaphores");
+		if ((vkGetSemaphoreCounterValueKHR == null) && TryLoadFunc(dev, "vkGetSemaphoreCounterValueKHR", out addr)) {
+			vkGetSemaphoreCounterValueKHR =
+				(delegate* unmanaged<Vk.Device, Vk.Semaphore, ulong*, Vk.Result>)addr;
+		}
+		if (version >= V12) {
+			vkWaitSemaphores =
+				(delegate* unmanaged<Vk.Device, Vk.SemaphoreWaitInfo*, ulong, Vk.Result>)LoadFunc(dev, "vkWaitSemaphores");
+		}
 		vkWaitSemaphoresKHR = vkWaitSemaphores;
-		vkSignalSemaphore =
-			(delegate* unmanaged<Vk.Device, Vk.SemaphoreSignalInfo*, Vk.Result>)LoadFunc(dev, "vkSignalSemaphore");
+		if ((vkWaitSemaphoresKHR == null) && TryLoadFunc(dev, "vkWaitSemaphoresKHR", out addr)) {
+			vkWaitSemaphoresKHR =
+				(delegate* unmanaged<Vk.Device, Vk.SemaphoreWaitInfo*, ulong, Vk.Result>)addr;
+		}
+		if (version >= V12) {
+			vkSignalSemaphore =
+				(delegate* unmanaged<Vk.Device, Vk.SemaphoreSignalInfo*, Vk.Result>)LoadFunc(dev, "vkSignalSemaphore");
+		}
 		vkSignalSemaphoreKHR = vkSignalSemaphore;
+		if ((vkSignalSemaphoreKHR == null) && TryLoadFunc(dev, "vkSignalSemaphoreKHR", out addr)) {
+			vkSignalSemaphoreKHR =
+				(delegate* unmanaged<Vk.Device, Vk.SemaphoreSignalInfo*, Vk.Result>)addr;
+		}
 		if (TryLoadFunc(dev, "vkGetAndroidHardwareBufferPropertiesANDROID", out addr)) {
 			vkGetAndroidHardwareBufferPropertiesANDROID =
 				(delegate* unmanaged<Vk.Device, void*, Vk.ANDROID.AndroidHardwareBufferProperties*, Vk.Result>)addr;
@@ -1377,14 +1857,34 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkGetMemoryAndroidHardwareBufferANDROID =
 				(delegate* unmanaged<Vk.Device, Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo*, void**, Vk.Result>)addr;
 		}
-		vkCmdDrawIndirectCount =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndirectCount");
+		if (version >= V12) {
+			vkCmdDrawIndirectCount =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndirectCount");
+		}
 		vkCmdDrawIndirectCountKHR = vkCmdDrawIndirectCount;
+		if ((vkCmdDrawIndirectCountKHR == null) && TryLoadFunc(dev, "vkCmdDrawIndirectCountKHR", out addr)) {
+			vkCmdDrawIndirectCountKHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)addr;
+		}
 		vkCmdDrawIndirectCountAMD = vkCmdDrawIndirectCount;
-		vkCmdDrawIndexedIndirectCount =
-			(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndexedIndirectCount");
+		if ((vkCmdDrawIndirectCountAMD == null) && TryLoadFunc(dev, "vkCmdDrawIndirectCountAMD", out addr)) {
+			vkCmdDrawIndirectCountAMD =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)addr;
+		}
+		if (version >= V12) {
+			vkCmdDrawIndexedIndirectCount =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)LoadFunc(dev, "vkCmdDrawIndexedIndirectCount");
+		}
 		vkCmdDrawIndexedIndirectCountKHR = vkCmdDrawIndexedIndirectCount;
+		if ((vkCmdDrawIndexedIndirectCountKHR == null) && TryLoadFunc(dev, "vkCmdDrawIndexedIndirectCountKHR", out addr)) {
+			vkCmdDrawIndexedIndirectCountKHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)addr;
+		}
 		vkCmdDrawIndexedIndirectCountAMD = vkCmdDrawIndexedIndirectCount;
+		if ((vkCmdDrawIndexedIndirectCountAMD == null) && TryLoadFunc(dev, "vkCmdDrawIndexedIndirectCountAMD", out addr)) {
+			vkCmdDrawIndexedIndirectCountAMD =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Buffer, Vk.DeviceSize, Vk.Buffer, Vk.DeviceSize, uint, uint, void>)addr;
+		}
 		if (TryLoadFunc(dev, "vkCmdSetCheckpointNV", out addr)) {
 			vkCmdSetCheckpointNV =
 				(delegate* unmanaged<Vk.CommandBuffer, void*, void>)addr;
@@ -1458,6 +1958,10 @@ public unsafe sealed partial class DeviceFunctionTable
 				(delegate* unmanaged<Vk.Device, Vk.KHR.AccelerationStructure, Vk.AllocationCallbacks*, void>)addr;
 		}
 		vkDestroyAccelerationStructureNV = vkDestroyAccelerationStructureKHR;
+		if ((vkDestroyAccelerationStructureNV == null) && TryLoadFunc(dev, "vkDestroyAccelerationStructureNV", out addr)) {
+			vkDestroyAccelerationStructureNV =
+				(delegate* unmanaged<Vk.Device, Vk.KHR.AccelerationStructure, Vk.AllocationCallbacks*, void>)addr;
+		}
 		if (TryLoadFunc(dev, "vkGetAccelerationStructureMemoryRequirementsKHR", out addr)) {
 			vkGetAccelerationStructureMemoryRequirementsKHR =
 				(delegate* unmanaged<Vk.Device, Vk.KHR.AccelerationStructureMemoryRequirementsInfo*, Vk.MemoryRequirements2*, void>)addr;
@@ -1471,6 +1975,10 @@ public unsafe sealed partial class DeviceFunctionTable
 				(delegate* unmanaged<Vk.Device, uint, Vk.KHR.BindAccelerationStructureMemoryInfo*, Vk.Result>)addr;
 		}
 		vkBindAccelerationStructureMemoryNV = vkBindAccelerationStructureMemoryKHR;
+		if ((vkBindAccelerationStructureMemoryNV == null) && TryLoadFunc(dev, "vkBindAccelerationStructureMemoryNV", out addr)) {
+			vkBindAccelerationStructureMemoryNV =
+				(delegate* unmanaged<Vk.Device, uint, Vk.KHR.BindAccelerationStructureMemoryInfo*, Vk.Result>)addr;
+		}
 		if (TryLoadFunc(dev, "vkCmdCopyAccelerationStructureNV", out addr)) {
 			vkCmdCopyAccelerationStructureNV =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.AccelerationStructure, Vk.KHR.AccelerationStructure, Vk.KHR.CopyAccelerationStructureMode, void>)addr;
@@ -1504,6 +2012,10 @@ public unsafe sealed partial class DeviceFunctionTable
 				(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.KHR.AccelerationStructure*, Vk.QueryType, Vk.QueryPool, uint, void>)addr;
 		}
 		vkCmdWriteAccelerationStructuresPropertiesNV = vkCmdWriteAccelerationStructuresPropertiesKHR;
+		if ((vkCmdWriteAccelerationStructuresPropertiesNV == null) && TryLoadFunc(dev, "vkCmdWriteAccelerationStructuresPropertiesNV", out addr)) {
+			vkCmdWriteAccelerationStructuresPropertiesNV =
+				(delegate* unmanaged<Vk.CommandBuffer, uint, Vk.KHR.AccelerationStructure*, Vk.QueryType, Vk.QueryPool, uint, void>)addr;
+		}
 		if (TryLoadFunc(dev, "vkCmdBuildAccelerationStructureNV", out addr)) {
 			vkCmdBuildAccelerationStructureNV =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.NV.AccelerationStructureInfo*, Vk.Buffer, Vk.DeviceSize, Vk.Bool32, Vk.KHR.AccelerationStructure, Vk.KHR.AccelerationStructure, Vk.Buffer, Vk.DeviceSize, void>)addr;
@@ -1525,6 +2037,10 @@ public unsafe sealed partial class DeviceFunctionTable
 				(delegate* unmanaged<Vk.Device, Vk.Pipeline, uint, uint, ulong, void*, Vk.Result>)addr;
 		}
 		vkGetRayTracingShaderGroupHandlesNV = vkGetRayTracingShaderGroupHandlesKHR;
+		if ((vkGetRayTracingShaderGroupHandlesNV == null) && TryLoadFunc(dev, "vkGetRayTracingShaderGroupHandlesNV", out addr)) {
+			vkGetRayTracingShaderGroupHandlesNV =
+				(delegate* unmanaged<Vk.Device, Vk.Pipeline, uint, uint, ulong, void*, Vk.Result>)addr;
+		}
 		if (TryLoadFunc(dev, "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR", out addr)) {
 			vkGetRayTracingCaptureReplayShaderGroupHandlesKHR =
 				(delegate* unmanaged<Vk.Device, Vk.Pipeline, uint, uint, ulong, void*, Vk.Result>)addr;
@@ -1581,13 +2097,29 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkGetImageDrmFormatModifierPropertiesEXT =
 				(delegate* unmanaged<Vk.Device, Vk.Image, Vk.EXT.ImageDrmFormatModifierProperties*, Vk.Result>)addr;
 		}
-		vkGetBufferOpaqueCaptureAddress =
-			(delegate* unmanaged<Vk.Device, Vk.BufferDeviceAddressInfo*, ulong>)LoadFunc(dev, "vkGetBufferOpaqueCaptureAddress");
+		if (version >= V12) {
+			vkGetBufferOpaqueCaptureAddress =
+				(delegate* unmanaged<Vk.Device, Vk.BufferDeviceAddressInfo*, ulong>)LoadFunc(dev, "vkGetBufferOpaqueCaptureAddress");
+		}
 		vkGetBufferOpaqueCaptureAddressKHR = vkGetBufferOpaqueCaptureAddress;
-		vkGetBufferDeviceAddress =
-			(delegate* unmanaged<Vk.Device, Vk.BufferDeviceAddressInfo*, ulong>)LoadFunc(dev, "vkGetBufferDeviceAddress");
+		if ((vkGetBufferOpaqueCaptureAddressKHR == null) && TryLoadFunc(dev, "vkGetBufferOpaqueCaptureAddressKHR", out addr)) {
+			vkGetBufferOpaqueCaptureAddressKHR =
+				(delegate* unmanaged<Vk.Device, Vk.BufferDeviceAddressInfo*, ulong>)addr;
+		}
+		if (version >= V12) {
+			vkGetBufferDeviceAddress =
+				(delegate* unmanaged<Vk.Device, Vk.BufferDeviceAddressInfo*, ulong>)LoadFunc(dev, "vkGetBufferDeviceAddress");
+		}
 		vkGetBufferDeviceAddressKHR = vkGetBufferDeviceAddress;
+		if ((vkGetBufferDeviceAddressKHR == null) && TryLoadFunc(dev, "vkGetBufferDeviceAddressKHR", out addr)) {
+			vkGetBufferDeviceAddressKHR =
+				(delegate* unmanaged<Vk.Device, Vk.BufferDeviceAddressInfo*, ulong>)addr;
+		}
 		vkGetBufferDeviceAddressEXT = vkGetBufferDeviceAddress;
+		if ((vkGetBufferDeviceAddressEXT == null) && TryLoadFunc(dev, "vkGetBufferDeviceAddressEXT", out addr)) {
+			vkGetBufferDeviceAddressEXT =
+				(delegate* unmanaged<Vk.Device, Vk.BufferDeviceAddressInfo*, ulong>)addr;
+		}
 		if (TryLoadFunc(dev, "vkInitializePerformanceApiINTEL", out addr)) {
 			vkInitializePerformanceApiINTEL =
 				(delegate* unmanaged<Vk.Device, Vk.INTEL.InitializePerformanceApiInfo*, Vk.Result>)addr;
@@ -1624,9 +2156,15 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkGetPerformanceParameterINTEL =
 				(delegate* unmanaged<Vk.Device, Vk.INTEL.PerformanceParameterType, Vk.INTEL.PerformanceValue*, Vk.Result>)addr;
 		}
-		vkGetDeviceMemoryOpaqueCaptureAddress =
-			(delegate* unmanaged<Vk.Device, Vk.DeviceMemoryOpaqueCaptureAddressInfo*, ulong>)LoadFunc(dev, "vkGetDeviceMemoryOpaqueCaptureAddress");
+		if (version >= V12) {
+			vkGetDeviceMemoryOpaqueCaptureAddress =
+				(delegate* unmanaged<Vk.Device, Vk.DeviceMemoryOpaqueCaptureAddressInfo*, ulong>)LoadFunc(dev, "vkGetDeviceMemoryOpaqueCaptureAddress");
+		}
 		vkGetDeviceMemoryOpaqueCaptureAddressKHR = vkGetDeviceMemoryOpaqueCaptureAddress;
+		if ((vkGetDeviceMemoryOpaqueCaptureAddressKHR == null) && TryLoadFunc(dev, "vkGetDeviceMemoryOpaqueCaptureAddressKHR", out addr)) {
+			vkGetDeviceMemoryOpaqueCaptureAddressKHR =
+				(delegate* unmanaged<Vk.Device, Vk.DeviceMemoryOpaqueCaptureAddressInfo*, ulong>)addr;
+		}
 		if (TryLoadFunc(dev, "vkGetPipelineExecutablePropertiesKHR", out addr)) {
 			vkGetPipelineExecutablePropertiesKHR =
 				(delegate* unmanaged<Vk.Device, Vk.KHR.PipelineInfo*, uint*, Vk.KHR.PipelineExecutableProperties*, Vk.Result>)addr;

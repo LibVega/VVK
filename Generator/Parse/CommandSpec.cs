@@ -33,6 +33,9 @@ namespace Gen
 		// The function arguments
 		public List<Argument> Arguments => Alias?._arguments! ?? _arguments!;
 		private readonly List<Argument>? _arguments;
+
+		// The feature version for core functions
+		public uint? FeatureVersion = null;
 		#endregion // Fields
 
 		private CommandSpec(string name, string ret, List<Argument> args)

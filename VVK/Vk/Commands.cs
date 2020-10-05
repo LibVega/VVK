@@ -14,11 +14,16 @@ namespace VVK.Vk
 	/// </summary>
 	public unsafe sealed partial class InstanceFunctionTable
 	{
+		/// <summary>
+		/// The core API version that was loaded for this table (describes which core functions are available).
+		/// </summary>
+		public readonly Vk.Version CoreVersion = new();
+
 		private static void* LoadFunc(Vk.Instance inst, string name)
 		{
 			using var nname = new NativeString(name);
 			var addr = vkGetInstanceProcAddr(inst, nname.Data);
-			if (addr == (void*)0) {
+			if (addr == null) {
 				throw new ArgumentException($"The function '{nname}' was not found", nameof(name));
 			}
 			return addr;
@@ -28,7 +33,7 @@ namespace VVK.Vk
 		{
 			using var nname = new NativeString(name);
 			addr = vkGetInstanceProcAddr(inst, nname.Data);
-			return addr != (void*)0;
+			return addr != null;
 		}
 	}
 
@@ -37,11 +42,16 @@ namespace VVK.Vk
 	/// </summary>
 	public unsafe sealed partial class DeviceFunctionTable
 	{
+		/// <summary>
+		/// The core API version that was loaded for this table (describes which core functions are available).
+		/// </summary>
+		public readonly Vk.Version CoreVersion = new();
+
 		private static void* LoadFunc(Vk.Device dev, string name)
 		{
 			using var nname = new NativeString(name);
 			var addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);
-			if (addr == (void*)0) {
+			if (addr == null) {
 				throw new ArgumentException($"The function '{name}' was not found", nameof(name));
 			}
 			return addr;
@@ -51,7 +61,7 @@ namespace VVK.Vk
 		{
 			using var nname = new NativeString(name);
 			addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);
-			return addr != (void*)0;
+			return addr != null;
 		}
 	}
 }

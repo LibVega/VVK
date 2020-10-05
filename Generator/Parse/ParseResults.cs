@@ -95,7 +95,11 @@ namespace Gen
 			}
 
 			// Get the commands
-			if (!DiscoverCommands(regNode, spec)) {
+			Dictionary<string, uint> cmdVersions = new();
+			if (!LoadFeatureVersions(regNode, cmdVersions)) {
+				return false;
+			}
+			if (!DiscoverCommands(regNode, spec, cmdVersions)) {
 				return false;
 			}
 
@@ -346,8 +350,73 @@ namespace Gen
 			return true;
 		}
 
+		// Parses the feature level blocks to get the API versions for the core functions
+		private static bool LoadFeatureVersions(XmlNode regNode, Dictionary<string, uint> versions)
+		{
+			Console.WriteLine("Discovering core feature versions...");
+
+			// Find the feature blocks
+			// TODO: UPDATE THIS IN FUTURE API VERSIONS
+			List<XmlNode> featNodes = new();
+			foreach (var child in regNode.ChildNodes) {
+				// Filter
+				if ((child is not XmlNode fNode) || (fNode.Name != "feature")) {
+					continue;
+				}
+				if ((fNode.Attributes?["api"] is not XmlAttribute apiAttr) || (apiAttr.Value != "vulkan")) {
+					continue;
+				}
+				if ((fNode.Attributes?["name"] is not XmlAttribute nameAttr) || !nameAttr.Value.StartsWith("VK_VERSION_")) {
+					continue;
+				}
+				if (fNode.Attributes?["number"] is not XmlAttribute numberAttr) {
+					continue;
+				}
+
+				featNodes.Add(fNode);
+			}
+
+			// Loop over the embedded require blocks and extract commands
+			foreach (var fNode in featNodes) {
+				// Get version
+				var numberStr = fNode.Attributes!["number"]!.Value;
+				uint version = numberStr switch { 
+					"1.0" => 10,
+					"1.1" => 11,
+					"1.2" => 12,
+					_ => throw new Exception($"Bad core feature number string: '{numberStr}'")
+				};
+
+				var vSize = versions.Count;
+				// Loop require nodes and find command nodes
+				foreach (var child in fNode.ChildNodes) {
+					// Filter
+					if ((child is not XmlNode reqNode) || (reqNode.Name != "require")) {
+						continue;
+					}
+
+					// Loop command nodes
+					foreach (var reqChild in reqNode.ChildNodes) {
+						// Filter
+						if ((reqChild is not XmlNode cmdNode) || (cmdNode.Name != "command")) {
+							continue;
+						}
+
+						// Add to list
+						versions.Add(cmdNode.Attributes!["name"]!.Value, version);
+					}
+				}
+
+				// Report
+				var newCount = versions.Count - vSize;
+				Program.PrintVerbose($"Found {newCount} core functions in feature level {numberStr}");
+			}
+
+			return true;
+		}
+
 		// Parses the commands
-		private static bool DiscoverCommands(XmlNode regNode, ParseResults spec)
+		private static bool DiscoverCommands(XmlNode regNode, ParseResults spec, Dictionary<string, uint> versions)
 		{
 			Console.WriteLine("Discovering API functions...");
 
@@ -367,6 +436,9 @@ namespace Gen
 				// Try to parse
 				if (CommandSpec.TryParse(cmdNode, spec.Commands, out var cmdSpec)) {
 					spec.Commands.Add(cmdSpec!.Name, cmdSpec!);
+					if (versions.TryGetValue(cmdSpec!.Name, out var fVer)) {
+						cmdSpec!.FeatureVersion = fVer;
+					}
 					if (cmdSpec!.IsAlias) {
 						Program.PrintVerbose($"\tFound API function alias {cmdSpec!.Name} -> {cmdSpec.Alias!.Name}");
 					}

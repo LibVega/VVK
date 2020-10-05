@@ -117,18 +117,29 @@ namespace Gen
 					// Write the loading constructor
 					block.WriteLine("/// <summary>Creates a new function table and loads the functions.</summary>");
 					block.WriteLine("/// <param name=\"inst\">The instance to load the functions for.</param>");
-					using (var ctor = block.PushBlock("public InstanceFunctionTable(Vk.Instance inst)")) {
-						ctor.WriteLine("void* addr = (void*)0;");
+					block.WriteLine("/// <param name=\"version\">The core API version that the instance was created with.</param>");
+					using (var ctor = block.PushBlock("public InstanceFunctionTable(Vk.Instance inst, Vk.Version version)")) {
+						ctor.WriteLine("void* addr = null;");
+						ctor.WriteLine("CoreVersion = version;");
+						ctor.WriteLine("Vk.Version V10 = new(1, 0, 0);");
+						ctor.WriteLine("Vk.Version V11 = new(1, 1, 0);");
+						ctor.WriteLine("Vk.Version V12 = new(1, 2, 0);");
 						ctor.WriteLine();
 
 						// Loop over the loadable instance functions
 						foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Instance)) {
 							if (cmd.IsAlias) {
 								ctor.WriteLine($"{cmd.Name} = {cmd.Alias!.Name};");
+								ctor.WriteLine($"if (({cmd.Name} == null) && TryLoadFunc(inst, \"{cmd.Name}\", out addr)) {{");
+								ctor.WriteLine($"\t{cmd.Name} =");
+								ctor.WriteLine($"\t\t({cmd.PtrPrototype})addr;");
+								ctor.WriteLine($"}}");
 							}
 							else if (cmd.IsCore) { // Throw exception when we cant load core functions
-								ctor.WriteLine($"{cmd.Name} =");
-								ctor.WriteLine($"\t({cmd.PtrPrototype})LoadFunc(inst, \"{cmd.Name}\");");
+								ctor.WriteLine($"if (version >= V{cmd.Spec.FeatureVersion!.Value}) {{");
+								ctor.WriteLine($"\t{cmd.Name} =");
+								ctor.WriteLine($"\t\t({cmd.PtrPrototype})LoadFunc(inst, \"{cmd.Name}\");");
+								ctor.WriteLine("}");
 							}
 							else { // Don't throw exception for vendor functions
 								ctor.WriteLine($"if (TryLoadFunc(inst, \"{cmd.Name}\", out addr)) {{");
@@ -166,18 +177,29 @@ namespace Gen
 					block.WriteLine("/// Creates a new function table and loads the functions.");
 					block.WriteLine("/// </summary>");
 					block.WriteLine("/// <param name=\"dev\">The device to load the functions for.</param>");
-					using (var ctor = block.PushBlock("public DeviceFunctionTable(Vk.Device dev)")) {
-						ctor.WriteLine("void* addr = (void*)0;");
+					block.WriteLine("/// <param name=\"version\">The core API version that the device was created with.</param>");
+					using (var ctor = block.PushBlock("public DeviceFunctionTable(Vk.Device dev, Vk.Version version)")) {
+						ctor.WriteLine("void* addr = null;");
+						ctor.WriteLine("CoreVersion = version;");
+						ctor.WriteLine("Vk.Version V10 = new(1, 0, 0);");
+						ctor.WriteLine("Vk.Version V11 = new(1, 1, 0);");
+						ctor.WriteLine("Vk.Version V12 = new(1, 2, 0);");
 						ctor.WriteLine();
 
 						// Loop over the loadable instance functions
 						foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Device)) {
 							if (cmd.IsAlias) {
 								ctor.WriteLine($"{cmd.Name} = {cmd.Alias!.Name};");
+								ctor.WriteLine($"if (({cmd.Name} == null) && TryLoadFunc(dev, \"{cmd.Name}\", out addr)) {{");
+								ctor.WriteLine($"\t{cmd.Name} =");
+								ctor.WriteLine($"\t\t({cmd.PtrPrototype})addr;");
+								ctor.WriteLine($"}}");
 							}
 							else if (cmd.IsCore) { // Throw exception when we cant load core functions
-								ctor.WriteLine($"{cmd.Name} =");
-								ctor.WriteLine($"\t({cmd.PtrPrototype})LoadFunc(dev, \"{cmd.Name}\");");
+								ctor.WriteLine($"if (version >= V{cmd.Spec.FeatureVersion!.Value}) {{");
+								ctor.WriteLine($"\t{cmd.Name} =");
+								ctor.WriteLine($"\t\t({cmd.PtrPrototype})LoadFunc(dev, \"{cmd.Name}\");");
+								ctor.WriteLine("}");
 							}
 							else { // Don't throw exception for vendor functions
 								ctor.WriteLine($"if (TryLoadFunc(dev, \"{cmd.Name}\", out addr)) {{");
