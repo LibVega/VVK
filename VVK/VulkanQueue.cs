@@ -32,6 +32,15 @@ namespace VVK
 		/// </summary>
 		public readonly uint QueueIndex;
 
+		/// <summary>
+		/// Gets the family properties associated with this queue.
+		/// </summary>
+		public Vk.QueueFamilyProperties Properties => Parent.Parent.QueueFamilies[(int)FamilyIndex];
+		/// <summary>
+		/// The flags for the queue.
+		/// </summary>
+		public Vk.QueueFlags Flags => Properties.QueueFlags;
+
 		// Submission lock
 		private readonly object _lock = new();
 		#endregion // Fields

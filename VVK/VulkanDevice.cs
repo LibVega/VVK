@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using Vk;
 
 namespace VVK
 {
@@ -60,6 +61,7 @@ namespace VVK
 			dispose(false);
 		}
 
+		#region Queues
 		/// <summary>
 		/// Gets the device queue handle with the given family and queue index. Throws an exception if the queue was
 		/// not found.
@@ -123,6 +125,64 @@ namespace VVK
 			}
 			return false;
 		}
+		#endregion // Queues
+
+		#region Command Buffers
+		/// <summary>
+		/// Allocates a command buffer from the pool and creates a wrapper object for it.
+		/// </summary>
+		/// <param name="pool">The pool to allocate the buffer from.</param>
+		/// <param name="level">The level for the command buffer.</param>
+		/// <param name="buffer">The generated buffer.</param>
+		/// <returns>The result of allocating the buffer.</returns>
+		public VulkanResult AllocateCommandBuffer(Vk.CommandPool pool, Vk.CommandBufferLevel level, 
+			out VulkanCommandBuffer? buffer)
+		{
+			if (!pool) {
+				throw new ArgumentNullException(nameof(pool), "Null command pool");
+			}
+
+			Vk.CommandBufferAllocateInfo.New(out var cbai);
+			cbai.CommandBufferCount = 1;
+			cbai.CommandPool = pool;
+			cbai.Level = level;
+			Vk.CommandBuffer handle;
+			var res = AllocateCommandBuffers(&cbai, &handle);
+			buffer = res ? new VulkanCommandBuffer(this, pool, handle) : null;
+			return res;
+		}
+
+		/// <summary>
+		/// Allocates command buffers from the pool and creates wrapper objects for them.
+		/// </summary>
+		/// <param name="pool">The pool to allocate the buffers from.</param>
+		/// <param name="level">The level for the command buffers.</param>
+		/// <param name="buffer">The generated buffers.</param>
+		/// <returns>The result of allocating the buffers.</returns>
+		public VulkanResult AllocateCommandBuffers(Vk.CommandPool pool, Vk.CommandBufferLevel level, uint count,
+			out VulkanCommandBuffer[]? buffers)
+		{
+			if (!pool) {
+				throw new ArgumentNullException(nameof(pool), "Null command pool");
+			}
+
+			Vk.CommandBufferAllocateInfo.New(out var cbai);
+			cbai.CommandBufferCount = count;
+			cbai.CommandPool = pool;
+			cbai.Level = level;
+			var handles = stackalloc Vk.CommandBuffer[(int)count];
+			var res = AllocateCommandBuffers(&cbai, handles);
+			if (res) {
+				buffers = new VulkanCommandBuffer[count];
+				for (uint i = 0; i < count; ++i) {
+					buffers[i] = new VulkanCommandBuffer(this, pool, handles[i]);
+				}
+			}
+			else buffers = null;
+
+			return res;
+		}
+		#endregion // Command Buffers
 
 		#region IDisposable
 		/// <summary>

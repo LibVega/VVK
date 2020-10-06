@@ -20,19 +20,25 @@ namespace VVK
 		/// </summary>
 		public readonly VulkanDevice Parent;
 		/// <summary>
+		/// The pool that the buffer was allocated from.
+		/// </summary>
+		public Vk.CommandPool Pool { get; private set; } = Vk.CommandPool.Null;
+		/// <summary>
 		/// The API handle for this command buffer.
 		/// </summary>
-		public readonly Vk.CommandBuffer Handle;
+		public Vk.CommandBuffer Handle { get; private set; } = Vk.CommandBuffer.Null;
 		#endregion // Fields
 
 		/// <summary>
 		/// Creates a new command buffer wrapper from an existing device and command buffer handle.
 		/// </summary>
 		/// <param name="parent">The device that owns the command buffer.</param>
+		/// <param name="pool">The pool that the command buffer was allocated from.</param>
 		/// <param name="handle">The existing command buffer handle.</param>
-		public VulkanCommandBuffer(VulkanDevice parent, Vk.CommandBuffer handle)
+		public VulkanCommandBuffer(VulkanDevice parent, Vk.CommandPool pool, Vk.CommandBuffer handle)
 		{
 			Parent = parent.Handle ? parent : throw new ArgumentNullException(nameof(parent), "Null parent device");
+			Pool = pool ? pool : throw new ArgumentNullException(nameof(pool), "Null command pool for buffer");
 			Handle = handle ? handle : throw new ArgumentNullException(nameof(handle), "Null command buffer handle");
 		}
 	}
