@@ -102,7 +102,7 @@ namespace VVK
 					Vk.EXT.DebugUtilsMessageTypeFlags.ValidationEXT;
 				mci.UserCallback = &_DebugUtilsCallback;
 				mci.UserData = _debugToken;
-				Vk.EXT.DebugUtilsMessenger debugHandle;
+				Vk.EXT.DebugUtilsMessenger debugHandle = Vk.EXT.DebugUtilsMessenger.Null;
 				CreateDebugUtilsMessengerEXT(&mci, null, &debugHandle).Throw();
 				_debugHandle = debugHandle;
 			}
@@ -161,7 +161,7 @@ namespace VVK
 			IEnumerable<string>? extensions = null, IEnumerable<string>? layers = null)
 		{
 			// Check instance version
-			Vk.Version vers;
+			Vk.Version vers = new();
 			EnumerateInstanceVersion(&vers.Value).Throw();
 			if (vers < apiVersion) {
 				throw new PlatformNotSupportedException(
@@ -198,7 +198,7 @@ namespace VVK
 			ici.EnabledLayerNames = layerNames.Data;
 			ici.EnabledExtensionCount = extNames.Count;
 			ici.EnabledExtensionNames = extNames.Data;
-			Vk.Instance handle;
+			Vk.Instance handle = Vk.Instance.Null;
 			CreateInstance(&ici, null, &handle).Throw();
 
 			// Return

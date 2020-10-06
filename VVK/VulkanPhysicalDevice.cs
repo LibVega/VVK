@@ -270,7 +270,7 @@ namespace VVK
 			}
 
 			// Create the device info
-			Vk.Device handle;
+			Vk.Device handle = Vk.Device.Null;
 			fixed (Vk.DeviceQueueCreateInfo* queuePtr = queueInfos) {
 				Vk.DeviceCreateInfo.New(out var dci);
 				dci.QueueCreateInfoCount = (uint)queueInfos.Length;
