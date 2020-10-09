@@ -37,64 +37,64 @@ public unsafe sealed partial class VulkanPhysicalDevice
 		=> Parent.Functions.vkGetPhysicalDeviceFormatProperties(Handle, format, pFormatProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetImageFormatProperties(Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.ImageFormatProperties* pImageFormatProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceImageFormatProperties(Handle, format, type, tiling, usage, flags, pImageFormatProperties), "vkGetPhysicalDeviceImageFormatProperties");
+	public Vk.Result GetImageFormatProperties(Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.ImageFormatProperties* pImageFormatProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceImageFormatProperties(Handle, format, type, tiling, usage, flags, pImageFormatProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateDevice(Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Device* pDevice)
-		=> new(Parent.Functions.vkCreateDevice(Handle, pCreateInfo, pAllocator, pDevice), "vkCreateDevice");
+	public Vk.Result CreateDevice(Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Device* pDevice)
+		=> Parent.Functions.vkCreateDevice(Handle, pCreateInfo, pAllocator, pDevice);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EnumerateDeviceLayerProperties(uint* pPropertyCount, Vk.LayerProperties* pProperties)
-		=> new(Parent.Functions.vkEnumerateDeviceLayerProperties(Handle, pPropertyCount, pProperties), "vkEnumerateDeviceLayerProperties");
+	public Vk.Result EnumerateDeviceLayerProperties(uint* pPropertyCount, Vk.LayerProperties* pProperties)
+		=> Parent.Functions.vkEnumerateDeviceLayerProperties(Handle, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EnumerateDeviceExtensionProperties(byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
-		=> new(Parent.Functions.vkEnumerateDeviceExtensionProperties(Handle, pLayerName, pPropertyCount, pProperties), "vkEnumerateDeviceExtensionProperties");
+	public Vk.Result EnumerateDeviceExtensionProperties(byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
+		=> Parent.Functions.vkEnumerateDeviceExtensionProperties(Handle, pLayerName, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetSparseImageFormatProperties(Vk.Format format, Vk.ImageType type, Vk.SampleCountFlags samples, Vk.ImageUsageFlags usage, Vk.ImageTiling tiling, uint* pPropertyCount, Vk.SparseImageFormatProperties* pProperties)
 		=> Parent.Functions.vkGetPhysicalDeviceSparseImageFormatProperties(Handle, format, type, samples, usage, tiling, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayPropertiesKHR(uint* pPropertyCount, Vk.KHR.DisplayProperties* pProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceDisplayPropertiesKHR(Handle, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayPropertiesKHR");
+	public Vk.Result GetDisplayPropertiesKHR(uint* pPropertyCount, Vk.KHR.DisplayProperties* pProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceDisplayPropertiesKHR(Handle, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayPlanePropertiesKHR(uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties* pProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR(Handle, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
+	public Vk.Result GetDisplayPlanePropertiesKHR(uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties* pProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR(Handle, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, uint* pDisplayCount, Vk.KHR.Display* pDisplays)
-		=> new(Parent.Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, pDisplayCount, pDisplays), "vkGetDisplayPlaneSupportedDisplaysKHR");
+	public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, uint* pDisplayCount, Vk.KHR.Display* pDisplays)
+		=> Parent.Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, pDisplayCount, pDisplays);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayModePropertiesKHR(Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties* pProperties)
-		=> new(Parent.Functions.vkGetDisplayModePropertiesKHR(Handle, display, pPropertyCount, pProperties), "vkGetDisplayModePropertiesKHR");
+	public Vk.Result GetDisplayModePropertiesKHR(Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties* pProperties)
+		=> Parent.Functions.vkGetDisplayModePropertiesKHR(Handle, display, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult CreateDisplayModeKHR(Vk.KHR.Display display, Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.DisplayMode* pMode)
-		=> new(Parent.Functions.vkCreateDisplayModeKHR(Handle, display, pCreateInfo, pAllocator, pMode), "vkCreateDisplayModeKHR");
+	public Vk.Result CreateDisplayModeKHR(Vk.KHR.Display display, Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.DisplayMode* pMode)
+		=> Parent.Functions.vkCreateDisplayModeKHR(Handle, display, pCreateInfo, pAllocator, pMode);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayPlaneCapabilitiesKHR(Vk.KHR.DisplayMode mode, uint planeIndex, Vk.KHR.DisplayPlaneCapabilities* pCapabilities)
-		=> new(Parent.Functions.vkGetDisplayPlaneCapabilitiesKHR(Handle, mode, planeIndex, pCapabilities), "vkGetDisplayPlaneCapabilitiesKHR");
+	public Vk.Result GetDisplayPlaneCapabilitiesKHR(Vk.KHR.DisplayMode mode, uint planeIndex, Vk.KHR.DisplayPlaneCapabilities* pCapabilities)
+		=> Parent.Functions.vkGetDisplayPlaneCapabilitiesKHR(Handle, mode, planeIndex, pCapabilities);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfaceSupportKHR(uint queueFamilyIndex, Vk.KHR.Surface surface, Vk.Bool32* pSupported)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfaceSupportKHR(Handle, queueFamilyIndex, surface, pSupported), "vkGetPhysicalDeviceSurfaceSupportKHR");
+	public Vk.Result GetSurfaceSupportKHR(uint queueFamilyIndex, Vk.KHR.Surface surface, Vk.Bool32* pSupported)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfaceSupportKHR(Handle, queueFamilyIndex, surface, pSupported);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfaceCapabilitiesKHR(Vk.KHR.Surface surface, Vk.KHR.SurfaceCapabilities* pSurfaceCapabilities)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(Handle, surface, pSurfaceCapabilities), "vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
+	public Vk.Result GetSurfaceCapabilitiesKHR(Vk.KHR.Surface surface, Vk.KHR.SurfaceCapabilities* pSurfaceCapabilities)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(Handle, surface, pSurfaceCapabilities);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfaceFormatsKHR(Vk.KHR.Surface surface, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat* pSurfaceFormats)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(Handle, surface, pSurfaceFormatCount, pSurfaceFormats), "vkGetPhysicalDeviceSurfaceFormatsKHR");
+	public Vk.Result GetSurfaceFormatsKHR(Vk.KHR.Surface surface, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat* pSurfaceFormats)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(Handle, surface, pSurfaceFormatCount, pSurfaceFormats);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfacePresentModesKHR(Vk.KHR.Surface surface, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(Handle, surface, pPresentModeCount, pPresentModes), "vkGetPhysicalDeviceSurfacePresentModesKHR");
+	public Vk.Result GetSurfacePresentModesKHR(Vk.KHR.Surface surface, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(Handle, surface, pPresentModeCount, pPresentModes);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Bool32 GetWaylandPresentationSupportKHR(uint queueFamilyIndex, void* display)
@@ -117,8 +117,8 @@ public unsafe sealed partial class VulkanPhysicalDevice
 		=> Parent.Functions.vkGetPhysicalDeviceDirectFBPresentationSupportEXT(Handle, queueFamilyIndex, dfb);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetExternalImageFormatPropertiesNV(Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.NV.ExternalMemoryHandleTypeFlags externalHandleType, Vk.NV.ExternalImageFormatProperties* pExternalImageFormatProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV(Handle, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties), "vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
+	public Vk.Result GetExternalImageFormatPropertiesNV(Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.NV.ExternalMemoryHandleTypeFlags externalHandleType, Vk.NV.ExternalImageFormatProperties* pExternalImageFormatProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV(Handle, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetFeatures2(Vk.PhysicalDeviceFeatures2* pFeatures)
@@ -145,12 +145,12 @@ public unsafe sealed partial class VulkanPhysicalDevice
 		=> Parent.Functions.vkGetPhysicalDeviceFormatProperties2KHR(Handle, format, pFormatProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetImageFormatProperties2(Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceImageFormatProperties2(Handle, pImageFormatInfo, pImageFormatProperties), "vkGetPhysicalDeviceImageFormatProperties2");
+	public Vk.Result GetImageFormatProperties2(Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceImageFormatProperties2(Handle, pImageFormatInfo, pImageFormatProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetImageFormatProperties2KHR(Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceImageFormatProperties2KHR(Handle, pImageFormatInfo, pImageFormatProperties), "vkGetPhysicalDeviceImageFormatProperties2KHR");
+	public Vk.Result GetImageFormatProperties2KHR(Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceImageFormatProperties2KHR(Handle, pImageFormatInfo, pImageFormatProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetQueueFamilyProperties2(uint* pQueueFamilyPropertyCount, Vk.QueueFamilyProperties2* pQueueFamilyProperties)
@@ -201,80 +201,80 @@ public unsafe sealed partial class VulkanPhysicalDevice
 		=> Parent.Functions.vkGetPhysicalDeviceExternalFencePropertiesKHR(Handle, pExternalFenceInfo, pExternalFenceProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult ReleaseDisplayEXT(Vk.KHR.Display display)
-		=> new(Parent.Functions.vkReleaseDisplayEXT(Handle, display), "vkReleaseDisplayEXT");
+	public Vk.Result ReleaseDisplayEXT(Vk.KHR.Display display)
+		=> Parent.Functions.vkReleaseDisplayEXT(Handle, display);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult AcquireXlibDisplayEXT(void* dpy, Vk.KHR.Display display)
-		=> new(Parent.Functions.vkAcquireXlibDisplayEXT(Handle, dpy, display), "vkAcquireXlibDisplayEXT");
+	public Vk.Result AcquireXlibDisplayEXT(void* dpy, Vk.KHR.Display display)
+		=> Parent.Functions.vkAcquireXlibDisplayEXT(Handle, dpy, display);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, Vk.KHR.Display* pDisplay)
-		=> new(Parent.Functions.vkGetRandROutputDisplayEXT(Handle, dpy, rrOutput, pDisplay), "vkGetRandROutputDisplayEXT");
+	public Vk.Result GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, Vk.KHR.Display* pDisplay)
+		=> Parent.Functions.vkGetRandROutputDisplayEXT(Handle, dpy, rrOutput, pDisplay);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfaceCapabilities2EXT(Vk.KHR.Surface surface, Vk.EXT.SurfaceCapabilities2* pSurfaceCapabilities)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(Handle, surface, pSurfaceCapabilities), "vkGetPhysicalDeviceSurfaceCapabilities2EXT");
+	public Vk.Result GetSurfaceCapabilities2EXT(Vk.KHR.Surface surface, Vk.EXT.SurfaceCapabilities2* pSurfaceCapabilities)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(Handle, surface, pSurfaceCapabilities);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetPresentRectanglesKHR(Vk.KHR.Surface surface, uint* pRectCount, Vk.Rect2D* pRects)
-		=> new(Parent.Functions.vkGetPhysicalDevicePresentRectanglesKHR(Handle, surface, pRectCount, pRects), "vkGetPhysicalDevicePresentRectanglesKHR");
+	public Vk.Result GetPresentRectanglesKHR(Vk.KHR.Surface surface, uint* pRectCount, Vk.Rect2D* pRects)
+		=> Parent.Functions.vkGetPhysicalDevicePresentRectanglesKHR(Handle, surface, pRectCount, pRects);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetMultisamplePropertiesEXT(Vk.SampleCountFlags samples, Vk.EXT.MultisampleProperties* pMultisampleProperties)
 		=> Parent.Functions.vkGetPhysicalDeviceMultisamplePropertiesEXT(Handle, samples, pMultisampleProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfaceCapabilities2KHR(Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, Vk.KHR.SurfaceCapabilities2* pSurfaceCapabilities)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR(Handle, pSurfaceInfo, pSurfaceCapabilities), "vkGetPhysicalDeviceSurfaceCapabilities2KHR");
+	public Vk.Result GetSurfaceCapabilities2KHR(Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, Vk.KHR.SurfaceCapabilities2* pSurfaceCapabilities)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR(Handle, pSurfaceInfo, pSurfaceCapabilities);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfaceFormats2KHR(Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat2* pSurfaceFormats)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfaceFormats2KHR(Handle, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats), "vkGetPhysicalDeviceSurfaceFormats2KHR");
+	public Vk.Result GetSurfaceFormats2KHR(Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat2* pSurfaceFormats)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfaceFormats2KHR(Handle, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayProperties2KHR(uint* pPropertyCount, Vk.KHR.DisplayProperties2* pProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceDisplayProperties2KHR(Handle, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayProperties2KHR");
+	public Vk.Result GetDisplayProperties2KHR(uint* pPropertyCount, Vk.KHR.DisplayProperties2* pProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceDisplayProperties2KHR(Handle, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayPlaneProperties2KHR(uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties2* pProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR(Handle, pPropertyCount, pProperties), "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
+	public Vk.Result GetDisplayPlaneProperties2KHR(uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties2* pProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR(Handle, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayModeProperties2KHR(Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties2* pProperties)
-		=> new(Parent.Functions.vkGetDisplayModeProperties2KHR(Handle, display, pPropertyCount, pProperties), "vkGetDisplayModeProperties2KHR");
+	public Vk.Result GetDisplayModeProperties2KHR(Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties2* pProperties)
+		=> Parent.Functions.vkGetDisplayModeProperties2KHR(Handle, display, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetDisplayPlaneCapabilities2KHR(Vk.KHR.DisplayPlaneInfo2* pDisplayPlaneInfo, Vk.KHR.DisplayPlaneCapabilities2* pCapabilities)
-		=> new(Parent.Functions.vkGetDisplayPlaneCapabilities2KHR(Handle, pDisplayPlaneInfo, pCapabilities), "vkGetDisplayPlaneCapabilities2KHR");
+	public Vk.Result GetDisplayPlaneCapabilities2KHR(Vk.KHR.DisplayPlaneInfo2* pDisplayPlaneInfo, Vk.KHR.DisplayPlaneCapabilities2* pCapabilities)
+		=> Parent.Functions.vkGetDisplayPlaneCapabilities2KHR(Handle, pDisplayPlaneInfo, pCapabilities);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetCalibrateableTimeDomainsEXT(uint* pTimeDomainCount, Vk.EXT.TimeDomain* pTimeDomains)
-		=> new(Parent.Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(Handle, pTimeDomainCount, pTimeDomains), "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
+	public Vk.Result GetCalibrateableTimeDomainsEXT(uint* pTimeDomainCount, Vk.EXT.TimeDomain* pTimeDomains)
+		=> Parent.Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(Handle, pTimeDomainCount, pTimeDomains);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetCooperativeMatrixPropertiesNV(uint* pPropertyCount, Vk.NV.CooperativeMatrixProperties* pProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(Handle, pPropertyCount, pProperties), "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
+	public Vk.Result GetCooperativeMatrixPropertiesNV(uint* pPropertyCount, Vk.NV.CooperativeMatrixProperties* pProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(Handle, pPropertyCount, pProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSurfacePresentModes2EXT(Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT(Handle, pSurfaceInfo, pPresentModeCount, pPresentModes), "vkGetPhysicalDeviceSurfacePresentModes2EXT");
+	public Vk.Result GetSurfacePresentModes2EXT(Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
+		=> Parent.Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT(Handle, pSurfaceInfo, pPresentModeCount, pPresentModes);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(uint queueFamilyIndex, uint* pCounterCount, Vk.KHR.PerformanceCounter* pCounters, Vk.KHR.PerformanceCounterDescription* pCounterDescriptions)
-		=> new(Parent.Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Handle, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions), "vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
+	public Vk.Result EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(uint queueFamilyIndex, uint* pCounterCount, Vk.KHR.PerformanceCounter* pCounters, Vk.KHR.PerformanceCounterDescription* pCounterDescriptions)
+		=> Parent.Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Handle, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetQueueFamilyPerformanceQueryPassesKHR(Vk.KHR.QueryPoolPerformanceCreateInfo* pPerformanceQueryCreateInfo, uint* pNumPasses)
 		=> Parent.Functions.vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(Handle, pPerformanceQueryCreateInfo, pNumPasses);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetSupportedFramebufferMixedSamplesCombinationsNV(uint* pCombinationCount, Vk.NV.FramebufferMixedSamplesCombination* pCombinations)
-		=> new(Parent.Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Handle, pCombinationCount, pCombinations), "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
+	public Vk.Result GetSupportedFramebufferMixedSamplesCombinationsNV(uint* pCombinationCount, Vk.NV.FramebufferMixedSamplesCombination* pCombinations)
+		=> Parent.Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Handle, pCombinationCount, pCombinations);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult GetToolPropertiesEXT(uint* pToolCount, Vk.EXT.PhysicalDeviceToolProperties* pToolProperties)
-		=> new(Parent.Functions.vkGetPhysicalDeviceToolPropertiesEXT(Handle, pToolCount, pToolProperties), "vkGetPhysicalDeviceToolPropertiesEXT");
+	public Vk.Result GetToolPropertiesEXT(uint* pToolCount, Vk.EXT.PhysicalDeviceToolProperties* pToolProperties)
+		=> Parent.Functions.vkGetPhysicalDeviceToolPropertiesEXT(Handle, pToolCount, pToolProperties);
 
 }
 

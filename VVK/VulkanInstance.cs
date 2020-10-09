@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Vk;
 
 namespace VVK
 {
@@ -77,9 +78,11 @@ namespace VVK
 
 			// Enumerate the physical devices
 			uint count = 0;
-			EnumeratePhysicalDevices(&count, null).Throw();
+			if (!EnumeratePhysicalDevices(&count, null).IsSuccess(out var result)) {
+				throw new ResultException(result, "vkEnumeratePhysicalDevices");
+			}
 			var devices = stackalloc Vk.PhysicalDevice[(int)count];
-			EnumeratePhysicalDevices(&count, devices).Throw();
+			EnumeratePhysicalDevices(&count, devices);
 			for (uint i = 0; i < count; ++i) {
 				_devices.Add(new VulkanPhysicalDevice(this, devices[i]));
 			}
@@ -103,7 +106,9 @@ namespace VVK
 				mci.UserCallback = &_DebugUtilsCallback;
 				mci.UserData = _debugToken;
 				Vk.EXT.DebugUtilsMessenger debugHandle = Vk.EXT.DebugUtilsMessenger.Null;
-				CreateDebugUtilsMessengerEXT(&mci, null, &debugHandle).Throw();
+				if (!CreateDebugUtilsMessengerEXT(&mci, null, &debugHandle).IsSuccess(out result)) {
+					throw new ResultException(result, "vkCreateDebugUtilsMessengerEXT");
+				}
 				_debugHandle = debugHandle;
 			}
 		}
@@ -145,6 +150,8 @@ namespace VVK
 		/// </summary>
 		/// <param name="appName">The name of the application.</param>
 		/// <param name="appVersion">The version of the application.</param>
+		/// <param name="engineName">The name of the engine.</param>
+		/// <param name="engineVersion">The version of the engine.</param>
 		/// <param name="apiVersion">The minimum required version for the Vulkan API.</param>
 		/// <param name="extensions">
 		/// The list of extensions to enable. An exception will be thrown for extensions that are not available. Check
@@ -156,13 +163,19 @@ namespace VVK
 		/// </param>
 		/// <returns>The new Vulkan instance object.</returns>
 		/// <exception cref="VulkanResultException">One of the Vulkan API calls failed.</exception>
-		/// <exception cref="PlatformNotSupportedException">The API version, extension, or layer is not supported.</exception>
-		public static VulkanInstance Create(string appName, Vk.Version appVersion, Vk.Version apiVersion, 
-			IEnumerable<string>? extensions = null, IEnumerable<string>? layers = null)
+		/// <exception cref="PlatformNotSupportedException">
+		/// The API version, extension, or layer is not supported.
+		/// </exception>
+		public static VulkanInstance Create(
+			string appName, Vk.Version appVersion, 
+			string engineName, Vk.Version engineVersion,
+			Vk.Version apiVersion, IEnumerable<string>? extensions = null, IEnumerable<string>? layers = null)
 		{
 			// Check instance version
 			Vk.Version vers = new();
-			EnumerateInstanceVersion(&vers.Value).Throw();
+			if (!EnumerateInstanceVersion(&vers.Value).IsSuccess(out var result)) {
+				throw new ResultException(result, "vkEnumerateInstanceVersion");
+			}
 			if (vers < apiVersion) {
 				throw new PlatformNotSupportedException(
 					$"Supported API version ({vers}) is less than requested ({apiVersion})");
@@ -180,7 +193,7 @@ namespace VVK
 			using var extNames = new NativeStringList(extensions ?? Enumerable.Empty<string>());
 			using var layerNames = new NativeStringList(layers ?? Enumerable.Empty<string>());
 			using var appNameStr = new NativeString(appName);
-			using var engNameStr = new NativeString("VVK");
+			using var engNameStr = new NativeString(engineName);
 
 			// Application info
 			var vvkv = typeof(VulkanInstance).Assembly.GetName().Version!;
@@ -188,7 +201,7 @@ namespace VVK
 			appi.ApplicationName = appNameStr.Data;
 			appi.ApplicationVersion = appVersion;
 			appi.EngineName = engNameStr.Data;
-			appi.EngineVersion = new Vk.Version((uint)vvkv.Major, (uint)vvkv.Minor, (uint)vvkv.Revision);
+			appi.EngineVersion = engineVersion;
 			appi.ApiVersion = apiVersion;
 
 			// Instance create
@@ -199,7 +212,9 @@ namespace VVK
 			ici.EnabledExtensionCount = extNames.Count;
 			ici.EnabledExtensionNames = extNames.Data;
 			Vk.Instance handle = Vk.Instance.Null;
-			CreateInstance(&ici, null, &handle).Throw();
+			if (!CreateInstance(&ici, null, &handle).IsSuccess(out result)) {
+				throw new ResultException(result, "vkCreateInstance");
+			}
 
 			// Return
 			return new(handle, apiVersion);
@@ -223,9 +238,11 @@ namespace VVK
 
 			// Get extension properties
 			uint count = 0;
-			EnumerateInstanceExtensionProperties(null, &count, null).Throw();
+			if (!EnumerateInstanceExtensionProperties(null, &count, null).IsSuccess(out var result)) {
+				throw new ResultException(result, "vkEnumerateInstanceExtensionProperties");
+			}
 			var exts = stackalloc Vk.ExtensionProperties[(int)count];
-			EnumerateInstanceExtensionProperties(null, &count, exts).Throw();
+			EnumerateInstanceExtensionProperties(null, &count, exts);
 
 			// Convert to string list
 			for (int i = 0; i < count; ++i) {
@@ -241,9 +258,11 @@ namespace VVK
 
 			// Get layer properties
 			uint count = 0;
-			EnumerateInstanceLayerProperties(&count, null).Throw();
+			if (!EnumerateInstanceLayerProperties(&count, null).IsSuccess(out var result)) {
+				throw new ResultException(result, "vkEnumerateInstanceLayerProperties");
+			}
 			var layers = stackalloc Vk.LayerProperties[(int)count];
-			EnumerateInstanceLayerProperties(&count, layers).Throw();
+			EnumerateInstanceLayerProperties(&count, layers);
 
 			// Convert to string list
 			for (int i = 0; i < count; ++i) {

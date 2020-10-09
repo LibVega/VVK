@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Vk;
 
 namespace VVK
 {
@@ -279,7 +280,9 @@ namespace VVK
 				dci.EnabledExtensionNames = extNames.Data;
 				dci.EnabledFeatures = (ApiVersion < Vk.Version.VK_VERSION_1_1) ? &(f2.Features) : null;
 				dci.pNext = (ApiVersion < Vk.Version.VK_VERSION_1_1) ? null : &f2;
-				CreateDevice(&dci, null, &handle).Throw();
+				if (!CreateDevice(&dci, null, &handle).IsSuccess(out var result)) {
+					throw new ResultException(result, "vkCreateDevice");
+				}
 			}
 
 			// Return

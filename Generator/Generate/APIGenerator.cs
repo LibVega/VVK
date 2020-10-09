@@ -398,10 +398,9 @@ namespace Gen
 				foreach (var cmdSpec in proc.Commands.Values.Where(c => c.CommandScope == CommandScope.Global)) {
 					var argStr = String.Join(", ", cmdSpec.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
 					var callStr = String.Join(", ", cmdSpec.Arguments.Select(arg => arg.Name));
-					var ret = (cmdSpec.ReturnType == "Vk.Result") ? "VulkanResult" : cmdSpec.ReturnType;
 					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					block.WriteLine($"public static {ret} {cmdSpec.Name.Substring(2)}({argStr})");
-					if (ret == "VulkanResult") {
+					block.WriteLine($"public static {cmdSpec.ReturnType} {cmdSpec.Name.Substring(2)}({argStr})");
+					if (cmdSpec.ReturnType == "VulkanResult") {
 						block.WriteLine($"\t=> new(Vk.InstanceFunctionTable.{cmdSpec.Name}({callStr}), \"{cmdSpec.Name}\");");
 					}
 					else {
@@ -455,7 +454,6 @@ namespace Gen
 				if (callStr.EndsWith(", ")) {
 					callStr = "Handle"; // No-args case
 				}
-				var ret = (spec.ReturnType == "Vk.Result") ? "VulkanResult" : spec.ReturnType;
 
 				// Adjust the function name
 				var funcName = spec.Name.Substring(2);
@@ -479,24 +477,16 @@ namespace Gen
 
 				// Open the function
 				block.WriteLine( "[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-				block.WriteLine($"public {ret} {funcName}({argStr})");
+				block.WriteLine($"public {spec.ReturnType} {funcName}({argStr})");
 
 				// Function body (queues have synchronization)
 				if (scope != ObjectScope.Queue) {
-					if (ret == "VulkanResult") {
-						block.WriteLine($"\t=> new({table}.{spec.Name}({callStr}), \"{spec.Name}\");");
-					}
-					else {
-						block.WriteLine($"\t=> {table}.{spec.Name}({callStr});");
-					}
+					block.WriteLine($"\t=> {table}.{spec.Name}({callStr});");
 				}
 				else {
 					block.WriteLine("{");
 					block.WriteLine("\tlock (_lock) {");
-					if (ret == "VulkanResult") {
-						block.WriteLine($"\t\treturn new({table}.{spec.Name}({callStr}), \"{spec.Name}\");");
-					}
-					else if (ret == "void") {
+					if (spec.ReturnType == "void") {
 						block.WriteLine($"\t\t{table}.{spec.Name}({callStr});");
 					}
 					else {

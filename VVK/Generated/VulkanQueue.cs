@@ -17,42 +17,42 @@ namespace VVK
 public unsafe sealed partial class VulkanQueue
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult Submit(uint submitCount, Vk.SubmitInfo* pSubmits, Vk.Fence fence)
+	public Vk.Result Submit(uint submitCount, Vk.SubmitInfo* pSubmits, Vk.Fence fence)
 	{
 		lock (_lock) {
-			return new(Parent.Functions.vkQueueSubmit(Handle, submitCount, pSubmits, fence), "vkQueueSubmit");
+			return Parent.Functions.vkQueueSubmit(Handle, submitCount, pSubmits, fence);
 		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult WaitIdle()
+	public Vk.Result WaitIdle()
 	{
 		lock (_lock) {
-			return new(Parent.Functions.vkQueueWaitIdle(Handle), "vkQueueWaitIdle");
+			return Parent.Functions.vkQueueWaitIdle(Handle);
 		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult BindSparse(uint bindInfoCount, Vk.BindSparseInfo* pBindInfo, Vk.Fence fence)
+	public Vk.Result BindSparse(uint bindInfoCount, Vk.BindSparseInfo* pBindInfo, Vk.Fence fence)
 	{
 		lock (_lock) {
-			return new(Parent.Functions.vkQueueBindSparse(Handle, bindInfoCount, pBindInfo, fence), "vkQueueBindSparse");
+			return Parent.Functions.vkQueueBindSparse(Handle, bindInfoCount, pBindInfo, fence);
 		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult PresentKHR(Vk.KHR.PresentInfo* pPresentInfo)
+	public Vk.Result PresentKHR(Vk.KHR.PresentInfo* pPresentInfo)
 	{
 		lock (_lock) {
-			return new(Parent.Functions.vkQueuePresentKHR(Handle, pPresentInfo), "vkQueuePresentKHR");
+			return Parent.Functions.vkQueuePresentKHR(Handle, pPresentInfo);
 		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult SignalReleaseImageANDROID(uint waitSemaphoreCount, Vk.Semaphore* pWaitSemaphores, Vk.Image image, int* pNativeFenceFd)
+	public Vk.Result SignalReleaseImageANDROID(uint waitSemaphoreCount, Vk.Semaphore* pWaitSemaphores, Vk.Image image, int* pNativeFenceFd)
 	{
 		lock (_lock) {
-			return new(Parent.Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd), "vkQueueSignalReleaseImageANDROID");
+			return Parent.Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
 		}
 	}
 
@@ -89,10 +89,10 @@ public unsafe sealed partial class VulkanQueue
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult SetPerformanceConfigurationINTEL(Vk.INTEL.PerformanceConfiguration configuration)
+	public Vk.Result SetPerformanceConfigurationINTEL(Vk.INTEL.PerformanceConfiguration configuration)
 	{
 		lock (_lock) {
-			return new(Parent.Functions.vkQueueSetPerformanceConfigurationINTEL(Handle, configuration), "vkQueueSetPerformanceConfigurationINTEL");
+			return Parent.Functions.vkQueueSetPerformanceConfigurationINTEL(Handle, configuration);
 		}
 	}
 

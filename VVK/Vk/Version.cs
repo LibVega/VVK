@@ -60,6 +60,12 @@ namespace Vk
 		/// </summary>
 		/// <param name="value">The packed version value.</param>
 		public Version(uint value) => Value = value;
+		/// <summary>
+		/// Creates a version object from a <see cref="System.Version"/> value.
+		/// </summary>
+		/// <param name="version">The version.</param>
+		public Version(System.Version version) =>
+			Value = ((uint)version.Major << 22) | ((uint)version.Minor << 12) | (uint)version.Revision;
 
 		#region Overrides
 		readonly bool IEquatable<Version>.Equals(Version other) => other.Value == Value;
@@ -88,6 +94,7 @@ namespace Vk
 		public static bool operator != (uint l, in Version r) => l != r.Value;
 
 		public static implicit operator uint (in Version v) => v.Value;
+		public static implicit operator Version (System.Version v) => new Version(v);
 		#endregion // Operators
 	}
 }

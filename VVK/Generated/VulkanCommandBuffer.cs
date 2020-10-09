@@ -17,16 +17,16 @@ namespace VVK
 public unsafe sealed partial class VulkanCommandBuffer
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult BeginCommandBuffer(Vk.CommandBufferBeginInfo* pBeginInfo)
-		=> new(Parent.Functions.vkBeginCommandBuffer(Handle, pBeginInfo), "vkBeginCommandBuffer");
+	public Vk.Result BeginCommandBuffer(Vk.CommandBufferBeginInfo* pBeginInfo)
+		=> Parent.Functions.vkBeginCommandBuffer(Handle, pBeginInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult EndCommandBuffer()
-		=> new(Parent.Functions.vkEndCommandBuffer(Handle), "vkEndCommandBuffer");
+	public Vk.Result EndCommandBuffer()
+		=> Parent.Functions.vkEndCommandBuffer(Handle);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult ResetCommandBuffer(Vk.CommandBufferResetFlags flags)
-		=> new(Parent.Functions.vkResetCommandBuffer(Handle, flags), "vkResetCommandBuffer");
+	public Vk.Result ResetCommandBuffer(Vk.CommandBufferResetFlags flags)
+		=> Parent.Functions.vkResetCommandBuffer(Handle, flags);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BindPipeline(Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline)
@@ -433,16 +433,16 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult SetPerformanceMarkerINTEL(Vk.INTEL.PerformanceMarkerInfo* pMarkerInfo)
-		=> new(Parent.Functions.vkCmdSetPerformanceMarkerINTEL(Handle, pMarkerInfo), "vkCmdSetPerformanceMarkerINTEL");
+	public Vk.Result SetPerformanceMarkerINTEL(Vk.INTEL.PerformanceMarkerInfo* pMarkerInfo)
+		=> Parent.Functions.vkCmdSetPerformanceMarkerINTEL(Handle, pMarkerInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult SetPerformanceStreamMarkerINTEL(Vk.INTEL.PerformanceStreamMarkerInfo* pMarkerInfo)
-		=> new(Parent.Functions.vkCmdSetPerformanceStreamMarkerINTEL(Handle, pMarkerInfo), "vkCmdSetPerformanceStreamMarkerINTEL");
+	public Vk.Result SetPerformanceStreamMarkerINTEL(Vk.INTEL.PerformanceStreamMarkerInfo* pMarkerInfo)
+		=> Parent.Functions.vkCmdSetPerformanceStreamMarkerINTEL(Handle, pMarkerInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VulkanResult SetPerformanceOverrideINTEL(Vk.INTEL.PerformanceOverrideInfo* pOverrideInfo)
-		=> new(Parent.Functions.vkCmdSetPerformanceOverrideINTEL(Handle, pOverrideInfo), "vkCmdSetPerformanceOverrideINTEL");
+	public Vk.Result SetPerformanceOverrideINTEL(Vk.INTEL.PerformanceOverrideInfo* pOverrideInfo)
+		=> Parent.Functions.vkCmdSetPerformanceOverrideINTEL(Handle, pOverrideInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetLineStippleEXT(uint lineStippleFactor, ushort lineStipplePattern)

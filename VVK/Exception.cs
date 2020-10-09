@@ -29,32 +29,38 @@ namespace VVK
 	/// <summary>
 	/// Exception that is thrown for <see cref="Vk.Result"/> error codes.
 	/// </summary>
-	public sealed class VulkanResultException : Exception
+	public sealed class ResultException : Exception
 	{
 		/// <summary>
 		/// The result code that generated the exception.
 		/// </summary>
 		public readonly Vk.Result Result;
 		/// <summary>
-		/// The name of the Vulkan API function that generated the result.
+		/// The function that generated the result, if known, empty otherwise.
 		/// </summary>
 		public readonly string FunctionName;
-		/// <summary>
-		/// The caller name that generated the result exception.
-		/// </summary>
-		public readonly string CallerName;
-		/// <summary>
-		/// The source line that generated the result exception.
-		/// </summary>
-		public readonly uint CallerLine;
 
-		internal VulkanResultException(Vk.Result result, string func, string name, uint line) :
-			base($"Call '{func}' failed with code {result} at [{name}:{line}]")
+		/// <summary>
+		/// Create a new exception for the given result.
+		/// </summary>
+		/// <param name="result">The result code.</param>
+		public ResultException(Vk.Result result) :
+			base($"Vulkan call failed with code {result}")
 		{
 			Result = result;
-			FunctionName = func;
-			CallerName = name;
-			CallerLine = line;
+			FunctionName = String.Empty;
+		}
+
+		/// <summary>
+		/// Create a new exception for the given result and function name.
+		/// </summary>
+		/// <param name="result">The result code.</param>
+		/// <param name="functionName">The name of the function that generated the result.</param>
+		public ResultException(Vk.Result result, string functionName) :
+			base($"{functionName} call failed with code {result}")
+		{
+			Result = result;
+			FunctionName = functionName;
 		}
 	}
 }
