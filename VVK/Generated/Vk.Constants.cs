@@ -288,6 +288,8 @@ public static class Constants
 	public const uint EXT_DESCRIPTOR_INDEXING_SPEC_VERSION = 2;
 	public const string EXT_SHADER_VIEWPORT_INDEX_LAYER_EXTENSION_NAME = "VK_EXT_shader_viewport_index_layer";
 	public const uint EXT_SHADER_VIEWPORT_INDEX_LAYER_SPEC_VERSION = 1;
+	public const string KHR_PORTABILITY_SUBSET_EXTENSION_NAME = "VK_KHR_portability_subset";
+	public const uint KHR_PORTABILITY_SUBSET_SPEC_VERSION = 1;
 	public const string NV_SHADING_RATE_IMAGE_EXTENSION_NAME = "VK_NV_shading_rate_image";
 	public const uint NV_SHADING_RATE_IMAGE_SPEC_VERSION = 3;
 	public const string NV_RAY_TRACING_EXTENSION_NAME = "VK_NV_ray_tracing";
@@ -382,6 +384,8 @@ public static class Constants
 	public const uint AMD_SHADER_CORE_PROPERTIES_2_SPEC_VERSION = 1;
 	public const string AMD_DEVICE_COHERENT_MEMORY_EXTENSION_NAME = "VK_AMD_device_coherent_memory";
 	public const uint AMD_DEVICE_COHERENT_MEMORY_SPEC_VERSION = 1;
+	public const string EXT_SHADER_IMAGE_ATOMIC_INT64_EXTENSION_NAME = "VK_EXT_shader_image_atomic_int64";
+	public const uint EXT_SHADER_IMAGE_ATOMIC_INT64_SPEC_VERSION = 1;
 	public const string KHR_SPIRV_1_4_EXTENSION_NAME = "VK_KHR_spirv_1_4";
 	public const uint KHR_SPIRV_1_4_SPEC_VERSION = 1;
 	public const string EXT_MEMORY_BUDGET_EXTENSION_NAME = "VK_EXT_memory_budget";
@@ -440,6 +444,8 @@ public static class Constants
 	public const uint EXT_TEXEL_BUFFER_ALIGNMENT_SPEC_VERSION = 1;
 	public const string QCOM_RENDER_PASS_TRANSFORM_EXTENSION_NAME = "VK_QCOM_render_pass_transform";
 	public const uint QCOM_RENDER_PASS_TRANSFORM_SPEC_VERSION = 1;
+	public const string EXT_DEVICE_MEMORY_REPORT_EXTENSION_NAME = "VK_EXT_device_memory_report";
+	public const uint EXT_DEVICE_MEMORY_REPORT_SPEC_VERSION = 1;
 	public const string EXT_ROBUSTNESS_2_EXTENSION_NAME = "VK_EXT_robustness2";
 	public const uint EXT_ROBUSTNESS_2_SPEC_VERSION = 1;
 	public const string EXT_CUSTOM_BORDER_COLOR_EXTENSION_NAME = "VK_EXT_custom_border_color";
@@ -462,6 +468,8 @@ public static class Constants
 	public const uint EXT_FRAGMENT_DENSITY_MAP_2_SPEC_VERSION = 1;
 	public const string EXT_IMAGE_ROBUSTNESS_EXTENSION_NAME = "VK_EXT_image_robustness";
 	public const uint EXT_IMAGE_ROBUSTNESS_SPEC_VERSION = 1;
+	public const string KHR_COPY_COMMANDS_2_EXTENSION_NAME = "VK_KHR_copy_commands2";
+	public const uint KHR_COPY_COMMANDS_2_SPEC_VERSION = 1;
 	public const string EXT_4444_FORMATS_EXTENSION_NAME = "VK_EXT_4444_formats";
 	public const uint EXT_4444_FORMATS_SPEC_VERSION = 1;
 	public const string EXT_DIRECTFB_SURFACE_EXTENSION_NAME = "VK_EXT_directfb_surface";

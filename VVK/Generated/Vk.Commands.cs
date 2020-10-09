@@ -865,6 +865,12 @@ public unsafe sealed partial class DeviceFunctionTable
 	public readonly delegate* unmanaged<Vk.Device, Vk.EXT.PrivateDataSlot, Vk.AllocationCallbacks*, void> vkDestroyPrivateDataSlotEXT = null;
 	public readonly delegate* unmanaged<Vk.Device, Vk.ObjectType, ulong, Vk.EXT.PrivateDataSlot, ulong, Vk.Result> vkSetPrivateDataEXT = null;
 	public readonly delegate* unmanaged<Vk.Device, Vk.ObjectType, ulong, Vk.EXT.PrivateDataSlot, ulong*, void> vkGetPrivateDataEXT = null;
+	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyBufferInfo2*, void> vkCmdCopyBuffer2KHR = null;
+	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyImageInfo2*, void> vkCmdCopyImage2KHR = null;
+	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.BlitImageInfo2*, void> vkCmdBlitImage2KHR = null;
+	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyBufferToImageInfo2*, void> vkCmdCopyBufferToImage2KHR = null;
+	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyImageToBufferInfo2*, void> vkCmdCopyImageToBuffer2KHR = null;
+	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.ResolveImageInfo2*, void> vkCmdResolveImage2KHR = null;
 
 	/// <summary>Creates a new function table with all null pointers.</summary>
 	public DeviceFunctionTable() { }
@@ -2284,6 +2290,30 @@ public unsafe sealed partial class DeviceFunctionTable
 		if (TryLoadFunc(dev, "vkGetPrivateDataEXT", out addr)) {
 			vkGetPrivateDataEXT =
 				(delegate* unmanaged<Vk.Device, Vk.ObjectType, ulong, Vk.EXT.PrivateDataSlot, ulong*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdCopyBuffer2KHR", out addr)) {
+			vkCmdCopyBuffer2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyBufferInfo2*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdCopyImage2KHR", out addr)) {
+			vkCmdCopyImage2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyImageInfo2*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdBlitImage2KHR", out addr)) {
+			vkCmdBlitImage2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.BlitImageInfo2*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdCopyBufferToImage2KHR", out addr)) {
+			vkCmdCopyBufferToImage2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyBufferToImageInfo2*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdCopyImageToBuffer2KHR", out addr)) {
+			vkCmdCopyImageToBuffer2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyImageToBufferInfo2*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdResolveImage2KHR", out addr)) {
+			vkCmdResolveImage2KHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.ResolveImageInfo2*, void>)addr;
 		}
 	}
 

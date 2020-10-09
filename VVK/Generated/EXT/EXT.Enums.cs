@@ -109,6 +109,12 @@ public enum DebugUtilsMessengerCallbackDataFlags : uint
 }
 
 [Flags]
+public enum DeviceMemoryReportFlags : uint
+{
+	NoFlags = 0,
+}
+
+[Flags]
 public enum PipelineRasterizationConservativeStateCreateFlags : uint
 {
 	NoFlags = 0,
@@ -244,6 +250,15 @@ public enum DebugReportObjectType : int
 	AccelerationStructureKhrEXT = 1000150000,
 	SamplerYcbcrConversionKhrEXT = 1000011000,
 	AccelerationStructureNvEXT = 1000150000,
+}
+
+public enum DeviceMemoryReportEventType : int
+{
+	AllocateEXT = 0,
+	FreeEXT = 1,
+	ImportEXT = 2,
+	UnimportEXT = 3,
+	AllocationFailedEXT = 4,
 }
 
 public enum ValidationCheck : int

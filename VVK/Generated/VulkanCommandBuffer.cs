@@ -504,6 +504,30 @@ public unsafe sealed partial class VulkanCommandBuffer
 	public void SetStencilOpEXT(Vk.StencilFaceFlags faceMask, Vk.StencilOp failOp, Vk.StencilOp passOp, Vk.StencilOp depthFailOp, Vk.CompareOp compareOp)
 		=> Parent.Functions.vkCmdSetStencilOpEXT(Handle, faceMask, failOp, passOp, depthFailOp, compareOp);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyBuffer2KHR(Vk.KHR.CopyBufferInfo2* pCopyBufferInfo)
+		=> Parent.Functions.vkCmdCopyBuffer2KHR(Handle, pCopyBufferInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyImage2KHR(Vk.KHR.CopyImageInfo2* pCopyImageInfo)
+		=> Parent.Functions.vkCmdCopyImage2KHR(Handle, pCopyImageInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BlitImage2KHR(Vk.KHR.BlitImageInfo2* pBlitImageInfo)
+		=> Parent.Functions.vkCmdBlitImage2KHR(Handle, pBlitImageInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyBufferToImage2KHR(Vk.KHR.CopyBufferToImageInfo2* pCopyBufferToImageInfo)
+		=> Parent.Functions.vkCmdCopyBufferToImage2KHR(Handle, pCopyBufferToImageInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyImageToBuffer2KHR(Vk.KHR.CopyImageToBufferInfo2* pCopyImageToBufferInfo)
+		=> Parent.Functions.vkCmdCopyImageToBuffer2KHR(Handle, pCopyImageToBufferInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ResolveImage2KHR(Vk.KHR.ResolveImageInfo2* pResolveImageInfo)
+		=> Parent.Functions.vkCmdResolveImage2KHR(Handle, pResolveImageInfo);
+
 }
 
 } // namespace VVK

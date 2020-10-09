@@ -3658,4 +3658,286 @@ public unsafe partial struct PipelineLibraryCreateInfo
 	public static void Init(ref PipelineLibraryCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDevicePortabilitySubsetFeatures
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePortabilitySubsetFeaturesKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Bool32 ConstantAlphaColorBlendFactors;
+	public Vk.Bool32 Events;
+	public Vk.Bool32 ImageViewFormatReinterpretation;
+	public Vk.Bool32 ImageViewFormatSwizzle;
+	public Vk.Bool32 ImageView2DOn3DImage;
+	public Vk.Bool32 MultisampleArrayImage;
+	public Vk.Bool32 MutableComparisonSamplers;
+	public Vk.Bool32 PointPolygons;
+	public Vk.Bool32 SamplerMipLodBias;
+	public Vk.Bool32 SeparateStencilMaskRef;
+	public Vk.Bool32 ShaderSampleRateInterpolationFunctions;
+	public Vk.Bool32 TessellationIsolines;
+	public Vk.Bool32 TessellationPointMode;
+	public Vk.Bool32 TriangleFans;
+	public Vk.Bool32 VertexAttributeAccessBeyondStride;
+
+	/// <summary>Creates a new PhysicalDevicePortabilitySubsetFeatures value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDevicePortabilitySubsetFeatures value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDevicePortabilitySubsetFeatures value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDevicePortabilitySubsetProperties
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePortabilitySubsetPropertiesKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public uint MinVertexInputBindingStrideAlignment;
+
+	/// <summary>Creates a new PhysicalDevicePortabilitySubsetProperties value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDevicePortabilitySubsetProperties value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDevicePortabilitySubsetProperties value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct BufferCopy2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.BufferCopy2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.DeviceSize SrcOffset;
+	public Vk.DeviceSize DstOffset;
+	public Vk.DeviceSize Size;
+
+	/// <summary>Creates a new BufferCopy2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out BufferCopy2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref BufferCopy2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct ImageCopy2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.ImageCopy2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.ImageSubresourceLayers SrcSubresource;
+	public Vk.Offset3D SrcOffset;
+	public Vk.ImageSubresourceLayers DstSubresource;
+	public Vk.Offset3D DstOffset;
+	public Vk.Extent3D Extent;
+
+	/// <summary>Creates a new ImageCopy2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageCopy2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref ImageCopy2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct ImageBlit2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.ImageBlit2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.ImageSubresourceLayers SrcSubresource;
+	public Vk.Offset3D SrcOffsets_0;
+	public Vk.Offset3D SrcOffsets_1;
+	public Vk.ImageSubresourceLayers DstSubresource;
+	public Vk.Offset3D DstOffsets_0;
+	public Vk.Offset3D DstOffsets_1;
+
+	/// <summary>Creates a new ImageBlit2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageBlit2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref ImageBlit2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct BufferImageCopy2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.BufferImageCopy2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.DeviceSize BufferOffset;
+	public uint BufferRowLength;
+	public uint BufferImageHeight;
+	public Vk.ImageSubresourceLayers ImageSubresource;
+	public Vk.Offset3D ImageOffset;
+	public Vk.Extent3D ImageExtent;
+
+	/// <summary>Creates a new BufferImageCopy2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out BufferImageCopy2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref BufferImageCopy2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct ImageResolve2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.ImageResolve2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.ImageSubresourceLayers SrcSubresource;
+	public Vk.Offset3D SrcOffset;
+	public Vk.ImageSubresourceLayers DstSubresource;
+	public Vk.Offset3D DstOffset;
+	public Vk.Extent3D Extent;
+
+	/// <summary>Creates a new ImageResolve2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageResolve2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref ImageResolve2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct CopyBufferInfo2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.CopyBufferInfo2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Buffer SrcBuffer;
+	public Vk.Buffer DstBuffer;
+	public uint RegionCount;
+	public Vk.KHR.BufferCopy2* Regions;
+
+	/// <summary>Creates a new CopyBufferInfo2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out CopyBufferInfo2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref CopyBufferInfo2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct CopyImageInfo2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.CopyImageInfo2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Image SrcImage;
+	public Vk.ImageLayout SrcImageLayout;
+	public Vk.Image DstImage;
+	public Vk.ImageLayout DstImageLayout;
+	public uint RegionCount;
+	public Vk.KHR.ImageCopy2* Regions;
+
+	/// <summary>Creates a new CopyImageInfo2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out CopyImageInfo2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref CopyImageInfo2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct BlitImageInfo2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.BlitImageInfo2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Image SrcImage;
+	public Vk.ImageLayout SrcImageLayout;
+	public Vk.Image DstImage;
+	public Vk.ImageLayout DstImageLayout;
+	public uint RegionCount;
+	public Vk.KHR.ImageBlit2* Regions;
+	public Vk.Filter Filter;
+
+	/// <summary>Creates a new BlitImageInfo2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out BlitImageInfo2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref BlitImageInfo2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct CopyBufferToImageInfo2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.CopyBufferToImageInfo2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Buffer SrcBuffer;
+	public Vk.Image DstImage;
+	public Vk.ImageLayout DstImageLayout;
+	public uint RegionCount;
+	public Vk.KHR.BufferImageCopy2* Regions;
+
+	/// <summary>Creates a new CopyBufferToImageInfo2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out CopyBufferToImageInfo2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref CopyBufferToImageInfo2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct CopyImageToBufferInfo2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.CopyImageToBufferInfo2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Image SrcImage;
+	public Vk.ImageLayout SrcImageLayout;
+	public Vk.Buffer DstBuffer;
+	public uint RegionCount;
+	public Vk.KHR.BufferImageCopy2* Regions;
+
+	/// <summary>Creates a new CopyImageToBufferInfo2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out CopyImageToBufferInfo2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref CopyImageToBufferInfo2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct ResolveImageInfo2
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.ResolveImageInfo2KHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Image SrcImage;
+	public Vk.ImageLayout SrcImageLayout;
+	public Vk.Image DstImage;
+	public Vk.ImageLayout DstImageLayout;
+	public uint RegionCount;
+	public Vk.KHR.ImageResolve2* Regions;
+
+	/// <summary>Creates a new ResolveImageInfo2 value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ResolveImageInfo2 value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref ResolveImageInfo2 value) { value.sType = TYPE; value.pNext = null; }
+}
+
 } // namespace Vk.KHR

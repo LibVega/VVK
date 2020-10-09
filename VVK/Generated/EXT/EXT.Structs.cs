@@ -859,6 +859,65 @@ public unsafe partial struct DebugUtilsMessengerCallbackData
 }
 
 [StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceDeviceMemoryReportFeatures
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceDeviceMemoryReportFeaturesEXT;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Bool32 DeviceMemoryReport;
+
+	/// <summary>Creates a new PhysicalDeviceDeviceMemoryReportFeatures value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceDeviceMemoryReportFeatures value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDeviceDeviceMemoryReportFeatures value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct DeviceDeviceMemoryReportCreateInfo
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.DeviceDeviceMemoryReportCreateInfoEXT;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.EXT.DeviceMemoryReportFlags Flags;
+	public delegate* managed<Vk.EXT.DeviceMemoryReportCallbackData*, void*, void> UserCallback;
+	public void* UserData;
+
+	/// <summary>Creates a new DeviceDeviceMemoryReportCreateInfo value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DeviceDeviceMemoryReportCreateInfo value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref DeviceDeviceMemoryReportCreateInfo value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct DeviceMemoryReportCallbackData
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.DeviceMemoryReportCallbackDataEXT;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.EXT.DeviceMemoryReportFlags Flags;
+	public Vk.EXT.DeviceMemoryReportEventType Type;
+	public ulong MemoryObjectId;
+	public Vk.DeviceSize Size;
+	public Vk.ObjectType ObjectType;
+	public ulong ObjectHandle;
+	public uint HeapIndex;
+
+	/// <summary>Creates a new DeviceMemoryReportCallbackData value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DeviceMemoryReportCallbackData value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref DeviceMemoryReportCallbackData value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct ImportMemoryHostPointerInfo
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImportMemoryHostPointerInfoEXT;
@@ -2298,6 +2357,24 @@ public unsafe partial struct PhysicalDevice4444FormatsFeatures
 	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void Init(ref PhysicalDevice4444FormatsFeatures value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceShaderImageAtomicInt64Features
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceShaderImageAtomicInt64FeaturesEXT;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Bool32 ShaderImageInt64Atomics;
+	public Vk.Bool32 SparseImageInt64Atomics;
+
+	/// <summary>Creates a new PhysicalDeviceShaderImageAtomicInt64Features value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceShaderImageAtomicInt64Features value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDeviceShaderImageAtomicInt64Features value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.EXT
