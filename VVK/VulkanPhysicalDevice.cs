@@ -65,6 +65,10 @@ namespace VVK
 		/// The memory properties for the physical device.
 		/// </summary>
 		public readonly Vk.PhysicalDeviceMemoryProperties MemoryProperties;
+		/// <summary>
+		/// The total amount of device-visible memory, in bytes.
+		/// </summary>
+		public readonly ulong TotalDeviceMemory;
 
 		/// <summary>
 		/// The properties for the queue families supported by the physical device.
@@ -116,6 +120,15 @@ namespace VVK
 			Vk.PhysicalDeviceMemoryProperties memProps;
 			GetMemoryProperties(&memProps);
 			MemoryProperties = memProps;
+
+			// Get total memory
+			TotalDeviceMemory = 0;
+			Vk.MemoryHeap* heapPtr = &(memProps.MemoryHeaps_0);
+			for (uint i = 0; i < memProps.MemoryHeapCount; ++i) {
+				if ((heapPtr[i].Flags & MemoryHeapFlags.DeviceLocal) > 0) {
+					TotalDeviceMemory += heapPtr[i].Size;
+				}
+			}
 
 			// Get the queue families
 			uint count = 0;

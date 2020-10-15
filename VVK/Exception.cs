@@ -36,9 +36,9 @@ namespace VVK
 		/// </summary>
 		public readonly Vk.Result Result;
 		/// <summary>
-		/// The function that generated the result, if known, empty otherwise.
+		/// An additional user message explaining the call failure.
 		/// </summary>
-		public readonly string FunctionName;
+		public readonly string UserMessage;
 
 		/// <summary>
 		/// Create a new exception for the given result.
@@ -48,19 +48,19 @@ namespace VVK
 			base($"Vulkan call failed with code {result}")
 		{
 			Result = result;
-			FunctionName = String.Empty;
+			UserMessage = String.Empty;
 		}
 
 		/// <summary>
 		/// Create a new exception for the given result and function name.
 		/// </summary>
 		/// <param name="result">The result code.</param>
-		/// <param name="functionName">The name of the function that generated the result.</param>
-		public ResultException(Vk.Result result, string functionName) :
-			base($"{functionName} call failed with code {result}")
+		/// <param name="userMsg">A message further explaining the failure.</param>
+		public ResultException(Vk.Result result, string userMsg) :
+			base($"{userMsg} (code={result})")
 		{
 			Result = result;
-			FunctionName = functionName;
+			UserMessage = userMsg;
 		}
 	}
 }

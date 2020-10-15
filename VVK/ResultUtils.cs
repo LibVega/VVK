@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Vk
+namespace VVK
 {
 	/// <summary>
 	/// Contains utility functionality for working with <see cref="Vk.Result"/> values.
@@ -38,7 +38,7 @@ namespace Vk
 		/// </summary>
 		/// <param name="result">The result to check.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsSuccess(this Vk.Result result) => result == Result.Success;
+		public static bool IsSuccess(this Vk.Result result) => result == Vk.Result.Success;
 
 		/// <summary>
 		/// Gets if the result is <see cref="Vk.Result.Success"/>.
@@ -49,7 +49,7 @@ namespace Vk
 		public static bool IsSuccess(this Vk.Result result, out Vk.Result copy)
 		{
 			copy = result;
-			return result == Result.Success;
+			return result == Vk.Result.Success;
 		}
 
 		/// <summary>
@@ -69,6 +69,20 @@ namespace Vk
 		{
 			copy = result;
 			return (int)result >= 0;
+		}
+
+		/// <summary>
+		/// Throws a <see cref="ResultException"/> if the code is anything except <see cref="Vk.Result.Success"/>.
+		/// </summary>
+		/// <param name="result">The result to throw for.</param>
+		/// <param name="message">The optional user message to add to the exception.</param>
+		[MethodImpl(MethodImplOptions.NoInlining)]
+		public static void Throw(this Vk.Result result, string? message = null)
+		{
+			if (result != Vk.Result.Success) {
+				if (message is null) throw new ResultException(result);
+				else throw new ResultException(result, message);
+			}
 		}
 	}
 }
