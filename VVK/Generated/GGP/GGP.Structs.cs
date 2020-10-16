@@ -15,7 +15,7 @@ namespace Vk.GGP
 {
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct StreamDescriptorSurfaceCreateInfo
+public unsafe partial struct StreamDescriptorSurfaceCreateInfo : IEquatable<StreamDescriptorSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.StreamDescriptorSurfaceCreateInfoGGP;
 
@@ -23,6 +23,36 @@ public unsafe partial struct StreamDescriptorSurfaceCreateInfo
 	public void* pNext;
 	public Vk.GGP.StreamDescriptorSurfaceCreateFlags Flags;
 	public uint StreamDescriptor;
+
+	public readonly override bool Equals(object? obj) => (obj is StreamDescriptorSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<StreamDescriptorSurfaceCreateInfo>.Equals(StreamDescriptorSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in StreamDescriptorSurfaceCreateInfo l, in StreamDescriptorSurfaceCreateInfo r)
+	{
+		fixed (StreamDescriptorSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in StreamDescriptorSurfaceCreateInfo l, in StreamDescriptorSurfaceCreateInfo r)
+	{
+		fixed (StreamDescriptorSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new StreamDescriptorSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -33,13 +63,43 @@ public unsafe partial struct StreamDescriptorSurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PresentFrameToken
+public unsafe partial struct PresentFrameToken : IEquatable<PresentFrameToken>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PresentFrameTokenGGP;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint FrameToken;
+
+	public readonly override bool Equals(object? obj) => (obj is PresentFrameToken o) && (this == o);
+	readonly bool IEquatable<PresentFrameToken>.Equals(PresentFrameToken obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PresentFrameToken>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PresentFrameToken l, in PresentFrameToken r)
+	{
+		fixed (PresentFrameToken* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentFrameToken>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentFrameToken>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PresentFrameToken l, in PresentFrameToken r)
+	{
+		fixed (PresentFrameToken* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentFrameToken>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentFrameToken>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PresentFrameToken value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

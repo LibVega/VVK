@@ -15,7 +15,7 @@ namespace Vk.FUCHSIA
 {
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImagePipeSurfaceCreateInfo
+public unsafe partial struct ImagePipeSurfaceCreateInfo : IEquatable<ImagePipeSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImagepipeSurfaceCreateInfoFUCHSIA;
 
@@ -23,6 +23,36 @@ public unsafe partial struct ImagePipeSurfaceCreateInfo
 	public void* pNext;
 	public Vk.FUCHSIA.ImagePipeSurfaceCreateFlags Flags;
 	public uint ImagePipeHandle;
+
+	public readonly override bool Equals(object? obj) => (obj is ImagePipeSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<ImagePipeSurfaceCreateInfo>.Equals(ImagePipeSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImagePipeSurfaceCreateInfo l, in ImagePipeSurfaceCreateInfo r)
+	{
+		fixed (ImagePipeSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImagePipeSurfaceCreateInfo l, in ImagePipeSurfaceCreateInfo r)
+	{
+		fixed (ImagePipeSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImagePipeSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

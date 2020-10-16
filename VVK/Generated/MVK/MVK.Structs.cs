@@ -15,7 +15,7 @@ namespace Vk.MVK
 {
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct IOSSurfaceCreateInfo
+public unsafe partial struct IOSSurfaceCreateInfo : IEquatable<IOSSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.IosSurfaceCreateInfoMVK;
 
@@ -23,6 +23,36 @@ public unsafe partial struct IOSSurfaceCreateInfo
 	public void* pNext;
 	public Vk.MVK.IOSSurfaceCreateFlags Flags;
 	public void* View;
+
+	public readonly override bool Equals(object? obj) => (obj is IOSSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<IOSSurfaceCreateInfo>.Equals(IOSSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<IOSSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in IOSSurfaceCreateInfo l, in IOSSurfaceCreateInfo r)
+	{
+		fixed (IOSSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in IOSSurfaceCreateInfo l, in IOSSurfaceCreateInfo r)
+	{
+		fixed (IOSSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new IOSSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -33,7 +63,7 @@ public unsafe partial struct IOSSurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MacOSSurfaceCreateInfo
+public unsafe partial struct MacOSSurfaceCreateInfo : IEquatable<MacOSSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MacosSurfaceCreateInfoMVK;
 
@@ -41,6 +71,36 @@ public unsafe partial struct MacOSSurfaceCreateInfo
 	public void* pNext;
 	public Vk.MVK.MacOSSurfaceCreateFlags Flags;
 	public void* View;
+
+	public readonly override bool Equals(object? obj) => (obj is MacOSSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<MacOSSurfaceCreateInfo>.Equals(MacOSSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MacOSSurfaceCreateInfo l, in MacOSSurfaceCreateInfo r)
+	{
+		fixed (MacOSSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MacOSSurfaceCreateInfo l, in MacOSSurfaceCreateInfo r)
+	{
+		fixed (MacOSSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MacOSSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

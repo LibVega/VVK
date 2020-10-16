@@ -15,7 +15,7 @@ namespace Vk.NN
 {
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ViSurfaceCreateInfo
+public unsafe partial struct ViSurfaceCreateInfo : IEquatable<ViSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ViSurfaceCreateInfoNN;
 
@@ -23,6 +23,36 @@ public unsafe partial struct ViSurfaceCreateInfo
 	public void* pNext;
 	public Vk.NN.ViSurfaceCreateFlags Flags;
 	public void* Window;
+
+	public readonly override bool Equals(object? obj) => (obj is ViSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<ViSurfaceCreateInfo>.Equals(ViSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ViSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ViSurfaceCreateInfo l, in ViSurfaceCreateInfo r)
+	{
+		fixed (ViSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ViSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ViSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ViSurfaceCreateInfo l, in ViSurfaceCreateInfo r)
+	{
+		fixed (ViSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ViSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ViSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ViSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -15,7 +15,7 @@ namespace Vk.KHR
 {
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayProperties
+public unsafe partial struct DisplayProperties : IEquatable<DisplayProperties>
 {
 	public Vk.KHR.Display Display;
 	public byte* DisplayName;
@@ -24,31 +24,151 @@ public unsafe partial struct DisplayProperties
 	public Vk.KHR.SurfaceTransformFlags SupportedTransforms;
 	public Vk.Bool32 PlaneReorderPossible;
 	public Vk.Bool32 PersistentContent;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayProperties o) && (this == o);
+	readonly bool IEquatable<DisplayProperties>.Equals(DisplayProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.KHR.Display* ptr = &Display) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayProperties l, in DisplayProperties r)
+	{
+		fixed (DisplayProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayProperties l, in DisplayProperties r)
+	{
+		fixed (DisplayProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayPlaneProperties
+public unsafe partial struct DisplayPlaneProperties : IEquatable<DisplayPlaneProperties>
 {
 	public Vk.KHR.Display CurrentDisplay;
 	public uint CurrentStackIndex;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayPlaneProperties o) && (this == o);
+	readonly bool IEquatable<DisplayPlaneProperties>.Equals(DisplayPlaneProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.KHR.Display* ptr = &CurrentDisplay) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayPlaneProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayPlaneProperties l, in DisplayPlaneProperties r)
+	{
+		fixed (DisplayPlaneProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayPlaneProperties l, in DisplayPlaneProperties r)
+	{
+		fixed (DisplayPlaneProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayModeParameters
+public unsafe partial struct DisplayModeParameters : IEquatable<DisplayModeParameters>
 {
 	public Vk.Extent2D VisibleRegion;
 	public uint RefreshRate;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayModeParameters o) && (this == o);
+	readonly bool IEquatable<DisplayModeParameters>.Equals(DisplayModeParameters obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.Extent2D* ptr = &VisibleRegion) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayModeParameters>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayModeParameters l, in DisplayModeParameters r)
+	{
+		fixed (DisplayModeParameters* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeParameters>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeParameters>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayModeParameters l, in DisplayModeParameters r)
+	{
+		fixed (DisplayModeParameters* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeParameters>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeParameters>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayModeProperties
+public unsafe partial struct DisplayModeProperties : IEquatable<DisplayModeProperties>
 {
 	public Vk.KHR.DisplayMode DisplayMode;
 	public Vk.KHR.DisplayModeParameters Parameters;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayModeProperties o) && (this == o);
+	readonly bool IEquatable<DisplayModeProperties>.Equals(DisplayModeProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.KHR.DisplayMode* ptr = &DisplayMode) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayModeProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayModeProperties l, in DisplayModeProperties r)
+	{
+		fixed (DisplayModeProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayModeProperties l, in DisplayModeProperties r)
+	{
+		fixed (DisplayModeProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayModeCreateInfo
+public unsafe partial struct DisplayModeCreateInfo : IEquatable<DisplayModeCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplayModeCreateInfoKHR;
 
@@ -56,6 +176,36 @@ public unsafe partial struct DisplayModeCreateInfo
 	public void* pNext;
 	public Vk.KHR.DisplayModeCreateFlags Flags;
 	public Vk.KHR.DisplayModeParameters Parameters;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayModeCreateInfo o) && (this == o);
+	readonly bool IEquatable<DisplayModeCreateInfo>.Equals(DisplayModeCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayModeCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayModeCreateInfo l, in DisplayModeCreateInfo r)
+	{
+		fixed (DisplayModeCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayModeCreateInfo l, in DisplayModeCreateInfo r)
+	{
+		fixed (DisplayModeCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DisplayModeCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -66,7 +216,7 @@ public unsafe partial struct DisplayModeCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayPlaneCapabilities
+public unsafe partial struct DisplayPlaneCapabilities : IEquatable<DisplayPlaneCapabilities>
 {
 	public Vk.KHR.DisplayPlaneAlphaFlags SupportedAlpha;
 	public Vk.Offset2D MinSrcPosition;
@@ -77,10 +227,40 @@ public unsafe partial struct DisplayPlaneCapabilities
 	public Vk.Offset2D MaxDstPosition;
 	public Vk.Extent2D MinDstExtent;
 	public Vk.Extent2D MaxDstExtent;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayPlaneCapabilities o) && (this == o);
+	readonly bool IEquatable<DisplayPlaneCapabilities>.Equals(DisplayPlaneCapabilities obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.KHR.DisplayPlaneAlphaFlags* ptr = &SupportedAlpha) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayPlaneCapabilities>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayPlaneCapabilities l, in DisplayPlaneCapabilities r)
+	{
+		fixed (DisplayPlaneCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneCapabilities>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayPlaneCapabilities l, in DisplayPlaneCapabilities r)
+	{
+		fixed (DisplayPlaneCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneCapabilities>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplaySurfaceCreateInfo
+public unsafe partial struct DisplaySurfaceCreateInfo : IEquatable<DisplaySurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplaySurfaceCreateInfoKHR;
 
@@ -95,6 +275,36 @@ public unsafe partial struct DisplaySurfaceCreateInfo
 	public Vk.KHR.DisplayPlaneAlphaFlags AlphaMode;
 	public Vk.Extent2D ImageExtent;
 
+	public readonly override bool Equals(object? obj) => (obj is DisplaySurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<DisplaySurfaceCreateInfo>.Equals(DisplaySurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplaySurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplaySurfaceCreateInfo l, in DisplaySurfaceCreateInfo r)
+	{
+		fixed (DisplaySurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplaySurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplaySurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplaySurfaceCreateInfo l, in DisplaySurfaceCreateInfo r)
+	{
+		fixed (DisplaySurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplaySurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplaySurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new DisplaySurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DisplaySurfaceCreateInfo value) => value = new() { sType = TYPE };
@@ -104,7 +314,7 @@ public unsafe partial struct DisplaySurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayPresentInfo
+public unsafe partial struct DisplayPresentInfo : IEquatable<DisplayPresentInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplayPresentInfoKHR;
 
@@ -113,6 +323,36 @@ public unsafe partial struct DisplayPresentInfo
 	public Vk.Rect2D SrcRect;
 	public Vk.Rect2D DstRect;
 	public Vk.Bool32 Persistent;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayPresentInfo o) && (this == o);
+	readonly bool IEquatable<DisplayPresentInfo>.Equals(DisplayPresentInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayPresentInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayPresentInfo l, in DisplayPresentInfo r)
+	{
+		fixed (DisplayPresentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPresentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPresentInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayPresentInfo l, in DisplayPresentInfo r)
+	{
+		fixed (DisplayPresentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPresentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPresentInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DisplayPresentInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -123,7 +363,7 @@ public unsafe partial struct DisplayPresentInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SurfaceCapabilities
+public unsafe partial struct SurfaceCapabilities : IEquatable<SurfaceCapabilities>
 {
 	public uint MinImageCount;
 	public uint MaxImageCount;
@@ -135,10 +375,40 @@ public unsafe partial struct SurfaceCapabilities
 	public Vk.KHR.SurfaceTransformFlags CurrentTransform;
 	public Vk.KHR.CompositeAlphaFlags SupportedCompositeAlpha;
 	public Vk.ImageUsageFlags SupportedUsageFlags;
+
+	public readonly override bool Equals(object? obj) => (obj is SurfaceCapabilities o) && (this == o);
+	readonly bool IEquatable<SurfaceCapabilities>.Equals(SurfaceCapabilities obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (uint* ptr = &MinImageCount) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceCapabilities>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SurfaceCapabilities l, in SurfaceCapabilities r)
+	{
+		fixed (SurfaceCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilities>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SurfaceCapabilities l, in SurfaceCapabilities r)
+	{
+		fixed (SurfaceCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilities>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AndroidSurfaceCreateInfo
+public unsafe partial struct AndroidSurfaceCreateInfo : IEquatable<AndroidSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AndroidSurfaceCreateInfoKHR;
 
@@ -146,6 +416,36 @@ public unsafe partial struct AndroidSurfaceCreateInfo
 	public void* pNext;
 	public Vk.KHR.AndroidSurfaceCreateFlags Flags;
 	public void* Window;
+
+	public readonly override bool Equals(object? obj) => (obj is AndroidSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<AndroidSurfaceCreateInfo>.Equals(AndroidSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AndroidSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AndroidSurfaceCreateInfo l, in AndroidSurfaceCreateInfo r)
+	{
+		fixed (AndroidSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AndroidSurfaceCreateInfo l, in AndroidSurfaceCreateInfo r)
+	{
+		fixed (AndroidSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AndroidSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -156,7 +456,7 @@ public unsafe partial struct AndroidSurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct WaylandSurfaceCreateInfo
+public unsafe partial struct WaylandSurfaceCreateInfo : IEquatable<WaylandSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.WaylandSurfaceCreateInfoKHR;
 
@@ -165,6 +465,36 @@ public unsafe partial struct WaylandSurfaceCreateInfo
 	public Vk.KHR.WaylandSurfaceCreateFlags Flags;
 	public void* Display;
 	public void* Surface;
+
+	public readonly override bool Equals(object? obj) => (obj is WaylandSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<WaylandSurfaceCreateInfo>.Equals(WaylandSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<WaylandSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in WaylandSurfaceCreateInfo l, in WaylandSurfaceCreateInfo r)
+	{
+		fixed (WaylandSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<WaylandSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<WaylandSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in WaylandSurfaceCreateInfo l, in WaylandSurfaceCreateInfo r)
+	{
+		fixed (WaylandSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<WaylandSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<WaylandSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new WaylandSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -175,7 +505,7 @@ public unsafe partial struct WaylandSurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct Win32SurfaceCreateInfo
+public unsafe partial struct Win32SurfaceCreateInfo : IEquatable<Win32SurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.Win32SurfaceCreateInfoKHR;
 
@@ -184,6 +514,36 @@ public unsafe partial struct Win32SurfaceCreateInfo
 	public Vk.KHR.Win32SurfaceCreateFlags Flags;
 	public void* Hinstance;
 	public void* Hwnd;
+
+	public readonly override bool Equals(object? obj) => (obj is Win32SurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<Win32SurfaceCreateInfo>.Equals(Win32SurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<Win32SurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in Win32SurfaceCreateInfo l, in Win32SurfaceCreateInfo r)
+	{
+		fixed (Win32SurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<Win32SurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<Win32SurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in Win32SurfaceCreateInfo l, in Win32SurfaceCreateInfo r)
+	{
+		fixed (Win32SurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<Win32SurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<Win32SurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new Win32SurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -194,7 +554,7 @@ public unsafe partial struct Win32SurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct XlibSurfaceCreateInfo
+public unsafe partial struct XlibSurfaceCreateInfo : IEquatable<XlibSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.XlibSurfaceCreateInfoKHR;
 
@@ -203,6 +563,36 @@ public unsafe partial struct XlibSurfaceCreateInfo
 	public Vk.KHR.XlibSurfaceCreateFlags Flags;
 	public void* Dpy;
 	public ulong Window;
+
+	public readonly override bool Equals(object? obj) => (obj is XlibSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<XlibSurfaceCreateInfo>.Equals(XlibSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<XlibSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in XlibSurfaceCreateInfo l, in XlibSurfaceCreateInfo r)
+	{
+		fixed (XlibSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<XlibSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<XlibSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in XlibSurfaceCreateInfo l, in XlibSurfaceCreateInfo r)
+	{
+		fixed (XlibSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<XlibSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<XlibSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new XlibSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -213,7 +603,7 @@ public unsafe partial struct XlibSurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct XcbSurfaceCreateInfo
+public unsafe partial struct XcbSurfaceCreateInfo : IEquatable<XcbSurfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.XcbSurfaceCreateInfoKHR;
 
@@ -222,6 +612,36 @@ public unsafe partial struct XcbSurfaceCreateInfo
 	public Vk.KHR.XcbSurfaceCreateFlags Flags;
 	public void* Connection;
 	public uint Window;
+
+	public readonly override bool Equals(object? obj) => (obj is XcbSurfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<XcbSurfaceCreateInfo>.Equals(XcbSurfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<XcbSurfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in XcbSurfaceCreateInfo l, in XcbSurfaceCreateInfo r)
+	{
+		fixed (XcbSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<XcbSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<XcbSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in XcbSurfaceCreateInfo l, in XcbSurfaceCreateInfo r)
+	{
+		fixed (XcbSurfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<XcbSurfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<XcbSurfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new XcbSurfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -232,14 +652,44 @@ public unsafe partial struct XcbSurfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SurfaceFormat
+public unsafe partial struct SurfaceFormat : IEquatable<SurfaceFormat>
 {
 	public Vk.Format Format;
 	public Vk.KHR.ColorSpace ColorSpace;
+
+	public readonly override bool Equals(object? obj) => (obj is SurfaceFormat o) && (this == o);
+	readonly bool IEquatable<SurfaceFormat>.Equals(SurfaceFormat obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.Format* ptr = &Format) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceFormat>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SurfaceFormat l, in SurfaceFormat r)
+	{
+		fixed (SurfaceFormat* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFormat>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFormat>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SurfaceFormat l, in SurfaceFormat r)
+	{
+		fixed (SurfaceFormat* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFormat>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFormat>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SwapchainCreateInfo
+public unsafe partial struct SwapchainCreateInfo : IEquatable<SwapchainCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SwapchainCreateInfoKHR;
 
@@ -262,6 +712,36 @@ public unsafe partial struct SwapchainCreateInfo
 	public Vk.Bool32 Clipped;
 	public Vk.KHR.Swapchain OldSwapchain;
 
+	public readonly override bool Equals(object? obj) => (obj is SwapchainCreateInfo o) && (this == o);
+	readonly bool IEquatable<SwapchainCreateInfo>.Equals(SwapchainCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SwapchainCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SwapchainCreateInfo l, in SwapchainCreateInfo r)
+	{
+		fixed (SwapchainCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SwapchainCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SwapchainCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SwapchainCreateInfo l, in SwapchainCreateInfo r)
+	{
+		fixed (SwapchainCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SwapchainCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SwapchainCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new SwapchainCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SwapchainCreateInfo value) => value = new() { sType = TYPE };
@@ -271,7 +751,7 @@ public unsafe partial struct SwapchainCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PresentInfo
+public unsafe partial struct PresentInfo : IEquatable<PresentInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PresentInfoKHR;
 
@@ -284,6 +764,36 @@ public unsafe partial struct PresentInfo
 	public uint* ImageIndices;
 	public Vk.Result* Results;
 
+	public readonly override bool Equals(object? obj) => (obj is PresentInfo o) && (this == o);
+	readonly bool IEquatable<PresentInfo>.Equals(PresentInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PresentInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PresentInfo l, in PresentInfo r)
+	{
+		fixed (PresentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PresentInfo l, in PresentInfo r)
+	{
+		fixed (PresentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PresentInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PresentInfo value) => value = new() { sType = TYPE };
@@ -293,13 +803,43 @@ public unsafe partial struct PresentInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceFeatures2
+public unsafe partial struct PhysicalDeviceFeatures2 : IEquatable<PhysicalDeviceFeatures2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceFeatures2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.PhysicalDeviceFeatures Features;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFeatures2 o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFeatures2>.Equals(PhysicalDeviceFeatures2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFeatures2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceFeatures2 l, in PhysicalDeviceFeatures2 r)
+	{
+		fixed (PhysicalDeviceFeatures2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFeatures2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFeatures2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceFeatures2 l, in PhysicalDeviceFeatures2 r)
+	{
+		fixed (PhysicalDeviceFeatures2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFeatures2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFeatures2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceFeatures2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -310,13 +850,43 @@ public unsafe partial struct PhysicalDeviceFeatures2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceProperties2
+public unsafe partial struct PhysicalDeviceProperties2 : IEquatable<PhysicalDeviceProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceProperties2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.PhysicalDeviceProperties Properties;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceProperties2 o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceProperties2>.Equals(PhysicalDeviceProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceProperties2 l, in PhysicalDeviceProperties2 r)
+	{
+		fixed (PhysicalDeviceProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceProperties2 l, in PhysicalDeviceProperties2 r)
+	{
+		fixed (PhysicalDeviceProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -327,13 +897,43 @@ public unsafe partial struct PhysicalDeviceProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct FormatProperties2
+public unsafe partial struct FormatProperties2 : IEquatable<FormatProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.FormatProperties2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.FormatProperties FormatProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is FormatProperties2 o) && (this == o);
+	readonly bool IEquatable<FormatProperties2>.Equals(FormatProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<FormatProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in FormatProperties2 l, in FormatProperties2 r)
+	{
+		fixed (FormatProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FormatProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FormatProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in FormatProperties2 l, in FormatProperties2 r)
+	{
+		fixed (FormatProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FormatProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FormatProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new FormatProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -344,13 +944,43 @@ public unsafe partial struct FormatProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageFormatProperties2
+public unsafe partial struct ImageFormatProperties2 : IEquatable<ImageFormatProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageFormatProperties2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageFormatProperties ImageFormatProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is ImageFormatProperties2 o) && (this == o);
+	readonly bool IEquatable<ImageFormatProperties2>.Equals(ImageFormatProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageFormatProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageFormatProperties2 l, in ImageFormatProperties2 r)
+	{
+		fixed (ImageFormatProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageFormatProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageFormatProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageFormatProperties2 l, in ImageFormatProperties2 r)
+	{
+		fixed (ImageFormatProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageFormatProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageFormatProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImageFormatProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -361,7 +991,7 @@ public unsafe partial struct ImageFormatProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceImageFormatInfo2
+public unsafe partial struct PhysicalDeviceImageFormatInfo2 : IEquatable<PhysicalDeviceImageFormatInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceImageFormatInfo2;
 
@@ -373,6 +1003,36 @@ public unsafe partial struct PhysicalDeviceImageFormatInfo2
 	public Vk.ImageUsageFlags Usage;
 	public Vk.ImageCreateFlags Flags;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImageFormatInfo2 o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceImageFormatInfo2>.Equals(PhysicalDeviceImageFormatInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceImageFormatInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceImageFormatInfo2 l, in PhysicalDeviceImageFormatInfo2 r)
+	{
+		fixed (PhysicalDeviceImageFormatInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageFormatInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageFormatInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceImageFormatInfo2 l, in PhysicalDeviceImageFormatInfo2 r)
+	{
+		fixed (PhysicalDeviceImageFormatInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageFormatInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageFormatInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceImageFormatInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceImageFormatInfo2 value) => value = new() { sType = TYPE };
@@ -382,13 +1042,43 @@ public unsafe partial struct PhysicalDeviceImageFormatInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct QueueFamilyProperties2
+public unsafe partial struct QueueFamilyProperties2 : IEquatable<QueueFamilyProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.QueueFamilyProperties2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.QueueFamilyProperties QueueFamilyProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is QueueFamilyProperties2 o) && (this == o);
+	readonly bool IEquatable<QueueFamilyProperties2>.Equals(QueueFamilyProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<QueueFamilyProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in QueueFamilyProperties2 l, in QueueFamilyProperties2 r)
+	{
+		fixed (QueueFamilyProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueueFamilyProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueueFamilyProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in QueueFamilyProperties2 l, in QueueFamilyProperties2 r)
+	{
+		fixed (QueueFamilyProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueueFamilyProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueueFamilyProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new QueueFamilyProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -399,13 +1089,43 @@ public unsafe partial struct QueueFamilyProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceMemoryProperties2
+public unsafe partial struct PhysicalDeviceMemoryProperties2 : IEquatable<PhysicalDeviceMemoryProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceMemoryProperties2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.PhysicalDeviceMemoryProperties MemoryProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMemoryProperties2 o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceMemoryProperties2>.Equals(PhysicalDeviceMemoryProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceMemoryProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceMemoryProperties2 l, in PhysicalDeviceMemoryProperties2 r)
+	{
+		fixed (PhysicalDeviceMemoryProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMemoryProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMemoryProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceMemoryProperties2 l, in PhysicalDeviceMemoryProperties2 r)
+	{
+		fixed (PhysicalDeviceMemoryProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMemoryProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMemoryProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceMemoryProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -416,13 +1136,43 @@ public unsafe partial struct PhysicalDeviceMemoryProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SparseImageFormatProperties2
+public unsafe partial struct SparseImageFormatProperties2 : IEquatable<SparseImageFormatProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SparseImageFormatProperties2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.SparseImageFormatProperties Properties;
+
+	public readonly override bool Equals(object? obj) => (obj is SparseImageFormatProperties2 o) && (this == o);
+	readonly bool IEquatable<SparseImageFormatProperties2>.Equals(SparseImageFormatProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SparseImageFormatProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SparseImageFormatProperties2 l, in SparseImageFormatProperties2 r)
+	{
+		fixed (SparseImageFormatProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SparseImageFormatProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SparseImageFormatProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SparseImageFormatProperties2 l, in SparseImageFormatProperties2 r)
+	{
+		fixed (SparseImageFormatProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SparseImageFormatProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SparseImageFormatProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SparseImageFormatProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -433,7 +1183,7 @@ public unsafe partial struct SparseImageFormatProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceSparseImageFormatInfo2
+public unsafe partial struct PhysicalDeviceSparseImageFormatInfo2 : IEquatable<PhysicalDeviceSparseImageFormatInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceSparseImageFormatInfo2;
 
@@ -445,6 +1195,36 @@ public unsafe partial struct PhysicalDeviceSparseImageFormatInfo2
 	public Vk.ImageUsageFlags Usage;
 	public Vk.ImageTiling Tiling;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSparseImageFormatInfo2 o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceSparseImageFormatInfo2>.Equals(PhysicalDeviceSparseImageFormatInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSparseImageFormatInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceSparseImageFormatInfo2 l, in PhysicalDeviceSparseImageFormatInfo2 r)
+	{
+		fixed (PhysicalDeviceSparseImageFormatInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSparseImageFormatInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSparseImageFormatInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceSparseImageFormatInfo2 l, in PhysicalDeviceSparseImageFormatInfo2 r)
+	{
+		fixed (PhysicalDeviceSparseImageFormatInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSparseImageFormatInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSparseImageFormatInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceSparseImageFormatInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceSparseImageFormatInfo2 value) => value = new() { sType = TYPE };
@@ -454,13 +1234,43 @@ public unsafe partial struct PhysicalDeviceSparseImageFormatInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevicePushDescriptorProperties
+public unsafe partial struct PhysicalDevicePushDescriptorProperties : IEquatable<PhysicalDevicePushDescriptorProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePushDescriptorPropertiesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MaxPushDescriptors;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePushDescriptorProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDevicePushDescriptorProperties>.Equals(PhysicalDevicePushDescriptorProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePushDescriptorProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevicePushDescriptorProperties l, in PhysicalDevicePushDescriptorProperties r)
+	{
+		fixed (PhysicalDevicePushDescriptorProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePushDescriptorProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePushDescriptorProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevicePushDescriptorProperties l, in PhysicalDevicePushDescriptorProperties r)
+	{
+		fixed (PhysicalDevicePushDescriptorProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePushDescriptorProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePushDescriptorProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDevicePushDescriptorProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -471,16 +1281,46 @@ public unsafe partial struct PhysicalDevicePushDescriptorProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ConformanceVersion
+public unsafe partial struct ConformanceVersion : IEquatable<ConformanceVersion>
 {
 	public byte Major;
 	public byte Minor;
 	public byte Subminor;
 	public byte Patch;
+
+	public readonly override bool Equals(object? obj) => (obj is ConformanceVersion o) && (this == o);
+	readonly bool IEquatable<ConformanceVersion>.Equals(ConformanceVersion obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (byte* ptr = &Major) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ConformanceVersion>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ConformanceVersion l, in ConformanceVersion r)
+	{
+		fixed (ConformanceVersion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ConformanceVersion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ConformanceVersion>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ConformanceVersion l, in ConformanceVersion r)
+	{
+		fixed (ConformanceVersion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ConformanceVersion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ConformanceVersion>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceDriverProperties
+public unsafe partial struct PhysicalDeviceDriverProperties : IEquatable<PhysicalDeviceDriverProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceDriverProperties;
 
@@ -491,6 +1331,36 @@ public unsafe partial struct PhysicalDeviceDriverProperties
 	public Vk.FixedString DriverInfo;
 	public Vk.ConformanceVersion ConformanceVersion;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDriverProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceDriverProperties>.Equals(PhysicalDeviceDriverProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceDriverProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceDriverProperties l, in PhysicalDeviceDriverProperties r)
+	{
+		fixed (PhysicalDeviceDriverProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDriverProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDriverProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceDriverProperties l, in PhysicalDeviceDriverProperties r)
+	{
+		fixed (PhysicalDeviceDriverProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDriverProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDriverProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceDriverProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceDriverProperties value) => value = new() { sType = TYPE };
@@ -500,7 +1370,7 @@ public unsafe partial struct PhysicalDeviceDriverProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PresentRegions
+public unsafe partial struct PresentRegions : IEquatable<PresentRegions>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PresentRegionsKHR;
 
@@ -508,6 +1378,36 @@ public unsafe partial struct PresentRegions
 	public void* pNext;
 	public uint SwapchainCount;
 	public Vk.KHR.PresentRegion* Regions;
+
+	public readonly override bool Equals(object? obj) => (obj is PresentRegions o) && (this == o);
+	readonly bool IEquatable<PresentRegions>.Equals(PresentRegions obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PresentRegions>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PresentRegions l, in PresentRegions r)
+	{
+		fixed (PresentRegions* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentRegions>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentRegions>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PresentRegions l, in PresentRegions r)
+	{
+		fixed (PresentRegions* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentRegions>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentRegions>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PresentRegions value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -518,22 +1418,82 @@ public unsafe partial struct PresentRegions
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PresentRegion
+public unsafe partial struct PresentRegion : IEquatable<PresentRegion>
 {
 	public uint RectangleCount;
 	public Vk.KHR.RectLayer* Rectangles;
+
+	public readonly override bool Equals(object? obj) => (obj is PresentRegion o) && (this == o);
+	readonly bool IEquatable<PresentRegion>.Equals(PresentRegion obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (uint* ptr = &RectangleCount) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PresentRegion>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PresentRegion l, in PresentRegion r)
+	{
+		fixed (PresentRegion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentRegion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentRegion>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PresentRegion l, in PresentRegion r)
+	{
+		fixed (PresentRegion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentRegion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentRegion>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RectLayer
+public unsafe partial struct RectLayer : IEquatable<RectLayer>
 {
 	public Vk.Offset2D Offset;
 	public Vk.Extent2D Extent;
 	public uint Layer;
+
+	public readonly override bool Equals(object? obj) => (obj is RectLayer o) && (this == o);
+	readonly bool IEquatable<RectLayer>.Equals(RectLayer obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.Offset2D* ptr = &Offset) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RectLayer>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RectLayer l, in RectLayer r)
+	{
+		fixed (RectLayer* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RectLayer>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RectLayer>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RectLayer l, in RectLayer r)
+	{
+		fixed (RectLayer* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RectLayer>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RectLayer>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceVariablePointersFeatures
+public unsafe partial struct PhysicalDeviceVariablePointersFeatures : IEquatable<PhysicalDeviceVariablePointersFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceVariablePointersFeatures;
 
@@ -541,6 +1501,36 @@ public unsafe partial struct PhysicalDeviceVariablePointersFeatures
 	public void* pNext;
 	public Vk.Bool32 VariablePointersStorageBuffer;
 	public Vk.Bool32 VariablePointers;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceVariablePointersFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceVariablePointersFeatures>.Equals(PhysicalDeviceVariablePointersFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceVariablePointersFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceVariablePointersFeatures l, in PhysicalDeviceVariablePointersFeatures r)
+	{
+		fixed (PhysicalDeviceVariablePointersFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVariablePointersFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVariablePointersFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceVariablePointersFeatures l, in PhysicalDeviceVariablePointersFeatures r)
+	{
+		fixed (PhysicalDeviceVariablePointersFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVariablePointersFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVariablePointersFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceVariablePointersFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -551,7 +1541,7 @@ public unsafe partial struct PhysicalDeviceVariablePointersFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceVariablePointerFeatures
+public unsafe partial struct PhysicalDeviceVariablePointerFeatures : IEquatable<PhysicalDeviceVariablePointerFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceVariablePointersFeatures;
 
@@ -559,6 +1549,36 @@ public unsafe partial struct PhysicalDeviceVariablePointerFeatures
 	public void* pNext;
 	public Vk.Bool32 VariablePointersStorageBuffer;
 	public Vk.Bool32 VariablePointers;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceVariablePointerFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceVariablePointerFeatures>.Equals(PhysicalDeviceVariablePointerFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceVariablePointerFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceVariablePointerFeatures l, in PhysicalDeviceVariablePointerFeatures r)
+	{
+		fixed (PhysicalDeviceVariablePointerFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVariablePointerFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVariablePointerFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceVariablePointerFeatures l, in PhysicalDeviceVariablePointerFeatures r)
+	{
+		fixed (PhysicalDeviceVariablePointerFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVariablePointerFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVariablePointerFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceVariablePointerFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -569,21 +1589,81 @@ public unsafe partial struct PhysicalDeviceVariablePointerFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExternalMemoryProperties
+public unsafe partial struct ExternalMemoryProperties : IEquatable<ExternalMemoryProperties>
 {
 	public Vk.ExternalMemoryFeatureFlags ExternalMemoryFeatures;
 	public Vk.ExternalMemoryHandleTypeFlags ExportFromImportedHandleTypes;
 	public Vk.ExternalMemoryHandleTypeFlags CompatibleHandleTypes;
+
+	public readonly override bool Equals(object? obj) => (obj is ExternalMemoryProperties o) && (this == o);
+	readonly bool IEquatable<ExternalMemoryProperties>.Equals(ExternalMemoryProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.ExternalMemoryFeatureFlags* ptr = &ExternalMemoryFeatures) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalMemoryProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExternalMemoryProperties l, in ExternalMemoryProperties r)
+	{
+		fixed (ExternalMemoryProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalMemoryProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalMemoryProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExternalMemoryProperties l, in ExternalMemoryProperties r)
+	{
+		fixed (ExternalMemoryProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalMemoryProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalMemoryProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceExternalImageFormatInfo
+public unsafe partial struct PhysicalDeviceExternalImageFormatInfo : IEquatable<PhysicalDeviceExternalImageFormatInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceExternalImageFormatInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalMemoryHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExternalImageFormatInfo o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceExternalImageFormatInfo>.Equals(PhysicalDeviceExternalImageFormatInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceExternalImageFormatInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceExternalImageFormatInfo l, in PhysicalDeviceExternalImageFormatInfo r)
+	{
+		fixed (PhysicalDeviceExternalImageFormatInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalImageFormatInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalImageFormatInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceExternalImageFormatInfo l, in PhysicalDeviceExternalImageFormatInfo r)
+	{
+		fixed (PhysicalDeviceExternalImageFormatInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalImageFormatInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalImageFormatInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceExternalImageFormatInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -594,13 +1674,43 @@ public unsafe partial struct PhysicalDeviceExternalImageFormatInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExternalImageFormatProperties
+public unsafe partial struct ExternalImageFormatProperties : IEquatable<ExternalImageFormatProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExternalImageFormatProperties;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalMemoryProperties ExternalMemoryProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is ExternalImageFormatProperties o) && (this == o);
+	readonly bool IEquatable<ExternalImageFormatProperties>.Equals(ExternalImageFormatProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalImageFormatProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExternalImageFormatProperties l, in ExternalImageFormatProperties r)
+	{
+		fixed (ExternalImageFormatProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalImageFormatProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalImageFormatProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExternalImageFormatProperties l, in ExternalImageFormatProperties r)
+	{
+		fixed (ExternalImageFormatProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalImageFormatProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalImageFormatProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExternalImageFormatProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -611,7 +1721,7 @@ public unsafe partial struct ExternalImageFormatProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceExternalBufferInfo
+public unsafe partial struct PhysicalDeviceExternalBufferInfo : IEquatable<PhysicalDeviceExternalBufferInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceExternalBufferInfo;
 
@@ -620,6 +1730,36 @@ public unsafe partial struct PhysicalDeviceExternalBufferInfo
 	public Vk.BufferCreateFlags Flags;
 	public Vk.BufferUsageFlags Usage;
 	public Vk.ExternalMemoryHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExternalBufferInfo o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceExternalBufferInfo>.Equals(PhysicalDeviceExternalBufferInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceExternalBufferInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceExternalBufferInfo l, in PhysicalDeviceExternalBufferInfo r)
+	{
+		fixed (PhysicalDeviceExternalBufferInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalBufferInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalBufferInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceExternalBufferInfo l, in PhysicalDeviceExternalBufferInfo r)
+	{
+		fixed (PhysicalDeviceExternalBufferInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalBufferInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalBufferInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceExternalBufferInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -630,13 +1770,43 @@ public unsafe partial struct PhysicalDeviceExternalBufferInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExternalBufferProperties
+public unsafe partial struct ExternalBufferProperties : IEquatable<ExternalBufferProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExternalBufferProperties;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalMemoryProperties ExternalMemoryProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is ExternalBufferProperties o) && (this == o);
+	readonly bool IEquatable<ExternalBufferProperties>.Equals(ExternalBufferProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalBufferProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExternalBufferProperties l, in ExternalBufferProperties r)
+	{
+		fixed (ExternalBufferProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalBufferProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalBufferProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExternalBufferProperties l, in ExternalBufferProperties r)
+	{
+		fixed (ExternalBufferProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalBufferProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalBufferProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExternalBufferProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -647,7 +1817,7 @@ public unsafe partial struct ExternalBufferProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceIDProperties
+public unsafe partial struct PhysicalDeviceIDProperties : IEquatable<PhysicalDeviceIDProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceIdProperties;
 
@@ -659,6 +1829,36 @@ public unsafe partial struct PhysicalDeviceIDProperties
 	public uint DeviceNodeMask;
 	public Vk.Bool32 DeviceLUIDValid;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceIDProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceIDProperties>.Equals(PhysicalDeviceIDProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceIDProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceIDProperties l, in PhysicalDeviceIDProperties r)
+	{
+		fixed (PhysicalDeviceIDProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceIDProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceIDProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceIDProperties l, in PhysicalDeviceIDProperties r)
+	{
+		fixed (PhysicalDeviceIDProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceIDProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceIDProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceIDProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceIDProperties value) => value = new() { sType = TYPE };
@@ -668,13 +1868,43 @@ public unsafe partial struct PhysicalDeviceIDProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExternalMemoryImageCreateInfo
+public unsafe partial struct ExternalMemoryImageCreateInfo : IEquatable<ExternalMemoryImageCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExternalMemoryImageCreateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalMemoryHandleTypeFlags HandleTypes;
+
+	public readonly override bool Equals(object? obj) => (obj is ExternalMemoryImageCreateInfo o) && (this == o);
+	readonly bool IEquatable<ExternalMemoryImageCreateInfo>.Equals(ExternalMemoryImageCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalMemoryImageCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExternalMemoryImageCreateInfo l, in ExternalMemoryImageCreateInfo r)
+	{
+		fixed (ExternalMemoryImageCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalMemoryImageCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalMemoryImageCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExternalMemoryImageCreateInfo l, in ExternalMemoryImageCreateInfo r)
+	{
+		fixed (ExternalMemoryImageCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalMemoryImageCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalMemoryImageCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExternalMemoryImageCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -685,13 +1915,43 @@ public unsafe partial struct ExternalMemoryImageCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExternalMemoryBufferCreateInfo
+public unsafe partial struct ExternalMemoryBufferCreateInfo : IEquatable<ExternalMemoryBufferCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExternalMemoryBufferCreateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalMemoryHandleTypeFlags HandleTypes;
+
+	public readonly override bool Equals(object? obj) => (obj is ExternalMemoryBufferCreateInfo o) && (this == o);
+	readonly bool IEquatable<ExternalMemoryBufferCreateInfo>.Equals(ExternalMemoryBufferCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalMemoryBufferCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExternalMemoryBufferCreateInfo l, in ExternalMemoryBufferCreateInfo r)
+	{
+		fixed (ExternalMemoryBufferCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalMemoryBufferCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalMemoryBufferCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExternalMemoryBufferCreateInfo l, in ExternalMemoryBufferCreateInfo r)
+	{
+		fixed (ExternalMemoryBufferCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalMemoryBufferCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalMemoryBufferCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExternalMemoryBufferCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -702,13 +1962,43 @@ public unsafe partial struct ExternalMemoryBufferCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExportMemoryAllocateInfo
+public unsafe partial struct ExportMemoryAllocateInfo : IEquatable<ExportMemoryAllocateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExportMemoryAllocateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalMemoryHandleTypeFlags HandleTypes;
+
+	public readonly override bool Equals(object? obj) => (obj is ExportMemoryAllocateInfo o) && (this == o);
+	readonly bool IEquatable<ExportMemoryAllocateInfo>.Equals(ExportMemoryAllocateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExportMemoryAllocateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExportMemoryAllocateInfo l, in ExportMemoryAllocateInfo r)
+	{
+		fixed (ExportMemoryAllocateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportMemoryAllocateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportMemoryAllocateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExportMemoryAllocateInfo l, in ExportMemoryAllocateInfo r)
+	{
+		fixed (ExportMemoryAllocateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportMemoryAllocateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportMemoryAllocateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExportMemoryAllocateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -719,7 +2009,7 @@ public unsafe partial struct ExportMemoryAllocateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImportMemoryWin32HandleInfo
+public unsafe partial struct ImportMemoryWin32HandleInfo : IEquatable<ImportMemoryWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImportMemoryWin32HandleInfoKHR;
 
@@ -728,6 +2018,36 @@ public unsafe partial struct ImportMemoryWin32HandleInfo
 	public Vk.ExternalMemoryHandleTypeFlags HandleType;
 	public void* Handle;
 	public ushort* Name;
+
+	public readonly override bool Equals(object? obj) => (obj is ImportMemoryWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<ImportMemoryWin32HandleInfo>.Equals(ImportMemoryWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportMemoryWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImportMemoryWin32HandleInfo l, in ImportMemoryWin32HandleInfo r)
+	{
+		fixed (ImportMemoryWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportMemoryWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportMemoryWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImportMemoryWin32HandleInfo l, in ImportMemoryWin32HandleInfo r)
+	{
+		fixed (ImportMemoryWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportMemoryWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportMemoryWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImportMemoryWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -738,7 +2058,7 @@ public unsafe partial struct ImportMemoryWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExportMemoryWin32HandleInfo
+public unsafe partial struct ExportMemoryWin32HandleInfo : IEquatable<ExportMemoryWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExportMemoryWin32HandleInfoKHR;
 
@@ -747,6 +2067,36 @@ public unsafe partial struct ExportMemoryWin32HandleInfo
 	public void* Attributes;
 	public uint DwAccess;
 	public ushort* Name;
+
+	public readonly override bool Equals(object? obj) => (obj is ExportMemoryWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<ExportMemoryWin32HandleInfo>.Equals(ExportMemoryWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExportMemoryWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExportMemoryWin32HandleInfo l, in ExportMemoryWin32HandleInfo r)
+	{
+		fixed (ExportMemoryWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportMemoryWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportMemoryWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExportMemoryWin32HandleInfo l, in ExportMemoryWin32HandleInfo r)
+	{
+		fixed (ExportMemoryWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportMemoryWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportMemoryWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExportMemoryWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -757,13 +2107,43 @@ public unsafe partial struct ExportMemoryWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryWin32HandleProperties
+public unsafe partial struct MemoryWin32HandleProperties : IEquatable<MemoryWin32HandleProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryWin32HandlePropertiesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MemoryTypeBits;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryWin32HandleProperties o) && (this == o);
+	readonly bool IEquatable<MemoryWin32HandleProperties>.Equals(MemoryWin32HandleProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryWin32HandleProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryWin32HandleProperties l, in MemoryWin32HandleProperties r)
+	{
+		fixed (MemoryWin32HandleProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryWin32HandleProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryWin32HandleProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryWin32HandleProperties l, in MemoryWin32HandleProperties r)
+	{
+		fixed (MemoryWin32HandleProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryWin32HandleProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryWin32HandleProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryWin32HandleProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -774,7 +2154,7 @@ public unsafe partial struct MemoryWin32HandleProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryGetWin32HandleInfo
+public unsafe partial struct MemoryGetWin32HandleInfo : IEquatable<MemoryGetWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryGetWin32HandleInfoKHR;
 
@@ -782,6 +2162,36 @@ public unsafe partial struct MemoryGetWin32HandleInfo
 	public void* pNext;
 	public Vk.DeviceMemory Memory;
 	public Vk.ExternalMemoryHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryGetWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<MemoryGetWin32HandleInfo>.Equals(MemoryGetWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryGetWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryGetWin32HandleInfo l, in MemoryGetWin32HandleInfo r)
+	{
+		fixed (MemoryGetWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryGetWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryGetWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryGetWin32HandleInfo l, in MemoryGetWin32HandleInfo r)
+	{
+		fixed (MemoryGetWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryGetWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryGetWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryGetWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -792,7 +2202,7 @@ public unsafe partial struct MemoryGetWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImportMemoryFdInfo
+public unsafe partial struct ImportMemoryFdInfo : IEquatable<ImportMemoryFdInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImportMemoryFdInfoKHR;
 
@@ -800,6 +2210,36 @@ public unsafe partial struct ImportMemoryFdInfo
 	public void* pNext;
 	public Vk.ExternalMemoryHandleTypeFlags HandleType;
 	public int Fd;
+
+	public readonly override bool Equals(object? obj) => (obj is ImportMemoryFdInfo o) && (this == o);
+	readonly bool IEquatable<ImportMemoryFdInfo>.Equals(ImportMemoryFdInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportMemoryFdInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImportMemoryFdInfo l, in ImportMemoryFdInfo r)
+	{
+		fixed (ImportMemoryFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportMemoryFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportMemoryFdInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImportMemoryFdInfo l, in ImportMemoryFdInfo r)
+	{
+		fixed (ImportMemoryFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportMemoryFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportMemoryFdInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImportMemoryFdInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -810,13 +2250,43 @@ public unsafe partial struct ImportMemoryFdInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryFdProperties
+public unsafe partial struct MemoryFdProperties : IEquatable<MemoryFdProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryFdPropertiesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MemoryTypeBits;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryFdProperties o) && (this == o);
+	readonly bool IEquatable<MemoryFdProperties>.Equals(MemoryFdProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryFdProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryFdProperties l, in MemoryFdProperties r)
+	{
+		fixed (MemoryFdProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryFdProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryFdProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryFdProperties l, in MemoryFdProperties r)
+	{
+		fixed (MemoryFdProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryFdProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryFdProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryFdProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -827,7 +2297,7 @@ public unsafe partial struct MemoryFdProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryGetFdInfo
+public unsafe partial struct MemoryGetFdInfo : IEquatable<MemoryGetFdInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryGetFdInfoKHR;
 
@@ -835,6 +2305,36 @@ public unsafe partial struct MemoryGetFdInfo
 	public void* pNext;
 	public Vk.DeviceMemory Memory;
 	public Vk.ExternalMemoryHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryGetFdInfo o) && (this == o);
+	readonly bool IEquatable<MemoryGetFdInfo>.Equals(MemoryGetFdInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryGetFdInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryGetFdInfo l, in MemoryGetFdInfo r)
+	{
+		fixed (MemoryGetFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryGetFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryGetFdInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryGetFdInfo l, in MemoryGetFdInfo r)
+	{
+		fixed (MemoryGetFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryGetFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryGetFdInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryGetFdInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -845,7 +2345,7 @@ public unsafe partial struct MemoryGetFdInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct Win32KeyedMutexAcquireReleaseInfo
+public unsafe partial struct Win32KeyedMutexAcquireReleaseInfo : IEquatable<Win32KeyedMutexAcquireReleaseInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.Win32KeyedMutexAcquireReleaseInfoKHR;
 
@@ -859,6 +2359,36 @@ public unsafe partial struct Win32KeyedMutexAcquireReleaseInfo
 	public Vk.DeviceMemory* ReleaseSyncs;
 	public ulong* ReleaseKeys;
 
+	public readonly override bool Equals(object? obj) => (obj is Win32KeyedMutexAcquireReleaseInfo o) && (this == o);
+	readonly bool IEquatable<Win32KeyedMutexAcquireReleaseInfo>.Equals(Win32KeyedMutexAcquireReleaseInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<Win32KeyedMutexAcquireReleaseInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in Win32KeyedMutexAcquireReleaseInfo l, in Win32KeyedMutexAcquireReleaseInfo r)
+	{
+		fixed (Win32KeyedMutexAcquireReleaseInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<Win32KeyedMutexAcquireReleaseInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<Win32KeyedMutexAcquireReleaseInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in Win32KeyedMutexAcquireReleaseInfo l, in Win32KeyedMutexAcquireReleaseInfo r)
+	{
+		fixed (Win32KeyedMutexAcquireReleaseInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<Win32KeyedMutexAcquireReleaseInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<Win32KeyedMutexAcquireReleaseInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new Win32KeyedMutexAcquireReleaseInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out Win32KeyedMutexAcquireReleaseInfo value) => value = new() { sType = TYPE };
@@ -868,13 +2398,43 @@ public unsafe partial struct Win32KeyedMutexAcquireReleaseInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceExternalSemaphoreInfo
+public unsafe partial struct PhysicalDeviceExternalSemaphoreInfo : IEquatable<PhysicalDeviceExternalSemaphoreInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceExternalSemaphoreInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalSemaphoreHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExternalSemaphoreInfo o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceExternalSemaphoreInfo>.Equals(PhysicalDeviceExternalSemaphoreInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceExternalSemaphoreInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceExternalSemaphoreInfo l, in PhysicalDeviceExternalSemaphoreInfo r)
+	{
+		fixed (PhysicalDeviceExternalSemaphoreInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalSemaphoreInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalSemaphoreInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceExternalSemaphoreInfo l, in PhysicalDeviceExternalSemaphoreInfo r)
+	{
+		fixed (PhysicalDeviceExternalSemaphoreInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalSemaphoreInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalSemaphoreInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceExternalSemaphoreInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -885,7 +2445,7 @@ public unsafe partial struct PhysicalDeviceExternalSemaphoreInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExternalSemaphoreProperties
+public unsafe partial struct ExternalSemaphoreProperties : IEquatable<ExternalSemaphoreProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExternalSemaphoreProperties;
 
@@ -894,6 +2454,36 @@ public unsafe partial struct ExternalSemaphoreProperties
 	public Vk.ExternalSemaphoreHandleTypeFlags ExportFromImportedHandleTypes;
 	public Vk.ExternalSemaphoreHandleTypeFlags CompatibleHandleTypes;
 	public Vk.ExternalSemaphoreFeatureFlags ExternalSemaphoreFeatures;
+
+	public readonly override bool Equals(object? obj) => (obj is ExternalSemaphoreProperties o) && (this == o);
+	readonly bool IEquatable<ExternalSemaphoreProperties>.Equals(ExternalSemaphoreProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalSemaphoreProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExternalSemaphoreProperties l, in ExternalSemaphoreProperties r)
+	{
+		fixed (ExternalSemaphoreProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalSemaphoreProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalSemaphoreProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExternalSemaphoreProperties l, in ExternalSemaphoreProperties r)
+	{
+		fixed (ExternalSemaphoreProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalSemaphoreProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalSemaphoreProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExternalSemaphoreProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -904,13 +2494,43 @@ public unsafe partial struct ExternalSemaphoreProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExportSemaphoreCreateInfo
+public unsafe partial struct ExportSemaphoreCreateInfo : IEquatable<ExportSemaphoreCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExportSemaphoreCreateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalSemaphoreHandleTypeFlags HandleTypes;
+
+	public readonly override bool Equals(object? obj) => (obj is ExportSemaphoreCreateInfo o) && (this == o);
+	readonly bool IEquatable<ExportSemaphoreCreateInfo>.Equals(ExportSemaphoreCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExportSemaphoreCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExportSemaphoreCreateInfo l, in ExportSemaphoreCreateInfo r)
+	{
+		fixed (ExportSemaphoreCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportSemaphoreCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportSemaphoreCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExportSemaphoreCreateInfo l, in ExportSemaphoreCreateInfo r)
+	{
+		fixed (ExportSemaphoreCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportSemaphoreCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportSemaphoreCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExportSemaphoreCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -921,7 +2541,7 @@ public unsafe partial struct ExportSemaphoreCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImportSemaphoreWin32HandleInfo
+public unsafe partial struct ImportSemaphoreWin32HandleInfo : IEquatable<ImportSemaphoreWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImportSemaphoreWin32HandleInfoKHR;
 
@@ -933,6 +2553,36 @@ public unsafe partial struct ImportSemaphoreWin32HandleInfo
 	public void* Handle;
 	public ushort* Name;
 
+	public readonly override bool Equals(object? obj) => (obj is ImportSemaphoreWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<ImportSemaphoreWin32HandleInfo>.Equals(ImportSemaphoreWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportSemaphoreWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImportSemaphoreWin32HandleInfo l, in ImportSemaphoreWin32HandleInfo r)
+	{
+		fixed (ImportSemaphoreWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportSemaphoreWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportSemaphoreWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImportSemaphoreWin32HandleInfo l, in ImportSemaphoreWin32HandleInfo r)
+	{
+		fixed (ImportSemaphoreWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportSemaphoreWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportSemaphoreWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new ImportSemaphoreWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImportSemaphoreWin32HandleInfo value) => value = new() { sType = TYPE };
@@ -942,7 +2592,7 @@ public unsafe partial struct ImportSemaphoreWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExportSemaphoreWin32HandleInfo
+public unsafe partial struct ExportSemaphoreWin32HandleInfo : IEquatable<ExportSemaphoreWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExportSemaphoreWin32HandleInfoKHR;
 
@@ -951,6 +2601,36 @@ public unsafe partial struct ExportSemaphoreWin32HandleInfo
 	public void* Attributes;
 	public uint DwAccess;
 	public ushort* Name;
+
+	public readonly override bool Equals(object? obj) => (obj is ExportSemaphoreWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<ExportSemaphoreWin32HandleInfo>.Equals(ExportSemaphoreWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExportSemaphoreWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExportSemaphoreWin32HandleInfo l, in ExportSemaphoreWin32HandleInfo r)
+	{
+		fixed (ExportSemaphoreWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportSemaphoreWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportSemaphoreWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExportSemaphoreWin32HandleInfo l, in ExportSemaphoreWin32HandleInfo r)
+	{
+		fixed (ExportSemaphoreWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportSemaphoreWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportSemaphoreWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExportSemaphoreWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -961,7 +2641,7 @@ public unsafe partial struct ExportSemaphoreWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct D3D12FenceSubmitInfo
+public unsafe partial struct D3D12FenceSubmitInfo : IEquatable<D3D12FenceSubmitInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.D3d12FenceSubmitInfoKHR;
 
@@ -972,6 +2652,36 @@ public unsafe partial struct D3D12FenceSubmitInfo
 	public uint SignalSemaphoreValuesCount;
 	public ulong* SignalSemaphoreValues;
 
+	public readonly override bool Equals(object? obj) => (obj is D3D12FenceSubmitInfo o) && (this == o);
+	readonly bool IEquatable<D3D12FenceSubmitInfo>.Equals(D3D12FenceSubmitInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<D3D12FenceSubmitInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in D3D12FenceSubmitInfo l, in D3D12FenceSubmitInfo r)
+	{
+		fixed (D3D12FenceSubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<D3D12FenceSubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<D3D12FenceSubmitInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in D3D12FenceSubmitInfo l, in D3D12FenceSubmitInfo r)
+	{
+		fixed (D3D12FenceSubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<D3D12FenceSubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<D3D12FenceSubmitInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new D3D12FenceSubmitInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out D3D12FenceSubmitInfo value) => value = new() { sType = TYPE };
@@ -981,7 +2691,7 @@ public unsafe partial struct D3D12FenceSubmitInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SemaphoreGetWin32HandleInfo
+public unsafe partial struct SemaphoreGetWin32HandleInfo : IEquatable<SemaphoreGetWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SemaphoreGetWin32HandleInfoKHR;
 
@@ -989,6 +2699,36 @@ public unsafe partial struct SemaphoreGetWin32HandleInfo
 	public void* pNext;
 	public Vk.Semaphore Semaphore;
 	public Vk.ExternalSemaphoreHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is SemaphoreGetWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<SemaphoreGetWin32HandleInfo>.Equals(SemaphoreGetWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SemaphoreGetWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SemaphoreGetWin32HandleInfo l, in SemaphoreGetWin32HandleInfo r)
+	{
+		fixed (SemaphoreGetWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreGetWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreGetWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SemaphoreGetWin32HandleInfo l, in SemaphoreGetWin32HandleInfo r)
+	{
+		fixed (SemaphoreGetWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreGetWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreGetWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SemaphoreGetWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -999,7 +2739,7 @@ public unsafe partial struct SemaphoreGetWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImportSemaphoreFdInfo
+public unsafe partial struct ImportSemaphoreFdInfo : IEquatable<ImportSemaphoreFdInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImportSemaphoreFdInfoKHR;
 
@@ -1010,6 +2750,36 @@ public unsafe partial struct ImportSemaphoreFdInfo
 	public Vk.ExternalSemaphoreHandleTypeFlags HandleType;
 	public int Fd;
 
+	public readonly override bool Equals(object? obj) => (obj is ImportSemaphoreFdInfo o) && (this == o);
+	readonly bool IEquatable<ImportSemaphoreFdInfo>.Equals(ImportSemaphoreFdInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportSemaphoreFdInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImportSemaphoreFdInfo l, in ImportSemaphoreFdInfo r)
+	{
+		fixed (ImportSemaphoreFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportSemaphoreFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportSemaphoreFdInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImportSemaphoreFdInfo l, in ImportSemaphoreFdInfo r)
+	{
+		fixed (ImportSemaphoreFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportSemaphoreFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportSemaphoreFdInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new ImportSemaphoreFdInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImportSemaphoreFdInfo value) => value = new() { sType = TYPE };
@@ -1019,7 +2789,7 @@ public unsafe partial struct ImportSemaphoreFdInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SemaphoreGetFdInfo
+public unsafe partial struct SemaphoreGetFdInfo : IEquatable<SemaphoreGetFdInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SemaphoreGetFdInfoKHR;
 
@@ -1027,6 +2797,36 @@ public unsafe partial struct SemaphoreGetFdInfo
 	public void* pNext;
 	public Vk.Semaphore Semaphore;
 	public Vk.ExternalSemaphoreHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is SemaphoreGetFdInfo o) && (this == o);
+	readonly bool IEquatable<SemaphoreGetFdInfo>.Equals(SemaphoreGetFdInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SemaphoreGetFdInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SemaphoreGetFdInfo l, in SemaphoreGetFdInfo r)
+	{
+		fixed (SemaphoreGetFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreGetFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreGetFdInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SemaphoreGetFdInfo l, in SemaphoreGetFdInfo r)
+	{
+		fixed (SemaphoreGetFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreGetFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreGetFdInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SemaphoreGetFdInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1037,13 +2837,43 @@ public unsafe partial struct SemaphoreGetFdInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceExternalFenceInfo
+public unsafe partial struct PhysicalDeviceExternalFenceInfo : IEquatable<PhysicalDeviceExternalFenceInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceExternalFenceInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalFenceHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExternalFenceInfo o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceExternalFenceInfo>.Equals(PhysicalDeviceExternalFenceInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceExternalFenceInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceExternalFenceInfo l, in PhysicalDeviceExternalFenceInfo r)
+	{
+		fixed (PhysicalDeviceExternalFenceInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalFenceInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalFenceInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceExternalFenceInfo l, in PhysicalDeviceExternalFenceInfo r)
+	{
+		fixed (PhysicalDeviceExternalFenceInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalFenceInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalFenceInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceExternalFenceInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1054,7 +2884,7 @@ public unsafe partial struct PhysicalDeviceExternalFenceInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExternalFenceProperties
+public unsafe partial struct ExternalFenceProperties : IEquatable<ExternalFenceProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExternalFenceProperties;
 
@@ -1063,6 +2893,36 @@ public unsafe partial struct ExternalFenceProperties
 	public Vk.ExternalFenceHandleTypeFlags ExportFromImportedHandleTypes;
 	public Vk.ExternalFenceHandleTypeFlags CompatibleHandleTypes;
 	public Vk.ExternalFenceFeatureFlags ExternalFenceFeatures;
+
+	public readonly override bool Equals(object? obj) => (obj is ExternalFenceProperties o) && (this == o);
+	readonly bool IEquatable<ExternalFenceProperties>.Equals(ExternalFenceProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalFenceProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExternalFenceProperties l, in ExternalFenceProperties r)
+	{
+		fixed (ExternalFenceProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalFenceProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalFenceProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExternalFenceProperties l, in ExternalFenceProperties r)
+	{
+		fixed (ExternalFenceProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalFenceProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalFenceProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExternalFenceProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1073,13 +2933,43 @@ public unsafe partial struct ExternalFenceProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExportFenceCreateInfo
+public unsafe partial struct ExportFenceCreateInfo : IEquatable<ExportFenceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExportFenceCreateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ExternalFenceHandleTypeFlags HandleTypes;
+
+	public readonly override bool Equals(object? obj) => (obj is ExportFenceCreateInfo o) && (this == o);
+	readonly bool IEquatable<ExportFenceCreateInfo>.Equals(ExportFenceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExportFenceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExportFenceCreateInfo l, in ExportFenceCreateInfo r)
+	{
+		fixed (ExportFenceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportFenceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportFenceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExportFenceCreateInfo l, in ExportFenceCreateInfo r)
+	{
+		fixed (ExportFenceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportFenceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportFenceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExportFenceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1090,7 +2980,7 @@ public unsafe partial struct ExportFenceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImportFenceWin32HandleInfo
+public unsafe partial struct ImportFenceWin32HandleInfo : IEquatable<ImportFenceWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImportFenceWin32HandleInfoKHR;
 
@@ -1102,6 +2992,36 @@ public unsafe partial struct ImportFenceWin32HandleInfo
 	public void* Handle;
 	public ushort* Name;
 
+	public readonly override bool Equals(object? obj) => (obj is ImportFenceWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<ImportFenceWin32HandleInfo>.Equals(ImportFenceWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportFenceWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImportFenceWin32HandleInfo l, in ImportFenceWin32HandleInfo r)
+	{
+		fixed (ImportFenceWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportFenceWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportFenceWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImportFenceWin32HandleInfo l, in ImportFenceWin32HandleInfo r)
+	{
+		fixed (ImportFenceWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportFenceWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportFenceWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new ImportFenceWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImportFenceWin32HandleInfo value) => value = new() { sType = TYPE };
@@ -1111,7 +3031,7 @@ public unsafe partial struct ImportFenceWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ExportFenceWin32HandleInfo
+public unsafe partial struct ExportFenceWin32HandleInfo : IEquatable<ExportFenceWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ExportFenceWin32HandleInfoKHR;
 
@@ -1120,6 +3040,36 @@ public unsafe partial struct ExportFenceWin32HandleInfo
 	public void* Attributes;
 	public uint DwAccess;
 	public ushort* Name;
+
+	public readonly override bool Equals(object? obj) => (obj is ExportFenceWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<ExportFenceWin32HandleInfo>.Equals(ExportFenceWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExportFenceWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ExportFenceWin32HandleInfo l, in ExportFenceWin32HandleInfo r)
+	{
+		fixed (ExportFenceWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportFenceWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportFenceWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ExportFenceWin32HandleInfo l, in ExportFenceWin32HandleInfo r)
+	{
+		fixed (ExportFenceWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExportFenceWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExportFenceWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ExportFenceWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1130,7 +3080,7 @@ public unsafe partial struct ExportFenceWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct FenceGetWin32HandleInfo
+public unsafe partial struct FenceGetWin32HandleInfo : IEquatable<FenceGetWin32HandleInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.FenceGetWin32HandleInfoKHR;
 
@@ -1138,6 +3088,36 @@ public unsafe partial struct FenceGetWin32HandleInfo
 	public void* pNext;
 	public Vk.Fence Fence;
 	public Vk.ExternalFenceHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is FenceGetWin32HandleInfo o) && (this == o);
+	readonly bool IEquatable<FenceGetWin32HandleInfo>.Equals(FenceGetWin32HandleInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<FenceGetWin32HandleInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in FenceGetWin32HandleInfo l, in FenceGetWin32HandleInfo r)
+	{
+		fixed (FenceGetWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FenceGetWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FenceGetWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in FenceGetWin32HandleInfo l, in FenceGetWin32HandleInfo r)
+	{
+		fixed (FenceGetWin32HandleInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FenceGetWin32HandleInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FenceGetWin32HandleInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new FenceGetWin32HandleInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1148,7 +3128,7 @@ public unsafe partial struct FenceGetWin32HandleInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImportFenceFdInfo
+public unsafe partial struct ImportFenceFdInfo : IEquatable<ImportFenceFdInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImportFenceFdInfoKHR;
 
@@ -1159,6 +3139,36 @@ public unsafe partial struct ImportFenceFdInfo
 	public Vk.ExternalFenceHandleTypeFlags HandleType;
 	public int Fd;
 
+	public readonly override bool Equals(object? obj) => (obj is ImportFenceFdInfo o) && (this == o);
+	readonly bool IEquatable<ImportFenceFdInfo>.Equals(ImportFenceFdInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportFenceFdInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImportFenceFdInfo l, in ImportFenceFdInfo r)
+	{
+		fixed (ImportFenceFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportFenceFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportFenceFdInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImportFenceFdInfo l, in ImportFenceFdInfo r)
+	{
+		fixed (ImportFenceFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportFenceFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportFenceFdInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new ImportFenceFdInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImportFenceFdInfo value) => value = new() { sType = TYPE };
@@ -1168,7 +3178,7 @@ public unsafe partial struct ImportFenceFdInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct FenceGetFdInfo
+public unsafe partial struct FenceGetFdInfo : IEquatable<FenceGetFdInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.FenceGetFdInfoKHR;
 
@@ -1176,6 +3186,36 @@ public unsafe partial struct FenceGetFdInfo
 	public void* pNext;
 	public Vk.Fence Fence;
 	public Vk.ExternalFenceHandleTypeFlags HandleType;
+
+	public readonly override bool Equals(object? obj) => (obj is FenceGetFdInfo o) && (this == o);
+	readonly bool IEquatable<FenceGetFdInfo>.Equals(FenceGetFdInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<FenceGetFdInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in FenceGetFdInfo l, in FenceGetFdInfo r)
+	{
+		fixed (FenceGetFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FenceGetFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FenceGetFdInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in FenceGetFdInfo l, in FenceGetFdInfo r)
+	{
+		fixed (FenceGetFdInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FenceGetFdInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FenceGetFdInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new FenceGetFdInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1186,7 +3226,7 @@ public unsafe partial struct FenceGetFdInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceMultiviewFeatures
+public unsafe partial struct PhysicalDeviceMultiviewFeatures : IEquatable<PhysicalDeviceMultiviewFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceMultiviewFeatures;
 
@@ -1195,6 +3235,36 @@ public unsafe partial struct PhysicalDeviceMultiviewFeatures
 	public Vk.Bool32 Multiview;
 	public Vk.Bool32 MultiviewGeometryShader;
 	public Vk.Bool32 MultiviewTessellationShader;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMultiviewFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceMultiviewFeatures>.Equals(PhysicalDeviceMultiviewFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceMultiviewFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceMultiviewFeatures l, in PhysicalDeviceMultiviewFeatures r)
+	{
+		fixed (PhysicalDeviceMultiviewFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMultiviewFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMultiviewFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceMultiviewFeatures l, in PhysicalDeviceMultiviewFeatures r)
+	{
+		fixed (PhysicalDeviceMultiviewFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMultiviewFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMultiviewFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceMultiviewFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1205,7 +3275,7 @@ public unsafe partial struct PhysicalDeviceMultiviewFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceMultiviewProperties
+public unsafe partial struct PhysicalDeviceMultiviewProperties : IEquatable<PhysicalDeviceMultiviewProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceMultiviewProperties;
 
@@ -1213,6 +3283,36 @@ public unsafe partial struct PhysicalDeviceMultiviewProperties
 	public void* pNext;
 	public uint MaxMultiviewViewCount;
 	public uint MaxMultiviewInstanceIndex;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMultiviewProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceMultiviewProperties>.Equals(PhysicalDeviceMultiviewProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceMultiviewProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceMultiviewProperties l, in PhysicalDeviceMultiviewProperties r)
+	{
+		fixed (PhysicalDeviceMultiviewProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMultiviewProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMultiviewProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceMultiviewProperties l, in PhysicalDeviceMultiviewProperties r)
+	{
+		fixed (PhysicalDeviceMultiviewProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMultiviewProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMultiviewProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceMultiviewProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1223,7 +3323,7 @@ public unsafe partial struct PhysicalDeviceMultiviewProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RenderPassMultiviewCreateInfo
+public unsafe partial struct RenderPassMultiviewCreateInfo : IEquatable<RenderPassMultiviewCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RenderPassMultiviewCreateInfo;
 
@@ -1236,6 +3336,36 @@ public unsafe partial struct RenderPassMultiviewCreateInfo
 	public uint CorrelationMaskCount;
 	public uint* CorrelationMasks;
 
+	public readonly override bool Equals(object? obj) => (obj is RenderPassMultiviewCreateInfo o) && (this == o);
+	readonly bool IEquatable<RenderPassMultiviewCreateInfo>.Equals(RenderPassMultiviewCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RenderPassMultiviewCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RenderPassMultiviewCreateInfo l, in RenderPassMultiviewCreateInfo r)
+	{
+		fixed (RenderPassMultiviewCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassMultiviewCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassMultiviewCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RenderPassMultiviewCreateInfo l, in RenderPassMultiviewCreateInfo r)
+	{
+		fixed (RenderPassMultiviewCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassMultiviewCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassMultiviewCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new RenderPassMultiviewCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassMultiviewCreateInfo value) => value = new() { sType = TYPE };
@@ -1245,7 +3375,7 @@ public unsafe partial struct RenderPassMultiviewCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceGroupProperties
+public unsafe partial struct PhysicalDeviceGroupProperties : IEquatable<PhysicalDeviceGroupProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceGroupProperties;
 
@@ -1286,6 +3416,36 @@ public unsafe partial struct PhysicalDeviceGroupProperties
 	public Vk.PhysicalDevice PhysicalDevices_31;
 	public Vk.Bool32 SubsetAllocation;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceGroupProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceGroupProperties>.Equals(PhysicalDeviceGroupProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceGroupProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceGroupProperties l, in PhysicalDeviceGroupProperties r)
+	{
+		fixed (PhysicalDeviceGroupProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceGroupProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceGroupProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceGroupProperties l, in PhysicalDeviceGroupProperties r)
+	{
+		fixed (PhysicalDeviceGroupProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceGroupProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceGroupProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceGroupProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceGroupProperties value) => value = new() { sType = TYPE };
@@ -1295,7 +3455,7 @@ public unsafe partial struct PhysicalDeviceGroupProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryAllocateFlagsInfo
+public unsafe partial struct MemoryAllocateFlagsInfo : IEquatable<MemoryAllocateFlagsInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryAllocateFlagsInfo;
 
@@ -1303,6 +3463,36 @@ public unsafe partial struct MemoryAllocateFlagsInfo
 	public void* pNext;
 	public Vk.MemoryAllocateFlags Flags;
 	public uint DeviceMask;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryAllocateFlagsInfo o) && (this == o);
+	readonly bool IEquatable<MemoryAllocateFlagsInfo>.Equals(MemoryAllocateFlagsInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryAllocateFlagsInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryAllocateFlagsInfo l, in MemoryAllocateFlagsInfo r)
+	{
+		fixed (MemoryAllocateFlagsInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryAllocateFlagsInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryAllocateFlagsInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryAllocateFlagsInfo l, in MemoryAllocateFlagsInfo r)
+	{
+		fixed (MemoryAllocateFlagsInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryAllocateFlagsInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryAllocateFlagsInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryAllocateFlagsInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1313,7 +3503,7 @@ public unsafe partial struct MemoryAllocateFlagsInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BindBufferMemoryInfo
+public unsafe partial struct BindBufferMemoryInfo : IEquatable<BindBufferMemoryInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BindBufferMemoryInfo;
 
@@ -1322,6 +3512,36 @@ public unsafe partial struct BindBufferMemoryInfo
 	public Vk.Buffer Buffer;
 	public Vk.DeviceMemory Memory;
 	public Vk.DeviceSize MemoryOffset;
+
+	public readonly override bool Equals(object? obj) => (obj is BindBufferMemoryInfo o) && (this == o);
+	readonly bool IEquatable<BindBufferMemoryInfo>.Equals(BindBufferMemoryInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BindBufferMemoryInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BindBufferMemoryInfo l, in BindBufferMemoryInfo r)
+	{
+		fixed (BindBufferMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindBufferMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindBufferMemoryInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BindBufferMemoryInfo l, in BindBufferMemoryInfo r)
+	{
+		fixed (BindBufferMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindBufferMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindBufferMemoryInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BindBufferMemoryInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1332,7 +3552,7 @@ public unsafe partial struct BindBufferMemoryInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BindBufferMemoryDeviceGroupInfo
+public unsafe partial struct BindBufferMemoryDeviceGroupInfo : IEquatable<BindBufferMemoryDeviceGroupInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BindBufferMemoryDeviceGroupInfo;
 
@@ -1340,6 +3560,36 @@ public unsafe partial struct BindBufferMemoryDeviceGroupInfo
 	public void* pNext;
 	public uint DeviceIndexCount;
 	public uint* DeviceIndices;
+
+	public readonly override bool Equals(object? obj) => (obj is BindBufferMemoryDeviceGroupInfo o) && (this == o);
+	readonly bool IEquatable<BindBufferMemoryDeviceGroupInfo>.Equals(BindBufferMemoryDeviceGroupInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BindBufferMemoryDeviceGroupInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BindBufferMemoryDeviceGroupInfo l, in BindBufferMemoryDeviceGroupInfo r)
+	{
+		fixed (BindBufferMemoryDeviceGroupInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindBufferMemoryDeviceGroupInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindBufferMemoryDeviceGroupInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BindBufferMemoryDeviceGroupInfo l, in BindBufferMemoryDeviceGroupInfo r)
+	{
+		fixed (BindBufferMemoryDeviceGroupInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindBufferMemoryDeviceGroupInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindBufferMemoryDeviceGroupInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BindBufferMemoryDeviceGroupInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1350,7 +3600,7 @@ public unsafe partial struct BindBufferMemoryDeviceGroupInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BindImageMemoryInfo
+public unsafe partial struct BindImageMemoryInfo : IEquatable<BindImageMemoryInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BindImageMemoryInfo;
 
@@ -1359,6 +3609,36 @@ public unsafe partial struct BindImageMemoryInfo
 	public Vk.Image Image;
 	public Vk.DeviceMemory Memory;
 	public Vk.DeviceSize MemoryOffset;
+
+	public readonly override bool Equals(object? obj) => (obj is BindImageMemoryInfo o) && (this == o);
+	readonly bool IEquatable<BindImageMemoryInfo>.Equals(BindImageMemoryInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BindImageMemoryInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BindImageMemoryInfo l, in BindImageMemoryInfo r)
+	{
+		fixed (BindImageMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImageMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImageMemoryInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BindImageMemoryInfo l, in BindImageMemoryInfo r)
+	{
+		fixed (BindImageMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImageMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImageMemoryInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BindImageMemoryInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1369,7 +3649,7 @@ public unsafe partial struct BindImageMemoryInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BindImageMemoryDeviceGroupInfo
+public unsafe partial struct BindImageMemoryDeviceGroupInfo : IEquatable<BindImageMemoryDeviceGroupInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BindImageMemoryDeviceGroupInfo;
 
@@ -1380,6 +3660,36 @@ public unsafe partial struct BindImageMemoryDeviceGroupInfo
 	public uint SplitInstanceBindRegionCount;
 	public Vk.Rect2D* SplitInstanceBindRegions;
 
+	public readonly override bool Equals(object? obj) => (obj is BindImageMemoryDeviceGroupInfo o) && (this == o);
+	readonly bool IEquatable<BindImageMemoryDeviceGroupInfo>.Equals(BindImageMemoryDeviceGroupInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BindImageMemoryDeviceGroupInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BindImageMemoryDeviceGroupInfo l, in BindImageMemoryDeviceGroupInfo r)
+	{
+		fixed (BindImageMemoryDeviceGroupInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImageMemoryDeviceGroupInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImageMemoryDeviceGroupInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BindImageMemoryDeviceGroupInfo l, in BindImageMemoryDeviceGroupInfo r)
+	{
+		fixed (BindImageMemoryDeviceGroupInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImageMemoryDeviceGroupInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImageMemoryDeviceGroupInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new BindImageMemoryDeviceGroupInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindImageMemoryDeviceGroupInfo value) => value = new() { sType = TYPE };
@@ -1389,7 +3699,7 @@ public unsafe partial struct BindImageMemoryDeviceGroupInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupRenderPassBeginInfo
+public unsafe partial struct DeviceGroupRenderPassBeginInfo : IEquatable<DeviceGroupRenderPassBeginInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupRenderPassBeginInfo;
 
@@ -1398,6 +3708,36 @@ public unsafe partial struct DeviceGroupRenderPassBeginInfo
 	public uint DeviceMask;
 	public uint DeviceRenderAreaCount;
 	public Vk.Rect2D* DeviceRenderAreas;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupRenderPassBeginInfo o) && (this == o);
+	readonly bool IEquatable<DeviceGroupRenderPassBeginInfo>.Equals(DeviceGroupRenderPassBeginInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupRenderPassBeginInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupRenderPassBeginInfo l, in DeviceGroupRenderPassBeginInfo r)
+	{
+		fixed (DeviceGroupRenderPassBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupRenderPassBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupRenderPassBeginInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupRenderPassBeginInfo l, in DeviceGroupRenderPassBeginInfo r)
+	{
+		fixed (DeviceGroupRenderPassBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupRenderPassBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupRenderPassBeginInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceGroupRenderPassBeginInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1408,13 +3748,43 @@ public unsafe partial struct DeviceGroupRenderPassBeginInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupCommandBufferBeginInfo
+public unsafe partial struct DeviceGroupCommandBufferBeginInfo : IEquatable<DeviceGroupCommandBufferBeginInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupCommandBufferBeginInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint DeviceMask;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupCommandBufferBeginInfo o) && (this == o);
+	readonly bool IEquatable<DeviceGroupCommandBufferBeginInfo>.Equals(DeviceGroupCommandBufferBeginInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupCommandBufferBeginInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupCommandBufferBeginInfo l, in DeviceGroupCommandBufferBeginInfo r)
+	{
+		fixed (DeviceGroupCommandBufferBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupCommandBufferBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupCommandBufferBeginInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupCommandBufferBeginInfo l, in DeviceGroupCommandBufferBeginInfo r)
+	{
+		fixed (DeviceGroupCommandBufferBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupCommandBufferBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupCommandBufferBeginInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceGroupCommandBufferBeginInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1425,7 +3795,7 @@ public unsafe partial struct DeviceGroupCommandBufferBeginInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupSubmitInfo
+public unsafe partial struct DeviceGroupSubmitInfo : IEquatable<DeviceGroupSubmitInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupSubmitInfo;
 
@@ -1438,6 +3808,36 @@ public unsafe partial struct DeviceGroupSubmitInfo
 	public uint SignalSemaphoreCount;
 	public uint* SignalSemaphoreDeviceIndices;
 
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupSubmitInfo o) && (this == o);
+	readonly bool IEquatable<DeviceGroupSubmitInfo>.Equals(DeviceGroupSubmitInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupSubmitInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupSubmitInfo l, in DeviceGroupSubmitInfo r)
+	{
+		fixed (DeviceGroupSubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupSubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupSubmitInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupSubmitInfo l, in DeviceGroupSubmitInfo r)
+	{
+		fixed (DeviceGroupSubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupSubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupSubmitInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new DeviceGroupSubmitInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceGroupSubmitInfo value) => value = new() { sType = TYPE };
@@ -1447,7 +3847,7 @@ public unsafe partial struct DeviceGroupSubmitInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupBindSparseInfo
+public unsafe partial struct DeviceGroupBindSparseInfo : IEquatable<DeviceGroupBindSparseInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupBindSparseInfo;
 
@@ -1455,6 +3855,36 @@ public unsafe partial struct DeviceGroupBindSparseInfo
 	public void* pNext;
 	public uint ResourceDeviceIndex;
 	public uint MemoryDeviceIndex;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupBindSparseInfo o) && (this == o);
+	readonly bool IEquatable<DeviceGroupBindSparseInfo>.Equals(DeviceGroupBindSparseInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupBindSparseInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupBindSparseInfo l, in DeviceGroupBindSparseInfo r)
+	{
+		fixed (DeviceGroupBindSparseInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupBindSparseInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupBindSparseInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupBindSparseInfo l, in DeviceGroupBindSparseInfo r)
+	{
+		fixed (DeviceGroupBindSparseInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupBindSparseInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupBindSparseInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceGroupBindSparseInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1465,7 +3895,7 @@ public unsafe partial struct DeviceGroupBindSparseInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupPresentCapabilities
+public unsafe partial struct DeviceGroupPresentCapabilities : IEquatable<DeviceGroupPresentCapabilities>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupPresentCapabilitiesKHR;
 
@@ -1473,6 +3903,36 @@ public unsafe partial struct DeviceGroupPresentCapabilities
 	public void* pNext;
 	public fixed uint PresentMask[(int)Vk.Constants.MAX_DEVICE_GROUP_SIZE];
 	public Vk.KHR.DeviceGroupPresentModeFlags Modes;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupPresentCapabilities o) && (this == o);
+	readonly bool IEquatable<DeviceGroupPresentCapabilities>.Equals(DeviceGroupPresentCapabilities obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupPresentCapabilities>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupPresentCapabilities l, in DeviceGroupPresentCapabilities r)
+	{
+		fixed (DeviceGroupPresentCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupPresentCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupPresentCapabilities>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupPresentCapabilities l, in DeviceGroupPresentCapabilities r)
+	{
+		fixed (DeviceGroupPresentCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupPresentCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupPresentCapabilities>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceGroupPresentCapabilities value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1483,13 +3943,43 @@ public unsafe partial struct DeviceGroupPresentCapabilities
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageSwapchainCreateInfo
+public unsafe partial struct ImageSwapchainCreateInfo : IEquatable<ImageSwapchainCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageSwapchainCreateInfoKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.Swapchain Swapchain;
+
+	public readonly override bool Equals(object? obj) => (obj is ImageSwapchainCreateInfo o) && (this == o);
+	readonly bool IEquatable<ImageSwapchainCreateInfo>.Equals(ImageSwapchainCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageSwapchainCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageSwapchainCreateInfo l, in ImageSwapchainCreateInfo r)
+	{
+		fixed (ImageSwapchainCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageSwapchainCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageSwapchainCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageSwapchainCreateInfo l, in ImageSwapchainCreateInfo r)
+	{
+		fixed (ImageSwapchainCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageSwapchainCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageSwapchainCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImageSwapchainCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1500,7 +3990,7 @@ public unsafe partial struct ImageSwapchainCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BindImageMemorySwapchainInfo
+public unsafe partial struct BindImageMemorySwapchainInfo : IEquatable<BindImageMemorySwapchainInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BindImageMemorySwapchainInfoKHR;
 
@@ -1508,6 +3998,36 @@ public unsafe partial struct BindImageMemorySwapchainInfo
 	public void* pNext;
 	public Vk.KHR.Swapchain Swapchain;
 	public uint ImageIndex;
+
+	public readonly override bool Equals(object? obj) => (obj is BindImageMemorySwapchainInfo o) && (this == o);
+	readonly bool IEquatable<BindImageMemorySwapchainInfo>.Equals(BindImageMemorySwapchainInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BindImageMemorySwapchainInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BindImageMemorySwapchainInfo l, in BindImageMemorySwapchainInfo r)
+	{
+		fixed (BindImageMemorySwapchainInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImageMemorySwapchainInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImageMemorySwapchainInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BindImageMemorySwapchainInfo l, in BindImageMemorySwapchainInfo r)
+	{
+		fixed (BindImageMemorySwapchainInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImageMemorySwapchainInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImageMemorySwapchainInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BindImageMemorySwapchainInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1518,7 +4038,7 @@ public unsafe partial struct BindImageMemorySwapchainInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AcquireNextImageInfo
+public unsafe partial struct AcquireNextImageInfo : IEquatable<AcquireNextImageInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AcquireNextImageInfoKHR;
 
@@ -1530,6 +4050,36 @@ public unsafe partial struct AcquireNextImageInfo
 	public Vk.Fence Fence;
 	public uint DeviceMask;
 
+	public readonly override bool Equals(object? obj) => (obj is AcquireNextImageInfo o) && (this == o);
+	readonly bool IEquatable<AcquireNextImageInfo>.Equals(AcquireNextImageInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AcquireNextImageInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AcquireNextImageInfo l, in AcquireNextImageInfo r)
+	{
+		fixed (AcquireNextImageInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AcquireNextImageInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AcquireNextImageInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AcquireNextImageInfo l, in AcquireNextImageInfo r)
+	{
+		fixed (AcquireNextImageInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AcquireNextImageInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AcquireNextImageInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new AcquireNextImageInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AcquireNextImageInfo value) => value = new() { sType = TYPE };
@@ -1539,7 +4089,7 @@ public unsafe partial struct AcquireNextImageInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupPresentInfo
+public unsafe partial struct DeviceGroupPresentInfo : IEquatable<DeviceGroupPresentInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupPresentInfoKHR;
 
@@ -1548,6 +4098,36 @@ public unsafe partial struct DeviceGroupPresentInfo
 	public uint SwapchainCount;
 	public uint* DeviceMasks;
 	public Vk.KHR.DeviceGroupPresentModeFlags Mode;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupPresentInfo o) && (this == o);
+	readonly bool IEquatable<DeviceGroupPresentInfo>.Equals(DeviceGroupPresentInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupPresentInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupPresentInfo l, in DeviceGroupPresentInfo r)
+	{
+		fixed (DeviceGroupPresentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupPresentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupPresentInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupPresentInfo l, in DeviceGroupPresentInfo r)
+	{
+		fixed (DeviceGroupPresentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupPresentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupPresentInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceGroupPresentInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1558,7 +4138,7 @@ public unsafe partial struct DeviceGroupPresentInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupDeviceCreateInfo
+public unsafe partial struct DeviceGroupDeviceCreateInfo : IEquatable<DeviceGroupDeviceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupDeviceCreateInfo;
 
@@ -1566,6 +4146,36 @@ public unsafe partial struct DeviceGroupDeviceCreateInfo
 	public void* pNext;
 	public uint PhysicalDeviceCount;
 	public Vk.PhysicalDevice* PhysicalDevices;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupDeviceCreateInfo o) && (this == o);
+	readonly bool IEquatable<DeviceGroupDeviceCreateInfo>.Equals(DeviceGroupDeviceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupDeviceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupDeviceCreateInfo l, in DeviceGroupDeviceCreateInfo r)
+	{
+		fixed (DeviceGroupDeviceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupDeviceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupDeviceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupDeviceCreateInfo l, in DeviceGroupDeviceCreateInfo r)
+	{
+		fixed (DeviceGroupDeviceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupDeviceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupDeviceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceGroupDeviceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1576,13 +4186,43 @@ public unsafe partial struct DeviceGroupDeviceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceGroupSwapchainCreateInfo
+public unsafe partial struct DeviceGroupSwapchainCreateInfo : IEquatable<DeviceGroupSwapchainCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceGroupSwapchainCreateInfoKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.DeviceGroupPresentModeFlags Modes;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceGroupSwapchainCreateInfo o) && (this == o);
+	readonly bool IEquatable<DeviceGroupSwapchainCreateInfo>.Equals(DeviceGroupSwapchainCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceGroupSwapchainCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceGroupSwapchainCreateInfo l, in DeviceGroupSwapchainCreateInfo r)
+	{
+		fixed (DeviceGroupSwapchainCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupSwapchainCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupSwapchainCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceGroupSwapchainCreateInfo l, in DeviceGroupSwapchainCreateInfo r)
+	{
+		fixed (DeviceGroupSwapchainCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceGroupSwapchainCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceGroupSwapchainCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceGroupSwapchainCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1593,7 +4233,7 @@ public unsafe partial struct DeviceGroupSwapchainCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DescriptorUpdateTemplateEntry
+public unsafe partial struct DescriptorUpdateTemplateEntry : IEquatable<DescriptorUpdateTemplateEntry>
 {
 	public uint DstBinding;
 	public uint DstArrayElement;
@@ -1601,10 +4241,40 @@ public unsafe partial struct DescriptorUpdateTemplateEntry
 	public Vk.DescriptorType DescriptorType;
 	public ulong Offset;
 	public ulong Stride;
+
+	public readonly override bool Equals(object? obj) => (obj is DescriptorUpdateTemplateEntry o) && (this == o);
+	readonly bool IEquatable<DescriptorUpdateTemplateEntry>.Equals(DescriptorUpdateTemplateEntry obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (uint* ptr = &DstBinding) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorUpdateTemplateEntry>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DescriptorUpdateTemplateEntry l, in DescriptorUpdateTemplateEntry r)
+	{
+		fixed (DescriptorUpdateTemplateEntry* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorUpdateTemplateEntry>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorUpdateTemplateEntry>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DescriptorUpdateTemplateEntry l, in DescriptorUpdateTemplateEntry r)
+	{
+		fixed (DescriptorUpdateTemplateEntry* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorUpdateTemplateEntry>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorUpdateTemplateEntry>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DescriptorUpdateTemplateCreateInfo
+public unsafe partial struct DescriptorUpdateTemplateCreateInfo : IEquatable<DescriptorUpdateTemplateCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DescriptorUpdateTemplateCreateInfo;
 
@@ -1619,6 +4289,36 @@ public unsafe partial struct DescriptorUpdateTemplateCreateInfo
 	public Vk.PipelineLayout PipelineLayout;
 	public uint Set;
 
+	public readonly override bool Equals(object? obj) => (obj is DescriptorUpdateTemplateCreateInfo o) && (this == o);
+	readonly bool IEquatable<DescriptorUpdateTemplateCreateInfo>.Equals(DescriptorUpdateTemplateCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorUpdateTemplateCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DescriptorUpdateTemplateCreateInfo l, in DescriptorUpdateTemplateCreateInfo r)
+	{
+		fixed (DescriptorUpdateTemplateCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorUpdateTemplateCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorUpdateTemplateCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DescriptorUpdateTemplateCreateInfo l, in DescriptorUpdateTemplateCreateInfo r)
+	{
+		fixed (DescriptorUpdateTemplateCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorUpdateTemplateCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorUpdateTemplateCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new DescriptorUpdateTemplateCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorUpdateTemplateCreateInfo value) => value = new() { sType = TYPE };
@@ -1628,15 +4328,45 @@ public unsafe partial struct DescriptorUpdateTemplateCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct InputAttachmentAspectReference
+public unsafe partial struct InputAttachmentAspectReference : IEquatable<InputAttachmentAspectReference>
 {
 	public uint Subpass;
 	public uint InputAttachmentIndex;
 	public Vk.ImageAspectFlags AspectMask;
+
+	public readonly override bool Equals(object? obj) => (obj is InputAttachmentAspectReference o) && (this == o);
+	readonly bool IEquatable<InputAttachmentAspectReference>.Equals(InputAttachmentAspectReference obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (uint* ptr = &Subpass) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<InputAttachmentAspectReference>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in InputAttachmentAspectReference l, in InputAttachmentAspectReference r)
+	{
+		fixed (InputAttachmentAspectReference* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<InputAttachmentAspectReference>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<InputAttachmentAspectReference>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in InputAttachmentAspectReference l, in InputAttachmentAspectReference r)
+	{
+		fixed (InputAttachmentAspectReference* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<InputAttachmentAspectReference>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<InputAttachmentAspectReference>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RenderPassInputAttachmentAspectCreateInfo
+public unsafe partial struct RenderPassInputAttachmentAspectCreateInfo : IEquatable<RenderPassInputAttachmentAspectCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RenderPassInputAttachmentAspectCreateInfo;
 
@@ -1644,6 +4374,36 @@ public unsafe partial struct RenderPassInputAttachmentAspectCreateInfo
 	public void* pNext;
 	public uint AspectReferenceCount;
 	public Vk.InputAttachmentAspectReference* AspectReferences;
+
+	public readonly override bool Equals(object? obj) => (obj is RenderPassInputAttachmentAspectCreateInfo o) && (this == o);
+	readonly bool IEquatable<RenderPassInputAttachmentAspectCreateInfo>.Equals(RenderPassInputAttachmentAspectCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RenderPassInputAttachmentAspectCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RenderPassInputAttachmentAspectCreateInfo l, in RenderPassInputAttachmentAspectCreateInfo r)
+	{
+		fixed (RenderPassInputAttachmentAspectCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassInputAttachmentAspectCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassInputAttachmentAspectCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RenderPassInputAttachmentAspectCreateInfo l, in RenderPassInputAttachmentAspectCreateInfo r)
+	{
+		fixed (RenderPassInputAttachmentAspectCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassInputAttachmentAspectCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassInputAttachmentAspectCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new RenderPassInputAttachmentAspectCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1654,13 +4414,43 @@ public unsafe partial struct RenderPassInputAttachmentAspectCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceSurfaceInfo2
+public unsafe partial struct PhysicalDeviceSurfaceInfo2 : IEquatable<PhysicalDeviceSurfaceInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceSurfaceInfo2KHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.Surface Surface;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSurfaceInfo2 o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceSurfaceInfo2>.Equals(PhysicalDeviceSurfaceInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSurfaceInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceSurfaceInfo2 l, in PhysicalDeviceSurfaceInfo2 r)
+	{
+		fixed (PhysicalDeviceSurfaceInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSurfaceInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSurfaceInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceSurfaceInfo2 l, in PhysicalDeviceSurfaceInfo2 r)
+	{
+		fixed (PhysicalDeviceSurfaceInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSurfaceInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSurfaceInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceSurfaceInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1671,13 +4461,43 @@ public unsafe partial struct PhysicalDeviceSurfaceInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SurfaceCapabilities2
+public unsafe partial struct SurfaceCapabilities2 : IEquatable<SurfaceCapabilities2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SurfaceCapabilities2KHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.SurfaceCapabilities SurfaceCapabilities;
+
+	public readonly override bool Equals(object? obj) => (obj is SurfaceCapabilities2 o) && (this == o);
+	readonly bool IEquatable<SurfaceCapabilities2>.Equals(SurfaceCapabilities2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceCapabilities2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SurfaceCapabilities2 l, in SurfaceCapabilities2 r)
+	{
+		fixed (SurfaceCapabilities2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilities2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilities2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SurfaceCapabilities2 l, in SurfaceCapabilities2 r)
+	{
+		fixed (SurfaceCapabilities2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilities2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilities2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SurfaceCapabilities2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1688,13 +4508,43 @@ public unsafe partial struct SurfaceCapabilities2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SurfaceFormat2
+public unsafe partial struct SurfaceFormat2 : IEquatable<SurfaceFormat2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SurfaceFormat2KHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.SurfaceFormat SurfaceFormat;
+
+	public readonly override bool Equals(object? obj) => (obj is SurfaceFormat2 o) && (this == o);
+	readonly bool IEquatable<SurfaceFormat2>.Equals(SurfaceFormat2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceFormat2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SurfaceFormat2 l, in SurfaceFormat2 r)
+	{
+		fixed (SurfaceFormat2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFormat2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFormat2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SurfaceFormat2 l, in SurfaceFormat2 r)
+	{
+		fixed (SurfaceFormat2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFormat2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFormat2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SurfaceFormat2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1705,13 +4555,43 @@ public unsafe partial struct SurfaceFormat2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayProperties2
+public unsafe partial struct DisplayProperties2 : IEquatable<DisplayProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplayProperties2KHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.DisplayProperties DisplayProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayProperties2 o) && (this == o);
+	readonly bool IEquatable<DisplayProperties2>.Equals(DisplayProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayProperties2 l, in DisplayProperties2 r)
+	{
+		fixed (DisplayProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayProperties2 l, in DisplayProperties2 r)
+	{
+		fixed (DisplayProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DisplayProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1722,13 +4602,43 @@ public unsafe partial struct DisplayProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayPlaneProperties2
+public unsafe partial struct DisplayPlaneProperties2 : IEquatable<DisplayPlaneProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplayPlaneProperties2KHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.DisplayPlaneProperties DisplayPlaneProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayPlaneProperties2 o) && (this == o);
+	readonly bool IEquatable<DisplayPlaneProperties2>.Equals(DisplayPlaneProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayPlaneProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayPlaneProperties2 l, in DisplayPlaneProperties2 r)
+	{
+		fixed (DisplayPlaneProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayPlaneProperties2 l, in DisplayPlaneProperties2 r)
+	{
+		fixed (DisplayPlaneProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DisplayPlaneProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1739,13 +4649,43 @@ public unsafe partial struct DisplayPlaneProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayModeProperties2
+public unsafe partial struct DisplayModeProperties2 : IEquatable<DisplayModeProperties2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplayModeProperties2KHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.DisplayModeProperties DisplayModeProperties;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayModeProperties2 o) && (this == o);
+	readonly bool IEquatable<DisplayModeProperties2>.Equals(DisplayModeProperties2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayModeProperties2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayModeProperties2 l, in DisplayModeProperties2 r)
+	{
+		fixed (DisplayModeProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeProperties2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayModeProperties2 l, in DisplayModeProperties2 r)
+	{
+		fixed (DisplayModeProperties2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayModeProperties2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayModeProperties2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DisplayModeProperties2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1756,7 +4696,7 @@ public unsafe partial struct DisplayModeProperties2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayPlaneInfo2
+public unsafe partial struct DisplayPlaneInfo2 : IEquatable<DisplayPlaneInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplayPlaneInfo2KHR;
 
@@ -1764,6 +4704,36 @@ public unsafe partial struct DisplayPlaneInfo2
 	public void* pNext;
 	public Vk.KHR.DisplayMode Mode;
 	public uint PlaneIndex;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayPlaneInfo2 o) && (this == o);
+	readonly bool IEquatable<DisplayPlaneInfo2>.Equals(DisplayPlaneInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayPlaneInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayPlaneInfo2 l, in DisplayPlaneInfo2 r)
+	{
+		fixed (DisplayPlaneInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayPlaneInfo2 l, in DisplayPlaneInfo2 r)
+	{
+		fixed (DisplayPlaneInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DisplayPlaneInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1774,13 +4744,43 @@ public unsafe partial struct DisplayPlaneInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DisplayPlaneCapabilities2
+public unsafe partial struct DisplayPlaneCapabilities2 : IEquatable<DisplayPlaneCapabilities2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DisplayPlaneCapabilities2KHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.DisplayPlaneCapabilities Capabilities;
+
+	public readonly override bool Equals(object? obj) => (obj is DisplayPlaneCapabilities2 o) && (this == o);
+	readonly bool IEquatable<DisplayPlaneCapabilities2>.Equals(DisplayPlaneCapabilities2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayPlaneCapabilities2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DisplayPlaneCapabilities2 l, in DisplayPlaneCapabilities2 r)
+	{
+		fixed (DisplayPlaneCapabilities2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneCapabilities2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneCapabilities2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DisplayPlaneCapabilities2 l, in DisplayPlaneCapabilities2 r)
+	{
+		fixed (DisplayPlaneCapabilities2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPlaneCapabilities2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPlaneCapabilities2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DisplayPlaneCapabilities2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1791,13 +4791,43 @@ public unsafe partial struct DisplayPlaneCapabilities2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SharedPresentSurfaceCapabilities
+public unsafe partial struct SharedPresentSurfaceCapabilities : IEquatable<SharedPresentSurfaceCapabilities>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SharedPresentSurfaceCapabilitiesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageUsageFlags SharedPresentSupportedUsageFlags;
+
+	public readonly override bool Equals(object? obj) => (obj is SharedPresentSurfaceCapabilities o) && (this == o);
+	readonly bool IEquatable<SharedPresentSurfaceCapabilities>.Equals(SharedPresentSurfaceCapabilities obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SharedPresentSurfaceCapabilities>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SharedPresentSurfaceCapabilities l, in SharedPresentSurfaceCapabilities r)
+	{
+		fixed (SharedPresentSurfaceCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SharedPresentSurfaceCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SharedPresentSurfaceCapabilities>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SharedPresentSurfaceCapabilities l, in SharedPresentSurfaceCapabilities r)
+	{
+		fixed (SharedPresentSurfaceCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SharedPresentSurfaceCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SharedPresentSurfaceCapabilities>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SharedPresentSurfaceCapabilities value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1808,7 +4838,7 @@ public unsafe partial struct SharedPresentSurfaceCapabilities
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevice16BitStorageFeatures
+public unsafe partial struct PhysicalDevice16BitStorageFeatures : IEquatable<PhysicalDevice16BitStorageFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevice16BitStorageFeatures;
 
@@ -1819,6 +4849,36 @@ public unsafe partial struct PhysicalDevice16BitStorageFeatures
 	public Vk.Bool32 StoragePushConstant16;
 	public Vk.Bool32 StorageInputOutput16;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevice16BitStorageFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDevice16BitStorageFeatures>.Equals(PhysicalDevice16BitStorageFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevice16BitStorageFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevice16BitStorageFeatures l, in PhysicalDevice16BitStorageFeatures r)
+	{
+		fixed (PhysicalDevice16BitStorageFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevice16BitStorageFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevice16BitStorageFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevice16BitStorageFeatures l, in PhysicalDevice16BitStorageFeatures r)
+	{
+		fixed (PhysicalDevice16BitStorageFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevice16BitStorageFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevice16BitStorageFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDevice16BitStorageFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDevice16BitStorageFeatures value) => value = new() { sType = TYPE };
@@ -1828,13 +4888,43 @@ public unsafe partial struct PhysicalDevice16BitStorageFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures
+public unsafe partial struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures : IEquatable<PhysicalDeviceShaderSubgroupExtendedTypesFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceShaderSubgroupExtendedTypesFeatures;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 ShaderSubgroupExtendedTypes;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderSubgroupExtendedTypesFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceShaderSubgroupExtendedTypesFeatures>.Equals(PhysicalDeviceShaderSubgroupExtendedTypesFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderSubgroupExtendedTypesFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceShaderSubgroupExtendedTypesFeatures l, in PhysicalDeviceShaderSubgroupExtendedTypesFeatures r)
+	{
+		fixed (PhysicalDeviceShaderSubgroupExtendedTypesFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderSubgroupExtendedTypesFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderSubgroupExtendedTypesFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceShaderSubgroupExtendedTypesFeatures l, in PhysicalDeviceShaderSubgroupExtendedTypesFeatures r)
+	{
+		fixed (PhysicalDeviceShaderSubgroupExtendedTypesFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderSubgroupExtendedTypesFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderSubgroupExtendedTypesFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceShaderSubgroupExtendedTypesFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1845,13 +4935,43 @@ public unsafe partial struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BufferMemoryRequirementsInfo2
+public unsafe partial struct BufferMemoryRequirementsInfo2 : IEquatable<BufferMemoryRequirementsInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BufferMemoryRequirementsInfo2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Buffer Buffer;
+
+	public readonly override bool Equals(object? obj) => (obj is BufferMemoryRequirementsInfo2 o) && (this == o);
+	readonly bool IEquatable<BufferMemoryRequirementsInfo2>.Equals(BufferMemoryRequirementsInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BufferMemoryRequirementsInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BufferMemoryRequirementsInfo2 l, in BufferMemoryRequirementsInfo2 r)
+	{
+		fixed (BufferMemoryRequirementsInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferMemoryRequirementsInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferMemoryRequirementsInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BufferMemoryRequirementsInfo2 l, in BufferMemoryRequirementsInfo2 r)
+	{
+		fixed (BufferMemoryRequirementsInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferMemoryRequirementsInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferMemoryRequirementsInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BufferMemoryRequirementsInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1862,13 +4982,43 @@ public unsafe partial struct BufferMemoryRequirementsInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageMemoryRequirementsInfo2
+public unsafe partial struct ImageMemoryRequirementsInfo2 : IEquatable<ImageMemoryRequirementsInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageMemoryRequirementsInfo2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Image Image;
+
+	public readonly override bool Equals(object? obj) => (obj is ImageMemoryRequirementsInfo2 o) && (this == o);
+	readonly bool IEquatable<ImageMemoryRequirementsInfo2>.Equals(ImageMemoryRequirementsInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageMemoryRequirementsInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageMemoryRequirementsInfo2 l, in ImageMemoryRequirementsInfo2 r)
+	{
+		fixed (ImageMemoryRequirementsInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageMemoryRequirementsInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageMemoryRequirementsInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageMemoryRequirementsInfo2 l, in ImageMemoryRequirementsInfo2 r)
+	{
+		fixed (ImageMemoryRequirementsInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageMemoryRequirementsInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageMemoryRequirementsInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImageMemoryRequirementsInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1879,13 +5029,43 @@ public unsafe partial struct ImageMemoryRequirementsInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageSparseMemoryRequirementsInfo2
+public unsafe partial struct ImageSparseMemoryRequirementsInfo2 : IEquatable<ImageSparseMemoryRequirementsInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageSparseMemoryRequirementsInfo2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Image Image;
+
+	public readonly override bool Equals(object? obj) => (obj is ImageSparseMemoryRequirementsInfo2 o) && (this == o);
+	readonly bool IEquatable<ImageSparseMemoryRequirementsInfo2>.Equals(ImageSparseMemoryRequirementsInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageSparseMemoryRequirementsInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageSparseMemoryRequirementsInfo2 l, in ImageSparseMemoryRequirementsInfo2 r)
+	{
+		fixed (ImageSparseMemoryRequirementsInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageSparseMemoryRequirementsInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageSparseMemoryRequirementsInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageSparseMemoryRequirementsInfo2 l, in ImageSparseMemoryRequirementsInfo2 r)
+	{
+		fixed (ImageSparseMemoryRequirementsInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageSparseMemoryRequirementsInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageSparseMemoryRequirementsInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImageSparseMemoryRequirementsInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1896,13 +5076,43 @@ public unsafe partial struct ImageSparseMemoryRequirementsInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryRequirements2
+public unsafe partial struct MemoryRequirements2 : IEquatable<MemoryRequirements2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryRequirements2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.MemoryRequirements MemoryRequirements;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryRequirements2 o) && (this == o);
+	readonly bool IEquatable<MemoryRequirements2>.Equals(MemoryRequirements2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryRequirements2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryRequirements2 l, in MemoryRequirements2 r)
+	{
+		fixed (MemoryRequirements2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryRequirements2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryRequirements2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryRequirements2 l, in MemoryRequirements2 r)
+	{
+		fixed (MemoryRequirements2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryRequirements2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryRequirements2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryRequirements2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1913,13 +5123,43 @@ public unsafe partial struct MemoryRequirements2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SparseImageMemoryRequirements2
+public unsafe partial struct SparseImageMemoryRequirements2 : IEquatable<SparseImageMemoryRequirements2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SparseImageMemoryRequirements2;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.SparseImageMemoryRequirements MemoryRequirements;
+
+	public readonly override bool Equals(object? obj) => (obj is SparseImageMemoryRequirements2 o) && (this == o);
+	readonly bool IEquatable<SparseImageMemoryRequirements2>.Equals(SparseImageMemoryRequirements2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SparseImageMemoryRequirements2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SparseImageMemoryRequirements2 l, in SparseImageMemoryRequirements2 r)
+	{
+		fixed (SparseImageMemoryRequirements2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SparseImageMemoryRequirements2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SparseImageMemoryRequirements2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SparseImageMemoryRequirements2 l, in SparseImageMemoryRequirements2 r)
+	{
+		fixed (SparseImageMemoryRequirements2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SparseImageMemoryRequirements2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SparseImageMemoryRequirements2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SparseImageMemoryRequirements2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1930,13 +5170,43 @@ public unsafe partial struct SparseImageMemoryRequirements2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevicePointClippingProperties
+public unsafe partial struct PhysicalDevicePointClippingProperties : IEquatable<PhysicalDevicePointClippingProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePointClippingProperties;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.PointClippingBehavior PointClippingBehavior;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePointClippingProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDevicePointClippingProperties>.Equals(PhysicalDevicePointClippingProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePointClippingProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevicePointClippingProperties l, in PhysicalDevicePointClippingProperties r)
+	{
+		fixed (PhysicalDevicePointClippingProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePointClippingProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePointClippingProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevicePointClippingProperties l, in PhysicalDevicePointClippingProperties r)
+	{
+		fixed (PhysicalDevicePointClippingProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePointClippingProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePointClippingProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDevicePointClippingProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1947,7 +5217,7 @@ public unsafe partial struct PhysicalDevicePointClippingProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryDedicatedRequirements
+public unsafe partial struct MemoryDedicatedRequirements : IEquatable<MemoryDedicatedRequirements>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryDedicatedRequirements;
 
@@ -1955,6 +5225,36 @@ public unsafe partial struct MemoryDedicatedRequirements
 	public void* pNext;
 	public Vk.Bool32 PrefersDedicatedAllocation;
 	public Vk.Bool32 RequiresDedicatedAllocation;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryDedicatedRequirements o) && (this == o);
+	readonly bool IEquatable<MemoryDedicatedRequirements>.Equals(MemoryDedicatedRequirements obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryDedicatedRequirements>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryDedicatedRequirements l, in MemoryDedicatedRequirements r)
+	{
+		fixed (MemoryDedicatedRequirements* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryDedicatedRequirements>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryDedicatedRequirements>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryDedicatedRequirements l, in MemoryDedicatedRequirements r)
+	{
+		fixed (MemoryDedicatedRequirements* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryDedicatedRequirements>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryDedicatedRequirements>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryDedicatedRequirements value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1965,7 +5265,7 @@ public unsafe partial struct MemoryDedicatedRequirements
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryDedicatedAllocateInfo
+public unsafe partial struct MemoryDedicatedAllocateInfo : IEquatable<MemoryDedicatedAllocateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryDedicatedAllocateInfo;
 
@@ -1973,6 +5273,36 @@ public unsafe partial struct MemoryDedicatedAllocateInfo
 	public void* pNext;
 	public Vk.Image Image;
 	public Vk.Buffer Buffer;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryDedicatedAllocateInfo o) && (this == o);
+	readonly bool IEquatable<MemoryDedicatedAllocateInfo>.Equals(MemoryDedicatedAllocateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryDedicatedAllocateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryDedicatedAllocateInfo l, in MemoryDedicatedAllocateInfo r)
+	{
+		fixed (MemoryDedicatedAllocateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryDedicatedAllocateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryDedicatedAllocateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryDedicatedAllocateInfo l, in MemoryDedicatedAllocateInfo r)
+	{
+		fixed (MemoryDedicatedAllocateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryDedicatedAllocateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryDedicatedAllocateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryDedicatedAllocateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1983,13 +5313,43 @@ public unsafe partial struct MemoryDedicatedAllocateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageViewUsageCreateInfo
+public unsafe partial struct ImageViewUsageCreateInfo : IEquatable<ImageViewUsageCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageViewUsageCreateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageUsageFlags Usage;
+
+	public readonly override bool Equals(object? obj) => (obj is ImageViewUsageCreateInfo o) && (this == o);
+	readonly bool IEquatable<ImageViewUsageCreateInfo>.Equals(ImageViewUsageCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageViewUsageCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageViewUsageCreateInfo l, in ImageViewUsageCreateInfo r)
+	{
+		fixed (ImageViewUsageCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewUsageCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewUsageCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageViewUsageCreateInfo l, in ImageViewUsageCreateInfo r)
+	{
+		fixed (ImageViewUsageCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewUsageCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewUsageCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImageViewUsageCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2000,13 +5360,43 @@ public unsafe partial struct ImageViewUsageCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PipelineTessellationDomainOriginStateCreateInfo
+public unsafe partial struct PipelineTessellationDomainOriginStateCreateInfo : IEquatable<PipelineTessellationDomainOriginStateCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PipelineTessellationDomainOriginStateCreateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.TessellationDomainOrigin DomainOrigin;
+
+	public readonly override bool Equals(object? obj) => (obj is PipelineTessellationDomainOriginStateCreateInfo o) && (this == o);
+	readonly bool IEquatable<PipelineTessellationDomainOriginStateCreateInfo>.Equals(PipelineTessellationDomainOriginStateCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineTessellationDomainOriginStateCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineTessellationDomainOriginStateCreateInfo l, in PipelineTessellationDomainOriginStateCreateInfo r)
+	{
+		fixed (PipelineTessellationDomainOriginStateCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineTessellationDomainOriginStateCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineTessellationDomainOriginStateCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineTessellationDomainOriginStateCreateInfo l, in PipelineTessellationDomainOriginStateCreateInfo r)
+	{
+		fixed (PipelineTessellationDomainOriginStateCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineTessellationDomainOriginStateCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineTessellationDomainOriginStateCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PipelineTessellationDomainOriginStateCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2017,13 +5407,43 @@ public unsafe partial struct PipelineTessellationDomainOriginStateCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SamplerYcbcrConversionInfo
+public unsafe partial struct SamplerYcbcrConversionInfo : IEquatable<SamplerYcbcrConversionInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SamplerYcbcrConversionInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.SamplerYcbcrConversion Conversion;
+
+	public readonly override bool Equals(object? obj) => (obj is SamplerYcbcrConversionInfo o) && (this == o);
+	readonly bool IEquatable<SamplerYcbcrConversionInfo>.Equals(SamplerYcbcrConversionInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SamplerYcbcrConversionInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SamplerYcbcrConversionInfo l, in SamplerYcbcrConversionInfo r)
+	{
+		fixed (SamplerYcbcrConversionInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerYcbcrConversionInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerYcbcrConversionInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SamplerYcbcrConversionInfo l, in SamplerYcbcrConversionInfo r)
+	{
+		fixed (SamplerYcbcrConversionInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerYcbcrConversionInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerYcbcrConversionInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SamplerYcbcrConversionInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2034,7 +5454,7 @@ public unsafe partial struct SamplerYcbcrConversionInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SamplerYcbcrConversionCreateInfo
+public unsafe partial struct SamplerYcbcrConversionCreateInfo : IEquatable<SamplerYcbcrConversionCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SamplerYcbcrConversionCreateInfo;
 
@@ -2049,6 +5469,36 @@ public unsafe partial struct SamplerYcbcrConversionCreateInfo
 	public Vk.Filter ChromaFilter;
 	public Vk.Bool32 ForceExplicitReconstruction;
 
+	public readonly override bool Equals(object? obj) => (obj is SamplerYcbcrConversionCreateInfo o) && (this == o);
+	readonly bool IEquatable<SamplerYcbcrConversionCreateInfo>.Equals(SamplerYcbcrConversionCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SamplerYcbcrConversionCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SamplerYcbcrConversionCreateInfo l, in SamplerYcbcrConversionCreateInfo r)
+	{
+		fixed (SamplerYcbcrConversionCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerYcbcrConversionCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerYcbcrConversionCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SamplerYcbcrConversionCreateInfo l, in SamplerYcbcrConversionCreateInfo r)
+	{
+		fixed (SamplerYcbcrConversionCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerYcbcrConversionCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerYcbcrConversionCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new SamplerYcbcrConversionCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SamplerYcbcrConversionCreateInfo value) => value = new() { sType = TYPE };
@@ -2058,13 +5508,43 @@ public unsafe partial struct SamplerYcbcrConversionCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BindImagePlaneMemoryInfo
+public unsafe partial struct BindImagePlaneMemoryInfo : IEquatable<BindImagePlaneMemoryInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BindImagePlaneMemoryInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageAspectFlags PlaneAspect;
+
+	public readonly override bool Equals(object? obj) => (obj is BindImagePlaneMemoryInfo o) && (this == o);
+	readonly bool IEquatable<BindImagePlaneMemoryInfo>.Equals(BindImagePlaneMemoryInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BindImagePlaneMemoryInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BindImagePlaneMemoryInfo l, in BindImagePlaneMemoryInfo r)
+	{
+		fixed (BindImagePlaneMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImagePlaneMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImagePlaneMemoryInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BindImagePlaneMemoryInfo l, in BindImagePlaneMemoryInfo r)
+	{
+		fixed (BindImagePlaneMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindImagePlaneMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindImagePlaneMemoryInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BindImagePlaneMemoryInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2075,13 +5555,43 @@ public unsafe partial struct BindImagePlaneMemoryInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImagePlaneMemoryRequirementsInfo
+public unsafe partial struct ImagePlaneMemoryRequirementsInfo : IEquatable<ImagePlaneMemoryRequirementsInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImagePlaneMemoryRequirementsInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageAspectFlags PlaneAspect;
+
+	public readonly override bool Equals(object? obj) => (obj is ImagePlaneMemoryRequirementsInfo o) && (this == o);
+	readonly bool IEquatable<ImagePlaneMemoryRequirementsInfo>.Equals(ImagePlaneMemoryRequirementsInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImagePlaneMemoryRequirementsInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImagePlaneMemoryRequirementsInfo l, in ImagePlaneMemoryRequirementsInfo r)
+	{
+		fixed (ImagePlaneMemoryRequirementsInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImagePlaneMemoryRequirementsInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImagePlaneMemoryRequirementsInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImagePlaneMemoryRequirementsInfo l, in ImagePlaneMemoryRequirementsInfo r)
+	{
+		fixed (ImagePlaneMemoryRequirementsInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImagePlaneMemoryRequirementsInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImagePlaneMemoryRequirementsInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImagePlaneMemoryRequirementsInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2092,13 +5602,43 @@ public unsafe partial struct ImagePlaneMemoryRequirementsInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceSamplerYcbcrConversionFeatures
+public unsafe partial struct PhysicalDeviceSamplerYcbcrConversionFeatures : IEquatable<PhysicalDeviceSamplerYcbcrConversionFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceSamplerYcbcrConversionFeatures;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 SamplerYcbcrConversion;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSamplerYcbcrConversionFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceSamplerYcbcrConversionFeatures>.Equals(PhysicalDeviceSamplerYcbcrConversionFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSamplerYcbcrConversionFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceSamplerYcbcrConversionFeatures l, in PhysicalDeviceSamplerYcbcrConversionFeatures r)
+	{
+		fixed (PhysicalDeviceSamplerYcbcrConversionFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSamplerYcbcrConversionFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSamplerYcbcrConversionFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceSamplerYcbcrConversionFeatures l, in PhysicalDeviceSamplerYcbcrConversionFeatures r)
+	{
+		fixed (PhysicalDeviceSamplerYcbcrConversionFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSamplerYcbcrConversionFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSamplerYcbcrConversionFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceSamplerYcbcrConversionFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2109,13 +5649,43 @@ public unsafe partial struct PhysicalDeviceSamplerYcbcrConversionFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SamplerYcbcrConversionImageFormatProperties
+public unsafe partial struct SamplerYcbcrConversionImageFormatProperties : IEquatable<SamplerYcbcrConversionImageFormatProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SamplerYcbcrConversionImageFormatProperties;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint CombinedImageSamplerDescriptorCount;
+
+	public readonly override bool Equals(object? obj) => (obj is SamplerYcbcrConversionImageFormatProperties o) && (this == o);
+	readonly bool IEquatable<SamplerYcbcrConversionImageFormatProperties>.Equals(SamplerYcbcrConversionImageFormatProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SamplerYcbcrConversionImageFormatProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SamplerYcbcrConversionImageFormatProperties l, in SamplerYcbcrConversionImageFormatProperties r)
+	{
+		fixed (SamplerYcbcrConversionImageFormatProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerYcbcrConversionImageFormatProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerYcbcrConversionImageFormatProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SamplerYcbcrConversionImageFormatProperties l, in SamplerYcbcrConversionImageFormatProperties r)
+	{
+		fixed (SamplerYcbcrConversionImageFormatProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerYcbcrConversionImageFormatProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerYcbcrConversionImageFormatProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SamplerYcbcrConversionImageFormatProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2126,7 +5696,7 @@ public unsafe partial struct SamplerYcbcrConversionImageFormatProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageFormatListCreateInfo
+public unsafe partial struct ImageFormatListCreateInfo : IEquatable<ImageFormatListCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageFormatListCreateInfo;
 
@@ -2134,6 +5704,36 @@ public unsafe partial struct ImageFormatListCreateInfo
 	public void* pNext;
 	public uint ViewFormatCount;
 	public Vk.Format* ViewFormats;
+
+	public readonly override bool Equals(object? obj) => (obj is ImageFormatListCreateInfo o) && (this == o);
+	readonly bool IEquatable<ImageFormatListCreateInfo>.Equals(ImageFormatListCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageFormatListCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageFormatListCreateInfo l, in ImageFormatListCreateInfo r)
+	{
+		fixed (ImageFormatListCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageFormatListCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageFormatListCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageFormatListCreateInfo l, in ImageFormatListCreateInfo r)
+	{
+		fixed (ImageFormatListCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageFormatListCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageFormatListCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ImageFormatListCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2144,7 +5744,7 @@ public unsafe partial struct ImageFormatListCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceMaintenance3Properties
+public unsafe partial struct PhysicalDeviceMaintenance3Properties : IEquatable<PhysicalDeviceMaintenance3Properties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceMaintenance3Properties;
 
@@ -2152,6 +5752,36 @@ public unsafe partial struct PhysicalDeviceMaintenance3Properties
 	public void* pNext;
 	public uint MaxPerSetDescriptors;
 	public Vk.DeviceSize MaxMemoryAllocationSize;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMaintenance3Properties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceMaintenance3Properties>.Equals(PhysicalDeviceMaintenance3Properties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceMaintenance3Properties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceMaintenance3Properties l, in PhysicalDeviceMaintenance3Properties r)
+	{
+		fixed (PhysicalDeviceMaintenance3Properties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMaintenance3Properties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMaintenance3Properties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceMaintenance3Properties l, in PhysicalDeviceMaintenance3Properties r)
+	{
+		fixed (PhysicalDeviceMaintenance3Properties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMaintenance3Properties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMaintenance3Properties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceMaintenance3Properties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2162,13 +5792,43 @@ public unsafe partial struct PhysicalDeviceMaintenance3Properties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DescriptorSetLayoutSupport
+public unsafe partial struct DescriptorSetLayoutSupport : IEquatable<DescriptorSetLayoutSupport>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DescriptorSetLayoutSupport;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 Supported;
+
+	public readonly override bool Equals(object? obj) => (obj is DescriptorSetLayoutSupport o) && (this == o);
+	readonly bool IEquatable<DescriptorSetLayoutSupport>.Equals(DescriptorSetLayoutSupport obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorSetLayoutSupport>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DescriptorSetLayoutSupport l, in DescriptorSetLayoutSupport r)
+	{
+		fixed (DescriptorSetLayoutSupport* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetLayoutSupport>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetLayoutSupport>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DescriptorSetLayoutSupport l, in DescriptorSetLayoutSupport r)
+	{
+		fixed (DescriptorSetLayoutSupport* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetLayoutSupport>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetLayoutSupport>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DescriptorSetLayoutSupport value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2179,7 +5839,7 @@ public unsafe partial struct DescriptorSetLayoutSupport
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceShaderFloat16Int8Features
+public unsafe partial struct PhysicalDeviceShaderFloat16Int8Features : IEquatable<PhysicalDeviceShaderFloat16Int8Features>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceShaderFloat16Int8Features;
 
@@ -2187,6 +5847,36 @@ public unsafe partial struct PhysicalDeviceShaderFloat16Int8Features
 	public void* pNext;
 	public Vk.Bool32 ShaderFloat16;
 	public Vk.Bool32 ShaderInt8;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderFloat16Int8Features o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceShaderFloat16Int8Features>.Equals(PhysicalDeviceShaderFloat16Int8Features obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderFloat16Int8Features>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceShaderFloat16Int8Features l, in PhysicalDeviceShaderFloat16Int8Features r)
+	{
+		fixed (PhysicalDeviceShaderFloat16Int8Features* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderFloat16Int8Features>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderFloat16Int8Features>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceShaderFloat16Int8Features l, in PhysicalDeviceShaderFloat16Int8Features r)
+	{
+		fixed (PhysicalDeviceShaderFloat16Int8Features* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderFloat16Int8Features>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderFloat16Int8Features>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceShaderFloat16Int8Features value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2197,7 +5887,7 @@ public unsafe partial struct PhysicalDeviceShaderFloat16Int8Features
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceFloat16Int8Features
+public unsafe partial struct PhysicalDeviceFloat16Int8Features : IEquatable<PhysicalDeviceFloat16Int8Features>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceShaderFloat16Int8Features;
 
@@ -2205,6 +5895,36 @@ public unsafe partial struct PhysicalDeviceFloat16Int8Features
 	public void* pNext;
 	public Vk.Bool32 ShaderFloat16;
 	public Vk.Bool32 ShaderInt8;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFloat16Int8Features o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFloat16Int8Features>.Equals(PhysicalDeviceFloat16Int8Features obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFloat16Int8Features>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceFloat16Int8Features l, in PhysicalDeviceFloat16Int8Features r)
+	{
+		fixed (PhysicalDeviceFloat16Int8Features* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFloat16Int8Features>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFloat16Int8Features>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceFloat16Int8Features l, in PhysicalDeviceFloat16Int8Features r)
+	{
+		fixed (PhysicalDeviceFloat16Int8Features* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFloat16Int8Features>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFloat16Int8Features>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceFloat16Int8Features value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2215,7 +5935,7 @@ public unsafe partial struct PhysicalDeviceFloat16Int8Features
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceFloatControlsProperties
+public unsafe partial struct PhysicalDeviceFloatControlsProperties : IEquatable<PhysicalDeviceFloatControlsProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceFloatControlsProperties;
 
@@ -2239,6 +5959,36 @@ public unsafe partial struct PhysicalDeviceFloatControlsProperties
 	public Vk.Bool32 ShaderRoundingModeRTZFloat32;
 	public Vk.Bool32 ShaderRoundingModeRTZFloat64;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFloatControlsProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFloatControlsProperties>.Equals(PhysicalDeviceFloatControlsProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFloatControlsProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceFloatControlsProperties l, in PhysicalDeviceFloatControlsProperties r)
+	{
+		fixed (PhysicalDeviceFloatControlsProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFloatControlsProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFloatControlsProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceFloatControlsProperties l, in PhysicalDeviceFloatControlsProperties r)
+	{
+		fixed (PhysicalDeviceFloatControlsProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFloatControlsProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFloatControlsProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceFloatControlsProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceFloatControlsProperties value) => value = new() { sType = TYPE };
@@ -2248,7 +5998,7 @@ public unsafe partial struct PhysicalDeviceFloatControlsProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AttachmentDescription2
+public unsafe partial struct AttachmentDescription2 : IEquatable<AttachmentDescription2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AttachmentDescription2;
 
@@ -2264,6 +6014,36 @@ public unsafe partial struct AttachmentDescription2
 	public Vk.ImageLayout InitialLayout;
 	public Vk.ImageLayout FinalLayout;
 
+	public readonly override bool Equals(object? obj) => (obj is AttachmentDescription2 o) && (this == o);
+	readonly bool IEquatable<AttachmentDescription2>.Equals(AttachmentDescription2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AttachmentDescription2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AttachmentDescription2 l, in AttachmentDescription2 r)
+	{
+		fixed (AttachmentDescription2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentDescription2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentDescription2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AttachmentDescription2 l, in AttachmentDescription2 r)
+	{
+		fixed (AttachmentDescription2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentDescription2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentDescription2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new AttachmentDescription2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AttachmentDescription2 value) => value = new() { sType = TYPE };
@@ -2273,7 +6053,7 @@ public unsafe partial struct AttachmentDescription2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AttachmentReference2
+public unsafe partial struct AttachmentReference2 : IEquatable<AttachmentReference2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AttachmentReference2;
 
@@ -2282,6 +6062,36 @@ public unsafe partial struct AttachmentReference2
 	public uint Attachment;
 	public Vk.ImageLayout Layout;
 	public Vk.ImageAspectFlags AspectMask;
+
+	public readonly override bool Equals(object? obj) => (obj is AttachmentReference2 o) && (this == o);
+	readonly bool IEquatable<AttachmentReference2>.Equals(AttachmentReference2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AttachmentReference2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AttachmentReference2 l, in AttachmentReference2 r)
+	{
+		fixed (AttachmentReference2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentReference2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentReference2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AttachmentReference2 l, in AttachmentReference2 r)
+	{
+		fixed (AttachmentReference2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentReference2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentReference2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AttachmentReference2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2292,7 +6102,7 @@ public unsafe partial struct AttachmentReference2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SubpassDescription2
+public unsafe partial struct SubpassDescription2 : IEquatable<SubpassDescription2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SubpassDescription2;
 
@@ -2310,6 +6120,36 @@ public unsafe partial struct SubpassDescription2
 	public uint PreserveAttachmentCount;
 	public uint* PreserveAttachments;
 
+	public readonly override bool Equals(object? obj) => (obj is SubpassDescription2 o) && (this == o);
+	readonly bool IEquatable<SubpassDescription2>.Equals(SubpassDescription2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SubpassDescription2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SubpassDescription2 l, in SubpassDescription2 r)
+	{
+		fixed (SubpassDescription2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassDescription2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassDescription2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SubpassDescription2 l, in SubpassDescription2 r)
+	{
+		fixed (SubpassDescription2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassDescription2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassDescription2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new SubpassDescription2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubpassDescription2 value) => value = new() { sType = TYPE };
@@ -2319,7 +6159,7 @@ public unsafe partial struct SubpassDescription2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SubpassDependency2
+public unsafe partial struct SubpassDependency2 : IEquatable<SubpassDependency2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SubpassDependency2;
 
@@ -2334,6 +6174,36 @@ public unsafe partial struct SubpassDependency2
 	public Vk.DependencyFlags DependencyFlags;
 	public int ViewOffset;
 
+	public readonly override bool Equals(object? obj) => (obj is SubpassDependency2 o) && (this == o);
+	readonly bool IEquatable<SubpassDependency2>.Equals(SubpassDependency2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SubpassDependency2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SubpassDependency2 l, in SubpassDependency2 r)
+	{
+		fixed (SubpassDependency2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassDependency2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassDependency2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SubpassDependency2 l, in SubpassDependency2 r)
+	{
+		fixed (SubpassDependency2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassDependency2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassDependency2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new SubpassDependency2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubpassDependency2 value) => value = new() { sType = TYPE };
@@ -2343,7 +6213,7 @@ public unsafe partial struct SubpassDependency2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RenderPassCreateInfo2
+public unsafe partial struct RenderPassCreateInfo2 : IEquatable<RenderPassCreateInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RenderPassCreateInfo2;
 
@@ -2359,6 +6229,36 @@ public unsafe partial struct RenderPassCreateInfo2
 	public uint CorrelatedViewMaskCount;
 	public uint* CorrelatedViewMasks;
 
+	public readonly override bool Equals(object? obj) => (obj is RenderPassCreateInfo2 o) && (this == o);
+	readonly bool IEquatable<RenderPassCreateInfo2>.Equals(RenderPassCreateInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RenderPassCreateInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RenderPassCreateInfo2 l, in RenderPassCreateInfo2 r)
+	{
+		fixed (RenderPassCreateInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassCreateInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassCreateInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RenderPassCreateInfo2 l, in RenderPassCreateInfo2 r)
+	{
+		fixed (RenderPassCreateInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassCreateInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassCreateInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new RenderPassCreateInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassCreateInfo2 value) => value = new() { sType = TYPE };
@@ -2368,13 +6268,43 @@ public unsafe partial struct RenderPassCreateInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SubpassBeginInfo
+public unsafe partial struct SubpassBeginInfo : IEquatable<SubpassBeginInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SubpassBeginInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.SubpassContents Contents;
+
+	public readonly override bool Equals(object? obj) => (obj is SubpassBeginInfo o) && (this == o);
+	readonly bool IEquatable<SubpassBeginInfo>.Equals(SubpassBeginInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SubpassBeginInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SubpassBeginInfo l, in SubpassBeginInfo r)
+	{
+		fixed (SubpassBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassBeginInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SubpassBeginInfo l, in SubpassBeginInfo r)
+	{
+		fixed (SubpassBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassBeginInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SubpassBeginInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2385,12 +6315,42 @@ public unsafe partial struct SubpassBeginInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SubpassEndInfo
+public unsafe partial struct SubpassEndInfo : IEquatable<SubpassEndInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SubpassEndInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
+
+	public readonly override bool Equals(object? obj) => (obj is SubpassEndInfo o) && (this == o);
+	readonly bool IEquatable<SubpassEndInfo>.Equals(SubpassEndInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SubpassEndInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SubpassEndInfo l, in SubpassEndInfo r)
+	{
+		fixed (SubpassEndInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassEndInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassEndInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SubpassEndInfo l, in SubpassEndInfo r)
+	{
+		fixed (SubpassEndInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassEndInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassEndInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SubpassEndInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2401,13 +6361,43 @@ public unsafe partial struct SubpassEndInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceTimelineSemaphoreFeatures
+public unsafe partial struct PhysicalDeviceTimelineSemaphoreFeatures : IEquatable<PhysicalDeviceTimelineSemaphoreFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceTimelineSemaphoreFeatures;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 TimelineSemaphore;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTimelineSemaphoreFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceTimelineSemaphoreFeatures>.Equals(PhysicalDeviceTimelineSemaphoreFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceTimelineSemaphoreFeatures l, in PhysicalDeviceTimelineSemaphoreFeatures r)
+	{
+		fixed (PhysicalDeviceTimelineSemaphoreFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceTimelineSemaphoreFeatures l, in PhysicalDeviceTimelineSemaphoreFeatures r)
+	{
+		fixed (PhysicalDeviceTimelineSemaphoreFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceTimelineSemaphoreFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2418,13 +6408,43 @@ public unsafe partial struct PhysicalDeviceTimelineSemaphoreFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceTimelineSemaphoreProperties
+public unsafe partial struct PhysicalDeviceTimelineSemaphoreProperties : IEquatable<PhysicalDeviceTimelineSemaphoreProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceTimelineSemaphoreProperties;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong MaxTimelineSemaphoreValueDifference;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTimelineSemaphoreProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceTimelineSemaphoreProperties>.Equals(PhysicalDeviceTimelineSemaphoreProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceTimelineSemaphoreProperties l, in PhysicalDeviceTimelineSemaphoreProperties r)
+	{
+		fixed (PhysicalDeviceTimelineSemaphoreProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceTimelineSemaphoreProperties l, in PhysicalDeviceTimelineSemaphoreProperties r)
+	{
+		fixed (PhysicalDeviceTimelineSemaphoreProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTimelineSemaphoreProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceTimelineSemaphoreProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2435,7 +6455,7 @@ public unsafe partial struct PhysicalDeviceTimelineSemaphoreProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SemaphoreTypeCreateInfo
+public unsafe partial struct SemaphoreTypeCreateInfo : IEquatable<SemaphoreTypeCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SemaphoreTypeCreateInfo;
 
@@ -2443,6 +6463,36 @@ public unsafe partial struct SemaphoreTypeCreateInfo
 	public void* pNext;
 	public Vk.SemaphoreType SemaphoreType;
 	public ulong InitialValue;
+
+	public readonly override bool Equals(object? obj) => (obj is SemaphoreTypeCreateInfo o) && (this == o);
+	readonly bool IEquatable<SemaphoreTypeCreateInfo>.Equals(SemaphoreTypeCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SemaphoreTypeCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SemaphoreTypeCreateInfo l, in SemaphoreTypeCreateInfo r)
+	{
+		fixed (SemaphoreTypeCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreTypeCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreTypeCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SemaphoreTypeCreateInfo l, in SemaphoreTypeCreateInfo r)
+	{
+		fixed (SemaphoreTypeCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreTypeCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreTypeCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SemaphoreTypeCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2453,7 +6503,7 @@ public unsafe partial struct SemaphoreTypeCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct TimelineSemaphoreSubmitInfo
+public unsafe partial struct TimelineSemaphoreSubmitInfo : IEquatable<TimelineSemaphoreSubmitInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.TimelineSemaphoreSubmitInfo;
 
@@ -2464,6 +6514,36 @@ public unsafe partial struct TimelineSemaphoreSubmitInfo
 	public uint SignalSemaphoreValueCount;
 	public ulong* SignalSemaphoreValues;
 
+	public readonly override bool Equals(object? obj) => (obj is TimelineSemaphoreSubmitInfo o) && (this == o);
+	readonly bool IEquatable<TimelineSemaphoreSubmitInfo>.Equals(TimelineSemaphoreSubmitInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<TimelineSemaphoreSubmitInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in TimelineSemaphoreSubmitInfo l, in TimelineSemaphoreSubmitInfo r)
+	{
+		fixed (TimelineSemaphoreSubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<TimelineSemaphoreSubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<TimelineSemaphoreSubmitInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in TimelineSemaphoreSubmitInfo l, in TimelineSemaphoreSubmitInfo r)
+	{
+		fixed (TimelineSemaphoreSubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<TimelineSemaphoreSubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<TimelineSemaphoreSubmitInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new TimelineSemaphoreSubmitInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out TimelineSemaphoreSubmitInfo value) => value = new() { sType = TYPE };
@@ -2473,7 +6553,7 @@ public unsafe partial struct TimelineSemaphoreSubmitInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SemaphoreWaitInfo
+public unsafe partial struct SemaphoreWaitInfo : IEquatable<SemaphoreWaitInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SemaphoreWaitInfo;
 
@@ -2484,6 +6564,36 @@ public unsafe partial struct SemaphoreWaitInfo
 	public Vk.Semaphore* Semaphores;
 	public ulong* Values;
 
+	public readonly override bool Equals(object? obj) => (obj is SemaphoreWaitInfo o) && (this == o);
+	readonly bool IEquatable<SemaphoreWaitInfo>.Equals(SemaphoreWaitInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SemaphoreWaitInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SemaphoreWaitInfo l, in SemaphoreWaitInfo r)
+	{
+		fixed (SemaphoreWaitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreWaitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreWaitInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SemaphoreWaitInfo l, in SemaphoreWaitInfo r)
+	{
+		fixed (SemaphoreWaitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreWaitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreWaitInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new SemaphoreWaitInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SemaphoreWaitInfo value) => value = new() { sType = TYPE };
@@ -2493,7 +6603,7 @@ public unsafe partial struct SemaphoreWaitInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SemaphoreSignalInfo
+public unsafe partial struct SemaphoreSignalInfo : IEquatable<SemaphoreSignalInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SemaphoreSignalInfo;
 
@@ -2501,6 +6611,36 @@ public unsafe partial struct SemaphoreSignalInfo
 	public void* pNext;
 	public Vk.Semaphore Semaphore;
 	public ulong Value;
+
+	public readonly override bool Equals(object? obj) => (obj is SemaphoreSignalInfo o) && (this == o);
+	readonly bool IEquatable<SemaphoreSignalInfo>.Equals(SemaphoreSignalInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SemaphoreSignalInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SemaphoreSignalInfo l, in SemaphoreSignalInfo r)
+	{
+		fixed (SemaphoreSignalInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreSignalInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreSignalInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SemaphoreSignalInfo l, in SemaphoreSignalInfo r)
+	{
+		fixed (SemaphoreSignalInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SemaphoreSignalInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SemaphoreSignalInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SemaphoreSignalInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2511,7 +6651,7 @@ public unsafe partial struct SemaphoreSignalInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevice8BitStorageFeatures
+public unsafe partial struct PhysicalDevice8BitStorageFeatures : IEquatable<PhysicalDevice8BitStorageFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevice8BitStorageFeatures;
 
@@ -2520,6 +6660,36 @@ public unsafe partial struct PhysicalDevice8BitStorageFeatures
 	public Vk.Bool32 StorageBuffer8BitAccess;
 	public Vk.Bool32 UniformAndStorageBuffer8BitAccess;
 	public Vk.Bool32 StoragePushConstant8;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevice8BitStorageFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDevice8BitStorageFeatures>.Equals(PhysicalDevice8BitStorageFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevice8BitStorageFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevice8BitStorageFeatures l, in PhysicalDevice8BitStorageFeatures r)
+	{
+		fixed (PhysicalDevice8BitStorageFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevice8BitStorageFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevice8BitStorageFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevice8BitStorageFeatures l, in PhysicalDevice8BitStorageFeatures r)
+	{
+		fixed (PhysicalDevice8BitStorageFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevice8BitStorageFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevice8BitStorageFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDevice8BitStorageFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2530,7 +6700,7 @@ public unsafe partial struct PhysicalDevice8BitStorageFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceVulkanMemoryModelFeatures
+public unsafe partial struct PhysicalDeviceVulkanMemoryModelFeatures : IEquatable<PhysicalDeviceVulkanMemoryModelFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceVulkanMemoryModelFeatures;
 
@@ -2539,6 +6709,36 @@ public unsafe partial struct PhysicalDeviceVulkanMemoryModelFeatures
 	public Vk.Bool32 VulkanMemoryModel;
 	public Vk.Bool32 VulkanMemoryModelDeviceScope;
 	public Vk.Bool32 VulkanMemoryModelAvailabilityVisibilityChains;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceVulkanMemoryModelFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceVulkanMemoryModelFeatures>.Equals(PhysicalDeviceVulkanMemoryModelFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceVulkanMemoryModelFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceVulkanMemoryModelFeatures l, in PhysicalDeviceVulkanMemoryModelFeatures r)
+	{
+		fixed (PhysicalDeviceVulkanMemoryModelFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVulkanMemoryModelFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVulkanMemoryModelFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceVulkanMemoryModelFeatures l, in PhysicalDeviceVulkanMemoryModelFeatures r)
+	{
+		fixed (PhysicalDeviceVulkanMemoryModelFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVulkanMemoryModelFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVulkanMemoryModelFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceVulkanMemoryModelFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2549,7 +6749,7 @@ public unsafe partial struct PhysicalDeviceVulkanMemoryModelFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceShaderAtomicInt64Features
+public unsafe partial struct PhysicalDeviceShaderAtomicInt64Features : IEquatable<PhysicalDeviceShaderAtomicInt64Features>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceShaderAtomicInt64Features;
 
@@ -2557,6 +6757,36 @@ public unsafe partial struct PhysicalDeviceShaderAtomicInt64Features
 	public void* pNext;
 	public Vk.Bool32 ShaderBufferInt64Atomics;
 	public Vk.Bool32 ShaderSharedInt64Atomics;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderAtomicInt64Features o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceShaderAtomicInt64Features>.Equals(PhysicalDeviceShaderAtomicInt64Features obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderAtomicInt64Features>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceShaderAtomicInt64Features l, in PhysicalDeviceShaderAtomicInt64Features r)
+	{
+		fixed (PhysicalDeviceShaderAtomicInt64Features* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicInt64Features>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicInt64Features>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceShaderAtomicInt64Features l, in PhysicalDeviceShaderAtomicInt64Features r)
+	{
+		fixed (PhysicalDeviceShaderAtomicInt64Features* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicInt64Features>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicInt64Features>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceShaderAtomicInt64Features value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2567,7 +6797,7 @@ public unsafe partial struct PhysicalDeviceShaderAtomicInt64Features
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceDepthStencilResolveProperties
+public unsafe partial struct PhysicalDeviceDepthStencilResolveProperties : IEquatable<PhysicalDeviceDepthStencilResolveProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceDepthStencilResolveProperties;
 
@@ -2578,6 +6808,36 @@ public unsafe partial struct PhysicalDeviceDepthStencilResolveProperties
 	public Vk.Bool32 IndependentResolveNone;
 	public Vk.Bool32 IndependentResolve;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDepthStencilResolveProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceDepthStencilResolveProperties>.Equals(PhysicalDeviceDepthStencilResolveProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceDepthStencilResolveProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceDepthStencilResolveProperties l, in PhysicalDeviceDepthStencilResolveProperties r)
+	{
+		fixed (PhysicalDeviceDepthStencilResolveProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDepthStencilResolveProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDepthStencilResolveProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceDepthStencilResolveProperties l, in PhysicalDeviceDepthStencilResolveProperties r)
+	{
+		fixed (PhysicalDeviceDepthStencilResolveProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDepthStencilResolveProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDepthStencilResolveProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceDepthStencilResolveProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceDepthStencilResolveProperties value) => value = new() { sType = TYPE };
@@ -2587,7 +6847,7 @@ public unsafe partial struct PhysicalDeviceDepthStencilResolveProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SubpassDescriptionDepthStencilResolve
+public unsafe partial struct SubpassDescriptionDepthStencilResolve : IEquatable<SubpassDescriptionDepthStencilResolve>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SubpassDescriptionDepthStencilResolve;
 
@@ -2596,6 +6856,36 @@ public unsafe partial struct SubpassDescriptionDepthStencilResolve
 	public Vk.ResolveModeFlags DepthResolveMode;
 	public Vk.ResolveModeFlags StencilResolveMode;
 	public Vk.AttachmentReference2* DepthStencilResolveAttachment;
+
+	public readonly override bool Equals(object? obj) => (obj is SubpassDescriptionDepthStencilResolve o) && (this == o);
+	readonly bool IEquatable<SubpassDescriptionDepthStencilResolve>.Equals(SubpassDescriptionDepthStencilResolve obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SubpassDescriptionDepthStencilResolve>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SubpassDescriptionDepthStencilResolve l, in SubpassDescriptionDepthStencilResolve r)
+	{
+		fixed (SubpassDescriptionDepthStencilResolve* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassDescriptionDepthStencilResolve>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassDescriptionDepthStencilResolve>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SubpassDescriptionDepthStencilResolve l, in SubpassDescriptionDepthStencilResolve r)
+	{
+		fixed (SubpassDescriptionDepthStencilResolve* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassDescriptionDepthStencilResolve>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassDescriptionDepthStencilResolve>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SubpassDescriptionDepthStencilResolve value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2606,7 +6896,7 @@ public unsafe partial struct SubpassDescriptionDepthStencilResolve
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RayTracingShaderGroupCreateInfo
+public unsafe partial struct RayTracingShaderGroupCreateInfo : IEquatable<RayTracingShaderGroupCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RayTracingShaderGroupCreateInfoKHR;
 
@@ -2619,6 +6909,36 @@ public unsafe partial struct RayTracingShaderGroupCreateInfo
 	public uint IntersectionShader;
 	public void* ShaderGroupCaptureReplayHandle;
 
+	public readonly override bool Equals(object? obj) => (obj is RayTracingShaderGroupCreateInfo o) && (this == o);
+	readonly bool IEquatable<RayTracingShaderGroupCreateInfo>.Equals(RayTracingShaderGroupCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RayTracingShaderGroupCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RayTracingShaderGroupCreateInfo l, in RayTracingShaderGroupCreateInfo r)
+	{
+		fixed (RayTracingShaderGroupCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RayTracingShaderGroupCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RayTracingShaderGroupCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RayTracingShaderGroupCreateInfo l, in RayTracingShaderGroupCreateInfo r)
+	{
+		fixed (RayTracingShaderGroupCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RayTracingShaderGroupCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RayTracingShaderGroupCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new RayTracingShaderGroupCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RayTracingShaderGroupCreateInfo value) => value = new() { sType = TYPE };
@@ -2628,7 +6948,7 @@ public unsafe partial struct RayTracingShaderGroupCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RayTracingPipelineCreateInfo
+public unsafe partial struct RayTracingPipelineCreateInfo : IEquatable<RayTracingPipelineCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RayTracingPipelineCreateInfoKHR;
 
@@ -2646,6 +6966,36 @@ public unsafe partial struct RayTracingPipelineCreateInfo
 	public Vk.Pipeline BasePipelineHandle;
 	public int BasePipelineIndex;
 
+	public readonly override bool Equals(object? obj) => (obj is RayTracingPipelineCreateInfo o) && (this == o);
+	readonly bool IEquatable<RayTracingPipelineCreateInfo>.Equals(RayTracingPipelineCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RayTracingPipelineCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RayTracingPipelineCreateInfo l, in RayTracingPipelineCreateInfo r)
+	{
+		fixed (RayTracingPipelineCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RayTracingPipelineCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RayTracingPipelineCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RayTracingPipelineCreateInfo l, in RayTracingPipelineCreateInfo r)
+	{
+		fixed (RayTracingPipelineCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RayTracingPipelineCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RayTracingPipelineCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new RayTracingPipelineCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RayTracingPipelineCreateInfo value) => value = new() { sType = TYPE };
@@ -2655,7 +7005,7 @@ public unsafe partial struct RayTracingPipelineCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BindAccelerationStructureMemoryInfo
+public unsafe partial struct BindAccelerationStructureMemoryInfo : IEquatable<BindAccelerationStructureMemoryInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BindAccelerationStructureMemoryInfoKHR;
 
@@ -2667,6 +7017,36 @@ public unsafe partial struct BindAccelerationStructureMemoryInfo
 	public uint DeviceIndexCount;
 	public uint* DeviceIndices;
 
+	public readonly override bool Equals(object? obj) => (obj is BindAccelerationStructureMemoryInfo o) && (this == o);
+	readonly bool IEquatable<BindAccelerationStructureMemoryInfo>.Equals(BindAccelerationStructureMemoryInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BindAccelerationStructureMemoryInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BindAccelerationStructureMemoryInfo l, in BindAccelerationStructureMemoryInfo r)
+	{
+		fixed (BindAccelerationStructureMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindAccelerationStructureMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindAccelerationStructureMemoryInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BindAccelerationStructureMemoryInfo l, in BindAccelerationStructureMemoryInfo r)
+	{
+		fixed (BindAccelerationStructureMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BindAccelerationStructureMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BindAccelerationStructureMemoryInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new BindAccelerationStructureMemoryInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindAccelerationStructureMemoryInfo value) => value = new() { sType = TYPE };
@@ -2676,7 +7056,7 @@ public unsafe partial struct BindAccelerationStructureMemoryInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct WriteDescriptorSetAccelerationStructure
+public unsafe partial struct WriteDescriptorSetAccelerationStructure : IEquatable<WriteDescriptorSetAccelerationStructure>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.WriteDescriptorSetAccelerationStructureKHR;
 
@@ -2684,6 +7064,36 @@ public unsafe partial struct WriteDescriptorSetAccelerationStructure
 	public void* pNext;
 	public uint AccelerationStructureCount;
 	public Vk.KHR.AccelerationStructure* AccelerationStructures;
+
+	public readonly override bool Equals(object? obj) => (obj is WriteDescriptorSetAccelerationStructure o) && (this == o);
+	readonly bool IEquatable<WriteDescriptorSetAccelerationStructure>.Equals(WriteDescriptorSetAccelerationStructure obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<WriteDescriptorSetAccelerationStructure>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in WriteDescriptorSetAccelerationStructure l, in WriteDescriptorSetAccelerationStructure r)
+	{
+		fixed (WriteDescriptorSetAccelerationStructure* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<WriteDescriptorSetAccelerationStructure>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<WriteDescriptorSetAccelerationStructure>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in WriteDescriptorSetAccelerationStructure l, in WriteDescriptorSetAccelerationStructure r)
+	{
+		fixed (WriteDescriptorSetAccelerationStructure* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<WriteDescriptorSetAccelerationStructure>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<WriteDescriptorSetAccelerationStructure>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new WriteDescriptorSetAccelerationStructure value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2694,7 +7104,7 @@ public unsafe partial struct WriteDescriptorSetAccelerationStructure
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureMemoryRequirementsInfo
+public unsafe partial struct AccelerationStructureMemoryRequirementsInfo : IEquatable<AccelerationStructureMemoryRequirementsInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureMemoryRequirementsInfoKHR;
 
@@ -2703,6 +7113,36 @@ public unsafe partial struct AccelerationStructureMemoryRequirementsInfo
 	public Vk.KHR.AccelerationStructureMemoryRequirementsType Type;
 	public Vk.KHR.AccelerationStructureBuildType BuildType;
 	public Vk.KHR.AccelerationStructure AccelerationStructure;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureMemoryRequirementsInfo o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureMemoryRequirementsInfo>.Equals(AccelerationStructureMemoryRequirementsInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureMemoryRequirementsInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureMemoryRequirementsInfo l, in AccelerationStructureMemoryRequirementsInfo r)
+	{
+		fixed (AccelerationStructureMemoryRequirementsInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureMemoryRequirementsInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureMemoryRequirementsInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureMemoryRequirementsInfo l, in AccelerationStructureMemoryRequirementsInfo r)
+	{
+		fixed (AccelerationStructureMemoryRequirementsInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureMemoryRequirementsInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureMemoryRequirementsInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AccelerationStructureMemoryRequirementsInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2713,7 +7153,7 @@ public unsafe partial struct AccelerationStructureMemoryRequirementsInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceRayTracingFeatures
+public unsafe partial struct PhysicalDeviceRayTracingFeatures : IEquatable<PhysicalDeviceRayTracingFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceRayTracingFeaturesKHR;
 
@@ -2729,6 +7169,36 @@ public unsafe partial struct PhysicalDeviceRayTracingFeatures
 	public Vk.Bool32 RayQuery;
 	public Vk.Bool32 RayTracingPrimitiveCulling;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceRayTracingFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceRayTracingFeatures>.Equals(PhysicalDeviceRayTracingFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceRayTracingFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceRayTracingFeatures l, in PhysicalDeviceRayTracingFeatures r)
+	{
+		fixed (PhysicalDeviceRayTracingFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRayTracingFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRayTracingFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceRayTracingFeatures l, in PhysicalDeviceRayTracingFeatures r)
+	{
+		fixed (PhysicalDeviceRayTracingFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRayTracingFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRayTracingFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceRayTracingFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceRayTracingFeatures value) => value = new() { sType = TYPE };
@@ -2738,7 +7208,7 @@ public unsafe partial struct PhysicalDeviceRayTracingFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceRayTracingProperties
+public unsafe partial struct PhysicalDeviceRayTracingProperties : IEquatable<PhysicalDeviceRayTracingProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceRayTracingPropertiesKHR;
 
@@ -2754,6 +7224,36 @@ public unsafe partial struct PhysicalDeviceRayTracingProperties
 	public uint MaxDescriptorSetAccelerationStructures;
 	public uint ShaderGroupHandleCaptureReplaySize;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceRayTracingProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceRayTracingProperties>.Equals(PhysicalDeviceRayTracingProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceRayTracingProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceRayTracingProperties l, in PhysicalDeviceRayTracingProperties r)
+	{
+		fixed (PhysicalDeviceRayTracingProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRayTracingProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRayTracingProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceRayTracingProperties l, in PhysicalDeviceRayTracingProperties r)
+	{
+		fixed (PhysicalDeviceRayTracingProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRayTracingProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRayTracingProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDeviceRayTracingProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceRayTracingProperties value) => value = new() { sType = TYPE };
@@ -2763,30 +7263,120 @@ public unsafe partial struct PhysicalDeviceRayTracingProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct StridedBufferRegion
+public unsafe partial struct StridedBufferRegion : IEquatable<StridedBufferRegion>
 {
 	public Vk.Buffer Buffer;
 	public Vk.DeviceSize Offset;
 	public Vk.DeviceSize Stride;
 	public Vk.DeviceSize Size;
+
+	public readonly override bool Equals(object? obj) => (obj is StridedBufferRegion o) && (this == o);
+	readonly bool IEquatable<StridedBufferRegion>.Equals(StridedBufferRegion obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.Buffer* ptr = &Buffer) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<StridedBufferRegion>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in StridedBufferRegion l, in StridedBufferRegion r)
+	{
+		fixed (StridedBufferRegion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<StridedBufferRegion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<StridedBufferRegion>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in StridedBufferRegion l, in StridedBufferRegion r)
+	{
+		fixed (StridedBufferRegion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<StridedBufferRegion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<StridedBufferRegion>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct TraceRaysIndirectCommand
+public unsafe partial struct TraceRaysIndirectCommand : IEquatable<TraceRaysIndirectCommand>
 {
 	public uint Width;
 	public uint Height;
 	public uint Depth;
+
+	public readonly override bool Equals(object? obj) => (obj is TraceRaysIndirectCommand o) && (this == o);
+	readonly bool IEquatable<TraceRaysIndirectCommand>.Equals(TraceRaysIndirectCommand obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (uint* ptr = &Width) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<TraceRaysIndirectCommand>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in TraceRaysIndirectCommand l, in TraceRaysIndirectCommand r)
+	{
+		fixed (TraceRaysIndirectCommand* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<TraceRaysIndirectCommand>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<TraceRaysIndirectCommand>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in TraceRaysIndirectCommand l, in TraceRaysIndirectCommand r)
+	{
+		fixed (TraceRaysIndirectCommand* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<TraceRaysIndirectCommand>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<TraceRaysIndirectCommand>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct SurfaceProtectedCapabilities
+public unsafe partial struct SurfaceProtectedCapabilities : IEquatable<SurfaceProtectedCapabilities>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.SurfaceProtectedCapabilitiesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 SupportsProtected;
+
+	public readonly override bool Equals(object? obj) => (obj is SurfaceProtectedCapabilities o) && (this == o);
+	readonly bool IEquatable<SurfaceProtectedCapabilities>.Equals(SurfaceProtectedCapabilities obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceProtectedCapabilities>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in SurfaceProtectedCapabilities l, in SurfaceProtectedCapabilities r)
+	{
+		fixed (SurfaceProtectedCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceProtectedCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceProtectedCapabilities>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in SurfaceProtectedCapabilities l, in SurfaceProtectedCapabilities r)
+	{
+		fixed (SurfaceProtectedCapabilities* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceProtectedCapabilities>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceProtectedCapabilities>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new SurfaceProtectedCapabilities value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2797,13 +7387,43 @@ public unsafe partial struct SurfaceProtectedCapabilities
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceUniformBufferStandardLayoutFeatures
+public unsafe partial struct PhysicalDeviceUniformBufferStandardLayoutFeatures : IEquatable<PhysicalDeviceUniformBufferStandardLayoutFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceUniformBufferStandardLayoutFeatures;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 UniformBufferStandardLayout;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceUniformBufferStandardLayoutFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceUniformBufferStandardLayoutFeatures>.Equals(PhysicalDeviceUniformBufferStandardLayoutFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceUniformBufferStandardLayoutFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceUniformBufferStandardLayoutFeatures l, in PhysicalDeviceUniformBufferStandardLayoutFeatures r)
+	{
+		fixed (PhysicalDeviceUniformBufferStandardLayoutFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceUniformBufferStandardLayoutFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceUniformBufferStandardLayoutFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceUniformBufferStandardLayoutFeatures l, in PhysicalDeviceUniformBufferStandardLayoutFeatures r)
+	{
+		fixed (PhysicalDeviceUniformBufferStandardLayoutFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceUniformBufferStandardLayoutFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceUniformBufferStandardLayoutFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceUniformBufferStandardLayoutFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2814,7 +7434,7 @@ public unsafe partial struct PhysicalDeviceUniformBufferStandardLayoutFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceBufferDeviceAddressFeatures
+public unsafe partial struct PhysicalDeviceBufferDeviceAddressFeatures : IEquatable<PhysicalDeviceBufferDeviceAddressFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceBufferDeviceAddressFeatures;
 
@@ -2823,6 +7443,36 @@ public unsafe partial struct PhysicalDeviceBufferDeviceAddressFeatures
 	public Vk.Bool32 BufferDeviceAddress;
 	public Vk.Bool32 BufferDeviceAddressCaptureReplay;
 	public Vk.Bool32 BufferDeviceAddressMultiDevice;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBufferDeviceAddressFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceBufferDeviceAddressFeatures>.Equals(PhysicalDeviceBufferDeviceAddressFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceBufferDeviceAddressFeatures l, in PhysicalDeviceBufferDeviceAddressFeatures r)
+	{
+		fixed (PhysicalDeviceBufferDeviceAddressFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceBufferDeviceAddressFeatures l, in PhysicalDeviceBufferDeviceAddressFeatures r)
+	{
+		fixed (PhysicalDeviceBufferDeviceAddressFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceBufferDeviceAddressFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2833,13 +7483,43 @@ public unsafe partial struct PhysicalDeviceBufferDeviceAddressFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BufferDeviceAddressInfo
+public unsafe partial struct BufferDeviceAddressInfo : IEquatable<BufferDeviceAddressInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BufferDeviceAddressInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Buffer Buffer;
+
+	public readonly override bool Equals(object? obj) => (obj is BufferDeviceAddressInfo o) && (this == o);
+	readonly bool IEquatable<BufferDeviceAddressInfo>.Equals(BufferDeviceAddressInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BufferDeviceAddressInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BufferDeviceAddressInfo l, in BufferDeviceAddressInfo r)
+	{
+		fixed (BufferDeviceAddressInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BufferDeviceAddressInfo l, in BufferDeviceAddressInfo r)
+	{
+		fixed (BufferDeviceAddressInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BufferDeviceAddressInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2850,13 +7530,43 @@ public unsafe partial struct BufferDeviceAddressInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BufferOpaqueCaptureAddressCreateInfo
+public unsafe partial struct BufferOpaqueCaptureAddressCreateInfo : IEquatable<BufferOpaqueCaptureAddressCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BufferOpaqueCaptureAddressCreateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong OpaqueCaptureAddress;
+
+	public readonly override bool Equals(object? obj) => (obj is BufferOpaqueCaptureAddressCreateInfo o) && (this == o);
+	readonly bool IEquatable<BufferOpaqueCaptureAddressCreateInfo>.Equals(BufferOpaqueCaptureAddressCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BufferOpaqueCaptureAddressCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BufferOpaqueCaptureAddressCreateInfo l, in BufferOpaqueCaptureAddressCreateInfo r)
+	{
+		fixed (BufferOpaqueCaptureAddressCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferOpaqueCaptureAddressCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferOpaqueCaptureAddressCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BufferOpaqueCaptureAddressCreateInfo l, in BufferOpaqueCaptureAddressCreateInfo r)
+	{
+		fixed (BufferOpaqueCaptureAddressCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferOpaqueCaptureAddressCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferOpaqueCaptureAddressCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BufferOpaqueCaptureAddressCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2867,13 +7577,43 @@ public unsafe partial struct BufferOpaqueCaptureAddressCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceImagelessFramebufferFeatures
+public unsafe partial struct PhysicalDeviceImagelessFramebufferFeatures : IEquatable<PhysicalDeviceImagelessFramebufferFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceImagelessFramebufferFeatures;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 ImagelessFramebuffer;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImagelessFramebufferFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceImagelessFramebufferFeatures>.Equals(PhysicalDeviceImagelessFramebufferFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceImagelessFramebufferFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceImagelessFramebufferFeatures l, in PhysicalDeviceImagelessFramebufferFeatures r)
+	{
+		fixed (PhysicalDeviceImagelessFramebufferFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImagelessFramebufferFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImagelessFramebufferFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceImagelessFramebufferFeatures l, in PhysicalDeviceImagelessFramebufferFeatures r)
+	{
+		fixed (PhysicalDeviceImagelessFramebufferFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImagelessFramebufferFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImagelessFramebufferFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceImagelessFramebufferFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2884,7 +7624,7 @@ public unsafe partial struct PhysicalDeviceImagelessFramebufferFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct FramebufferAttachmentsCreateInfo
+public unsafe partial struct FramebufferAttachmentsCreateInfo : IEquatable<FramebufferAttachmentsCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.FramebufferAttachmentsCreateInfo;
 
@@ -2892,6 +7632,36 @@ public unsafe partial struct FramebufferAttachmentsCreateInfo
 	public void* pNext;
 	public uint AttachmentImageInfoCount;
 	public Vk.FramebufferAttachmentImageInfo* AttachmentImageInfos;
+
+	public readonly override bool Equals(object? obj) => (obj is FramebufferAttachmentsCreateInfo o) && (this == o);
+	readonly bool IEquatable<FramebufferAttachmentsCreateInfo>.Equals(FramebufferAttachmentsCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<FramebufferAttachmentsCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in FramebufferAttachmentsCreateInfo l, in FramebufferAttachmentsCreateInfo r)
+	{
+		fixed (FramebufferAttachmentsCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FramebufferAttachmentsCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FramebufferAttachmentsCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in FramebufferAttachmentsCreateInfo l, in FramebufferAttachmentsCreateInfo r)
+	{
+		fixed (FramebufferAttachmentsCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FramebufferAttachmentsCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FramebufferAttachmentsCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new FramebufferAttachmentsCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2902,7 +7672,7 @@ public unsafe partial struct FramebufferAttachmentsCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct FramebufferAttachmentImageInfo
+public unsafe partial struct FramebufferAttachmentImageInfo : IEquatable<FramebufferAttachmentImageInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.FramebufferAttachmentImageInfo;
 
@@ -2916,6 +7686,36 @@ public unsafe partial struct FramebufferAttachmentImageInfo
 	public uint ViewFormatCount;
 	public Vk.Format* ViewFormats;
 
+	public readonly override bool Equals(object? obj) => (obj is FramebufferAttachmentImageInfo o) && (this == o);
+	readonly bool IEquatable<FramebufferAttachmentImageInfo>.Equals(FramebufferAttachmentImageInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<FramebufferAttachmentImageInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in FramebufferAttachmentImageInfo l, in FramebufferAttachmentImageInfo r)
+	{
+		fixed (FramebufferAttachmentImageInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FramebufferAttachmentImageInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FramebufferAttachmentImageInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in FramebufferAttachmentImageInfo l, in FramebufferAttachmentImageInfo r)
+	{
+		fixed (FramebufferAttachmentImageInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FramebufferAttachmentImageInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FramebufferAttachmentImageInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new FramebufferAttachmentImageInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out FramebufferAttachmentImageInfo value) => value = new() { sType = TYPE };
@@ -2925,7 +7725,7 @@ public unsafe partial struct FramebufferAttachmentImageInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RenderPassAttachmentBeginInfo
+public unsafe partial struct RenderPassAttachmentBeginInfo : IEquatable<RenderPassAttachmentBeginInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RenderPassAttachmentBeginInfo;
 
@@ -2933,6 +7733,36 @@ public unsafe partial struct RenderPassAttachmentBeginInfo
 	public void* pNext;
 	public uint AttachmentCount;
 	public Vk.ImageView* Attachments;
+
+	public readonly override bool Equals(object? obj) => (obj is RenderPassAttachmentBeginInfo o) && (this == o);
+	readonly bool IEquatable<RenderPassAttachmentBeginInfo>.Equals(RenderPassAttachmentBeginInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RenderPassAttachmentBeginInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RenderPassAttachmentBeginInfo l, in RenderPassAttachmentBeginInfo r)
+	{
+		fixed (RenderPassAttachmentBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassAttachmentBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassAttachmentBeginInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RenderPassAttachmentBeginInfo l, in RenderPassAttachmentBeginInfo r)
+	{
+		fixed (RenderPassAttachmentBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassAttachmentBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassAttachmentBeginInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new RenderPassAttachmentBeginInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2943,7 +7773,7 @@ public unsafe partial struct RenderPassAttachmentBeginInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevicePerformanceQueryFeatures
+public unsafe partial struct PhysicalDevicePerformanceQueryFeatures : IEquatable<PhysicalDevicePerformanceQueryFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePerformanceQueryFeaturesKHR;
 
@@ -2951,6 +7781,36 @@ public unsafe partial struct PhysicalDevicePerformanceQueryFeatures
 	public void* pNext;
 	public Vk.Bool32 PerformanceCounterQueryPools;
 	public Vk.Bool32 PerformanceCounterMultipleQueryPools;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePerformanceQueryFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDevicePerformanceQueryFeatures>.Equals(PhysicalDevicePerformanceQueryFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePerformanceQueryFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevicePerformanceQueryFeatures l, in PhysicalDevicePerformanceQueryFeatures r)
+	{
+		fixed (PhysicalDevicePerformanceQueryFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevicePerformanceQueryFeatures l, in PhysicalDevicePerformanceQueryFeatures r)
+	{
+		fixed (PhysicalDevicePerformanceQueryFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDevicePerformanceQueryFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2961,13 +7821,43 @@ public unsafe partial struct PhysicalDevicePerformanceQueryFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevicePerformanceQueryProperties
+public unsafe partial struct PhysicalDevicePerformanceQueryProperties : IEquatable<PhysicalDevicePerformanceQueryProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePerformanceQueryPropertiesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 AllowCommandBufferQueryCopies;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePerformanceQueryProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDevicePerformanceQueryProperties>.Equals(PhysicalDevicePerformanceQueryProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePerformanceQueryProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevicePerformanceQueryProperties l, in PhysicalDevicePerformanceQueryProperties r)
+	{
+		fixed (PhysicalDevicePerformanceQueryProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevicePerformanceQueryProperties l, in PhysicalDevicePerformanceQueryProperties r)
+	{
+		fixed (PhysicalDevicePerformanceQueryProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePerformanceQueryProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDevicePerformanceQueryProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2978,7 +7868,7 @@ public unsafe partial struct PhysicalDevicePerformanceQueryProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PerformanceCounter
+public unsafe partial struct PerformanceCounter : IEquatable<PerformanceCounter>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PerformanceCounterKHR;
 
@@ -2989,6 +7879,36 @@ public unsafe partial struct PerformanceCounter
 	public Vk.KHR.PerformanceCounterStorage Storage;
 	public Vk.UUID Uuid;
 
+	public readonly override bool Equals(object? obj) => (obj is PerformanceCounter o) && (this == o);
+	readonly bool IEquatable<PerformanceCounter>.Equals(PerformanceCounter obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceCounter>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PerformanceCounter l, in PerformanceCounter r)
+	{
+		fixed (PerformanceCounter* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceCounter>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceCounter>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PerformanceCounter l, in PerformanceCounter r)
+	{
+		fixed (PerformanceCounter* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceCounter>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceCounter>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PerformanceCounter value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PerformanceCounter value) => value = new() { sType = TYPE };
@@ -2998,7 +7918,7 @@ public unsafe partial struct PerformanceCounter
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PerformanceCounterDescription
+public unsafe partial struct PerformanceCounterDescription : IEquatable<PerformanceCounterDescription>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PerformanceCounterDescriptionKHR;
 
@@ -3009,6 +7929,36 @@ public unsafe partial struct PerformanceCounterDescription
 	public Vk.FixedString Category;
 	public Vk.FixedString Description;
 
+	public readonly override bool Equals(object? obj) => (obj is PerformanceCounterDescription o) && (this == o);
+	readonly bool IEquatable<PerformanceCounterDescription>.Equals(PerformanceCounterDescription obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceCounterDescription>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PerformanceCounterDescription l, in PerformanceCounterDescription r)
+	{
+		fixed (PerformanceCounterDescription* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceCounterDescription>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceCounterDescription>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PerformanceCounterDescription l, in PerformanceCounterDescription r)
+	{
+		fixed (PerformanceCounterDescription* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceCounterDescription>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceCounterDescription>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PerformanceCounterDescription value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PerformanceCounterDescription value) => value = new() { sType = TYPE };
@@ -3018,7 +7968,7 @@ public unsafe partial struct PerformanceCounterDescription
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct QueryPoolPerformanceCreateInfo
+public unsafe partial struct QueryPoolPerformanceCreateInfo : IEquatable<QueryPoolPerformanceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.QueryPoolPerformanceCreateInfoKHR;
 
@@ -3027,6 +7977,36 @@ public unsafe partial struct QueryPoolPerformanceCreateInfo
 	public uint QueueFamilyIndex;
 	public uint CounterIndexCount;
 	public uint* CounterIndices;
+
+	public readonly override bool Equals(object? obj) => (obj is QueryPoolPerformanceCreateInfo o) && (this == o);
+	readonly bool IEquatable<QueryPoolPerformanceCreateInfo>.Equals(QueryPoolPerformanceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<QueryPoolPerformanceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in QueryPoolPerformanceCreateInfo l, in QueryPoolPerformanceCreateInfo r)
+	{
+		fixed (QueryPoolPerformanceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueryPoolPerformanceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueryPoolPerformanceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in QueryPoolPerformanceCreateInfo l, in QueryPoolPerformanceCreateInfo r)
+	{
+		fixed (QueryPoolPerformanceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueryPoolPerformanceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueryPoolPerformanceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new QueryPoolPerformanceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3037,7 +8017,7 @@ public unsafe partial struct QueryPoolPerformanceCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct PerformanceCounterResult
+public unsafe partial struct PerformanceCounterResult : IEquatable<PerformanceCounterResult>
 {
 	[FieldOffset(0)] public int Int32;
 	[FieldOffset(0)] public long Int64;
@@ -3045,10 +8025,40 @@ public unsafe partial struct PerformanceCounterResult
 	[FieldOffset(0)] public ulong Uint64;
 	[FieldOffset(0)] public float Float32;
 	[FieldOffset(0)] public double Float64;
+
+	public readonly override bool Equals(object? obj) => (obj is PerformanceCounterResult o) && (this == o);
+	readonly bool IEquatable<PerformanceCounterResult>.Equals(PerformanceCounterResult obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (int* ptr = &Int32) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceCounterResult>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PerformanceCounterResult l, in PerformanceCounterResult r)
+	{
+		fixed (PerformanceCounterResult* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceCounterResult>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceCounterResult>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PerformanceCounterResult l, in PerformanceCounterResult r)
+	{
+		fixed (PerformanceCounterResult* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceCounterResult>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceCounterResult>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AcquireProfilingLockInfo
+public unsafe partial struct AcquireProfilingLockInfo : IEquatable<AcquireProfilingLockInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AcquireProfilingLockInfoKHR;
 
@@ -3056,6 +8066,36 @@ public unsafe partial struct AcquireProfilingLockInfo
 	public void* pNext;
 	public Vk.KHR.AcquireProfilingLockFlags Flags;
 	public ulong Timeout;
+
+	public readonly override bool Equals(object? obj) => (obj is AcquireProfilingLockInfo o) && (this == o);
+	readonly bool IEquatable<AcquireProfilingLockInfo>.Equals(AcquireProfilingLockInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AcquireProfilingLockInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AcquireProfilingLockInfo l, in AcquireProfilingLockInfo r)
+	{
+		fixed (AcquireProfilingLockInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AcquireProfilingLockInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AcquireProfilingLockInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AcquireProfilingLockInfo l, in AcquireProfilingLockInfo r)
+	{
+		fixed (AcquireProfilingLockInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AcquireProfilingLockInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AcquireProfilingLockInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AcquireProfilingLockInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3066,13 +8106,43 @@ public unsafe partial struct AcquireProfilingLockInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PerformanceQuerySubmitInfo
+public unsafe partial struct PerformanceQuerySubmitInfo : IEquatable<PerformanceQuerySubmitInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PerformanceQuerySubmitInfoKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint CounterPassIndex;
+
+	public readonly override bool Equals(object? obj) => (obj is PerformanceQuerySubmitInfo o) && (this == o);
+	readonly bool IEquatable<PerformanceQuerySubmitInfo>.Equals(PerformanceQuerySubmitInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceQuerySubmitInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PerformanceQuerySubmitInfo l, in PerformanceQuerySubmitInfo r)
+	{
+		fixed (PerformanceQuerySubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceQuerySubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceQuerySubmitInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PerformanceQuerySubmitInfo l, in PerformanceQuerySubmitInfo r)
+	{
+		fixed (PerformanceQuerySubmitInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceQuerySubmitInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceQuerySubmitInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PerformanceQuerySubmitInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3083,7 +8153,7 @@ public unsafe partial struct PerformanceQuerySubmitInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceShaderClockFeatures
+public unsafe partial struct PhysicalDeviceShaderClockFeatures : IEquatable<PhysicalDeviceShaderClockFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceShaderClockFeaturesKHR;
 
@@ -3091,6 +8161,36 @@ public unsafe partial struct PhysicalDeviceShaderClockFeatures
 	public void* pNext;
 	public Vk.Bool32 ShaderSubgroupClock;
 	public Vk.Bool32 ShaderDeviceClock;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderClockFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceShaderClockFeatures>.Equals(PhysicalDeviceShaderClockFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderClockFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceShaderClockFeatures l, in PhysicalDeviceShaderClockFeatures r)
+	{
+		fixed (PhysicalDeviceShaderClockFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderClockFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderClockFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceShaderClockFeatures l, in PhysicalDeviceShaderClockFeatures r)
+	{
+		fixed (PhysicalDeviceShaderClockFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderClockFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderClockFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceShaderClockFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3101,13 +8201,43 @@ public unsafe partial struct PhysicalDeviceShaderClockFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures
+public unsafe partial struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures : IEquatable<PhysicalDeviceSeparateDepthStencilLayoutsFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceSeparateDepthStencilLayoutsFeatures;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 SeparateDepthStencilLayouts;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSeparateDepthStencilLayoutsFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceSeparateDepthStencilLayoutsFeatures>.Equals(PhysicalDeviceSeparateDepthStencilLayoutsFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSeparateDepthStencilLayoutsFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceSeparateDepthStencilLayoutsFeatures l, in PhysicalDeviceSeparateDepthStencilLayoutsFeatures r)
+	{
+		fixed (PhysicalDeviceSeparateDepthStencilLayoutsFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSeparateDepthStencilLayoutsFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSeparateDepthStencilLayoutsFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceSeparateDepthStencilLayoutsFeatures l, in PhysicalDeviceSeparateDepthStencilLayoutsFeatures r)
+	{
+		fixed (PhysicalDeviceSeparateDepthStencilLayoutsFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSeparateDepthStencilLayoutsFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSeparateDepthStencilLayoutsFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDeviceSeparateDepthStencilLayoutsFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3118,13 +8248,43 @@ public unsafe partial struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AttachmentReferenceStencilLayout
+public unsafe partial struct AttachmentReferenceStencilLayout : IEquatable<AttachmentReferenceStencilLayout>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AttachmentReferenceStencilLayout;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageLayout StencilLayout;
+
+	public readonly override bool Equals(object? obj) => (obj is AttachmentReferenceStencilLayout o) && (this == o);
+	readonly bool IEquatable<AttachmentReferenceStencilLayout>.Equals(AttachmentReferenceStencilLayout obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AttachmentReferenceStencilLayout>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AttachmentReferenceStencilLayout l, in AttachmentReferenceStencilLayout r)
+	{
+		fixed (AttachmentReferenceStencilLayout* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentReferenceStencilLayout>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentReferenceStencilLayout>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AttachmentReferenceStencilLayout l, in AttachmentReferenceStencilLayout r)
+	{
+		fixed (AttachmentReferenceStencilLayout* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentReferenceStencilLayout>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentReferenceStencilLayout>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AttachmentReferenceStencilLayout value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3135,7 +8295,7 @@ public unsafe partial struct AttachmentReferenceStencilLayout
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AttachmentDescriptionStencilLayout
+public unsafe partial struct AttachmentDescriptionStencilLayout : IEquatable<AttachmentDescriptionStencilLayout>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AttachmentDescriptionStencilLayout;
 
@@ -3143,6 +8303,36 @@ public unsafe partial struct AttachmentDescriptionStencilLayout
 	public void* pNext;
 	public Vk.ImageLayout StencilInitialLayout;
 	public Vk.ImageLayout StencilFinalLayout;
+
+	public readonly override bool Equals(object? obj) => (obj is AttachmentDescriptionStencilLayout o) && (this == o);
+	readonly bool IEquatable<AttachmentDescriptionStencilLayout>.Equals(AttachmentDescriptionStencilLayout obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AttachmentDescriptionStencilLayout>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AttachmentDescriptionStencilLayout l, in AttachmentDescriptionStencilLayout r)
+	{
+		fixed (AttachmentDescriptionStencilLayout* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentDescriptionStencilLayout>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentDescriptionStencilLayout>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AttachmentDescriptionStencilLayout l, in AttachmentDescriptionStencilLayout r)
+	{
+		fixed (AttachmentDescriptionStencilLayout* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentDescriptionStencilLayout>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentDescriptionStencilLayout>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AttachmentDescriptionStencilLayout value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3153,13 +8343,43 @@ public unsafe partial struct AttachmentDescriptionStencilLayout
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevicePipelineExecutablePropertiesFeatures
+public unsafe partial struct PhysicalDevicePipelineExecutablePropertiesFeatures : IEquatable<PhysicalDevicePipelineExecutablePropertiesFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePipelineExecutablePropertiesFeaturesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 PipelineExecutableInfo;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePipelineExecutablePropertiesFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDevicePipelineExecutablePropertiesFeatures>.Equals(PhysicalDevicePipelineExecutablePropertiesFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePipelineExecutablePropertiesFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevicePipelineExecutablePropertiesFeatures l, in PhysicalDevicePipelineExecutablePropertiesFeatures r)
+	{
+		fixed (PhysicalDevicePipelineExecutablePropertiesFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePipelineExecutablePropertiesFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePipelineExecutablePropertiesFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevicePipelineExecutablePropertiesFeatures l, in PhysicalDevicePipelineExecutablePropertiesFeatures r)
+	{
+		fixed (PhysicalDevicePipelineExecutablePropertiesFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePipelineExecutablePropertiesFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePipelineExecutablePropertiesFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDevicePipelineExecutablePropertiesFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3170,13 +8390,43 @@ public unsafe partial struct PhysicalDevicePipelineExecutablePropertiesFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PipelineInfo
+public unsafe partial struct PipelineInfo : IEquatable<PipelineInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PipelineInfoKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Pipeline Pipeline;
+
+	public readonly override bool Equals(object? obj) => (obj is PipelineInfo o) && (this == o);
+	readonly bool IEquatable<PipelineInfo>.Equals(PipelineInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineInfo l, in PipelineInfo r)
+	{
+		fixed (PipelineInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineInfo l, in PipelineInfo r)
+	{
+		fixed (PipelineInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PipelineInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3187,7 +8437,7 @@ public unsafe partial struct PipelineInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PipelineExecutableProperties
+public unsafe partial struct PipelineExecutableProperties : IEquatable<PipelineExecutableProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PipelineExecutablePropertiesKHR;
 
@@ -3198,6 +8448,36 @@ public unsafe partial struct PipelineExecutableProperties
 	public Vk.FixedString Description;
 	public uint SubgroupSize;
 
+	public readonly override bool Equals(object? obj) => (obj is PipelineExecutableProperties o) && (this == o);
+	readonly bool IEquatable<PipelineExecutableProperties>.Equals(PipelineExecutableProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineExecutableProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineExecutableProperties l, in PipelineExecutableProperties r)
+	{
+		fixed (PipelineExecutableProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineExecutableProperties l, in PipelineExecutableProperties r)
+	{
+		fixed (PipelineExecutableProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PipelineExecutableProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineExecutableProperties value) => value = new() { sType = TYPE };
@@ -3207,7 +8487,7 @@ public unsafe partial struct PipelineExecutableProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PipelineExecutableInfo
+public unsafe partial struct PipelineExecutableInfo : IEquatable<PipelineExecutableInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PipelineExecutableInfoKHR;
 
@@ -3215,6 +8495,36 @@ public unsafe partial struct PipelineExecutableInfo
 	public void* pNext;
 	public Vk.Pipeline Pipeline;
 	public uint ExecutableIndex;
+
+	public readonly override bool Equals(object? obj) => (obj is PipelineExecutableInfo o) && (this == o);
+	readonly bool IEquatable<PipelineExecutableInfo>.Equals(PipelineExecutableInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineExecutableInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineExecutableInfo l, in PipelineExecutableInfo r)
+	{
+		fixed (PipelineExecutableInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineExecutableInfo l, in PipelineExecutableInfo r)
+	{
+		fixed (PipelineExecutableInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PipelineExecutableInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3225,16 +8535,46 @@ public unsafe partial struct PipelineExecutableInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct PipelineExecutableStatisticValue
+public unsafe partial struct PipelineExecutableStatisticValue : IEquatable<PipelineExecutableStatisticValue>
 {
 	[FieldOffset(0)] public Vk.Bool32 B32;
 	[FieldOffset(0)] public long I64;
 	[FieldOffset(0)] public ulong U64;
 	[FieldOffset(0)] public double F64;
+
+	public readonly override bool Equals(object? obj) => (obj is PipelineExecutableStatisticValue o) && (this == o);
+	readonly bool IEquatable<PipelineExecutableStatisticValue>.Equals(PipelineExecutableStatisticValue obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.Bool32* ptr = &B32) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineExecutableStatisticValue>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineExecutableStatisticValue l, in PipelineExecutableStatisticValue r)
+	{
+		fixed (PipelineExecutableStatisticValue* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableStatisticValue>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableStatisticValue>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineExecutableStatisticValue l, in PipelineExecutableStatisticValue r)
+	{
+		fixed (PipelineExecutableStatisticValue* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableStatisticValue>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableStatisticValue>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PipelineExecutableStatistic
+public unsafe partial struct PipelineExecutableStatistic : IEquatable<PipelineExecutableStatistic>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PipelineExecutableStatisticKHR;
 
@@ -3245,6 +8585,36 @@ public unsafe partial struct PipelineExecutableStatistic
 	public Vk.KHR.PipelineExecutableStatisticFormat Format;
 	public Vk.KHR.PipelineExecutableStatisticValue Value;
 
+	public readonly override bool Equals(object? obj) => (obj is PipelineExecutableStatistic o) && (this == o);
+	readonly bool IEquatable<PipelineExecutableStatistic>.Equals(PipelineExecutableStatistic obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineExecutableStatistic>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineExecutableStatistic l, in PipelineExecutableStatistic r)
+	{
+		fixed (PipelineExecutableStatistic* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableStatistic>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableStatistic>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineExecutableStatistic l, in PipelineExecutableStatistic r)
+	{
+		fixed (PipelineExecutableStatistic* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableStatistic>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableStatistic>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PipelineExecutableStatistic value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineExecutableStatistic value) => value = new() { sType = TYPE };
@@ -3254,7 +8624,7 @@ public unsafe partial struct PipelineExecutableStatistic
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PipelineExecutableInternalRepresentation
+public unsafe partial struct PipelineExecutableInternalRepresentation : IEquatable<PipelineExecutableInternalRepresentation>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PipelineExecutableInternalRepresentationKHR;
 
@@ -3266,6 +8636,36 @@ public unsafe partial struct PipelineExecutableInternalRepresentation
 	public ulong DataSize;
 	public void* Data;
 
+	public readonly override bool Equals(object? obj) => (obj is PipelineExecutableInternalRepresentation o) && (this == o);
+	readonly bool IEquatable<PipelineExecutableInternalRepresentation>.Equals(PipelineExecutableInternalRepresentation obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineExecutableInternalRepresentation>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineExecutableInternalRepresentation l, in PipelineExecutableInternalRepresentation r)
+	{
+		fixed (PipelineExecutableInternalRepresentation* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableInternalRepresentation>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableInternalRepresentation>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineExecutableInternalRepresentation l, in PipelineExecutableInternalRepresentation r)
+	{
+		fixed (PipelineExecutableInternalRepresentation* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineExecutableInternalRepresentation>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineExecutableInternalRepresentation>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PipelineExecutableInternalRepresentation value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineExecutableInternalRepresentation value) => value = new() { sType = TYPE };
@@ -3275,13 +8675,43 @@ public unsafe partial struct PipelineExecutableInternalRepresentation
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct MemoryOpaqueCaptureAddressAllocateInfo
+public unsafe partial struct MemoryOpaqueCaptureAddressAllocateInfo : IEquatable<MemoryOpaqueCaptureAddressAllocateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.MemoryOpaqueCaptureAddressAllocateInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong OpaqueCaptureAddress;
+
+	public readonly override bool Equals(object? obj) => (obj is MemoryOpaqueCaptureAddressAllocateInfo o) && (this == o);
+	readonly bool IEquatable<MemoryOpaqueCaptureAddressAllocateInfo>.Equals(MemoryOpaqueCaptureAddressAllocateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryOpaqueCaptureAddressAllocateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in MemoryOpaqueCaptureAddressAllocateInfo l, in MemoryOpaqueCaptureAddressAllocateInfo r)
+	{
+		fixed (MemoryOpaqueCaptureAddressAllocateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryOpaqueCaptureAddressAllocateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryOpaqueCaptureAddressAllocateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in MemoryOpaqueCaptureAddressAllocateInfo l, in MemoryOpaqueCaptureAddressAllocateInfo r)
+	{
+		fixed (MemoryOpaqueCaptureAddressAllocateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryOpaqueCaptureAddressAllocateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryOpaqueCaptureAddressAllocateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new MemoryOpaqueCaptureAddressAllocateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3292,13 +8722,43 @@ public unsafe partial struct MemoryOpaqueCaptureAddressAllocateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeviceMemoryOpaqueCaptureAddressInfo
+public unsafe partial struct DeviceMemoryOpaqueCaptureAddressInfo : IEquatable<DeviceMemoryOpaqueCaptureAddressInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeviceMemoryOpaqueCaptureAddressInfo;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.DeviceMemory Memory;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceMemoryOpaqueCaptureAddressInfo o) && (this == o);
+	readonly bool IEquatable<DeviceMemoryOpaqueCaptureAddressInfo>.Equals(DeviceMemoryOpaqueCaptureAddressInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceMemoryOpaqueCaptureAddressInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceMemoryOpaqueCaptureAddressInfo l, in DeviceMemoryOpaqueCaptureAddressInfo r)
+	{
+		fixed (DeviceMemoryOpaqueCaptureAddressInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceMemoryOpaqueCaptureAddressInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceMemoryOpaqueCaptureAddressInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceMemoryOpaqueCaptureAddressInfo l, in DeviceMemoryOpaqueCaptureAddressInfo r)
+	{
+		fixed (DeviceMemoryOpaqueCaptureAddressInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceMemoryOpaqueCaptureAddressInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceMemoryOpaqueCaptureAddressInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeviceMemoryOpaqueCaptureAddressInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3309,21 +8769,81 @@ public unsafe partial struct DeviceMemoryOpaqueCaptureAddressInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct DeviceOrHostAddress
+public unsafe partial struct DeviceOrHostAddress : IEquatable<DeviceOrHostAddress>
 {
 	[FieldOffset(0)] public ulong DeviceAddress;
 	[FieldOffset(0)] public void* HostAddress;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceOrHostAddress o) && (this == o);
+	readonly bool IEquatable<DeviceOrHostAddress>.Equals(DeviceOrHostAddress obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (ulong* ptr = &DeviceAddress) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceOrHostAddress>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceOrHostAddress l, in DeviceOrHostAddress r)
+	{
+		fixed (DeviceOrHostAddress* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceOrHostAddress>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceOrHostAddress>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceOrHostAddress l, in DeviceOrHostAddress r)
+	{
+		fixed (DeviceOrHostAddress* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceOrHostAddress>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceOrHostAddress>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct DeviceOrHostAddressConst
+public unsafe partial struct DeviceOrHostAddressConst : IEquatable<DeviceOrHostAddressConst>
 {
 	[FieldOffset(0)] public ulong DeviceAddress;
 	[FieldOffset(0)] public void* HostAddress;
+
+	public readonly override bool Equals(object? obj) => (obj is DeviceOrHostAddressConst o) && (this == o);
+	readonly bool IEquatable<DeviceOrHostAddressConst>.Equals(DeviceOrHostAddressConst obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (ulong* ptr = &DeviceAddress) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceOrHostAddressConst>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeviceOrHostAddressConst l, in DeviceOrHostAddressConst r)
+	{
+		fixed (DeviceOrHostAddressConst* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceOrHostAddressConst>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceOrHostAddressConst>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeviceOrHostAddressConst l, in DeviceOrHostAddressConst r)
+	{
+		fixed (DeviceOrHostAddressConst* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceOrHostAddressConst>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceOrHostAddressConst>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureGeometryTrianglesData
+public unsafe partial struct AccelerationStructureGeometryTrianglesData : IEquatable<AccelerationStructureGeometryTrianglesData>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureGeometryTrianglesDataKHR;
 
@@ -3336,6 +8856,36 @@ public unsafe partial struct AccelerationStructureGeometryTrianglesData
 	public Vk.KHR.DeviceOrHostAddressConst IndexData;
 	public Vk.KHR.DeviceOrHostAddressConst TransformData;
 
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureGeometryTrianglesData o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureGeometryTrianglesData>.Equals(AccelerationStructureGeometryTrianglesData obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureGeometryTrianglesData>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureGeometryTrianglesData l, in AccelerationStructureGeometryTrianglesData r)
+	{
+		fixed (AccelerationStructureGeometryTrianglesData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryTrianglesData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryTrianglesData>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureGeometryTrianglesData l, in AccelerationStructureGeometryTrianglesData r)
+	{
+		fixed (AccelerationStructureGeometryTrianglesData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryTrianglesData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryTrianglesData>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new AccelerationStructureGeometryTrianglesData value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AccelerationStructureGeometryTrianglesData value) => value = new() { sType = TYPE };
@@ -3345,7 +8895,7 @@ public unsafe partial struct AccelerationStructureGeometryTrianglesData
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureGeometryAabbsData
+public unsafe partial struct AccelerationStructureGeometryAabbsData : IEquatable<AccelerationStructureGeometryAabbsData>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureGeometryAabbsDataKHR;
 
@@ -3353,6 +8903,36 @@ public unsafe partial struct AccelerationStructureGeometryAabbsData
 	public void* pNext;
 	public Vk.KHR.DeviceOrHostAddressConst Data;
 	public Vk.DeviceSize Stride;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureGeometryAabbsData o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureGeometryAabbsData>.Equals(AccelerationStructureGeometryAabbsData obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureGeometryAabbsData>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureGeometryAabbsData l, in AccelerationStructureGeometryAabbsData r)
+	{
+		fixed (AccelerationStructureGeometryAabbsData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryAabbsData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryAabbsData>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureGeometryAabbsData l, in AccelerationStructureGeometryAabbsData r)
+	{
+		fixed (AccelerationStructureGeometryAabbsData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryAabbsData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryAabbsData>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AccelerationStructureGeometryAabbsData value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3363,7 +8943,7 @@ public unsafe partial struct AccelerationStructureGeometryAabbsData
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureGeometryInstancesData
+public unsafe partial struct AccelerationStructureGeometryInstancesData : IEquatable<AccelerationStructureGeometryInstancesData>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureGeometryInstancesDataKHR;
 
@@ -3371,6 +8951,36 @@ public unsafe partial struct AccelerationStructureGeometryInstancesData
 	public void* pNext;
 	public Vk.Bool32 ArrayOfPointers;
 	public Vk.KHR.DeviceOrHostAddressConst Data;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureGeometryInstancesData o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureGeometryInstancesData>.Equals(AccelerationStructureGeometryInstancesData obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureGeometryInstancesData>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureGeometryInstancesData l, in AccelerationStructureGeometryInstancesData r)
+	{
+		fixed (AccelerationStructureGeometryInstancesData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryInstancesData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryInstancesData>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureGeometryInstancesData l, in AccelerationStructureGeometryInstancesData r)
+	{
+		fixed (AccelerationStructureGeometryInstancesData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryInstancesData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryInstancesData>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AccelerationStructureGeometryInstancesData value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3381,15 +8991,45 @@ public unsafe partial struct AccelerationStructureGeometryInstancesData
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct AccelerationStructureGeometryData
+public unsafe partial struct AccelerationStructureGeometryData : IEquatable<AccelerationStructureGeometryData>
 {
 	[FieldOffset(0)] public Vk.KHR.AccelerationStructureGeometryTrianglesData Triangles;
 	[FieldOffset(0)] public Vk.KHR.AccelerationStructureGeometryAabbsData Aabbs;
 	[FieldOffset(0)] public Vk.KHR.AccelerationStructureGeometryInstancesData Instances;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureGeometryData o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureGeometryData>.Equals(AccelerationStructureGeometryData obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.KHR.AccelerationStructureGeometryTrianglesData* ptr = &Triangles) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureGeometryData>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureGeometryData l, in AccelerationStructureGeometryData r)
+	{
+		fixed (AccelerationStructureGeometryData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryData>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureGeometryData l, in AccelerationStructureGeometryData r)
+	{
+		fixed (AccelerationStructureGeometryData* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometryData>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometryData>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureGeometry
+public unsafe partial struct AccelerationStructureGeometry : IEquatable<AccelerationStructureGeometry>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureGeometryKHR;
 
@@ -3398,6 +9038,36 @@ public unsafe partial struct AccelerationStructureGeometry
 	public Vk.KHR.GeometryType GeometryType;
 	public Vk.KHR.AccelerationStructureGeometryData Geometry;
 	public Vk.KHR.GeometryFlags Flags;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureGeometry o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureGeometry>.Equals(AccelerationStructureGeometry obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureGeometry>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureGeometry l, in AccelerationStructureGeometry r)
+	{
+		fixed (AccelerationStructureGeometry* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometry>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometry>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureGeometry l, in AccelerationStructureGeometry r)
+	{
+		fixed (AccelerationStructureGeometry* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureGeometry>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureGeometry>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AccelerationStructureGeometry value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3408,7 +9078,7 @@ public unsafe partial struct AccelerationStructureGeometry
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureBuildGeometryInfo
+public unsafe partial struct AccelerationStructureBuildGeometryInfo : IEquatable<AccelerationStructureBuildGeometryInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureBuildGeometryInfoKHR;
 
@@ -3424,6 +9094,36 @@ public unsafe partial struct AccelerationStructureBuildGeometryInfo
 	public Vk.KHR.AccelerationStructureGeometry** Geometries;
 	public Vk.KHR.DeviceOrHostAddress ScratchData;
 
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureBuildGeometryInfo o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureBuildGeometryInfo>.Equals(AccelerationStructureBuildGeometryInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureBuildGeometryInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureBuildGeometryInfo l, in AccelerationStructureBuildGeometryInfo r)
+	{
+		fixed (AccelerationStructureBuildGeometryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureBuildGeometryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureBuildGeometryInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureBuildGeometryInfo l, in AccelerationStructureBuildGeometryInfo r)
+	{
+		fixed (AccelerationStructureBuildGeometryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureBuildGeometryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureBuildGeometryInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new AccelerationStructureBuildGeometryInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AccelerationStructureBuildGeometryInfo value) => value = new() { sType = TYPE };
@@ -3433,16 +9133,46 @@ public unsafe partial struct AccelerationStructureBuildGeometryInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureBuildOffsetInfo
+public unsafe partial struct AccelerationStructureBuildOffsetInfo : IEquatable<AccelerationStructureBuildOffsetInfo>
 {
 	public uint PrimitiveCount;
 	public uint PrimitiveOffset;
 	public uint FirstVertex;
 	public uint TransformOffset;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureBuildOffsetInfo o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureBuildOffsetInfo>.Equals(AccelerationStructureBuildOffsetInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (uint* ptr = &PrimitiveCount) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureBuildOffsetInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureBuildOffsetInfo l, in AccelerationStructureBuildOffsetInfo r)
+	{
+		fixed (AccelerationStructureBuildOffsetInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureBuildOffsetInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureBuildOffsetInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureBuildOffsetInfo l, in AccelerationStructureBuildOffsetInfo r)
+	{
+		fixed (AccelerationStructureBuildOffsetInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureBuildOffsetInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureBuildOffsetInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureCreateGeometryTypeInfo
+public unsafe partial struct AccelerationStructureCreateGeometryTypeInfo : IEquatable<AccelerationStructureCreateGeometryTypeInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureCreateGeometryTypeInfoKHR;
 
@@ -3455,6 +9185,36 @@ public unsafe partial struct AccelerationStructureCreateGeometryTypeInfo
 	public Vk.Format VertexFormat;
 	public Vk.Bool32 AllowsTransforms;
 
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureCreateGeometryTypeInfo o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureCreateGeometryTypeInfo>.Equals(AccelerationStructureCreateGeometryTypeInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureCreateGeometryTypeInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureCreateGeometryTypeInfo l, in AccelerationStructureCreateGeometryTypeInfo r)
+	{
+		fixed (AccelerationStructureCreateGeometryTypeInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureCreateGeometryTypeInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureCreateGeometryTypeInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureCreateGeometryTypeInfo l, in AccelerationStructureCreateGeometryTypeInfo r)
+	{
+		fixed (AccelerationStructureCreateGeometryTypeInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureCreateGeometryTypeInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureCreateGeometryTypeInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new AccelerationStructureCreateGeometryTypeInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AccelerationStructureCreateGeometryTypeInfo value) => value = new() { sType = TYPE };
@@ -3464,7 +9224,7 @@ public unsafe partial struct AccelerationStructureCreateGeometryTypeInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureCreateInfo
+public unsafe partial struct AccelerationStructureCreateInfo : IEquatable<AccelerationStructureCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureCreateInfoKHR;
 
@@ -3477,6 +9237,36 @@ public unsafe partial struct AccelerationStructureCreateInfo
 	public Vk.KHR.AccelerationStructureCreateGeometryTypeInfo* GeometryInfos;
 	public ulong DeviceAddress;
 
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureCreateInfo o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureCreateInfo>.Equals(AccelerationStructureCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureCreateInfo l, in AccelerationStructureCreateInfo r)
+	{
+		fixed (AccelerationStructureCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureCreateInfo l, in AccelerationStructureCreateInfo r)
+	{
+		fixed (AccelerationStructureCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new AccelerationStructureCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AccelerationStructureCreateInfo value) => value = new() { sType = TYPE };
@@ -3486,7 +9276,7 @@ public unsafe partial struct AccelerationStructureCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AabbPositions
+public unsafe partial struct AabbPositions : IEquatable<AabbPositions>
 {
 	public float MinX;
 	public float MinY;
@@ -3494,16 +9284,76 @@ public unsafe partial struct AabbPositions
 	public float MaxX;
 	public float MaxY;
 	public float MaxZ;
+
+	public readonly override bool Equals(object? obj) => (obj is AabbPositions o) && (this == o);
+	readonly bool IEquatable<AabbPositions>.Equals(AabbPositions obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (float* ptr = &MinX) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AabbPositions>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AabbPositions l, in AabbPositions r)
+	{
+		fixed (AabbPositions* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AabbPositions>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AabbPositions>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AabbPositions l, in AabbPositions r)
+	{
+		fixed (AabbPositions* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AabbPositions>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AabbPositions>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct TransformMatrix
+public unsafe partial struct TransformMatrix : IEquatable<TransformMatrix>
 {
 	public fixed float Matrix[12];
+
+	public readonly override bool Equals(object? obj) => (obj is TransformMatrix o) && (this == o);
+	readonly bool IEquatable<TransformMatrix>.Equals(TransformMatrix obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (float* ptr = &Matrix[0]) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<TransformMatrix>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in TransformMatrix l, in TransformMatrix r)
+	{
+		fixed (TransformMatrix* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<TransformMatrix>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<TransformMatrix>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in TransformMatrix l, in TransformMatrix r)
+	{
+		fixed (TransformMatrix* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<TransformMatrix>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<TransformMatrix>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureInstance
+public unsafe partial struct AccelerationStructureInstance : IEquatable<AccelerationStructureInstance>
 {
 	public Vk.KHR.TransformMatrix Transform;
 	public uint InstanceCustomIndex;
@@ -3511,16 +9361,76 @@ public unsafe partial struct AccelerationStructureInstance
 	public uint InstanceShaderBindingTableRecordOffset;
 	public Vk.KHR.GeometryInstanceFlags Flags;
 	public ulong AccelerationStructureReference;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureInstance o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureInstance>.Equals(AccelerationStructureInstance obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.KHR.TransformMatrix* ptr = &Transform) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureInstance>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureInstance l, in AccelerationStructureInstance r)
+	{
+		fixed (AccelerationStructureInstance* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureInstance>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureInstance>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureInstance l, in AccelerationStructureInstance r)
+	{
+		fixed (AccelerationStructureInstance* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureInstance>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureInstance>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureDeviceAddressInfo
+public unsafe partial struct AccelerationStructureDeviceAddressInfo : IEquatable<AccelerationStructureDeviceAddressInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureDeviceAddressInfoKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.AccelerationStructure AccelerationStructure;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureDeviceAddressInfo o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureDeviceAddressInfo>.Equals(AccelerationStructureDeviceAddressInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureDeviceAddressInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureDeviceAddressInfo l, in AccelerationStructureDeviceAddressInfo r)
+	{
+		fixed (AccelerationStructureDeviceAddressInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureDeviceAddressInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureDeviceAddressInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureDeviceAddressInfo l, in AccelerationStructureDeviceAddressInfo r)
+	{
+		fixed (AccelerationStructureDeviceAddressInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureDeviceAddressInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureDeviceAddressInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AccelerationStructureDeviceAddressInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3531,13 +9441,43 @@ public unsafe partial struct AccelerationStructureDeviceAddressInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct AccelerationStructureVersion
+public unsafe partial struct AccelerationStructureVersion : IEquatable<AccelerationStructureVersion>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.AccelerationStructureVersionKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public byte* VersionData;
+
+	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureVersion o) && (this == o);
+	readonly bool IEquatable<AccelerationStructureVersion>.Equals(AccelerationStructureVersion obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AccelerationStructureVersion>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in AccelerationStructureVersion l, in AccelerationStructureVersion r)
+	{
+		fixed (AccelerationStructureVersion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureVersion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureVersion>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in AccelerationStructureVersion l, in AccelerationStructureVersion r)
+	{
+		fixed (AccelerationStructureVersion* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AccelerationStructureVersion>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AccelerationStructureVersion>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new AccelerationStructureVersion value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3548,7 +9488,7 @@ public unsafe partial struct AccelerationStructureVersion
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CopyAccelerationStructureInfo
+public unsafe partial struct CopyAccelerationStructureInfo : IEquatable<CopyAccelerationStructureInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CopyAccelerationStructureInfoKHR;
 
@@ -3557,6 +9497,36 @@ public unsafe partial struct CopyAccelerationStructureInfo
 	public Vk.KHR.AccelerationStructure Src;
 	public Vk.KHR.AccelerationStructure Dst;
 	public Vk.KHR.CopyAccelerationStructureMode Mode;
+
+	public readonly override bool Equals(object? obj) => (obj is CopyAccelerationStructureInfo o) && (this == o);
+	readonly bool IEquatable<CopyAccelerationStructureInfo>.Equals(CopyAccelerationStructureInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CopyAccelerationStructureInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CopyAccelerationStructureInfo l, in CopyAccelerationStructureInfo r)
+	{
+		fixed (CopyAccelerationStructureInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyAccelerationStructureInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyAccelerationStructureInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CopyAccelerationStructureInfo l, in CopyAccelerationStructureInfo r)
+	{
+		fixed (CopyAccelerationStructureInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyAccelerationStructureInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyAccelerationStructureInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new CopyAccelerationStructureInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3567,7 +9537,7 @@ public unsafe partial struct CopyAccelerationStructureInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CopyAccelerationStructureToMemoryInfo
+public unsafe partial struct CopyAccelerationStructureToMemoryInfo : IEquatable<CopyAccelerationStructureToMemoryInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CopyAccelerationStructureToMemoryInfoKHR;
 
@@ -3576,6 +9546,36 @@ public unsafe partial struct CopyAccelerationStructureToMemoryInfo
 	public Vk.KHR.AccelerationStructure Src;
 	public Vk.KHR.DeviceOrHostAddress Dst;
 	public Vk.KHR.CopyAccelerationStructureMode Mode;
+
+	public readonly override bool Equals(object? obj) => (obj is CopyAccelerationStructureToMemoryInfo o) && (this == o);
+	readonly bool IEquatable<CopyAccelerationStructureToMemoryInfo>.Equals(CopyAccelerationStructureToMemoryInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CopyAccelerationStructureToMemoryInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CopyAccelerationStructureToMemoryInfo l, in CopyAccelerationStructureToMemoryInfo r)
+	{
+		fixed (CopyAccelerationStructureToMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyAccelerationStructureToMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyAccelerationStructureToMemoryInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CopyAccelerationStructureToMemoryInfo l, in CopyAccelerationStructureToMemoryInfo r)
+	{
+		fixed (CopyAccelerationStructureToMemoryInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyAccelerationStructureToMemoryInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyAccelerationStructureToMemoryInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new CopyAccelerationStructureToMemoryInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3586,7 +9586,7 @@ public unsafe partial struct CopyAccelerationStructureToMemoryInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CopyMemoryToAccelerationStructureInfo
+public unsafe partial struct CopyMemoryToAccelerationStructureInfo : IEquatable<CopyMemoryToAccelerationStructureInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CopyMemoryToAccelerationStructureInfoKHR;
 
@@ -3595,6 +9595,36 @@ public unsafe partial struct CopyMemoryToAccelerationStructureInfo
 	public Vk.KHR.DeviceOrHostAddressConst Src;
 	public Vk.KHR.AccelerationStructure Dst;
 	public Vk.KHR.CopyAccelerationStructureMode Mode;
+
+	public readonly override bool Equals(object? obj) => (obj is CopyMemoryToAccelerationStructureInfo o) && (this == o);
+	readonly bool IEquatable<CopyMemoryToAccelerationStructureInfo>.Equals(CopyMemoryToAccelerationStructureInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CopyMemoryToAccelerationStructureInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CopyMemoryToAccelerationStructureInfo l, in CopyMemoryToAccelerationStructureInfo r)
+	{
+		fixed (CopyMemoryToAccelerationStructureInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyMemoryToAccelerationStructureInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyMemoryToAccelerationStructureInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CopyMemoryToAccelerationStructureInfo l, in CopyMemoryToAccelerationStructureInfo r)
+	{
+		fixed (CopyMemoryToAccelerationStructureInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyMemoryToAccelerationStructureInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyMemoryToAccelerationStructureInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new CopyMemoryToAccelerationStructureInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3605,7 +9635,7 @@ public unsafe partial struct CopyMemoryToAccelerationStructureInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RayTracingPipelineInterfaceCreateInfo
+public unsafe partial struct RayTracingPipelineInterfaceCreateInfo : IEquatable<RayTracingPipelineInterfaceCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RayTracingPipelineInterfaceCreateInfoKHR;
 
@@ -3614,6 +9644,36 @@ public unsafe partial struct RayTracingPipelineInterfaceCreateInfo
 	public uint MaxPayloadSize;
 	public uint MaxAttributeSize;
 	public uint MaxCallableSize;
+
+	public readonly override bool Equals(object? obj) => (obj is RayTracingPipelineInterfaceCreateInfo o) && (this == o);
+	readonly bool IEquatable<RayTracingPipelineInterfaceCreateInfo>.Equals(RayTracingPipelineInterfaceCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RayTracingPipelineInterfaceCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RayTracingPipelineInterfaceCreateInfo l, in RayTracingPipelineInterfaceCreateInfo r)
+	{
+		fixed (RayTracingPipelineInterfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RayTracingPipelineInterfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RayTracingPipelineInterfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RayTracingPipelineInterfaceCreateInfo l, in RayTracingPipelineInterfaceCreateInfo r)
+	{
+		fixed (RayTracingPipelineInterfaceCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RayTracingPipelineInterfaceCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RayTracingPipelineInterfaceCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new RayTracingPipelineInterfaceCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3624,13 +9684,43 @@ public unsafe partial struct RayTracingPipelineInterfaceCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct DeferredOperationInfo
+public unsafe partial struct DeferredOperationInfo : IEquatable<DeferredOperationInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.DeferredOperationInfoKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.DeferredOperation OperationHandle;
+
+	public readonly override bool Equals(object? obj) => (obj is DeferredOperationInfo o) && (this == o);
+	readonly bool IEquatable<DeferredOperationInfo>.Equals(DeferredOperationInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeferredOperationInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in DeferredOperationInfo l, in DeferredOperationInfo r)
+	{
+		fixed (DeferredOperationInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeferredOperationInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeferredOperationInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in DeferredOperationInfo l, in DeferredOperationInfo r)
+	{
+		fixed (DeferredOperationInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeferredOperationInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeferredOperationInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new DeferredOperationInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3641,7 +9731,7 @@ public unsafe partial struct DeferredOperationInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PipelineLibraryCreateInfo
+public unsafe partial struct PipelineLibraryCreateInfo : IEquatable<PipelineLibraryCreateInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PipelineLibraryCreateInfoKHR;
 
@@ -3649,6 +9739,36 @@ public unsafe partial struct PipelineLibraryCreateInfo
 	public void* pNext;
 	public uint LibraryCount;
 	public Vk.Pipeline* Libraries;
+
+	public readonly override bool Equals(object? obj) => (obj is PipelineLibraryCreateInfo o) && (this == o);
+	readonly bool IEquatable<PipelineLibraryCreateInfo>.Equals(PipelineLibraryCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineLibraryCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineLibraryCreateInfo l, in PipelineLibraryCreateInfo r)
+	{
+		fixed (PipelineLibraryCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineLibraryCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineLibraryCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineLibraryCreateInfo l, in PipelineLibraryCreateInfo r)
+	{
+		fixed (PipelineLibraryCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineLibraryCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineLibraryCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PipelineLibraryCreateInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3659,7 +9779,7 @@ public unsafe partial struct PipelineLibraryCreateInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevicePortabilitySubsetFeatures
+public unsafe partial struct PhysicalDevicePortabilitySubsetFeatures : IEquatable<PhysicalDevicePortabilitySubsetFeatures>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePortabilitySubsetFeaturesKHR;
 
@@ -3681,6 +9801,36 @@ public unsafe partial struct PhysicalDevicePortabilitySubsetFeatures
 	public Vk.Bool32 TriangleFans;
 	public Vk.Bool32 VertexAttributeAccessBeyondStride;
 
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePortabilitySubsetFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDevicePortabilitySubsetFeatures>.Equals(PhysicalDevicePortabilitySubsetFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePortabilitySubsetFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevicePortabilitySubsetFeatures l, in PhysicalDevicePortabilitySubsetFeatures r)
+	{
+		fixed (PhysicalDevicePortabilitySubsetFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevicePortabilitySubsetFeatures l, in PhysicalDevicePortabilitySubsetFeatures r)
+	{
+		fixed (PhysicalDevicePortabilitySubsetFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new PhysicalDevicePortabilitySubsetFeatures value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDevicePortabilitySubsetFeatures value) => value = new() { sType = TYPE };
@@ -3690,13 +9840,43 @@ public unsafe partial struct PhysicalDevicePortabilitySubsetFeatures
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct PhysicalDevicePortabilitySubsetProperties
+public unsafe partial struct PhysicalDevicePortabilitySubsetProperties : IEquatable<PhysicalDevicePortabilitySubsetProperties>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDevicePortabilitySubsetPropertiesKHR;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MinVertexInputBindingStrideAlignment;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePortabilitySubsetProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDevicePortabilitySubsetProperties>.Equals(PhysicalDevicePortabilitySubsetProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePortabilitySubsetProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDevicePortabilitySubsetProperties l, in PhysicalDevicePortabilitySubsetProperties r)
+	{
+		fixed (PhysicalDevicePortabilitySubsetProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDevicePortabilitySubsetProperties l, in PhysicalDevicePortabilitySubsetProperties r)
+	{
+		fixed (PhysicalDevicePortabilitySubsetProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePortabilitySubsetProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new PhysicalDevicePortabilitySubsetProperties value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3707,7 +9887,7 @@ public unsafe partial struct PhysicalDevicePortabilitySubsetProperties
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BufferCopy2
+public unsafe partial struct BufferCopy2 : IEquatable<BufferCopy2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BufferCopy2KHR;
 
@@ -3716,6 +9896,36 @@ public unsafe partial struct BufferCopy2
 	public Vk.DeviceSize SrcOffset;
 	public Vk.DeviceSize DstOffset;
 	public Vk.DeviceSize Size;
+
+	public readonly override bool Equals(object? obj) => (obj is BufferCopy2 o) && (this == o);
+	readonly bool IEquatable<BufferCopy2>.Equals(BufferCopy2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BufferCopy2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BufferCopy2 l, in BufferCopy2 r)
+	{
+		fixed (BufferCopy2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferCopy2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferCopy2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BufferCopy2 l, in BufferCopy2 r)
+	{
+		fixed (BufferCopy2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferCopy2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferCopy2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new BufferCopy2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3726,7 +9936,7 @@ public unsafe partial struct BufferCopy2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageCopy2
+public unsafe partial struct ImageCopy2 : IEquatable<ImageCopy2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageCopy2KHR;
 
@@ -3738,6 +9948,36 @@ public unsafe partial struct ImageCopy2
 	public Vk.Offset3D DstOffset;
 	public Vk.Extent3D Extent;
 
+	public readonly override bool Equals(object? obj) => (obj is ImageCopy2 o) && (this == o);
+	readonly bool IEquatable<ImageCopy2>.Equals(ImageCopy2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageCopy2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageCopy2 l, in ImageCopy2 r)
+	{
+		fixed (ImageCopy2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageCopy2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageCopy2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageCopy2 l, in ImageCopy2 r)
+	{
+		fixed (ImageCopy2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageCopy2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageCopy2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new ImageCopy2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageCopy2 value) => value = new() { sType = TYPE };
@@ -3747,7 +9987,7 @@ public unsafe partial struct ImageCopy2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageBlit2
+public unsafe partial struct ImageBlit2 : IEquatable<ImageBlit2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageBlit2KHR;
 
@@ -3760,6 +10000,36 @@ public unsafe partial struct ImageBlit2
 	public Vk.Offset3D DstOffsets_0;
 	public Vk.Offset3D DstOffsets_1;
 
+	public readonly override bool Equals(object? obj) => (obj is ImageBlit2 o) && (this == o);
+	readonly bool IEquatable<ImageBlit2>.Equals(ImageBlit2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageBlit2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageBlit2 l, in ImageBlit2 r)
+	{
+		fixed (ImageBlit2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageBlit2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageBlit2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageBlit2 l, in ImageBlit2 r)
+	{
+		fixed (ImageBlit2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageBlit2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageBlit2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new ImageBlit2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageBlit2 value) => value = new() { sType = TYPE };
@@ -3769,7 +10039,7 @@ public unsafe partial struct ImageBlit2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BufferImageCopy2
+public unsafe partial struct BufferImageCopy2 : IEquatable<BufferImageCopy2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BufferImageCopy2KHR;
 
@@ -3782,6 +10052,36 @@ public unsafe partial struct BufferImageCopy2
 	public Vk.Offset3D ImageOffset;
 	public Vk.Extent3D ImageExtent;
 
+	public readonly override bool Equals(object? obj) => (obj is BufferImageCopy2 o) && (this == o);
+	readonly bool IEquatable<BufferImageCopy2>.Equals(BufferImageCopy2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BufferImageCopy2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BufferImageCopy2 l, in BufferImageCopy2 r)
+	{
+		fixed (BufferImageCopy2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferImageCopy2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferImageCopy2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BufferImageCopy2 l, in BufferImageCopy2 r)
+	{
+		fixed (BufferImageCopy2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferImageCopy2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferImageCopy2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new BufferImageCopy2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BufferImageCopy2 value) => value = new() { sType = TYPE };
@@ -3791,7 +10091,7 @@ public unsafe partial struct BufferImageCopy2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ImageResolve2
+public unsafe partial struct ImageResolve2 : IEquatable<ImageResolve2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ImageResolve2KHR;
 
@@ -3803,6 +10103,36 @@ public unsafe partial struct ImageResolve2
 	public Vk.Offset3D DstOffset;
 	public Vk.Extent3D Extent;
 
+	public readonly override bool Equals(object? obj) => (obj is ImageResolve2 o) && (this == o);
+	readonly bool IEquatable<ImageResolve2>.Equals(ImageResolve2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageResolve2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ImageResolve2 l, in ImageResolve2 r)
+	{
+		fixed (ImageResolve2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageResolve2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageResolve2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ImageResolve2 l, in ImageResolve2 r)
+	{
+		fixed (ImageResolve2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageResolve2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageResolve2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new ImageResolve2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageResolve2 value) => value = new() { sType = TYPE };
@@ -3812,7 +10142,7 @@ public unsafe partial struct ImageResolve2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CopyBufferInfo2
+public unsafe partial struct CopyBufferInfo2 : IEquatable<CopyBufferInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CopyBufferInfo2KHR;
 
@@ -3823,6 +10153,36 @@ public unsafe partial struct CopyBufferInfo2
 	public uint RegionCount;
 	public Vk.KHR.BufferCopy2* Regions;
 
+	public readonly override bool Equals(object? obj) => (obj is CopyBufferInfo2 o) && (this == o);
+	readonly bool IEquatable<CopyBufferInfo2>.Equals(CopyBufferInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CopyBufferInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CopyBufferInfo2 l, in CopyBufferInfo2 r)
+	{
+		fixed (CopyBufferInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyBufferInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyBufferInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CopyBufferInfo2 l, in CopyBufferInfo2 r)
+	{
+		fixed (CopyBufferInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyBufferInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyBufferInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new CopyBufferInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CopyBufferInfo2 value) => value = new() { sType = TYPE };
@@ -3832,7 +10192,7 @@ public unsafe partial struct CopyBufferInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CopyImageInfo2
+public unsafe partial struct CopyImageInfo2 : IEquatable<CopyImageInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CopyImageInfo2KHR;
 
@@ -3845,6 +10205,36 @@ public unsafe partial struct CopyImageInfo2
 	public uint RegionCount;
 	public Vk.KHR.ImageCopy2* Regions;
 
+	public readonly override bool Equals(object? obj) => (obj is CopyImageInfo2 o) && (this == o);
+	readonly bool IEquatable<CopyImageInfo2>.Equals(CopyImageInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CopyImageInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CopyImageInfo2 l, in CopyImageInfo2 r)
+	{
+		fixed (CopyImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyImageInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CopyImageInfo2 l, in CopyImageInfo2 r)
+	{
+		fixed (CopyImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyImageInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new CopyImageInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CopyImageInfo2 value) => value = new() { sType = TYPE };
@@ -3854,7 +10244,7 @@ public unsafe partial struct CopyImageInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct BlitImageInfo2
+public unsafe partial struct BlitImageInfo2 : IEquatable<BlitImageInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.BlitImageInfo2KHR;
 
@@ -3868,6 +10258,36 @@ public unsafe partial struct BlitImageInfo2
 	public Vk.KHR.ImageBlit2* Regions;
 	public Vk.Filter Filter;
 
+	public readonly override bool Equals(object? obj) => (obj is BlitImageInfo2 o) && (this == o);
+	readonly bool IEquatable<BlitImageInfo2>.Equals(BlitImageInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BlitImageInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in BlitImageInfo2 l, in BlitImageInfo2 r)
+	{
+		fixed (BlitImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BlitImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BlitImageInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in BlitImageInfo2 l, in BlitImageInfo2 r)
+	{
+		fixed (BlitImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BlitImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BlitImageInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new BlitImageInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BlitImageInfo2 value) => value = new() { sType = TYPE };
@@ -3877,7 +10297,7 @@ public unsafe partial struct BlitImageInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CopyBufferToImageInfo2
+public unsafe partial struct CopyBufferToImageInfo2 : IEquatable<CopyBufferToImageInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CopyBufferToImageInfo2KHR;
 
@@ -3889,6 +10309,36 @@ public unsafe partial struct CopyBufferToImageInfo2
 	public uint RegionCount;
 	public Vk.KHR.BufferImageCopy2* Regions;
 
+	public readonly override bool Equals(object? obj) => (obj is CopyBufferToImageInfo2 o) && (this == o);
+	readonly bool IEquatable<CopyBufferToImageInfo2>.Equals(CopyBufferToImageInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CopyBufferToImageInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CopyBufferToImageInfo2 l, in CopyBufferToImageInfo2 r)
+	{
+		fixed (CopyBufferToImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyBufferToImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyBufferToImageInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CopyBufferToImageInfo2 l, in CopyBufferToImageInfo2 r)
+	{
+		fixed (CopyBufferToImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyBufferToImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyBufferToImageInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new CopyBufferToImageInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CopyBufferToImageInfo2 value) => value = new() { sType = TYPE };
@@ -3898,7 +10348,7 @@ public unsafe partial struct CopyBufferToImageInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CopyImageToBufferInfo2
+public unsafe partial struct CopyImageToBufferInfo2 : IEquatable<CopyImageToBufferInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CopyImageToBufferInfo2KHR;
 
@@ -3910,6 +10360,36 @@ public unsafe partial struct CopyImageToBufferInfo2
 	public uint RegionCount;
 	public Vk.KHR.BufferImageCopy2* Regions;
 
+	public readonly override bool Equals(object? obj) => (obj is CopyImageToBufferInfo2 o) && (this == o);
+	readonly bool IEquatable<CopyImageToBufferInfo2>.Equals(CopyImageToBufferInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CopyImageToBufferInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CopyImageToBufferInfo2 l, in CopyImageToBufferInfo2 r)
+	{
+		fixed (CopyImageToBufferInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyImageToBufferInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyImageToBufferInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CopyImageToBufferInfo2 l, in CopyImageToBufferInfo2 r)
+	{
+		fixed (CopyImageToBufferInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CopyImageToBufferInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CopyImageToBufferInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
 	/// <summary>Creates a new CopyImageToBufferInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CopyImageToBufferInfo2 value) => value = new() { sType = TYPE };
@@ -3919,7 +10399,7 @@ public unsafe partial struct CopyImageToBufferInfo2
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct ResolveImageInfo2
+public unsafe partial struct ResolveImageInfo2 : IEquatable<ResolveImageInfo2>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.ResolveImageInfo2KHR;
 
@@ -3931,6 +10411,36 @@ public unsafe partial struct ResolveImageInfo2
 	public Vk.ImageLayout DstImageLayout;
 	public uint RegionCount;
 	public Vk.KHR.ImageResolve2* Regions;
+
+	public readonly override bool Equals(object? obj) => (obj is ResolveImageInfo2 o) && (this == o);
+	readonly bool IEquatable<ResolveImageInfo2>.Equals(ResolveImageInfo2 obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ResolveImageInfo2>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in ResolveImageInfo2 l, in ResolveImageInfo2 r)
+	{
+		fixed (ResolveImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ResolveImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ResolveImageInfo2>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in ResolveImageInfo2 l, in ResolveImageInfo2 r)
+	{
+		fixed (ResolveImageInfo2* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ResolveImageInfo2>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ResolveImageInfo2>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new ResolveImageInfo2 value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -15,13 +15,43 @@ namespace Vk.QCOM
 {
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct RenderPassTransformBeginInfo
+public unsafe partial struct RenderPassTransformBeginInfo : IEquatable<RenderPassTransformBeginInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.RenderPassTransformBeginInfoQCOM;
 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.SurfaceTransformFlags Transform;
+
+	public readonly override bool Equals(object? obj) => (obj is RenderPassTransformBeginInfo o) && (this == o);
+	readonly bool IEquatable<RenderPassTransformBeginInfo>.Equals(RenderPassTransformBeginInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RenderPassTransformBeginInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in RenderPassTransformBeginInfo l, in RenderPassTransformBeginInfo r)
+	{
+		fixed (RenderPassTransformBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassTransformBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassTransformBeginInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in RenderPassTransformBeginInfo l, in RenderPassTransformBeginInfo r)
+	{
+		fixed (RenderPassTransformBeginInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassTransformBeginInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassTransformBeginInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new RenderPassTransformBeginInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -32,7 +62,7 @@ public unsafe partial struct RenderPassTransformBeginInfo
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct CommandBufferInheritanceRenderPassTransformInfo
+public unsafe partial struct CommandBufferInheritanceRenderPassTransformInfo : IEquatable<CommandBufferInheritanceRenderPassTransformInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CommandBufferInheritanceRenderPassTransformInfoQCOM;
 
@@ -40,6 +70,36 @@ public unsafe partial struct CommandBufferInheritanceRenderPassTransformInfo
 	public void* pNext;
 	public Vk.KHR.SurfaceTransformFlags Transform;
 	public Vk.Rect2D RenderArea;
+
+	public readonly override bool Equals(object? obj) => (obj is CommandBufferInheritanceRenderPassTransformInfo o) && (this == o);
+	readonly bool IEquatable<CommandBufferInheritanceRenderPassTransformInfo>.Equals(CommandBufferInheritanceRenderPassTransformInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CommandBufferInheritanceRenderPassTransformInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in CommandBufferInheritanceRenderPassTransformInfo l, in CommandBufferInheritanceRenderPassTransformInfo r)
+	{
+		fixed (CommandBufferInheritanceRenderPassTransformInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CommandBufferInheritanceRenderPassTransformInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CommandBufferInheritanceRenderPassTransformInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in CommandBufferInheritanceRenderPassTransformInfo l, in CommandBufferInheritanceRenderPassTransformInfo r)
+	{
+		fixed (CommandBufferInheritanceRenderPassTransformInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CommandBufferInheritanceRenderPassTransformInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CommandBufferInheritanceRenderPassTransformInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
 
 	/// <summary>Creates a new CommandBufferInheritanceRenderPassTransformInfo value with the correct type field.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -276,7 +276,7 @@ namespace Gen
 					else {
 						file.WriteLine("[StructLayout(LayoutKind.Sequential)]");
 					}
-					using var structBlock = file.PushBlock($"public unsafe partial struct {structSpec.Name}");
+					using var structBlock = file.PushBlock($"public unsafe partial struct {structSpec.Name} : IEquatable<{structSpec.Name}>");
 
 					// Write the struct type literal, if needed
 					if (structSpec.HasSType) {
@@ -305,6 +305,39 @@ namespace Gen
 						else {
 							structBlock.WriteLine($"{fprefix}public {field.Type} {field.Name};");
 						}
+					}
+
+					// Generate overrides
+					structBlock.WriteLine();
+					structBlock.WriteLine($"public readonly override bool Equals(object? obj) => (obj is {structSpec.Name} o) && (this == o);");
+					structBlock.WriteLine($"readonly bool IEquatable<{structSpec.Name}>.Equals({structSpec.Name} obj) => (this == obj);");
+					using (var hashBlock = structBlock.PushBlock($"public readonly override int GetHashCode()")) {
+						var field0 = structSpec.Fields[0];
+						string fixStr =
+							(field0.SizeLiteral is not null && field0.IsFixed) ? $"{field0.Name}[0]" :
+							(field0.SizeLiteral is not null && !field0.IsFixed) ? $"{field0.Name}_0" :
+							field0.Name;
+						hashBlock.WriteLine($"fixed ({structSpec.Fields[0].Type}* ptr = &{fixStr}) {{");
+						hashBlock.WriteLine($"\treturn VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<{structSpec.Name}>());");
+						hashBlock.WriteLine("}");
+					}
+
+					// Generate the equality operators
+					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					using (var eqBlock = structBlock.PushBlock($"public static bool operator == (in {structSpec.Name} l, in {structSpec.Name} r)")) {
+						eqBlock.WriteLine($"fixed ({structSpec.Name}* lp = &l, rp = &r) {{");
+						eqBlock.WriteLine($"\tReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<{structSpec.Name}>());");
+						eqBlock.WriteLine($"\tReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<{structSpec.Name}>());");
+						eqBlock.WriteLine("\treturn lb.SequenceCompareTo(rb) == 0;");
+						eqBlock.WriteLine("}");
+					}
+					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					using (var neqBlock = structBlock.PushBlock($"public static bool operator != (in {structSpec.Name} l, in {structSpec.Name} r)")) {
+						neqBlock.WriteLine($"fixed ({structSpec.Name}* lp = &l, rp = &r) {{");
+						neqBlock.WriteLine($"\tReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<{structSpec.Name}>());");
+						neqBlock.WriteLine($"\tReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<{structSpec.Name}>());");
+						neqBlock.WriteLine("\treturn lb.SequenceCompareTo(rb) != 0;");
+						neqBlock.WriteLine("}");
 					}
 
 					// Generate the initialization functions for typed structs
