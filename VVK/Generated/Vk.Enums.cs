@@ -1927,7 +1927,6 @@ public enum StructureType : int
 	BindBufferMemoryInfoKHR = 1000157000,
 	BindImageMemoryInfoKHR = 1000157001,
 	DrmFormatModifierPropertiesListEXT = 1000158000,
-	DrmFormatModifierPropertiesEXT = 1000158001,
 	PhysicalDeviceImageDrmFormatModifierInfoEXT = 1000158002,
 	ImageDrmFormatModifierListCreateInfoEXT = 1000158003,
 	ImageDrmFormatModifierExplicitCreateInfoEXT = 1000158004,

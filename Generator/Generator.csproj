@@ -7,7 +7,7 @@
     <Platforms>x64</Platforms>
     <AssemblyName>VVKGen</AssemblyName>
     <Nullable>enable</Nullable>
-    <Version>1.2.156</Version>
+    <Version>1.2.157.0</Version>
     <Authors>Sean Moss</Authors>
     <Company>N/A</Company>
     <Product>VVK</Product>
@@ -16,8 +16,8 @@
     <PackageProjectUrl>https://github.com/VegaLib/VVK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/VegaLib/VVK</RepositoryUrl>
     <PackageTags>Vulkan, Graphics, Generator, Wrapper, API, C# 9</PackageTags>
-    <AssemblyVersion>1.2.156.0</AssemblyVersion>
-    <FileVersion>1.2.156.0</FileVersion>
+    <AssemblyVersion>1.2.157.0</AssemblyVersion>
+    <FileVersion>1.2.157.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
