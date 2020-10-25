@@ -2,7 +2,7 @@
 
 Low-overhead Vulkan API bindings for .NET 5 and C# 9.
 
-The raw API bindings are generated from the `vk.xml` specification file published by Khronos. These bindings can be used directly, or with the hand-written wrapper classes that provide a thin OOP layer on the raw Vulkan API. The usage guide for both approaches can be found on [the Wiki](https://github.com/VegaLib/VVK/wikihttps://github.com/VegaLib/VVK/wiki).
+The raw API bindings are generated from the `vk.xml` specification file published by Khronos. These bindings can be used directly, or with the hand-written wrapper classes that provide a thin OOP layer on the raw Vulkan API. The usage guide for both approaches can be found on [the Wiki](https://github.com/VegaLib/VVK/wiki).
 
 The bindings use features new to C# 9, namely raw function pointers for faster function calls over unmanaged delegates. The code for the generator is available in this repo.
 
