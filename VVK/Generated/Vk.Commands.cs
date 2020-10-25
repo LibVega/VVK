@@ -115,6 +115,7 @@ public unsafe sealed partial class InstanceFunctionTable
 	public readonly delegate* unmanaged<Vk.Instance, Vk.EXT.HeadlessSurfaceCreateInfo*, Vk.AllocationCallbacks*, Vk.KHR.Surface*, Vk.Result> vkCreateHeadlessSurfaceEXT = null;
 	public readonly delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.NV.FramebufferMixedSamplesCombination*, Vk.Result> vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV = null;
 	public readonly delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.EXT.PhysicalDeviceToolProperties*, Vk.Result> vkGetPhysicalDeviceToolPropertiesEXT = null;
+	public readonly delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.KHR.PhysicalDeviceFragmentShadingRate*, Vk.Result> vkGetPhysicalDeviceFragmentShadingRatesKHR = null;
 
 	/// <summary>Creates a new function table with all null pointers.</summary>
 	public InstanceFunctionTable() { }
@@ -501,6 +502,10 @@ public unsafe sealed partial class InstanceFunctionTable
 			vkGetPhysicalDeviceToolPropertiesEXT =
 				(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.EXT.PhysicalDeviceToolProperties*, Vk.Result>)addr;
 		}
+		if (TryLoadFunc(inst, "vkGetPhysicalDeviceFragmentShadingRatesKHR", out addr)) {
+			vkGetPhysicalDeviceFragmentShadingRatesKHR =
+				(delegate* unmanaged<Vk.PhysicalDevice, uint*, Vk.KHR.PhysicalDeviceFragmentShadingRate*, Vk.Result>)addr;
+		}
 	}
 
 	static InstanceFunctionTable()
@@ -871,6 +876,7 @@ public unsafe sealed partial class DeviceFunctionTable
 	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyBufferToImageInfo2*, void> vkCmdCopyBufferToImage2KHR = null;
 	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.CopyImageToBufferInfo2*, void> vkCmdCopyImageToBuffer2KHR = null;
 	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.ResolveImageInfo2*, void> vkCmdResolveImage2KHR = null;
+	public readonly delegate* unmanaged<Vk.CommandBuffer, Vk.Extent2D*, Vk.KHR.FragmentShadingRateCombinerOp*, void> vkCmdSetFragmentShadingRateKHR = null;
 
 	/// <summary>Creates a new function table with all null pointers.</summary>
 	public DeviceFunctionTable() { }
@@ -2314,6 +2320,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		if (TryLoadFunc(dev, "vkCmdResolveImage2KHR", out addr)) {
 			vkCmdResolveImage2KHR =
 				(delegate* unmanaged<Vk.CommandBuffer, Vk.KHR.ResolveImageInfo2*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdSetFragmentShadingRateKHR", out addr)) {
+			vkCmdSetFragmentShadingRateKHR =
+				(delegate* unmanaged<Vk.CommandBuffer, Vk.Extent2D*, Vk.KHR.FragmentShadingRateCombinerOp*, void>)addr;
 		}
 	}
 

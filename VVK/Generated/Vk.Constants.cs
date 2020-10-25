@@ -368,6 +368,8 @@ public static class Constants
 	public const uint AMD_DISPLAY_NATIVE_HDR_SPEC_VERSION = 1;
 	public const string FUCHSIA_IMAGEPIPE_SURFACE_EXTENSION_NAME = "VK_FUCHSIA_imagepipe_surface";
 	public const uint FUCHSIA_IMAGEPIPE_SURFACE_SPEC_VERSION = 1;
+	public const string KHR_SHADER_TERMINATE_INVOCATION_EXTENSION_NAME = "VK_KHR_shader_terminate_invocation";
+	public const uint KHR_SHADER_TERMINATE_INVOCATION_SPEC_VERSION = 1;
 	public const string EXT_METAL_SURFACE_EXTENSION_NAME = "VK_EXT_metal_surface";
 	public const uint EXT_METAL_SURFACE_SPEC_VERSION = 1;
 	public const string EXT_FRAGMENT_DENSITY_MAP_EXTENSION_NAME = "VK_EXT_fragment_density_map";
@@ -380,6 +382,8 @@ public static class Constants
 	public const uint GOOGLE_DECORATE_STRING_SPEC_VERSION = 1;
 	public const string EXT_SUBGROUP_SIZE_CONTROL_EXTENSION_NAME = "VK_EXT_subgroup_size_control";
 	public const uint EXT_SUBGROUP_SIZE_CONTROL_SPEC_VERSION = 2;
+	public const string KHR_FRAGMENT_SHADING_RATE_EXTENSION_NAME = "VK_KHR_fragment_shading_rate";
+	public const uint KHR_FRAGMENT_SHADING_RATE_SPEC_VERSION = 1;
 	public const string AMD_SHADER_CORE_PROPERTIES_2_EXTENSION_NAME = "VK_AMD_shader_core_properties2";
 	public const uint AMD_SHADER_CORE_PROPERTIES_2_SPEC_VERSION = 1;
 	public const string AMD_DEVICE_COHERENT_MEMORY_EXTENSION_NAME = "VK_AMD_device_coherent_memory";

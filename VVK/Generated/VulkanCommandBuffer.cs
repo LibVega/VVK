@@ -528,6 +528,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 	public void ResolveImage2KHR(Vk.KHR.ResolveImageInfo2* pResolveImageInfo)
 		=> Parent.Functions.vkCmdResolveImage2KHR(Handle, pResolveImageInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetFragmentShadingRateKHR(Vk.Extent2D* pFragmentSize, Vk.KHR.FragmentShadingRateCombinerOp* combinerOps)
+		=> Parent.Functions.vkCmdSetFragmentShadingRateKHR(Handle, pFragmentSize, combinerOps);
+
 }
 
 } // namespace VVK

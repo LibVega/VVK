@@ -10450,4 +10450,308 @@ public unsafe partial struct ResolveImageInfo2 : IEquatable<ResolveImageInfo2>
 	public static void Init(ref ResolveImageInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct FragmentShadingRateAttachmentInfo : IEquatable<FragmentShadingRateAttachmentInfo>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.FragmentShadingRateAttachmentInfoKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.AttachmentReference2* FragmentShadingRateAttachment;
+	public Vk.Extent2D ShadingRateAttachmentTexelSize;
+
+	public readonly override bool Equals(object? obj) => (obj is FragmentShadingRateAttachmentInfo o) && (this == o);
+	readonly bool IEquatable<FragmentShadingRateAttachmentInfo>.Equals(FragmentShadingRateAttachmentInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<FragmentShadingRateAttachmentInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in FragmentShadingRateAttachmentInfo l, in FragmentShadingRateAttachmentInfo r)
+	{
+		fixed (FragmentShadingRateAttachmentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FragmentShadingRateAttachmentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FragmentShadingRateAttachmentInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in FragmentShadingRateAttachmentInfo l, in FragmentShadingRateAttachmentInfo r)
+	{
+		fixed (FragmentShadingRateAttachmentInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FragmentShadingRateAttachmentInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FragmentShadingRateAttachmentInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
+	/// <summary>Creates a new FragmentShadingRateAttachmentInfo value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out FragmentShadingRateAttachmentInfo value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref FragmentShadingRateAttachmentInfo value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PipelineFragmentShadingRateStateCreateInfo : IEquatable<PipelineFragmentShadingRateStateCreateInfo>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PipelineFragmentShadingRateStateCreateInfoKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Extent2D FragmentSize;
+	public Vk.KHR.FragmentShadingRateCombinerOp CombinerOps_0;
+	public Vk.KHR.FragmentShadingRateCombinerOp CombinerOps_1;
+
+	public readonly override bool Equals(object? obj) => (obj is PipelineFragmentShadingRateStateCreateInfo o) && (this == o);
+	readonly bool IEquatable<PipelineFragmentShadingRateStateCreateInfo>.Equals(PipelineFragmentShadingRateStateCreateInfo obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineFragmentShadingRateStateCreateInfo>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PipelineFragmentShadingRateStateCreateInfo l, in PipelineFragmentShadingRateStateCreateInfo r)
+	{
+		fixed (PipelineFragmentShadingRateStateCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineFragmentShadingRateStateCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineFragmentShadingRateStateCreateInfo>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PipelineFragmentShadingRateStateCreateInfo l, in PipelineFragmentShadingRateStateCreateInfo r)
+	{
+		fixed (PipelineFragmentShadingRateStateCreateInfo* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineFragmentShadingRateStateCreateInfo>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineFragmentShadingRateStateCreateInfo>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
+	/// <summary>Creates a new PipelineFragmentShadingRateStateCreateInfo value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PipelineFragmentShadingRateStateCreateInfo value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PipelineFragmentShadingRateStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceFragmentShadingRateFeatures : IEquatable<PhysicalDeviceFragmentShadingRateFeatures>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceFragmentShadingRateFeaturesKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Bool32 PipelineFragmentShadingRate;
+	public Vk.Bool32 PrimitiveFragmentShadingRate;
+	public Vk.Bool32 AttachmentFragmentShadingRate;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentShadingRateFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFragmentShadingRateFeatures>.Equals(PhysicalDeviceFragmentShadingRateFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceFragmentShadingRateFeatures l, in PhysicalDeviceFragmentShadingRateFeatures r)
+	{
+		fixed (PhysicalDeviceFragmentShadingRateFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceFragmentShadingRateFeatures l, in PhysicalDeviceFragmentShadingRateFeatures r)
+	{
+		fixed (PhysicalDeviceFragmentShadingRateFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
+	/// <summary>Creates a new PhysicalDeviceFragmentShadingRateFeatures value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceFragmentShadingRateFeatures value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDeviceFragmentShadingRateFeatures value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceFragmentShadingRateProperties : IEquatable<PhysicalDeviceFragmentShadingRateProperties>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceFragmentShadingRatePropertiesKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Extent2D MinFragmentShadingRateAttachmentTexelSize;
+	public Vk.Extent2D MaxFragmentShadingRateAttachmentTexelSize;
+	public uint MaxFragmentShadingRateAttachmentTexelSizeAspectRatio;
+	public Vk.Bool32 PrimitiveFragmentShadingRateWithMultipleViewports;
+	public Vk.Bool32 LayeredShadingRateAttachments;
+	public Vk.Bool32 FragmentShadingRateNonTrivialCombinerOps;
+	public Vk.Extent2D MaxFragmentSize;
+	public uint MaxFragmentSizeAspectRatio;
+	public uint MaxFragmentShadingRateCoverageSamples;
+	public Vk.SampleCountFlags MaxFragmentShadingRateRasterizationSamples;
+	public Vk.Bool32 FragmentShadingRateWithShaderDepthStencilWrites;
+	public Vk.Bool32 FragmentShadingRateWithSampleMask;
+	public Vk.Bool32 FragmentShadingRateWithShaderSampleMask;
+	public Vk.Bool32 FragmentShadingRateWithConservativeRasterization;
+	public Vk.Bool32 FragmentShadingRateWithFragmentShaderInterlock;
+	public Vk.Bool32 FragmentShadingRateWithCustomSampleLocations;
+	public Vk.Bool32 FragmentShadingRateStrictMultiplyCombiner;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentShadingRateProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFragmentShadingRateProperties>.Equals(PhysicalDeviceFragmentShadingRateProperties obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateProperties>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceFragmentShadingRateProperties l, in PhysicalDeviceFragmentShadingRateProperties r)
+	{
+		fixed (PhysicalDeviceFragmentShadingRateProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateProperties>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceFragmentShadingRateProperties l, in PhysicalDeviceFragmentShadingRateProperties r)
+	{
+		fixed (PhysicalDeviceFragmentShadingRateProperties* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateProperties>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRateProperties>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
+	/// <summary>Creates a new PhysicalDeviceFragmentShadingRateProperties value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceFragmentShadingRateProperties value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDeviceFragmentShadingRateProperties value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceFragmentShadingRate : IEquatable<PhysicalDeviceFragmentShadingRate>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceFragmentShadingRateKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.SampleCountFlags SampleCounts;
+	public Vk.Extent2D FragmentSize;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentShadingRate o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFragmentShadingRate>.Equals(PhysicalDeviceFragmentShadingRate obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentShadingRate>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceFragmentShadingRate l, in PhysicalDeviceFragmentShadingRate r)
+	{
+		fixed (PhysicalDeviceFragmentShadingRate* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRate>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRate>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceFragmentShadingRate l, in PhysicalDeviceFragmentShadingRate r)
+	{
+		fixed (PhysicalDeviceFragmentShadingRate* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRate>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShadingRate>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
+	/// <summary>Creates a new PhysicalDeviceFragmentShadingRate value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceFragmentShadingRate value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDeviceFragmentShadingRate value) { value.sType = TYPE; value.pNext = null; }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceShaderTerminateInvocationFeatures : IEquatable<PhysicalDeviceShaderTerminateInvocationFeatures>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceShaderTerminateInvocationFeaturesKHR;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Bool32 ShaderTerminateInvocation;
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderTerminateInvocationFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceShaderTerminateInvocationFeatures>.Equals(PhysicalDeviceShaderTerminateInvocationFeatures obj) => (this == obj);
+	public readonly override int GetHashCode()
+	{
+		fixed (Vk.StructureType* ptr = &sType) {
+			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderTerminateInvocationFeatures>());
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (in PhysicalDeviceShaderTerminateInvocationFeatures l, in PhysicalDeviceShaderTerminateInvocationFeatures r)
+	{
+		fixed (PhysicalDeviceShaderTerminateInvocationFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderTerminateInvocationFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderTerminateInvocationFeatures>());
+			return lb.SequenceCompareTo(rb) == 0;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (in PhysicalDeviceShaderTerminateInvocationFeatures l, in PhysicalDeviceShaderTerminateInvocationFeatures r)
+	{
+		fixed (PhysicalDeviceShaderTerminateInvocationFeatures* lp = &l, rp = &r) {
+			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderTerminateInvocationFeatures>());
+			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderTerminateInvocationFeatures>());
+			return lb.SequenceCompareTo(rb) != 0;
+		}
+	}
+
+
+	/// <summary>Creates a new PhysicalDeviceShaderTerminateInvocationFeatures value with the correct type field.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceShaderTerminateInvocationFeatures value) => value = new() { sType = TYPE };
+	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Init(ref PhysicalDeviceShaderTerminateInvocationFeatures value) { value.sType = TYPE; value.pNext = null; }
+}
+
 } // namespace Vk.KHR

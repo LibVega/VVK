@@ -276,6 +276,10 @@ public unsafe sealed partial class VulkanPhysicalDevice
 	public Vk.Result GetToolPropertiesEXT(uint* pToolCount, Vk.EXT.PhysicalDeviceToolProperties* pToolProperties)
 		=> Parent.Functions.vkGetPhysicalDeviceToolPropertiesEXT(Handle, pToolCount, pToolProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetFragmentShadingRatesKHR(uint* pFragmentShadingRateCount, Vk.KHR.PhysicalDeviceFragmentShadingRate* pFragmentShadingRates)
+		=> Parent.Functions.vkGetPhysicalDeviceFragmentShadingRatesKHR(Handle, pFragmentShadingRateCount, pFragmentShadingRates);
+
 }
 
 } // namespace VVK

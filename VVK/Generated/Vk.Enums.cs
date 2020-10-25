@@ -217,6 +217,7 @@ public enum AccessFlags : uint
 	AccelerationStructureReadNV = 2097152,
 	AccelerationStructureWriteNV = 4194304,
 	FragmentDensityMapReadEXT = 16777216,
+	FragmentShadingRateAttachmentReadKHR = 8388608,
 	CommandPreprocessReadNV = 131072,
 	CommandPreprocessWriteNV = 262144,
 	NoFlags = 0,
@@ -299,6 +300,7 @@ public enum ImageUsageFlags : uint
 	InputAttachment = 128,
 	ShadingRateImageNV = 256,
 	FragmentDensityMapEXT = 512,
+	FragmentShadingRateAttachmentKHR = 256,
 	NoFlags = 0,
 }
 
@@ -426,6 +428,7 @@ public enum FormatFeatureFlags : uint
 	CositedChromaSamplesKHR = 8388608,
 	SampledImageFilterCubicEXT = 8192,
 	FragmentDensityMapEXT = 16777216,
+	FragmentShadingRateAttachmentKHR = 1073741824,
 	NoFlags = 0,
 }
 
@@ -589,6 +592,7 @@ public enum PipelineStageFlags : uint
 	TaskShaderNV = 524288,
 	MeshShaderNV = 1048576,
 	FragmentDensityProcessEXT = 8388608,
+	FragmentShadingRateAttachmentKHR = 4194304,
 	CommandPreprocessNV = 131072,
 	NoFlags = 0,
 }
@@ -1026,6 +1030,7 @@ public enum DynamicState : int
 	ViewportShadingRatePaletteNV = 1000164004,
 	ViewportCoarseSampleOrderNV = 1000164006,
 	ExclusiveScissorNV = 1000205001,
+	FragmentShadingRateKHR = 1000226000,
 	LineStippleEXT = 1000259000,
 	CullModeEXT = 1000267000,
 	FrontFaceEXT = 1000267001,
@@ -1359,6 +1364,7 @@ public enum ImageLayout : int
 	DepthAttachmentStencilReadOnlyOptimalKHR = 1000117001,
 	ShadingRateOptimalNV = 1000164003,
 	FragmentDensityMapOptimalEXT = 1000218000,
+	FragmentShadingRateAttachmentOptimalKHR = 1000164003,
 	DepthAttachmentOptimalKHR = 1000241000,
 	DepthReadOnlyOptimalKHR = 1000241001,
 	StencilAttachmentOptimalKHR = 1000241002,
@@ -2010,6 +2016,7 @@ public enum StructureType : int
 	DisplayNativeHdrSurfaceCapabilitiesAMD = 1000213000,
 	SwapchainDisplayNativeHdrCreateInfoAMD = 1000213001,
 	ImagepipeSurfaceCreateInfoFUCHSIA = 1000214000,
+	PhysicalDeviceShaderTerminateInvocationFeaturesKHR = 1000215000,
 	MetalSurfaceCreateInfoEXT = 1000217000,
 	PhysicalDeviceFragmentDensityMapFeaturesEXT = 1000218000,
 	PhysicalDeviceFragmentDensityMapPropertiesEXT = 1000218001,
@@ -2018,6 +2025,11 @@ public enum StructureType : int
 	PhysicalDeviceSubgroupSizeControlPropertiesEXT = 1000225000,
 	PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = 1000225001,
 	PhysicalDeviceSubgroupSizeControlFeaturesEXT = 1000225002,
+	FragmentShadingRateAttachmentInfoKHR = 1000226000,
+	PipelineFragmentShadingRateStateCreateInfoKHR = 1000226001,
+	PhysicalDeviceFragmentShadingRatePropertiesKHR = 1000226002,
+	PhysicalDeviceFragmentShadingRateFeaturesKHR = 1000226003,
+	PhysicalDeviceFragmentShadingRateKHR = 1000226004,
 	PhysicalDeviceShaderCoreProperties2AMD = 1000227000,
 	PhysicalDeviceCoherentMemoryFeaturesAMD = 1000229000,
 	PhysicalDeviceShaderImageAtomicInt64FeaturesEXT = 1000234000,

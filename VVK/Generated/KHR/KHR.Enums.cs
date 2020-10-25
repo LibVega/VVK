@@ -521,6 +521,15 @@ public enum ShaderFloatControlsIndependence : int
 	NoneKHR = 2,
 }
 
+public enum FragmentShadingRateCombinerOp : int
+{
+	KeepKHR = 0,
+	ReplaceKHR = 1,
+	MinKHR = 2,
+	MaxKHR = 3,
+	MulKHR = 4,
+}
+
 public enum DriverId : int
 {
 	AmdProprietary = 1,
