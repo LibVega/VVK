@@ -546,9 +546,8 @@ namespace Gen
 			static void _WriteCommand(SourceBlock block, CommandOut spec, string table, ObjectScope scope)
 			{
 				// Build the function strings
-				var argCount = spec.Arguments.Count - 1;
-				var argStr = String.Join(", ", spec.Arguments.TakeLast(argCount).Select(arg => $"{arg.Type} {arg.Name}"));
-				var callStr = "Handle, " + String.Join(", ", spec.Arguments.TakeLast(argCount).Select(arg => arg.Name));
+				var argStr = String.Join(", ", spec.Arguments.Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
+				var callStr = "Handle, " + String.Join(", ", spec.Arguments.Skip(1).Select(arg => arg.Name));
 				if (callStr.EndsWith(", ")) {
 					callStr = "Handle"; // No-args case
 				}
@@ -596,6 +595,41 @@ namespace Gen
 
 				// Insert spacing
 				block.WriteLine();
+
+				// Open the alternative function
+				if (spec.AlternateArgs is not null) {
+					var altArgStr = String.Join(", ", spec.AlternateArgs.Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
+					var altCallStr = "Handle, " + String.Join(", ", spec.AlternateArgs.Skip(1).Select(arg => {
+						return arg.Type.StartsWith("out") ? "out " + arg.Name : arg.Name;
+					}));
+					if (altCallStr.EndsWith(", ")) {
+						altCallStr = "Handle"; // No-args case
+					}
+
+					// Open the function
+					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					block.WriteLine($"public {spec.ReturnType} {funcName}({altArgStr})");
+
+					// Function body (queues have synchronization)
+					if (scope != ObjectScope.Queue) {
+						block.WriteLine($"\t=> {table}.{spec.Name.Substring("vk".Length)}({altCallStr});");
+					}
+					else {
+						block.WriteLine("{");
+						block.WriteLine("\tlock (_lock) {");
+						if (spec.ReturnType == "void") {
+							block.WriteLine($"\t\t{table}.{spec.Name.Substring("vk".Length)}({altCallStr});");
+						}
+						else {
+							block.WriteLine($"\t\treturn {table}.{spec.Name.Substring("vk".Length)}({altCallStr});");
+						}
+						block.WriteLine("\t}");
+						block.WriteLine("}");
+					}
+
+					// Insert spacing
+					block.WriteLine();
+				}
 			}
 		}
 	}

@@ -25,6 +25,14 @@ public unsafe sealed partial class VulkanQueue
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result Submit(in ReadOnlySpan<Vk.SubmitInfo> submits, Vk.Fence fence)
+	{
+		lock (_lock) {
+			return Parent.Functions.QueueSubmit(Handle, submits, fence);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result WaitIdle()
 	{
 		lock (_lock) {
@@ -41,10 +49,26 @@ public unsafe sealed partial class VulkanQueue
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BindSparse(in ReadOnlySpan<Vk.BindSparseInfo> bindInfo, Vk.Fence fence)
+	{
+		lock (_lock) {
+			return Parent.Functions.QueueBindSparse(Handle, bindInfo, fence);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result PresentKHR(Vk.KHR.PresentInfo* pPresentInfo)
 	{
 		lock (_lock) {
 			return Parent.Functions.vkQueuePresentKHR(Handle, pPresentInfo);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result PresentKHR(in Vk.KHR.PresentInfo presentInfo)
+	{
+		lock (_lock) {
+			return Parent.Functions.QueuePresentKHR(Handle, presentInfo);
 		}
 	}
 
@@ -57,10 +81,26 @@ public unsafe sealed partial class VulkanQueue
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SignalReleaseImageANDROID(in ReadOnlySpan<Vk.Semaphore> waitSemaphores, Vk.Image image, out int nativeFenceFd)
+	{
+		lock (_lock) {
+			return Parent.Functions.QueueSignalReleaseImageANDROID(Handle, waitSemaphores, image, out nativeFenceFd);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 	{
 		lock (_lock) {
 			Parent.Functions.vkQueueBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BeginDebugUtilsLabelEXT(in Vk.EXT.DebugUtilsLabel labelInfo)
+	{
+		lock (_lock) {
+			Parent.Functions.QueueBeginDebugUtilsLabelEXT(Handle, labelInfo);
 		}
 	}
 
@@ -81,10 +121,26 @@ public unsafe sealed partial class VulkanQueue
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void InsertDebugUtilsLabelEXT(in Vk.EXT.DebugUtilsLabel labelInfo)
+	{
+		lock (_lock) {
+			Parent.Functions.QueueInsertDebugUtilsLabelEXT(Handle, labelInfo);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetCheckpointDataNV(uint* pCheckpointDataCount, Vk.NV.CheckpointData* pCheckpointData)
 	{
 		lock (_lock) {
 			Parent.Functions.vkGetQueueCheckpointDataNV(Handle, pCheckpointDataCount, pCheckpointData);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetCheckpointDataNV(out uint checkpointDataCount, in Span<Vk.NV.CheckpointData> checkpointData)
+	{
+		lock (_lock) {
+			Parent.Functions.GetQueueCheckpointDataNV(Handle, out checkpointDataCount, checkpointData);
 		}
 	}
 

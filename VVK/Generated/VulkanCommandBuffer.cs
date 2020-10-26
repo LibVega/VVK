@@ -21,6 +21,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkBeginCommandBuffer(Handle, pBeginInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BeginCommandBuffer(in Vk.CommandBufferBeginInfo beginInfo)
+		=> Parent.Functions.BeginCommandBuffer(Handle, beginInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EndCommandBuffer()
 		=> Parent.Functions.vkEndCommandBuffer(Handle);
 
@@ -37,8 +41,16 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdSetViewport(Handle, firstViewport, viewportCount, pViewports);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetViewport(uint firstViewport, in ReadOnlySpan<Vk.Viewport> viewports)
+		=> Parent.Functions.CmdSetViewport(Handle, firstViewport, viewports);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetScissor(uint firstScissor, uint scissorCount, Vk.Rect2D* pScissors)
 		=> Parent.Functions.vkCmdSetScissor(Handle, firstScissor, scissorCount, pScissors);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetScissor(uint firstScissor, in ReadOnlySpan<Vk.Rect2D> scissors)
+		=> Parent.Functions.CmdSetScissor(Handle, firstScissor, scissors);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetLineWidth(float lineWidth)
@@ -51,6 +63,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetBlendConstants(float* blendConstants)
 		=> Parent.Functions.vkCmdSetBlendConstants(Handle, blendConstants);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetBlendConstants(in float blendConstants)
+		=> Parent.Functions.CmdSetBlendConstants(Handle, blendConstants);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetDepthBounds(float minDepthBounds, float maxDepthBounds)
@@ -73,12 +89,20 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdBindDescriptorSets(Handle, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BindDescriptorSets(Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint firstSet, in ReadOnlySpan<Vk.DescriptorSet> descriptorSets, in ReadOnlySpan<uint> dynamicOffsets)
+		=> Parent.Functions.CmdBindDescriptorSets(Handle, pipelineBindPoint, layout, firstSet, descriptorSets, dynamicOffsets);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BindIndexBuffer(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.IndexType indexType)
 		=> Parent.Functions.vkCmdBindIndexBuffer(Handle, buffer, offset, indexType);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BindVertexBuffers(uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets)
 		=> Parent.Functions.vkCmdBindVertexBuffers(Handle, firstBinding, bindingCount, pBuffers, pOffsets);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BindVertexBuffers(uint firstBinding, in ReadOnlySpan<Vk.Buffer> buffers, in ReadOnlySpan<Vk.DeviceSize> offsets)
+		=> Parent.Functions.CmdBindVertexBuffers(Handle, firstBinding, buffers, offsets);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void Draw(uint vertexCount, uint instanceCount, uint firstVertex, uint firstInstance)
@@ -109,20 +133,40 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdCopyBuffer(Handle, srcBuffer, dstBuffer, regionCount, pRegions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyBuffer(Vk.Buffer srcBuffer, Vk.Buffer dstBuffer, in ReadOnlySpan<Vk.BufferCopy> regions)
+		=> Parent.Functions.CmdCopyBuffer(Handle, srcBuffer, dstBuffer, regions);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageCopy* pRegions)
 		=> Parent.Functions.vkCmdCopyImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageCopy> regions)
+		=> Parent.Functions.CmdCopyImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BlitImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageBlit* pRegions, Vk.Filter filter)
 		=> Parent.Functions.vkCmdBlitImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BlitImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageBlit> regions, Vk.Filter filter)
+		=> Parent.Functions.CmdBlitImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regions, filter);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyBufferToImage(Vk.Buffer srcBuffer, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.BufferImageCopy* pRegions)
 		=> Parent.Functions.vkCmdCopyBufferToImage(Handle, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyBufferToImage(Vk.Buffer srcBuffer, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.BufferImageCopy> regions)
+		=> Parent.Functions.CmdCopyBufferToImage(Handle, srcBuffer, dstImage, dstImageLayout, regions);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyImageToBuffer(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferImageCopy* pRegions)
 		=> Parent.Functions.vkCmdCopyImageToBuffer(Handle, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyImageToBuffer(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Buffer dstBuffer, in ReadOnlySpan<Vk.BufferImageCopy> regions)
+		=> Parent.Functions.CmdCopyImageToBuffer(Handle, srcImage, srcImageLayout, dstBuffer, regions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateBuffer(Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, Vk.DeviceSize dataSize, void* pData)
@@ -137,16 +181,32 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdClearColorImage(Handle, image, imageLayout, pColor, rangeCount, pRanges);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ClearColorImage(Vk.Image image, Vk.ImageLayout imageLayout, in Vk.ClearColorValue color, in ReadOnlySpan<Vk.ImageSubresourceRange> ranges)
+		=> Parent.Functions.CmdClearColorImage(Handle, image, imageLayout, color, ranges);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ClearDepthStencilImage(Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearDepthStencilValue* pDepthStencil, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
 		=> Parent.Functions.vkCmdClearDepthStencilImage(Handle, image, imageLayout, pDepthStencil, rangeCount, pRanges);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ClearDepthStencilImage(Vk.Image image, Vk.ImageLayout imageLayout, in Vk.ClearDepthStencilValue depthStencil, in ReadOnlySpan<Vk.ImageSubresourceRange> ranges)
+		=> Parent.Functions.CmdClearDepthStencilImage(Handle, image, imageLayout, depthStencil, ranges);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ClearAttachments(uint attachmentCount, Vk.ClearAttachment* pAttachments, uint rectCount, Vk.ClearRect* pRects)
 		=> Parent.Functions.vkCmdClearAttachments(Handle, attachmentCount, pAttachments, rectCount, pRects);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ClearAttachments(in ReadOnlySpan<Vk.ClearAttachment> attachments, in ReadOnlySpan<Vk.ClearRect> rects)
+		=> Parent.Functions.CmdClearAttachments(Handle, attachments, rects);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ResolveImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageResolve* pRegions)
 		=> Parent.Functions.vkCmdResolveImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ResolveImage(Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageResolve> regions)
+		=> Parent.Functions.CmdResolveImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regions);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetEvent(Vk.Event @event, Vk.PipelineStageFlags stageMask)
@@ -161,8 +221,16 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdWaitEvents(Handle, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void WaitEvents(in ReadOnlySpan<Vk.Event> events, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, in ReadOnlySpan<Vk.MemoryBarrier> memoryBarriers, in ReadOnlySpan<Vk.BufferMemoryBarrier> bufferMemoryBarriers, in ReadOnlySpan<Vk.ImageMemoryBarrier> imageMemoryBarriers)
+		=> Parent.Functions.CmdWaitEvents(Handle, events, srcStageMask, dstStageMask, memoryBarriers, bufferMemoryBarriers, imageMemoryBarriers);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void PipelineBarrier(Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, Vk.DependencyFlags dependencyFlags, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
 		=> Parent.Functions.vkCmdPipelineBarrier(Handle, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void PipelineBarrier(Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, Vk.DependencyFlags dependencyFlags, in ReadOnlySpan<Vk.MemoryBarrier> memoryBarriers, in ReadOnlySpan<Vk.BufferMemoryBarrier> bufferMemoryBarriers, in ReadOnlySpan<Vk.ImageMemoryBarrier> imageMemoryBarriers)
+		=> Parent.Functions.CmdPipelineBarrier(Handle, srcStageMask, dstStageMask, dependencyFlags, memoryBarriers, bufferMemoryBarriers, imageMemoryBarriers);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginQuery(Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags)
@@ -175,6 +243,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginConditionalRenderingEXT(Vk.EXT.ConditionalRenderingBeginInfo* pConditionalRenderingBegin)
 		=> Parent.Functions.vkCmdBeginConditionalRenderingEXT(Handle, pConditionalRenderingBegin);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BeginConditionalRenderingEXT(in Vk.EXT.ConditionalRenderingBeginInfo conditionalRenderingBegin)
+		=> Parent.Functions.CmdBeginConditionalRenderingEXT(Handle, conditionalRenderingBegin);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void EndConditionalRenderingEXT()
@@ -201,6 +273,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdBeginRenderPass(Handle, pRenderPassBegin, contents);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BeginRenderPass(in Vk.RenderPassBeginInfo renderPassBegin, Vk.SubpassContents contents)
+		=> Parent.Functions.CmdBeginRenderPass(Handle, renderPassBegin, contents);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void NextSubpass(Vk.SubpassContents contents)
 		=> Parent.Functions.vkCmdNextSubpass(Handle, contents);
 
@@ -213,8 +289,16 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdExecuteCommands(Handle, commandBufferCount, pCommandBuffers);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ExecuteCommands(in ReadOnlySpan<Vk.CommandBuffer> commandBuffers)
+		=> Parent.Functions.CmdExecuteCommands(Handle, commandBuffers);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DebugMarkerBeginEXT(Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
 		=> Parent.Functions.vkCmdDebugMarkerBeginEXT(Handle, pMarkerInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DebugMarkerBeginEXT(in Vk.EXT.DebugMarkerMarkerInfo markerInfo)
+		=> Parent.Functions.CmdDebugMarkerBeginEXT(Handle, markerInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DebugMarkerEndEXT()
@@ -225,12 +309,24 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdDebugMarkerInsertEXT(Handle, pMarkerInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DebugMarkerInsertEXT(in Vk.EXT.DebugMarkerMarkerInfo markerInfo)
+		=> Parent.Functions.CmdDebugMarkerInsertEXT(Handle, markerInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ExecuteGeneratedCommandsNV(Vk.Bool32 isPreprocessed, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
 		=> Parent.Functions.vkCmdExecuteGeneratedCommandsNV(Handle, isPreprocessed, pGeneratedCommandsInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ExecuteGeneratedCommandsNV(Vk.Bool32 isPreprocessed, in Vk.NV.GeneratedCommandsInfo generatedCommandsInfo)
+		=> Parent.Functions.CmdExecuteGeneratedCommandsNV(Handle, isPreprocessed, generatedCommandsInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void PreprocessGeneratedCommandsNV(Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
 		=> Parent.Functions.vkCmdPreprocessGeneratedCommandsNV(Handle, pGeneratedCommandsInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void PreprocessGeneratedCommandsNV(in Vk.NV.GeneratedCommandsInfo generatedCommandsInfo)
+		=> Parent.Functions.CmdPreprocessGeneratedCommandsNV(Handle, generatedCommandsInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BindPipelineShaderGroupNV(Vk.PipelineBindPoint pipelineBindPoint, Vk.Pipeline pipeline, uint groupIndex)
@@ -239,6 +335,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void PushDescriptorSetKHR(Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint set, uint descriptorWriteCount, Vk.WriteDescriptorSet* pDescriptorWrites)
 		=> Parent.Functions.vkCmdPushDescriptorSetKHR(Handle, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void PushDescriptorSetKHR(Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint set, in ReadOnlySpan<Vk.WriteDescriptorSet> descriptorWrites)
+		=> Parent.Functions.CmdPushDescriptorSetKHR(Handle, pipelineBindPoint, layout, set, descriptorWrites);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetDeviceMask(uint deviceMask)
@@ -265,16 +365,32 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdSetViewportWScalingNV(Handle, firstViewport, viewportCount, pViewportWScalings);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetViewportWScalingNV(uint firstViewport, in ReadOnlySpan<Vk.NV.ViewportWScaling> viewportWScalings)
+		=> Parent.Functions.CmdSetViewportWScalingNV(Handle, firstViewport, viewportWScalings);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetDiscardRectangleEXT(uint firstDiscardRectangle, uint discardRectangleCount, Vk.Rect2D* pDiscardRectangles)
 		=> Parent.Functions.vkCmdSetDiscardRectangleEXT(Handle, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetDiscardRectangleEXT(uint firstDiscardRectangle, in ReadOnlySpan<Vk.Rect2D> discardRectangles)
+		=> Parent.Functions.CmdSetDiscardRectangleEXT(Handle, firstDiscardRectangle, discardRectangles);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetSampleLocationsEXT(Vk.EXT.SampleLocationsInfo* pSampleLocationsInfo)
 		=> Parent.Functions.vkCmdSetSampleLocationsEXT(Handle, pSampleLocationsInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetSampleLocationsEXT(in Vk.EXT.SampleLocationsInfo sampleLocationsInfo)
+		=> Parent.Functions.CmdSetSampleLocationsEXT(Handle, sampleLocationsInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginDebugUtilsLabelEXT(Vk.EXT.DebugUtilsLabel* pLabelInfo)
 		=> Parent.Functions.vkCmdBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BeginDebugUtilsLabelEXT(in Vk.EXT.DebugUtilsLabel labelInfo)
+		=> Parent.Functions.CmdBeginDebugUtilsLabelEXT(Handle, labelInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void EndDebugUtilsLabelEXT()
@@ -285,6 +401,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void InsertDebugUtilsLabelEXT(in Vk.EXT.DebugUtilsLabel labelInfo)
+		=> Parent.Functions.CmdInsertDebugUtilsLabelEXT(Handle, labelInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void WriteBufferMarkerAMD(Vk.PipelineStageFlags pipelineStage, Vk.Buffer dstBuffer, Vk.DeviceSize dstOffset, uint marker)
 		=> Parent.Functions.vkCmdWriteBufferMarkerAMD(Handle, pipelineStage, dstBuffer, dstOffset, marker);
 
@@ -293,24 +413,48 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdBeginRenderPass2(Handle, pRenderPassBegin, pSubpassBeginInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BeginRenderPass2(in Vk.RenderPassBeginInfo renderPassBegin, in Vk.SubpassBeginInfo subpassBeginInfo)
+		=> Parent.Functions.CmdBeginRenderPass2(Handle, renderPassBegin, subpassBeginInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginRenderPass2KHR(Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
 		=> Parent.Functions.vkCmdBeginRenderPass2KHR(Handle, pRenderPassBegin, pSubpassBeginInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BeginRenderPass2KHR(in Vk.RenderPassBeginInfo renderPassBegin, in Vk.SubpassBeginInfo subpassBeginInfo)
+		=> Parent.Functions.CmdBeginRenderPass2KHR(Handle, renderPassBegin, subpassBeginInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void NextSubpass2(Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> Parent.Functions.vkCmdNextSubpass2(Handle, pSubpassBeginInfo, pSubpassEndInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void NextSubpass2(in Vk.SubpassBeginInfo subpassBeginInfo, in Vk.SubpassEndInfo subpassEndInfo)
+		=> Parent.Functions.CmdNextSubpass2(Handle, subpassBeginInfo, subpassEndInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void NextSubpass2KHR(Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> Parent.Functions.vkCmdNextSubpass2KHR(Handle, pSubpassBeginInfo, pSubpassEndInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void NextSubpass2KHR(in Vk.SubpassBeginInfo subpassBeginInfo, in Vk.SubpassEndInfo subpassEndInfo)
+		=> Parent.Functions.CmdNextSubpass2KHR(Handle, subpassBeginInfo, subpassEndInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void EndRenderPass2(Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> Parent.Functions.vkCmdEndRenderPass2(Handle, pSubpassEndInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void EndRenderPass2(in Vk.SubpassEndInfo subpassEndInfo)
+		=> Parent.Functions.CmdEndRenderPass2(Handle, subpassEndInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void EndRenderPass2KHR(Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> Parent.Functions.vkCmdEndRenderPass2KHR(Handle, pSubpassEndInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void EndRenderPass2KHR(in Vk.SubpassEndInfo subpassEndInfo)
+		=> Parent.Functions.CmdEndRenderPass2KHR(Handle, subpassEndInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DrawIndirectCount(Vk.Buffer buffer, Vk.DeviceSize offset, Vk.Buffer countBuffer, Vk.DeviceSize countBufferOffset, uint maxDrawCount, uint stride)
@@ -345,12 +489,24 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdBindTransformFeedbackBuffersEXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BindTransformFeedbackBuffersEXT(uint firstBinding, in ReadOnlySpan<Vk.Buffer> buffers, in ReadOnlySpan<Vk.DeviceSize> offsets, in ReadOnlySpan<Vk.DeviceSize> sizes)
+		=> Parent.Functions.CmdBindTransformFeedbackBuffersEXT(Handle, firstBinding, buffers, offsets, sizes);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
 		=> Parent.Functions.vkCmdBeginTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BeginTransformFeedbackEXT(uint firstCounterBuffer, in ReadOnlySpan<Vk.Buffer> counterBuffers, in ReadOnlySpan<Vk.DeviceSize> counterBufferOffsets)
+		=> Parent.Functions.CmdBeginTransformFeedbackEXT(Handle, firstCounterBuffer, counterBuffers, counterBufferOffsets);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void EndTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
 		=> Parent.Functions.vkCmdEndTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void EndTransformFeedbackEXT(uint firstCounterBuffer, in ReadOnlySpan<Vk.Buffer> counterBuffers, in ReadOnlySpan<Vk.DeviceSize> counterBufferOffsets)
+		=> Parent.Functions.CmdEndTransformFeedbackEXT(Handle, firstCounterBuffer, counterBuffers, counterBufferOffsets);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BeginQueryIndexedEXT(Vk.QueryPool queryPool, uint query, Vk.QueryControlFlags flags, uint index)
@@ -369,6 +525,10 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdSetExclusiveScissorNV(Handle, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetExclusiveScissorNV(uint firstExclusiveScissor, in ReadOnlySpan<Vk.Rect2D> exclusiveScissors)
+		=> Parent.Functions.CmdSetExclusiveScissorNV(Handle, firstExclusiveScissor, exclusiveScissors);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BindShadingRateImageNV(Vk.ImageView imageView, Vk.ImageLayout imageLayout)
 		=> Parent.Functions.vkCmdBindShadingRateImageNV(Handle, imageView, imageLayout);
 
@@ -377,8 +537,16 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdSetViewportShadingRatePaletteNV(Handle, firstViewport, viewportCount, pShadingRatePalettes);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetViewportShadingRatePaletteNV(uint firstViewport, in ReadOnlySpan<Vk.NV.ShadingRatePalette> shadingRatePalettes)
+		=> Parent.Functions.CmdSetViewportShadingRatePaletteNV(Handle, firstViewport, shadingRatePalettes);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetCoarseSampleOrderNV(Vk.NV.CoarseSampleOrderType sampleOrderType, uint customSampleOrderCount, Vk.NV.CoarseSampleOrderCustom* pCustomSampleOrders)
 		=> Parent.Functions.vkCmdSetCoarseSampleOrderNV(Handle, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetCoarseSampleOrderNV(Vk.NV.CoarseSampleOrderType sampleOrderType, in ReadOnlySpan<Vk.NV.CoarseSampleOrderCustom> customSampleOrders)
+		=> Parent.Functions.CmdSetCoarseSampleOrderNV(Handle, sampleOrderType, customSampleOrders);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DrawMeshTasksNV(uint taskCount, uint firstTask)
@@ -401,28 +569,56 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdCopyAccelerationStructureKHR(Handle, pInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyAccelerationStructureKHR(in Vk.KHR.CopyAccelerationStructureInfo info)
+		=> Parent.Functions.CmdCopyAccelerationStructureKHR(Handle, info);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyAccelerationStructureToMemoryKHR(Vk.KHR.CopyAccelerationStructureToMemoryInfo* pInfo)
 		=> Parent.Functions.vkCmdCopyAccelerationStructureToMemoryKHR(Handle, pInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyAccelerationStructureToMemoryKHR(in Vk.KHR.CopyAccelerationStructureToMemoryInfo info)
+		=> Parent.Functions.CmdCopyAccelerationStructureToMemoryKHR(Handle, info);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyMemoryToAccelerationStructureKHR(Vk.KHR.CopyMemoryToAccelerationStructureInfo* pInfo)
 		=> Parent.Functions.vkCmdCopyMemoryToAccelerationStructureKHR(Handle, pInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyMemoryToAccelerationStructureKHR(in Vk.KHR.CopyMemoryToAccelerationStructureInfo info)
+		=> Parent.Functions.CmdCopyMemoryToAccelerationStructureKHR(Handle, info);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void WriteAccelerationStructuresPropertiesKHR(uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
 		=> Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void WriteAccelerationStructuresPropertiesKHR(in ReadOnlySpan<Vk.KHR.AccelerationStructure> accelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
+		=> Parent.Functions.CmdWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructures, queryType, queryPool, firstQuery);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void WriteAccelerationStructuresPropertiesNV(uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
 		=> Parent.Functions.vkCmdWriteAccelerationStructuresPropertiesNV(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void WriteAccelerationStructuresPropertiesNV(in ReadOnlySpan<Vk.KHR.AccelerationStructure> accelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
+		=> Parent.Functions.CmdWriteAccelerationStructuresPropertiesNV(Handle, accelerationStructures, queryType, queryPool, firstQuery);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BuildAccelerationStructureNV(Vk.NV.AccelerationStructureInfo* pInfo, Vk.Buffer instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.Buffer scratch, Vk.DeviceSize scratchOffset)
 		=> Parent.Functions.vkCmdBuildAccelerationStructureNV(Handle, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BuildAccelerationStructureNV(in Vk.NV.AccelerationStructureInfo info, Vk.Buffer instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.Buffer scratch, Vk.DeviceSize scratchOffset)
+		=> Parent.Functions.CmdBuildAccelerationStructureNV(Handle, info, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void TraceRaysKHR(Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, uint width, uint height, uint depth)
 		=> Parent.Functions.vkCmdTraceRaysKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void TraceRaysKHR(in Vk.KHR.StridedBufferRegion raygenShaderBindingTable, in Vk.KHR.StridedBufferRegion missShaderBindingTable, in Vk.KHR.StridedBufferRegion hitShaderBindingTable, in Vk.KHR.StridedBufferRegion callableShaderBindingTable, uint width, uint height, uint depth)
+		=> Parent.Functions.CmdTraceRaysKHR(Handle, raygenShaderBindingTable, missShaderBindingTable, hitShaderBindingTable, callableShaderBindingTable, width, height, depth);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void TraceRaysNV(Vk.Buffer raygenShaderBindingTableBuffer, Vk.DeviceSize raygenShaderBindingOffset, Vk.Buffer missShaderBindingTableBuffer, Vk.DeviceSize missShaderBindingOffset, Vk.DeviceSize missShaderBindingStride, Vk.Buffer hitShaderBindingTableBuffer, Vk.DeviceSize hitShaderBindingOffset, Vk.DeviceSize hitShaderBindingStride, Vk.Buffer callableShaderBindingTableBuffer, Vk.DeviceSize callableShaderBindingOffset, Vk.DeviceSize callableShaderBindingStride, uint width, uint height, uint depth)
@@ -433,16 +629,32 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void TraceRaysIndirectKHR(in Vk.KHR.StridedBufferRegion raygenShaderBindingTable, in Vk.KHR.StridedBufferRegion missShaderBindingTable, in Vk.KHR.StridedBufferRegion hitShaderBindingTable, in Vk.KHR.StridedBufferRegion callableShaderBindingTable, Vk.Buffer buffer, Vk.DeviceSize offset)
+		=> Parent.Functions.CmdTraceRaysIndirectKHR(Handle, raygenShaderBindingTable, missShaderBindingTable, hitShaderBindingTable, callableShaderBindingTable, buffer, offset);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result SetPerformanceMarkerINTEL(Vk.INTEL.PerformanceMarkerInfo* pMarkerInfo)
 		=> Parent.Functions.vkCmdSetPerformanceMarkerINTEL(Handle, pMarkerInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SetPerformanceMarkerINTEL(in Vk.INTEL.PerformanceMarkerInfo markerInfo)
+		=> Parent.Functions.CmdSetPerformanceMarkerINTEL(Handle, markerInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result SetPerformanceStreamMarkerINTEL(Vk.INTEL.PerformanceStreamMarkerInfo* pMarkerInfo)
 		=> Parent.Functions.vkCmdSetPerformanceStreamMarkerINTEL(Handle, pMarkerInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SetPerformanceStreamMarkerINTEL(in Vk.INTEL.PerformanceStreamMarkerInfo markerInfo)
+		=> Parent.Functions.CmdSetPerformanceStreamMarkerINTEL(Handle, markerInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result SetPerformanceOverrideINTEL(Vk.INTEL.PerformanceOverrideInfo* pOverrideInfo)
 		=> Parent.Functions.vkCmdSetPerformanceOverrideINTEL(Handle, pOverrideInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SetPerformanceOverrideINTEL(in Vk.INTEL.PerformanceOverrideInfo overrideInfo)
+		=> Parent.Functions.CmdSetPerformanceOverrideINTEL(Handle, overrideInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetLineStippleEXT(uint lineStippleFactor, ushort lineStipplePattern)
@@ -453,8 +665,16 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BuildAccelerationStructureKHR(in ReadOnlySpan<Vk.KHR.AccelerationStructureBuildGeometryInfo> infos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
+		=> Parent.Functions.CmdBuildAccelerationStructureKHR(Handle, infos, ppOffsetInfos);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BuildAccelerationStructureIndirectKHR(Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfo, Vk.Buffer indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
 		=> Parent.Functions.vkCmdBuildAccelerationStructureIndirectKHR(Handle, pInfo, indirectBuffer, indirectOffset, indirectStride);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BuildAccelerationStructureIndirectKHR(in Vk.KHR.AccelerationStructureBuildGeometryInfo info, Vk.Buffer indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
+		=> Parent.Functions.CmdBuildAccelerationStructureIndirectKHR(Handle, info, indirectBuffer, indirectOffset, indirectStride);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetCullModeEXT(Vk.CullModeFlags cullMode)
@@ -473,12 +693,24 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdSetViewportWithCountEXT(Handle, viewportCount, pViewports);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetViewportWithCountEXT(in ReadOnlySpan<Vk.Viewport> viewports)
+		=> Parent.Functions.CmdSetViewportWithCountEXT(Handle, viewports);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetScissorWithCountEXT(uint scissorCount, Vk.Rect2D* pScissors)
 		=> Parent.Functions.vkCmdSetScissorWithCountEXT(Handle, scissorCount, pScissors);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetScissorWithCountEXT(in ReadOnlySpan<Vk.Rect2D> scissors)
+		=> Parent.Functions.CmdSetScissorWithCountEXT(Handle, scissors);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BindVertexBuffers2EXT(uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes, Vk.DeviceSize* pStrides)
 		=> Parent.Functions.vkCmdBindVertexBuffers2EXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BindVertexBuffers2EXT(uint firstBinding, in ReadOnlySpan<Vk.Buffer> buffers, in ReadOnlySpan<Vk.DeviceSize> offsets, in ReadOnlySpan<Vk.DeviceSize> sizes, in ReadOnlySpan<Vk.DeviceSize> strides)
+		=> Parent.Functions.CmdBindVertexBuffers2EXT(Handle, firstBinding, buffers, offsets, sizes, strides);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetDepthTestEnableEXT(Vk.Bool32 depthTestEnable)
@@ -509,28 +741,56 @@ public unsafe sealed partial class VulkanCommandBuffer
 		=> Parent.Functions.vkCmdCopyBuffer2KHR(Handle, pCopyBufferInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyBuffer2KHR(in Vk.KHR.CopyBufferInfo2 copyBufferInfo)
+		=> Parent.Functions.CmdCopyBuffer2KHR(Handle, copyBufferInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyImage2KHR(Vk.KHR.CopyImageInfo2* pCopyImageInfo)
 		=> Parent.Functions.vkCmdCopyImage2KHR(Handle, pCopyImageInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyImage2KHR(in Vk.KHR.CopyImageInfo2 copyImageInfo)
+		=> Parent.Functions.CmdCopyImage2KHR(Handle, copyImageInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void BlitImage2KHR(Vk.KHR.BlitImageInfo2* pBlitImageInfo)
 		=> Parent.Functions.vkCmdBlitImage2KHR(Handle, pBlitImageInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void BlitImage2KHR(in Vk.KHR.BlitImageInfo2 blitImageInfo)
+		=> Parent.Functions.CmdBlitImage2KHR(Handle, blitImageInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyBufferToImage2KHR(Vk.KHR.CopyBufferToImageInfo2* pCopyBufferToImageInfo)
 		=> Parent.Functions.vkCmdCopyBufferToImage2KHR(Handle, pCopyBufferToImageInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyBufferToImage2KHR(in Vk.KHR.CopyBufferToImageInfo2 copyBufferToImageInfo)
+		=> Parent.Functions.CmdCopyBufferToImage2KHR(Handle, copyBufferToImageInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CopyImageToBuffer2KHR(Vk.KHR.CopyImageToBufferInfo2* pCopyImageToBufferInfo)
 		=> Parent.Functions.vkCmdCopyImageToBuffer2KHR(Handle, pCopyImageToBufferInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CopyImageToBuffer2KHR(in Vk.KHR.CopyImageToBufferInfo2 copyImageToBufferInfo)
+		=> Parent.Functions.CmdCopyImageToBuffer2KHR(Handle, copyImageToBufferInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ResolveImage2KHR(Vk.KHR.ResolveImageInfo2* pResolveImageInfo)
 		=> Parent.Functions.vkCmdResolveImage2KHR(Handle, pResolveImageInfo);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ResolveImage2KHR(in Vk.KHR.ResolveImageInfo2 resolveImageInfo)
+		=> Parent.Functions.CmdResolveImage2KHR(Handle, resolveImageInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetFragmentShadingRateKHR(Vk.Extent2D* pFragmentSize, Vk.KHR.FragmentShadingRateCombinerOp* combinerOps)
 		=> Parent.Functions.vkCmdSetFragmentShadingRateKHR(Handle, pFragmentSize, combinerOps);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetFragmentShadingRateKHR(in Vk.Extent2D fragmentSize, in Vk.KHR.FragmentShadingRateCombinerOp combinerOps)
+		=> Parent.Functions.CmdSetFragmentShadingRateKHR(Handle, fragmentSize, combinerOps);
 
 }
 

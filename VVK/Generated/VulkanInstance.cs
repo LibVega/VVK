@@ -45,100 +45,200 @@ public unsafe sealed partial class VulkanInstance : IDisposable
 		=> Functions.vkDestroyInstance(Handle, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyInstance(in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyInstance(Handle, allocator);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumeratePhysicalDevices(uint* pPhysicalDeviceCount, Vk.PhysicalDevice* pPhysicalDevices)
 		=> Functions.vkEnumeratePhysicalDevices(Handle, pPhysicalDeviceCount, pPhysicalDevices);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDevices(out uint physicalDeviceCount, in Span<Vk.PhysicalDevice> physicalDevices)
+		=> Functions.EnumeratePhysicalDevices(Handle, out physicalDeviceCount, physicalDevices);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateAndroidSurfaceKHR(Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateAndroidSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAndroidSurfaceKHR(in Vk.KHR.AndroidSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateAndroidSurfaceKHR(Handle, createInfo, allocator, out surface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDisplayPlaneSurfaceKHR(Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateDisplayPlaneSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDisplayPlaneSurfaceKHR(in Vk.KHR.DisplaySurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateDisplayPlaneSurfaceKHR(Handle, createInfo, allocator, out surface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySurfaceKHR(Vk.KHR.Surface surface, Vk.AllocationCallbacks* pAllocator)
 		=> Functions.vkDestroySurfaceKHR(Handle, surface, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroySurfaceKHR(Vk.KHR.Surface surface, in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroySurfaceKHR(Handle, surface, allocator);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateViSurfaceNN(Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateViSurfaceNN(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateViSurfaceNN(in Vk.NN.ViSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateViSurfaceNN(Handle, createInfo, allocator, out surface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateWaylandSurfaceKHR(Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateWaylandSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWaylandSurfaceKHR(in Vk.KHR.WaylandSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateWaylandSurfaceKHR(Handle, createInfo, allocator, out surface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateWin32SurfaceKHR(Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateWin32SurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWin32SurfaceKHR(in Vk.KHR.Win32SurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateWin32SurfaceKHR(Handle, createInfo, allocator, out surface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateXlibSurfaceKHR(Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateXlibSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXlibSurfaceKHR(in Vk.KHR.XlibSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateXlibSurfaceKHR(Handle, createInfo, allocator, out surface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateXcbSurfaceKHR(Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateXcbSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXcbSurfaceKHR(in Vk.KHR.XcbSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateXcbSurfaceKHR(Handle, createInfo, allocator, out surface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDirectFBSurfaceEXT(Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateDirectFBSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDirectFBSurfaceEXT(in Vk.EXT.DirectFBSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateDirectFBSurfaceEXT(Handle, createInfo, allocator, out surface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateImagePipeSurfaceFUCHSIA(Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateImagePipeSurfaceFUCHSIA(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImagePipeSurfaceFUCHSIA(in Vk.FUCHSIA.ImagePipeSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateImagePipeSurfaceFUCHSIA(Handle, createInfo, allocator, out surface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateStreamDescriptorSurfaceGGP(Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateStreamDescriptorSurfaceGGP(Handle, pCreateInfo, pAllocator, pSurface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateStreamDescriptorSurfaceGGP(in Vk.GGP.StreamDescriptorSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateStreamDescriptorSurfaceGGP(Handle, createInfo, allocator, out surface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDebugReportCallbackEXT(Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugReportCallback* pCallback)
 		=> Functions.vkCreateDebugReportCallbackEXT(Handle, pCreateInfo, pAllocator, pCallback);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugReportCallbackEXT(in Vk.EXT.DebugReportCallbackCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugReportCallback callback)
+		=> Functions.CreateDebugReportCallbackEXT(Handle, createInfo, allocator, out callback);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugReportCallbackEXT(Vk.EXT.DebugReportCallback callback, Vk.AllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDebugReportCallbackEXT(Handle, callback, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugReportCallbackEXT(Vk.EXT.DebugReportCallback callback, in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyDebugReportCallbackEXT(Handle, callback, allocator);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DebugReportMessageEXT(Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, byte* pLayerPrefix, byte* pMessage)
 		=> Functions.vkDebugReportMessageEXT(Handle, flags, objectType, @object, location, messageCode, pLayerPrefix, pMessage);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DebugReportMessageEXT(Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, VVK.NativeString layerPrefix, VVK.NativeString message)
+		=> Functions.DebugReportMessageEXT(Handle, flags, objectType, @object, location, messageCode, layerPrefix, message);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumeratePhysicalDeviceGroups(uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 		=> Functions.vkEnumeratePhysicalDeviceGroups(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDeviceGroups(out uint physicalDeviceGroupCount, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
+		=> Functions.EnumeratePhysicalDeviceGroups(Handle, out physicalDeviceGroupCount, physicalDeviceGroupProperties);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 		=> Functions.vkEnumeratePhysicalDeviceGroupsKHR(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(out uint physicalDeviceGroupCount, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
+		=> Functions.EnumeratePhysicalDeviceGroupsKHR(Handle, out physicalDeviceGroupCount, physicalDeviceGroupProperties);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateIOSSurfaceMVK(Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateIOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateIOSSurfaceMVK(in Vk.MVK.IOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateIOSSurfaceMVK(Handle, createInfo, allocator, out surface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateMacOSSurfaceMVK(Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateMacOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMacOSSurfaceMVK(in Vk.MVK.MacOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateMacOSSurfaceMVK(Handle, createInfo, allocator, out surface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateMetalSurfaceEXT(Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateMetalSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMetalSurfaceEXT(in Vk.EXT.MetalSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateMetalSurfaceEXT(Handle, createInfo, allocator, out surface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugUtilsMessenger* pMessenger)
 		=> Functions.vkCreateDebugUtilsMessengerEXT(Handle, pCreateInfo, pAllocator, pMessenger);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugUtilsMessengerEXT(in Vk.EXT.DebugUtilsMessengerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugUtilsMessenger messenger)
+		=> Functions.CreateDebugUtilsMessengerEXT(Handle, createInfo, allocator, out messenger);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessenger messenger, Vk.AllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDebugUtilsMessengerEXT(Handle, messenger, pAllocator);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessenger messenger, in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyDebugUtilsMessengerEXT(Handle, messenger, allocator);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SubmitDebugUtilsMessageEXT(Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity, Vk.EXT.DebugUtilsMessageTypeFlags messageTypes, Vk.EXT.DebugUtilsMessengerCallbackData* pCallbackData)
 		=> Functions.vkSubmitDebugUtilsMessageEXT(Handle, messageSeverity, messageTypes, pCallbackData);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SubmitDebugUtilsMessageEXT(Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity, Vk.EXT.DebugUtilsMessageTypeFlags messageTypes, in Vk.EXT.DebugUtilsMessengerCallbackData callbackData)
+		=> Functions.SubmitDebugUtilsMessageEXT(Handle, messageSeverity, messageTypes, callbackData);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateHeadlessSurfaceEXT(Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> Functions.vkCreateHeadlessSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateHeadlessSurfaceEXT(in Vk.EXT.HeadlessSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+		=> Functions.CreateHeadlessSurfaceEXT(Handle, createInfo, allocator, out surface);
 
 }
 
