@@ -224,41 +224,19 @@ namespace Gen
 				using (var block = file.PushBlock("public unsafe sealed partial class InstanceFunctionTable")) {
 					// Loop over global functions
 					foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Global)) {
-						var argStr = String.Join(", ", cmd.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
-						var callStr = String.Join(", ", cmd.Arguments.Select(arg => arg.Name));
-						var typeStr = String.Join(", ", cmd.Arguments.Select(arg => $"<c>{arg.Type}</c>"));
-						block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
-						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-						block.WriteLine($"public static {cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({argStr})");
-						block.WriteLine($"\t=> {cmd.Name}({callStr});");
-						block.WriteLine();
+						_WriteCommand(block, cmd);
 					}
 
 					// Loop over instance functions
 					foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Instance)) {
-						var argStr = String.Join(", ", cmd.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
-						var callStr = String.Join(", ", cmd.Arguments.Select(arg => arg.Name));
-						var typeStr = String.Join(", ", cmd.Arguments.Select(arg => $"<c>{arg.Type}</c>"));
-						block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
-						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-						block.WriteLine($"public {cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({argStr})");
-						block.WriteLine($"\t=> {cmd.Name}({callStr});");
-						block.WriteLine();
+						_WriteCommand(block, cmd);
 					}
 				}
 
 				// Write the device functions
 				using (var block = file.PushBlock("public unsafe sealed partial class DeviceFunctionTable")) {
-					// Loop over device functions
 					foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Device)) {
-						var argStr = String.Join(", ", cmd.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
-						var callStr = String.Join(", ", cmd.Arguments.Select(arg => arg.Name));
-						var typeStr = String.Join(", ", cmd.Arguments.Select(arg => $"<c>{arg.Type}</c>"));
-						block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
-						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-						block.WriteLine($"public {cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({argStr})");
-						block.WriteLine($"\t=> {cmd.Name}({callStr});");
-						block.WriteLine();
+						_WriteCommand(block, cmd);
 					}
 				}
 			}
@@ -268,6 +246,42 @@ namespace Gen
 			}
 
 			return true;
+
+			static void _WriteCommand(SourceBlock block, CommandOut cmd)
+			{
+				bool glob = cmd.CommandScope == CommandScope.Global;
+
+				// Raw primary function
+				var argStr = String.Join(", ", cmd.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
+				var callStr = String.Join(", ", cmd.Arguments.Select(arg => arg.Name));
+				var typeStr = String.Join(", ", cmd.Arguments.Select(arg => $"<c>{arg.Type}</c>"));
+				block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
+				block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+				block.WriteLine($"public {(glob ? "static " : "")}{cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({argStr})");
+				block.WriteLine($"\t=> {cmd.Name}({callStr});");
+				block.WriteLine();
+
+				// Alternate function
+				if (cmd.AlternateArgs is not null) {
+					var altArgStr = String.Join(", ", cmd.AlternateArgs.Select(arg => $"{arg.Type} {arg.Name}"));
+					var altCallStr = String.Join(", ", cmd.AlternateArgs.Select(arg => arg.UseStr));
+					block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
+					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					using (var func = block.PushBlock($"public {(glob ? "static " : "")}{cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({altArgStr})")) {
+						foreach (var arg in cmd.AlternateArgs.Where(a => a.UseStr.EndsWith("FIXED"))) {
+							if (arg.Type.Contains("Span<")) {
+								var tstr = arg.Type.Substring(arg.Type.IndexOf('<') + 1).TrimEnd('>');
+								func.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = {arg.Name})");
+							}
+							else {
+								var tstr = arg.Type.Substring(arg.Type.IndexOf(' ') + 1);
+								func.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = &{arg.Name})");
+							}
+						}
+						func.WriteLine($"{((cmd.ReturnType != "void") ? "return " : "")}{cmd.Name}({altCallStr});");
+					}
+				}
+			}
 		}
 
 		// Enum generation

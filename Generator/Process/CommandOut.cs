@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gen
 {
@@ -36,7 +37,7 @@ namespace Gen
 			"vkCreateInstance", "vkEnumerateInstanceExtensionProperties",
 			"vkEnumerateInstanceLayerProperties", "vkEnumerateInstanceVersion",
 			"vkGetInstanceProcAddr",
-			"vkGetDeviceProcAddr" // Not *technically* a global function, but can and is used as such
+			"vkGetDeviceProcAddr" // Not *technically* a global function, but can be and is used as such
 		};
 		// Known C# keywords that are used as argument names
 		private static readonly List<string> KEYWORD_ARGS = new() { 
@@ -44,7 +45,7 @@ namespace Gen
 		};
 
 		// Represents a processed argument
-		public record Argument(string Name, string Type);
+		public record Argument(string Name, string Type, string UseStr, bool Const, bool Optional);
 
 		#region Fields
 		// The spec that this command was generated from
@@ -63,6 +64,8 @@ namespace Gen
 		public readonly List<Argument> Arguments;
 		// The processed return type name
 		public readonly string ReturnType;
+		// The set of alternative arguments (with single pointers as `in` and array pointers as Spans)
+		public readonly List<Argument>? AlternateArgs;
 
 		// Forward
 		public bool IsAlias => Spec.IsAlias;
@@ -70,7 +73,7 @@ namespace Gen
 		#endregion // Fields
 
 		private CommandOut(CommandSpec spec, string name, string proto, CommandScope cmdScope, ObjectScope objScope, 
-			bool core, List<Argument> args, string retType)
+			bool core, List<Argument> args, string retType, List<Argument>? altArgs)
 		{
 			Spec = spec;
 			Name = name;
@@ -80,6 +83,7 @@ namespace Gen
 			IsCore = core;
 			Arguments = args;
 			ReturnType = retType;
+			AlternateArgs = altArgs;
 		}
 
 		// Process
@@ -88,14 +92,54 @@ namespace Gen
 			// Get the arg types
 			var argProto = new string[spec.Arguments.Count + 1];
 			List<Argument> args = new();
+			List<Argument> altArgs = new();
 			int aidx = 0;
+			bool hasAlt = false;
 			foreach (var arg in spec.Arguments) {
+				// Parse normal argument
 				if (!names.ProcessGeneralTypeName(arg.Type, out argProto[aidx])) {
 					Program.PrintError($"Failed to parse argument type {arg.Type}");
 					return null;
 				}
 				var aname = KEYWORD_ARGS.Contains(arg.Name) ? ('@' + arg.Name) : arg.Name;
-				args.Add(new(aname, argProto[aidx++]));
+				var tname = argProto[aidx];
+				args.Add(new(aname, tname, aname, arg.Const, arg.Optional));
+
+				// Check for special alternative arg
+				var altname = (aname[0] == 'p' && Char.IsUpper(aname[1]))
+						? (Char.ToLowerInvariant(aname[1]) + aname.Substring(2))
+						: aname;
+				if (KEYWORD_ARGS.Contains(altname)) {
+					altname = '@' + altname;
+				}
+				if ((tname.Count(ch => ch == '*') == 1) && !tname.Contains("byte") && !tname.Contains("void")) {
+					if (arg.LengthName is not null) {
+						var countAdj = (altArgs.Count > 0) && (altArgs[altArgs.Count - 1].Name == arg.LengthName);
+						if (countAdj) {
+							altArgs.RemoveAt(altArgs.Count - 1); // Remove count argument
+						}
+						var alttype = $"in {(arg.Const ? "ReadOnly" : "")}Span<{tname.TrimEnd('*')}>";
+						var altuse = countAdj ? $"(uint){altname}.Length, {altname}FIXED" : $"{altname}FIXED";
+						altArgs.Add(new(altname, alttype, altuse, arg.Const, arg.Optional));
+					}
+					else {
+						altArgs.Add(new(altname, $"{(arg.Const ? "in" : "out")} {tname.TrimEnd('*')}", $"{altname}FIXED", arg.Const, arg.Optional));
+					}
+					hasAlt = true;
+				}
+				else if (tname == "byte*") {
+					altArgs.Add(new(altname, "VVK.NativeString", $"{altname}.Data", arg.Const, arg.Optional));
+					hasAlt = true;
+				}
+				else if (tname == "byte**") {
+					altArgs.Add(new(altname, "VVK.NativeStringList", $"{altname}.Data", arg.Const, arg.Optional));
+					hasAlt = true;
+				}
+				else {
+					altArgs.Add(new(aname, tname, aname, arg.Const, arg.Optional));
+				}
+
+				++aidx;
 			}
 
 			// Get the return type
@@ -135,7 +179,7 @@ namespace Gen
 
 			// Return
 			return new(spec, spec.Name, $"delegate* unmanaged<{String.Join(", ", argProto)}>", scope, objScope,
-				!names.IsVendorType(spec.Name), args, argProto[^1]);
+				!names.IsVendorType(spec.Name), args, argProto[^1], hasAlt ? altArgs : null);
 		}
 	}
 }

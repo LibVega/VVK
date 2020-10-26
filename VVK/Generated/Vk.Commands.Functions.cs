@@ -21,165 +21,454 @@ public unsafe sealed partial class InstanceFunctionTable
 	public static Vk.Result CreateInstance(Vk.InstanceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Instance* pInstance)
 		=> vkCreateInstance(pCreateInfo, pAllocator, pInstance);
 
+	/// <summary>vkCreateInstance(<c>Vk.InstanceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Instance*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result CreateInstance(in Vk.InstanceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Instance instance)
+	{
+		fixed (Vk.InstanceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Instance* instanceFIXED = &instance)
+		return vkCreateInstance(createInfoFIXED, allocatorFIXED, instanceFIXED);
+	}
+
 	/// <summary>vkGetDeviceProcAddr(<c>Vk.Device</c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Device device, byte* pName)
 		=> vkGetDeviceProcAddr(device, pName);
+
+	/// <summary>vkGetDeviceProcAddr(<c>Vk.Device</c>, <c>byte*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Device device, VVK.NativeString name)
+	{
+		return vkGetDeviceProcAddr(device, name.Data);
+	}
 
 	/// <summary>vkGetInstanceProcAddr(<c>Vk.Instance</c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Instance instance, byte* pName)
 		=> vkGetInstanceProcAddr(instance, pName);
 
+	/// <summary>vkGetInstanceProcAddr(<c>Vk.Instance</c>, <c>byte*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Instance instance, VVK.NativeString name)
+	{
+		return vkGetInstanceProcAddr(instance, name.Data);
+	}
+
 	/// <summary>vkEnumerateInstanceVersion(<c>uint*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Vk.Result EnumerateInstanceVersion(uint* pApiVersion)
 		=> vkEnumerateInstanceVersion(pApiVersion);
+
+	/// <summary>vkEnumerateInstanceVersion(<c>uint*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result EnumerateInstanceVersion(out uint apiVersion)
+	{
+		fixed (uint* apiVersionFIXED = &apiVersion)
+		return vkEnumerateInstanceVersion(apiVersionFIXED);
+	}
 
 	/// <summary>vkEnumerateInstanceLayerProperties(<c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Vk.Result EnumerateInstanceLayerProperties(uint* pPropertyCount, Vk.LayerProperties* pProperties)
 		=> vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
 
+	/// <summary>vkEnumerateInstanceLayerProperties(<c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result EnumerateInstanceLayerProperties(out uint propertyCount, in Span<Vk.LayerProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.LayerProperties* propertiesFIXED = properties)
+		return vkEnumerateInstanceLayerProperties(propertyCountFIXED, propertiesFIXED);
+	}
+
 	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Vk.Result EnumerateInstanceExtensionProperties(byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
 		=> vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
+
+	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result EnumerateInstanceExtensionProperties(VVK.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
+		return vkEnumerateInstanceExtensionProperties(layerName.Data, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkDestroyInstance(<c>Vk.Instance</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyInstance(Vk.Instance instance, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyInstance(instance, pAllocator);
 
+	/// <summary>vkDestroyInstance(<c>Vk.Instance</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyInstance(Vk.Instance instance, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyInstance(instance, allocatorFIXED);
+	}
+
 	/// <summary>vkEnumeratePhysicalDevices(<c>Vk.Instance</c>, <c>uint*</c>, <c>Vk.PhysicalDevice*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumeratePhysicalDevices(Vk.Instance instance, uint* pPhysicalDeviceCount, Vk.PhysicalDevice* pPhysicalDevices)
 		=> vkEnumeratePhysicalDevices(instance, pPhysicalDeviceCount, pPhysicalDevices);
+
+	/// <summary>vkEnumeratePhysicalDevices(<c>Vk.Instance</c>, <c>uint*</c>, <c>Vk.PhysicalDevice*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDevices(Vk.Instance instance, out uint physicalDeviceCount, in Span<Vk.PhysicalDevice> physicalDevices)
+	{
+		fixed (uint* physicalDeviceCountFIXED = &physicalDeviceCount)
+		fixed (Vk.PhysicalDevice* physicalDevicesFIXED = physicalDevices)
+		return vkEnumeratePhysicalDevices(instance, physicalDeviceCountFIXED, physicalDevicesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceProperties* pProperties)
 		=> vkGetPhysicalDeviceProperties(physicalDevice, pProperties);
 
+	/// <summary>vkGetPhysicalDeviceProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceProperties(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceProperties properties)
+	{
+		fixed (Vk.PhysicalDeviceProperties* propertiesFIXED = &properties)
+		vkGetPhysicalDeviceProperties(physicalDevice, propertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties(Vk.PhysicalDevice physicalDevice, uint* pQueueFamilyPropertyCount, Vk.QueueFamilyProperties* pQueueFamilyProperties)
 		=> vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+
+	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties(Vk.PhysicalDevice physicalDevice, out uint queueFamilyPropertyCount, in Span<Vk.QueueFamilyProperties> queueFamilyProperties)
+	{
+		fixed (uint* queueFamilyPropertyCountFIXED = &queueFamilyPropertyCount)
+		fixed (Vk.QueueFamilyProperties* queueFamilyPropertiesFIXED = queueFamilyProperties)
+		vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, queueFamilyPropertyCountFIXED, queueFamilyPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceMemoryProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceMemoryProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceMemoryProperties* pMemoryProperties)
 		=> vkGetPhysicalDeviceMemoryProperties(physicalDevice, pMemoryProperties);
 
+	/// <summary>vkGetPhysicalDeviceMemoryProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceMemoryProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMemoryProperties(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceMemoryProperties memoryProperties)
+	{
+		fixed (Vk.PhysicalDeviceMemoryProperties* memoryPropertiesFIXED = &memoryProperties)
+		vkGetPhysicalDeviceMemoryProperties(physicalDevice, memoryPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceFeatures(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceFeatures*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceFeatures* pFeatures)
 		=> vkGetPhysicalDeviceFeatures(physicalDevice, pFeatures);
+
+	/// <summary>vkGetPhysicalDeviceFeatures(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceFeatures*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFeatures(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceFeatures features)
+	{
+		fixed (Vk.PhysicalDeviceFeatures* featuresFIXED = &features)
+		vkGetPhysicalDeviceFeatures(physicalDevice, featuresFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceFormatProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.FormatProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.FormatProperties* pFormatProperties)
 		=> vkGetPhysicalDeviceFormatProperties(physicalDevice, format, pFormatProperties);
 
+	/// <summary>vkGetPhysicalDeviceFormatProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.FormatProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, out Vk.FormatProperties formatProperties)
+	{
+		fixed (Vk.FormatProperties* formatPropertiesFIXED = &formatProperties)
+		vkGetPhysicalDeviceFormatProperties(physicalDevice, format, formatPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceImageFormatProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.ImageTiling</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageCreateFlags</c>, <c>Vk.ImageFormatProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceImageFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.ImageFormatProperties* pImageFormatProperties)
 		=> vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, pImageFormatProperties);
+
+	/// <summary>vkGetPhysicalDeviceImageFormatProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.ImageTiling</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageCreateFlags</c>, <c>Vk.ImageFormatProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceImageFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, out Vk.ImageFormatProperties imageFormatProperties)
+	{
+		fixed (Vk.ImageFormatProperties* imageFormatPropertiesFIXED = &imageFormatProperties)
+		return vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, imageFormatPropertiesFIXED);
+	}
 
 	/// <summary>vkCreateDevice(<c>Vk.PhysicalDevice</c>, <c>Vk.DeviceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Device*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDevice(Vk.PhysicalDevice physicalDevice, Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Device* pDevice)
 		=> vkCreateDevice(physicalDevice, pCreateInfo, pAllocator, pDevice);
 
+	/// <summary>vkCreateDevice(<c>Vk.PhysicalDevice</c>, <c>Vk.DeviceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Device*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDevice(Vk.PhysicalDevice physicalDevice, in Vk.DeviceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Device device)
+	{
+		fixed (Vk.DeviceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Device* deviceFIXED = &device)
+		return vkCreateDevice(physicalDevice, createInfoFIXED, allocatorFIXED, deviceFIXED);
+	}
+
 	/// <summary>vkEnumerateDeviceLayerProperties(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumerateDeviceLayerProperties(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.LayerProperties* pProperties)
 		=> vkEnumerateDeviceLayerProperties(physicalDevice, pPropertyCount, pProperties);
+
+	/// <summary>vkEnumerateDeviceLayerProperties(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumerateDeviceLayerProperties(Vk.PhysicalDevice physicalDevice, out uint propertyCount, in Span<Vk.LayerProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.LayerProperties* propertiesFIXED = properties)
+		return vkEnumerateDeviceLayerProperties(physicalDevice, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.PhysicalDevice</c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumerateDeviceExtensionProperties(Vk.PhysicalDevice physicalDevice, byte* pLayerName, uint* pPropertyCount, Vk.ExtensionProperties* pProperties)
 		=> vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, pPropertyCount, pProperties);
 
+	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.PhysicalDevice</c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.PhysicalDevice physicalDevice, VVK.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
+		return vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, propertyCountFIXED, propertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageTiling</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.SampleCountFlags samples, Vk.ImageUsageFlags usage, Vk.ImageTiling tiling, uint* pPropertyCount, Vk.SparseImageFormatProperties* pProperties)
 		=> vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, pPropertyCount, pProperties);
+
+	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageTiling</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.SampleCountFlags samples, Vk.ImageUsageFlags usage, Vk.ImageTiling tiling, out uint propertyCount, in Span<Vk.SparseImageFormatProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.SparseImageFormatProperties* propertiesFIXED = properties)
+		vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkCreateAndroidSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.AndroidSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateAndroidSurfaceKHR(Vk.Instance instance, Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateAndroidSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
 
+	/// <summary>vkCreateAndroidSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.AndroidSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAndroidSurfaceKHR(Vk.Instance instance, in Vk.KHR.AndroidSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.KHR.AndroidSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateAndroidSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceDisplayPropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceDisplayPropertiesKHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayProperties* pProperties)
 		=> vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, pPropertyCount, pProperties);
+
+	/// <summary>vkGetPhysicalDeviceDisplayPropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayPropertiesKHR(Vk.PhysicalDevice physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.KHR.DisplayProperties* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceDisplayPlanePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceDisplayPlanePropertiesKHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties* pProperties)
 		=> vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, pPropertyCount, pProperties);
 
+	/// <summary>vkGetPhysicalDeviceDisplayPlanePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayPlanePropertiesKHR(Vk.PhysicalDevice physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayPlaneProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.KHR.DisplayPlaneProperties* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+	}
+
 	/// <summary>vkGetDisplayPlaneSupportedDisplaysKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>uint*</c>, <c>Vk.KHR.Display*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(Vk.PhysicalDevice physicalDevice, uint planeIndex, uint* pDisplayCount, Vk.KHR.Display* pDisplays)
 		=> vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, pDisplayCount, pDisplays);
+
+	/// <summary>vkGetDisplayPlaneSupportedDisplaysKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>uint*</c>, <c>Vk.KHR.Display*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(Vk.PhysicalDevice physicalDevice, uint planeIndex, out uint displayCount, in Span<Vk.KHR.Display> displays)
+	{
+		fixed (uint* displayCountFIXED = &displayCount)
+		fixed (Vk.KHR.Display* displaysFIXED = displays)
+		return vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, displayCountFIXED, displaysFIXED);
+	}
 
 	/// <summary>vkGetDisplayModePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Display</c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayModePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties* pProperties)
 		=> vkGetDisplayModePropertiesKHR(physicalDevice, display, pPropertyCount, pProperties);
 
+	/// <summary>vkGetDisplayModePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Display</c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayModePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.KHR.DisplayModeProperties* propertiesFIXED = properties)
+		return vkGetDisplayModePropertiesKHR(physicalDevice, display, propertyCountFIXED, propertiesFIXED);
+	}
+
 	/// <summary>vkCreateDisplayModeKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Display</c>, <c>Vk.KHR.DisplayModeCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.DisplayMode*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDisplayModeKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.DisplayMode* pMode)
 		=> vkCreateDisplayModeKHR(physicalDevice, display, pCreateInfo, pAllocator, pMode);
+
+	/// <summary>vkCreateDisplayModeKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Display</c>, <c>Vk.KHR.DisplayModeCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.DisplayMode*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDisplayModeKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.DisplayMode mode)
+	{
+		fixed (Vk.KHR.DisplayModeCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.DisplayMode* modeFIXED = &mode)
+		return vkCreateDisplayModeKHR(physicalDevice, display, createInfoFIXED, allocatorFIXED, modeFIXED);
+	}
 
 	/// <summary>vkGetDisplayPlaneCapabilitiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.DisplayMode</c>, <c>uint</c>, <c>Vk.KHR.DisplayPlaneCapabilities*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayPlaneCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.DisplayMode mode, uint planeIndex, Vk.KHR.DisplayPlaneCapabilities* pCapabilities)
 		=> vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, pCapabilities);
 
+	/// <summary>vkGetDisplayPlaneCapabilitiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.DisplayMode</c>, <c>uint</c>, <c>Vk.KHR.DisplayPlaneCapabilities*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayPlaneCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.DisplayMode mode, uint planeIndex, out Vk.KHR.DisplayPlaneCapabilities capabilities)
+	{
+		fixed (Vk.KHR.DisplayPlaneCapabilities* capabilitiesFIXED = &capabilities)
+		return vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, capabilitiesFIXED);
+	}
+
 	/// <summary>vkCreateDisplayPlaneSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.DisplaySurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDisplayPlaneSurfaceKHR(Vk.Instance instance, Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateDisplayPlaneSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateDisplayPlaneSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.DisplaySurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDisplayPlaneSurfaceKHR(Vk.Instance instance, in Vk.KHR.DisplaySurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.KHR.DisplaySurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateDisplayPlaneSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkDestroySurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.Surface</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySurfaceKHR(Vk.Instance instance, Vk.KHR.Surface surface, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroySurfaceKHR(instance, surface, pAllocator);
 
+	/// <summary>vkDestroySurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.Surface</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroySurfaceKHR(Vk.Instance instance, Vk.KHR.Surface surface, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroySurfaceKHR(instance, surface, allocatorFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceSurfaceSupportKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>Vk.KHR.Surface</c>, <c>Vk.Bool32*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfaceSupportKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, Vk.KHR.Surface surface, Vk.Bool32* pSupported)
 		=> vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, pSupported);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceSupportKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>Vk.KHR.Surface</c>, <c>Vk.Bool32*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceSupportKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, Vk.KHR.Surface surface, out Vk.Bool32 supported)
+	{
+		fixed (Vk.Bool32* supportedFIXED = &supported)
+		return vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, supportedFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceCapabilitiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>Vk.KHR.SurfaceCapabilities*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, Vk.KHR.SurfaceCapabilities* pSurfaceCapabilities)
 		=> vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, pSurfaceCapabilities);
 
+	/// <summary>vkGetPhysicalDeviceSurfaceCapabilitiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>Vk.KHR.SurfaceCapabilities*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, out Vk.KHR.SurfaceCapabilities surfaceCapabilities)
+	{
+		fixed (Vk.KHR.SurfaceCapabilities* surfaceCapabilitiesFIXED = &surfaceCapabilities)
+		return vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, surfaceCapabilitiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat* pSurfaceFormats)
 		=> vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, pSurfaceFormatCount, pSurfaceFormats);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, out uint surfaceFormatCount, in Span<Vk.KHR.SurfaceFormat> surfaceFormats)
+	{
+		fixed (uint* surfaceFormatCountFIXED = &surfaceFormatCount)
+		fixed (Vk.KHR.SurfaceFormat* surfaceFormatsFIXED = surfaceFormats)
+		return vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, surfaceFormatCountFIXED, surfaceFormatsFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
 		=> vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, pPresentModeCount, pPresentModes);
 
+	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, out uint presentModeCount, in Span<Vk.KHR.PresentMode> presentModes)
+	{
+		fixed (uint* presentModeCountFIXED = &presentModeCount)
+		fixed (Vk.KHR.PresentMode* presentModesFIXED = presentModes)
+		return vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, presentModeCountFIXED, presentModesFIXED);
+	}
+
 	/// <summary>vkCreateViSurfaceNN(<c>Vk.Instance</c>, <c>Vk.NN.ViSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateViSurfaceNN(Vk.Instance instance, Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateViSurfaceNN(instance, pCreateInfo, pAllocator, pSurface);
 
+	/// <summary>vkCreateViSurfaceNN(<c>Vk.Instance</c>, <c>Vk.NN.ViSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateViSurfaceNN(Vk.Instance instance, in Vk.NN.ViSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.NN.ViSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateViSurfaceNN(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
+
 	/// <summary>vkCreateWaylandSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.WaylandSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateWaylandSurfaceKHR(Vk.Instance instance, Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateWaylandSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateWaylandSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.WaylandSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWaylandSurfaceKHR(Vk.Instance instance, in Vk.KHR.WaylandSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.KHR.WaylandSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateWaylandSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceWaylandPresentationSupportKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>void*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -191,6 +480,16 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result CreateWin32SurfaceKHR(Vk.Instance instance, Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateWin32SurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
 
+	/// <summary>vkCreateWin32SurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.Win32SurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWin32SurfaceKHR(Vk.Instance instance, in Vk.KHR.Win32SurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.KHR.Win32SurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateWin32SurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceWin32PresentationSupportKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Bool32 GetPhysicalDeviceWin32PresentationSupportKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex)
@@ -200,6 +499,16 @@ public unsafe sealed partial class InstanceFunctionTable
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateXlibSurfaceKHR(Vk.Instance instance, Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateXlibSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateXlibSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.XlibSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXlibSurfaceKHR(Vk.Instance instance, in Vk.KHR.XlibSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.KHR.XlibSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateXlibSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceXlibPresentationSupportKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>void*</c>, <c>ulong</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -211,6 +520,16 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result CreateXcbSurfaceKHR(Vk.Instance instance, Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateXcbSurfaceKHR(instance, pCreateInfo, pAllocator, pSurface);
 
+	/// <summary>vkCreateXcbSurfaceKHR(<c>Vk.Instance</c>, <c>Vk.KHR.XcbSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXcbSurfaceKHR(Vk.Instance instance, in Vk.KHR.XcbSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.KHR.XcbSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateXcbSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceXcbPresentationSupportKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>void*</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Bool32 GetPhysicalDeviceXcbPresentationSupportKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, void* connection, uint visual_id)
@@ -220,6 +539,16 @@ public unsafe sealed partial class InstanceFunctionTable
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDirectFBSurfaceEXT(Vk.Instance instance, Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateDirectFBSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateDirectFBSurfaceEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DirectFBSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDirectFBSurfaceEXT(Vk.Instance instance, in Vk.EXT.DirectFBSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.EXT.DirectFBSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateDirectFBSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceDirectFBPresentationSupportEXT(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>void*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -231,130 +560,357 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result CreateImagePipeSurfaceFUCHSIA(Vk.Instance instance, Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateImagePipeSurfaceFUCHSIA(instance, pCreateInfo, pAllocator, pSurface);
 
+	/// <summary>vkCreateImagePipeSurfaceFUCHSIA(<c>Vk.Instance</c>, <c>Vk.FUCHSIA.ImagePipeSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImagePipeSurfaceFUCHSIA(Vk.Instance instance, in Vk.FUCHSIA.ImagePipeSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateImagePipeSurfaceFUCHSIA(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
+
 	/// <summary>vkCreateStreamDescriptorSurfaceGGP(<c>Vk.Instance</c>, <c>Vk.GGP.StreamDescriptorSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateStreamDescriptorSurfaceGGP(Vk.Instance instance, Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateStreamDescriptorSurfaceGGP(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateStreamDescriptorSurfaceGGP(<c>Vk.Instance</c>, <c>Vk.GGP.StreamDescriptorSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateStreamDescriptorSurfaceGGP(Vk.Instance instance, in Vk.GGP.StreamDescriptorSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.GGP.StreamDescriptorSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateStreamDescriptorSurfaceGGP(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkCreateDebugReportCallbackEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugReportCallbackCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.EXT.DebugReportCallback*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDebugReportCallbackEXT(Vk.Instance instance, Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugReportCallback* pCallback)
 		=> vkCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback);
 
+	/// <summary>vkCreateDebugReportCallbackEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugReportCallbackCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.EXT.DebugReportCallback*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugReportCallbackEXT(Vk.Instance instance, in Vk.EXT.DebugReportCallbackCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugReportCallback callback)
+	{
+		fixed (Vk.EXT.DebugReportCallbackCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.EXT.DebugReportCallback* callbackFIXED = &callback)
+		return vkCreateDebugReportCallbackEXT(instance, createInfoFIXED, allocatorFIXED, callbackFIXED);
+	}
+
 	/// <summary>vkDestroyDebugReportCallbackEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugReportCallback</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugReportCallbackEXT(Vk.Instance instance, Vk.EXT.DebugReportCallback callback, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDebugReportCallbackEXT(instance, callback, pAllocator);
+
+	/// <summary>vkDestroyDebugReportCallbackEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugReportCallback</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugReportCallbackEXT(Vk.Instance instance, Vk.EXT.DebugReportCallback callback, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDebugReportCallbackEXT(instance, callback, allocatorFIXED);
+	}
 
 	/// <summary>vkDebugReportMessageEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugReportFlags</c>, <c>Vk.EXT.DebugReportObjectType</c>, <c>ulong</c>, <c>ulong</c>, <c>int</c>, <c>byte*</c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DebugReportMessageEXT(Vk.Instance instance, Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, byte* pLayerPrefix, byte* pMessage)
 		=> vkDebugReportMessageEXT(instance, flags, objectType, @object, location, messageCode, pLayerPrefix, pMessage);
 
+	/// <summary>vkDebugReportMessageEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugReportFlags</c>, <c>Vk.EXT.DebugReportObjectType</c>, <c>ulong</c>, <c>ulong</c>, <c>int</c>, <c>byte*</c>, <c>byte*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DebugReportMessageEXT(Vk.Instance instance, Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, VVK.NativeString layerPrefix, VVK.NativeString message)
+	{
+		vkDebugReportMessageEXT(instance, flags, objectType, @object, location, messageCode, layerPrefix.Data, message.Data);
+	}
+
 	/// <summary>vkGetPhysicalDeviceExternalImageFormatPropertiesNV(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.ImageTiling</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageCreateFlags</c>, <c>Vk.NV.ExternalMemoryHandleTypeFlags</c>, <c>Vk.NV.ExternalImageFormatProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceExternalImageFormatPropertiesNV(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.NV.ExternalMemoryHandleTypeFlags externalHandleType, Vk.NV.ExternalImageFormatProperties* pExternalImageFormatProperties)
 		=> vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
+
+	/// <summary>vkGetPhysicalDeviceExternalImageFormatPropertiesNV(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.ImageTiling</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageCreateFlags</c>, <c>Vk.NV.ExternalMemoryHandleTypeFlags</c>, <c>Vk.NV.ExternalImageFormatProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceExternalImageFormatPropertiesNV(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.NV.ExternalMemoryHandleTypeFlags externalHandleType, out Vk.NV.ExternalImageFormatProperties externalImageFormatProperties)
+	{
+		fixed (Vk.NV.ExternalImageFormatProperties* externalImageFormatPropertiesFIXED = &externalImageFormatProperties)
+		return vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, externalImageFormatPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceFeatures2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceFeatures2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceFeatures2* pFeatures)
 		=> vkGetPhysicalDeviceFeatures2(physicalDevice, pFeatures);
 
+	/// <summary>vkGetPhysicalDeviceFeatures2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceFeatures2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFeatures2(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceFeatures2 features)
+	{
+		fixed (Vk.PhysicalDeviceFeatures2* featuresFIXED = &features)
+		vkGetPhysicalDeviceFeatures2(physicalDevice, featuresFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceFeatures2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceFeatures2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceFeatures2* pFeatures)
 		=> vkGetPhysicalDeviceFeatures2KHR(physicalDevice, pFeatures);
+
+	/// <summary>vkGetPhysicalDeviceFeatures2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceFeatures2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFeatures2KHR(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceFeatures2 features)
+	{
+		fixed (Vk.PhysicalDeviceFeatures2* featuresFIXED = &features)
+		vkGetPhysicalDeviceFeatures2KHR(physicalDevice, featuresFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceProperties2* pProperties)
 		=> vkGetPhysicalDeviceProperties2(physicalDevice, pProperties);
 
+	/// <summary>vkGetPhysicalDeviceProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceProperties2(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceProperties2 properties)
+	{
+		fixed (Vk.PhysicalDeviceProperties2* propertiesFIXED = &properties)
+		vkGetPhysicalDeviceProperties2(physicalDevice, propertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceProperties2* pProperties)
 		=> vkGetPhysicalDeviceProperties2KHR(physicalDevice, pProperties);
+
+	/// <summary>vkGetPhysicalDeviceProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceProperties2KHR(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceProperties2 properties)
+	{
+		fixed (Vk.PhysicalDeviceProperties2* propertiesFIXED = &properties)
+		vkGetPhysicalDeviceProperties2KHR(physicalDevice, propertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceFormatProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.FormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.FormatProperties2* pFormatProperties)
 		=> vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, pFormatProperties);
 
+	/// <summary>vkGetPhysicalDeviceFormatProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.FormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.Format format, out Vk.FormatProperties2 formatProperties)
+	{
+		fixed (Vk.FormatProperties2* formatPropertiesFIXED = &formatProperties)
+		vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, formatPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceFormatProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.FormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.Format format, Vk.FormatProperties2* pFormatProperties)
 		=> vkGetPhysicalDeviceFormatProperties2KHR(physicalDevice, format, pFormatProperties);
+
+	/// <summary>vkGetPhysicalDeviceFormatProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.Format</c>, <c>Vk.FormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.Format format, out Vk.FormatProperties2 formatProperties)
+	{
+		fixed (Vk.FormatProperties2* formatPropertiesFIXED = &formatProperties)
+		vkGetPhysicalDeviceFormatProperties2KHR(physicalDevice, format, formatPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceImageFormatProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceImageFormatInfo2*</c>, <c>Vk.ImageFormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceImageFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
 		=> vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, pImageFormatInfo, pImageFormatProperties);
 
+	/// <summary>vkGetPhysicalDeviceImageFormatProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceImageFormatInfo2*</c>, <c>Vk.ImageFormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceImageFormatProperties2(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceImageFormatInfo2 imageFormatInfo, out Vk.ImageFormatProperties2 imageFormatProperties)
+	{
+		fixed (Vk.PhysicalDeviceImageFormatInfo2* imageFormatInfoFIXED = &imageFormatInfo)
+		fixed (Vk.ImageFormatProperties2* imageFormatPropertiesFIXED = &imageFormatProperties)
+		return vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, imageFormatInfoFIXED, imageFormatPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceImageFormatProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceImageFormatInfo2*</c>, <c>Vk.ImageFormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceImageFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceImageFormatInfo2* pImageFormatInfo, Vk.ImageFormatProperties2* pImageFormatProperties)
 		=> vkGetPhysicalDeviceImageFormatProperties2KHR(physicalDevice, pImageFormatInfo, pImageFormatProperties);
+
+	/// <summary>vkGetPhysicalDeviceImageFormatProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceImageFormatInfo2*</c>, <c>Vk.ImageFormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceImageFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceImageFormatInfo2 imageFormatInfo, out Vk.ImageFormatProperties2 imageFormatProperties)
+	{
+		fixed (Vk.PhysicalDeviceImageFormatInfo2* imageFormatInfoFIXED = &imageFormatInfo)
+		fixed (Vk.ImageFormatProperties2* imageFormatPropertiesFIXED = &imageFormatProperties)
+		return vkGetPhysicalDeviceImageFormatProperties2KHR(physicalDevice, imageFormatInfoFIXED, imageFormatPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties2(Vk.PhysicalDevice physicalDevice, uint* pQueueFamilyPropertyCount, Vk.QueueFamilyProperties2* pQueueFamilyProperties)
 		=> vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
 
+	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties2(Vk.PhysicalDevice physicalDevice, out uint queueFamilyPropertyCount, in Span<Vk.QueueFamilyProperties2> queueFamilyProperties)
+	{
+		fixed (uint* queueFamilyPropertyCountFIXED = &queueFamilyPropertyCount)
+		fixed (Vk.QueueFamilyProperties2* queueFamilyPropertiesFIXED = queueFamilyProperties)
+		vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, queueFamilyPropertyCountFIXED, queueFamilyPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pQueueFamilyPropertyCount, Vk.QueueFamilyProperties2* pQueueFamilyProperties)
 		=> vkGetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+
+	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties2KHR(Vk.PhysicalDevice physicalDevice, out uint queueFamilyPropertyCount, in Span<Vk.QueueFamilyProperties2> queueFamilyProperties)
+	{
+		fixed (uint* queueFamilyPropertyCountFIXED = &queueFamilyPropertyCount)
+		fixed (Vk.QueueFamilyProperties2* queueFamilyPropertiesFIXED = queueFamilyProperties)
+		vkGetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice, queueFamilyPropertyCountFIXED, queueFamilyPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceMemoryProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceMemoryProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceMemoryProperties2* pMemoryProperties)
 		=> vkGetPhysicalDeviceMemoryProperties2(physicalDevice, pMemoryProperties);
 
+	/// <summary>vkGetPhysicalDeviceMemoryProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceMemoryProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMemoryProperties2(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceMemoryProperties2 memoryProperties)
+	{
+		fixed (Vk.PhysicalDeviceMemoryProperties2* memoryPropertiesFIXED = &memoryProperties)
+		vkGetPhysicalDeviceMemoryProperties2(physicalDevice, memoryPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceMemoryProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceMemoryProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceMemoryProperties2* pMemoryProperties)
 		=> vkGetPhysicalDeviceMemoryProperties2KHR(physicalDevice, pMemoryProperties);
+
+	/// <summary>vkGetPhysicalDeviceMemoryProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceMemoryProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMemoryProperties2KHR(Vk.PhysicalDevice physicalDevice, out Vk.PhysicalDeviceMemoryProperties2 memoryProperties)
+	{
+		fixed (Vk.PhysicalDeviceMemoryProperties2* memoryPropertiesFIXED = &memoryProperties)
+		vkGetPhysicalDeviceMemoryProperties2KHR(physicalDevice, memoryPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties2(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, Vk.SparseImageFormatProperties2* pProperties)
 		=> vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
 
+	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties2(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, out uint propertyCount, in Span<Vk.SparseImageFormatProperties2> properties)
+	{
+		fixed (Vk.PhysicalDeviceSparseImageFormatInfo2* formatInfoFIXED = &formatInfo)
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.SparseImageFormatProperties2* propertiesFIXED = properties)
+		vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, formatInfoFIXED, propertyCountFIXED, propertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, Vk.SparseImageFormatProperties2* pProperties)
 		=> vkGetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
+
+	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, out uint propertyCount, in Span<Vk.SparseImageFormatProperties2> properties)
+	{
+		fixed (Vk.PhysicalDeviceSparseImageFormatInfo2* formatInfoFIXED = &formatInfo)
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.SparseImageFormatProperties2* propertiesFIXED = properties)
+		vkGetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice, formatInfoFIXED, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceExternalBufferProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalBufferInfo*</c>, <c>Vk.ExternalBufferProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalBufferProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalBufferInfo* pExternalBufferInfo, Vk.ExternalBufferProperties* pExternalBufferProperties)
 		=> vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
 
+	/// <summary>vkGetPhysicalDeviceExternalBufferProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalBufferInfo*</c>, <c>Vk.ExternalBufferProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalBufferProperties(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceExternalBufferInfo externalBufferInfo, out Vk.ExternalBufferProperties externalBufferProperties)
+	{
+		fixed (Vk.PhysicalDeviceExternalBufferInfo* externalBufferInfoFIXED = &externalBufferInfo)
+		fixed (Vk.ExternalBufferProperties* externalBufferPropertiesFIXED = &externalBufferProperties)
+		vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, externalBufferInfoFIXED, externalBufferPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceExternalBufferPropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalBufferInfo*</c>, <c>Vk.ExternalBufferProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalBufferPropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalBufferInfo* pExternalBufferInfo, Vk.ExternalBufferProperties* pExternalBufferProperties)
 		=> vkGetPhysicalDeviceExternalBufferPropertiesKHR(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
+
+	/// <summary>vkGetPhysicalDeviceExternalBufferPropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalBufferInfo*</c>, <c>Vk.ExternalBufferProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalBufferPropertiesKHR(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceExternalBufferInfo externalBufferInfo, out Vk.ExternalBufferProperties externalBufferProperties)
+	{
+		fixed (Vk.PhysicalDeviceExternalBufferInfo* externalBufferInfoFIXED = &externalBufferInfo)
+		fixed (Vk.ExternalBufferProperties* externalBufferPropertiesFIXED = &externalBufferProperties)
+		vkGetPhysicalDeviceExternalBufferPropertiesKHR(physicalDevice, externalBufferInfoFIXED, externalBufferPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceExternalSemaphoreProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalSemaphoreInfo*</c>, <c>Vk.ExternalSemaphoreProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalSemaphoreProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, Vk.ExternalSemaphoreProperties* pExternalSemaphoreProperties)
 		=> vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
 
+	/// <summary>vkGetPhysicalDeviceExternalSemaphoreProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalSemaphoreInfo*</c>, <c>Vk.ExternalSemaphoreProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalSemaphoreProperties(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceExternalSemaphoreInfo externalSemaphoreInfo, out Vk.ExternalSemaphoreProperties externalSemaphoreProperties)
+	{
+		fixed (Vk.PhysicalDeviceExternalSemaphoreInfo* externalSemaphoreInfoFIXED = &externalSemaphoreInfo)
+		fixed (Vk.ExternalSemaphoreProperties* externalSemaphorePropertiesFIXED = &externalSemaphoreProperties)
+		vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, externalSemaphoreInfoFIXED, externalSemaphorePropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalSemaphoreInfo*</c>, <c>Vk.ExternalSemaphoreProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalSemaphorePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, Vk.ExternalSemaphoreProperties* pExternalSemaphoreProperties)
 		=> vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+
+	/// <summary>vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalSemaphoreInfo*</c>, <c>Vk.ExternalSemaphoreProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalSemaphorePropertiesKHR(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceExternalSemaphoreInfo externalSemaphoreInfo, out Vk.ExternalSemaphoreProperties externalSemaphoreProperties)
+	{
+		fixed (Vk.PhysicalDeviceExternalSemaphoreInfo* externalSemaphoreInfoFIXED = &externalSemaphoreInfo)
+		fixed (Vk.ExternalSemaphoreProperties* externalSemaphorePropertiesFIXED = &externalSemaphoreProperties)
+		vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(physicalDevice, externalSemaphoreInfoFIXED, externalSemaphorePropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceExternalFenceProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalFenceInfo*</c>, <c>Vk.ExternalFenceProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalFenceProperties(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalFenceInfo* pExternalFenceInfo, Vk.ExternalFenceProperties* pExternalFenceProperties)
 		=> vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
 
+	/// <summary>vkGetPhysicalDeviceExternalFenceProperties(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalFenceInfo*</c>, <c>Vk.ExternalFenceProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalFenceProperties(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceExternalFenceInfo externalFenceInfo, out Vk.ExternalFenceProperties externalFenceProperties)
+	{
+		fixed (Vk.PhysicalDeviceExternalFenceInfo* externalFenceInfoFIXED = &externalFenceInfo)
+		fixed (Vk.ExternalFenceProperties* externalFencePropertiesFIXED = &externalFenceProperties)
+		vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, externalFenceInfoFIXED, externalFencePropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceExternalFencePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalFenceInfo*</c>, <c>Vk.ExternalFenceProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalFencePropertiesKHR(Vk.PhysicalDevice physicalDevice, Vk.PhysicalDeviceExternalFenceInfo* pExternalFenceInfo, Vk.ExternalFenceProperties* pExternalFenceProperties)
 		=> vkGetPhysicalDeviceExternalFencePropertiesKHR(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
+
+	/// <summary>vkGetPhysicalDeviceExternalFencePropertiesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.PhysicalDeviceExternalFenceInfo*</c>, <c>Vk.ExternalFenceProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalFencePropertiesKHR(Vk.PhysicalDevice physicalDevice, in Vk.PhysicalDeviceExternalFenceInfo externalFenceInfo, out Vk.ExternalFenceProperties externalFenceProperties)
+	{
+		fixed (Vk.PhysicalDeviceExternalFenceInfo* externalFenceInfoFIXED = &externalFenceInfo)
+		fixed (Vk.ExternalFenceProperties* externalFencePropertiesFIXED = &externalFenceProperties)
+		vkGetPhysicalDeviceExternalFencePropertiesKHR(physicalDevice, externalFenceInfoFIXED, externalFencePropertiesFIXED);
+	}
 
 	/// <summary>vkReleaseDisplayEXT(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Display</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -371,135 +927,381 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetRandROutputDisplayEXT(Vk.PhysicalDevice physicalDevice, void* dpy, ulong rrOutput, Vk.KHR.Display* pDisplay)
 		=> vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, pDisplay);
 
+	/// <summary>vkGetRandROutputDisplayEXT(<c>Vk.PhysicalDevice</c>, <c>void*</c>, <c>ulong</c>, <c>Vk.KHR.Display*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetRandROutputDisplayEXT(Vk.PhysicalDevice physicalDevice, void* dpy, ulong rrOutput, out Vk.KHR.Display display)
+	{
+		fixed (Vk.KHR.Display* displayFIXED = &display)
+		return vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, displayFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2EXT(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>Vk.EXT.SurfaceCapabilities2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, Vk.EXT.SurfaceCapabilities2* pSurfaceCapabilities)
 		=> vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, pSurfaceCapabilities);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2EXT(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>Vk.EXT.SurfaceCapabilities2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, out Vk.EXT.SurfaceCapabilities2 surfaceCapabilities)
+	{
+		fixed (Vk.EXT.SurfaceCapabilities2* surfaceCapabilitiesFIXED = &surfaceCapabilities)
+		return vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, surfaceCapabilitiesFIXED);
+	}
 
 	/// <summary>vkEnumeratePhysicalDeviceGroups(<c>Vk.Instance</c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumeratePhysicalDeviceGroups(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 		=> vkEnumeratePhysicalDeviceGroups(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
 
+	/// <summary>vkEnumeratePhysicalDeviceGroups(<c>Vk.Instance</c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDeviceGroups(Vk.Instance instance, out uint physicalDeviceGroupCount, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
+	{
+		fixed (uint* physicalDeviceGroupCountFIXED = &physicalDeviceGroupCount)
+		fixed (Vk.PhysicalDeviceGroupProperties* physicalDeviceGroupPropertiesFIXED = physicalDeviceGroupProperties)
+		return vkEnumeratePhysicalDeviceGroups(instance, physicalDeviceGroupCountFIXED, physicalDeviceGroupPropertiesFIXED);
+	}
+
 	/// <summary>vkEnumeratePhysicalDeviceGroupsKHR(<c>Vk.Instance</c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(Vk.Instance instance, uint* pPhysicalDeviceGroupCount, Vk.PhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 		=> vkEnumeratePhysicalDeviceGroupsKHR(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
+
+	/// <summary>vkEnumeratePhysicalDeviceGroupsKHR(<c>Vk.Instance</c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(Vk.Instance instance, out uint physicalDeviceGroupCount, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
+	{
+		fixed (uint* physicalDeviceGroupCountFIXED = &physicalDeviceGroupCount)
+		fixed (Vk.PhysicalDeviceGroupProperties* physicalDeviceGroupPropertiesFIXED = physicalDeviceGroupProperties)
+		return vkEnumeratePhysicalDeviceGroupsKHR(instance, physicalDeviceGroupCountFIXED, physicalDeviceGroupPropertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>uint*</c>, <c>Vk.Rect2D*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, uint* pRectCount, Vk.Rect2D* pRects)
 		=> vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, pRectCount, pRects);
 
+	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Surface</c>, <c>uint*</c>, <c>Vk.Rect2D*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Surface surface, out uint rectCount, in Span<Vk.Rect2D> rects)
+	{
+		fixed (uint* rectCountFIXED = &rectCount)
+		fixed (Vk.Rect2D* rectsFIXED = rects)
+		return vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, rectCountFIXED, rectsFIXED);
+	}
+
 	/// <summary>vkCreateIOSSurfaceMVK(<c>Vk.Instance</c>, <c>Vk.MVK.IOSSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateIOSSurfaceMVK(Vk.Instance instance, Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateIOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateIOSSurfaceMVK(<c>Vk.Instance</c>, <c>Vk.MVK.IOSSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateIOSSurfaceMVK(Vk.Instance instance, in Vk.MVK.IOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.MVK.IOSSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateIOSSurfaceMVK(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkCreateMacOSSurfaceMVK(<c>Vk.Instance</c>, <c>Vk.MVK.MacOSSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateMacOSSurfaceMVK(Vk.Instance instance, Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateMacOSSurfaceMVK(instance, pCreateInfo, pAllocator, pSurface);
 
+	/// <summary>vkCreateMacOSSurfaceMVK(<c>Vk.Instance</c>, <c>Vk.MVK.MacOSSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMacOSSurfaceMVK(Vk.Instance instance, in Vk.MVK.MacOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.MVK.MacOSSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateMacOSSurfaceMVK(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
+
 	/// <summary>vkCreateMetalSurfaceEXT(<c>Vk.Instance</c>, <c>Vk.EXT.MetalSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateMetalSurfaceEXT(Vk.Instance instance, Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateMetalSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateMetalSurfaceEXT(<c>Vk.Instance</c>, <c>Vk.EXT.MetalSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMetalSurfaceEXT(Vk.Instance instance, in Vk.EXT.MetalSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.EXT.MetalSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateMetalSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceMultisamplePropertiesEXT(<c>Vk.PhysicalDevice</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.EXT.MultisampleProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMultisamplePropertiesEXT(Vk.PhysicalDevice physicalDevice, Vk.SampleCountFlags samples, Vk.EXT.MultisampleProperties* pMultisampleProperties)
 		=> vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, pMultisampleProperties);
 
+	/// <summary>vkGetPhysicalDeviceMultisamplePropertiesEXT(<c>Vk.PhysicalDevice</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.EXT.MultisampleProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMultisamplePropertiesEXT(Vk.PhysicalDevice physicalDevice, Vk.SampleCountFlags samples, out Vk.EXT.MultisampleProperties multisampleProperties)
+	{
+		fixed (Vk.EXT.MultisampleProperties* multisamplePropertiesFIXED = &multisampleProperties)
+		vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, multisamplePropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>Vk.KHR.SurfaceCapabilities2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, Vk.KHR.SurfaceCapabilities2* pSurfaceCapabilities)
 		=> vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, pSurfaceInfo, pSurfaceCapabilities);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>Vk.KHR.SurfaceCapabilities2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2KHR(Vk.PhysicalDevice physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out Vk.KHR.SurfaceCapabilities2 surfaceCapabilities)
+	{
+		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
+		fixed (Vk.KHR.SurfaceCapabilities2* surfaceCapabilitiesFIXED = &surfaceCapabilities)
+		return vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, surfaceInfoFIXED, surfaceCapabilitiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceFormats2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfaceFormats2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat2* pSurfaceFormats)
 		=> vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
 
+	/// <summary>vkGetPhysicalDeviceSurfaceFormats2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceFormats2KHR(Vk.PhysicalDevice physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out uint surfaceFormatCount, in Span<Vk.KHR.SurfaceFormat2> surfaceFormats)
+	{
+		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
+		fixed (uint* surfaceFormatCountFIXED = &surfaceFormatCount)
+		fixed (Vk.KHR.SurfaceFormat2* surfaceFormatsFIXED = surfaceFormats)
+		return vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, surfaceInfoFIXED, surfaceFormatCountFIXED, surfaceFormatsFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceDisplayProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceDisplayProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayProperties2* pProperties)
 		=> vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, pPropertyCount, pProperties);
+
+	/// <summary>vkGetPhysicalDeviceDisplayProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayProperties2KHR(Vk.PhysicalDevice physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayProperties2> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.KHR.DisplayProperties2* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceDisplayPlaneProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceDisplayPlaneProperties2KHR(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.KHR.DisplayPlaneProperties2* pProperties)
 		=> vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, pPropertyCount, pProperties);
 
+	/// <summary>vkGetPhysicalDeviceDisplayPlaneProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayPlaneProperties2KHR(Vk.PhysicalDevice physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayPlaneProperties2> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.KHR.DisplayPlaneProperties2* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+	}
+
 	/// <summary>vkGetDisplayModeProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Display</c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayModeProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, uint* pPropertyCount, Vk.KHR.DisplayModeProperties2* pProperties)
 		=> vkGetDisplayModeProperties2KHR(physicalDevice, display, pPropertyCount, pProperties);
+
+	/// <summary>vkGetDisplayModeProperties2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.Display</c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayModeProperties2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.Display display, out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties2> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.KHR.DisplayModeProperties2* propertiesFIXED = properties)
+		return vkGetDisplayModeProperties2KHR(physicalDevice, display, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkGetDisplayPlaneCapabilities2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.DisplayPlaneInfo2*</c>, <c>Vk.KHR.DisplayPlaneCapabilities2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayPlaneCapabilities2KHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.DisplayPlaneInfo2* pDisplayPlaneInfo, Vk.KHR.DisplayPlaneCapabilities2* pCapabilities)
 		=> vkGetDisplayPlaneCapabilities2KHR(physicalDevice, pDisplayPlaneInfo, pCapabilities);
 
+	/// <summary>vkGetDisplayPlaneCapabilities2KHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.DisplayPlaneInfo2*</c>, <c>Vk.KHR.DisplayPlaneCapabilities2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayPlaneCapabilities2KHR(Vk.PhysicalDevice physicalDevice, in Vk.KHR.DisplayPlaneInfo2 displayPlaneInfo, out Vk.KHR.DisplayPlaneCapabilities2 capabilities)
+	{
+		fixed (Vk.KHR.DisplayPlaneInfo2* displayPlaneInfoFIXED = &displayPlaneInfo)
+		fixed (Vk.KHR.DisplayPlaneCapabilities2* capabilitiesFIXED = &capabilities)
+		return vkGetDisplayPlaneCapabilities2KHR(physicalDevice, displayPlaneInfoFIXED, capabilitiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.EXT.TimeDomain*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceCalibrateableTimeDomainsEXT(Vk.PhysicalDevice physicalDevice, uint* pTimeDomainCount, Vk.EXT.TimeDomain* pTimeDomains)
 		=> vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, pTimeDomainCount, pTimeDomains);
+
+	/// <summary>vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.EXT.TimeDomain*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceCalibrateableTimeDomainsEXT(Vk.PhysicalDevice physicalDevice, out uint timeDomainCount, in Span<Vk.EXT.TimeDomain> timeDomains)
+	{
+		fixed (uint* timeDomainCountFIXED = &timeDomainCount)
+		fixed (Vk.EXT.TimeDomain* timeDomainsFIXED = timeDomains)
+		return vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, timeDomainCountFIXED, timeDomainsFIXED);
+	}
 
 	/// <summary>vkCreateDebugUtilsMessengerEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugUtilsMessengerCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.EXT.DebugUtilsMessenger*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDebugUtilsMessengerEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.DebugUtilsMessenger* pMessenger)
 		=> vkCreateDebugUtilsMessengerEXT(instance, pCreateInfo, pAllocator, pMessenger);
 
+	/// <summary>vkCreateDebugUtilsMessengerEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugUtilsMessengerCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.EXT.DebugUtilsMessenger*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugUtilsMessengerEXT(Vk.Instance instance, in Vk.EXT.DebugUtilsMessengerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugUtilsMessenger messenger)
+	{
+		fixed (Vk.EXT.DebugUtilsMessengerCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.EXT.DebugUtilsMessenger* messengerFIXED = &messenger)
+		return vkCreateDebugUtilsMessengerEXT(instance, createInfoFIXED, allocatorFIXED, messengerFIXED);
+	}
+
 	/// <summary>vkDestroyDebugUtilsMessengerEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugUtilsMessenger</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugUtilsMessengerEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessenger messenger, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDebugUtilsMessengerEXT(instance, messenger, pAllocator);
+
+	/// <summary>vkDestroyDebugUtilsMessengerEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugUtilsMessenger</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugUtilsMessengerEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessenger messenger, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDebugUtilsMessengerEXT(instance, messenger, allocatorFIXED);
+	}
 
 	/// <summary>vkSubmitDebugUtilsMessageEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugUtilsMessageSeverityFlags</c>, <c>Vk.EXT.DebugUtilsMessageTypeFlags</c>, <c>Vk.EXT.DebugUtilsMessengerCallbackData*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SubmitDebugUtilsMessageEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity, Vk.EXT.DebugUtilsMessageTypeFlags messageTypes, Vk.EXT.DebugUtilsMessengerCallbackData* pCallbackData)
 		=> vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, pCallbackData);
 
+	/// <summary>vkSubmitDebugUtilsMessageEXT(<c>Vk.Instance</c>, <c>Vk.EXT.DebugUtilsMessageSeverityFlags</c>, <c>Vk.EXT.DebugUtilsMessageTypeFlags</c>, <c>Vk.EXT.DebugUtilsMessengerCallbackData*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SubmitDebugUtilsMessageEXT(Vk.Instance instance, Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity, Vk.EXT.DebugUtilsMessageTypeFlags messageTypes, in Vk.EXT.DebugUtilsMessengerCallbackData callbackData)
+	{
+		fixed (Vk.EXT.DebugUtilsMessengerCallbackData* callbackDataFIXED = &callbackData)
+		vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, callbackDataFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.NV.CooperativeMatrixProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceCooperativeMatrixPropertiesNV(Vk.PhysicalDevice physicalDevice, uint* pPropertyCount, Vk.NV.CooperativeMatrixProperties* pProperties)
 		=> vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, pPropertyCount, pProperties);
+
+	/// <summary>vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.NV.CooperativeMatrixProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceCooperativeMatrixPropertiesNV(Vk.PhysicalDevice physicalDevice, out uint propertyCount, in Span<Vk.NV.CooperativeMatrixProperties> properties)
+	{
+		fixed (uint* propertyCountFIXED = &propertyCount)
+		fixed (Vk.NV.CooperativeMatrixProperties* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, propertyCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceSurfacePresentModes2EXT(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfacePresentModes2EXT(Vk.PhysicalDevice physicalDevice, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
 		=> vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes);
 
+	/// <summary>vkGetPhysicalDeviceSurfacePresentModes2EXT(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfacePresentModes2EXT(Vk.PhysicalDevice physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out uint presentModeCount, in Span<Vk.KHR.PresentMode> presentModes)
+	{
+		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
+		fixed (uint* presentModeCountFIXED = &presentModeCount)
+		fixed (Vk.KHR.PresentMode* presentModesFIXED = presentModes)
+		return vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, surfaceInfoFIXED, presentModeCountFIXED, presentModesFIXED);
+	}
+
 	/// <summary>vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>uint*</c>, <c>Vk.KHR.PerformanceCounter*</c>, <c>Vk.KHR.PerformanceCounterDescription*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, uint* pCounterCount, Vk.KHR.PerformanceCounter* pCounters, Vk.KHR.PerformanceCounterDescription* pCounterDescriptions)
 		=> vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
+
+	/// <summary>vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(<c>Vk.PhysicalDevice</c>, <c>uint</c>, <c>uint*</c>, <c>Vk.KHR.PerformanceCounter*</c>, <c>Vk.KHR.PerformanceCounterDescription*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Vk.PhysicalDevice physicalDevice, uint queueFamilyIndex, out uint counterCount, in Span<Vk.KHR.PerformanceCounter> counters, in Span<Vk.KHR.PerformanceCounterDescription> counterDescriptions)
+	{
+		fixed (uint* counterCountFIXED = &counterCount)
+		fixed (Vk.KHR.PerformanceCounter* countersFIXED = counters)
+		fixed (Vk.KHR.PerformanceCounterDescription* counterDescriptionsFIXED = counterDescriptions)
+		return vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, counterCountFIXED, countersFIXED, counterDescriptionsFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.QueryPoolPerformanceCreateInfo*</c>, <c>uint*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(Vk.PhysicalDevice physicalDevice, Vk.KHR.QueryPoolPerformanceCreateInfo* pPerformanceQueryCreateInfo, uint* pNumPasses)
 		=> vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, pPerformanceQueryCreateInfo, pNumPasses);
 
+	/// <summary>vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(<c>Vk.PhysicalDevice</c>, <c>Vk.KHR.QueryPoolPerformanceCreateInfo*</c>, <c>uint*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(Vk.PhysicalDevice physicalDevice, in Vk.KHR.QueryPoolPerformanceCreateInfo performanceQueryCreateInfo, out uint numPasses)
+	{
+		fixed (Vk.KHR.QueryPoolPerformanceCreateInfo* performanceQueryCreateInfoFIXED = &performanceQueryCreateInfo)
+		fixed (uint* numPassesFIXED = &numPasses)
+		vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, performanceQueryCreateInfoFIXED, numPassesFIXED);
+	}
+
 	/// <summary>vkCreateHeadlessSurfaceEXT(<c>Vk.Instance</c>, <c>Vk.EXT.HeadlessSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateHeadlessSurfaceEXT(Vk.Instance instance, Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Surface* pSurface)
 		=> vkCreateHeadlessSurfaceEXT(instance, pCreateInfo, pAllocator, pSurface);
+
+	/// <summary>vkCreateHeadlessSurfaceEXT(<c>Vk.Instance</c>, <c>Vk.EXT.HeadlessSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Surface*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateHeadlessSurfaceEXT(Vk.Instance instance, in Vk.EXT.HeadlessSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface surface)
+	{
+		fixed (Vk.EXT.HeadlessSurfaceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Surface* surfaceFIXED = &surface)
+		return vkCreateHeadlessSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+	}
 
 	/// <summary>vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.NV.FramebufferMixedSamplesCombination*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Vk.PhysicalDevice physicalDevice, uint* pCombinationCount, Vk.NV.FramebufferMixedSamplesCombination* pCombinations)
 		=> vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, pCombinationCount, pCombinations);
 
+	/// <summary>vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.NV.FramebufferMixedSamplesCombination*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Vk.PhysicalDevice physicalDevice, out uint combinationCount, in Span<Vk.NV.FramebufferMixedSamplesCombination> combinations)
+	{
+		fixed (uint* combinationCountFIXED = &combinationCount)
+		fixed (Vk.NV.FramebufferMixedSamplesCombination* combinationsFIXED = combinations)
+		return vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, combinationCountFIXED, combinationsFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceToolPropertiesEXT(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.EXT.PhysicalDeviceToolProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceToolPropertiesEXT(Vk.PhysicalDevice physicalDevice, uint* pToolCount, Vk.EXT.PhysicalDeviceToolProperties* pToolProperties)
 		=> vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, pToolCount, pToolProperties);
 
+	/// <summary>vkGetPhysicalDeviceToolPropertiesEXT(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.EXT.PhysicalDeviceToolProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceToolPropertiesEXT(Vk.PhysicalDevice physicalDevice, out uint toolCount, in Span<Vk.EXT.PhysicalDeviceToolProperties> toolProperties)
+	{
+		fixed (uint* toolCountFIXED = &toolCount)
+		fixed (Vk.EXT.PhysicalDeviceToolProperties* toolPropertiesFIXED = toolProperties)
+		return vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, toolCountFIXED, toolPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPhysicalDeviceFragmentShadingRatesKHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.PhysicalDeviceFragmentShadingRate*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceFragmentShadingRatesKHR(Vk.PhysicalDevice physicalDevice, uint* pFragmentShadingRateCount, Vk.KHR.PhysicalDeviceFragmentShadingRate* pFragmentShadingRates)
 		=> vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, pFragmentShadingRateCount, pFragmentShadingRates);
+
+	/// <summary>vkGetPhysicalDeviceFragmentShadingRatesKHR(<c>Vk.PhysicalDevice</c>, <c>uint*</c>, <c>Vk.KHR.PhysicalDeviceFragmentShadingRate*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceFragmentShadingRatesKHR(Vk.PhysicalDevice physicalDevice, out uint fragmentShadingRateCount, in Span<Vk.KHR.PhysicalDeviceFragmentShadingRate> fragmentShadingRates)
+	{
+		fixed (uint* fragmentShadingRateCountFIXED = &fragmentShadingRateCount)
+		fixed (Vk.KHR.PhysicalDeviceFragmentShadingRate* fragmentShadingRatesFIXED = fragmentShadingRates)
+		return vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, fragmentShadingRateCountFIXED, fragmentShadingRatesFIXED);
+	}
 
 }
 
@@ -510,15 +1312,39 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyDevice(Vk.Device device, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDevice(device, pAllocator);
 
+	/// <summary>vkDestroyDevice(<c>Vk.Device</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDevice(Vk.Device device, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDevice(device, allocatorFIXED);
+	}
+
 	/// <summary>vkGetDeviceQueue(<c>Vk.Device</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Queue*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue(Vk.Device device, uint queueFamilyIndex, uint queueIndex, Vk.Queue* pQueue)
 		=> vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, pQueue);
 
+	/// <summary>vkGetDeviceQueue(<c>Vk.Device</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Queue*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceQueue(Vk.Device device, uint queueFamilyIndex, uint queueIndex, out Vk.Queue queue)
+	{
+		fixed (Vk.Queue* queueFIXED = &queue)
+		vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, queueFIXED);
+	}
+
 	/// <summary>vkQueueSubmit(<c>Vk.Queue</c>, <c>uint</c>, <c>Vk.SubmitInfo*</c>, <c>Vk.Fence</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result QueueSubmit(Vk.Queue queue, uint submitCount, Vk.SubmitInfo* pSubmits, Vk.Fence fence)
 		=> vkQueueSubmit(queue, submitCount, pSubmits, fence);
+
+	/// <summary>vkQueueSubmit(<c>Vk.Queue</c>, <c>uint</c>, <c>Vk.SubmitInfo*</c>, <c>Vk.Fence</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result QueueSubmit(Vk.Queue queue, in ReadOnlySpan<Vk.SubmitInfo> submits, Vk.Fence fence)
+	{
+		fixed (Vk.SubmitInfo* submitsFIXED = submits)
+		return vkQueueSubmit(queue, (uint)submits.Length, submitsFIXED, fence);
+	}
 
 	/// <summary>vkQueueWaitIdle(<c>Vk.Queue</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -535,10 +1361,28 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result AllocateMemory(Vk.Device device, Vk.MemoryAllocateInfo* pAllocateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DeviceMemory* pMemory)
 		=> vkAllocateMemory(device, pAllocateInfo, pAllocator, pMemory);
 
+	/// <summary>vkAllocateMemory(<c>Vk.Device</c>, <c>Vk.MemoryAllocateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DeviceMemory*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AllocateMemory(Vk.Device device, in Vk.MemoryAllocateInfo allocateInfo, in Vk.AllocationCallbacks allocator, out Vk.DeviceMemory memory)
+	{
+		fixed (Vk.MemoryAllocateInfo* allocateInfoFIXED = &allocateInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.DeviceMemory* memoryFIXED = &memory)
+		return vkAllocateMemory(device, allocateInfoFIXED, allocatorFIXED, memoryFIXED);
+	}
+
 	/// <summary>vkFreeMemory(<c>Vk.Device</c>, <c>Vk.DeviceMemory</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void FreeMemory(Vk.Device device, Vk.DeviceMemory memory, Vk.AllocationCallbacks* pAllocator)
 		=> vkFreeMemory(device, memory, pAllocator);
+
+	/// <summary>vkFreeMemory(<c>Vk.Device</c>, <c>Vk.DeviceMemory</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void FreeMemory(Vk.Device device, Vk.DeviceMemory memory, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkFreeMemory(device, memory, allocatorFIXED);
+	}
 
 	/// <summary>vkMapMemory(<c>Vk.Device</c>, <c>Vk.DeviceMemory</c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>Vk.MemoryMapFlags</c>, <c>void**</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -555,20 +1399,52 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result FlushMappedMemoryRanges(Vk.Device device, uint memoryRangeCount, Vk.MappedMemoryRange* pMemoryRanges)
 		=> vkFlushMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
 
+	/// <summary>vkFlushMappedMemoryRanges(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.MappedMemoryRange*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result FlushMappedMemoryRanges(Vk.Device device, in ReadOnlySpan<Vk.MappedMemoryRange> memoryRanges)
+	{
+		fixed (Vk.MappedMemoryRange* memoryRangesFIXED = memoryRanges)
+		return vkFlushMappedMemoryRanges(device, (uint)memoryRanges.Length, memoryRangesFIXED);
+	}
+
 	/// <summary>vkInvalidateMappedMemoryRanges(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.MappedMemoryRange*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result InvalidateMappedMemoryRanges(Vk.Device device, uint memoryRangeCount, Vk.MappedMemoryRange* pMemoryRanges)
 		=> vkInvalidateMappedMemoryRanges(device, memoryRangeCount, pMemoryRanges);
+
+	/// <summary>vkInvalidateMappedMemoryRanges(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.MappedMemoryRange*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result InvalidateMappedMemoryRanges(Vk.Device device, in ReadOnlySpan<Vk.MappedMemoryRange> memoryRanges)
+	{
+		fixed (Vk.MappedMemoryRange* memoryRangesFIXED = memoryRanges)
+		return vkInvalidateMappedMemoryRanges(device, (uint)memoryRanges.Length, memoryRangesFIXED);
+	}
 
 	/// <summary>vkGetDeviceMemoryCommitment(<c>Vk.Device</c>, <c>Vk.DeviceMemory</c>, <c>Vk.DeviceSize*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceMemoryCommitment(Vk.Device device, Vk.DeviceMemory memory, Vk.DeviceSize* pCommittedMemoryInBytes)
 		=> vkGetDeviceMemoryCommitment(device, memory, pCommittedMemoryInBytes);
 
+	/// <summary>vkGetDeviceMemoryCommitment(<c>Vk.Device</c>, <c>Vk.DeviceMemory</c>, <c>Vk.DeviceSize*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceMemoryCommitment(Vk.Device device, Vk.DeviceMemory memory, out Vk.DeviceSize committedMemoryInBytes)
+	{
+		fixed (Vk.DeviceSize* committedMemoryInBytesFIXED = &committedMemoryInBytes)
+		vkGetDeviceMemoryCommitment(device, memory, committedMemoryInBytesFIXED);
+	}
+
 	/// <summary>vkGetBufferMemoryRequirements(<c>Vk.Device</c>, <c>Vk.Buffer</c>, <c>Vk.MemoryRequirements*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements(Vk.Device device, Vk.Buffer buffer, Vk.MemoryRequirements* pMemoryRequirements)
 		=> vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
+
+	/// <summary>vkGetBufferMemoryRequirements(<c>Vk.Device</c>, <c>Vk.Buffer</c>, <c>Vk.MemoryRequirements*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetBufferMemoryRequirements(Vk.Device device, Vk.Buffer buffer, out Vk.MemoryRequirements memoryRequirements)
+	{
+		fixed (Vk.MemoryRequirements* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetBufferMemoryRequirements(device, buffer, memoryRequirementsFIXED);
+	}
 
 	/// <summary>vkBindBufferMemory(<c>Vk.Device</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceMemory</c>, <c>Vk.DeviceSize</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -580,6 +1456,14 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetImageMemoryRequirements(Vk.Device device, Vk.Image image, Vk.MemoryRequirements* pMemoryRequirements)
 		=> vkGetImageMemoryRequirements(device, image, pMemoryRequirements);
 
+	/// <summary>vkGetImageMemoryRequirements(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>Vk.MemoryRequirements*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageMemoryRequirements(Vk.Device device, Vk.Image image, out Vk.MemoryRequirements memoryRequirements)
+	{
+		fixed (Vk.MemoryRequirements* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetImageMemoryRequirements(device, image, memoryRequirementsFIXED);
+	}
+
 	/// <summary>vkBindImageMemory(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>Vk.DeviceMemory</c>, <c>Vk.DeviceSize</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BindImageMemory(Vk.Device device, Vk.Image image, Vk.DeviceMemory memory, Vk.DeviceSize memoryOffset)
@@ -590,25 +1474,68 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetImageSparseMemoryRequirements(Vk.Device device, Vk.Image image, uint* pSparseMemoryRequirementCount, Vk.SparseImageMemoryRequirements* pSparseMemoryRequirements)
 		=> vkGetImageSparseMemoryRequirements(device, image, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 
+	/// <summary>vkGetImageSparseMemoryRequirements(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements(Vk.Device device, Vk.Image image, out uint sparseMemoryRequirementCount, in Span<Vk.SparseImageMemoryRequirements> sparseMemoryRequirements)
+	{
+		fixed (uint* sparseMemoryRequirementCountFIXED = &sparseMemoryRequirementCount)
+		fixed (Vk.SparseImageMemoryRequirements* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
+		vkGetImageSparseMemoryRequirements(device, image, sparseMemoryRequirementCountFIXED, sparseMemoryRequirementsFIXED);
+	}
+
 	/// <summary>vkQueueBindSparse(<c>Vk.Queue</c>, <c>uint</c>, <c>Vk.BindSparseInfo*</c>, <c>Vk.Fence</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result QueueBindSparse(Vk.Queue queue, uint bindInfoCount, Vk.BindSparseInfo* pBindInfo, Vk.Fence fence)
 		=> vkQueueBindSparse(queue, bindInfoCount, pBindInfo, fence);
+
+	/// <summary>vkQueueBindSparse(<c>Vk.Queue</c>, <c>uint</c>, <c>Vk.BindSparseInfo*</c>, <c>Vk.Fence</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result QueueBindSparse(Vk.Queue queue, in ReadOnlySpan<Vk.BindSparseInfo> bindInfo, Vk.Fence fence)
+	{
+		fixed (Vk.BindSparseInfo* bindInfoFIXED = bindInfo)
+		return vkQueueBindSparse(queue, (uint)bindInfo.Length, bindInfoFIXED, fence);
+	}
 
 	/// <summary>vkCreateFence(<c>Vk.Device</c>, <c>Vk.FenceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Fence*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateFence(Vk.Device device, Vk.FenceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Fence* pFence)
 		=> vkCreateFence(device, pCreateInfo, pAllocator, pFence);
 
+	/// <summary>vkCreateFence(<c>Vk.Device</c>, <c>Vk.FenceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Fence*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateFence(Vk.Device device, in Vk.FenceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence fence)
+	{
+		fixed (Vk.FenceCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Fence* fenceFIXED = &fence)
+		return vkCreateFence(device, createInfoFIXED, allocatorFIXED, fenceFIXED);
+	}
+
 	/// <summary>vkDestroyFence(<c>Vk.Device</c>, <c>Vk.Fence</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyFence(Vk.Device device, Vk.Fence fence, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyFence(device, fence, pAllocator);
 
+	/// <summary>vkDestroyFence(<c>Vk.Device</c>, <c>Vk.Fence</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyFence(Vk.Device device, Vk.Fence fence, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyFence(device, fence, allocatorFIXED);
+	}
+
 	/// <summary>vkResetFences(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.Fence*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ResetFences(Vk.Device device, uint fenceCount, Vk.Fence* pFences)
 		=> vkResetFences(device, fenceCount, pFences);
+
+	/// <summary>vkResetFences(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.Fence*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result ResetFences(Vk.Device device, in ReadOnlySpan<Vk.Fence> fences)
+	{
+		fixed (Vk.Fence* fencesFIXED = fences)
+		return vkResetFences(device, (uint)fences.Length, fencesFIXED);
+	}
 
 	/// <summary>vkGetFenceStatus(<c>Vk.Device</c>, <c>Vk.Fence</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -620,25 +1547,69 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result WaitForFences(Vk.Device device, uint fenceCount, Vk.Fence* pFences, Vk.Bool32 waitAll, ulong timeout)
 		=> vkWaitForFences(device, fenceCount, pFences, waitAll, timeout);
 
+	/// <summary>vkWaitForFences(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.Fence*</c>, <c>Vk.Bool32</c>, <c>ulong</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result WaitForFences(Vk.Device device, in ReadOnlySpan<Vk.Fence> fences, Vk.Bool32 waitAll, ulong timeout)
+	{
+		fixed (Vk.Fence* fencesFIXED = fences)
+		return vkWaitForFences(device, (uint)fences.Length, fencesFIXED, waitAll, timeout);
+	}
+
 	/// <summary>vkCreateSemaphore(<c>Vk.Device</c>, <c>Vk.SemaphoreCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Semaphore*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSemaphore(Vk.Device device, Vk.SemaphoreCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Semaphore* pSemaphore)
 		=> vkCreateSemaphore(device, pCreateInfo, pAllocator, pSemaphore);
+
+	/// <summary>vkCreateSemaphore(<c>Vk.Device</c>, <c>Vk.SemaphoreCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Semaphore*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSemaphore(Vk.Device device, in Vk.SemaphoreCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Semaphore semaphore)
+	{
+		fixed (Vk.SemaphoreCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Semaphore* semaphoreFIXED = &semaphore)
+		return vkCreateSemaphore(device, createInfoFIXED, allocatorFIXED, semaphoreFIXED);
+	}
 
 	/// <summary>vkDestroySemaphore(<c>Vk.Device</c>, <c>Vk.Semaphore</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySemaphore(Vk.Device device, Vk.Semaphore semaphore, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroySemaphore(device, semaphore, pAllocator);
 
+	/// <summary>vkDestroySemaphore(<c>Vk.Device</c>, <c>Vk.Semaphore</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroySemaphore(Vk.Device device, Vk.Semaphore semaphore, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroySemaphore(device, semaphore, allocatorFIXED);
+	}
+
 	/// <summary>vkCreateEvent(<c>Vk.Device</c>, <c>Vk.EventCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Event*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateEvent(Vk.Device device, Vk.EventCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Event* pEvent)
 		=> vkCreateEvent(device, pCreateInfo, pAllocator, pEvent);
 
+	/// <summary>vkCreateEvent(<c>Vk.Device</c>, <c>Vk.EventCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Event*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateEvent(Vk.Device device, in Vk.EventCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Event @event)
+	{
+		fixed (Vk.EventCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Event* @eventFIXED = &@event)
+		return vkCreateEvent(device, createInfoFIXED, allocatorFIXED, @eventFIXED);
+	}
+
 	/// <summary>vkDestroyEvent(<c>Vk.Device</c>, <c>Vk.Event</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyEvent(Vk.Device device, Vk.Event @event, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyEvent(device, @event, pAllocator);
+
+	/// <summary>vkDestroyEvent(<c>Vk.Device</c>, <c>Vk.Event</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyEvent(Vk.Device device, Vk.Event @event, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyEvent(device, @event, allocatorFIXED);
+	}
 
 	/// <summary>vkGetEventStatus(<c>Vk.Device</c>, <c>Vk.Event</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -660,10 +1631,28 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreateQueryPool(Vk.Device device, Vk.QueryPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.QueryPool* pQueryPool)
 		=> vkCreateQueryPool(device, pCreateInfo, pAllocator, pQueryPool);
 
+	/// <summary>vkCreateQueryPool(<c>Vk.Device</c>, <c>Vk.QueryPoolCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.QueryPool*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateQueryPool(Vk.Device device, in Vk.QueryPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.QueryPool queryPool)
+	{
+		fixed (Vk.QueryPoolCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.QueryPool* queryPoolFIXED = &queryPool)
+		return vkCreateQueryPool(device, createInfoFIXED, allocatorFIXED, queryPoolFIXED);
+	}
+
 	/// <summary>vkDestroyQueryPool(<c>Vk.Device</c>, <c>Vk.QueryPool</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyQueryPool(Vk.Device device, Vk.QueryPool queryPool, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyQueryPool(device, queryPool, pAllocator);
+
+	/// <summary>vkDestroyQueryPool(<c>Vk.Device</c>, <c>Vk.QueryPool</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyQueryPool(Vk.Device device, Vk.QueryPool queryPool, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyQueryPool(device, queryPool, allocatorFIXED);
+	}
 
 	/// <summary>vkGetQueryPoolResults(<c>Vk.Device</c>, <c>Vk.QueryPool</c>, <c>uint</c>, <c>uint</c>, <c>ulong</c>, <c>void*</c>, <c>Vk.DeviceSize</c>, <c>Vk.QueryResultFlags</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -685,130 +1674,363 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreateBuffer(Vk.Device device, Vk.BufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Buffer* pBuffer)
 		=> vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer);
 
+	/// <summary>vkCreateBuffer(<c>Vk.Device</c>, <c>Vk.BufferCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Buffer*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateBuffer(Vk.Device device, in Vk.BufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Buffer buffer)
+	{
+		fixed (Vk.BufferCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Buffer* bufferFIXED = &buffer)
+		return vkCreateBuffer(device, createInfoFIXED, allocatorFIXED, bufferFIXED);
+	}
+
 	/// <summary>vkDestroyBuffer(<c>Vk.Device</c>, <c>Vk.Buffer</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyBuffer(Vk.Device device, Vk.Buffer buffer, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyBuffer(device, buffer, pAllocator);
+
+	/// <summary>vkDestroyBuffer(<c>Vk.Device</c>, <c>Vk.Buffer</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyBuffer(Vk.Device device, Vk.Buffer buffer, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyBuffer(device, buffer, allocatorFIXED);
+	}
 
 	/// <summary>vkCreateBufferView(<c>Vk.Device</c>, <c>Vk.BufferViewCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.BufferView*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateBufferView(Vk.Device device, Vk.BufferViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.BufferView* pView)
 		=> vkCreateBufferView(device, pCreateInfo, pAllocator, pView);
 
+	/// <summary>vkCreateBufferView(<c>Vk.Device</c>, <c>Vk.BufferViewCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.BufferView*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateBufferView(Vk.Device device, in Vk.BufferViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.BufferView view)
+	{
+		fixed (Vk.BufferViewCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.BufferView* viewFIXED = &view)
+		return vkCreateBufferView(device, createInfoFIXED, allocatorFIXED, viewFIXED);
+	}
+
 	/// <summary>vkDestroyBufferView(<c>Vk.Device</c>, <c>Vk.BufferView</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyBufferView(Vk.Device device, Vk.BufferView bufferView, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyBufferView(device, bufferView, pAllocator);
+
+	/// <summary>vkDestroyBufferView(<c>Vk.Device</c>, <c>Vk.BufferView</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyBufferView(Vk.Device device, Vk.BufferView bufferView, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyBufferView(device, bufferView, allocatorFIXED);
+	}
 
 	/// <summary>vkCreateImage(<c>Vk.Device</c>, <c>Vk.ImageCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Image*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateImage(Vk.Device device, Vk.ImageCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Image* pImage)
 		=> vkCreateImage(device, pCreateInfo, pAllocator, pImage);
 
+	/// <summary>vkCreateImage(<c>Vk.Device</c>, <c>Vk.ImageCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Image*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImage(Vk.Device device, in Vk.ImageCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Image image)
+	{
+		fixed (Vk.ImageCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Image* imageFIXED = &image)
+		return vkCreateImage(device, createInfoFIXED, allocatorFIXED, imageFIXED);
+	}
+
 	/// <summary>vkDestroyImage(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyImage(Vk.Device device, Vk.Image image, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyImage(device, image, pAllocator);
+
+	/// <summary>vkDestroyImage(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyImage(Vk.Device device, Vk.Image image, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyImage(device, image, allocatorFIXED);
+	}
 
 	/// <summary>vkGetImageSubresourceLayout(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>Vk.ImageSubresource*</c>, <c>Vk.SubresourceLayout*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSubresourceLayout(Vk.Device device, Vk.Image image, Vk.ImageSubresource* pSubresource, Vk.SubresourceLayout* pLayout)
 		=> vkGetImageSubresourceLayout(device, image, pSubresource, pLayout);
 
+	/// <summary>vkGetImageSubresourceLayout(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>Vk.ImageSubresource*</c>, <c>Vk.SubresourceLayout*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSubresourceLayout(Vk.Device device, Vk.Image image, in Vk.ImageSubresource subresource, out Vk.SubresourceLayout layout)
+	{
+		fixed (Vk.ImageSubresource* subresourceFIXED = &subresource)
+		fixed (Vk.SubresourceLayout* layoutFIXED = &layout)
+		vkGetImageSubresourceLayout(device, image, subresourceFIXED, layoutFIXED);
+	}
+
 	/// <summary>vkCreateImageView(<c>Vk.Device</c>, <c>Vk.ImageViewCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.ImageView*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateImageView(Vk.Device device, Vk.ImageViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.ImageView* pView)
 		=> vkCreateImageView(device, pCreateInfo, pAllocator, pView);
+
+	/// <summary>vkCreateImageView(<c>Vk.Device</c>, <c>Vk.ImageViewCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.ImageView*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImageView(Vk.Device device, in Vk.ImageViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ImageView view)
+	{
+		fixed (Vk.ImageViewCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.ImageView* viewFIXED = &view)
+		return vkCreateImageView(device, createInfoFIXED, allocatorFIXED, viewFIXED);
+	}
 
 	/// <summary>vkDestroyImageView(<c>Vk.Device</c>, <c>Vk.ImageView</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyImageView(Vk.Device device, Vk.ImageView imageView, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyImageView(device, imageView, pAllocator);
 
+	/// <summary>vkDestroyImageView(<c>Vk.Device</c>, <c>Vk.ImageView</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyImageView(Vk.Device device, Vk.ImageView imageView, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyImageView(device, imageView, allocatorFIXED);
+	}
+
 	/// <summary>vkCreateShaderModule(<c>Vk.Device</c>, <c>Vk.ShaderModuleCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.ShaderModule*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateShaderModule(Vk.Device device, Vk.ShaderModuleCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.ShaderModule* pShaderModule)
 		=> vkCreateShaderModule(device, pCreateInfo, pAllocator, pShaderModule);
+
+	/// <summary>vkCreateShaderModule(<c>Vk.Device</c>, <c>Vk.ShaderModuleCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.ShaderModule*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateShaderModule(Vk.Device device, in Vk.ShaderModuleCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ShaderModule shaderModule)
+	{
+		fixed (Vk.ShaderModuleCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.ShaderModule* shaderModuleFIXED = &shaderModule)
+		return vkCreateShaderModule(device, createInfoFIXED, allocatorFIXED, shaderModuleFIXED);
+	}
 
 	/// <summary>vkDestroyShaderModule(<c>Vk.Device</c>, <c>Vk.ShaderModule</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyShaderModule(Vk.Device device, Vk.ShaderModule shaderModule, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyShaderModule(device, shaderModule, pAllocator);
 
+	/// <summary>vkDestroyShaderModule(<c>Vk.Device</c>, <c>Vk.ShaderModule</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyShaderModule(Vk.Device device, Vk.ShaderModule shaderModule, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyShaderModule(device, shaderModule, allocatorFIXED);
+	}
+
 	/// <summary>vkCreatePipelineCache(<c>Vk.Device</c>, <c>Vk.PipelineCacheCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.PipelineCache*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreatePipelineCache(Vk.Device device, Vk.PipelineCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.PipelineCache* pPipelineCache)
 		=> vkCreatePipelineCache(device, pCreateInfo, pAllocator, pPipelineCache);
+
+	/// <summary>vkCreatePipelineCache(<c>Vk.Device</c>, <c>Vk.PipelineCacheCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.PipelineCache*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePipelineCache(Vk.Device device, in Vk.PipelineCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineCache pipelineCache)
+	{
+		fixed (Vk.PipelineCacheCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.PipelineCache* pipelineCacheFIXED = &pipelineCache)
+		return vkCreatePipelineCache(device, createInfoFIXED, allocatorFIXED, pipelineCacheFIXED);
+	}
 
 	/// <summary>vkDestroyPipelineCache(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipelineCache(Vk.Device device, Vk.PipelineCache pipelineCache, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyPipelineCache(device, pipelineCache, pAllocator);
 
+	/// <summary>vkDestroyPipelineCache(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyPipelineCache(Vk.Device device, Vk.PipelineCache pipelineCache, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyPipelineCache(device, pipelineCache, allocatorFIXED);
+	}
+
 	/// <summary>vkGetPipelineCacheData(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>ulong*</c>, <c>void*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPipelineCacheData(Vk.Device device, Vk.PipelineCache pipelineCache, ulong* pDataSize, void* pData)
 		=> vkGetPipelineCacheData(device, pipelineCache, pDataSize, pData);
+
+	/// <summary>vkGetPipelineCacheData(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>ulong*</c>, <c>void*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPipelineCacheData(Vk.Device device, Vk.PipelineCache pipelineCache, out ulong dataSize, void* pData)
+	{
+		fixed (ulong* dataSizeFIXED = &dataSize)
+		return vkGetPipelineCacheData(device, pipelineCache, dataSizeFIXED, pData);
+	}
 
 	/// <summary>vkMergePipelineCaches(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.PipelineCache*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result MergePipelineCaches(Vk.Device device, Vk.PipelineCache dstCache, uint srcCacheCount, Vk.PipelineCache* pSrcCaches)
 		=> vkMergePipelineCaches(device, dstCache, srcCacheCount, pSrcCaches);
 
+	/// <summary>vkMergePipelineCaches(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.PipelineCache*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result MergePipelineCaches(Vk.Device device, Vk.PipelineCache dstCache, in ReadOnlySpan<Vk.PipelineCache> srcCaches)
+	{
+		fixed (Vk.PipelineCache* srcCachesFIXED = srcCaches)
+		return vkMergePipelineCaches(device, dstCache, (uint)srcCaches.Length, srcCachesFIXED);
+	}
+
 	/// <summary>vkCreateGraphicsPipelines(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.GraphicsPipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Pipeline*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateGraphicsPipelines(Vk.Device device, Vk.PipelineCache pipelineCache, uint createInfoCount, Vk.GraphicsPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Pipeline* pPipelines)
 		=> vkCreateGraphicsPipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+
+	/// <summary>vkCreateGraphicsPipelines(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.GraphicsPipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Pipeline*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateGraphicsPipelines(Vk.Device device, Vk.PipelineCache pipelineCache, in ReadOnlySpan<Vk.GraphicsPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Pipeline> pipelines)
+	{
+		fixed (Vk.GraphicsPipelineCreateInfo* createInfosFIXED = createInfos)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Pipeline* pipelinesFIXED = pipelines)
+		return vkCreateGraphicsPipelines(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+	}
 
 	/// <summary>vkCreateComputePipelines(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.ComputePipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Pipeline*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateComputePipelines(Vk.Device device, Vk.PipelineCache pipelineCache, uint createInfoCount, Vk.ComputePipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Pipeline* pPipelines)
 		=> vkCreateComputePipelines(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 
+	/// <summary>vkCreateComputePipelines(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.ComputePipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Pipeline*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateComputePipelines(Vk.Device device, Vk.PipelineCache pipelineCache, in ReadOnlySpan<Vk.ComputePipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Pipeline> pipelines)
+	{
+		fixed (Vk.ComputePipelineCreateInfo* createInfosFIXED = createInfos)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Pipeline* pipelinesFIXED = pipelines)
+		return vkCreateComputePipelines(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+	}
+
 	/// <summary>vkDestroyPipeline(<c>Vk.Device</c>, <c>Vk.Pipeline</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipeline(Vk.Device device, Vk.Pipeline pipeline, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyPipeline(device, pipeline, pAllocator);
+
+	/// <summary>vkDestroyPipeline(<c>Vk.Device</c>, <c>Vk.Pipeline</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyPipeline(Vk.Device device, Vk.Pipeline pipeline, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyPipeline(device, pipeline, allocatorFIXED);
+	}
 
 	/// <summary>vkCreatePipelineLayout(<c>Vk.Device</c>, <c>Vk.PipelineLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.PipelineLayout*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreatePipelineLayout(Vk.Device device, Vk.PipelineLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.PipelineLayout* pPipelineLayout)
 		=> vkCreatePipelineLayout(device, pCreateInfo, pAllocator, pPipelineLayout);
 
+	/// <summary>vkCreatePipelineLayout(<c>Vk.Device</c>, <c>Vk.PipelineLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.PipelineLayout*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePipelineLayout(Vk.Device device, in Vk.PipelineLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineLayout pipelineLayout)
+	{
+		fixed (Vk.PipelineLayoutCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.PipelineLayout* pipelineLayoutFIXED = &pipelineLayout)
+		return vkCreatePipelineLayout(device, createInfoFIXED, allocatorFIXED, pipelineLayoutFIXED);
+	}
+
 	/// <summary>vkDestroyPipelineLayout(<c>Vk.Device</c>, <c>Vk.PipelineLayout</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipelineLayout(Vk.Device device, Vk.PipelineLayout pipelineLayout, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyPipelineLayout(device, pipelineLayout, pAllocator);
+
+	/// <summary>vkDestroyPipelineLayout(<c>Vk.Device</c>, <c>Vk.PipelineLayout</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyPipelineLayout(Vk.Device device, Vk.PipelineLayout pipelineLayout, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyPipelineLayout(device, pipelineLayout, allocatorFIXED);
+	}
 
 	/// <summary>vkCreateSampler(<c>Vk.Device</c>, <c>Vk.SamplerCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Sampler*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSampler(Vk.Device device, Vk.SamplerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Sampler* pSampler)
 		=> vkCreateSampler(device, pCreateInfo, pAllocator, pSampler);
 
+	/// <summary>vkCreateSampler(<c>Vk.Device</c>, <c>Vk.SamplerCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Sampler*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSampler(Vk.Device device, in Vk.SamplerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Sampler sampler)
+	{
+		fixed (Vk.SamplerCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Sampler* samplerFIXED = &sampler)
+		return vkCreateSampler(device, createInfoFIXED, allocatorFIXED, samplerFIXED);
+	}
+
 	/// <summary>vkDestroySampler(<c>Vk.Device</c>, <c>Vk.Sampler</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySampler(Vk.Device device, Vk.Sampler sampler, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroySampler(device, sampler, pAllocator);
+
+	/// <summary>vkDestroySampler(<c>Vk.Device</c>, <c>Vk.Sampler</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroySampler(Vk.Device device, Vk.Sampler sampler, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroySampler(device, sampler, allocatorFIXED);
+	}
 
 	/// <summary>vkCreateDescriptorSetLayout(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DescriptorSetLayout*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDescriptorSetLayout(Vk.Device device, Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorSetLayout* pSetLayout)
 		=> vkCreateDescriptorSetLayout(device, pCreateInfo, pAllocator, pSetLayout);
 
+	/// <summary>vkCreateDescriptorSetLayout(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DescriptorSetLayout*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorSetLayout(Vk.Device device, in Vk.DescriptorSetLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorSetLayout setLayout)
+	{
+		fixed (Vk.DescriptorSetLayoutCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.DescriptorSetLayout* setLayoutFIXED = &setLayout)
+		return vkCreateDescriptorSetLayout(device, createInfoFIXED, allocatorFIXED, setLayoutFIXED);
+	}
+
 	/// <summary>vkDestroyDescriptorSetLayout(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayout</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorSetLayout(Vk.Device device, Vk.DescriptorSetLayout descriptorSetLayout, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDescriptorSetLayout(device, descriptorSetLayout, pAllocator);
+
+	/// <summary>vkDestroyDescriptorSetLayout(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayout</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDescriptorSetLayout(Vk.Device device, Vk.DescriptorSetLayout descriptorSetLayout, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDescriptorSetLayout(device, descriptorSetLayout, allocatorFIXED);
+	}
 
 	/// <summary>vkCreateDescriptorPool(<c>Vk.Device</c>, <c>Vk.DescriptorPoolCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DescriptorPool*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDescriptorPool(Vk.Device device, Vk.DescriptorPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorPool* pDescriptorPool)
 		=> vkCreateDescriptorPool(device, pCreateInfo, pAllocator, pDescriptorPool);
 
+	/// <summary>vkCreateDescriptorPool(<c>Vk.Device</c>, <c>Vk.DescriptorPoolCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DescriptorPool*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorPool(Vk.Device device, in Vk.DescriptorPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorPool descriptorPool)
+	{
+		fixed (Vk.DescriptorPoolCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.DescriptorPool* descriptorPoolFIXED = &descriptorPool)
+		return vkCreateDescriptorPool(device, createInfoFIXED, allocatorFIXED, descriptorPoolFIXED);
+	}
+
 	/// <summary>vkDestroyDescriptorPool(<c>Vk.Device</c>, <c>Vk.DescriptorPool</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorPool(Vk.Device device, Vk.DescriptorPool descriptorPool, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDescriptorPool(device, descriptorPool, pAllocator);
+
+	/// <summary>vkDestroyDescriptorPool(<c>Vk.Device</c>, <c>Vk.DescriptorPool</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDescriptorPool(Vk.Device device, Vk.DescriptorPool descriptorPool, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDescriptorPool(device, descriptorPool, allocatorFIXED);
+	}
 
 	/// <summary>vkResetDescriptorPool(<c>Vk.Device</c>, <c>Vk.DescriptorPool</c>, <c>Vk.DescriptorPoolResetFlags</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -820,50 +2042,138 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result AllocateDescriptorSets(Vk.Device device, Vk.DescriptorSetAllocateInfo* pAllocateInfo, Vk.DescriptorSet* pDescriptorSets)
 		=> vkAllocateDescriptorSets(device, pAllocateInfo, pDescriptorSets);
 
+	/// <summary>vkAllocateDescriptorSets(<c>Vk.Device</c>, <c>Vk.DescriptorSetAllocateInfo*</c>, <c>Vk.DescriptorSet*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AllocateDescriptorSets(Vk.Device device, in Vk.DescriptorSetAllocateInfo allocateInfo, in Span<Vk.DescriptorSet> descriptorSets)
+	{
+		fixed (Vk.DescriptorSetAllocateInfo* allocateInfoFIXED = &allocateInfo)
+		fixed (Vk.DescriptorSet* descriptorSetsFIXED = descriptorSets)
+		return vkAllocateDescriptorSets(device, allocateInfoFIXED, descriptorSetsFIXED);
+	}
+
 	/// <summary>vkFreeDescriptorSets(<c>Vk.Device</c>, <c>Vk.DescriptorPool</c>, <c>uint</c>, <c>Vk.DescriptorSet*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result FreeDescriptorSets(Vk.Device device, Vk.DescriptorPool descriptorPool, uint descriptorSetCount, Vk.DescriptorSet* pDescriptorSets)
 		=> vkFreeDescriptorSets(device, descriptorPool, descriptorSetCount, pDescriptorSets);
+
+	/// <summary>vkFreeDescriptorSets(<c>Vk.Device</c>, <c>Vk.DescriptorPool</c>, <c>uint</c>, <c>Vk.DescriptorSet*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result FreeDescriptorSets(Vk.Device device, Vk.DescriptorPool descriptorPool, in ReadOnlySpan<Vk.DescriptorSet> descriptorSets)
+	{
+		fixed (Vk.DescriptorSet* descriptorSetsFIXED = descriptorSets)
+		return vkFreeDescriptorSets(device, descriptorPool, (uint)descriptorSets.Length, descriptorSetsFIXED);
+	}
 
 	/// <summary>vkUpdateDescriptorSets(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.WriteDescriptorSet*</c>, <c>uint</c>, <c>Vk.CopyDescriptorSet*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateDescriptorSets(Vk.Device device, uint descriptorWriteCount, Vk.WriteDescriptorSet* pDescriptorWrites, uint descriptorCopyCount, Vk.CopyDescriptorSet* pDescriptorCopies)
 		=> vkUpdateDescriptorSets(device, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
 
+	/// <summary>vkUpdateDescriptorSets(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.WriteDescriptorSet*</c>, <c>uint</c>, <c>Vk.CopyDescriptorSet*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void UpdateDescriptorSets(Vk.Device device, in ReadOnlySpan<Vk.WriteDescriptorSet> descriptorWrites, in ReadOnlySpan<Vk.CopyDescriptorSet> descriptorCopies)
+	{
+		fixed (Vk.WriteDescriptorSet* descriptorWritesFIXED = descriptorWrites)
+		fixed (Vk.CopyDescriptorSet* descriptorCopiesFIXED = descriptorCopies)
+		vkUpdateDescriptorSets(device, (uint)descriptorWrites.Length, descriptorWritesFIXED, (uint)descriptorCopies.Length, descriptorCopiesFIXED);
+	}
+
 	/// <summary>vkCreateFramebuffer(<c>Vk.Device</c>, <c>Vk.FramebufferCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Framebuffer*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateFramebuffer(Vk.Device device, Vk.FramebufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Framebuffer* pFramebuffer)
 		=> vkCreateFramebuffer(device, pCreateInfo, pAllocator, pFramebuffer);
+
+	/// <summary>vkCreateFramebuffer(<c>Vk.Device</c>, <c>Vk.FramebufferCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Framebuffer*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateFramebuffer(Vk.Device device, in Vk.FramebufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Framebuffer framebuffer)
+	{
+		fixed (Vk.FramebufferCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Framebuffer* framebufferFIXED = &framebuffer)
+		return vkCreateFramebuffer(device, createInfoFIXED, allocatorFIXED, framebufferFIXED);
+	}
 
 	/// <summary>vkDestroyFramebuffer(<c>Vk.Device</c>, <c>Vk.Framebuffer</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyFramebuffer(Vk.Device device, Vk.Framebuffer framebuffer, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyFramebuffer(device, framebuffer, pAllocator);
 
+	/// <summary>vkDestroyFramebuffer(<c>Vk.Device</c>, <c>Vk.Framebuffer</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyFramebuffer(Vk.Device device, Vk.Framebuffer framebuffer, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyFramebuffer(device, framebuffer, allocatorFIXED);
+	}
+
 	/// <summary>vkCreateRenderPass(<c>Vk.Device</c>, <c>Vk.RenderPassCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.RenderPass*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateRenderPass(Vk.Device device, Vk.RenderPassCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.RenderPass* pRenderPass)
 		=> vkCreateRenderPass(device, pCreateInfo, pAllocator, pRenderPass);
+
+	/// <summary>vkCreateRenderPass(<c>Vk.Device</c>, <c>Vk.RenderPassCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.RenderPass*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass(Vk.Device device, in Vk.RenderPassCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass renderPass)
+	{
+		fixed (Vk.RenderPassCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.RenderPass* renderPassFIXED = &renderPass)
+		return vkCreateRenderPass(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+	}
 
 	/// <summary>vkDestroyRenderPass(<c>Vk.Device</c>, <c>Vk.RenderPass</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyRenderPass(Vk.Device device, Vk.RenderPass renderPass, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyRenderPass(device, renderPass, pAllocator);
 
+	/// <summary>vkDestroyRenderPass(<c>Vk.Device</c>, <c>Vk.RenderPass</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyRenderPass(Vk.Device device, Vk.RenderPass renderPass, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyRenderPass(device, renderPass, allocatorFIXED);
+	}
+
 	/// <summary>vkGetRenderAreaGranularity(<c>Vk.Device</c>, <c>Vk.RenderPass</c>, <c>Vk.Extent2D*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetRenderAreaGranularity(Vk.Device device, Vk.RenderPass renderPass, Vk.Extent2D* pGranularity)
 		=> vkGetRenderAreaGranularity(device, renderPass, pGranularity);
+
+	/// <summary>vkGetRenderAreaGranularity(<c>Vk.Device</c>, <c>Vk.RenderPass</c>, <c>Vk.Extent2D*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetRenderAreaGranularity(Vk.Device device, Vk.RenderPass renderPass, out Vk.Extent2D granularity)
+	{
+		fixed (Vk.Extent2D* granularityFIXED = &granularity)
+		vkGetRenderAreaGranularity(device, renderPass, granularityFIXED);
+	}
 
 	/// <summary>vkCreateCommandPool(<c>Vk.Device</c>, <c>Vk.CommandPoolCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.CommandPool*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateCommandPool(Vk.Device device, Vk.CommandPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.CommandPool* pCommandPool)
 		=> vkCreateCommandPool(device, pCreateInfo, pAllocator, pCommandPool);
 
+	/// <summary>vkCreateCommandPool(<c>Vk.Device</c>, <c>Vk.CommandPoolCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.CommandPool*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateCommandPool(Vk.Device device, in Vk.CommandPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.CommandPool commandPool)
+	{
+		fixed (Vk.CommandPoolCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.CommandPool* commandPoolFIXED = &commandPool)
+		return vkCreateCommandPool(device, createInfoFIXED, allocatorFIXED, commandPoolFIXED);
+	}
+
 	/// <summary>vkDestroyCommandPool(<c>Vk.Device</c>, <c>Vk.CommandPool</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyCommandPool(Vk.Device device, Vk.CommandPool commandPool, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyCommandPool(device, commandPool, pAllocator);
+
+	/// <summary>vkDestroyCommandPool(<c>Vk.Device</c>, <c>Vk.CommandPool</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyCommandPool(Vk.Device device, Vk.CommandPool commandPool, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyCommandPool(device, commandPool, allocatorFIXED);
+	}
 
 	/// <summary>vkResetCommandPool(<c>Vk.Device</c>, <c>Vk.CommandPool</c>, <c>Vk.CommandPoolResetFlags</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -875,15 +2185,40 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result AllocateCommandBuffers(Vk.Device device, Vk.CommandBufferAllocateInfo* pAllocateInfo, Vk.CommandBuffer* pCommandBuffers)
 		=> vkAllocateCommandBuffers(device, pAllocateInfo, pCommandBuffers);
 
+	/// <summary>vkAllocateCommandBuffers(<c>Vk.Device</c>, <c>Vk.CommandBufferAllocateInfo*</c>, <c>Vk.CommandBuffer*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AllocateCommandBuffers(Vk.Device device, in Vk.CommandBufferAllocateInfo allocateInfo, in Span<Vk.CommandBuffer> commandBuffers)
+	{
+		fixed (Vk.CommandBufferAllocateInfo* allocateInfoFIXED = &allocateInfo)
+		fixed (Vk.CommandBuffer* commandBuffersFIXED = commandBuffers)
+		return vkAllocateCommandBuffers(device, allocateInfoFIXED, commandBuffersFIXED);
+	}
+
 	/// <summary>vkFreeCommandBuffers(<c>Vk.Device</c>, <c>Vk.CommandPool</c>, <c>uint</c>, <c>Vk.CommandBuffer*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void FreeCommandBuffers(Vk.Device device, Vk.CommandPool commandPool, uint commandBufferCount, Vk.CommandBuffer* pCommandBuffers)
 		=> vkFreeCommandBuffers(device, commandPool, commandBufferCount, pCommandBuffers);
 
+	/// <summary>vkFreeCommandBuffers(<c>Vk.Device</c>, <c>Vk.CommandPool</c>, <c>uint</c>, <c>Vk.CommandBuffer*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void FreeCommandBuffers(Vk.Device device, Vk.CommandPool commandPool, in ReadOnlySpan<Vk.CommandBuffer> commandBuffers)
+	{
+		fixed (Vk.CommandBuffer* commandBuffersFIXED = commandBuffers)
+		vkFreeCommandBuffers(device, commandPool, (uint)commandBuffers.Length, commandBuffersFIXED);
+	}
+
 	/// <summary>vkBeginCommandBuffer(<c>Vk.CommandBuffer</c>, <c>Vk.CommandBufferBeginInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BeginCommandBuffer(Vk.CommandBuffer commandBuffer, Vk.CommandBufferBeginInfo* pBeginInfo)
 		=> vkBeginCommandBuffer(commandBuffer, pBeginInfo);
+
+	/// <summary>vkBeginCommandBuffer(<c>Vk.CommandBuffer</c>, <c>Vk.CommandBufferBeginInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BeginCommandBuffer(Vk.CommandBuffer commandBuffer, in Vk.CommandBufferBeginInfo beginInfo)
+	{
+		fixed (Vk.CommandBufferBeginInfo* beginInfoFIXED = &beginInfo)
+		return vkBeginCommandBuffer(commandBuffer, beginInfoFIXED);
+	}
 
 	/// <summary>vkEndCommandBuffer(<c>Vk.CommandBuffer</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -905,10 +2240,26 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetViewport(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.Viewport* pViewports)
 		=> vkCmdSetViewport(commandBuffer, firstViewport, viewportCount, pViewports);
 
+	/// <summary>vkCmdSetViewport(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Viewport*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetViewport(Vk.CommandBuffer commandBuffer, uint firstViewport, in ReadOnlySpan<Vk.Viewport> viewports)
+	{
+		fixed (Vk.Viewport* viewportsFIXED = viewports)
+		vkCmdSetViewport(commandBuffer, firstViewport, (uint)viewports.Length, viewportsFIXED);
+	}
+
 	/// <summary>vkCmdSetScissor(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetScissor(Vk.CommandBuffer commandBuffer, uint firstScissor, uint scissorCount, Vk.Rect2D* pScissors)
 		=> vkCmdSetScissor(commandBuffer, firstScissor, scissorCount, pScissors);
+
+	/// <summary>vkCmdSetScissor(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetScissor(Vk.CommandBuffer commandBuffer, uint firstScissor, in ReadOnlySpan<Vk.Rect2D> scissors)
+	{
+		fixed (Vk.Rect2D* scissorsFIXED = scissors)
+		vkCmdSetScissor(commandBuffer, firstScissor, (uint)scissors.Length, scissorsFIXED);
+	}
 
 	/// <summary>vkCmdSetLineWidth(<c>Vk.CommandBuffer</c>, <c>float</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -924,6 +2275,14 @@ public unsafe sealed partial class DeviceFunctionTable
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetBlendConstants(Vk.CommandBuffer commandBuffer, float* blendConstants)
 		=> vkCmdSetBlendConstants(commandBuffer, blendConstants);
+
+	/// <summary>vkCmdSetBlendConstants(<c>Vk.CommandBuffer</c>, <c>float*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetBlendConstants(Vk.CommandBuffer commandBuffer, in float blendConstants)
+	{
+		fixed (float* blendConstantsFIXED = &blendConstants)
+		vkCmdSetBlendConstants(commandBuffer, blendConstantsFIXED);
+	}
 
 	/// <summary>vkCmdSetDepthBounds(<c>Vk.CommandBuffer</c>, <c>float</c>, <c>float</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -950,6 +2309,15 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBindDescriptorSets(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint firstSet, uint descriptorSetCount, Vk.DescriptorSet* pDescriptorSets, uint dynamicOffsetCount, uint* pDynamicOffsets)
 		=> vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
 
+	/// <summary>vkCmdBindDescriptorSets(<c>Vk.CommandBuffer</c>, <c>Vk.PipelineBindPoint</c>, <c>Vk.PipelineLayout</c>, <c>uint</c>, <c>uint</c>, <c>Vk.DescriptorSet*</c>, <c>uint</c>, <c>uint*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBindDescriptorSets(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint firstSet, in ReadOnlySpan<Vk.DescriptorSet> descriptorSets, in ReadOnlySpan<uint> dynamicOffsets)
+	{
+		fixed (Vk.DescriptorSet* descriptorSetsFIXED = descriptorSets)
+		fixed (uint* dynamicOffsetsFIXED = dynamicOffsets)
+		vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, (uint)descriptorSets.Length, descriptorSetsFIXED, (uint)dynamicOffsets.Length, dynamicOffsetsFIXED);
+	}
+
 	/// <summary>vkCmdBindIndexBuffer(<c>Vk.CommandBuffer</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.IndexType</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindIndexBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer buffer, Vk.DeviceSize offset, Vk.IndexType indexType)
@@ -959,6 +2327,15 @@ public unsafe sealed partial class DeviceFunctionTable
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindVertexBuffers(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets)
 		=> vkCmdBindVertexBuffers(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets);
+
+	/// <summary>vkCmdBindVertexBuffers(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBindVertexBuffers(Vk.CommandBuffer commandBuffer, uint firstBinding, in ReadOnlySpan<Vk.Buffer> buffers, in ReadOnlySpan<Vk.DeviceSize> offsets)
+	{
+		fixed (Vk.Buffer* buffersFIXED = buffers)
+		fixed (Vk.DeviceSize* offsetsFIXED = offsets)
+		vkCmdBindVertexBuffers(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED);
+	}
 
 	/// <summary>vkCmdDraw(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -995,25 +2372,65 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferCopy* pRegions)
 		=> vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, regionCount, pRegions);
 
+	/// <summary>vkCmdCopyBuffer(<c>Vk.CommandBuffer</c>, <c>Vk.Buffer</c>, <c>Vk.Buffer</c>, <c>uint</c>, <c>Vk.BufferCopy*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyBuffer(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Buffer dstBuffer, in ReadOnlySpan<Vk.BufferCopy> regions)
+	{
+		fixed (Vk.BufferCopy* regionsFIXED = regions)
+		vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, (uint)regions.Length, regionsFIXED);
+	}
+
 	/// <summary>vkCmdCopyImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageCopy*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageCopy* pRegions)
 		=> vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+
+	/// <summary>vkCmdCopyImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageCopy*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageCopy> regions)
+	{
+		fixed (Vk.ImageCopy* regionsFIXED = regions)
+		vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+	}
 
 	/// <summary>vkCmdBlitImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageBlit*</c>, <c>Vk.Filter</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBlitImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageBlit* pRegions, Vk.Filter filter)
 		=> vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
 
+	/// <summary>vkCmdBlitImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageBlit*</c>, <c>Vk.Filter</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBlitImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageBlit> regions, Vk.Filter filter)
+	{
+		fixed (Vk.ImageBlit* regionsFIXED = regions)
+		vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED, filter);
+	}
+
 	/// <summary>vkCmdCopyBufferToImage(<c>Vk.CommandBuffer</c>, <c>Vk.Buffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.BufferImageCopy*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyBufferToImage(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.BufferImageCopy* pRegions)
 		=> vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
 
+	/// <summary>vkCmdCopyBufferToImage(<c>Vk.CommandBuffer</c>, <c>Vk.Buffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.BufferImageCopy*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyBufferToImage(Vk.CommandBuffer commandBuffer, Vk.Buffer srcBuffer, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.BufferImageCopy> regions)
+	{
+		fixed (Vk.BufferImageCopy* regionsFIXED = regions)
+		vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+	}
+
 	/// <summary>vkCmdCopyImageToBuffer(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Buffer</c>, <c>uint</c>, <c>Vk.BufferImageCopy*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImageToBuffer(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Buffer dstBuffer, uint regionCount, Vk.BufferImageCopy* pRegions)
 		=> vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
+
+	/// <summary>vkCmdCopyImageToBuffer(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Buffer</c>, <c>uint</c>, <c>Vk.BufferImageCopy*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyImageToBuffer(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Buffer dstBuffer, in ReadOnlySpan<Vk.BufferImageCopy> regions)
+	{
+		fixed (Vk.BufferImageCopy* regionsFIXED = regions)
+		vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, (uint)regions.Length, regionsFIXED);
+	}
 
 	/// <summary>vkCmdUpdateBuffer(<c>Vk.CommandBuffer</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>void*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1030,20 +2447,55 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdClearColorImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearColorValue* pColor, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
 		=> vkCmdClearColorImage(commandBuffer, image, imageLayout, pColor, rangeCount, pRanges);
 
+	/// <summary>vkCmdClearColorImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.ClearColorValue*</c>, <c>uint</c>, <c>Vk.ImageSubresourceRange*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdClearColorImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, in Vk.ClearColorValue color, in ReadOnlySpan<Vk.ImageSubresourceRange> ranges)
+	{
+		fixed (Vk.ClearColorValue* colorFIXED = &color)
+		fixed (Vk.ImageSubresourceRange* rangesFIXED = ranges)
+		vkCmdClearColorImage(commandBuffer, image, imageLayout, colorFIXED, (uint)ranges.Length, rangesFIXED);
+	}
+
 	/// <summary>vkCmdClearDepthStencilImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.ClearDepthStencilValue*</c>, <c>uint</c>, <c>Vk.ImageSubresourceRange*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdClearDepthStencilImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, Vk.ClearDepthStencilValue* pDepthStencil, uint rangeCount, Vk.ImageSubresourceRange* pRanges)
 		=> vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, pDepthStencil, rangeCount, pRanges);
+
+	/// <summary>vkCmdClearDepthStencilImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.ClearDepthStencilValue*</c>, <c>uint</c>, <c>Vk.ImageSubresourceRange*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdClearDepthStencilImage(Vk.CommandBuffer commandBuffer, Vk.Image image, Vk.ImageLayout imageLayout, in Vk.ClearDepthStencilValue depthStencil, in ReadOnlySpan<Vk.ImageSubresourceRange> ranges)
+	{
+		fixed (Vk.ClearDepthStencilValue* depthStencilFIXED = &depthStencil)
+		fixed (Vk.ImageSubresourceRange* rangesFIXED = ranges)
+		vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, depthStencilFIXED, (uint)ranges.Length, rangesFIXED);
+	}
 
 	/// <summary>vkCmdClearAttachments(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.ClearAttachment*</c>, <c>uint</c>, <c>Vk.ClearRect*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdClearAttachments(Vk.CommandBuffer commandBuffer, uint attachmentCount, Vk.ClearAttachment* pAttachments, uint rectCount, Vk.ClearRect* pRects)
 		=> vkCmdClearAttachments(commandBuffer, attachmentCount, pAttachments, rectCount, pRects);
 
+	/// <summary>vkCmdClearAttachments(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.ClearAttachment*</c>, <c>uint</c>, <c>Vk.ClearRect*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdClearAttachments(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.ClearAttachment> attachments, in ReadOnlySpan<Vk.ClearRect> rects)
+	{
+		fixed (Vk.ClearAttachment* attachmentsFIXED = attachments)
+		fixed (Vk.ClearRect* rectsFIXED = rects)
+		vkCmdClearAttachments(commandBuffer, (uint)attachments.Length, attachmentsFIXED, (uint)rects.Length, rectsFIXED);
+	}
+
 	/// <summary>vkCmdResolveImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageResolve*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdResolveImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, uint regionCount, Vk.ImageResolve* pRegions)
 		=> vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+
+	/// <summary>vkCmdResolveImage(<c>Vk.CommandBuffer</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>Vk.Image</c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageResolve*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdResolveImage(Vk.CommandBuffer commandBuffer, Vk.Image srcImage, Vk.ImageLayout srcImageLayout, Vk.Image dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageResolve> regions)
+	{
+		fixed (Vk.ImageResolve* regionsFIXED = regions)
+		vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+	}
 
 	/// <summary>vkCmdSetEvent(<c>Vk.CommandBuffer</c>, <c>Vk.Event</c>, <c>Vk.PipelineStageFlags</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1060,10 +2512,31 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdWaitEvents(Vk.CommandBuffer commandBuffer, uint eventCount, Vk.Event* pEvents, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
 		=> vkCmdWaitEvents(commandBuffer, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
 
+	/// <summary>vkCmdWaitEvents(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.Event*</c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.PipelineStageFlags</c>, <c>uint</c>, <c>Vk.MemoryBarrier*</c>, <c>uint</c>, <c>Vk.BufferMemoryBarrier*</c>, <c>uint</c>, <c>Vk.ImageMemoryBarrier*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdWaitEvents(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.Event> events, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, in ReadOnlySpan<Vk.MemoryBarrier> memoryBarriers, in ReadOnlySpan<Vk.BufferMemoryBarrier> bufferMemoryBarriers, in ReadOnlySpan<Vk.ImageMemoryBarrier> imageMemoryBarriers)
+	{
+		fixed (Vk.Event* eventsFIXED = events)
+		fixed (Vk.MemoryBarrier* memoryBarriersFIXED = memoryBarriers)
+		fixed (Vk.BufferMemoryBarrier* bufferMemoryBarriersFIXED = bufferMemoryBarriers)
+		fixed (Vk.ImageMemoryBarrier* imageMemoryBarriersFIXED = imageMemoryBarriers)
+		vkCmdWaitEvents(commandBuffer, (uint)events.Length, eventsFIXED, srcStageMask, dstStageMask, (uint)memoryBarriers.Length, memoryBarriersFIXED, (uint)bufferMemoryBarriers.Length, bufferMemoryBarriersFIXED, (uint)imageMemoryBarriers.Length, imageMemoryBarriersFIXED);
+	}
+
 	/// <summary>vkCmdPipelineBarrier(<c>Vk.CommandBuffer</c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.DependencyFlags</c>, <c>uint</c>, <c>Vk.MemoryBarrier*</c>, <c>uint</c>, <c>Vk.BufferMemoryBarrier*</c>, <c>uint</c>, <c>Vk.ImageMemoryBarrier*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPipelineBarrier(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, Vk.DependencyFlags dependencyFlags, uint memoryBarrierCount, Vk.MemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, Vk.BufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, Vk.ImageMemoryBarrier* pImageMemoryBarriers)
 		=> vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+
+	/// <summary>vkCmdPipelineBarrier(<c>Vk.CommandBuffer</c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.DependencyFlags</c>, <c>uint</c>, <c>Vk.MemoryBarrier*</c>, <c>uint</c>, <c>Vk.BufferMemoryBarrier*</c>, <c>uint</c>, <c>Vk.ImageMemoryBarrier*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdPipelineBarrier(Vk.CommandBuffer commandBuffer, Vk.PipelineStageFlags srcStageMask, Vk.PipelineStageFlags dstStageMask, Vk.DependencyFlags dependencyFlags, in ReadOnlySpan<Vk.MemoryBarrier> memoryBarriers, in ReadOnlySpan<Vk.BufferMemoryBarrier> bufferMemoryBarriers, in ReadOnlySpan<Vk.ImageMemoryBarrier> imageMemoryBarriers)
+	{
+		fixed (Vk.MemoryBarrier* memoryBarriersFIXED = memoryBarriers)
+		fixed (Vk.BufferMemoryBarrier* bufferMemoryBarriersFIXED = bufferMemoryBarriers)
+		fixed (Vk.ImageMemoryBarrier* imageMemoryBarriersFIXED = imageMemoryBarriers)
+		vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, (uint)memoryBarriers.Length, memoryBarriersFIXED, (uint)bufferMemoryBarriers.Length, bufferMemoryBarriersFIXED, (uint)imageMemoryBarriers.Length, imageMemoryBarriersFIXED);
+	}
 
 	/// <summary>vkCmdBeginQuery(<c>Vk.CommandBuffer</c>, <c>Vk.QueryPool</c>, <c>uint</c>, <c>Vk.QueryControlFlags</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1079,6 +2552,14 @@ public unsafe sealed partial class DeviceFunctionTable
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginConditionalRenderingEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.ConditionalRenderingBeginInfo* pConditionalRenderingBegin)
 		=> vkCmdBeginConditionalRenderingEXT(commandBuffer, pConditionalRenderingBegin);
+
+	/// <summary>vkCmdBeginConditionalRenderingEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.ConditionalRenderingBeginInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginConditionalRenderingEXT(Vk.CommandBuffer commandBuffer, in Vk.EXT.ConditionalRenderingBeginInfo conditionalRenderingBegin)
+	{
+		fixed (Vk.EXT.ConditionalRenderingBeginInfo* conditionalRenderingBeginFIXED = &conditionalRenderingBegin)
+		vkCmdBeginConditionalRenderingEXT(commandBuffer, conditionalRenderingBeginFIXED);
+	}
 
 	/// <summary>vkCmdEndConditionalRenderingEXT(<c>Vk.CommandBuffer</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1110,6 +2591,14 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBeginRenderPass(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassContents contents)
 		=> vkCmdBeginRenderPass(commandBuffer, pRenderPassBegin, contents);
 
+	/// <summary>vkCmdBeginRenderPass(<c>Vk.CommandBuffer</c>, <c>Vk.RenderPassBeginInfo*</c>, <c>Vk.SubpassContents</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginRenderPass(Vk.CommandBuffer commandBuffer, in Vk.RenderPassBeginInfo renderPassBegin, Vk.SubpassContents contents)
+	{
+		fixed (Vk.RenderPassBeginInfo* renderPassBeginFIXED = &renderPassBegin)
+		vkCmdBeginRenderPass(commandBuffer, renderPassBeginFIXED, contents);
+	}
+
 	/// <summary>vkCmdNextSubpass(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassContents</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdNextSubpass(Vk.CommandBuffer commandBuffer, Vk.SubpassContents contents)
@@ -1125,50 +2614,135 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdExecuteCommands(Vk.CommandBuffer commandBuffer, uint commandBufferCount, Vk.CommandBuffer* pCommandBuffers)
 		=> vkCmdExecuteCommands(commandBuffer, commandBufferCount, pCommandBuffers);
 
+	/// <summary>vkCmdExecuteCommands(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.CommandBuffer*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdExecuteCommands(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.CommandBuffer> commandBuffers)
+	{
+		fixed (Vk.CommandBuffer* commandBuffersFIXED = commandBuffers)
+		vkCmdExecuteCommands(commandBuffer, (uint)commandBuffers.Length, commandBuffersFIXED);
+	}
+
 	/// <summary>vkCreateSharedSwapchainsKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.SwapchainCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Swapchain*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSharedSwapchainsKHR(Vk.Device device, uint swapchainCount, Vk.KHR.SwapchainCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Swapchain* pSwapchains)
 		=> vkCreateSharedSwapchainsKHR(device, swapchainCount, pCreateInfos, pAllocator, pSwapchains);
+
+	/// <summary>vkCreateSharedSwapchainsKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.SwapchainCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Swapchain*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSharedSwapchainsKHR(Vk.Device device, in ReadOnlySpan<Vk.KHR.SwapchainCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.KHR.Swapchain> swapchains)
+	{
+		fixed (Vk.KHR.SwapchainCreateInfo* createInfosFIXED = createInfos)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Swapchain* swapchainsFIXED = swapchains)
+		return vkCreateSharedSwapchainsKHR(device, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, swapchainsFIXED);
+	}
 
 	/// <summary>vkCreateSwapchainKHR(<c>Vk.Device</c>, <c>Vk.KHR.SwapchainCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Swapchain*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSwapchainKHR(Vk.Device device, Vk.KHR.SwapchainCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.Swapchain* pSwapchain)
 		=> vkCreateSwapchainKHR(device, pCreateInfo, pAllocator, pSwapchain);
 
+	/// <summary>vkCreateSwapchainKHR(<c>Vk.Device</c>, <c>Vk.KHR.SwapchainCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.Swapchain*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSwapchainKHR(Vk.Device device, in Vk.KHR.SwapchainCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Swapchain swapchain)
+	{
+		fixed (Vk.KHR.SwapchainCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.Swapchain* swapchainFIXED = &swapchain)
+		return vkCreateSwapchainKHR(device, createInfoFIXED, allocatorFIXED, swapchainFIXED);
+	}
+
 	/// <summary>vkDestroySwapchainKHR(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySwapchainKHR(Vk.Device device, Vk.KHR.Swapchain swapchain, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroySwapchainKHR(device, swapchain, pAllocator);
+
+	/// <summary>vkDestroySwapchainKHR(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroySwapchainKHR(Vk.Device device, Vk.KHR.Swapchain swapchain, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroySwapchainKHR(device, swapchain, allocatorFIXED);
+	}
 
 	/// <summary>vkGetSwapchainImagesKHR(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>uint*</c>, <c>Vk.Image*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainImagesKHR(Vk.Device device, Vk.KHR.Swapchain swapchain, uint* pSwapchainImageCount, Vk.Image* pSwapchainImages)
 		=> vkGetSwapchainImagesKHR(device, swapchain, pSwapchainImageCount, pSwapchainImages);
 
+	/// <summary>vkGetSwapchainImagesKHR(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>uint*</c>, <c>Vk.Image*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSwapchainImagesKHR(Vk.Device device, Vk.KHR.Swapchain swapchain, out uint swapchainImageCount, in Span<Vk.Image> swapchainImages)
+	{
+		fixed (uint* swapchainImageCountFIXED = &swapchainImageCount)
+		fixed (Vk.Image* swapchainImagesFIXED = swapchainImages)
+		return vkGetSwapchainImagesKHR(device, swapchain, swapchainImageCountFIXED, swapchainImagesFIXED);
+	}
+
 	/// <summary>vkAcquireNextImageKHR(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>ulong</c>, <c>Vk.Semaphore</c>, <c>Vk.Fence</c>, <c>uint*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AcquireNextImageKHR(Vk.Device device, Vk.KHR.Swapchain swapchain, ulong timeout, Vk.Semaphore semaphore, Vk.Fence fence, uint* pImageIndex)
 		=> vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, pImageIndex);
+
+	/// <summary>vkAcquireNextImageKHR(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>ulong</c>, <c>Vk.Semaphore</c>, <c>Vk.Fence</c>, <c>uint*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AcquireNextImageKHR(Vk.Device device, Vk.KHR.Swapchain swapchain, ulong timeout, Vk.Semaphore semaphore, Vk.Fence fence, out uint imageIndex)
+	{
+		fixed (uint* imageIndexFIXED = &imageIndex)
+		return vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, imageIndexFIXED);
+	}
 
 	/// <summary>vkQueuePresentKHR(<c>Vk.Queue</c>, <c>Vk.KHR.PresentInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result QueuePresentKHR(Vk.Queue queue, Vk.KHR.PresentInfo* pPresentInfo)
 		=> vkQueuePresentKHR(queue, pPresentInfo);
 
+	/// <summary>vkQueuePresentKHR(<c>Vk.Queue</c>, <c>Vk.KHR.PresentInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result QueuePresentKHR(Vk.Queue queue, in Vk.KHR.PresentInfo presentInfo)
+	{
+		fixed (Vk.KHR.PresentInfo* presentInfoFIXED = &presentInfo)
+		return vkQueuePresentKHR(queue, presentInfoFIXED);
+	}
+
 	/// <summary>vkDebugMarkerSetObjectNameEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugMarkerObjectNameInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result DebugMarkerSetObjectNameEXT(Vk.Device device, Vk.EXT.DebugMarkerObjectNameInfo* pNameInfo)
 		=> vkDebugMarkerSetObjectNameEXT(device, pNameInfo);
+
+	/// <summary>vkDebugMarkerSetObjectNameEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugMarkerObjectNameInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result DebugMarkerSetObjectNameEXT(Vk.Device device, in Vk.EXT.DebugMarkerObjectNameInfo nameInfo)
+	{
+		fixed (Vk.EXT.DebugMarkerObjectNameInfo* nameInfoFIXED = &nameInfo)
+		return vkDebugMarkerSetObjectNameEXT(device, nameInfoFIXED);
+	}
 
 	/// <summary>vkDebugMarkerSetObjectTagEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugMarkerObjectTagInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result DebugMarkerSetObjectTagEXT(Vk.Device device, Vk.EXT.DebugMarkerObjectTagInfo* pTagInfo)
 		=> vkDebugMarkerSetObjectTagEXT(device, pTagInfo);
 
+	/// <summary>vkDebugMarkerSetObjectTagEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugMarkerObjectTagInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result DebugMarkerSetObjectTagEXT(Vk.Device device, in Vk.EXT.DebugMarkerObjectTagInfo tagInfo)
+	{
+		fixed (Vk.EXT.DebugMarkerObjectTagInfo* tagInfoFIXED = &tagInfo)
+		return vkDebugMarkerSetObjectTagEXT(device, tagInfoFIXED);
+	}
+
 	/// <summary>vkCmdDebugMarkerBeginEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.DebugMarkerMarkerInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDebugMarkerBeginEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
 		=> vkCmdDebugMarkerBeginEXT(commandBuffer, pMarkerInfo);
+
+	/// <summary>vkCmdDebugMarkerBeginEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.DebugMarkerMarkerInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdDebugMarkerBeginEXT(Vk.CommandBuffer commandBuffer, in Vk.EXT.DebugMarkerMarkerInfo markerInfo)
+	{
+		fixed (Vk.EXT.DebugMarkerMarkerInfo* markerInfoFIXED = &markerInfo)
+		vkCmdDebugMarkerBeginEXT(commandBuffer, markerInfoFIXED);
+	}
 
 	/// <summary>vkCmdDebugMarkerEndEXT(<c>Vk.CommandBuffer</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1180,6 +2754,14 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdDebugMarkerInsertEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugMarkerMarkerInfo* pMarkerInfo)
 		=> vkCmdDebugMarkerInsertEXT(commandBuffer, pMarkerInfo);
 
+	/// <summary>vkCmdDebugMarkerInsertEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.DebugMarkerMarkerInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdDebugMarkerInsertEXT(Vk.CommandBuffer commandBuffer, in Vk.EXT.DebugMarkerMarkerInfo markerInfo)
+	{
+		fixed (Vk.EXT.DebugMarkerMarkerInfo* markerInfoFIXED = &markerInfo)
+		vkCmdDebugMarkerInsertEXT(commandBuffer, markerInfoFIXED);
+	}
+
 	/// <summary>vkGetMemoryWin32HandleNV(<c>Vk.Device</c>, <c>Vk.DeviceMemory</c>, <c>Vk.NV.ExternalMemoryHandleTypeFlags</c>, <c>void**</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetMemoryWin32HandleNV(Vk.Device device, Vk.DeviceMemory memory, Vk.NV.ExternalMemoryHandleTypeFlags handleType, void** pHandle)
@@ -1190,10 +2772,26 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdExecuteGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, Vk.Bool32 isPreprocessed, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
 		=> vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, pGeneratedCommandsInfo);
 
+	/// <summary>vkCmdExecuteGeneratedCommandsNV(<c>Vk.CommandBuffer</c>, <c>Vk.Bool32</c>, <c>Vk.NV.GeneratedCommandsInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdExecuteGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, Vk.Bool32 isPreprocessed, in Vk.NV.GeneratedCommandsInfo generatedCommandsInfo)
+	{
+		fixed (Vk.NV.GeneratedCommandsInfo* generatedCommandsInfoFIXED = &generatedCommandsInfo)
+		vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, generatedCommandsInfoFIXED);
+	}
+
 	/// <summary>vkCmdPreprocessGeneratedCommandsNV(<c>Vk.CommandBuffer</c>, <c>Vk.NV.GeneratedCommandsInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPreprocessGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, Vk.NV.GeneratedCommandsInfo* pGeneratedCommandsInfo)
 		=> vkCmdPreprocessGeneratedCommandsNV(commandBuffer, pGeneratedCommandsInfo);
+
+	/// <summary>vkCmdPreprocessGeneratedCommandsNV(<c>Vk.CommandBuffer</c>, <c>Vk.NV.GeneratedCommandsInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdPreprocessGeneratedCommandsNV(Vk.CommandBuffer commandBuffer, in Vk.NV.GeneratedCommandsInfo generatedCommandsInfo)
+	{
+		fixed (Vk.NV.GeneratedCommandsInfo* generatedCommandsInfoFIXED = &generatedCommandsInfo)
+		vkCmdPreprocessGeneratedCommandsNV(commandBuffer, generatedCommandsInfoFIXED);
+	}
 
 	/// <summary>vkCmdBindPipelineShaderGroupNV(<c>Vk.CommandBuffer</c>, <c>Vk.PipelineBindPoint</c>, <c>Vk.Pipeline</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1205,20 +2803,55 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetGeneratedCommandsMemoryRequirementsNV(Vk.Device device, Vk.NV.GeneratedCommandsMemoryRequirementsInfo* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
 		=> vkGetGeneratedCommandsMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
 
+	/// <summary>vkGetGeneratedCommandsMemoryRequirementsNV(<c>Vk.Device</c>, <c>Vk.NV.GeneratedCommandsMemoryRequirementsInfo*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetGeneratedCommandsMemoryRequirementsNV(Vk.Device device, in Vk.NV.GeneratedCommandsMemoryRequirementsInfo info, out Vk.MemoryRequirements2 memoryRequirements)
+	{
+		fixed (Vk.NV.GeneratedCommandsMemoryRequirementsInfo* infoFIXED = &info)
+		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetGeneratedCommandsMemoryRequirementsNV(device, infoFIXED, memoryRequirementsFIXED);
+	}
+
 	/// <summary>vkCreateIndirectCommandsLayoutNV(<c>Vk.Device</c>, <c>Vk.NV.IndirectCommandsLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.NV.IndirectCommandsLayout*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateIndirectCommandsLayoutNV(Vk.Device device, Vk.NV.IndirectCommandsLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.NV.IndirectCommandsLayout* pIndirectCommandsLayout)
 		=> vkCreateIndirectCommandsLayoutNV(device, pCreateInfo, pAllocator, pIndirectCommandsLayout);
+
+	/// <summary>vkCreateIndirectCommandsLayoutNV(<c>Vk.Device</c>, <c>Vk.NV.IndirectCommandsLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.NV.IndirectCommandsLayout*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateIndirectCommandsLayoutNV(Vk.Device device, in Vk.NV.IndirectCommandsLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.IndirectCommandsLayout indirectCommandsLayout)
+	{
+		fixed (Vk.NV.IndirectCommandsLayoutCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.NV.IndirectCommandsLayout* indirectCommandsLayoutFIXED = &indirectCommandsLayout)
+		return vkCreateIndirectCommandsLayoutNV(device, createInfoFIXED, allocatorFIXED, indirectCommandsLayoutFIXED);
+	}
 
 	/// <summary>vkDestroyIndirectCommandsLayoutNV(<c>Vk.Device</c>, <c>Vk.NV.IndirectCommandsLayout</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyIndirectCommandsLayoutNV(Vk.Device device, Vk.NV.IndirectCommandsLayout indirectCommandsLayout, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, pAllocator);
 
+	/// <summary>vkDestroyIndirectCommandsLayoutNV(<c>Vk.Device</c>, <c>Vk.NV.IndirectCommandsLayout</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyIndirectCommandsLayoutNV(Vk.Device device, Vk.NV.IndirectCommandsLayout indirectCommandsLayout, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, allocatorFIXED);
+	}
+
 	/// <summary>vkCmdPushDescriptorSetKHR(<c>Vk.CommandBuffer</c>, <c>Vk.PipelineBindPoint</c>, <c>Vk.PipelineLayout</c>, <c>uint</c>, <c>uint</c>, <c>Vk.WriteDescriptorSet*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPushDescriptorSetKHR(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint set, uint descriptorWriteCount, Vk.WriteDescriptorSet* pDescriptorWrites)
 		=> vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
+
+	/// <summary>vkCmdPushDescriptorSetKHR(<c>Vk.CommandBuffer</c>, <c>Vk.PipelineBindPoint</c>, <c>Vk.PipelineLayout</c>, <c>uint</c>, <c>uint</c>, <c>Vk.WriteDescriptorSet*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdPushDescriptorSetKHR(Vk.CommandBuffer commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.PipelineLayout layout, uint set, in ReadOnlySpan<Vk.WriteDescriptorSet> descriptorWrites)
+	{
+		fixed (Vk.WriteDescriptorSet* descriptorWritesFIXED = descriptorWrites)
+		vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, (uint)descriptorWrites.Length, descriptorWritesFIXED);
+	}
 
 	/// <summary>vkTrimCommandPool(<c>Vk.Device</c>, <c>Vk.CommandPool</c>, <c>Vk.CommandPoolTrimFlags</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1235,110 +2868,293 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetMemoryWin32HandleKHR(Vk.Device device, Vk.KHR.MemoryGetWin32HandleInfo* pGetWin32HandleInfo, void** pHandle)
 		=> vkGetMemoryWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
 
+	/// <summary>vkGetMemoryWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.MemoryGetWin32HandleInfo*</c>, <c>void**</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetMemoryWin32HandleKHR(Vk.Device device, in Vk.KHR.MemoryGetWin32HandleInfo getWin32HandleInfo, void** pHandle)
+	{
+		fixed (Vk.KHR.MemoryGetWin32HandleInfo* getWin32HandleInfoFIXED = &getWin32HandleInfo)
+		return vkGetMemoryWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+	}
+
 	/// <summary>vkGetMemoryWin32HandlePropertiesKHR(<c>Vk.Device</c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>void*</c>, <c>Vk.KHR.MemoryWin32HandleProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetMemoryWin32HandlePropertiesKHR(Vk.Device device, Vk.ExternalMemoryHandleTypeFlags handleType, void* handle, Vk.KHR.MemoryWin32HandleProperties* pMemoryWin32HandleProperties)
 		=> vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, pMemoryWin32HandleProperties);
+
+	/// <summary>vkGetMemoryWin32HandlePropertiesKHR(<c>Vk.Device</c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>void*</c>, <c>Vk.KHR.MemoryWin32HandleProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetMemoryWin32HandlePropertiesKHR(Vk.Device device, Vk.ExternalMemoryHandleTypeFlags handleType, void* handle, out Vk.KHR.MemoryWin32HandleProperties memoryWin32HandleProperties)
+	{
+		fixed (Vk.KHR.MemoryWin32HandleProperties* memoryWin32HandlePropertiesFIXED = &memoryWin32HandleProperties)
+		return vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, memoryWin32HandlePropertiesFIXED);
+	}
 
 	/// <summary>vkGetMemoryFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.MemoryGetFdInfo*</c>, <c>int*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetMemoryFdKHR(Vk.Device device, Vk.KHR.MemoryGetFdInfo* pGetFdInfo, int* pFd)
 		=> vkGetMemoryFdKHR(device, pGetFdInfo, pFd);
 
+	/// <summary>vkGetMemoryFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.MemoryGetFdInfo*</c>, <c>int*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetMemoryFdKHR(Vk.Device device, in Vk.KHR.MemoryGetFdInfo getFdInfo, out int fd)
+	{
+		fixed (Vk.KHR.MemoryGetFdInfo* getFdInfoFIXED = &getFdInfo)
+		fixed (int* fdFIXED = &fd)
+		return vkGetMemoryFdKHR(device, getFdInfoFIXED, fdFIXED);
+	}
+
 	/// <summary>vkGetMemoryFdPropertiesKHR(<c>Vk.Device</c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>int</c>, <c>Vk.KHR.MemoryFdProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetMemoryFdPropertiesKHR(Vk.Device device, Vk.ExternalMemoryHandleTypeFlags handleType, int fd, Vk.KHR.MemoryFdProperties* pMemoryFdProperties)
 		=> vkGetMemoryFdPropertiesKHR(device, handleType, fd, pMemoryFdProperties);
+
+	/// <summary>vkGetMemoryFdPropertiesKHR(<c>Vk.Device</c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>int</c>, <c>Vk.KHR.MemoryFdProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetMemoryFdPropertiesKHR(Vk.Device device, Vk.ExternalMemoryHandleTypeFlags handleType, int fd, out Vk.KHR.MemoryFdProperties memoryFdProperties)
+	{
+		fixed (Vk.KHR.MemoryFdProperties* memoryFdPropertiesFIXED = &memoryFdProperties)
+		return vkGetMemoryFdPropertiesKHR(device, handleType, fd, memoryFdPropertiesFIXED);
+	}
 
 	/// <summary>vkGetSemaphoreWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.SemaphoreGetWin32HandleInfo*</c>, <c>void**</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSemaphoreWin32HandleKHR(Vk.Device device, Vk.KHR.SemaphoreGetWin32HandleInfo* pGetWin32HandleInfo, void** pHandle)
 		=> vkGetSemaphoreWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
 
+	/// <summary>vkGetSemaphoreWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.SemaphoreGetWin32HandleInfo*</c>, <c>void**</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSemaphoreWin32HandleKHR(Vk.Device device, in Vk.KHR.SemaphoreGetWin32HandleInfo getWin32HandleInfo, void** pHandle)
+	{
+		fixed (Vk.KHR.SemaphoreGetWin32HandleInfo* getWin32HandleInfoFIXED = &getWin32HandleInfo)
+		return vkGetSemaphoreWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+	}
+
 	/// <summary>vkImportSemaphoreWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportSemaphoreWin32HandleInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ImportSemaphoreWin32HandleKHR(Vk.Device device, Vk.KHR.ImportSemaphoreWin32HandleInfo* pImportSemaphoreWin32HandleInfo)
 		=> vkImportSemaphoreWin32HandleKHR(device, pImportSemaphoreWin32HandleInfo);
+
+	/// <summary>vkImportSemaphoreWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportSemaphoreWin32HandleInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result ImportSemaphoreWin32HandleKHR(Vk.Device device, in Vk.KHR.ImportSemaphoreWin32HandleInfo importSemaphoreWin32HandleInfo)
+	{
+		fixed (Vk.KHR.ImportSemaphoreWin32HandleInfo* importSemaphoreWin32HandleInfoFIXED = &importSemaphoreWin32HandleInfo)
+		return vkImportSemaphoreWin32HandleKHR(device, importSemaphoreWin32HandleInfoFIXED);
+	}
 
 	/// <summary>vkGetSemaphoreFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.SemaphoreGetFdInfo*</c>, <c>int*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSemaphoreFdKHR(Vk.Device device, Vk.KHR.SemaphoreGetFdInfo* pGetFdInfo, int* pFd)
 		=> vkGetSemaphoreFdKHR(device, pGetFdInfo, pFd);
 
+	/// <summary>vkGetSemaphoreFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.SemaphoreGetFdInfo*</c>, <c>int*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSemaphoreFdKHR(Vk.Device device, in Vk.KHR.SemaphoreGetFdInfo getFdInfo, out int fd)
+	{
+		fixed (Vk.KHR.SemaphoreGetFdInfo* getFdInfoFIXED = &getFdInfo)
+		fixed (int* fdFIXED = &fd)
+		return vkGetSemaphoreFdKHR(device, getFdInfoFIXED, fdFIXED);
+	}
+
 	/// <summary>vkImportSemaphoreFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportSemaphoreFdInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ImportSemaphoreFdKHR(Vk.Device device, Vk.KHR.ImportSemaphoreFdInfo* pImportSemaphoreFdInfo)
 		=> vkImportSemaphoreFdKHR(device, pImportSemaphoreFdInfo);
+
+	/// <summary>vkImportSemaphoreFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportSemaphoreFdInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result ImportSemaphoreFdKHR(Vk.Device device, in Vk.KHR.ImportSemaphoreFdInfo importSemaphoreFdInfo)
+	{
+		fixed (Vk.KHR.ImportSemaphoreFdInfo* importSemaphoreFdInfoFIXED = &importSemaphoreFdInfo)
+		return vkImportSemaphoreFdKHR(device, importSemaphoreFdInfoFIXED);
+	}
 
 	/// <summary>vkGetFenceWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.FenceGetWin32HandleInfo*</c>, <c>void**</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetFenceWin32HandleKHR(Vk.Device device, Vk.KHR.FenceGetWin32HandleInfo* pGetWin32HandleInfo, void** pHandle)
 		=> vkGetFenceWin32HandleKHR(device, pGetWin32HandleInfo, pHandle);
 
+	/// <summary>vkGetFenceWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.FenceGetWin32HandleInfo*</c>, <c>void**</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetFenceWin32HandleKHR(Vk.Device device, in Vk.KHR.FenceGetWin32HandleInfo getWin32HandleInfo, void** pHandle)
+	{
+		fixed (Vk.KHR.FenceGetWin32HandleInfo* getWin32HandleInfoFIXED = &getWin32HandleInfo)
+		return vkGetFenceWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+	}
+
 	/// <summary>vkImportFenceWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportFenceWin32HandleInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ImportFenceWin32HandleKHR(Vk.Device device, Vk.KHR.ImportFenceWin32HandleInfo* pImportFenceWin32HandleInfo)
 		=> vkImportFenceWin32HandleKHR(device, pImportFenceWin32HandleInfo);
+
+	/// <summary>vkImportFenceWin32HandleKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportFenceWin32HandleInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result ImportFenceWin32HandleKHR(Vk.Device device, in Vk.KHR.ImportFenceWin32HandleInfo importFenceWin32HandleInfo)
+	{
+		fixed (Vk.KHR.ImportFenceWin32HandleInfo* importFenceWin32HandleInfoFIXED = &importFenceWin32HandleInfo)
+		return vkImportFenceWin32HandleKHR(device, importFenceWin32HandleInfoFIXED);
+	}
 
 	/// <summary>vkGetFenceFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.FenceGetFdInfo*</c>, <c>int*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetFenceFdKHR(Vk.Device device, Vk.KHR.FenceGetFdInfo* pGetFdInfo, int* pFd)
 		=> vkGetFenceFdKHR(device, pGetFdInfo, pFd);
 
+	/// <summary>vkGetFenceFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.FenceGetFdInfo*</c>, <c>int*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetFenceFdKHR(Vk.Device device, in Vk.KHR.FenceGetFdInfo getFdInfo, out int fd)
+	{
+		fixed (Vk.KHR.FenceGetFdInfo* getFdInfoFIXED = &getFdInfo)
+		fixed (int* fdFIXED = &fd)
+		return vkGetFenceFdKHR(device, getFdInfoFIXED, fdFIXED);
+	}
+
 	/// <summary>vkImportFenceFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportFenceFdInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ImportFenceFdKHR(Vk.Device device, Vk.KHR.ImportFenceFdInfo* pImportFenceFdInfo)
 		=> vkImportFenceFdKHR(device, pImportFenceFdInfo);
+
+	/// <summary>vkImportFenceFdKHR(<c>Vk.Device</c>, <c>Vk.KHR.ImportFenceFdInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result ImportFenceFdKHR(Vk.Device device, in Vk.KHR.ImportFenceFdInfo importFenceFdInfo)
+	{
+		fixed (Vk.KHR.ImportFenceFdInfo* importFenceFdInfoFIXED = &importFenceFdInfo)
+		return vkImportFenceFdKHR(device, importFenceFdInfoFIXED);
+	}
 
 	/// <summary>vkDisplayPowerControlEXT(<c>Vk.Device</c>, <c>Vk.KHR.Display</c>, <c>Vk.EXT.DisplayPowerInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result DisplayPowerControlEXT(Vk.Device device, Vk.KHR.Display display, Vk.EXT.DisplayPowerInfo* pDisplayPowerInfo)
 		=> vkDisplayPowerControlEXT(device, display, pDisplayPowerInfo);
 
+	/// <summary>vkDisplayPowerControlEXT(<c>Vk.Device</c>, <c>Vk.KHR.Display</c>, <c>Vk.EXT.DisplayPowerInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result DisplayPowerControlEXT(Vk.Device device, Vk.KHR.Display display, in Vk.EXT.DisplayPowerInfo displayPowerInfo)
+	{
+		fixed (Vk.EXT.DisplayPowerInfo* displayPowerInfoFIXED = &displayPowerInfo)
+		return vkDisplayPowerControlEXT(device, display, displayPowerInfoFIXED);
+	}
+
 	/// <summary>vkRegisterDeviceEventEXT(<c>Vk.Device</c>, <c>Vk.EXT.DeviceEventInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Fence*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result RegisterDeviceEventEXT(Vk.Device device, Vk.EXT.DeviceEventInfo* pDeviceEventInfo, Vk.AllocationCallbacks* pAllocator, Vk.Fence* pFence)
 		=> vkRegisterDeviceEventEXT(device, pDeviceEventInfo, pAllocator, pFence);
+
+	/// <summary>vkRegisterDeviceEventEXT(<c>Vk.Device</c>, <c>Vk.EXT.DeviceEventInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Fence*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result RegisterDeviceEventEXT(Vk.Device device, in Vk.EXT.DeviceEventInfo deviceEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence fence)
+	{
+		fixed (Vk.EXT.DeviceEventInfo* deviceEventInfoFIXED = &deviceEventInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Fence* fenceFIXED = &fence)
+		return vkRegisterDeviceEventEXT(device, deviceEventInfoFIXED, allocatorFIXED, fenceFIXED);
+	}
 
 	/// <summary>vkRegisterDisplayEventEXT(<c>Vk.Device</c>, <c>Vk.KHR.Display</c>, <c>Vk.EXT.DisplayEventInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Fence*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result RegisterDisplayEventEXT(Vk.Device device, Vk.KHR.Display display, Vk.EXT.DisplayEventInfo* pDisplayEventInfo, Vk.AllocationCallbacks* pAllocator, Vk.Fence* pFence)
 		=> vkRegisterDisplayEventEXT(device, display, pDisplayEventInfo, pAllocator, pFence);
 
+	/// <summary>vkRegisterDisplayEventEXT(<c>Vk.Device</c>, <c>Vk.KHR.Display</c>, <c>Vk.EXT.DisplayEventInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Fence*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result RegisterDisplayEventEXT(Vk.Device device, Vk.KHR.Display display, in Vk.EXT.DisplayEventInfo displayEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence fence)
+	{
+		fixed (Vk.EXT.DisplayEventInfo* displayEventInfoFIXED = &displayEventInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Fence* fenceFIXED = &fence)
+		return vkRegisterDisplayEventEXT(device, display, displayEventInfoFIXED, allocatorFIXED, fenceFIXED);
+	}
+
 	/// <summary>vkGetSwapchainCounterEXT(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>Vk.EXT.SurfaceCounterFlags</c>, <c>ulong*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainCounterEXT(Vk.Device device, Vk.KHR.Swapchain swapchain, Vk.EXT.SurfaceCounterFlags counter, ulong* pCounterValue)
 		=> vkGetSwapchainCounterEXT(device, swapchain, counter, pCounterValue);
+
+	/// <summary>vkGetSwapchainCounterEXT(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>Vk.EXT.SurfaceCounterFlags</c>, <c>ulong*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSwapchainCounterEXT(Vk.Device device, Vk.KHR.Swapchain swapchain, Vk.EXT.SurfaceCounterFlags counter, out ulong counterValue)
+	{
+		fixed (ulong* counterValueFIXED = &counterValue)
+		return vkGetSwapchainCounterEXT(device, swapchain, counter, counterValueFIXED);
+	}
 
 	/// <summary>vkGetDeviceGroupPeerMemoryFeatures(<c>Vk.Device</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>Vk.PeerMemoryFeatureFlags*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceGroupPeerMemoryFeatures(Vk.Device device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, Vk.PeerMemoryFeatureFlags* pPeerMemoryFeatures)
 		=> vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
 
+	/// <summary>vkGetDeviceGroupPeerMemoryFeatures(<c>Vk.Device</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>Vk.PeerMemoryFeatureFlags*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceGroupPeerMemoryFeatures(Vk.Device device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, out Vk.PeerMemoryFeatureFlags peerMemoryFeatures)
+	{
+		fixed (Vk.PeerMemoryFeatureFlags* peerMemoryFeaturesFIXED = &peerMemoryFeatures)
+		vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, peerMemoryFeaturesFIXED);
+	}
+
 	/// <summary>vkGetDeviceGroupPeerMemoryFeaturesKHR(<c>Vk.Device</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>Vk.PeerMemoryFeatureFlags*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceGroupPeerMemoryFeaturesKHR(Vk.Device device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, Vk.PeerMemoryFeatureFlags* pPeerMemoryFeatures)
 		=> vkGetDeviceGroupPeerMemoryFeaturesKHR(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
+
+	/// <summary>vkGetDeviceGroupPeerMemoryFeaturesKHR(<c>Vk.Device</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>Vk.PeerMemoryFeatureFlags*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceGroupPeerMemoryFeaturesKHR(Vk.Device device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, out Vk.PeerMemoryFeatureFlags peerMemoryFeatures)
+	{
+		fixed (Vk.PeerMemoryFeatureFlags* peerMemoryFeaturesFIXED = &peerMemoryFeatures)
+		vkGetDeviceGroupPeerMemoryFeaturesKHR(device, heapIndex, localDeviceIndex, remoteDeviceIndex, peerMemoryFeaturesFIXED);
+	}
 
 	/// <summary>vkBindBufferMemory2(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindBufferMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BindBufferMemory2(Vk.Device device, uint bindInfoCount, Vk.BindBufferMemoryInfo* pBindInfos)
 		=> vkBindBufferMemory2(device, bindInfoCount, pBindInfos);
 
+	/// <summary>vkBindBufferMemory2(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindBufferMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BindBufferMemory2(Vk.Device device, in ReadOnlySpan<Vk.BindBufferMemoryInfo> bindInfos)
+	{
+		fixed (Vk.BindBufferMemoryInfo* bindInfosFIXED = bindInfos)
+		return vkBindBufferMemory2(device, (uint)bindInfos.Length, bindInfosFIXED);
+	}
+
 	/// <summary>vkBindBufferMemory2KHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindBufferMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BindBufferMemory2KHR(Vk.Device device, uint bindInfoCount, Vk.BindBufferMemoryInfo* pBindInfos)
 		=> vkBindBufferMemory2KHR(device, bindInfoCount, pBindInfos);
+
+	/// <summary>vkBindBufferMemory2KHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindBufferMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BindBufferMemory2KHR(Vk.Device device, in ReadOnlySpan<Vk.BindBufferMemoryInfo> bindInfos)
+	{
+		fixed (Vk.BindBufferMemoryInfo* bindInfosFIXED = bindInfos)
+		return vkBindBufferMemory2KHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+	}
 
 	/// <summary>vkBindImageMemory2(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindImageMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BindImageMemory2(Vk.Device device, uint bindInfoCount, Vk.BindImageMemoryInfo* pBindInfos)
 		=> vkBindImageMemory2(device, bindInfoCount, pBindInfos);
 
+	/// <summary>vkBindImageMemory2(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindImageMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BindImageMemory2(Vk.Device device, in ReadOnlySpan<Vk.BindImageMemoryInfo> bindInfos)
+	{
+		fixed (Vk.BindImageMemoryInfo* bindInfosFIXED = bindInfos)
+		return vkBindImageMemory2(device, (uint)bindInfos.Length, bindInfosFIXED);
+	}
+
 	/// <summary>vkBindImageMemory2KHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindImageMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BindImageMemory2KHR(Vk.Device device, uint bindInfoCount, Vk.BindImageMemoryInfo* pBindInfos)
 		=> vkBindImageMemory2KHR(device, bindInfoCount, pBindInfos);
+
+	/// <summary>vkBindImageMemory2KHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.BindImageMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BindImageMemory2KHR(Vk.Device device, in ReadOnlySpan<Vk.BindImageMemoryInfo> bindInfos)
+	{
+		fixed (Vk.BindImageMemoryInfo* bindInfosFIXED = bindInfos)
+		return vkBindImageMemory2KHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+	}
 
 	/// <summary>vkCmdSetDeviceMask(<c>Vk.CommandBuffer</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1355,15 +3171,40 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetDeviceGroupPresentCapabilitiesKHR(Vk.Device device, Vk.KHR.DeviceGroupPresentCapabilities* pDeviceGroupPresentCapabilities)
 		=> vkGetDeviceGroupPresentCapabilitiesKHR(device, pDeviceGroupPresentCapabilities);
 
+	/// <summary>vkGetDeviceGroupPresentCapabilitiesKHR(<c>Vk.Device</c>, <c>Vk.KHR.DeviceGroupPresentCapabilities*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDeviceGroupPresentCapabilitiesKHR(Vk.Device device, out Vk.KHR.DeviceGroupPresentCapabilities deviceGroupPresentCapabilities)
+	{
+		fixed (Vk.KHR.DeviceGroupPresentCapabilities* deviceGroupPresentCapabilitiesFIXED = &deviceGroupPresentCapabilities)
+		return vkGetDeviceGroupPresentCapabilitiesKHR(device, deviceGroupPresentCapabilitiesFIXED);
+	}
+
 	/// <summary>vkGetDeviceGroupSurfacePresentModesKHR(<c>Vk.Device</c>, <c>Vk.KHR.Surface</c>, <c>Vk.KHR.DeviceGroupPresentModeFlags*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDeviceGroupSurfacePresentModesKHR(Vk.Device device, Vk.KHR.Surface surface, Vk.KHR.DeviceGroupPresentModeFlags* pModes)
 		=> vkGetDeviceGroupSurfacePresentModesKHR(device, surface, pModes);
 
+	/// <summary>vkGetDeviceGroupSurfacePresentModesKHR(<c>Vk.Device</c>, <c>Vk.KHR.Surface</c>, <c>Vk.KHR.DeviceGroupPresentModeFlags*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDeviceGroupSurfacePresentModesKHR(Vk.Device device, Vk.KHR.Surface surface, out Vk.KHR.DeviceGroupPresentModeFlags modes)
+	{
+		fixed (Vk.KHR.DeviceGroupPresentModeFlags* modesFIXED = &modes)
+		return vkGetDeviceGroupSurfacePresentModesKHR(device, surface, modesFIXED);
+	}
+
 	/// <summary>vkAcquireNextImage2KHR(<c>Vk.Device</c>, <c>Vk.KHR.AcquireNextImageInfo*</c>, <c>uint*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AcquireNextImage2KHR(Vk.Device device, Vk.KHR.AcquireNextImageInfo* pAcquireInfo, uint* pImageIndex)
 		=> vkAcquireNextImage2KHR(device, pAcquireInfo, pImageIndex);
+
+	/// <summary>vkAcquireNextImage2KHR(<c>Vk.Device</c>, <c>Vk.KHR.AcquireNextImageInfo*</c>, <c>uint*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AcquireNextImage2KHR(Vk.Device device, in Vk.KHR.AcquireNextImageInfo acquireInfo, out uint imageIndex)
+	{
+		fixed (Vk.KHR.AcquireNextImageInfo* acquireInfoFIXED = &acquireInfo)
+		fixed (uint* imageIndexFIXED = &imageIndex)
+		return vkAcquireNextImage2KHR(device, acquireInfoFIXED, imageIndexFIXED);
+	}
 
 	/// <summary>vkCmdDispatchBase(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1380,20 +3221,56 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreateDescriptorUpdateTemplate(Vk.Device device, Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorUpdateTemplate* pDescriptorUpdateTemplate)
 		=> vkCreateDescriptorUpdateTemplate(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
 
+	/// <summary>vkCreateDescriptorUpdateTemplate(<c>Vk.Device</c>, <c>Vk.DescriptorUpdateTemplateCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DescriptorUpdateTemplate*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorUpdateTemplate(Vk.Device device, in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate descriptorUpdateTemplate)
+	{
+		fixed (Vk.DescriptorUpdateTemplateCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.DescriptorUpdateTemplate* descriptorUpdateTemplateFIXED = &descriptorUpdateTemplate)
+		return vkCreateDescriptorUpdateTemplate(device, createInfoFIXED, allocatorFIXED, descriptorUpdateTemplateFIXED);
+	}
+
 	/// <summary>vkCreateDescriptorUpdateTemplateKHR(<c>Vk.Device</c>, <c>Vk.DescriptorUpdateTemplateCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DescriptorUpdateTemplate*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDescriptorUpdateTemplateKHR(Vk.Device device, Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.DescriptorUpdateTemplate* pDescriptorUpdateTemplate)
 		=> vkCreateDescriptorUpdateTemplateKHR(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
+
+	/// <summary>vkCreateDescriptorUpdateTemplateKHR(<c>Vk.Device</c>, <c>Vk.DescriptorUpdateTemplateCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.DescriptorUpdateTemplate*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorUpdateTemplateKHR(Vk.Device device, in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate descriptorUpdateTemplate)
+	{
+		fixed (Vk.DescriptorUpdateTemplateCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.DescriptorUpdateTemplate* descriptorUpdateTemplateFIXED = &descriptorUpdateTemplate)
+		return vkCreateDescriptorUpdateTemplateKHR(device, createInfoFIXED, allocatorFIXED, descriptorUpdateTemplateFIXED);
+	}
 
 	/// <summary>vkDestroyDescriptorUpdateTemplate(<c>Vk.Device</c>, <c>Vk.DescriptorUpdateTemplate</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorUpdateTemplate(Vk.Device device, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, pAllocator);
 
+	/// <summary>vkDestroyDescriptorUpdateTemplate(<c>Vk.Device</c>, <c>Vk.DescriptorUpdateTemplate</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDescriptorUpdateTemplate(Vk.Device device, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, allocatorFIXED);
+	}
+
 	/// <summary>vkDestroyDescriptorUpdateTemplateKHR(<c>Vk.Device</c>, <c>Vk.DescriptorUpdateTemplate</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorUpdateTemplateKHR(Vk.Device device, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDescriptorUpdateTemplateKHR(device, descriptorUpdateTemplate, pAllocator);
+
+	/// <summary>vkDestroyDescriptorUpdateTemplateKHR(<c>Vk.Device</c>, <c>Vk.DescriptorUpdateTemplate</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDescriptorUpdateTemplateKHR(Vk.Device device, Vk.DescriptorUpdateTemplate descriptorUpdateTemplate, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDescriptorUpdateTemplateKHR(device, descriptorUpdateTemplate, allocatorFIXED);
+	}
 
 	/// <summary>vkUpdateDescriptorSetWithTemplate(<c>Vk.Device</c>, <c>Vk.DescriptorSet</c>, <c>Vk.DescriptorUpdateTemplate</c>, <c>void*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1415,6 +3292,15 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void SetHdrMetadataEXT(Vk.Device device, uint swapchainCount, Vk.KHR.Swapchain* pSwapchains, Vk.EXT.HdrMetadata* pMetadata)
 		=> vkSetHdrMetadataEXT(device, swapchainCount, pSwapchains, pMetadata);
 
+	/// <summary>vkSetHdrMetadataEXT(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.Swapchain*</c>, <c>Vk.EXT.HdrMetadata*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetHdrMetadataEXT(Vk.Device device, in ReadOnlySpan<Vk.KHR.Swapchain> swapchains, in ReadOnlySpan<Vk.EXT.HdrMetadata> metadata)
+	{
+		fixed (Vk.KHR.Swapchain* swapchainsFIXED = swapchains)
+		fixed (Vk.EXT.HdrMetadata* metadataFIXED = metadata)
+		vkSetHdrMetadataEXT(device, (uint)swapchains.Length, swapchainsFIXED, metadataFIXED);
+	}
+
 	/// <summary>vkGetSwapchainStatusKHR(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainStatusKHR(Vk.Device device, Vk.KHR.Swapchain swapchain)
@@ -1425,120 +3311,331 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetRefreshCycleDurationGOOGLE(Vk.Device device, Vk.KHR.Swapchain swapchain, Vk.GOOGLE.RefreshCycleDuration* pDisplayTimingProperties)
 		=> vkGetRefreshCycleDurationGOOGLE(device, swapchain, pDisplayTimingProperties);
 
+	/// <summary>vkGetRefreshCycleDurationGOOGLE(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>Vk.GOOGLE.RefreshCycleDuration*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetRefreshCycleDurationGOOGLE(Vk.Device device, Vk.KHR.Swapchain swapchain, out Vk.GOOGLE.RefreshCycleDuration displayTimingProperties)
+	{
+		fixed (Vk.GOOGLE.RefreshCycleDuration* displayTimingPropertiesFIXED = &displayTimingProperties)
+		return vkGetRefreshCycleDurationGOOGLE(device, swapchain, displayTimingPropertiesFIXED);
+	}
+
 	/// <summary>vkGetPastPresentationTimingGOOGLE(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>uint*</c>, <c>Vk.GOOGLE.PastPresentationTiming*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPastPresentationTimingGOOGLE(Vk.Device device, Vk.KHR.Swapchain swapchain, uint* pPresentationTimingCount, Vk.GOOGLE.PastPresentationTiming* pPresentationTimings)
 		=> vkGetPastPresentationTimingGOOGLE(device, swapchain, pPresentationTimingCount, pPresentationTimings);
+
+	/// <summary>vkGetPastPresentationTimingGOOGLE(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>uint*</c>, <c>Vk.GOOGLE.PastPresentationTiming*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPastPresentationTimingGOOGLE(Vk.Device device, Vk.KHR.Swapchain swapchain, out uint presentationTimingCount, in Span<Vk.GOOGLE.PastPresentationTiming> presentationTimings)
+	{
+		fixed (uint* presentationTimingCountFIXED = &presentationTimingCount)
+		fixed (Vk.GOOGLE.PastPresentationTiming* presentationTimingsFIXED = presentationTimings)
+		return vkGetPastPresentationTimingGOOGLE(device, swapchain, presentationTimingCountFIXED, presentationTimingsFIXED);
+	}
 
 	/// <summary>vkCmdSetViewportWScalingNV(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.NV.ViewportWScaling*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetViewportWScalingNV(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.NV.ViewportWScaling* pViewportWScalings)
 		=> vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, viewportCount, pViewportWScalings);
 
+	/// <summary>vkCmdSetViewportWScalingNV(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.NV.ViewportWScaling*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetViewportWScalingNV(Vk.CommandBuffer commandBuffer, uint firstViewport, in ReadOnlySpan<Vk.NV.ViewportWScaling> viewportWScalings)
+	{
+		fixed (Vk.NV.ViewportWScaling* viewportWScalingsFIXED = viewportWScalings)
+		vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, (uint)viewportWScalings.Length, viewportWScalingsFIXED);
+	}
+
 	/// <summary>vkCmdSetDiscardRectangleEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDiscardRectangleEXT(Vk.CommandBuffer commandBuffer, uint firstDiscardRectangle, uint discardRectangleCount, Vk.Rect2D* pDiscardRectangles)
 		=> vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
+
+	/// <summary>vkCmdSetDiscardRectangleEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetDiscardRectangleEXT(Vk.CommandBuffer commandBuffer, uint firstDiscardRectangle, in ReadOnlySpan<Vk.Rect2D> discardRectangles)
+	{
+		fixed (Vk.Rect2D* discardRectanglesFIXED = discardRectangles)
+		vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, (uint)discardRectangles.Length, discardRectanglesFIXED);
+	}
 
 	/// <summary>vkCmdSetSampleLocationsEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.SampleLocationsInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetSampleLocationsEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.SampleLocationsInfo* pSampleLocationsInfo)
 		=> vkCmdSetSampleLocationsEXT(commandBuffer, pSampleLocationsInfo);
 
+	/// <summary>vkCmdSetSampleLocationsEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.SampleLocationsInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetSampleLocationsEXT(Vk.CommandBuffer commandBuffer, in Vk.EXT.SampleLocationsInfo sampleLocationsInfo)
+	{
+		fixed (Vk.EXT.SampleLocationsInfo* sampleLocationsInfoFIXED = &sampleLocationsInfo)
+		vkCmdSetSampleLocationsEXT(commandBuffer, sampleLocationsInfoFIXED);
+	}
+
 	/// <summary>vkGetBufferMemoryRequirements2(<c>Vk.Device</c>, <c>Vk.BufferMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements2(Vk.Device device, Vk.BufferMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
 		=> vkGetBufferMemoryRequirements2(device, pInfo, pMemoryRequirements);
+
+	/// <summary>vkGetBufferMemoryRequirements2(<c>Vk.Device</c>, <c>Vk.BufferMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetBufferMemoryRequirements2(Vk.Device device, in Vk.BufferMemoryRequirementsInfo2 info, out Vk.MemoryRequirements2 memoryRequirements)
+	{
+		fixed (Vk.BufferMemoryRequirementsInfo2* infoFIXED = &info)
+		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetBufferMemoryRequirements2(device, infoFIXED, memoryRequirementsFIXED);
+	}
 
 	/// <summary>vkGetBufferMemoryRequirements2KHR(<c>Vk.Device</c>, <c>Vk.BufferMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements2KHR(Vk.Device device, Vk.BufferMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
 		=> vkGetBufferMemoryRequirements2KHR(device, pInfo, pMemoryRequirements);
 
+	/// <summary>vkGetBufferMemoryRequirements2KHR(<c>Vk.Device</c>, <c>Vk.BufferMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetBufferMemoryRequirements2KHR(Vk.Device device, in Vk.BufferMemoryRequirementsInfo2 info, out Vk.MemoryRequirements2 memoryRequirements)
+	{
+		fixed (Vk.BufferMemoryRequirementsInfo2* infoFIXED = &info)
+		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetBufferMemoryRequirements2KHR(device, infoFIXED, memoryRequirementsFIXED);
+	}
+
 	/// <summary>vkGetImageMemoryRequirements2(<c>Vk.Device</c>, <c>Vk.ImageMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements2(Vk.Device device, Vk.ImageMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
 		=> vkGetImageMemoryRequirements2(device, pInfo, pMemoryRequirements);
+
+	/// <summary>vkGetImageMemoryRequirements2(<c>Vk.Device</c>, <c>Vk.ImageMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageMemoryRequirements2(Vk.Device device, in Vk.ImageMemoryRequirementsInfo2 info, out Vk.MemoryRequirements2 memoryRequirements)
+	{
+		fixed (Vk.ImageMemoryRequirementsInfo2* infoFIXED = &info)
+		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetImageMemoryRequirements2(device, infoFIXED, memoryRequirementsFIXED);
+	}
 
 	/// <summary>vkGetImageMemoryRequirements2KHR(<c>Vk.Device</c>, <c>Vk.ImageMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements2KHR(Vk.Device device, Vk.ImageMemoryRequirementsInfo2* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
 		=> vkGetImageMemoryRequirements2KHR(device, pInfo, pMemoryRequirements);
 
+	/// <summary>vkGetImageMemoryRequirements2KHR(<c>Vk.Device</c>, <c>Vk.ImageMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageMemoryRequirements2KHR(Vk.Device device, in Vk.ImageMemoryRequirementsInfo2 info, out Vk.MemoryRequirements2 memoryRequirements)
+	{
+		fixed (Vk.ImageMemoryRequirementsInfo2* infoFIXED = &info)
+		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetImageMemoryRequirements2KHR(device, infoFIXED, memoryRequirementsFIXED);
+	}
+
 	/// <summary>vkGetImageSparseMemoryRequirements2(<c>Vk.Device</c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements2(Vk.Device device, Vk.ImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, Vk.SparseImageMemoryRequirements2* pSparseMemoryRequirements)
 		=> vkGetImageSparseMemoryRequirements2(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+
+	/// <summary>vkGetImageSparseMemoryRequirements2(<c>Vk.Device</c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements2(Vk.Device device, in Vk.ImageSparseMemoryRequirementsInfo2 info, out uint sparseMemoryRequirementCount, in Span<Vk.SparseImageMemoryRequirements2> sparseMemoryRequirements)
+	{
+		fixed (Vk.ImageSparseMemoryRequirementsInfo2* infoFIXED = &info)
+		fixed (uint* sparseMemoryRequirementCountFIXED = &sparseMemoryRequirementCount)
+		fixed (Vk.SparseImageMemoryRequirements2* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
+		vkGetImageSparseMemoryRequirements2(device, infoFIXED, sparseMemoryRequirementCountFIXED, sparseMemoryRequirementsFIXED);
+	}
 
 	/// <summary>vkGetImageSparseMemoryRequirements2KHR(<c>Vk.Device</c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements2KHR(Vk.Device device, Vk.ImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, Vk.SparseImageMemoryRequirements2* pSparseMemoryRequirements)
 		=> vkGetImageSparseMemoryRequirements2KHR(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 
+	/// <summary>vkGetImageSparseMemoryRequirements2KHR(<c>Vk.Device</c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements2KHR(Vk.Device device, in Vk.ImageSparseMemoryRequirementsInfo2 info, out uint sparseMemoryRequirementCount, in Span<Vk.SparseImageMemoryRequirements2> sparseMemoryRequirements)
+	{
+		fixed (Vk.ImageSparseMemoryRequirementsInfo2* infoFIXED = &info)
+		fixed (uint* sparseMemoryRequirementCountFIXED = &sparseMemoryRequirementCount)
+		fixed (Vk.SparseImageMemoryRequirements2* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
+		vkGetImageSparseMemoryRequirements2KHR(device, infoFIXED, sparseMemoryRequirementCountFIXED, sparseMemoryRequirementsFIXED);
+	}
+
 	/// <summary>vkCreateSamplerYcbcrConversion(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversionCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.SamplerYcbcrConversion*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSamplerYcbcrConversion(Vk.Device device, Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.SamplerYcbcrConversion* pYcbcrConversion)
 		=> vkCreateSamplerYcbcrConversion(device, pCreateInfo, pAllocator, pYcbcrConversion);
+
+	/// <summary>vkCreateSamplerYcbcrConversion(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversionCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.SamplerYcbcrConversion*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSamplerYcbcrConversion(Vk.Device device, in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion ycbcrConversion)
+	{
+		fixed (Vk.SamplerYcbcrConversionCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.SamplerYcbcrConversion* ycbcrConversionFIXED = &ycbcrConversion)
+		return vkCreateSamplerYcbcrConversion(device, createInfoFIXED, allocatorFIXED, ycbcrConversionFIXED);
+	}
 
 	/// <summary>vkCreateSamplerYcbcrConversionKHR(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversionCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.SamplerYcbcrConversion*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSamplerYcbcrConversionKHR(Vk.Device device, Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.SamplerYcbcrConversion* pYcbcrConversion)
 		=> vkCreateSamplerYcbcrConversionKHR(device, pCreateInfo, pAllocator, pYcbcrConversion);
 
+	/// <summary>vkCreateSamplerYcbcrConversionKHR(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversionCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.SamplerYcbcrConversion*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSamplerYcbcrConversionKHR(Vk.Device device, in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion ycbcrConversion)
+	{
+		fixed (Vk.SamplerYcbcrConversionCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.SamplerYcbcrConversion* ycbcrConversionFIXED = &ycbcrConversion)
+		return vkCreateSamplerYcbcrConversionKHR(device, createInfoFIXED, allocatorFIXED, ycbcrConversionFIXED);
+	}
+
 	/// <summary>vkDestroySamplerYcbcrConversion(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversion</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySamplerYcbcrConversion(Vk.Device device, Vk.SamplerYcbcrConversion ycbcrConversion, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroySamplerYcbcrConversion(device, ycbcrConversion, pAllocator);
+
+	/// <summary>vkDestroySamplerYcbcrConversion(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversion</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroySamplerYcbcrConversion(Vk.Device device, Vk.SamplerYcbcrConversion ycbcrConversion, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroySamplerYcbcrConversion(device, ycbcrConversion, allocatorFIXED);
+	}
 
 	/// <summary>vkDestroySamplerYcbcrConversionKHR(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversion</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySamplerYcbcrConversionKHR(Vk.Device device, Vk.SamplerYcbcrConversion ycbcrConversion, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroySamplerYcbcrConversionKHR(device, ycbcrConversion, pAllocator);
 
+	/// <summary>vkDestroySamplerYcbcrConversionKHR(<c>Vk.Device</c>, <c>Vk.SamplerYcbcrConversion</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroySamplerYcbcrConversionKHR(Vk.Device device, Vk.SamplerYcbcrConversion ycbcrConversion, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroySamplerYcbcrConversionKHR(device, ycbcrConversion, allocatorFIXED);
+	}
+
 	/// <summary>vkGetDeviceQueue2(<c>Vk.Device</c>, <c>Vk.DeviceQueueInfo2*</c>, <c>Vk.Queue*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue2(Vk.Device device, Vk.DeviceQueueInfo2* pQueueInfo, Vk.Queue* pQueue)
 		=> vkGetDeviceQueue2(device, pQueueInfo, pQueue);
+
+	/// <summary>vkGetDeviceQueue2(<c>Vk.Device</c>, <c>Vk.DeviceQueueInfo2*</c>, <c>Vk.Queue*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceQueue2(Vk.Device device, in Vk.DeviceQueueInfo2 queueInfo, out Vk.Queue queue)
+	{
+		fixed (Vk.DeviceQueueInfo2* queueInfoFIXED = &queueInfo)
+		fixed (Vk.Queue* queueFIXED = &queue)
+		vkGetDeviceQueue2(device, queueInfoFIXED, queueFIXED);
+	}
 
 	/// <summary>vkCreateValidationCacheEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCacheCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.EXT.ValidationCache*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateValidationCacheEXT(Vk.Device device, Vk.EXT.ValidationCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.ValidationCache* pValidationCache)
 		=> vkCreateValidationCacheEXT(device, pCreateInfo, pAllocator, pValidationCache);
 
+	/// <summary>vkCreateValidationCacheEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCacheCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.EXT.ValidationCache*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateValidationCacheEXT(Vk.Device device, in Vk.EXT.ValidationCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.ValidationCache validationCache)
+	{
+		fixed (Vk.EXT.ValidationCacheCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.EXT.ValidationCache* validationCacheFIXED = &validationCache)
+		return vkCreateValidationCacheEXT(device, createInfoFIXED, allocatorFIXED, validationCacheFIXED);
+	}
+
 	/// <summary>vkDestroyValidationCacheEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCache</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyValidationCacheEXT(Vk.Device device, Vk.EXT.ValidationCache validationCache, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyValidationCacheEXT(device, validationCache, pAllocator);
+
+	/// <summary>vkDestroyValidationCacheEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCache</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyValidationCacheEXT(Vk.Device device, Vk.EXT.ValidationCache validationCache, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyValidationCacheEXT(device, validationCache, allocatorFIXED);
+	}
 
 	/// <summary>vkGetValidationCacheDataEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCache</c>, <c>ulong*</c>, <c>void*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetValidationCacheDataEXT(Vk.Device device, Vk.EXT.ValidationCache validationCache, ulong* pDataSize, void* pData)
 		=> vkGetValidationCacheDataEXT(device, validationCache, pDataSize, pData);
 
+	/// <summary>vkGetValidationCacheDataEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCache</c>, <c>ulong*</c>, <c>void*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetValidationCacheDataEXT(Vk.Device device, Vk.EXT.ValidationCache validationCache, out ulong dataSize, void* pData)
+	{
+		fixed (ulong* dataSizeFIXED = &dataSize)
+		return vkGetValidationCacheDataEXT(device, validationCache, dataSizeFIXED, pData);
+	}
+
 	/// <summary>vkMergeValidationCachesEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCache</c>, <c>uint</c>, <c>Vk.EXT.ValidationCache*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result MergeValidationCachesEXT(Vk.Device device, Vk.EXT.ValidationCache dstCache, uint srcCacheCount, Vk.EXT.ValidationCache* pSrcCaches)
 		=> vkMergeValidationCachesEXT(device, dstCache, srcCacheCount, pSrcCaches);
+
+	/// <summary>vkMergeValidationCachesEXT(<c>Vk.Device</c>, <c>Vk.EXT.ValidationCache</c>, <c>uint</c>, <c>Vk.EXT.ValidationCache*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result MergeValidationCachesEXT(Vk.Device device, Vk.EXT.ValidationCache dstCache, in ReadOnlySpan<Vk.EXT.ValidationCache> srcCaches)
+	{
+		fixed (Vk.EXT.ValidationCache* srcCachesFIXED = srcCaches)
+		return vkMergeValidationCachesEXT(device, dstCache, (uint)srcCaches.Length, srcCachesFIXED);
+	}
 
 	/// <summary>vkGetDescriptorSetLayoutSupport(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.DescriptorSetLayoutSupport*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDescriptorSetLayoutSupport(Vk.Device device, Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.DescriptorSetLayoutSupport* pSupport)
 		=> vkGetDescriptorSetLayoutSupport(device, pCreateInfo, pSupport);
 
+	/// <summary>vkGetDescriptorSetLayoutSupport(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.DescriptorSetLayoutSupport*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDescriptorSetLayoutSupport(Vk.Device device, in Vk.DescriptorSetLayoutCreateInfo createInfo, out Vk.DescriptorSetLayoutSupport support)
+	{
+		fixed (Vk.DescriptorSetLayoutCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.DescriptorSetLayoutSupport* supportFIXED = &support)
+		vkGetDescriptorSetLayoutSupport(device, createInfoFIXED, supportFIXED);
+	}
+
 	/// <summary>vkGetDescriptorSetLayoutSupportKHR(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.DescriptorSetLayoutSupport*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDescriptorSetLayoutSupportKHR(Vk.Device device, Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.DescriptorSetLayoutSupport* pSupport)
 		=> vkGetDescriptorSetLayoutSupportKHR(device, pCreateInfo, pSupport);
+
+	/// <summary>vkGetDescriptorSetLayoutSupportKHR(<c>Vk.Device</c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.DescriptorSetLayoutSupport*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDescriptorSetLayoutSupportKHR(Vk.Device device, in Vk.DescriptorSetLayoutCreateInfo createInfo, out Vk.DescriptorSetLayoutSupport support)
+	{
+		fixed (Vk.DescriptorSetLayoutCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.DescriptorSetLayoutSupport* supportFIXED = &support)
+		vkGetDescriptorSetLayoutSupportKHR(device, createInfoFIXED, supportFIXED);
+	}
 
 	/// <summary>vkGetSwapchainGrallocUsageANDROID(<c>Vk.Device</c>, <c>Vk.Format</c>, <c>Vk.ImageUsageFlags</c>, <c>int*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainGrallocUsageANDROID(Vk.Device device, Vk.Format format, Vk.ImageUsageFlags imageUsage, int* grallocUsage)
 		=> vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsage);
 
+	/// <summary>vkGetSwapchainGrallocUsageANDROID(<c>Vk.Device</c>, <c>Vk.Format</c>, <c>Vk.ImageUsageFlags</c>, <c>int*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSwapchainGrallocUsageANDROID(Vk.Device device, Vk.Format format, Vk.ImageUsageFlags imageUsage, out int grallocUsage)
+	{
+		fixed (int* grallocUsageFIXED = &grallocUsage)
+		return vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsageFIXED);
+	}
+
 	/// <summary>vkGetSwapchainGrallocUsage2ANDROID(<c>Vk.Device</c>, <c>Vk.Format</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ANDROID.SwapchainImageUsageFlags</c>, <c>ulong*</c>, <c>ulong*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainGrallocUsage2ANDROID(Vk.Device device, Vk.Format format, Vk.ImageUsageFlags imageUsage, Vk.ANDROID.SwapchainImageUsageFlags swapchainImageUsage, ulong* grallocConsumerUsage, ulong* grallocProducerUsage)
 		=> vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsage, grallocProducerUsage);
+
+	/// <summary>vkGetSwapchainGrallocUsage2ANDROID(<c>Vk.Device</c>, <c>Vk.Format</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ANDROID.SwapchainImageUsageFlags</c>, <c>ulong*</c>, <c>ulong*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSwapchainGrallocUsage2ANDROID(Vk.Device device, Vk.Format format, Vk.ImageUsageFlags imageUsage, Vk.ANDROID.SwapchainImageUsageFlags swapchainImageUsage, out ulong grallocConsumerUsage, out ulong grallocProducerUsage)
+	{
+		fixed (ulong* grallocConsumerUsageFIXED = &grallocConsumerUsage)
+		fixed (ulong* grallocProducerUsageFIXED = &grallocProducerUsage)
+		return vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsageFIXED, grallocProducerUsageFIXED);
+	}
 
 	/// <summary>vkAcquireImageANDROID(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>int</c>, <c>Vk.Semaphore</c>, <c>Vk.Fence</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1550,10 +3647,27 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result QueueSignalReleaseImageANDROID(Vk.Queue queue, uint waitSemaphoreCount, Vk.Semaphore* pWaitSemaphores, Vk.Image image, int* pNativeFenceFd)
 		=> vkQueueSignalReleaseImageANDROID(queue, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
 
+	/// <summary>vkQueueSignalReleaseImageANDROID(<c>Vk.Queue</c>, <c>uint</c>, <c>Vk.Semaphore*</c>, <c>Vk.Image</c>, <c>int*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result QueueSignalReleaseImageANDROID(Vk.Queue queue, in ReadOnlySpan<Vk.Semaphore> waitSemaphores, Vk.Image image, out int nativeFenceFd)
+	{
+		fixed (Vk.Semaphore* waitSemaphoresFIXED = waitSemaphores)
+		fixed (int* nativeFenceFdFIXED = &nativeFenceFd)
+		return vkQueueSignalReleaseImageANDROID(queue, (uint)waitSemaphores.Length, waitSemaphoresFIXED, image, nativeFenceFdFIXED);
+	}
+
 	/// <summary>vkGetShaderInfoAMD(<c>Vk.Device</c>, <c>Vk.Pipeline</c>, <c>Vk.ShaderStageFlags</c>, <c>Vk.AMD.ShaderInfoType</c>, <c>ulong*</c>, <c>void*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetShaderInfoAMD(Vk.Device device, Vk.Pipeline pipeline, Vk.ShaderStageFlags shaderStage, Vk.AMD.ShaderInfoType infoType, ulong* pInfoSize, void* pInfo)
 		=> vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, pInfoSize, pInfo);
+
+	/// <summary>vkGetShaderInfoAMD(<c>Vk.Device</c>, <c>Vk.Pipeline</c>, <c>Vk.ShaderStageFlags</c>, <c>Vk.AMD.ShaderInfoType</c>, <c>ulong*</c>, <c>void*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetShaderInfoAMD(Vk.Device device, Vk.Pipeline pipeline, Vk.ShaderStageFlags shaderStage, Vk.AMD.ShaderInfoType infoType, out ulong infoSize, void* pInfo)
+	{
+		fixed (ulong* infoSizeFIXED = &infoSize)
+		return vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, infoSizeFIXED, pInfo);
+	}
 
 	/// <summary>vkSetLocalDimmingAMD(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>, <c>Vk.Bool32</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1565,20 +3679,54 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetCalibratedTimestampsEXT(Vk.Device device, uint timestampCount, Vk.EXT.CalibratedTimestampInfo* pTimestampInfos, ulong* pTimestamps, ulong* pMaxDeviation)
 		=> vkGetCalibratedTimestampsEXT(device, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
 
+	/// <summary>vkGetCalibratedTimestampsEXT(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.EXT.CalibratedTimestampInfo*</c>, <c>ulong*</c>, <c>ulong*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetCalibratedTimestampsEXT(Vk.Device device, in ReadOnlySpan<Vk.EXT.CalibratedTimestampInfo> timestampInfos, in Span<ulong> timestamps, out ulong maxDeviation)
+	{
+		fixed (Vk.EXT.CalibratedTimestampInfo* timestampInfosFIXED = timestampInfos)
+		fixed (ulong* timestampsFIXED = timestamps)
+		fixed (ulong* maxDeviationFIXED = &maxDeviation)
+		return vkGetCalibratedTimestampsEXT(device, (uint)timestampInfos.Length, timestampInfosFIXED, timestampsFIXED, maxDeviationFIXED);
+	}
+
 	/// <summary>vkSetDebugUtilsObjectNameEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugUtilsObjectNameInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result SetDebugUtilsObjectNameEXT(Vk.Device device, Vk.EXT.DebugUtilsObjectNameInfo* pNameInfo)
 		=> vkSetDebugUtilsObjectNameEXT(device, pNameInfo);
+
+	/// <summary>vkSetDebugUtilsObjectNameEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugUtilsObjectNameInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SetDebugUtilsObjectNameEXT(Vk.Device device, in Vk.EXT.DebugUtilsObjectNameInfo nameInfo)
+	{
+		fixed (Vk.EXT.DebugUtilsObjectNameInfo* nameInfoFIXED = &nameInfo)
+		return vkSetDebugUtilsObjectNameEXT(device, nameInfoFIXED);
+	}
 
 	/// <summary>vkSetDebugUtilsObjectTagEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugUtilsObjectTagInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result SetDebugUtilsObjectTagEXT(Vk.Device device, Vk.EXT.DebugUtilsObjectTagInfo* pTagInfo)
 		=> vkSetDebugUtilsObjectTagEXT(device, pTagInfo);
 
+	/// <summary>vkSetDebugUtilsObjectTagEXT(<c>Vk.Device</c>, <c>Vk.EXT.DebugUtilsObjectTagInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SetDebugUtilsObjectTagEXT(Vk.Device device, in Vk.EXT.DebugUtilsObjectTagInfo tagInfo)
+	{
+		fixed (Vk.EXT.DebugUtilsObjectTagInfo* tagInfoFIXED = &tagInfo)
+		return vkSetDebugUtilsObjectTagEXT(device, tagInfoFIXED);
+	}
+
 	/// <summary>vkQueueBeginDebugUtilsLabelEXT(<c>Vk.Queue</c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void QueueBeginDebugUtilsLabelEXT(Vk.Queue queue, Vk.EXT.DebugUtilsLabel* pLabelInfo)
 		=> vkQueueBeginDebugUtilsLabelEXT(queue, pLabelInfo);
+
+	/// <summary>vkQueueBeginDebugUtilsLabelEXT(<c>Vk.Queue</c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void QueueBeginDebugUtilsLabelEXT(Vk.Queue queue, in Vk.EXT.DebugUtilsLabel labelInfo)
+	{
+		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
+		vkQueueBeginDebugUtilsLabelEXT(queue, labelInfoFIXED);
+	}
 
 	/// <summary>vkQueueEndDebugUtilsLabelEXT(<c>Vk.Queue</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1590,10 +3738,26 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void QueueInsertDebugUtilsLabelEXT(Vk.Queue queue, Vk.EXT.DebugUtilsLabel* pLabelInfo)
 		=> vkQueueInsertDebugUtilsLabelEXT(queue, pLabelInfo);
 
+	/// <summary>vkQueueInsertDebugUtilsLabelEXT(<c>Vk.Queue</c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void QueueInsertDebugUtilsLabelEXT(Vk.Queue queue, in Vk.EXT.DebugUtilsLabel labelInfo)
+	{
+		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
+		vkQueueInsertDebugUtilsLabelEXT(queue, labelInfoFIXED);
+	}
+
 	/// <summary>vkCmdBeginDebugUtilsLabelEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugUtilsLabel* pLabelInfo)
 		=> vkCmdBeginDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
+
+	/// <summary>vkCmdBeginDebugUtilsLabelEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, in Vk.EXT.DebugUtilsLabel labelInfo)
+	{
+		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
+		vkCmdBeginDebugUtilsLabelEXT(commandBuffer, labelInfoFIXED);
+	}
 
 	/// <summary>vkCmdEndDebugUtilsLabelEXT(<c>Vk.CommandBuffer</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1605,10 +3769,26 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdInsertDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, Vk.EXT.DebugUtilsLabel* pLabelInfo)
 		=> vkCmdInsertDebugUtilsLabelEXT(commandBuffer, pLabelInfo);
 
+	/// <summary>vkCmdInsertDebugUtilsLabelEXT(<c>Vk.CommandBuffer</c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdInsertDebugUtilsLabelEXT(Vk.CommandBuffer commandBuffer, in Vk.EXT.DebugUtilsLabel labelInfo)
+	{
+		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
+		vkCmdInsertDebugUtilsLabelEXT(commandBuffer, labelInfoFIXED);
+	}
+
 	/// <summary>vkGetMemoryHostPointerPropertiesEXT(<c>Vk.Device</c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>void*</c>, <c>Vk.EXT.MemoryHostPointerProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetMemoryHostPointerPropertiesEXT(Vk.Device device, Vk.ExternalMemoryHandleTypeFlags handleType, void* pHostPointer, Vk.EXT.MemoryHostPointerProperties* pMemoryHostPointerProperties)
 		=> vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, pMemoryHostPointerProperties);
+
+	/// <summary>vkGetMemoryHostPointerPropertiesEXT(<c>Vk.Device</c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>void*</c>, <c>Vk.EXT.MemoryHostPointerProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetMemoryHostPointerPropertiesEXT(Vk.Device device, Vk.ExternalMemoryHandleTypeFlags handleType, void* pHostPointer, out Vk.EXT.MemoryHostPointerProperties memoryHostPointerProperties)
+	{
+		fixed (Vk.EXT.MemoryHostPointerProperties* memoryHostPointerPropertiesFIXED = &memoryHostPointerProperties)
+		return vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, memoryHostPointerPropertiesFIXED);
+	}
 
 	/// <summary>vkCmdWriteBufferMarkerAMD(<c>Vk.CommandBuffer</c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1620,80 +3800,216 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreateRenderPass2(Vk.Device device, Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.RenderPass* pRenderPass)
 		=> vkCreateRenderPass2(device, pCreateInfo, pAllocator, pRenderPass);
 
+	/// <summary>vkCreateRenderPass2(<c>Vk.Device</c>, <c>Vk.RenderPassCreateInfo2*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.RenderPass*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass2(Vk.Device device, in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass renderPass)
+	{
+		fixed (Vk.RenderPassCreateInfo2* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.RenderPass* renderPassFIXED = &renderPass)
+		return vkCreateRenderPass2(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+	}
+
 	/// <summary>vkCreateRenderPass2KHR(<c>Vk.Device</c>, <c>Vk.RenderPassCreateInfo2*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.RenderPass*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateRenderPass2KHR(Vk.Device device, Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.RenderPass* pRenderPass)
 		=> vkCreateRenderPass2KHR(device, pCreateInfo, pAllocator, pRenderPass);
+
+	/// <summary>vkCreateRenderPass2KHR(<c>Vk.Device</c>, <c>Vk.RenderPassCreateInfo2*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.RenderPass*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass2KHR(Vk.Device device, in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass renderPass)
+	{
+		fixed (Vk.RenderPassCreateInfo2* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.RenderPass* renderPassFIXED = &renderPass)
+		return vkCreateRenderPass2KHR(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+	}
 
 	/// <summary>vkCmdBeginRenderPass2(<c>Vk.CommandBuffer</c>, <c>Vk.RenderPassBeginInfo*</c>, <c>Vk.SubpassBeginInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginRenderPass2(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
 		=> vkCmdBeginRenderPass2(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
 
+	/// <summary>vkCmdBeginRenderPass2(<c>Vk.CommandBuffer</c>, <c>Vk.RenderPassBeginInfo*</c>, <c>Vk.SubpassBeginInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginRenderPass2(Vk.CommandBuffer commandBuffer, in Vk.RenderPassBeginInfo renderPassBegin, in Vk.SubpassBeginInfo subpassBeginInfo)
+	{
+		fixed (Vk.RenderPassBeginInfo* renderPassBeginFIXED = &renderPassBegin)
+		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
+		vkCmdBeginRenderPass2(commandBuffer, renderPassBeginFIXED, subpassBeginInfoFIXED);
+	}
+
 	/// <summary>vkCmdBeginRenderPass2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.RenderPassBeginInfo*</c>, <c>Vk.SubpassBeginInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginRenderPass2KHR(Vk.CommandBuffer commandBuffer, Vk.RenderPassBeginInfo* pRenderPassBegin, Vk.SubpassBeginInfo* pSubpassBeginInfo)
 		=> vkCmdBeginRenderPass2KHR(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
+
+	/// <summary>vkCmdBeginRenderPass2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.RenderPassBeginInfo*</c>, <c>Vk.SubpassBeginInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginRenderPass2KHR(Vk.CommandBuffer commandBuffer, in Vk.RenderPassBeginInfo renderPassBegin, in Vk.SubpassBeginInfo subpassBeginInfo)
+	{
+		fixed (Vk.RenderPassBeginInfo* renderPassBeginFIXED = &renderPassBegin)
+		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
+		vkCmdBeginRenderPass2KHR(commandBuffer, renderPassBeginFIXED, subpassBeginInfoFIXED);
+	}
 
 	/// <summary>vkCmdNextSubpass2(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassBeginInfo*</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdNextSubpass2(Vk.CommandBuffer commandBuffer, Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> vkCmdNextSubpass2(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
 
+	/// <summary>vkCmdNextSubpass2(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassBeginInfo*</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdNextSubpass2(Vk.CommandBuffer commandBuffer, in Vk.SubpassBeginInfo subpassBeginInfo, in Vk.SubpassEndInfo subpassEndInfo)
+	{
+		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
+		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
+		vkCmdNextSubpass2(commandBuffer, subpassBeginInfoFIXED, subpassEndInfoFIXED);
+	}
+
 	/// <summary>vkCmdNextSubpass2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassBeginInfo*</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdNextSubpass2KHR(Vk.CommandBuffer commandBuffer, Vk.SubpassBeginInfo* pSubpassBeginInfo, Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> vkCmdNextSubpass2KHR(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
+
+	/// <summary>vkCmdNextSubpass2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassBeginInfo*</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdNextSubpass2KHR(Vk.CommandBuffer commandBuffer, in Vk.SubpassBeginInfo subpassBeginInfo, in Vk.SubpassEndInfo subpassEndInfo)
+	{
+		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
+		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
+		vkCmdNextSubpass2KHR(commandBuffer, subpassBeginInfoFIXED, subpassEndInfoFIXED);
+	}
 
 	/// <summary>vkCmdEndRenderPass2(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndRenderPass2(Vk.CommandBuffer commandBuffer, Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> vkCmdEndRenderPass2(commandBuffer, pSubpassEndInfo);
 
+	/// <summary>vkCmdEndRenderPass2(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdEndRenderPass2(Vk.CommandBuffer commandBuffer, in Vk.SubpassEndInfo subpassEndInfo)
+	{
+		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
+		vkCmdEndRenderPass2(commandBuffer, subpassEndInfoFIXED);
+	}
+
 	/// <summary>vkCmdEndRenderPass2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndRenderPass2KHR(Vk.CommandBuffer commandBuffer, Vk.SubpassEndInfo* pSubpassEndInfo)
 		=> vkCmdEndRenderPass2KHR(commandBuffer, pSubpassEndInfo);
+
+	/// <summary>vkCmdEndRenderPass2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdEndRenderPass2KHR(Vk.CommandBuffer commandBuffer, in Vk.SubpassEndInfo subpassEndInfo)
+	{
+		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
+		vkCmdEndRenderPass2KHR(commandBuffer, subpassEndInfoFIXED);
+	}
 
 	/// <summary>vkGetSemaphoreCounterValue(<c>Vk.Device</c>, <c>Vk.Semaphore</c>, <c>ulong*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSemaphoreCounterValue(Vk.Device device, Vk.Semaphore semaphore, ulong* pValue)
 		=> vkGetSemaphoreCounterValue(device, semaphore, pValue);
 
+	/// <summary>vkGetSemaphoreCounterValue(<c>Vk.Device</c>, <c>Vk.Semaphore</c>, <c>ulong*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSemaphoreCounterValue(Vk.Device device, Vk.Semaphore semaphore, out ulong value)
+	{
+		fixed (ulong* valueFIXED = &value)
+		return vkGetSemaphoreCounterValue(device, semaphore, valueFIXED);
+	}
+
 	/// <summary>vkGetSemaphoreCounterValueKHR(<c>Vk.Device</c>, <c>Vk.Semaphore</c>, <c>ulong*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSemaphoreCounterValueKHR(Vk.Device device, Vk.Semaphore semaphore, ulong* pValue)
 		=> vkGetSemaphoreCounterValueKHR(device, semaphore, pValue);
+
+	/// <summary>vkGetSemaphoreCounterValueKHR(<c>Vk.Device</c>, <c>Vk.Semaphore</c>, <c>ulong*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSemaphoreCounterValueKHR(Vk.Device device, Vk.Semaphore semaphore, out ulong value)
+	{
+		fixed (ulong* valueFIXED = &value)
+		return vkGetSemaphoreCounterValueKHR(device, semaphore, valueFIXED);
+	}
 
 	/// <summary>vkWaitSemaphores(<c>Vk.Device</c>, <c>Vk.SemaphoreWaitInfo*</c>, <c>ulong</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result WaitSemaphores(Vk.Device device, Vk.SemaphoreWaitInfo* pWaitInfo, ulong timeout)
 		=> vkWaitSemaphores(device, pWaitInfo, timeout);
 
+	/// <summary>vkWaitSemaphores(<c>Vk.Device</c>, <c>Vk.SemaphoreWaitInfo*</c>, <c>ulong</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result WaitSemaphores(Vk.Device device, in Vk.SemaphoreWaitInfo waitInfo, ulong timeout)
+	{
+		fixed (Vk.SemaphoreWaitInfo* waitInfoFIXED = &waitInfo)
+		return vkWaitSemaphores(device, waitInfoFIXED, timeout);
+	}
+
 	/// <summary>vkWaitSemaphoresKHR(<c>Vk.Device</c>, <c>Vk.SemaphoreWaitInfo*</c>, <c>ulong</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result WaitSemaphoresKHR(Vk.Device device, Vk.SemaphoreWaitInfo* pWaitInfo, ulong timeout)
 		=> vkWaitSemaphoresKHR(device, pWaitInfo, timeout);
+
+	/// <summary>vkWaitSemaphoresKHR(<c>Vk.Device</c>, <c>Vk.SemaphoreWaitInfo*</c>, <c>ulong</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result WaitSemaphoresKHR(Vk.Device device, in Vk.SemaphoreWaitInfo waitInfo, ulong timeout)
+	{
+		fixed (Vk.SemaphoreWaitInfo* waitInfoFIXED = &waitInfo)
+		return vkWaitSemaphoresKHR(device, waitInfoFIXED, timeout);
+	}
 
 	/// <summary>vkSignalSemaphore(<c>Vk.Device</c>, <c>Vk.SemaphoreSignalInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result SignalSemaphore(Vk.Device device, Vk.SemaphoreSignalInfo* pSignalInfo)
 		=> vkSignalSemaphore(device, pSignalInfo);
 
+	/// <summary>vkSignalSemaphore(<c>Vk.Device</c>, <c>Vk.SemaphoreSignalInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SignalSemaphore(Vk.Device device, in Vk.SemaphoreSignalInfo signalInfo)
+	{
+		fixed (Vk.SemaphoreSignalInfo* signalInfoFIXED = &signalInfo)
+		return vkSignalSemaphore(device, signalInfoFIXED);
+	}
+
 	/// <summary>vkSignalSemaphoreKHR(<c>Vk.Device</c>, <c>Vk.SemaphoreSignalInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result SignalSemaphoreKHR(Vk.Device device, Vk.SemaphoreSignalInfo* pSignalInfo)
 		=> vkSignalSemaphoreKHR(device, pSignalInfo);
+
+	/// <summary>vkSignalSemaphoreKHR(<c>Vk.Device</c>, <c>Vk.SemaphoreSignalInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result SignalSemaphoreKHR(Vk.Device device, in Vk.SemaphoreSignalInfo signalInfo)
+	{
+		fixed (Vk.SemaphoreSignalInfo* signalInfoFIXED = &signalInfo)
+		return vkSignalSemaphoreKHR(device, signalInfoFIXED);
+	}
 
 	/// <summary>vkGetAndroidHardwareBufferPropertiesANDROID(<c>Vk.Device</c>, <c>void*</c>, <c>Vk.ANDROID.AndroidHardwareBufferProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetAndroidHardwareBufferPropertiesANDROID(Vk.Device device, void* buffer, Vk.ANDROID.AndroidHardwareBufferProperties* pProperties)
 		=> vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, pProperties);
 
+	/// <summary>vkGetAndroidHardwareBufferPropertiesANDROID(<c>Vk.Device</c>, <c>void*</c>, <c>Vk.ANDROID.AndroidHardwareBufferProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetAndroidHardwareBufferPropertiesANDROID(Vk.Device device, void* buffer, out Vk.ANDROID.AndroidHardwareBufferProperties properties)
+	{
+		fixed (Vk.ANDROID.AndroidHardwareBufferProperties* propertiesFIXED = &properties)
+		return vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, propertiesFIXED);
+	}
+
 	/// <summary>vkGetMemoryAndroidHardwareBufferANDROID(<c>Vk.Device</c>, <c>Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo*</c>, <c>void**</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetMemoryAndroidHardwareBufferANDROID(Vk.Device device, Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo* pInfo, void** pBuffer)
 		=> vkGetMemoryAndroidHardwareBufferANDROID(device, pInfo, pBuffer);
+
+	/// <summary>vkGetMemoryAndroidHardwareBufferANDROID(<c>Vk.Device</c>, <c>Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo*</c>, <c>void**</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetMemoryAndroidHardwareBufferANDROID(Vk.Device device, in Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo info, void** pBuffer)
+	{
+		fixed (Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo* infoFIXED = &info)
+		return vkGetMemoryAndroidHardwareBufferANDROID(device, infoFIXED, pBuffer);
+	}
 
 	/// <summary>vkCmdDrawIndirectCount(<c>Vk.CommandBuffer</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>uint</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1735,20 +4051,57 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetQueueCheckpointDataNV(Vk.Queue queue, uint* pCheckpointDataCount, Vk.NV.CheckpointData* pCheckpointData)
 		=> vkGetQueueCheckpointDataNV(queue, pCheckpointDataCount, pCheckpointData);
 
+	/// <summary>vkGetQueueCheckpointDataNV(<c>Vk.Queue</c>, <c>uint*</c>, <c>Vk.NV.CheckpointData*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetQueueCheckpointDataNV(Vk.Queue queue, out uint checkpointDataCount, in Span<Vk.NV.CheckpointData> checkpointData)
+	{
+		fixed (uint* checkpointDataCountFIXED = &checkpointDataCount)
+		fixed (Vk.NV.CheckpointData* checkpointDataFIXED = checkpointData)
+		vkGetQueueCheckpointDataNV(queue, checkpointDataCountFIXED, checkpointDataFIXED);
+	}
+
 	/// <summary>vkCmdBindTransformFeedbackBuffersEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindTransformFeedbackBuffersEXT(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes)
 		=> vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
+
+	/// <summary>vkCmdBindTransformFeedbackBuffersEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBindTransformFeedbackBuffersEXT(Vk.CommandBuffer commandBuffer, uint firstBinding, in ReadOnlySpan<Vk.Buffer> buffers, in ReadOnlySpan<Vk.DeviceSize> offsets, in ReadOnlySpan<Vk.DeviceSize> sizes)
+	{
+		fixed (Vk.Buffer* buffersFIXED = buffers)
+		fixed (Vk.DeviceSize* offsetsFIXED = offsets)
+		fixed (Vk.DeviceSize* sizesFIXED = sizes)
+		vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED, sizesFIXED);
+	}
 
 	/// <summary>vkCmdBeginTransformFeedbackEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
 		=> vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
 
+	/// <summary>vkCmdBeginTransformFeedbackEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, in ReadOnlySpan<Vk.Buffer> counterBuffers, in ReadOnlySpan<Vk.DeviceSize> counterBufferOffsets)
+	{
+		fixed (Vk.Buffer* counterBuffersFIXED = counterBuffers)
+		fixed (Vk.DeviceSize* counterBufferOffsetsFIXED = counterBufferOffsets)
+		vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, (uint)counterBuffers.Length, counterBuffersFIXED, counterBufferOffsetsFIXED);
+	}
+
 	/// <summary>vkCmdEndTransformFeedbackEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, uint counterBufferCount, Vk.Buffer* pCounterBuffers, Vk.DeviceSize* pCounterBufferOffsets)
 		=> vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+
+	/// <summary>vkCmdEndTransformFeedbackEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdEndTransformFeedbackEXT(Vk.CommandBuffer commandBuffer, uint firstCounterBuffer, in ReadOnlySpan<Vk.Buffer> counterBuffers, in ReadOnlySpan<Vk.DeviceSize> counterBufferOffsets)
+	{
+		fixed (Vk.Buffer* counterBuffersFIXED = counterBuffers)
+		fixed (Vk.DeviceSize* counterBufferOffsetsFIXED = counterBufferOffsets)
+		vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, (uint)counterBuffers.Length, counterBuffersFIXED, counterBufferOffsetsFIXED);
+	}
 
 	/// <summary>vkCmdBeginQueryIndexedEXT(<c>Vk.CommandBuffer</c>, <c>Vk.QueryPool</c>, <c>uint</c>, <c>Vk.QueryControlFlags</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1770,6 +4123,14 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetExclusiveScissorNV(Vk.CommandBuffer commandBuffer, uint firstExclusiveScissor, uint exclusiveScissorCount, Vk.Rect2D* pExclusiveScissors)
 		=> vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
 
+	/// <summary>vkCmdSetExclusiveScissorNV(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetExclusiveScissorNV(Vk.CommandBuffer commandBuffer, uint firstExclusiveScissor, in ReadOnlySpan<Vk.Rect2D> exclusiveScissors)
+	{
+		fixed (Vk.Rect2D* exclusiveScissorsFIXED = exclusiveScissors)
+		vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, (uint)exclusiveScissors.Length, exclusiveScissorsFIXED);
+	}
+
 	/// <summary>vkCmdBindShadingRateImageNV(<c>Vk.CommandBuffer</c>, <c>Vk.ImageView</c>, <c>Vk.ImageLayout</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindShadingRateImageNV(Vk.CommandBuffer commandBuffer, Vk.ImageView imageView, Vk.ImageLayout imageLayout)
@@ -1780,10 +4141,26 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetViewportShadingRatePaletteNV(Vk.CommandBuffer commandBuffer, uint firstViewport, uint viewportCount, Vk.NV.ShadingRatePalette* pShadingRatePalettes)
 		=> vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, viewportCount, pShadingRatePalettes);
 
+	/// <summary>vkCmdSetViewportShadingRatePaletteNV(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.NV.ShadingRatePalette*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetViewportShadingRatePaletteNV(Vk.CommandBuffer commandBuffer, uint firstViewport, in ReadOnlySpan<Vk.NV.ShadingRatePalette> shadingRatePalettes)
+	{
+		fixed (Vk.NV.ShadingRatePalette* shadingRatePalettesFIXED = shadingRatePalettes)
+		vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, (uint)shadingRatePalettes.Length, shadingRatePalettesFIXED);
+	}
+
 	/// <summary>vkCmdSetCoarseSampleOrderNV(<c>Vk.CommandBuffer</c>, <c>Vk.NV.CoarseSampleOrderType</c>, <c>uint</c>, <c>Vk.NV.CoarseSampleOrderCustom*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetCoarseSampleOrderNV(Vk.CommandBuffer commandBuffer, Vk.NV.CoarseSampleOrderType sampleOrderType, uint customSampleOrderCount, Vk.NV.CoarseSampleOrderCustom* pCustomSampleOrders)
 		=> vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
+
+	/// <summary>vkCmdSetCoarseSampleOrderNV(<c>Vk.CommandBuffer</c>, <c>Vk.NV.CoarseSampleOrderType</c>, <c>uint</c>, <c>Vk.NV.CoarseSampleOrderCustom*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetCoarseSampleOrderNV(Vk.CommandBuffer commandBuffer, Vk.NV.CoarseSampleOrderType sampleOrderType, in ReadOnlySpan<Vk.NV.CoarseSampleOrderCustom> customSampleOrders)
+	{
+		fixed (Vk.NV.CoarseSampleOrderCustom* customSampleOrdersFIXED = customSampleOrders)
+		vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, (uint)customSampleOrders.Length, customSampleOrdersFIXED);
+	}
 
 	/// <summary>vkCmdDrawMeshTasksNV(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1810,35 +4187,95 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreateAccelerationStructureNV(Vk.Device device, Vk.NV.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.NV.AccelerationStructure* pAccelerationStructure)
 		=> vkCreateAccelerationStructureNV(device, pCreateInfo, pAllocator, pAccelerationStructure);
 
+	/// <summary>vkCreateAccelerationStructureNV(<c>Vk.Device</c>, <c>Vk.NV.AccelerationStructureCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.NV.AccelerationStructure*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAccelerationStructureNV(Vk.Device device, in Vk.NV.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.AccelerationStructure accelerationStructure)
+	{
+		fixed (Vk.NV.AccelerationStructureCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.NV.AccelerationStructure* accelerationStructureFIXED = &accelerationStructure)
+		return vkCreateAccelerationStructureNV(device, createInfoFIXED, allocatorFIXED, accelerationStructureFIXED);
+	}
+
 	/// <summary>vkDestroyAccelerationStructureKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureKHR(Vk.Device device, Vk.KHR.AccelerationStructure accelerationStructure, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyAccelerationStructureKHR(device, accelerationStructure, pAllocator);
+
+	/// <summary>vkDestroyAccelerationStructureKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyAccelerationStructureKHR(Vk.Device device, Vk.KHR.AccelerationStructure accelerationStructure, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyAccelerationStructureKHR(device, accelerationStructure, allocatorFIXED);
+	}
 
 	/// <summary>vkDestroyAccelerationStructureNV(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureNV(Vk.Device device, Vk.KHR.AccelerationStructure accelerationStructure, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyAccelerationStructureNV(device, accelerationStructure, pAllocator);
 
+	/// <summary>vkDestroyAccelerationStructureNV(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyAccelerationStructureNV(Vk.Device device, Vk.KHR.AccelerationStructure accelerationStructure, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyAccelerationStructureNV(device, accelerationStructure, allocatorFIXED);
+	}
+
 	/// <summary>vkGetAccelerationStructureMemoryRequirementsKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructureMemoryRequirementsInfo*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetAccelerationStructureMemoryRequirementsKHR(Vk.Device device, Vk.KHR.AccelerationStructureMemoryRequirementsInfo* pInfo, Vk.MemoryRequirements2* pMemoryRequirements)
 		=> vkGetAccelerationStructureMemoryRequirementsKHR(device, pInfo, pMemoryRequirements);
+
+	/// <summary>vkGetAccelerationStructureMemoryRequirementsKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructureMemoryRequirementsInfo*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetAccelerationStructureMemoryRequirementsKHR(Vk.Device device, in Vk.KHR.AccelerationStructureMemoryRequirementsInfo info, out Vk.MemoryRequirements2 memoryRequirements)
+	{
+		fixed (Vk.KHR.AccelerationStructureMemoryRequirementsInfo* infoFIXED = &info)
+		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetAccelerationStructureMemoryRequirementsKHR(device, infoFIXED, memoryRequirementsFIXED);
+	}
 
 	/// <summary>vkGetAccelerationStructureMemoryRequirementsNV(<c>Vk.Device</c>, <c>Vk.NV.AccelerationStructureMemoryRequirementsInfo*</c>, <c>Vk.KHR.MemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetAccelerationStructureMemoryRequirementsNV(Vk.Device device, Vk.NV.AccelerationStructureMemoryRequirementsInfo* pInfo, Vk.KHR.MemoryRequirements2* pMemoryRequirements)
 		=> vkGetAccelerationStructureMemoryRequirementsNV(device, pInfo, pMemoryRequirements);
 
+	/// <summary>vkGetAccelerationStructureMemoryRequirementsNV(<c>Vk.Device</c>, <c>Vk.NV.AccelerationStructureMemoryRequirementsInfo*</c>, <c>Vk.KHR.MemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetAccelerationStructureMemoryRequirementsNV(Vk.Device device, in Vk.NV.AccelerationStructureMemoryRequirementsInfo info, out Vk.KHR.MemoryRequirements2 memoryRequirements)
+	{
+		fixed (Vk.NV.AccelerationStructureMemoryRequirementsInfo* infoFIXED = &info)
+		fixed (Vk.KHR.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
+		vkGetAccelerationStructureMemoryRequirementsNV(device, infoFIXED, memoryRequirementsFIXED);
+	}
+
 	/// <summary>vkBindAccelerationStructureMemoryKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.BindAccelerationStructureMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BindAccelerationStructureMemoryKHR(Vk.Device device, uint bindInfoCount, Vk.KHR.BindAccelerationStructureMemoryInfo* pBindInfos)
 		=> vkBindAccelerationStructureMemoryKHR(device, bindInfoCount, pBindInfos);
 
+	/// <summary>vkBindAccelerationStructureMemoryKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.BindAccelerationStructureMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BindAccelerationStructureMemoryKHR(Vk.Device device, in ReadOnlySpan<Vk.KHR.BindAccelerationStructureMemoryInfo> bindInfos)
+	{
+		fixed (Vk.KHR.BindAccelerationStructureMemoryInfo* bindInfosFIXED = bindInfos)
+		return vkBindAccelerationStructureMemoryKHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+	}
+
 	/// <summary>vkBindAccelerationStructureMemoryNV(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.BindAccelerationStructureMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BindAccelerationStructureMemoryNV(Vk.Device device, uint bindInfoCount, Vk.KHR.BindAccelerationStructureMemoryInfo* pBindInfos)
 		=> vkBindAccelerationStructureMemoryNV(device, bindInfoCount, pBindInfos);
+
+	/// <summary>vkBindAccelerationStructureMemoryNV(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.BindAccelerationStructureMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BindAccelerationStructureMemoryNV(Vk.Device device, in ReadOnlySpan<Vk.KHR.BindAccelerationStructureMemoryInfo> bindInfos)
+	{
+		fixed (Vk.KHR.BindAccelerationStructureMemoryInfo* bindInfosFIXED = bindInfos)
+		return vkBindAccelerationStructureMemoryNV(device, (uint)bindInfos.Length, bindInfosFIXED);
+	}
 
 	/// <summary>vkCmdCopyAccelerationStructureNV(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.KHR.CopyAccelerationStructureMode</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1850,55 +4287,146 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyAccelerationStructureInfo* pInfo)
 		=> vkCmdCopyAccelerationStructureKHR(commandBuffer, pInfo);
 
+	/// <summary>vkCmdCopyAccelerationStructureKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyAccelerationStructureInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.CopyAccelerationStructureInfo info)
+	{
+		fixed (Vk.KHR.CopyAccelerationStructureInfo* infoFIXED = &info)
+		vkCmdCopyAccelerationStructureKHR(commandBuffer, infoFIXED);
+	}
+
 	/// <summary>vkCopyAccelerationStructureKHR(<c>Vk.Device</c>, <c>Vk.KHR.CopyAccelerationStructureInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CopyAccelerationStructureKHR(Vk.Device device, Vk.KHR.CopyAccelerationStructureInfo* pInfo)
 		=> vkCopyAccelerationStructureKHR(device, pInfo);
+
+	/// <summary>vkCopyAccelerationStructureKHR(<c>Vk.Device</c>, <c>Vk.KHR.CopyAccelerationStructureInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CopyAccelerationStructureKHR(Vk.Device device, in Vk.KHR.CopyAccelerationStructureInfo info)
+	{
+		fixed (Vk.KHR.CopyAccelerationStructureInfo* infoFIXED = &info)
+		return vkCopyAccelerationStructureKHR(device, infoFIXED);
+	}
 
 	/// <summary>vkCmdCopyAccelerationStructureToMemoryKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyAccelerationStructureToMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyAccelerationStructureToMemoryKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyAccelerationStructureToMemoryInfo* pInfo)
 		=> vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, pInfo);
 
+	/// <summary>vkCmdCopyAccelerationStructureToMemoryKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyAccelerationStructureToMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyAccelerationStructureToMemoryKHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.CopyAccelerationStructureToMemoryInfo info)
+	{
+		fixed (Vk.KHR.CopyAccelerationStructureToMemoryInfo* infoFIXED = &info)
+		vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, infoFIXED);
+	}
+
 	/// <summary>vkCopyAccelerationStructureToMemoryKHR(<c>Vk.Device</c>, <c>Vk.KHR.CopyAccelerationStructureToMemoryInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CopyAccelerationStructureToMemoryKHR(Vk.Device device, Vk.KHR.CopyAccelerationStructureToMemoryInfo* pInfo)
 		=> vkCopyAccelerationStructureToMemoryKHR(device, pInfo);
+
+	/// <summary>vkCopyAccelerationStructureToMemoryKHR(<c>Vk.Device</c>, <c>Vk.KHR.CopyAccelerationStructureToMemoryInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CopyAccelerationStructureToMemoryKHR(Vk.Device device, in Vk.KHR.CopyAccelerationStructureToMemoryInfo info)
+	{
+		fixed (Vk.KHR.CopyAccelerationStructureToMemoryInfo* infoFIXED = &info)
+		return vkCopyAccelerationStructureToMemoryKHR(device, infoFIXED);
+	}
 
 	/// <summary>vkCmdCopyMemoryToAccelerationStructureKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyMemoryToAccelerationStructureInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyMemoryToAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyMemoryToAccelerationStructureInfo* pInfo)
 		=> vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, pInfo);
 
+	/// <summary>vkCmdCopyMemoryToAccelerationStructureKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyMemoryToAccelerationStructureInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyMemoryToAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.CopyMemoryToAccelerationStructureInfo info)
+	{
+		fixed (Vk.KHR.CopyMemoryToAccelerationStructureInfo* infoFIXED = &info)
+		vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, infoFIXED);
+	}
+
 	/// <summary>vkCopyMemoryToAccelerationStructureKHR(<c>Vk.Device</c>, <c>Vk.KHR.CopyMemoryToAccelerationStructureInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CopyMemoryToAccelerationStructureKHR(Vk.Device device, Vk.KHR.CopyMemoryToAccelerationStructureInfo* pInfo)
 		=> vkCopyMemoryToAccelerationStructureKHR(device, pInfo);
+
+	/// <summary>vkCopyMemoryToAccelerationStructureKHR(<c>Vk.Device</c>, <c>Vk.KHR.CopyMemoryToAccelerationStructureInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CopyMemoryToAccelerationStructureKHR(Vk.Device device, in Vk.KHR.CopyMemoryToAccelerationStructureInfo info)
+	{
+		fixed (Vk.KHR.CopyMemoryToAccelerationStructureInfo* infoFIXED = &info)
+		return vkCopyMemoryToAccelerationStructureKHR(device, infoFIXED);
+	}
 
 	/// <summary>vkCmdWriteAccelerationStructuresPropertiesKHR(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructure*</c>, <c>Vk.QueryType</c>, <c>Vk.QueryPool</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdWriteAccelerationStructuresPropertiesKHR(Vk.CommandBuffer commandBuffer, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
 		=> vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 
+	/// <summary>vkCmdWriteAccelerationStructuresPropertiesKHR(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructure*</c>, <c>Vk.QueryType</c>, <c>Vk.QueryPool</c>, <c>uint</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdWriteAccelerationStructuresPropertiesKHR(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.KHR.AccelerationStructure> accelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
+	{
+		fixed (Vk.KHR.AccelerationStructure* accelerationStructuresFIXED = accelerationStructures)
+		vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, queryPool, firstQuery);
+	}
+
 	/// <summary>vkCmdWriteAccelerationStructuresPropertiesNV(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructure*</c>, <c>Vk.QueryType</c>, <c>Vk.QueryPool</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdWriteAccelerationStructuresPropertiesNV(Vk.CommandBuffer commandBuffer, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
 		=> vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+
+	/// <summary>vkCmdWriteAccelerationStructuresPropertiesNV(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructure*</c>, <c>Vk.QueryType</c>, <c>Vk.QueryPool</c>, <c>uint</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdWriteAccelerationStructuresPropertiesNV(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.KHR.AccelerationStructure> accelerationStructures, Vk.QueryType queryType, Vk.QueryPool queryPool, uint firstQuery)
+	{
+		fixed (Vk.KHR.AccelerationStructure* accelerationStructuresFIXED = accelerationStructures)
+		vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, queryPool, firstQuery);
+	}
 
 	/// <summary>vkCmdBuildAccelerationStructureNV(<c>Vk.CommandBuffer</c>, <c>Vk.NV.AccelerationStructureInfo*</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.Bool32</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBuildAccelerationStructureNV(Vk.CommandBuffer commandBuffer, Vk.NV.AccelerationStructureInfo* pInfo, Vk.Buffer instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.Buffer scratch, Vk.DeviceSize scratchOffset)
 		=> vkCmdBuildAccelerationStructureNV(commandBuffer, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
 
+	/// <summary>vkCmdBuildAccelerationStructureNV(<c>Vk.CommandBuffer</c>, <c>Vk.NV.AccelerationStructureInfo*</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.Bool32</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.KHR.AccelerationStructure</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBuildAccelerationStructureNV(Vk.CommandBuffer commandBuffer, in Vk.NV.AccelerationStructureInfo info, Vk.Buffer instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.KHR.AccelerationStructure dst, Vk.KHR.AccelerationStructure src, Vk.Buffer scratch, Vk.DeviceSize scratchOffset)
+	{
+		fixed (Vk.NV.AccelerationStructureInfo* infoFIXED = &info)
+		vkCmdBuildAccelerationStructureNV(commandBuffer, infoFIXED, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+	}
+
 	/// <summary>vkWriteAccelerationStructuresPropertiesKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructure*</c>, <c>Vk.QueryType</c>, <c>ulong</c>, <c>void*</c>, <c>ulong</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result WriteAccelerationStructuresPropertiesKHR(Vk.Device device, uint accelerationStructureCount, Vk.KHR.AccelerationStructure* pAccelerationStructures, Vk.QueryType queryType, ulong dataSize, void* pData, ulong stride)
 		=> vkWriteAccelerationStructuresPropertiesKHR(device, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride);
 
+	/// <summary>vkWriteAccelerationStructuresPropertiesKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructure*</c>, <c>Vk.QueryType</c>, <c>ulong</c>, <c>void*</c>, <c>ulong</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result WriteAccelerationStructuresPropertiesKHR(Vk.Device device, in ReadOnlySpan<Vk.KHR.AccelerationStructure> accelerationStructures, Vk.QueryType queryType, ulong dataSize, void* pData, ulong stride)
+	{
+		fixed (Vk.KHR.AccelerationStructure* accelerationStructuresFIXED = accelerationStructures)
+		return vkWriteAccelerationStructuresPropertiesKHR(device, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, dataSize, pData, stride);
+	}
+
 	/// <summary>vkCmdTraceRaysKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdTraceRaysKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, uint width, uint height, uint depth)
 		=> vkCmdTraceRaysKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
+
+	/// <summary>vkCmdTraceRaysKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdTraceRaysKHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.StridedBufferRegion raygenShaderBindingTable, in Vk.KHR.StridedBufferRegion missShaderBindingTable, in Vk.KHR.StridedBufferRegion hitShaderBindingTable, in Vk.KHR.StridedBufferRegion callableShaderBindingTable, uint width, uint height, uint depth)
+	{
+		fixed (Vk.KHR.StridedBufferRegion* raygenShaderBindingTableFIXED = &raygenShaderBindingTable)
+		fixed (Vk.KHR.StridedBufferRegion* missShaderBindingTableFIXED = &missShaderBindingTable)
+		fixed (Vk.KHR.StridedBufferRegion* hitShaderBindingTableFIXED = &hitShaderBindingTable)
+		fixed (Vk.KHR.StridedBufferRegion* callableShaderBindingTableFIXED = &callableShaderBindingTable)
+		vkCmdTraceRaysKHR(commandBuffer, raygenShaderBindingTableFIXED, missShaderBindingTableFIXED, hitShaderBindingTableFIXED, callableShaderBindingTableFIXED, width, height, depth);
+	}
 
 	/// <summary>vkCmdTraceRaysNV(<c>Vk.CommandBuffer</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1930,35 +4458,99 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreateRayTracingPipelinesNV(Vk.Device device, Vk.PipelineCache pipelineCache, uint createInfoCount, Vk.NV.RayTracingPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Pipeline* pPipelines)
 		=> vkCreateRayTracingPipelinesNV(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 
+	/// <summary>vkCreateRayTracingPipelinesNV(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.NV.RayTracingPipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Pipeline*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRayTracingPipelinesNV(Vk.Device device, Vk.PipelineCache pipelineCache, in ReadOnlySpan<Vk.NV.RayTracingPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Pipeline> pipelines)
+	{
+		fixed (Vk.NV.RayTracingPipelineCreateInfo* createInfosFIXED = createInfos)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Pipeline* pipelinesFIXED = pipelines)
+		return vkCreateRayTracingPipelinesNV(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+	}
+
 	/// <summary>vkCreateRayTracingPipelinesKHR(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.KHR.RayTracingPipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Pipeline*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateRayTracingPipelinesKHR(Vk.Device device, Vk.PipelineCache pipelineCache, uint createInfoCount, Vk.KHR.RayTracingPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Pipeline* pPipelines)
 		=> vkCreateRayTracingPipelinesKHR(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+
+	/// <summary>vkCreateRayTracingPipelinesKHR(<c>Vk.Device</c>, <c>Vk.PipelineCache</c>, <c>uint</c>, <c>Vk.KHR.RayTracingPipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Pipeline*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRayTracingPipelinesKHR(Vk.Device device, Vk.PipelineCache pipelineCache, in ReadOnlySpan<Vk.KHR.RayTracingPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Pipeline> pipelines)
+	{
+		fixed (Vk.KHR.RayTracingPipelineCreateInfo* createInfosFIXED = createInfos)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.Pipeline* pipelinesFIXED = pipelines)
+		return vkCreateRayTracingPipelinesKHR(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+	}
 
 	/// <summary>vkCmdTraceRaysIndirectKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdTraceRaysIndirectKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.StridedBufferRegion* pRaygenShaderBindingTable, Vk.KHR.StridedBufferRegion* pMissShaderBindingTable, Vk.KHR.StridedBufferRegion* pHitShaderBindingTable, Vk.KHR.StridedBufferRegion* pCallableShaderBindingTable, Vk.Buffer buffer, Vk.DeviceSize offset)
 		=> vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
 
+	/// <summary>vkCmdTraceRaysIndirectKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdTraceRaysIndirectKHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.StridedBufferRegion raygenShaderBindingTable, in Vk.KHR.StridedBufferRegion missShaderBindingTable, in Vk.KHR.StridedBufferRegion hitShaderBindingTable, in Vk.KHR.StridedBufferRegion callableShaderBindingTable, Vk.Buffer buffer, Vk.DeviceSize offset)
+	{
+		fixed (Vk.KHR.StridedBufferRegion* raygenShaderBindingTableFIXED = &raygenShaderBindingTable)
+		fixed (Vk.KHR.StridedBufferRegion* missShaderBindingTableFIXED = &missShaderBindingTable)
+		fixed (Vk.KHR.StridedBufferRegion* hitShaderBindingTableFIXED = &hitShaderBindingTable)
+		fixed (Vk.KHR.StridedBufferRegion* callableShaderBindingTableFIXED = &callableShaderBindingTable)
+		vkCmdTraceRaysIndirectKHR(commandBuffer, raygenShaderBindingTableFIXED, missShaderBindingTableFIXED, hitShaderBindingTableFIXED, callableShaderBindingTableFIXED, buffer, offset);
+	}
+
 	/// <summary>vkGetDeviceAccelerationStructureCompatibilityKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructureVersion*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDeviceAccelerationStructureCompatibilityKHR(Vk.Device device, Vk.KHR.AccelerationStructureVersion* version)
 		=> vkGetDeviceAccelerationStructureCompatibilityKHR(device, version);
+
+	/// <summary>vkGetDeviceAccelerationStructureCompatibilityKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructureVersion*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDeviceAccelerationStructureCompatibilityKHR(Vk.Device device, in Vk.KHR.AccelerationStructureVersion version)
+	{
+		fixed (Vk.KHR.AccelerationStructureVersion* versionFIXED = &version)
+		return vkGetDeviceAccelerationStructureCompatibilityKHR(device, versionFIXED);
+	}
 
 	/// <summary>vkGetImageViewHandleNVX(<c>Vk.Device</c>, <c>Vk.NVX.ImageViewHandleInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public uint GetImageViewHandleNVX(Vk.Device device, Vk.NVX.ImageViewHandleInfo* pInfo)
 		=> vkGetImageViewHandleNVX(device, pInfo);
 
+	/// <summary>vkGetImageViewHandleNVX(<c>Vk.Device</c>, <c>Vk.NVX.ImageViewHandleInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public uint GetImageViewHandleNVX(Vk.Device device, in Vk.NVX.ImageViewHandleInfo info)
+	{
+		fixed (Vk.NVX.ImageViewHandleInfo* infoFIXED = &info)
+		return vkGetImageViewHandleNVX(device, infoFIXED);
+	}
+
 	/// <summary>vkGetImageViewAddressNVX(<c>Vk.Device</c>, <c>Vk.ImageView</c>, <c>Vk.NVX.ImageViewAddressProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetImageViewAddressNVX(Vk.Device device, Vk.ImageView imageView, Vk.NVX.ImageViewAddressProperties* pProperties)
 		=> vkGetImageViewAddressNVX(device, imageView, pProperties);
 
+	/// <summary>vkGetImageViewAddressNVX(<c>Vk.Device</c>, <c>Vk.ImageView</c>, <c>Vk.NVX.ImageViewAddressProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetImageViewAddressNVX(Vk.Device device, Vk.ImageView imageView, out Vk.NVX.ImageViewAddressProperties properties)
+	{
+		fixed (Vk.NVX.ImageViewAddressProperties* propertiesFIXED = &properties)
+		return vkGetImageViewAddressNVX(device, imageView, propertiesFIXED);
+	}
+
 	/// <summary>vkGetDeviceGroupSurfacePresentModes2EXT(<c>Vk.Device</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>Vk.KHR.DeviceGroupPresentModeFlags*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDeviceGroupSurfacePresentModes2EXT(Vk.Device device, Vk.KHR.PhysicalDeviceSurfaceInfo2* pSurfaceInfo, Vk.KHR.DeviceGroupPresentModeFlags* pModes)
 		=> vkGetDeviceGroupSurfacePresentModes2EXT(device, pSurfaceInfo, pModes);
+
+	/// <summary>vkGetDeviceGroupSurfacePresentModes2EXT(<c>Vk.Device</c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>Vk.KHR.DeviceGroupPresentModeFlags*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDeviceGroupSurfacePresentModes2EXT(Vk.Device device, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out Vk.KHR.DeviceGroupPresentModeFlags modes)
+	{
+		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
+		fixed (Vk.KHR.DeviceGroupPresentModeFlags* modesFIXED = &modes)
+		return vkGetDeviceGroupSurfacePresentModes2EXT(device, surfaceInfoFIXED, modesFIXED);
+	}
 
 	/// <summary>vkAcquireFullScreenExclusiveModeEXT(<c>Vk.Device</c>, <c>Vk.KHR.Swapchain</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1975,6 +4567,14 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result AcquireProfilingLockKHR(Vk.Device device, Vk.KHR.AcquireProfilingLockInfo* pInfo)
 		=> vkAcquireProfilingLockKHR(device, pInfo);
 
+	/// <summary>vkAcquireProfilingLockKHR(<c>Vk.Device</c>, <c>Vk.KHR.AcquireProfilingLockInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AcquireProfilingLockKHR(Vk.Device device, in Vk.KHR.AcquireProfilingLockInfo info)
+	{
+		fixed (Vk.KHR.AcquireProfilingLockInfo* infoFIXED = &info)
+		return vkAcquireProfilingLockKHR(device, infoFIXED);
+	}
+
 	/// <summary>vkReleaseProfilingLockKHR(<c>Vk.Device</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ReleaseProfilingLockKHR(Vk.Device device)
@@ -1985,35 +4585,91 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetImageDrmFormatModifierPropertiesEXT(Vk.Device device, Vk.Image image, Vk.EXT.ImageDrmFormatModifierProperties* pProperties)
 		=> vkGetImageDrmFormatModifierPropertiesEXT(device, image, pProperties);
 
+	/// <summary>vkGetImageDrmFormatModifierPropertiesEXT(<c>Vk.Device</c>, <c>Vk.Image</c>, <c>Vk.EXT.ImageDrmFormatModifierProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetImageDrmFormatModifierPropertiesEXT(Vk.Device device, Vk.Image image, out Vk.EXT.ImageDrmFormatModifierProperties properties)
+	{
+		fixed (Vk.EXT.ImageDrmFormatModifierProperties* propertiesFIXED = &properties)
+		return vkGetImageDrmFormatModifierPropertiesEXT(device, image, propertiesFIXED);
+	}
+
 	/// <summary>vkGetBufferOpaqueCaptureAddress(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferOpaqueCaptureAddress(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
 		=> vkGetBufferOpaqueCaptureAddress(device, pInfo);
+
+	/// <summary>vkGetBufferOpaqueCaptureAddress(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferOpaqueCaptureAddress(Vk.Device device, in Vk.BufferDeviceAddressInfo info)
+	{
+		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
+		return vkGetBufferOpaqueCaptureAddress(device, infoFIXED);
+	}
 
 	/// <summary>vkGetBufferOpaqueCaptureAddressKHR(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferOpaqueCaptureAddressKHR(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
 		=> vkGetBufferOpaqueCaptureAddressKHR(device, pInfo);
 
+	/// <summary>vkGetBufferOpaqueCaptureAddressKHR(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferOpaqueCaptureAddressKHR(Vk.Device device, in Vk.BufferDeviceAddressInfo info)
+	{
+		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
+		return vkGetBufferOpaqueCaptureAddressKHR(device, infoFIXED);
+	}
+
 	/// <summary>vkGetBufferDeviceAddress(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddress(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
 		=> vkGetBufferDeviceAddress(device, pInfo);
+
+	/// <summary>vkGetBufferDeviceAddress(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferDeviceAddress(Vk.Device device, in Vk.BufferDeviceAddressInfo info)
+	{
+		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
+		return vkGetBufferDeviceAddress(device, infoFIXED);
+	}
 
 	/// <summary>vkGetBufferDeviceAddressKHR(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddressKHR(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
 		=> vkGetBufferDeviceAddressKHR(device, pInfo);
 
+	/// <summary>vkGetBufferDeviceAddressKHR(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferDeviceAddressKHR(Vk.Device device, in Vk.BufferDeviceAddressInfo info)
+	{
+		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
+		return vkGetBufferDeviceAddressKHR(device, infoFIXED);
+	}
+
 	/// <summary>vkGetBufferDeviceAddressEXT(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddressEXT(Vk.Device device, Vk.BufferDeviceAddressInfo* pInfo)
 		=> vkGetBufferDeviceAddressEXT(device, pInfo);
 
+	/// <summary>vkGetBufferDeviceAddressEXT(<c>Vk.Device</c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferDeviceAddressEXT(Vk.Device device, in Vk.BufferDeviceAddressInfo info)
+	{
+		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
+		return vkGetBufferDeviceAddressEXT(device, infoFIXED);
+	}
+
 	/// <summary>vkInitializePerformanceApiINTEL(<c>Vk.Device</c>, <c>Vk.INTEL.InitializePerformanceApiInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result InitializePerformanceApiINTEL(Vk.Device device, Vk.INTEL.InitializePerformanceApiInfo* pInitializeInfo)
 		=> vkInitializePerformanceApiINTEL(device, pInitializeInfo);
+
+	/// <summary>vkInitializePerformanceApiINTEL(<c>Vk.Device</c>, <c>Vk.INTEL.InitializePerformanceApiInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result InitializePerformanceApiINTEL(Vk.Device device, in Vk.INTEL.InitializePerformanceApiInfo initializeInfo)
+	{
+		fixed (Vk.INTEL.InitializePerformanceApiInfo* initializeInfoFIXED = &initializeInfo)
+		return vkInitializePerformanceApiINTEL(device, initializeInfoFIXED);
+	}
 
 	/// <summary>vkUninitializePerformanceApiINTEL(<c>Vk.Device</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2025,20 +4681,53 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CmdSetPerformanceMarkerINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceMarkerInfo* pMarkerInfo)
 		=> vkCmdSetPerformanceMarkerINTEL(commandBuffer, pMarkerInfo);
 
+	/// <summary>vkCmdSetPerformanceMarkerINTEL(<c>Vk.CommandBuffer</c>, <c>Vk.INTEL.PerformanceMarkerInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CmdSetPerformanceMarkerINTEL(Vk.CommandBuffer commandBuffer, in Vk.INTEL.PerformanceMarkerInfo markerInfo)
+	{
+		fixed (Vk.INTEL.PerformanceMarkerInfo* markerInfoFIXED = &markerInfo)
+		return vkCmdSetPerformanceMarkerINTEL(commandBuffer, markerInfoFIXED);
+	}
+
 	/// <summary>vkCmdSetPerformanceStreamMarkerINTEL(<c>Vk.CommandBuffer</c>, <c>Vk.INTEL.PerformanceStreamMarkerInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CmdSetPerformanceStreamMarkerINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceStreamMarkerInfo* pMarkerInfo)
 		=> vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, pMarkerInfo);
+
+	/// <summary>vkCmdSetPerformanceStreamMarkerINTEL(<c>Vk.CommandBuffer</c>, <c>Vk.INTEL.PerformanceStreamMarkerInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CmdSetPerformanceStreamMarkerINTEL(Vk.CommandBuffer commandBuffer, in Vk.INTEL.PerformanceStreamMarkerInfo markerInfo)
+	{
+		fixed (Vk.INTEL.PerformanceStreamMarkerInfo* markerInfoFIXED = &markerInfo)
+		return vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, markerInfoFIXED);
+	}
 
 	/// <summary>vkCmdSetPerformanceOverrideINTEL(<c>Vk.CommandBuffer</c>, <c>Vk.INTEL.PerformanceOverrideInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CmdSetPerformanceOverrideINTEL(Vk.CommandBuffer commandBuffer, Vk.INTEL.PerformanceOverrideInfo* pOverrideInfo)
 		=> vkCmdSetPerformanceOverrideINTEL(commandBuffer, pOverrideInfo);
 
+	/// <summary>vkCmdSetPerformanceOverrideINTEL(<c>Vk.CommandBuffer</c>, <c>Vk.INTEL.PerformanceOverrideInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CmdSetPerformanceOverrideINTEL(Vk.CommandBuffer commandBuffer, in Vk.INTEL.PerformanceOverrideInfo overrideInfo)
+	{
+		fixed (Vk.INTEL.PerformanceOverrideInfo* overrideInfoFIXED = &overrideInfo)
+		return vkCmdSetPerformanceOverrideINTEL(commandBuffer, overrideInfoFIXED);
+	}
+
 	/// <summary>vkAcquirePerformanceConfigurationINTEL(<c>Vk.Device</c>, <c>Vk.INTEL.PerformanceConfigurationAcquireInfo*</c>, <c>Vk.INTEL.PerformanceConfiguration*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AcquirePerformanceConfigurationINTEL(Vk.Device device, Vk.INTEL.PerformanceConfigurationAcquireInfo* pAcquireInfo, Vk.INTEL.PerformanceConfiguration* pConfiguration)
 		=> vkAcquirePerformanceConfigurationINTEL(device, pAcquireInfo, pConfiguration);
+
+	/// <summary>vkAcquirePerformanceConfigurationINTEL(<c>Vk.Device</c>, <c>Vk.INTEL.PerformanceConfigurationAcquireInfo*</c>, <c>Vk.INTEL.PerformanceConfiguration*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AcquirePerformanceConfigurationINTEL(Vk.Device device, in Vk.INTEL.PerformanceConfigurationAcquireInfo acquireInfo, out Vk.INTEL.PerformanceConfiguration configuration)
+	{
+		fixed (Vk.INTEL.PerformanceConfigurationAcquireInfo* acquireInfoFIXED = &acquireInfo)
+		fixed (Vk.INTEL.PerformanceConfiguration* configurationFIXED = &configuration)
+		return vkAcquirePerformanceConfigurationINTEL(device, acquireInfoFIXED, configurationFIXED);
+	}
 
 	/// <summary>vkReleasePerformanceConfigurationINTEL(<c>Vk.Device</c>, <c>Vk.INTEL.PerformanceConfiguration</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2055,30 +4744,84 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetPerformanceParameterINTEL(Vk.Device device, Vk.INTEL.PerformanceParameterType parameter, Vk.INTEL.PerformanceValue* pValue)
 		=> vkGetPerformanceParameterINTEL(device, parameter, pValue);
 
+	/// <summary>vkGetPerformanceParameterINTEL(<c>Vk.Device</c>, <c>Vk.INTEL.PerformanceParameterType</c>, <c>Vk.INTEL.PerformanceValue*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPerformanceParameterINTEL(Vk.Device device, Vk.INTEL.PerformanceParameterType parameter, out Vk.INTEL.PerformanceValue value)
+	{
+		fixed (Vk.INTEL.PerformanceValue* valueFIXED = &value)
+		return vkGetPerformanceParameterINTEL(device, parameter, valueFIXED);
+	}
+
 	/// <summary>vkGetDeviceMemoryOpaqueCaptureAddress(<c>Vk.Device</c>, <c>Vk.DeviceMemoryOpaqueCaptureAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetDeviceMemoryOpaqueCaptureAddress(Vk.Device device, Vk.DeviceMemoryOpaqueCaptureAddressInfo* pInfo)
 		=> vkGetDeviceMemoryOpaqueCaptureAddress(device, pInfo);
+
+	/// <summary>vkGetDeviceMemoryOpaqueCaptureAddress(<c>Vk.Device</c>, <c>Vk.DeviceMemoryOpaqueCaptureAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetDeviceMemoryOpaqueCaptureAddress(Vk.Device device, in Vk.DeviceMemoryOpaqueCaptureAddressInfo info)
+	{
+		fixed (Vk.DeviceMemoryOpaqueCaptureAddressInfo* infoFIXED = &info)
+		return vkGetDeviceMemoryOpaqueCaptureAddress(device, infoFIXED);
+	}
 
 	/// <summary>vkGetDeviceMemoryOpaqueCaptureAddressKHR(<c>Vk.Device</c>, <c>Vk.DeviceMemoryOpaqueCaptureAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetDeviceMemoryOpaqueCaptureAddressKHR(Vk.Device device, Vk.DeviceMemoryOpaqueCaptureAddressInfo* pInfo)
 		=> vkGetDeviceMemoryOpaqueCaptureAddressKHR(device, pInfo);
 
+	/// <summary>vkGetDeviceMemoryOpaqueCaptureAddressKHR(<c>Vk.Device</c>, <c>Vk.DeviceMemoryOpaqueCaptureAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetDeviceMemoryOpaqueCaptureAddressKHR(Vk.Device device, in Vk.DeviceMemoryOpaqueCaptureAddressInfo info)
+	{
+		fixed (Vk.DeviceMemoryOpaqueCaptureAddressInfo* infoFIXED = &info)
+		return vkGetDeviceMemoryOpaqueCaptureAddressKHR(device, infoFIXED);
+	}
+
 	/// <summary>vkGetPipelineExecutablePropertiesKHR(<c>Vk.Device</c>, <c>Vk.KHR.PipelineInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPipelineExecutablePropertiesKHR(Vk.Device device, Vk.KHR.PipelineInfo* pPipelineInfo, uint* pExecutableCount, Vk.KHR.PipelineExecutableProperties* pProperties)
 		=> vkGetPipelineExecutablePropertiesKHR(device, pPipelineInfo, pExecutableCount, pProperties);
+
+	/// <summary>vkGetPipelineExecutablePropertiesKHR(<c>Vk.Device</c>, <c>Vk.KHR.PipelineInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPipelineExecutablePropertiesKHR(Vk.Device device, in Vk.KHR.PipelineInfo pipelineInfo, out uint executableCount, in Span<Vk.KHR.PipelineExecutableProperties> properties)
+	{
+		fixed (Vk.KHR.PipelineInfo* pipelineInfoFIXED = &pipelineInfo)
+		fixed (uint* executableCountFIXED = &executableCount)
+		fixed (Vk.KHR.PipelineExecutableProperties* propertiesFIXED = properties)
+		return vkGetPipelineExecutablePropertiesKHR(device, pipelineInfoFIXED, executableCountFIXED, propertiesFIXED);
+	}
 
 	/// <summary>vkGetPipelineExecutableStatisticsKHR(<c>Vk.Device</c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableStatistic*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPipelineExecutableStatisticsKHR(Vk.Device device, Vk.KHR.PipelineExecutableInfo* pExecutableInfo, uint* pStatisticCount, Vk.KHR.PipelineExecutableStatistic* pStatistics)
 		=> vkGetPipelineExecutableStatisticsKHR(device, pExecutableInfo, pStatisticCount, pStatistics);
 
+	/// <summary>vkGetPipelineExecutableStatisticsKHR(<c>Vk.Device</c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableStatistic*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPipelineExecutableStatisticsKHR(Vk.Device device, in Vk.KHR.PipelineExecutableInfo executableInfo, out uint statisticCount, in Span<Vk.KHR.PipelineExecutableStatistic> statistics)
+	{
+		fixed (Vk.KHR.PipelineExecutableInfo* executableInfoFIXED = &executableInfo)
+		fixed (uint* statisticCountFIXED = &statisticCount)
+		fixed (Vk.KHR.PipelineExecutableStatistic* statisticsFIXED = statistics)
+		return vkGetPipelineExecutableStatisticsKHR(device, executableInfoFIXED, statisticCountFIXED, statisticsFIXED);
+	}
+
 	/// <summary>vkGetPipelineExecutableInternalRepresentationsKHR(<c>Vk.Device</c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableInternalRepresentation*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPipelineExecutableInternalRepresentationsKHR(Vk.Device device, Vk.KHR.PipelineExecutableInfo* pExecutableInfo, uint* pInternalRepresentationCount, Vk.KHR.PipelineExecutableInternalRepresentation* pInternalRepresentations)
 		=> vkGetPipelineExecutableInternalRepresentationsKHR(device, pExecutableInfo, pInternalRepresentationCount, pInternalRepresentations);
+
+	/// <summary>vkGetPipelineExecutableInternalRepresentationsKHR(<c>Vk.Device</c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableInternalRepresentation*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPipelineExecutableInternalRepresentationsKHR(Vk.Device device, in Vk.KHR.PipelineExecutableInfo executableInfo, out uint internalRepresentationCount, in Span<Vk.KHR.PipelineExecutableInternalRepresentation> internalRepresentations)
+	{
+		fixed (Vk.KHR.PipelineExecutableInfo* executableInfoFIXED = &executableInfo)
+		fixed (uint* internalRepresentationCountFIXED = &internalRepresentationCount)
+		fixed (Vk.KHR.PipelineExecutableInternalRepresentation* internalRepresentationsFIXED = internalRepresentations)
+		return vkGetPipelineExecutableInternalRepresentationsKHR(device, executableInfoFIXED, internalRepresentationCountFIXED, internalRepresentationsFIXED);
+	}
 
 	/// <summary>vkCmdSetLineStippleEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>ushort</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2090,35 +4833,94 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreateAccelerationStructureKHR(Vk.Device device, Vk.KHR.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.KHR.AccelerationStructure* pAccelerationStructure)
 		=> vkCreateAccelerationStructureKHR(device, pCreateInfo, pAllocator, pAccelerationStructure);
 
+	/// <summary>vkCreateAccelerationStructureKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructureCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.AccelerationStructure*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAccelerationStructureKHR(Vk.Device device, in Vk.KHR.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.AccelerationStructure accelerationStructure)
+	{
+		fixed (Vk.KHR.AccelerationStructureCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.AccelerationStructure* accelerationStructureFIXED = &accelerationStructure)
+		return vkCreateAccelerationStructureKHR(device, createInfoFIXED, allocatorFIXED, accelerationStructureFIXED);
+	}
+
 	/// <summary>vkCmdBuildAccelerationStructureKHR(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.KHR.AccelerationStructureBuildOffsetInfo**</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBuildAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, uint infoCount, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
 		=> vkCmdBuildAccelerationStructureKHR(commandBuffer, infoCount, pInfos, ppOffsetInfos);
+
+	/// <summary>vkCmdBuildAccelerationStructureKHR(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.KHR.AccelerationStructureBuildOffsetInfo**</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBuildAccelerationStructureKHR(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.KHR.AccelerationStructureBuildGeometryInfo> infos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
+	{
+		fixed (Vk.KHR.AccelerationStructureBuildGeometryInfo* infosFIXED = infos)
+		vkCmdBuildAccelerationStructureKHR(commandBuffer, (uint)infos.Length, infosFIXED, ppOffsetInfos);
+	}
 
 	/// <summary>vkCmdBuildAccelerationStructureIndirectKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>uint</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBuildAccelerationStructureIndirectKHR(Vk.CommandBuffer commandBuffer, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfo, Vk.Buffer indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
 		=> vkCmdBuildAccelerationStructureIndirectKHR(commandBuffer, pInfo, indirectBuffer, indirectOffset, indirectStride);
 
+	/// <summary>vkCmdBuildAccelerationStructureIndirectKHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.Buffer</c>, <c>Vk.DeviceSize</c>, <c>uint</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBuildAccelerationStructureIndirectKHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.AccelerationStructureBuildGeometryInfo info, Vk.Buffer indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
+	{
+		fixed (Vk.KHR.AccelerationStructureBuildGeometryInfo* infoFIXED = &info)
+		vkCmdBuildAccelerationStructureIndirectKHR(commandBuffer, infoFIXED, indirectBuffer, indirectOffset, indirectStride);
+	}
+
 	/// <summary>vkBuildAccelerationStructureKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.KHR.AccelerationStructureBuildOffsetInfo**</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result BuildAccelerationStructureKHR(Vk.Device device, uint infoCount, Vk.KHR.AccelerationStructureBuildGeometryInfo* pInfos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
 		=> vkBuildAccelerationStructureKHR(device, infoCount, pInfos, ppOffsetInfos);
+
+	/// <summary>vkBuildAccelerationStructureKHR(<c>Vk.Device</c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.KHR.AccelerationStructureBuildOffsetInfo**</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result BuildAccelerationStructureKHR(Vk.Device device, in ReadOnlySpan<Vk.KHR.AccelerationStructureBuildGeometryInfo> infos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
+	{
+		fixed (Vk.KHR.AccelerationStructureBuildGeometryInfo* infosFIXED = infos)
+		return vkBuildAccelerationStructureKHR(device, (uint)infos.Length, infosFIXED, ppOffsetInfos);
+	}
 
 	/// <summary>vkGetAccelerationStructureDeviceAddressKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructureDeviceAddressInfo*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetAccelerationStructureDeviceAddressKHR(Vk.Device device, Vk.KHR.AccelerationStructureDeviceAddressInfo* pInfo)
 		=> vkGetAccelerationStructureDeviceAddressKHR(device, pInfo);
 
+	/// <summary>vkGetAccelerationStructureDeviceAddressKHR(<c>Vk.Device</c>, <c>Vk.KHR.AccelerationStructureDeviceAddressInfo*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetAccelerationStructureDeviceAddressKHR(Vk.Device device, in Vk.KHR.AccelerationStructureDeviceAddressInfo info)
+	{
+		fixed (Vk.KHR.AccelerationStructureDeviceAddressInfo* infoFIXED = &info)
+		return vkGetAccelerationStructureDeviceAddressKHR(device, infoFIXED);
+	}
+
 	/// <summary>vkCreateDeferredOperationKHR(<c>Vk.Device</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.DeferredOperation*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDeferredOperationKHR(Vk.Device device, Vk.AllocationCallbacks* pAllocator, Vk.KHR.DeferredOperation* pDeferredOperation)
 		=> vkCreateDeferredOperationKHR(device, pAllocator, pDeferredOperation);
 
+	/// <summary>vkCreateDeferredOperationKHR(<c>Vk.Device</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.KHR.DeferredOperation*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDeferredOperationKHR(Vk.Device device, in Vk.AllocationCallbacks allocator, out Vk.KHR.DeferredOperation deferredOperation)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.KHR.DeferredOperation* deferredOperationFIXED = &deferredOperation)
+		return vkCreateDeferredOperationKHR(device, allocatorFIXED, deferredOperationFIXED);
+	}
+
 	/// <summary>vkDestroyDeferredOperationKHR(<c>Vk.Device</c>, <c>Vk.KHR.DeferredOperation</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDeferredOperationKHR(Vk.Device device, Vk.KHR.DeferredOperation operation, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyDeferredOperationKHR(device, operation, pAllocator);
+
+	/// <summary>vkDestroyDeferredOperationKHR(<c>Vk.Device</c>, <c>Vk.KHR.DeferredOperation</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDeferredOperationKHR(Vk.Device device, Vk.KHR.DeferredOperation operation, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyDeferredOperationKHR(device, operation, allocatorFIXED);
+	}
 
 	/// <summary>vkGetDeferredOperationMaxConcurrencyKHR(<c>Vk.Device</c>, <c>Vk.KHR.DeferredOperation</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2155,15 +4957,42 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetViewportWithCountEXT(Vk.CommandBuffer commandBuffer, uint viewportCount, Vk.Viewport* pViewports)
 		=> vkCmdSetViewportWithCountEXT(commandBuffer, viewportCount, pViewports);
 
+	/// <summary>vkCmdSetViewportWithCountEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.Viewport*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetViewportWithCountEXT(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.Viewport> viewports)
+	{
+		fixed (Vk.Viewport* viewportsFIXED = viewports)
+		vkCmdSetViewportWithCountEXT(commandBuffer, (uint)viewports.Length, viewportsFIXED);
+	}
+
 	/// <summary>vkCmdSetScissorWithCountEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetScissorWithCountEXT(Vk.CommandBuffer commandBuffer, uint scissorCount, Vk.Rect2D* pScissors)
 		=> vkCmdSetScissorWithCountEXT(commandBuffer, scissorCount, pScissors);
 
+	/// <summary>vkCmdSetScissorWithCountEXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetScissorWithCountEXT(Vk.CommandBuffer commandBuffer, in ReadOnlySpan<Vk.Rect2D> scissors)
+	{
+		fixed (Vk.Rect2D* scissorsFIXED = scissors)
+		vkCmdSetScissorWithCountEXT(commandBuffer, (uint)scissors.Length, scissorsFIXED);
+	}
+
 	/// <summary>vkCmdBindVertexBuffers2EXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindVertexBuffers2EXT(Vk.CommandBuffer commandBuffer, uint firstBinding, uint bindingCount, Vk.Buffer* pBuffers, Vk.DeviceSize* pOffsets, Vk.DeviceSize* pSizes, Vk.DeviceSize* pStrides)
 		=> vkCmdBindVertexBuffers2EXT(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
+
+	/// <summary>vkCmdBindVertexBuffers2EXT(<c>Vk.CommandBuffer</c>, <c>uint</c>, <c>uint</c>, <c>Vk.Buffer*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBindVertexBuffers2EXT(Vk.CommandBuffer commandBuffer, uint firstBinding, in ReadOnlySpan<Vk.Buffer> buffers, in ReadOnlySpan<Vk.DeviceSize> offsets, in ReadOnlySpan<Vk.DeviceSize> sizes, in ReadOnlySpan<Vk.DeviceSize> strides)
+	{
+		fixed (Vk.Buffer* buffersFIXED = buffers)
+		fixed (Vk.DeviceSize* offsetsFIXED = offsets)
+		fixed (Vk.DeviceSize* sizesFIXED = sizes)
+		fixed (Vk.DeviceSize* stridesFIXED = strides)
+		vkCmdBindVertexBuffers2EXT(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED, sizesFIXED, stridesFIXED);
+	}
 
 	/// <summary>vkCmdSetDepthTestEnableEXT(<c>Vk.CommandBuffer</c>, <c>Vk.Bool32</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2200,10 +5029,28 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CreatePrivateDataSlotEXT(Vk.Device device, Vk.EXT.PrivateDataSlotCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.EXT.PrivateDataSlot* pPrivateDataSlot)
 		=> vkCreatePrivateDataSlotEXT(device, pCreateInfo, pAllocator, pPrivateDataSlot);
 
+	/// <summary>vkCreatePrivateDataSlotEXT(<c>Vk.Device</c>, <c>Vk.EXT.PrivateDataSlotCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.EXT.PrivateDataSlot*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePrivateDataSlotEXT(Vk.Device device, in Vk.EXT.PrivateDataSlotCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.PrivateDataSlot privateDataSlot)
+	{
+		fixed (Vk.EXT.PrivateDataSlotCreateInfo* createInfoFIXED = &createInfo)
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		fixed (Vk.EXT.PrivateDataSlot* privateDataSlotFIXED = &privateDataSlot)
+		return vkCreatePrivateDataSlotEXT(device, createInfoFIXED, allocatorFIXED, privateDataSlotFIXED);
+	}
+
 	/// <summary>vkDestroyPrivateDataSlotEXT(<c>Vk.Device</c>, <c>Vk.EXT.PrivateDataSlot</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPrivateDataSlotEXT(Vk.Device device, Vk.EXT.PrivateDataSlot privateDataSlot, Vk.AllocationCallbacks* pAllocator)
 		=> vkDestroyPrivateDataSlotEXT(device, privateDataSlot, pAllocator);
+
+	/// <summary>vkDestroyPrivateDataSlotEXT(<c>Vk.Device</c>, <c>Vk.EXT.PrivateDataSlot</c>, <c>Vk.AllocationCallbacks*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyPrivateDataSlotEXT(Vk.Device device, Vk.EXT.PrivateDataSlot privateDataSlot, in Vk.AllocationCallbacks allocator)
+	{
+		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
+		vkDestroyPrivateDataSlotEXT(device, privateDataSlot, allocatorFIXED);
+	}
 
 	/// <summary>vkSetPrivateDataEXT(<c>Vk.Device</c>, <c>Vk.ObjectType</c>, <c>ulong</c>, <c>Vk.EXT.PrivateDataSlot</c>, <c>ulong</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2215,40 +5062,105 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetPrivateDataEXT(Vk.Device device, Vk.ObjectType objectType, ulong objectHandle, Vk.EXT.PrivateDataSlot privateDataSlot, ulong* pData)
 		=> vkGetPrivateDataEXT(device, objectType, objectHandle, privateDataSlot, pData);
 
+	/// <summary>vkGetPrivateDataEXT(<c>Vk.Device</c>, <c>Vk.ObjectType</c>, <c>ulong</c>, <c>Vk.EXT.PrivateDataSlot</c>, <c>ulong*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPrivateDataEXT(Vk.Device device, Vk.ObjectType objectType, ulong objectHandle, Vk.EXT.PrivateDataSlot privateDataSlot, out ulong data)
+	{
+		fixed (ulong* dataFIXED = &data)
+		vkGetPrivateDataEXT(device, objectType, objectHandle, privateDataSlot, dataFIXED);
+	}
+
 	/// <summary>vkCmdCopyBuffer2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyBufferInfo2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyBuffer2KHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyBufferInfo2* pCopyBufferInfo)
 		=> vkCmdCopyBuffer2KHR(commandBuffer, pCopyBufferInfo);
+
+	/// <summary>vkCmdCopyBuffer2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyBufferInfo2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyBuffer2KHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.CopyBufferInfo2 copyBufferInfo)
+	{
+		fixed (Vk.KHR.CopyBufferInfo2* copyBufferInfoFIXED = &copyBufferInfo)
+		vkCmdCopyBuffer2KHR(commandBuffer, copyBufferInfoFIXED);
+	}
 
 	/// <summary>vkCmdCopyImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyImageInfo2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImage2KHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyImageInfo2* pCopyImageInfo)
 		=> vkCmdCopyImage2KHR(commandBuffer, pCopyImageInfo);
 
+	/// <summary>vkCmdCopyImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyImageInfo2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyImage2KHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.CopyImageInfo2 copyImageInfo)
+	{
+		fixed (Vk.KHR.CopyImageInfo2* copyImageInfoFIXED = &copyImageInfo)
+		vkCmdCopyImage2KHR(commandBuffer, copyImageInfoFIXED);
+	}
+
 	/// <summary>vkCmdBlitImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.BlitImageInfo2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBlitImage2KHR(Vk.CommandBuffer commandBuffer, Vk.KHR.BlitImageInfo2* pBlitImageInfo)
 		=> vkCmdBlitImage2KHR(commandBuffer, pBlitImageInfo);
+
+	/// <summary>vkCmdBlitImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.BlitImageInfo2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBlitImage2KHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.BlitImageInfo2 blitImageInfo)
+	{
+		fixed (Vk.KHR.BlitImageInfo2* blitImageInfoFIXED = &blitImageInfo)
+		vkCmdBlitImage2KHR(commandBuffer, blitImageInfoFIXED);
+	}
 
 	/// <summary>vkCmdCopyBufferToImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyBufferToImageInfo2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyBufferToImage2KHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyBufferToImageInfo2* pCopyBufferToImageInfo)
 		=> vkCmdCopyBufferToImage2KHR(commandBuffer, pCopyBufferToImageInfo);
 
+	/// <summary>vkCmdCopyBufferToImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyBufferToImageInfo2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyBufferToImage2KHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.CopyBufferToImageInfo2 copyBufferToImageInfo)
+	{
+		fixed (Vk.KHR.CopyBufferToImageInfo2* copyBufferToImageInfoFIXED = &copyBufferToImageInfo)
+		vkCmdCopyBufferToImage2KHR(commandBuffer, copyBufferToImageInfoFIXED);
+	}
+
 	/// <summary>vkCmdCopyImageToBuffer2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyImageToBufferInfo2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImageToBuffer2KHR(Vk.CommandBuffer commandBuffer, Vk.KHR.CopyImageToBufferInfo2* pCopyImageToBufferInfo)
 		=> vkCmdCopyImageToBuffer2KHR(commandBuffer, pCopyImageToBufferInfo);
+
+	/// <summary>vkCmdCopyImageToBuffer2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.CopyImageToBufferInfo2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyImageToBuffer2KHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.CopyImageToBufferInfo2 copyImageToBufferInfo)
+	{
+		fixed (Vk.KHR.CopyImageToBufferInfo2* copyImageToBufferInfoFIXED = &copyImageToBufferInfo)
+		vkCmdCopyImageToBuffer2KHR(commandBuffer, copyImageToBufferInfoFIXED);
+	}
 
 	/// <summary>vkCmdResolveImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.ResolveImageInfo2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdResolveImage2KHR(Vk.CommandBuffer commandBuffer, Vk.KHR.ResolveImageInfo2* pResolveImageInfo)
 		=> vkCmdResolveImage2KHR(commandBuffer, pResolveImageInfo);
 
+	/// <summary>vkCmdResolveImage2KHR(<c>Vk.CommandBuffer</c>, <c>Vk.KHR.ResolveImageInfo2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdResolveImage2KHR(Vk.CommandBuffer commandBuffer, in Vk.KHR.ResolveImageInfo2 resolveImageInfo)
+	{
+		fixed (Vk.KHR.ResolveImageInfo2* resolveImageInfoFIXED = &resolveImageInfo)
+		vkCmdResolveImage2KHR(commandBuffer, resolveImageInfoFIXED);
+	}
+
 	/// <summary>vkCmdSetFragmentShadingRateKHR(<c>Vk.CommandBuffer</c>, <c>Vk.Extent2D*</c>, <c>Vk.KHR.FragmentShadingRateCombinerOp*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetFragmentShadingRateKHR(Vk.CommandBuffer commandBuffer, Vk.Extent2D* pFragmentSize, Vk.KHR.FragmentShadingRateCombinerOp* combinerOps)
 		=> vkCmdSetFragmentShadingRateKHR(commandBuffer, pFragmentSize, combinerOps);
+
+	/// <summary>vkCmdSetFragmentShadingRateKHR(<c>Vk.CommandBuffer</c>, <c>Vk.Extent2D*</c>, <c>Vk.KHR.FragmentShadingRateCombinerOp*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetFragmentShadingRateKHR(Vk.CommandBuffer commandBuffer, in Vk.Extent2D fragmentSize, in Vk.KHR.FragmentShadingRateCombinerOp combinerOps)
+	{
+		fixed (Vk.Extent2D* fragmentSizeFIXED = &fragmentSize)
+		fixed (Vk.KHR.FragmentShadingRateCombinerOp* combinerOpsFIXED = &combinerOps)
+		vkCmdSetFragmentShadingRateKHR(commandBuffer, fragmentSizeFIXED, combinerOpsFIXED);
+	}
 
 }
 

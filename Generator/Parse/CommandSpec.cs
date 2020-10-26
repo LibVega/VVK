@@ -15,7 +15,7 @@ namespace Gen
 	public sealed class CommandSpec
 	{
 		// A function argument
-		public record Argument(string Name, string Type);
+		public record Argument(string Name, string Type, string? LengthName, bool Const, bool Optional);
 
 		#region Fields
 		// The function name
@@ -102,7 +102,17 @@ namespace Gen
 					ptrCount += 1;
 				}
 
-				args.Add(new(paramNameNode.InnerText, paramTypeNode.InnerText + new string('*', ptrCount)));
+				// Check if the argument is an array pointer
+				string? lenName = null;
+				if ((paramNode.Attributes?["len"] is XmlAttribute lenAttr) && (lenAttr.Value != "null-terminated")) {
+					lenName = lenAttr.Value;
+				}
+
+				// Check if the argument is const and optional
+				bool @const = paramNode.InnerText.Contains("const");
+				bool opt = (paramNode.Attributes?["optional"] is XmlAttribute optAttr) && (optAttr.Value == "true");
+
+				args.Add(new(paramNameNode.InnerText, paramTypeNode.InnerText + new string('*', ptrCount), lenName, @const, opt));
 			}
 
 			// Return
