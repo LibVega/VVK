@@ -212,7 +212,58 @@ namespace Gen
 				}
 			}
 			catch (Exception ex) {
-				Program.PrintError($"Failed to generate API functions - {ex.Message}");
+				Program.PrintError($"Failed to generate API commands - {ex.Message}");
+				return false;
+			}
+
+			try {
+				// File context
+				using var file = new SourceFile("Vk.Commands.Functions.cs", "Vk");
+
+				// Write the global/instance functions
+				using (var block = file.PushBlock("public unsafe sealed partial class InstanceFunctionTable")) {
+					// Loop over global functions
+					foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Global)) {
+						var argStr = String.Join(", ", cmd.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
+						var callStr = String.Join(", ", cmd.Arguments.Select(arg => arg.Name));
+						var typeStr = String.Join(", ", cmd.Arguments.Select(arg => $"<c>{arg.Type}</c>"));
+						block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
+						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						block.WriteLine($"public static {cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({argStr})");
+						block.WriteLine($"\t=> {cmd.Name}({callStr});");
+						block.WriteLine();
+					}
+
+					// Loop over instance functions
+					foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Instance)) {
+						var argStr = String.Join(", ", cmd.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
+						var callStr = String.Join(", ", cmd.Arguments.Select(arg => arg.Name));
+						var typeStr = String.Join(", ", cmd.Arguments.Select(arg => $"<c>{arg.Type}</c>"));
+						block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
+						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						block.WriteLine($"public {cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({argStr})");
+						block.WriteLine($"\t=> {cmd.Name}({callStr});");
+						block.WriteLine();
+					}
+				}
+
+				// Write the device functions
+				using (var block = file.PushBlock("public unsafe sealed partial class DeviceFunctionTable")) {
+					// Loop over device functions
+					foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Device)) {
+						var argStr = String.Join(", ", cmd.Arguments.Select(arg => $"{arg.Type} {arg.Name}"));
+						var callStr = String.Join(", ", cmd.Arguments.Select(arg => arg.Name));
+						var typeStr = String.Join(", ", cmd.Arguments.Select(arg => $"<c>{arg.Type}</c>"));
+						block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
+						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						block.WriteLine($"public {cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({argStr})");
+						block.WriteLine($"\t=> {cmd.Name}({callStr});");
+						block.WriteLine();
+					}
+				}
+			}
+			catch (Exception ex) {
+				Program.PrintError($"Failed to generate API function tables - {ex.Message}");
 				return false;
 			}
 
