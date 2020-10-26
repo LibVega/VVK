@@ -1,5 +1,8 @@
 # VVK
 
+[![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/VegaLib/VVK/blob/master/LICENSE)
+[![NuGet](https://img.shields.io/nuget/v/VVK)](https://www.nuget.org/packages/VVK/)
+
 Low-overhead Vulkan API bindings for .NET 5 and C# 9.
 
 The raw API bindings are generated from the `vk.xml` specification file published by Khronos. These bindings can be used directly, or with the hand-written wrapper classes that provide a thin OOP layer on the raw Vulkan API. The usage guide for both approaches can be found on [the Wiki](https://github.com/VegaLib/VVK/wiki).
