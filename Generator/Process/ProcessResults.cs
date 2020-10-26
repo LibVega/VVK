@@ -41,6 +41,17 @@ namespace Gen
 			proc = new();
 			var names = new NameHelper(spec.VendorNames);
 
+			// Process the handles
+			Console.WriteLine("Processing handle types...");
+			foreach (var handleSpec in spec.Handles.Values) {
+				if (HandleOut.TryProcess(handleSpec, names) is not HandleOut handleOut) {
+					return false;
+				}
+				proc.getOrCreateVendor(handleOut.VendorName).Handles.Add(handleOut.Name, handleOut);
+				names.RegisterHandle(handleOut);
+				Program.PrintVerbose($"\tProcessed handle {handleOut.Name}");
+			}
+
 			// Process the constants
 			Console.WriteLine("Processing API constants...");
 			foreach (var constSpec in spec.Constants) {
@@ -80,16 +91,6 @@ namespace Gen
 				}
 				proc.getOrCreateVendor(structOut.VendorName).Structs.Add(structOut.Name, structOut);
 				Program.PrintVerbose($"\tProcessed struct {structOut.Name}");
-			}
-
-			// Process the handles
-			Console.WriteLine("Processing handle types...");
-			foreach (var handleSpec in spec.Handles.Values) {
-				if (HandleOut.TryProcess(handleSpec, names) is not HandleOut handleOut) {
-					return false;
-				}
-				proc.getOrCreateVendor(handleOut.VendorName).Handles.Add(handleOut.Name, handleOut);
-				Program.PrintVerbose($"\tProcessed handle {handleOut.Name}");
 			}
 
 			// Process the commands

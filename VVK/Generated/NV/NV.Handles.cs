@@ -14,48 +14,48 @@ using System.Runtime.CompilerServices;
 namespace Vk.NV
 {
 
-[StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct IndirectCommandsLayout : IEquatable<IndirectCommandsLayout>
+public unsafe partial struct IndirectCommandsLayout : IHandleType<IndirectCommandsLayout>
 {
-	public static readonly IndirectCommandsLayout Null = new(0);
+	public static readonly IndirectCommandsLayout Null = new();
 
-	[FieldOffset(0)] public readonly void* Handle;
-	public readonly ulong LongHandle => (ulong)Handle;
+	private readonly Handle<IndirectCommandsLayout> _handle;
+	readonly Handle<IndirectCommandsLayout> IHandleType<IndirectCommandsLayout>.Handle => _handle;
 
-	public IndirectCommandsLayout(void* handle) => Handle = handle;
-	public IndirectCommandsLayout(ulong handle) => Handle = (void*)handle;
-	public IndirectCommandsLayout(IntPtr handle) => Handle = handle.ToPointer();
+	public override readonly int GetHashCode() => _handle.GetHashCode();
+	public override readonly string? ToString() => $"[IndirectCommandsLayout 0x{(ulong)_handle:X16}]";
+	public override readonly bool Equals(object? o) => (o is IndirectCommandsLayout t) && (t._handle == _handle);
+	readonly bool IEquatable<IndirectCommandsLayout>.Equals(IndirectCommandsLayout other) => other._handle == _handle;
 
-	readonly bool IEquatable<IndirectCommandsLayout>.Equals(IndirectCommandsLayout other) => other.Handle == Handle;
-	public readonly override bool Equals(object? other) => (other is IndirectCommandsLayout handle) && handle.Handle == Handle;
-	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
-	public readonly override string ToString() => $"[IndirectCommandsLayout 0x{LongHandle:X16}]";
-
-	public static bool operator == (IndirectCommandsLayout l, IndirectCommandsLayout r) => l.Handle == r.Handle;
-	public static bool operator != (IndirectCommandsLayout l, IndirectCommandsLayout r) => l.Handle != r.Handle;
-	public static implicit operator bool (IndirectCommandsLayout handle) => handle.Handle != null;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator Vk.Handle<IndirectCommandsLayout> (in IndirectCommandsLayout handle) => handle._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (IndirectCommandsLayout l, IndirectCommandsLayout r) => l._handle == r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (IndirectCommandsLayout l, IndirectCommandsLayout r) => l._handle != r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator bool (IndirectCommandsLayout handle) => handle._handle.IsValid;
 }
 
-[StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct AccelerationStructure : IEquatable<AccelerationStructure>
+public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStructure>
 {
-	public static readonly AccelerationStructure Null = new(0);
+	public static readonly AccelerationStructure Null = new();
 
-	[FieldOffset(0)] public readonly void* Handle;
-	public readonly ulong LongHandle => (ulong)Handle;
+	private readonly Handle<AccelerationStructure> _handle;
+	readonly Handle<AccelerationStructure> IHandleType<AccelerationStructure>.Handle => _handle;
 
-	public AccelerationStructure(void* handle) => Handle = handle;
-	public AccelerationStructure(ulong handle) => Handle = (void*)handle;
-	public AccelerationStructure(IntPtr handle) => Handle = handle.ToPointer();
+	public override readonly int GetHashCode() => _handle.GetHashCode();
+	public override readonly string? ToString() => $"[AccelerationStructure 0x{(ulong)_handle:X16}]";
+	public override readonly bool Equals(object? o) => (o is AccelerationStructure t) && (t._handle == _handle);
+	readonly bool IEquatable<AccelerationStructure>.Equals(AccelerationStructure other) => other._handle == _handle;
 
-	readonly bool IEquatable<AccelerationStructure>.Equals(AccelerationStructure other) => other.Handle == Handle;
-	public readonly override bool Equals(object? other) => (other is AccelerationStructure handle) && handle.Handle == Handle;
-	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
-	public readonly override string ToString() => $"[AccelerationStructure 0x{LongHandle:X16}]";
-
-	public static bool operator == (AccelerationStructure l, AccelerationStructure r) => l.Handle == r.Handle;
-	public static bool operator != (AccelerationStructure l, AccelerationStructure r) => l.Handle != r.Handle;
-	public static implicit operator bool (AccelerationStructure handle) => handle.Handle != null;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator Vk.Handle<AccelerationStructure> (in AccelerationStructure handle) => handle._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (AccelerationStructure l, AccelerationStructure r) => l._handle == r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (AccelerationStructure l, AccelerationStructure r) => l._handle != r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator bool (AccelerationStructure handle) => handle._handle.IsValid;
 }
 
 } // namespace Vk.NV

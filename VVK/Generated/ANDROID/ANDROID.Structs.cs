@@ -200,7 +200,7 @@ public unsafe partial struct MemoryGetAndroidHardwareBufferInfo : IEquatable<Mem
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryGetAndroidHardwareBufferInfo o) && (this == o);
 	readonly bool IEquatable<MemoryGetAndroidHardwareBufferInfo>.Equals(MemoryGetAndroidHardwareBufferInfo obj) => (this == obj);

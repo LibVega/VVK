@@ -115,8 +115,8 @@ public unsafe partial struct DedicatedAllocationMemoryAllocateInfo : IEquatable<
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Image Image;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Image> Image;
+	public Vk.Handle<Vk.Buffer> Buffer;
 
 	public readonly override bool Equals(object? obj) => (obj is DedicatedAllocationMemoryAllocateInfo o) && (this == o);
 	readonly bool IEquatable<DedicatedAllocationMemoryAllocateInfo>.Equals(DedicatedAllocationMemoryAllocateInfo obj) => (this == obj);
@@ -393,11 +393,11 @@ public unsafe partial struct Win32KeyedMutexAcquireReleaseInfo : IEquatable<Win3
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint AcquireCount;
-	public Vk.DeviceMemory* AcquireSyncs;
+	public Vk.Handle<Vk.DeviceMemory>* AcquireSyncs;
 	public ulong* AcquireKeys;
 	public uint* AcquireTimeoutMilliseconds;
 	public uint ReleaseCount;
-	public Vk.DeviceMemory* ReleaseSyncs;
+	public Vk.Handle<Vk.DeviceMemory>* ReleaseSyncs;
 	public ulong* ReleaseKeys;
 
 	public readonly override bool Equals(object? obj) => (obj is Win32KeyedMutexAcquireReleaseInfo o) && (this == o);
@@ -600,7 +600,7 @@ public unsafe partial struct GraphicsPipelineShaderGroupsCreateInfo : IEquatable
 	public uint GroupCount;
 	public Vk.NV.GraphicsShaderGroupCreateInfo* Groups;
 	public uint PipelineCount;
-	public Vk.Pipeline* Pipelines;
+	public Vk.Handle<Vk.Pipeline>* Pipelines;
 
 	public readonly override bool Equals(object? obj) => (obj is GraphicsPipelineShaderGroupsCreateInfo o) && (this == o);
 	readonly bool IEquatable<GraphicsPipelineShaderGroupsCreateInfo>.Equals(GraphicsPipelineShaderGroupsCreateInfo obj) => (this == obj);
@@ -791,14 +791,14 @@ public unsafe partial struct SetStateFlagsIndirectCommand : IEquatable<SetStateF
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct IndirectCommandsStream : IEquatable<IndirectCommandsStream>
 {
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 	public Vk.DeviceSize Offset;
 
 	public readonly override bool Equals(object? obj) => (obj is IndirectCommandsStream o) && (this == o);
 	readonly bool IEquatable<IndirectCommandsStream>.Equals(IndirectCommandsStream obj) => (this == obj);
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.Buffer* ptr = &Buffer) {
+		fixed (Vk.Handle<Vk.Buffer>* ptr = &Buffer) {
 			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<IndirectCommandsStream>());
 		}
 	}
@@ -837,7 +837,7 @@ public unsafe partial struct IndirectCommandsLayoutToken : IEquatable<IndirectCo
 	public uint Offset;
 	public uint VertexBindingUnit;
 	public Vk.Bool32 VertexDynamicStride;
-	public Vk.PipelineLayout PushconstantPipelineLayout;
+	public Vk.Handle<Vk.PipelineLayout> PushconstantPipelineLayout;
 	public Vk.ShaderStageFlags PushconstantShaderStageFlags;
 	public uint PushconstantOffset;
 	public uint PushconstantSize;
@@ -944,17 +944,17 @@ public unsafe partial struct GeneratedCommandsInfo : IEquatable<GeneratedCommand
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.PipelineBindPoint PipelineBindPoint;
-	public Vk.Pipeline Pipeline;
-	public Vk.NV.IndirectCommandsLayout IndirectCommandsLayout;
+	public Vk.Handle<Vk.Pipeline> Pipeline;
+	public Vk.Handle<Vk.NV.IndirectCommandsLayout> IndirectCommandsLayout;
 	public uint StreamCount;
 	public Vk.NV.IndirectCommandsStream* Streams;
 	public uint SequencesCount;
-	public Vk.Buffer PreprocessBuffer;
+	public Vk.Handle<Vk.Buffer> PreprocessBuffer;
 	public Vk.DeviceSize PreprocessOffset;
 	public Vk.DeviceSize PreprocessSize;
-	public Vk.Buffer SequencesCountBuffer;
+	public Vk.Handle<Vk.Buffer> SequencesCountBuffer;
 	public Vk.DeviceSize SequencesCountOffset;
-	public Vk.Buffer SequencesIndexBuffer;
+	public Vk.Handle<Vk.Buffer> SequencesIndexBuffer;
 	public Vk.DeviceSize SequencesIndexOffset;
 
 	public readonly override bool Equals(object? obj) => (obj is GeneratedCommandsInfo o) && (this == o);
@@ -1003,8 +1003,8 @@ public unsafe partial struct GeneratedCommandsMemoryRequirementsInfo : IEquatabl
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.PipelineBindPoint PipelineBindPoint;
-	public Vk.Pipeline Pipeline;
-	public Vk.NV.IndirectCommandsLayout IndirectCommandsLayout;
+	public Vk.Handle<Vk.Pipeline> Pipeline;
+	public Vk.Handle<Vk.NV.IndirectCommandsLayout> IndirectCommandsLayout;
 	public uint MaxSequencesCount;
 
 	public readonly override bool Equals(object? obj) => (obj is GeneratedCommandsMemoryRequirementsInfo o) && (this == o);
@@ -2356,8 +2356,8 @@ public unsafe partial struct RayTracingPipelineCreateInfo : IEquatable<RayTracin
 	public uint GroupCount;
 	public Vk.NV.RayTracingShaderGroupCreateInfo* Groups;
 	public uint MaxRecursionDepth;
-	public Vk.PipelineLayout Layout;
-	public Vk.Pipeline BasePipelineHandle;
+	public Vk.Handle<Vk.PipelineLayout> Layout;
+	public Vk.Handle<Vk.Pipeline> BasePipelineHandle;
 	public int BasePipelineIndex;
 
 	public readonly override bool Equals(object? obj) => (obj is RayTracingPipelineCreateInfo o) && (this == o);
@@ -2405,16 +2405,16 @@ public unsafe partial struct GeometryTriangles : IEquatable<GeometryTriangles>
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Buffer VertexData;
+	public Vk.Handle<Vk.Buffer> VertexData;
 	public Vk.DeviceSize VertexOffset;
 	public uint VertexCount;
 	public Vk.DeviceSize VertexStride;
 	public Vk.Format VertexFormat;
-	public Vk.Buffer IndexData;
+	public Vk.Handle<Vk.Buffer> IndexData;
 	public Vk.DeviceSize IndexOffset;
 	public uint IndexCount;
 	public Vk.IndexType IndexType;
-	public Vk.Buffer TransformData;
+	public Vk.Handle<Vk.Buffer> TransformData;
 	public Vk.DeviceSize TransformOffset;
 
 	public readonly override bool Equals(object? obj) => (obj is GeometryTriangles o) && (this == o);
@@ -2462,7 +2462,7 @@ public unsafe partial struct GeometryAABB : IEquatable<GeometryAABB>
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Buffer AabbData;
+	public Vk.Handle<Vk.Buffer> AabbData;
 	public uint NumAABBs;
 	public uint Stride;
 	public Vk.DeviceSize Offset;
@@ -2697,8 +2697,8 @@ public unsafe partial struct BindAccelerationStructureMemoryInfo : IEquatable<Bi
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.KHR.AccelerationStructure AccelerationStructure;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.KHR.AccelerationStructure> AccelerationStructure;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 	public Vk.DeviceSize MemoryOffset;
 	public uint DeviceIndexCount;
 	public uint* DeviceIndices;
@@ -2749,7 +2749,7 @@ public unsafe partial struct WriteDescriptorSetAccelerationStructure : IEquatabl
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint AccelerationStructureCount;
-	public Vk.KHR.AccelerationStructure* AccelerationStructures;
+	public Vk.Handle<Vk.KHR.AccelerationStructure>* AccelerationStructures;
 
 	public readonly override bool Equals(object? obj) => (obj is WriteDescriptorSetAccelerationStructure o) && (this == o);
 	readonly bool IEquatable<WriteDescriptorSetAccelerationStructure>.Equals(WriteDescriptorSetAccelerationStructure obj) => (this == obj);
@@ -2797,7 +2797,7 @@ public unsafe partial struct AccelerationStructureMemoryRequirementsInfo : IEqua
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.NV.AccelerationStructureMemoryRequirementsType Type;
-	public Vk.NV.AccelerationStructure AccelerationStructure;
+	public Vk.Handle<Vk.NV.AccelerationStructure> AccelerationStructure;
 
 	public readonly override bool Equals(object? obj) => (obj is AccelerationStructureMemoryRequirementsInfo o) && (this == o);
 	readonly bool IEquatable<AccelerationStructureMemoryRequirementsInfo>.Equals(AccelerationStructureMemoryRequirementsInfo obj) => (this == obj);

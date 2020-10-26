@@ -14,92 +14,92 @@ using System.Runtime.CompilerServices;
 namespace Vk.EXT
 {
 
-[StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct ValidationCache : IEquatable<ValidationCache>
+public unsafe partial struct ValidationCache : IHandleType<ValidationCache>
 {
-	public static readonly ValidationCache Null = new(0);
+	public static readonly ValidationCache Null = new();
 
-	[FieldOffset(0)] public readonly void* Handle;
-	public readonly ulong LongHandle => (ulong)Handle;
+	private readonly Handle<ValidationCache> _handle;
+	readonly Handle<ValidationCache> IHandleType<ValidationCache>.Handle => _handle;
 
-	public ValidationCache(void* handle) => Handle = handle;
-	public ValidationCache(ulong handle) => Handle = (void*)handle;
-	public ValidationCache(IntPtr handle) => Handle = handle.ToPointer();
+	public override readonly int GetHashCode() => _handle.GetHashCode();
+	public override readonly string? ToString() => $"[ValidationCache 0x{(ulong)_handle:X16}]";
+	public override readonly bool Equals(object? o) => (o is ValidationCache t) && (t._handle == _handle);
+	readonly bool IEquatable<ValidationCache>.Equals(ValidationCache other) => other._handle == _handle;
 
-	readonly bool IEquatable<ValidationCache>.Equals(ValidationCache other) => other.Handle == Handle;
-	public readonly override bool Equals(object? other) => (other is ValidationCache handle) && handle.Handle == Handle;
-	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
-	public readonly override string ToString() => $"[ValidationCache 0x{LongHandle:X16}]";
-
-	public static bool operator == (ValidationCache l, ValidationCache r) => l.Handle == r.Handle;
-	public static bool operator != (ValidationCache l, ValidationCache r) => l.Handle != r.Handle;
-	public static implicit operator bool (ValidationCache handle) => handle.Handle != null;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator Vk.Handle<ValidationCache> (in ValidationCache handle) => handle._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (ValidationCache l, ValidationCache r) => l._handle == r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (ValidationCache l, ValidationCache r) => l._handle != r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator bool (ValidationCache handle) => handle._handle.IsValid;
 }
 
-[StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct PrivateDataSlot : IEquatable<PrivateDataSlot>
+public unsafe partial struct PrivateDataSlot : IHandleType<PrivateDataSlot>
 {
-	public static readonly PrivateDataSlot Null = new(0);
+	public static readonly PrivateDataSlot Null = new();
 
-	[FieldOffset(0)] public readonly void* Handle;
-	public readonly ulong LongHandle => (ulong)Handle;
+	private readonly Handle<PrivateDataSlot> _handle;
+	readonly Handle<PrivateDataSlot> IHandleType<PrivateDataSlot>.Handle => _handle;
 
-	public PrivateDataSlot(void* handle) => Handle = handle;
-	public PrivateDataSlot(ulong handle) => Handle = (void*)handle;
-	public PrivateDataSlot(IntPtr handle) => Handle = handle.ToPointer();
+	public override readonly int GetHashCode() => _handle.GetHashCode();
+	public override readonly string? ToString() => $"[PrivateDataSlot 0x{(ulong)_handle:X16}]";
+	public override readonly bool Equals(object? o) => (o is PrivateDataSlot t) && (t._handle == _handle);
+	readonly bool IEquatable<PrivateDataSlot>.Equals(PrivateDataSlot other) => other._handle == _handle;
 
-	readonly bool IEquatable<PrivateDataSlot>.Equals(PrivateDataSlot other) => other.Handle == Handle;
-	public readonly override bool Equals(object? other) => (other is PrivateDataSlot handle) && handle.Handle == Handle;
-	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
-	public readonly override string ToString() => $"[PrivateDataSlot 0x{LongHandle:X16}]";
-
-	public static bool operator == (PrivateDataSlot l, PrivateDataSlot r) => l.Handle == r.Handle;
-	public static bool operator != (PrivateDataSlot l, PrivateDataSlot r) => l.Handle != r.Handle;
-	public static implicit operator bool (PrivateDataSlot handle) => handle.Handle != null;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator Vk.Handle<PrivateDataSlot> (in PrivateDataSlot handle) => handle._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (PrivateDataSlot l, PrivateDataSlot r) => l._handle == r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (PrivateDataSlot l, PrivateDataSlot r) => l._handle != r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator bool (PrivateDataSlot handle) => handle._handle.IsValid;
 }
 
-[StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct DebugReportCallback : IEquatable<DebugReportCallback>
+public unsafe partial struct DebugReportCallback : IHandleType<DebugReportCallback>
 {
-	public static readonly DebugReportCallback Null = new(0);
+	public static readonly DebugReportCallback Null = new();
 
-	[FieldOffset(0)] public readonly void* Handle;
-	public readonly ulong LongHandle => (ulong)Handle;
+	private readonly Handle<DebugReportCallback> _handle;
+	readonly Handle<DebugReportCallback> IHandleType<DebugReportCallback>.Handle => _handle;
 
-	public DebugReportCallback(void* handle) => Handle = handle;
-	public DebugReportCallback(ulong handle) => Handle = (void*)handle;
-	public DebugReportCallback(IntPtr handle) => Handle = handle.ToPointer();
+	public override readonly int GetHashCode() => _handle.GetHashCode();
+	public override readonly string? ToString() => $"[DebugReportCallback 0x{(ulong)_handle:X16}]";
+	public override readonly bool Equals(object? o) => (o is DebugReportCallback t) && (t._handle == _handle);
+	readonly bool IEquatable<DebugReportCallback>.Equals(DebugReportCallback other) => other._handle == _handle;
 
-	readonly bool IEquatable<DebugReportCallback>.Equals(DebugReportCallback other) => other.Handle == Handle;
-	public readonly override bool Equals(object? other) => (other is DebugReportCallback handle) && handle.Handle == Handle;
-	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
-	public readonly override string ToString() => $"[DebugReportCallback 0x{LongHandle:X16}]";
-
-	public static bool operator == (DebugReportCallback l, DebugReportCallback r) => l.Handle == r.Handle;
-	public static bool operator != (DebugReportCallback l, DebugReportCallback r) => l.Handle != r.Handle;
-	public static implicit operator bool (DebugReportCallback handle) => handle.Handle != null;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator Vk.Handle<DebugReportCallback> (in DebugReportCallback handle) => handle._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (DebugReportCallback l, DebugReportCallback r) => l._handle == r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (DebugReportCallback l, DebugReportCallback r) => l._handle != r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator bool (DebugReportCallback handle) => handle._handle.IsValid;
 }
 
-[StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct DebugUtilsMessenger : IEquatable<DebugUtilsMessenger>
+public unsafe partial struct DebugUtilsMessenger : IHandleType<DebugUtilsMessenger>
 {
-	public static readonly DebugUtilsMessenger Null = new(0);
+	public static readonly DebugUtilsMessenger Null = new();
 
-	[FieldOffset(0)] public readonly void* Handle;
-	public readonly ulong LongHandle => (ulong)Handle;
+	private readonly Handle<DebugUtilsMessenger> _handle;
+	readonly Handle<DebugUtilsMessenger> IHandleType<DebugUtilsMessenger>.Handle => _handle;
 
-	public DebugUtilsMessenger(void* handle) => Handle = handle;
-	public DebugUtilsMessenger(ulong handle) => Handle = (void*)handle;
-	public DebugUtilsMessenger(IntPtr handle) => Handle = handle.ToPointer();
+	public override readonly int GetHashCode() => _handle.GetHashCode();
+	public override readonly string? ToString() => $"[DebugUtilsMessenger 0x{(ulong)_handle:X16}]";
+	public override readonly bool Equals(object? o) => (o is DebugUtilsMessenger t) && (t._handle == _handle);
+	readonly bool IEquatable<DebugUtilsMessenger>.Equals(DebugUtilsMessenger other) => other._handle == _handle;
 
-	readonly bool IEquatable<DebugUtilsMessenger>.Equals(DebugUtilsMessenger other) => other.Handle == Handle;
-	public readonly override bool Equals(object? other) => (other is DebugUtilsMessenger handle) && handle.Handle == Handle;
-	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
-	public readonly override string ToString() => $"[DebugUtilsMessenger 0x{LongHandle:X16}]";
-
-	public static bool operator == (DebugUtilsMessenger l, DebugUtilsMessenger r) => l.Handle == r.Handle;
-	public static bool operator != (DebugUtilsMessenger l, DebugUtilsMessenger r) => l.Handle != r.Handle;
-	public static implicit operator bool (DebugUtilsMessenger handle) => handle.Handle != null;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator Vk.Handle<DebugUtilsMessenger> (in DebugUtilsMessenger handle) => handle._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (DebugUtilsMessenger l, DebugUtilsMessenger r) => l._handle == r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (DebugUtilsMessenger l, DebugUtilsMessenger r) => l._handle != r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator bool (DebugUtilsMessenger handle) => handle._handle.IsValid;
 }
 
 } // namespace Vk.EXT

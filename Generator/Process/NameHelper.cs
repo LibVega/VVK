@@ -72,12 +72,15 @@ namespace Gen
 		public readonly List<string> VendorNames;
 		// The registered function prototypes
 		public readonly Dictionary<string, string> FunctionPrototypes;
+		// Mapping of API handle types to final C# type names
+		public readonly Dictionary<string, string> HandleTypes;
 		#endregion // Fields
 
 		public NameHelper(List<string> vendors)
 		{
 			VendorNames = vendors;
 			FunctionPrototypes = new();
+			HandleTypes = new();
 		}
 
 		public void RegisterFunctions(Dictionary<string, FuncOut> funcs)
@@ -85,6 +88,11 @@ namespace Gen
 			foreach (var pair in funcs) {
 				FunctionPrototypes[pair.Value.Name] = pair.Value.Prototype;
 			}
+		}
+
+		public void RegisterHandle(HandleOut handle)
+		{
+			HandleTypes.Add(handle.Spec.Name, $"Vk.Handle<{handle.ProcessedName}>");
 		}
 
 		// Processes a spec enum or struct name into components for an output type
@@ -134,6 +142,12 @@ namespace Gen
 				var ptrCount = name.Count(c => c == '*');
 				ptrstr = new string('*', ptrCount);
 				name = name.Substring(0, name.Length - ptrCount);
+			}
+
+			// Check for handle handles
+			if (HandleTypes.TryGetValue(name, out var handleName)) {
+				outname = handleName + ptrstr;
+				return true;
 			}
 
 			// Try to parse a Vulkan type first

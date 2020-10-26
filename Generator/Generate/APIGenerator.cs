@@ -265,7 +265,8 @@ namespace Gen
 					using (var func = block.PushBlock($"public {(glob ? "static " : "")}{cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({altArgStr})")) {
 						foreach (var arg in cmd.AlternateArgs.Where(a => a.UseStr.EndsWith("FIXED"))) {
 							if (arg.Type.Contains("Span<")) {
-								var tstr = arg.Type.Substring(arg.Type.IndexOf('<') + 1).TrimEnd('>');
+								var tstr = arg.Type.Substring(arg.Type.IndexOf('<') + 1);
+								tstr = tstr.Substring(0, tstr.Length - 1);
 								func.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = {arg.Name})");
 							}
 							else {
@@ -440,33 +441,31 @@ namespace Gen
 				// Visit each handle
 				foreach (var handleSpec in vendor.Handles.Values) {
 					// Write the header
-					file.WriteLine("[StructLayout(LayoutKind.Explicit, Size = 8)]");
-					using var handleBlock = file.PushBlock($"public unsafe partial struct {handleSpec.Name} : IEquatable<{handleSpec.Name}>");
+					using var handleBlock = file.PushBlock($"public unsafe partial struct {handleSpec.Name} : IHandleType<{handleSpec.Name}>");
 
 					// Write the fields
-					handleBlock.WriteLine($"public static readonly {handleSpec.Name} Null = new(0);");
+					handleBlock.WriteLine($"public static readonly {handleSpec.Name} Null = new();");
 					handleBlock.WriteLine();
-					handleBlock.WriteLine("[FieldOffset(0)] public readonly void* Handle;");
-					handleBlock.WriteLine("public readonly ulong LongHandle => (ulong)Handle;");
-					handleBlock.WriteLine();
-
-					// Write the constructors
-					handleBlock.WriteLine($"public {handleSpec.Name}(void* handle) => Handle = handle;");
-					handleBlock.WriteLine($"public {handleSpec.Name}(ulong handle) => Handle = (void*)handle;");
-					handleBlock.WriteLine($"public {handleSpec.Name}(IntPtr handle) => Handle = handle.ToPointer();");
+					handleBlock.WriteLine($"private readonly Handle<{handleSpec.Name}> _handle;");
+					handleBlock.WriteLine($"readonly Handle<{handleSpec.Name}> IHandleType<{handleSpec.Name}>.Handle => _handle;");
 					handleBlock.WriteLine();
 
-					// Write the functions
-					handleBlock.WriteLine($"readonly bool IEquatable<{handleSpec.Name}>.Equals({handleSpec.Name} other) => other.Handle == Handle;");
-					handleBlock.WriteLine($"public readonly override bool Equals(object? other) => (other is {handleSpec.Name} handle) && handle.Handle == Handle;");
-					handleBlock.WriteLine($"public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);");
-					handleBlock.WriteLine($"public readonly override string ToString() => $\"[{handleSpec.Name} 0x{{LongHandle:X16}}]\";");
+					// Write the overrides
+					handleBlock.WriteLine("public override readonly int GetHashCode() => _handle.GetHashCode();");
+					handleBlock.WriteLine($"public override readonly string? ToString() => $\"[{handleSpec.Name} 0x{{(ulong)_handle:X16}}]\";");
+					handleBlock.WriteLine($"public override readonly bool Equals(object? o) => (o is {handleSpec.Name} t) && (t._handle == _handle);");
+					handleBlock.WriteLine($"readonly bool IEquatable<{handleSpec.Name}>.Equals({handleSpec.Name} other) => other._handle == _handle;");
 					handleBlock.WriteLine();
 
 					// Write the operators
-					handleBlock.WriteLine($"public static bool operator == ({handleSpec.Name} l, {handleSpec.Name} r) => l.Handle == r.Handle;");
-					handleBlock.WriteLine($"public static bool operator != ({handleSpec.Name} l, {handleSpec.Name} r) => l.Handle != r.Handle;");
-					handleBlock.WriteLine($"public static implicit operator bool ({handleSpec.Name} handle) => handle.Handle != null;");
+					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					handleBlock.WriteLine($"public static implicit operator Vk.Handle<{handleSpec.Name}> (in {handleSpec.Name} handle) => handle._handle;");
+					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					handleBlock.WriteLine($"public static bool operator == ({handleSpec.Name} l, {handleSpec.Name} r) => l._handle == r._handle;");
+					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					handleBlock.WriteLine($"public static bool operator != ({handleSpec.Name} l, {handleSpec.Name} r) => l._handle != r._handle;");
+					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					handleBlock.WriteLine($"public static implicit operator bool ({handleSpec.Name} handle) => handle._handle.IsValid;");
 				}
 			}
 			catch (Exception ex) {

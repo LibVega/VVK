@@ -68,9 +68,9 @@ public unsafe partial struct ImageViewHandleInfo : IEquatable<ImageViewHandleInf
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.ImageView ImageView;
+	public Vk.Handle<Vk.ImageView> ImageView;
 	public Vk.DescriptorType DescriptorType;
-	public Vk.Sampler Sampler;
+	public Vk.Handle<Vk.Sampler> Sampler;
 
 	public readonly override bool Equals(object? obj) => (obj is ImageViewHandleInfo o) && (this == o);
 	readonly bool IEquatable<ImageViewHandleInfo>.Equals(ImageViewHandleInfo obj) => (this == obj);

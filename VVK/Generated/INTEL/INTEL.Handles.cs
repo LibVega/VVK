@@ -14,26 +14,26 @@ using System.Runtime.CompilerServices;
 namespace Vk.INTEL
 {
 
-[StructLayout(LayoutKind.Explicit, Size = 8)]
-public unsafe partial struct PerformanceConfiguration : IEquatable<PerformanceConfiguration>
+public unsafe partial struct PerformanceConfiguration : IHandleType<PerformanceConfiguration>
 {
-	public static readonly PerformanceConfiguration Null = new(0);
+	public static readonly PerformanceConfiguration Null = new();
 
-	[FieldOffset(0)] public readonly void* Handle;
-	public readonly ulong LongHandle => (ulong)Handle;
+	private readonly Handle<PerformanceConfiguration> _handle;
+	readonly Handle<PerformanceConfiguration> IHandleType<PerformanceConfiguration>.Handle => _handle;
 
-	public PerformanceConfiguration(void* handle) => Handle = handle;
-	public PerformanceConfiguration(ulong handle) => Handle = (void*)handle;
-	public PerformanceConfiguration(IntPtr handle) => Handle = handle.ToPointer();
+	public override readonly int GetHashCode() => _handle.GetHashCode();
+	public override readonly string? ToString() => $"[PerformanceConfiguration 0x{(ulong)_handle:X16}]";
+	public override readonly bool Equals(object? o) => (o is PerformanceConfiguration t) && (t._handle == _handle);
+	readonly bool IEquatable<PerformanceConfiguration>.Equals(PerformanceConfiguration other) => other._handle == _handle;
 
-	readonly bool IEquatable<PerformanceConfiguration>.Equals(PerformanceConfiguration other) => other.Handle == Handle;
-	public readonly override bool Equals(object? other) => (other is PerformanceConfiguration handle) && handle.Handle == Handle;
-	public readonly override int GetHashCode() => (int)(LongHandle >> 32) ^ (int)(LongHandle & 0xFFFFFFFF);
-	public readonly override string ToString() => $"[PerformanceConfiguration 0x{LongHandle:X16}]";
-
-	public static bool operator == (PerformanceConfiguration l, PerformanceConfiguration r) => l.Handle == r.Handle;
-	public static bool operator != (PerformanceConfiguration l, PerformanceConfiguration r) => l.Handle != r.Handle;
-	public static implicit operator bool (PerformanceConfiguration handle) => handle.Handle != null;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator Vk.Handle<PerformanceConfiguration> (in PerformanceConfiguration handle) => handle._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator == (PerformanceConfiguration l, PerformanceConfiguration r) => l._handle == r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static bool operator != (PerformanceConfiguration l, PerformanceConfiguration r) => l._handle != r._handle;
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static implicit operator bool (PerformanceConfiguration handle) => handle._handle.IsValid;
 }
 
 } // namespace Vk.INTEL

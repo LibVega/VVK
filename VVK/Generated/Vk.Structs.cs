@@ -1148,7 +1148,7 @@ public unsafe partial struct MappedMemoryRange : IEquatable<MappedMemoryRange>
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 	public Vk.DeviceSize Offset;
 	public Vk.DeviceSize Size;
 
@@ -1271,7 +1271,7 @@ public unsafe partial struct ImageFormatProperties : IEquatable<ImageFormatPrope
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct DescriptorBufferInfo : IEquatable<DescriptorBufferInfo>
 {
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 	public Vk.DeviceSize Offset;
 	public Vk.DeviceSize Range;
 
@@ -1279,7 +1279,7 @@ public unsafe partial struct DescriptorBufferInfo : IEquatable<DescriptorBufferI
 	readonly bool IEquatable<DescriptorBufferInfo>.Equals(DescriptorBufferInfo obj) => (this == obj);
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.Buffer* ptr = &Buffer) {
+		fixed (Vk.Handle<Vk.Buffer>* ptr = &Buffer) {
 			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorBufferInfo>());
 		}
 	}
@@ -1309,15 +1309,15 @@ public unsafe partial struct DescriptorBufferInfo : IEquatable<DescriptorBufferI
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct DescriptorImageInfo : IEquatable<DescriptorImageInfo>
 {
-	public Vk.Sampler Sampler;
-	public Vk.ImageView ImageView;
+	public Vk.Handle<Vk.Sampler> Sampler;
+	public Vk.Handle<Vk.ImageView> ImageView;
 	public Vk.ImageLayout ImageLayout;
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorImageInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorImageInfo>.Equals(DescriptorImageInfo obj) => (this == obj);
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.Sampler* ptr = &Sampler) {
+		fixed (Vk.Handle<Vk.Sampler>* ptr = &Sampler) {
 			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorImageInfo>());
 		}
 	}
@@ -1351,14 +1351,14 @@ public unsafe partial struct WriteDescriptorSet : IEquatable<WriteDescriptorSet>
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.DescriptorSet DstSet;
+	public Vk.Handle<Vk.DescriptorSet> DstSet;
 	public uint DstBinding;
 	public uint DstArrayElement;
 	public uint DescriptorCount;
 	public Vk.DescriptorType DescriptorType;
 	public Vk.DescriptorImageInfo* ImageInfo;
 	public Vk.DescriptorBufferInfo* BufferInfo;
-	public Vk.BufferView* TexelBufferView;
+	public Vk.Handle<Vk.BufferView>* TexelBufferView;
 
 	public readonly override bool Equals(object? obj) => (obj is WriteDescriptorSet o) && (this == o);
 	readonly bool IEquatable<WriteDescriptorSet>.Equals(WriteDescriptorSet obj) => (this == obj);
@@ -1405,10 +1405,10 @@ public unsafe partial struct CopyDescriptorSet : IEquatable<CopyDescriptorSet>
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.DescriptorSet SrcSet;
+	public Vk.Handle<Vk.DescriptorSet> SrcSet;
 	public uint SrcBinding;
 	public uint SrcArrayElement;
-	public Vk.DescriptorSet DstSet;
+	public Vk.Handle<Vk.DescriptorSet> DstSet;
 	public uint DstBinding;
 	public uint DstArrayElement;
 	public uint DescriptorCount;
@@ -1511,7 +1511,7 @@ public unsafe partial struct BufferViewCreateInfo : IEquatable<BufferViewCreateI
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.BufferViewCreateFlags Flags;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 	public Vk.Format Format;
 	public Vk.DeviceSize Offset;
 	public Vk.DeviceSize Range;
@@ -1730,7 +1730,7 @@ public unsafe partial struct BufferMemoryBarrier : IEquatable<BufferMemoryBarrie
 	public Vk.AccessFlags DstAccessMask;
 	public uint SrcQueueFamilyIndex;
 	public uint DstQueueFamilyIndex;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 	public Vk.DeviceSize Offset;
 	public Vk.DeviceSize Size;
 
@@ -1785,7 +1785,7 @@ public unsafe partial struct ImageMemoryBarrier : IEquatable<ImageMemoryBarrier>
 	public Vk.ImageLayout NewLayout;
 	public uint SrcQueueFamilyIndex;
 	public uint DstQueueFamilyIndex;
-	public Vk.Image Image;
+	public Vk.Handle<Vk.Image> Image;
 	public Vk.ImageSubresourceRange SubresourceRange;
 
 	public readonly override bool Equals(object? obj) => (obj is ImageMemoryBarrier o) && (this == o);
@@ -1933,7 +1933,7 @@ public unsafe partial struct ImageViewCreateInfo : IEquatable<ImageViewCreateInf
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageViewCreateFlags Flags;
-	public Vk.Image Image;
+	public Vk.Handle<Vk.Image> Image;
 	public Vk.ImageViewType ViewType;
 	public Vk.Format Format;
 	public Vk.ComponentMapping Components;
@@ -2020,7 +2020,7 @@ public unsafe partial struct SparseMemoryBind : IEquatable<SparseMemoryBind>
 {
 	public Vk.DeviceSize ResourceOffset;
 	public Vk.DeviceSize Size;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 	public Vk.DeviceSize MemoryOffset;
 	public Vk.SparseMemoryBindFlags Flags;
 
@@ -2061,7 +2061,7 @@ public unsafe partial struct SparseImageMemoryBind : IEquatable<SparseImageMemor
 	public Vk.ImageSubresource Subresource;
 	public Vk.Offset3D Offset;
 	public Vk.Extent3D Extent;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 	public Vk.DeviceSize MemoryOffset;
 	public Vk.SparseMemoryBindFlags Flags;
 
@@ -2099,7 +2099,7 @@ public unsafe partial struct SparseImageMemoryBind : IEquatable<SparseImageMemor
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct SparseBufferMemoryBindInfo : IEquatable<SparseBufferMemoryBindInfo>
 {
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 	public uint BindCount;
 	public Vk.SparseMemoryBind* Binds;
 
@@ -2107,7 +2107,7 @@ public unsafe partial struct SparseBufferMemoryBindInfo : IEquatable<SparseBuffe
 	readonly bool IEquatable<SparseBufferMemoryBindInfo>.Equals(SparseBufferMemoryBindInfo obj) => (this == obj);
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.Buffer* ptr = &Buffer) {
+		fixed (Vk.Handle<Vk.Buffer>* ptr = &Buffer) {
 			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SparseBufferMemoryBindInfo>());
 		}
 	}
@@ -2137,7 +2137,7 @@ public unsafe partial struct SparseBufferMemoryBindInfo : IEquatable<SparseBuffe
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct SparseImageOpaqueMemoryBindInfo : IEquatable<SparseImageOpaqueMemoryBindInfo>
 {
-	public Vk.Image Image;
+	public Vk.Handle<Vk.Image> Image;
 	public uint BindCount;
 	public Vk.SparseMemoryBind* Binds;
 
@@ -2145,7 +2145,7 @@ public unsafe partial struct SparseImageOpaqueMemoryBindInfo : IEquatable<Sparse
 	readonly bool IEquatable<SparseImageOpaqueMemoryBindInfo>.Equals(SparseImageOpaqueMemoryBindInfo obj) => (this == obj);
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.Image* ptr = &Image) {
+		fixed (Vk.Handle<Vk.Image>* ptr = &Image) {
 			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SparseImageOpaqueMemoryBindInfo>());
 		}
 	}
@@ -2175,7 +2175,7 @@ public unsafe partial struct SparseImageOpaqueMemoryBindInfo : IEquatable<Sparse
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct SparseImageMemoryBindInfo : IEquatable<SparseImageMemoryBindInfo>
 {
-	public Vk.Image Image;
+	public Vk.Handle<Vk.Image> Image;
 	public uint BindCount;
 	public Vk.SparseImageMemoryBind* Binds;
 
@@ -2183,7 +2183,7 @@ public unsafe partial struct SparseImageMemoryBindInfo : IEquatable<SparseImageM
 	readonly bool IEquatable<SparseImageMemoryBindInfo>.Equals(SparseImageMemoryBindInfo obj) => (this == obj);
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.Image* ptr = &Image) {
+		fixed (Vk.Handle<Vk.Image>* ptr = &Image) {
 			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SparseImageMemoryBindInfo>());
 		}
 	}
@@ -2218,7 +2218,7 @@ public unsafe partial struct BindSparseInfo : IEquatable<BindSparseInfo>
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint WaitSemaphoreCount;
-	public Vk.Semaphore* WaitSemaphores;
+	public Vk.Handle<Vk.Semaphore>* WaitSemaphores;
 	public uint BufferBindCount;
 	public Vk.SparseBufferMemoryBindInfo* BufferBinds;
 	public uint ImageOpaqueBindCount;
@@ -2226,7 +2226,7 @@ public unsafe partial struct BindSparseInfo : IEquatable<BindSparseInfo>
 	public uint ImageBindCount;
 	public Vk.SparseImageMemoryBindInfo* ImageBinds;
 	public uint SignalSemaphoreCount;
-	public Vk.Semaphore* SignalSemaphores;
+	public Vk.Handle<Vk.Semaphore>* SignalSemaphores;
 
 	public readonly override bool Equals(object? obj) => (obj is BindSparseInfo o) && (this == o);
 	readonly bool IEquatable<BindSparseInfo>.Equals(BindSparseInfo obj) => (this == obj);
@@ -2484,7 +2484,7 @@ public unsafe partial struct DescriptorSetLayoutBinding : IEquatable<DescriptorS
 	public Vk.DescriptorType DescriptorType;
 	public uint DescriptorCount;
 	public Vk.ShaderStageFlags StageFlags;
-	public Vk.Sampler* ImmutableSamplers;
+	public Vk.Handle<Vk.Sampler>* ImmutableSamplers;
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetLayoutBinding o) && (this == o);
 	readonly bool IEquatable<DescriptorSetLayoutBinding>.Equals(DescriptorSetLayoutBinding obj) => (this == obj);
@@ -2660,9 +2660,9 @@ public unsafe partial struct DescriptorSetAllocateInfo : IEquatable<DescriptorSe
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.DescriptorPool DescriptorPool;
+	public Vk.Handle<Vk.DescriptorPool> DescriptorPool;
 	public uint DescriptorSetCount;
-	public Vk.DescriptorSetLayout* SetLayouts;
+	public Vk.Handle<Vk.DescriptorSetLayout>* SetLayouts;
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetAllocateInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorSetAllocateInfo>.Equals(DescriptorSetAllocateInfo obj) => (this == obj);
@@ -2788,7 +2788,7 @@ public unsafe partial struct PipelineShaderStageCreateInfo : IEquatable<Pipeline
 	public void* pNext;
 	public Vk.PipelineShaderStageCreateFlags Flags;
 	public Vk.ShaderStageFlags Stage;
-	public Vk.ShaderModule Module;
+	public Vk.Handle<Vk.ShaderModule> Module;
 	public byte* Name;
 	public Vk.SpecializationInfo* SpecializationInfo;
 
@@ -2839,8 +2839,8 @@ public unsafe partial struct ComputePipelineCreateInfo : IEquatable<ComputePipel
 	public void* pNext;
 	public Vk.PipelineCreateFlags Flags;
 	public Vk.PipelineShaderStageCreateInfo Stage;
-	public Vk.PipelineLayout Layout;
-	public Vk.Pipeline BasePipelineHandle;
+	public Vk.Handle<Vk.PipelineLayout> Layout;
+	public Vk.Handle<Vk.Pipeline> BasePipelineHandle;
 	public int BasePipelineIndex;
 
 	public readonly override bool Equals(object? obj) => (obj is ComputePipelineCreateInfo o) && (this == o);
@@ -3528,10 +3528,10 @@ public unsafe partial struct GraphicsPipelineCreateInfo : IEquatable<GraphicsPip
 	public Vk.PipelineDepthStencilStateCreateInfo* DepthStencilState;
 	public Vk.PipelineColorBlendStateCreateInfo* ColorBlendState;
 	public Vk.PipelineDynamicStateCreateInfo* DynamicState;
-	public Vk.PipelineLayout Layout;
-	public Vk.RenderPass RenderPass;
+	public Vk.Handle<Vk.PipelineLayout> Layout;
+	public Vk.Handle<Vk.RenderPass> RenderPass;
 	public uint Subpass;
-	public Vk.Pipeline BasePipelineHandle;
+	public Vk.Handle<Vk.Pipeline> BasePipelineHandle;
 	public int BasePipelineIndex;
 
 	public readonly override bool Equals(object? obj) => (obj is GraphicsPipelineCreateInfo o) && (this == o);
@@ -3668,7 +3668,7 @@ public unsafe partial struct PipelineLayoutCreateInfo : IEquatable<PipelineLayou
 	public void* pNext;
 	public Vk.PipelineLayoutCreateFlags Flags;
 	public uint SetLayoutCount;
-	public Vk.DescriptorSetLayout* SetLayouts;
+	public Vk.Handle<Vk.DescriptorSetLayout>* SetLayouts;
 	public uint PushConstantRangeCount;
 	public Vk.PushConstantRange* PushConstantRanges;
 
@@ -3827,7 +3827,7 @@ public unsafe partial struct CommandBufferAllocateInfo : IEquatable<CommandBuffe
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.CommandPool CommandPool;
+	public Vk.Handle<Vk.CommandPool> CommandPool;
 	public Vk.CommandBufferLevel Level;
 	public uint CommandBufferCount;
 
@@ -3876,9 +3876,9 @@ public unsafe partial struct CommandBufferInheritanceInfo : IEquatable<CommandBu
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.RenderPass RenderPass;
+	public Vk.Handle<Vk.RenderPass> RenderPass;
 	public uint Subpass;
-	public Vk.Framebuffer Framebuffer;
+	public Vk.Handle<Vk.Framebuffer> Framebuffer;
 	public Vk.Bool32 OcclusionQueryEnable;
 	public Vk.QueryControlFlags QueryFlags;
 	public Vk.QueryPipelineStatisticFlags PipelineStatistics;
@@ -3976,8 +3976,8 @@ public unsafe partial struct RenderPassBeginInfo : IEquatable<RenderPassBeginInf
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.RenderPass RenderPass;
-	public Vk.Framebuffer Framebuffer;
+	public Vk.Handle<Vk.RenderPass> RenderPass;
+	public Vk.Handle<Vk.Framebuffer> Framebuffer;
 	public Vk.Rect2D RenderArea;
 	public uint ClearValueCount;
 	public Vk.ClearValue* ClearValues;
@@ -4861,9 +4861,9 @@ public unsafe partial struct FramebufferCreateInfo : IEquatable<FramebufferCreat
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.FramebufferCreateFlags Flags;
-	public Vk.RenderPass RenderPass;
+	public Vk.Handle<Vk.RenderPass> RenderPass;
 	public uint AttachmentCount;
-	public Vk.ImageView* Attachments;
+	public Vk.Handle<Vk.ImageView>* Attachments;
 	public uint Width;
 	public uint Height;
 	public uint Layers;
@@ -5031,12 +5031,12 @@ public unsafe partial struct SubmitInfo : IEquatable<SubmitInfo>
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint WaitSemaphoreCount;
-	public Vk.Semaphore* WaitSemaphores;
+	public Vk.Handle<Vk.Semaphore>* WaitSemaphores;
 	public Vk.PipelineStageFlags* WaitDstStageMask;
 	public uint CommandBufferCount;
-	public Vk.CommandBuffer* CommandBuffers;
+	public Vk.Handle<Vk.CommandBuffer>* CommandBuffers;
 	public uint SignalSemaphoreCount;
-	public Vk.Semaphore* SignalSemaphores;
+	public Vk.Handle<Vk.Semaphore>* SignalSemaphores;
 
 	public readonly override bool Equals(object? obj) => (obj is SubmitInfo o) && (this == o);
 	readonly bool IEquatable<SubmitInfo>.Equals(SubmitInfo obj) => (this == obj);
@@ -6555,38 +6555,38 @@ public unsafe partial struct PhysicalDeviceGroupProperties : IEquatable<Physical
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint PhysicalDeviceCount;
-	public Vk.PhysicalDevice PhysicalDevices_0;
-	public Vk.PhysicalDevice PhysicalDevices_1;
-	public Vk.PhysicalDevice PhysicalDevices_2;
-	public Vk.PhysicalDevice PhysicalDevices_3;
-	public Vk.PhysicalDevice PhysicalDevices_4;
-	public Vk.PhysicalDevice PhysicalDevices_5;
-	public Vk.PhysicalDevice PhysicalDevices_6;
-	public Vk.PhysicalDevice PhysicalDevices_7;
-	public Vk.PhysicalDevice PhysicalDevices_8;
-	public Vk.PhysicalDevice PhysicalDevices_9;
-	public Vk.PhysicalDevice PhysicalDevices_10;
-	public Vk.PhysicalDevice PhysicalDevices_11;
-	public Vk.PhysicalDevice PhysicalDevices_12;
-	public Vk.PhysicalDevice PhysicalDevices_13;
-	public Vk.PhysicalDevice PhysicalDevices_14;
-	public Vk.PhysicalDevice PhysicalDevices_15;
-	public Vk.PhysicalDevice PhysicalDevices_16;
-	public Vk.PhysicalDevice PhysicalDevices_17;
-	public Vk.PhysicalDevice PhysicalDevices_18;
-	public Vk.PhysicalDevice PhysicalDevices_19;
-	public Vk.PhysicalDevice PhysicalDevices_20;
-	public Vk.PhysicalDevice PhysicalDevices_21;
-	public Vk.PhysicalDevice PhysicalDevices_22;
-	public Vk.PhysicalDevice PhysicalDevices_23;
-	public Vk.PhysicalDevice PhysicalDevices_24;
-	public Vk.PhysicalDevice PhysicalDevices_25;
-	public Vk.PhysicalDevice PhysicalDevices_26;
-	public Vk.PhysicalDevice PhysicalDevices_27;
-	public Vk.PhysicalDevice PhysicalDevices_28;
-	public Vk.PhysicalDevice PhysicalDevices_29;
-	public Vk.PhysicalDevice PhysicalDevices_30;
-	public Vk.PhysicalDevice PhysicalDevices_31;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_0;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_1;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_2;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_3;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_4;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_5;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_6;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_7;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_8;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_9;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_10;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_11;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_12;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_13;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_14;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_15;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_16;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_17;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_18;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_19;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_20;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_21;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_22;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_23;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_24;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_25;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_26;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_27;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_28;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_29;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_30;
+	public Vk.Handle<Vk.PhysicalDevice> PhysicalDevices_31;
 	public Vk.Bool32 SubsetAllocation;
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceGroupProperties o) && (this == o);
@@ -6682,8 +6682,8 @@ public unsafe partial struct BindBufferMemoryInfo : IEquatable<BindBufferMemoryI
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Buffer Buffer;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.Buffer> Buffer;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 	public Vk.DeviceSize MemoryOffset;
 
 	public readonly override bool Equals(object? obj) => (obj is BindBufferMemoryInfo o) && (this == o);
@@ -6779,8 +6779,8 @@ public unsafe partial struct BindImageMemoryInfo : IEquatable<BindImageMemoryInf
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Image Image;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.Image> Image;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 	public Vk.DeviceSize MemoryOffset;
 
 	public readonly override bool Equals(object? obj) => (obj is BindImageMemoryInfo o) && (this == o);
@@ -7075,7 +7075,7 @@ public unsafe partial struct DeviceGroupDeviceCreateInfo : IEquatable<DeviceGrou
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint PhysicalDeviceCount;
-	public Vk.PhysicalDevice* PhysicalDevices;
+	public Vk.Handle<Vk.PhysicalDevice>* PhysicalDevices;
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceGroupDeviceCreateInfo o) && (this == o);
 	readonly bool IEquatable<DeviceGroupDeviceCreateInfo>.Equals(DeviceGroupDeviceCreateInfo obj) => (this == obj);
@@ -7167,9 +7167,9 @@ public unsafe partial struct DescriptorUpdateTemplateCreateInfo : IEquatable<Des
 	public uint DescriptorUpdateEntryCount;
 	public Vk.DescriptorUpdateTemplateEntry* DescriptorUpdateEntries;
 	public Vk.DescriptorUpdateTemplateType TemplateType;
-	public Vk.DescriptorSetLayout DescriptorSetLayout;
+	public Vk.Handle<Vk.DescriptorSetLayout> DescriptorSetLayout;
 	public Vk.PipelineBindPoint PipelineBindPoint;
-	public Vk.PipelineLayout PipelineLayout;
+	public Vk.Handle<Vk.PipelineLayout> PipelineLayout;
 	public uint Set;
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorUpdateTemplateCreateInfo o) && (this == o);
@@ -7450,7 +7450,7 @@ public unsafe partial struct BufferMemoryRequirementsInfo2 : IEquatable<BufferMe
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 
 	public readonly override bool Equals(object? obj) => (obj is BufferMemoryRequirementsInfo2 o) && (this == o);
 	readonly bool IEquatable<BufferMemoryRequirementsInfo2>.Equals(BufferMemoryRequirementsInfo2 obj) => (this == obj);
@@ -7497,7 +7497,7 @@ public unsafe partial struct ImageMemoryRequirementsInfo2 : IEquatable<ImageMemo
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Image Image;
+	public Vk.Handle<Vk.Image> Image;
 
 	public readonly override bool Equals(object? obj) => (obj is ImageMemoryRequirementsInfo2 o) && (this == o);
 	readonly bool IEquatable<ImageMemoryRequirementsInfo2>.Equals(ImageMemoryRequirementsInfo2 obj) => (this == obj);
@@ -7544,7 +7544,7 @@ public unsafe partial struct ImageSparseMemoryRequirementsInfo2 : IEquatable<Ima
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Image Image;
+	public Vk.Handle<Vk.Image> Image;
 
 	public readonly override bool Equals(object? obj) => (obj is ImageSparseMemoryRequirementsInfo2 o) && (this == o);
 	readonly bool IEquatable<ImageSparseMemoryRequirementsInfo2>.Equals(ImageSparseMemoryRequirementsInfo2 obj) => (this == obj);
@@ -7780,8 +7780,8 @@ public unsafe partial struct MemoryDedicatedAllocateInfo : IEquatable<MemoryDedi
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Image Image;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Image> Image;
+	public Vk.Handle<Vk.Buffer> Buffer;
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryDedicatedAllocateInfo o) && (this == o);
 	readonly bool IEquatable<MemoryDedicatedAllocateInfo>.Equals(MemoryDedicatedAllocateInfo obj) => (this == obj);
@@ -7922,7 +7922,7 @@ public unsafe partial struct SamplerYcbcrConversionInfo : IEquatable<SamplerYcbc
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.SamplerYcbcrConversion Conversion;
+	public Vk.Handle<Vk.SamplerYcbcrConversion> Conversion;
 
 	public readonly override bool Equals(object? obj) => (obj is SamplerYcbcrConversionInfo o) && (this == o);
 	readonly bool IEquatable<SamplerYcbcrConversionInfo>.Equals(SamplerYcbcrConversionInfo obj) => (this == obj);
@@ -9726,7 +9726,7 @@ public unsafe partial struct SemaphoreWaitInfo : IEquatable<SemaphoreWaitInfo>
 	public void* pNext;
 	public Vk.SemaphoreWaitFlags Flags;
 	public uint SemaphoreCount;
-	public Vk.Semaphore* Semaphores;
+	public Vk.Handle<Vk.Semaphore>* Semaphores;
 	public ulong* Values;
 
 	public readonly override bool Equals(object? obj) => (obj is SemaphoreWaitInfo o) && (this == o);
@@ -9774,7 +9774,7 @@ public unsafe partial struct SemaphoreSignalInfo : IEquatable<SemaphoreSignalInf
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Semaphore Semaphore;
+	public Vk.Handle<Vk.Semaphore> Semaphore;
 	public ulong Value;
 
 	public readonly override bool Equals(object? obj) => (obj is SemaphoreSignalInfo o) && (this == o);
@@ -10257,7 +10257,7 @@ public unsafe partial struct BufferDeviceAddressInfo : IEquatable<BufferDeviceAd
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 
 	public readonly override bool Equals(object? obj) => (obj is BufferDeviceAddressInfo o) && (this == o);
 	readonly bool IEquatable<BufferDeviceAddressInfo>.Equals(BufferDeviceAddressInfo obj) => (this == obj);
@@ -10500,7 +10500,7 @@ public unsafe partial struct RenderPassAttachmentBeginInfo : IEquatable<RenderPa
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint AttachmentCount;
-	public Vk.ImageView* Attachments;
+	public Vk.Handle<Vk.ImageView>* Attachments;
 
 	public readonly override bool Equals(object? obj) => (obj is RenderPassAttachmentBeginInfo o) && (this == o);
 	readonly bool IEquatable<RenderPassAttachmentBeginInfo>.Equals(RenderPassAttachmentBeginInfo obj) => (this == obj);
@@ -10736,7 +10736,7 @@ public unsafe partial struct DeviceMemoryOpaqueCaptureAddressInfo : IEquatable<D
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.DeviceMemory Memory;
+	public Vk.Handle<Vk.DeviceMemory> Memory;
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceMemoryOpaqueCaptureAddressInfo o) && (this == o);
 	readonly bool IEquatable<DeviceMemoryOpaqueCaptureAddressInfo>.Equals(DeviceMemoryOpaqueCaptureAddressInfo obj) => (this == obj);

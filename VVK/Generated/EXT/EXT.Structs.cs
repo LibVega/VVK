@@ -987,7 +987,7 @@ public unsafe partial struct ConditionalRenderingBeginInfo : IEquatable<Conditio
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 	public Vk.DeviceSize Offset;
 	public Vk.EXT.ConditionalRenderingFlags Flags;
 
@@ -1879,7 +1879,7 @@ public unsafe partial struct ShaderModuleValidationCacheCreateInfo : IEquatable<
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.EXT.ValidationCache ValidationCache;
+	public Vk.Handle<Vk.EXT.ValidationCache> ValidationCache;
 
 	public readonly override bool Equals(object? obj) => (obj is ShaderModuleValidationCacheCreateInfo o) && (this == o);
 	readonly bool IEquatable<ShaderModuleValidationCacheCreateInfo>.Equals(ShaderModuleValidationCacheCreateInfo obj) => (this == obj);
@@ -4605,7 +4605,7 @@ public unsafe partial struct BufferDeviceAddressInfo : IEquatable<BufferDeviceAd
 
 	public Vk.StructureType sType;
 	public void* pNext;
-	public Vk.Buffer Buffer;
+	public Vk.Handle<Vk.Buffer> Buffer;
 
 	public readonly override bool Equals(object? obj) => (obj is BufferDeviceAddressInfo o) && (this == o);
 	readonly bool IEquatable<BufferDeviceAddressInfo>.Equals(BufferDeviceAddressInfo obj) => (this == obj);

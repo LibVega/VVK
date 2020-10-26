@@ -169,11 +169,11 @@ namespace Gen
 
 			// Get the object scope
 			var objScope = (scope == CommandScope.Global) ? ObjectScope.Global : argProto[0] switch { 
-				"Vk.Instance" => ObjectScope.Instance,
-				"Vk.PhysicalDevice" => ObjectScope.PhysicalDevice,
-				"Vk.Device" => ObjectScope.Device,
-				"Vk.Queue" => ObjectScope.Queue,
-				"Vk.CommandBuffer" => ObjectScope.CommandBuffer,
+				"Vk.Handle<Vk.Instance>" => ObjectScope.Instance,
+				"Vk.Handle<Vk.PhysicalDevice>" => ObjectScope.PhysicalDevice,
+				"Vk.Handle<Vk.Device>" => ObjectScope.Device,
+				"Vk.Handle<Vk.Queue>" => ObjectScope.Queue,
+				"Vk.Handle<Vk.CommandBuffer>" => ObjectScope.CommandBuffer,
 				_ => throw new NotImplementedException("Failed to get the command object scope")
 			};
 
