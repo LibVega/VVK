@@ -18,15 +18,18 @@ namespace Gen
 		public readonly string Name;
 		// The optional aliased handle type, by this name
 		public readonly string? AliasName;
+		// The parent type of the handle
+		public readonly string? ParentType;
 
 		// If the handle type is aliasing another
 		public bool IsAlias => AliasName is not null;
 		#endregion // Fields
 
-		private HandleSpec(string name, string? alias)
+		private HandleSpec(string name, string? alias, string? parent)
 		{
 			Name = name;
 			AliasName = alias;
+			ParentType = parent;
 		}
 
 		// Parse the spec xml
@@ -47,18 +50,25 @@ namespace Gen
 				return false;
 			}
 
+			// Get parent
+			string? parent = null;
+			if (xml.Attributes?["parent"] is XmlAttribute parentAttr) {
+				parent = parentAttr.Value;
+			}
+
 			// Optional alias
 			string? alias = null;
 			if (xml.Attributes?["alias"] is XmlAttribute aliasAttr) {
 				alias = aliasAttr.Value;
-				if (!seen.ContainsKey(alias)) {
+				if (!seen.TryGetValue(alias, out var aliasSpec)) {
 					Program.PrintError($"Unknown handle alias target '{alias}'");
 					return false;
 				}
+				parent = aliasSpec.ParentType;
 			}
 
 			// Return
-			spec = new(name, alias);
+			spec = new(name, alias, parent);
 			return true;
 		}
 	}

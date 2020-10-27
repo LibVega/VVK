@@ -18,8 +18,22 @@ public unsafe partial struct DescriptorUpdateTemplate : IHandleType<DescriptorUp
 {
 	public static readonly DescriptorUpdateTemplate Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<DescriptorUpdateTemplate> _handle;
 	readonly Handle<DescriptorUpdateTemplate> IHandleType<DescriptorUpdateTemplate>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DescriptorUpdateTemplate(in Vk.Device parent, Vk.Handle<DescriptorUpdateTemplate> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DescriptorUpdateTemplate 0x{(ulong)_handle:X16}]";
@@ -40,8 +54,22 @@ public unsafe partial struct SamplerYcbcrConversion : IHandleType<SamplerYcbcrCo
 {
 	public static readonly SamplerYcbcrConversion Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<SamplerYcbcrConversion> _handle;
 	readonly Handle<SamplerYcbcrConversion> IHandleType<SamplerYcbcrConversion>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public SamplerYcbcrConversion(in Vk.Device parent, Vk.Handle<SamplerYcbcrConversion> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[SamplerYcbcrConversion 0x{(ulong)_handle:X16}]";
@@ -62,8 +90,22 @@ public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStr
 {
 	public static readonly AccelerationStructure Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<AccelerationStructure> _handle;
 	readonly Handle<AccelerationStructure> IHandleType<AccelerationStructure>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public AccelerationStructure(in Vk.Device parent, Vk.Handle<AccelerationStructure> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[AccelerationStructure 0x{(ulong)_handle:X16}]";
@@ -84,8 +126,22 @@ public unsafe partial struct DeferredOperation : IHandleType<DeferredOperation>
 {
 	public static readonly DeferredOperation Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<DeferredOperation> _handle;
 	readonly Handle<DeferredOperation> IHandleType<DeferredOperation>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DeferredOperation(in Vk.Device parent, Vk.Handle<DeferredOperation> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DeferredOperation 0x{(ulong)_handle:X16}]";
@@ -106,8 +162,20 @@ public unsafe partial struct Display : IHandleType<Display>
 {
 	public static readonly Display Null = new();
 
+	public readonly Vk.PhysicalDevice Parent;
+	public readonly Vk.InstanceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<Display> _handle;
 	readonly Handle<Display> IHandleType<Display>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Display(in Vk.PhysicalDevice parent, Vk.Handle<Display> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Display 0x{(ulong)_handle:X16}]";
@@ -128,8 +196,20 @@ public unsafe partial struct DisplayMode : IHandleType<DisplayMode>
 {
 	public static readonly DisplayMode Null = new();
 
+	public readonly Vk.KHR.Display Parent;
+	public readonly Vk.InstanceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<DisplayMode> _handle;
 	readonly Handle<DisplayMode> IHandleType<DisplayMode>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DisplayMode(in Vk.KHR.Display parent, Vk.Handle<DisplayMode> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DisplayMode 0x{(ulong)_handle:X16}]";
@@ -150,8 +230,20 @@ public unsafe partial struct Surface : IHandleType<Surface>
 {
 	public static readonly Surface Null = new();
 
+	public readonly Vk.Instance Parent;
+	public readonly Vk.InstanceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<Surface> _handle;
 	readonly Handle<Surface> IHandleType<Surface>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Surface(in Vk.Instance parent, Vk.Handle<Surface> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Surface 0x{(ulong)_handle:X16}]";
@@ -172,8 +264,20 @@ public unsafe partial struct Swapchain : IHandleType<Swapchain>
 {
 	public static readonly Swapchain Null = new();
 
+	public readonly Vk.KHR.Surface Parent;
+	public readonly Vk.InstanceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<Swapchain> _handle;
 	readonly Handle<Swapchain> IHandleType<Swapchain>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Swapchain(in Vk.KHR.Surface parent, Vk.Handle<Swapchain> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Swapchain 0x{(ulong)_handle:X16}]";

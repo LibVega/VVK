@@ -172,7 +172,7 @@ namespace Gen
 						if (HandleSpec.TryParse(typeNode, spec.Handles, out var handleSpec)) {
 							spec.Handles.Add(handleSpec!.Name, handleSpec!);
 							Program.PrintVerbose($"\tFound handle type {handleSpec!.Name}" +
-								$"{(handleSpec!.IsAlias ? $" -> {handleSpec!.AliasName!}" : "")}");
+								$"{(handleSpec!.IsAlias ? $" -> {handleSpec!.AliasName!}" : "")} (parent = {handleSpec.ParentType})");
 						}
 						else return false;
 					} break;

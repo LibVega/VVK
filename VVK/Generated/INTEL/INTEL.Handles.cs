@@ -18,8 +18,22 @@ public unsafe partial struct PerformanceConfiguration : IHandleType<PerformanceC
 {
 	public static readonly PerformanceConfiguration Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<PerformanceConfiguration> _handle;
 	readonly Handle<PerformanceConfiguration> IHandleType<PerformanceConfiguration>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public PerformanceConfiguration(in Vk.Device parent, Vk.Handle<PerformanceConfiguration> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[PerformanceConfiguration 0x{(ulong)_handle:X16}]";

@@ -18,8 +18,16 @@ public unsafe partial struct Instance : IHandleType<Instance>
 {
 	public static readonly Instance Null = new();
 
+	public readonly Vk.InstanceFunctionTable Functions;
 	private readonly Handle<Instance> _handle;
 	readonly Handle<Instance> IHandleType<Instance>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Instance(Vk.Handle<Instance> handle, Vk.Version apiVersion)
+	{
+		Functions = new(handle, apiVersion);
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Instance 0x{(ulong)_handle:X16}]";
@@ -40,8 +48,20 @@ public unsafe partial struct PhysicalDevice : IHandleType<PhysicalDevice>
 {
 	public static readonly PhysicalDevice Null = new();
 
+	public readonly Vk.Instance Parent;
+	public readonly Vk.InstanceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<PhysicalDevice> _handle;
 	readonly Handle<PhysicalDevice> IHandleType<PhysicalDevice>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public PhysicalDevice(in Vk.Instance parent, Vk.Handle<PhysicalDevice> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[PhysicalDevice 0x{(ulong)_handle:X16}]";
@@ -62,8 +82,20 @@ public unsafe partial struct Device : IHandleType<Device>
 {
 	public static readonly Device Null = new();
 
+	public readonly Vk.PhysicalDevice Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<Device> _handle;
 	readonly Handle<Device> IHandleType<Device>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Device(in Vk.PhysicalDevice parent, Vk.Handle<Device> handle, Vk.Version apiVersion)
+	{
+		Parent = parent;
+		Functions = new(handle, apiVersion);
+		Instance = parent.Instance;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Device 0x{(ulong)_handle:X16}]";
@@ -84,8 +116,22 @@ public unsafe partial struct Queue : IHandleType<Queue>
 {
 	public static readonly Queue Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Queue> _handle;
 	readonly Handle<Queue> IHandleType<Queue>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Queue(in Vk.Device parent, Vk.Handle<Queue> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Queue 0x{(ulong)_handle:X16}]";
@@ -106,8 +152,22 @@ public unsafe partial struct CommandBuffer : IHandleType<CommandBuffer>
 {
 	public static readonly CommandBuffer Null = new();
 
+	public readonly Vk.CommandPool Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<CommandBuffer> _handle;
 	readonly Handle<CommandBuffer> IHandleType<CommandBuffer>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public CommandBuffer(in Vk.CommandPool parent, Vk.Handle<CommandBuffer> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent.Device;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[CommandBuffer 0x{(ulong)_handle:X16}]";
@@ -128,8 +188,22 @@ public unsafe partial struct DeviceMemory : IHandleType<DeviceMemory>
 {
 	public static readonly DeviceMemory Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<DeviceMemory> _handle;
 	readonly Handle<DeviceMemory> IHandleType<DeviceMemory>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DeviceMemory(in Vk.Device parent, Vk.Handle<DeviceMemory> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DeviceMemory 0x{(ulong)_handle:X16}]";
@@ -150,8 +224,22 @@ public unsafe partial struct CommandPool : IHandleType<CommandPool>
 {
 	public static readonly CommandPool Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<CommandPool> _handle;
 	readonly Handle<CommandPool> IHandleType<CommandPool>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public CommandPool(in Vk.Device parent, Vk.Handle<CommandPool> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[CommandPool 0x{(ulong)_handle:X16}]";
@@ -172,8 +260,22 @@ public unsafe partial struct Buffer : IHandleType<Buffer>
 {
 	public static readonly Buffer Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Buffer> _handle;
 	readonly Handle<Buffer> IHandleType<Buffer>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Buffer(in Vk.Device parent, Vk.Handle<Buffer> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Buffer 0x{(ulong)_handle:X16}]";
@@ -194,8 +296,22 @@ public unsafe partial struct BufferView : IHandleType<BufferView>
 {
 	public static readonly BufferView Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<BufferView> _handle;
 	readonly Handle<BufferView> IHandleType<BufferView>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public BufferView(in Vk.Device parent, Vk.Handle<BufferView> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[BufferView 0x{(ulong)_handle:X16}]";
@@ -216,8 +332,22 @@ public unsafe partial struct Image : IHandleType<Image>
 {
 	public static readonly Image Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Image> _handle;
 	readonly Handle<Image> IHandleType<Image>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Image(in Vk.Device parent, Vk.Handle<Image> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Image 0x{(ulong)_handle:X16}]";
@@ -238,8 +368,22 @@ public unsafe partial struct ImageView : IHandleType<ImageView>
 {
 	public static readonly ImageView Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<ImageView> _handle;
 	readonly Handle<ImageView> IHandleType<ImageView>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public ImageView(in Vk.Device parent, Vk.Handle<ImageView> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[ImageView 0x{(ulong)_handle:X16}]";
@@ -260,8 +404,22 @@ public unsafe partial struct ShaderModule : IHandleType<ShaderModule>
 {
 	public static readonly ShaderModule Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<ShaderModule> _handle;
 	readonly Handle<ShaderModule> IHandleType<ShaderModule>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public ShaderModule(in Vk.Device parent, Vk.Handle<ShaderModule> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[ShaderModule 0x{(ulong)_handle:X16}]";
@@ -282,8 +440,22 @@ public unsafe partial struct Pipeline : IHandleType<Pipeline>
 {
 	public static readonly Pipeline Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Pipeline> _handle;
 	readonly Handle<Pipeline> IHandleType<Pipeline>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Pipeline(in Vk.Device parent, Vk.Handle<Pipeline> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Pipeline 0x{(ulong)_handle:X16}]";
@@ -304,8 +476,22 @@ public unsafe partial struct PipelineLayout : IHandleType<PipelineLayout>
 {
 	public static readonly PipelineLayout Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<PipelineLayout> _handle;
 	readonly Handle<PipelineLayout> IHandleType<PipelineLayout>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public PipelineLayout(in Vk.Device parent, Vk.Handle<PipelineLayout> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[PipelineLayout 0x{(ulong)_handle:X16}]";
@@ -326,8 +512,22 @@ public unsafe partial struct Sampler : IHandleType<Sampler>
 {
 	public static readonly Sampler Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Sampler> _handle;
 	readonly Handle<Sampler> IHandleType<Sampler>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Sampler(in Vk.Device parent, Vk.Handle<Sampler> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Sampler 0x{(ulong)_handle:X16}]";
@@ -348,8 +548,22 @@ public unsafe partial struct DescriptorSet : IHandleType<DescriptorSet>
 {
 	public static readonly DescriptorSet Null = new();
 
+	public readonly Vk.DescriptorPool Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<DescriptorSet> _handle;
 	readonly Handle<DescriptorSet> IHandleType<DescriptorSet>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DescriptorSet(in Vk.DescriptorPool parent, Vk.Handle<DescriptorSet> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent.Device;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DescriptorSet 0x{(ulong)_handle:X16}]";
@@ -370,8 +584,22 @@ public unsafe partial struct DescriptorSetLayout : IHandleType<DescriptorSetLayo
 {
 	public static readonly DescriptorSetLayout Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<DescriptorSetLayout> _handle;
 	readonly Handle<DescriptorSetLayout> IHandleType<DescriptorSetLayout>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DescriptorSetLayout(in Vk.Device parent, Vk.Handle<DescriptorSetLayout> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DescriptorSetLayout 0x{(ulong)_handle:X16}]";
@@ -392,8 +620,22 @@ public unsafe partial struct DescriptorPool : IHandleType<DescriptorPool>
 {
 	public static readonly DescriptorPool Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<DescriptorPool> _handle;
 	readonly Handle<DescriptorPool> IHandleType<DescriptorPool>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DescriptorPool(in Vk.Device parent, Vk.Handle<DescriptorPool> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DescriptorPool 0x{(ulong)_handle:X16}]";
@@ -414,8 +656,22 @@ public unsafe partial struct Fence : IHandleType<Fence>
 {
 	public static readonly Fence Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Fence> _handle;
 	readonly Handle<Fence> IHandleType<Fence>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Fence(in Vk.Device parent, Vk.Handle<Fence> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Fence 0x{(ulong)_handle:X16}]";
@@ -436,8 +692,22 @@ public unsafe partial struct Semaphore : IHandleType<Semaphore>
 {
 	public static readonly Semaphore Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Semaphore> _handle;
 	readonly Handle<Semaphore> IHandleType<Semaphore>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Semaphore(in Vk.Device parent, Vk.Handle<Semaphore> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Semaphore 0x{(ulong)_handle:X16}]";
@@ -458,8 +728,22 @@ public unsafe partial struct Event : IHandleType<Event>
 {
 	public static readonly Event Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Event> _handle;
 	readonly Handle<Event> IHandleType<Event>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Event(in Vk.Device parent, Vk.Handle<Event> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Event 0x{(ulong)_handle:X16}]";
@@ -480,8 +764,22 @@ public unsafe partial struct QueryPool : IHandleType<QueryPool>
 {
 	public static readonly QueryPool Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<QueryPool> _handle;
 	readonly Handle<QueryPool> IHandleType<QueryPool>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public QueryPool(in Vk.Device parent, Vk.Handle<QueryPool> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[QueryPool 0x{(ulong)_handle:X16}]";
@@ -502,8 +800,22 @@ public unsafe partial struct Framebuffer : IHandleType<Framebuffer>
 {
 	public static readonly Framebuffer Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<Framebuffer> _handle;
 	readonly Handle<Framebuffer> IHandleType<Framebuffer>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public Framebuffer(in Vk.Device parent, Vk.Handle<Framebuffer> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[Framebuffer 0x{(ulong)_handle:X16}]";
@@ -524,8 +836,22 @@ public unsafe partial struct RenderPass : IHandleType<RenderPass>
 {
 	public static readonly RenderPass Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<RenderPass> _handle;
 	readonly Handle<RenderPass> IHandleType<RenderPass>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public RenderPass(in Vk.Device parent, Vk.Handle<RenderPass> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[RenderPass 0x{(ulong)_handle:X16}]";
@@ -546,8 +872,22 @@ public unsafe partial struct PipelineCache : IHandleType<PipelineCache>
 {
 	public static readonly PipelineCache Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<PipelineCache> _handle;
 	readonly Handle<PipelineCache> IHandleType<PipelineCache>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public PipelineCache(in Vk.Device parent, Vk.Handle<PipelineCache> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[PipelineCache 0x{(ulong)_handle:X16}]";
@@ -568,8 +908,22 @@ public unsafe partial struct DescriptorUpdateTemplate : IHandleType<DescriptorUp
 {
 	public static readonly DescriptorUpdateTemplate Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<DescriptorUpdateTemplate> _handle;
 	readonly Handle<DescriptorUpdateTemplate> IHandleType<DescriptorUpdateTemplate>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DescriptorUpdateTemplate(in Vk.Device parent, Vk.Handle<DescriptorUpdateTemplate> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DescriptorUpdateTemplate 0x{(ulong)_handle:X16}]";
@@ -590,8 +944,22 @@ public unsafe partial struct SamplerYcbcrConversion : IHandleType<SamplerYcbcrCo
 {
 	public static readonly SamplerYcbcrConversion Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<SamplerYcbcrConversion> _handle;
 	readonly Handle<SamplerYcbcrConversion> IHandleType<SamplerYcbcrConversion>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public SamplerYcbcrConversion(in Vk.Device parent, Vk.Handle<SamplerYcbcrConversion> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[SamplerYcbcrConversion 0x{(ulong)_handle:X16}]";

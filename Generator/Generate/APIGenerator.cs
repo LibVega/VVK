@@ -113,7 +113,7 @@ namespace Gen
 					block.WriteLine("/// <summary>Creates a new function table and loads the functions.</summary>");
 					block.WriteLine("/// <param name=\"inst\">The instance to load the functions for.</param>");
 					block.WriteLine("/// <param name=\"version\">The core API version that the instance was created with.</param>");
-					using (var ctor = block.PushBlock("public InstanceFunctionTable(Vk.Instance inst, Vk.Version version)")) {
+					using (var ctor = block.PushBlock("public InstanceFunctionTable(Vk.Handle<Vk.Instance> inst, Vk.Version version)")) {
 						ctor.WriteLine("void* addr = null;");
 						ctor.WriteLine("CoreVersion = version;");
 						ctor.WriteLine("Vk.Version V10 = new(1, 0, 0);");
@@ -173,7 +173,7 @@ namespace Gen
 					block.WriteLine("/// </summary>");
 					block.WriteLine("/// <param name=\"dev\">The device to load the functions for.</param>");
 					block.WriteLine("/// <param name=\"version\">The core API version that the device was created with.</param>");
-					using (var ctor = block.PushBlock("public DeviceFunctionTable(Vk.Device dev, Vk.Version version)")) {
+					using (var ctor = block.PushBlock("public DeviceFunctionTable(Vk.Handle<Vk.Device> dev, Vk.Version version)")) {
 						ctor.WriteLine("void* addr = null;");
 						ctor.WriteLine("CoreVersion = version;");
 						ctor.WriteLine("Vk.Version V10 = new(1, 0, 0);");
@@ -443,12 +443,64 @@ namespace Gen
 					// Write the header
 					using var handleBlock = file.PushBlock($"public unsafe partial struct {handleSpec.Name} : IHandleType<{handleSpec.Name}>");
 
+					// Get some info
+					bool instScope = handleSpec.Parent?.Name switch {
+						null => true,
+						"Instance" => true,
+						"PhysicalDevice" => true,
+						"Display" => true,
+						"Surface" => true,
+						_ => false
+					};
+
 					// Write the fields
 					handleBlock.WriteLine($"public static readonly {handleSpec.Name} Null = new();");
 					handleBlock.WriteLine();
+					if (handleSpec.Parent is not null) {
+						handleBlock.WriteLine($"public readonly {handleSpec.Parent.ProcessedName} Parent;");
+					}
+					handleBlock.WriteLine($"public readonly {((instScope && handleSpec.Name != "Device") ? "Vk.InstanceFunctionTable" : "Vk.DeviceFunctionTable")} Functions;");
+					if (handleSpec.Name != "Instance") {
+						handleBlock.WriteLine("public readonly Vk.Instance Instance;");
+					}
+					if (!instScope && (handleSpec.Name != "Device")) {
+						handleBlock.WriteLine("public readonly Vk.Device Device;");
+					}
 					handleBlock.WriteLine($"private readonly Handle<{handleSpec.Name}> _handle;");
 					handleBlock.WriteLine($"readonly Handle<{handleSpec.Name}> IHandleType<{handleSpec.Name}>.Handle => _handle;");
+					handleBlock.WriteLine( "public readonly bool IsValid => _handle.IsValid;");
 					handleBlock.WriteLine();
+
+					// Write the ctor
+					var ctorargs = (handleSpec.Parent is not null)
+						? $"in {handleSpec.Parent.ProcessedName} parent, Vk.Handle<{handleSpec.Name}> handle"
+						: $"Vk.Handle<{handleSpec.Name}> handle";
+					if ((handleSpec.Name == "Instance") || (handleSpec.Name == "Device")) {
+						ctorargs += ", Vk.Version apiVersion";
+					}
+					using (var ctor = handleBlock.PushBlock($"public {handleSpec.Name}({ctorargs})")) {
+						// Parent
+						if (handleSpec.Parent is not null) {
+							ctor.WriteLine("Parent = parent;");
+						}
+						// Function table, Instance/Device
+						if ((handleSpec.Name == "Instance")) {
+							ctor.WriteLine("Functions = new(handle, apiVersion);");
+						}
+						else if (handleSpec.Name == "Device") {
+							ctor.WriteLine("Functions = new(handle, apiVersion);");
+							ctor.WriteLine("Instance = parent.Instance;");
+						}
+						else {
+							ctor.WriteLine( "Functions = parent.Functions;");
+							ctor.WriteLine($"Instance = {((handleSpec.Parent?.Name == "Instance") ? "parent" : "parent.Instance")};");
+							if (!instScope) {
+								ctor.WriteLine($"Device = {((handleSpec.Parent?.Name == "Device") ? "parent" : "parent.Device")};");
+							}
+						}
+						// Handle
+						ctor.WriteLine("_handle = handle;");
+					}
 
 					// Write the overrides
 					handleBlock.WriteLine("public override readonly int GetHashCode() => _handle.GetHashCode();");

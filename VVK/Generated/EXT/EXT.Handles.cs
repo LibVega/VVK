@@ -18,8 +18,22 @@ public unsafe partial struct ValidationCache : IHandleType<ValidationCache>
 {
 	public static readonly ValidationCache Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<ValidationCache> _handle;
 	readonly Handle<ValidationCache> IHandleType<ValidationCache>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public ValidationCache(in Vk.Device parent, Vk.Handle<ValidationCache> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[ValidationCache 0x{(ulong)_handle:X16}]";
@@ -40,8 +54,22 @@ public unsafe partial struct PrivateDataSlot : IHandleType<PrivateDataSlot>
 {
 	public static readonly PrivateDataSlot Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<PrivateDataSlot> _handle;
 	readonly Handle<PrivateDataSlot> IHandleType<PrivateDataSlot>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public PrivateDataSlot(in Vk.Device parent, Vk.Handle<PrivateDataSlot> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[PrivateDataSlot 0x{(ulong)_handle:X16}]";
@@ -62,8 +90,20 @@ public unsafe partial struct DebugReportCallback : IHandleType<DebugReportCallba
 {
 	public static readonly DebugReportCallback Null = new();
 
+	public readonly Vk.Instance Parent;
+	public readonly Vk.InstanceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<DebugReportCallback> _handle;
 	readonly Handle<DebugReportCallback> IHandleType<DebugReportCallback>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DebugReportCallback(in Vk.Instance parent, Vk.Handle<DebugReportCallback> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DebugReportCallback 0x{(ulong)_handle:X16}]";
@@ -84,8 +124,20 @@ public unsafe partial struct DebugUtilsMessenger : IHandleType<DebugUtilsMesseng
 {
 	public static readonly DebugUtilsMessenger Null = new();
 
+	public readonly Vk.Instance Parent;
+	public readonly Vk.InstanceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
 	private readonly Handle<DebugUtilsMessenger> _handle;
 	readonly Handle<DebugUtilsMessenger> IHandleType<DebugUtilsMessenger>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public DebugUtilsMessenger(in Vk.Instance parent, Vk.Handle<DebugUtilsMessenger> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[DebugUtilsMessenger 0x{(ulong)_handle:X16}]";

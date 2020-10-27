@@ -123,7 +123,7 @@ public unsafe sealed partial class InstanceFunctionTable
 	/// <summary>Creates a new function table and loads the functions.</summary>
 	/// <param name="inst">The instance to load the functions for.</param>
 	/// <param name="version">The core API version that the instance was created with.</param>
-	public InstanceFunctionTable(Vk.Instance inst, Vk.Version version)
+	public InstanceFunctionTable(Vk.Handle<Vk.Instance> inst, Vk.Version version)
 	{
 		void* addr = null;
 		CoreVersion = version;
@@ -886,7 +886,7 @@ public unsafe sealed partial class DeviceFunctionTable
 	/// </summary>
 	/// <param name="dev">The device to load the functions for.</param>
 	/// <param name="version">The core API version that the device was created with.</param>
-	public DeviceFunctionTable(Vk.Device dev, Vk.Version version)
+	public DeviceFunctionTable(Vk.Handle<Vk.Device> dev, Vk.Version version)
 	{
 		void* addr = null;
 		CoreVersion = version;

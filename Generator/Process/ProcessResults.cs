@@ -51,6 +51,13 @@ namespace Gen
 				names.RegisterHandle(handleOut);
 				Program.PrintVerbose($"\tProcessed handle {handleOut.Name}");
 			}
+			foreach (var vend in proc.Vendors) {
+				foreach (var handle in vend.Value.Handles) {
+					if (!handle.Value.PopulateParent(names, proc.Vendors)) {
+						return false;
+					}
+				}
+			}
 
 			// Process the constants
 			Console.WriteLine("Processing API constants...");

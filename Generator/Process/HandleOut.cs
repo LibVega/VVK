@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace Gen
 {
@@ -15,12 +16,14 @@ namespace Gen
 		// The spec that this handle was processed from
 		public readonly HandleSpec Spec;
 
-		// The output name of the struct
+		// The output name of the handle
 		public readonly string Name;
-		// The vendor for the struct
+		// The vendor for the handle
 		public readonly string VendorName;
 		// The processed name as Vk.<Vendor>.<Name>
 		public string ProcessedName => (VendorName.Length == 0) ? $"Vk.{Name}" : $"Vk.{VendorName}.{Name}";
+		// The parent handle type processed name
+		public HandleOut? Parent { get; private set; }
 		#endregion // Fields
 
 		private HandleOut(HandleSpec spec, string name, string vendor)
@@ -28,6 +31,7 @@ namespace Gen
 			Spec = spec;
 			Name = name;
 			VendorName = vendor;
+			Parent = null;
 		}
 
 		// Process
@@ -40,7 +44,29 @@ namespace Gen
 			}
 
 			// Return
-			return new(spec, handleName, vendor ?? "");
+			return new(spec, handleName, vendor ?? String.Empty);
+		}
+
+		// Post-Process parent finding
+		public bool PopulateParent(NameHelper names, Dictionary<string, Vendor> vendors)
+		{
+			// Convert the parent name
+			if (Spec.ParentType is not null) {
+				if (!names.ProcessVkTypeName(Spec.ParentType, out var parentName, out var parentVendor)) {
+					Program.PrintError($"Failed to process parent handle name '{Spec.ParentType}'");
+					return false;
+				}
+				if (!vendors.TryGetValue(parentVendor ?? String.Empty, out var parven)) {
+					Program.PrintError($"Failed to find handle parent vendor '{parentVendor}'");
+					return false;
+				}
+				if (!parven.Handles.TryGetValue(parentName, out var parent)) {
+					Program.PrintError($"Failed to find handle parent '{parentName}'");
+					return false;
+				}
+				Parent = parent;
+			}
+			return true;
 		}
 	}
 }

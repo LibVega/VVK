@@ -19,7 +19,7 @@ namespace Vk
 		/// </summary>
 		public readonly Vk.Version CoreVersion = new();
 
-		private static void* LoadFunc(Vk.Instance inst, string name)
+		private static void* LoadFunc(Vk.Handle<Vk.Instance> inst, string name)
 		{
 			using var nname = new VVK.NativeString(name);
 			var addr = vkGetInstanceProcAddr(inst, nname.Data);
@@ -29,7 +29,7 @@ namespace Vk
 			return addr;
 		}
 
-		private static bool TryLoadFunc(Vk.Instance inst, string name, out void* addr)
+		private static bool TryLoadFunc(Vk.Handle<Vk.Instance> inst, string name, out void* addr)
 		{
 			using var nname = new VVK.NativeString(name);
 			addr = vkGetInstanceProcAddr(inst, nname.Data);
@@ -47,7 +47,7 @@ namespace Vk
 		/// </summary>
 		public readonly Vk.Version CoreVersion = new();
 
-		private static void* LoadFunc(Vk.Device dev, string name)
+		private static void* LoadFunc(Vk.Handle<Vk.Device> dev, string name)
 		{
 			using var nname = new VVK.NativeString(name);
 			var addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);
@@ -57,7 +57,7 @@ namespace Vk
 			return addr;
 		}
 
-		private static bool TryLoadFunc(Vk.Device dev, string name, out void* addr)
+		private static bool TryLoadFunc(Vk.Handle<Vk.Device> dev, string name, out void* addr)
 		{
 			using var nname = new VVK.NativeString(name);
 			addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);

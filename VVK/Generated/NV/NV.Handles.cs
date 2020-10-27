@@ -18,8 +18,22 @@ public unsafe partial struct IndirectCommandsLayout : IHandleType<IndirectComman
 {
 	public static readonly IndirectCommandsLayout Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<IndirectCommandsLayout> _handle;
 	readonly Handle<IndirectCommandsLayout> IHandleType<IndirectCommandsLayout>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public IndirectCommandsLayout(in Vk.Device parent, Vk.Handle<IndirectCommandsLayout> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[IndirectCommandsLayout 0x{(ulong)_handle:X16}]";
@@ -40,8 +54,22 @@ public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStr
 {
 	public static readonly AccelerationStructure Null = new();
 
+	public readonly Vk.Device Parent;
+	public readonly Vk.DeviceFunctionTable Functions;
+	public readonly Vk.Instance Instance;
+	public readonly Vk.Device Device;
 	private readonly Handle<AccelerationStructure> _handle;
 	readonly Handle<AccelerationStructure> IHandleType<AccelerationStructure>.Handle => _handle;
+	public readonly bool IsValid => _handle.IsValid;
+
+	public AccelerationStructure(in Vk.Device parent, Vk.Handle<AccelerationStructure> handle)
+	{
+		Parent = parent;
+		Functions = parent.Functions;
+		Instance = parent.Instance;
+		Device = parent;
+		_handle = handle;
+	}
 
 	public override readonly int GetHashCode() => _handle.GetHashCode();
 	public override readonly string? ToString() => $"[AccelerationStructure 0x{(ulong)_handle:X16}]";
