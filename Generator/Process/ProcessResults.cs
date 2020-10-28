@@ -42,20 +42,20 @@ namespace Gen
 			var names = new NameHelper(spec.VendorNames);
 
 			// Process the handles
+			List<HandleOut> handles = new(); // To avoid searching back through the vendors
 			Console.WriteLine("Processing handle types...");
 			foreach (var handleSpec in spec.Handles.Values) {
 				if (HandleOut.TryProcess(handleSpec, names) is not HandleOut handleOut) {
 					return false;
 				}
 				proc.getOrCreateVendor(handleOut.VendorName).Handles.Add(handleOut.Name, handleOut);
+				handles.Add(handleOut);
 				names.RegisterHandle(handleOut);
 				Program.PrintVerbose($"\tProcessed handle {handleOut.Name}");
 			}
-			foreach (var vend in proc.Vendors) {
-				foreach (var handle in vend.Value.Handles) {
-					if (!handle.Value.PopulateParent(names, proc.Vendors)) {
-						return false;
-					}
+			foreach (var handle in handles) {
+				if (!handle.PopulateParent(names, proc.Vendors)) {
+					return false;
 				}
 			}
 
@@ -108,6 +108,21 @@ namespace Gen
 				}
 				proc.Commands.Add(commandOut.Name, commandOut);
 				Program.PrintVerbose($"\tProcessed API function {commandOut.Name}");
+			}
+
+			// Apply the API commands to the handles
+			Console.WriteLine("Assigning API functions to handles...");
+			foreach (var cmd in proc.Commands.Values) {
+				bool found = false;
+				foreach (var handle in handles) {
+					if (handle.TryAddCommand(cmd)) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					Program.PrintWarning($"Failed to assign command '{cmd.Name}' to handle.");
+				}
 			}
 
 			return true;

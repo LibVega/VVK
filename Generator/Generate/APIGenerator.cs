@@ -466,7 +466,7 @@ namespace Gen
 					if (!instScope && (handleSpec.Name != "Device")) {
 						handleBlock.WriteLine("public readonly Vk.Device Device;");
 					}
-					handleBlock.WriteLine($"private readonly Handle<{handleSpec.Name}> _handle;");
+					handleBlock.WriteLine($"internal readonly Handle<{handleSpec.Name}> _handle;");
 					handleBlock.WriteLine($"readonly Handle<{handleSpec.Name}> IHandleType<{handleSpec.Name}>.Handle => _handle;");
 					handleBlock.WriteLine( "public readonly bool IsValid => _handle.IsValid;");
 					handleBlock.WriteLine();
@@ -518,6 +518,16 @@ namespace Gen
 					handleBlock.WriteLine($"public static bool operator != ({handleSpec.Name} l, {handleSpec.Name} r) => l._handle != r._handle;");
 					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					handleBlock.WriteLine($"public static implicit operator bool ({handleSpec.Name} handle) => handle._handle.IsValid;");
+					handleBlock.WriteLine();
+
+					// Write the functions
+					foreach (var cmd in handleSpec.Commands) {
+						handleBlock.WriteLine($"/// <summary>{cmd.Name}</summary>");
+						handleBlock.WriteLine( "[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						handleBlock.WriteLine( cmd.SigStr);
+						handleBlock.WriteLine($"\t=> {cmd.CallStr};");
+						handleBlock.WriteLine();
+					}
 				}
 			}
 			catch (Exception ex) {

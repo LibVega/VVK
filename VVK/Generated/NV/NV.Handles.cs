@@ -22,7 +22,7 @@ public unsafe partial struct IndirectCommandsLayout : IHandleType<IndirectComman
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	private readonly Handle<IndirectCommandsLayout> _handle;
+	internal readonly Handle<IndirectCommandsLayout> _handle;
 	readonly Handle<IndirectCommandsLayout> IHandleType<IndirectCommandsLayout>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
@@ -48,6 +48,17 @@ public unsafe partial struct IndirectCommandsLayout : IHandleType<IndirectComman
 	public static bool operator != (IndirectCommandsLayout l, IndirectCommandsLayout r) => l._handle != r._handle;
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static implicit operator bool (IndirectCommandsLayout handle) => handle._handle.IsValid;
+
+	/// <summary>vkDestroyIndirectCommandsLayoutNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyIndirectCommandsLayoutNV(Vk.AllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyIndirectCommandsLayoutNV(Device._handle, _handle, pAllocator);
+
+	/// <summary>vkDestroyIndirectCommandsLayoutNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyIndirectCommandsLayoutNV(in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyIndirectCommandsLayoutNV(Device._handle, _handle, allocator);
+
 }
 
 public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStructure>
@@ -58,7 +69,7 @@ public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStr
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	private readonly Handle<AccelerationStructure> _handle;
+	internal readonly Handle<AccelerationStructure> _handle;
 	readonly Handle<AccelerationStructure> IHandleType<AccelerationStructure>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
@@ -84,6 +95,7 @@ public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStr
 	public static bool operator != (AccelerationStructure l, AccelerationStructure r) => l._handle != r._handle;
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static implicit operator bool (AccelerationStructure handle) => handle._handle.IsValid;
+
 }
 
 } // namespace Vk.NV

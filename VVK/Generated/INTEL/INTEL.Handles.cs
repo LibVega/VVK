@@ -22,7 +22,7 @@ public unsafe partial struct PerformanceConfiguration : IHandleType<PerformanceC
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	private readonly Handle<PerformanceConfiguration> _handle;
+	internal readonly Handle<PerformanceConfiguration> _handle;
 	readonly Handle<PerformanceConfiguration> IHandleType<PerformanceConfiguration>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
@@ -48,6 +48,12 @@ public unsafe partial struct PerformanceConfiguration : IHandleType<PerformanceC
 	public static bool operator != (PerformanceConfiguration l, PerformanceConfiguration r) => l._handle != r._handle;
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static implicit operator bool (PerformanceConfiguration handle) => handle._handle.IsValid;
+
+	/// <summary>vkReleasePerformanceConfigurationINTEL</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result ReleasePerformanceConfigurationINTEL()
+		=> Functions.vkReleasePerformanceConfigurationINTEL(Device._handle, _handle);
+
 }
 
 } // namespace Vk.INTEL

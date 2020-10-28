@@ -22,7 +22,7 @@ public unsafe partial struct ValidationCache : IHandleType<ValidationCache>
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	private readonly Handle<ValidationCache> _handle;
+	internal readonly Handle<ValidationCache> _handle;
 	readonly Handle<ValidationCache> IHandleType<ValidationCache>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
@@ -48,6 +48,37 @@ public unsafe partial struct ValidationCache : IHandleType<ValidationCache>
 	public static bool operator != (ValidationCache l, ValidationCache r) => l._handle != r._handle;
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static implicit operator bool (ValidationCache handle) => handle._handle.IsValid;
+
+	/// <summary>vkDestroyValidationCacheEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyValidationCacheEXT(Vk.AllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyValidationCacheEXT(Device._handle, _handle, pAllocator);
+
+	/// <summary>vkDestroyValidationCacheEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyValidationCacheEXT(in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyValidationCacheEXT(Device._handle, _handle, allocator);
+
+	/// <summary>vkGetValidationCacheDataEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetValidationCacheDataEXT(ulong* pDataSize, void* pData)
+		=> Functions.vkGetValidationCacheDataEXT(Device._handle, _handle, pDataSize, pData);
+
+	/// <summary>vkGetValidationCacheDataEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetValidationCacheDataEXT(out ulong dataSize, void* pData)
+		=> Functions.GetValidationCacheDataEXT(Device._handle, _handle, out dataSize, pData);
+
+	/// <summary>vkMergeValidationCachesEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result MergeValidationCachesEXT(uint srcCacheCount, Vk.Handle<Vk.EXT.ValidationCache>* pSrcCaches)
+		=> Functions.vkMergeValidationCachesEXT(Device._handle, _handle, srcCacheCount, pSrcCaches);
+
+	/// <summary>vkMergeValidationCachesEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result MergeValidationCachesEXT(in ReadOnlySpan<Vk.Handle<Vk.EXT.ValidationCache>> srcCaches)
+		=> Functions.MergeValidationCachesEXT(Device._handle, _handle, srcCaches);
+
 }
 
 public unsafe partial struct PrivateDataSlot : IHandleType<PrivateDataSlot>
@@ -58,7 +89,7 @@ public unsafe partial struct PrivateDataSlot : IHandleType<PrivateDataSlot>
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	private readonly Handle<PrivateDataSlot> _handle;
+	internal readonly Handle<PrivateDataSlot> _handle;
 	readonly Handle<PrivateDataSlot> IHandleType<PrivateDataSlot>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
@@ -84,6 +115,17 @@ public unsafe partial struct PrivateDataSlot : IHandleType<PrivateDataSlot>
 	public static bool operator != (PrivateDataSlot l, PrivateDataSlot r) => l._handle != r._handle;
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static implicit operator bool (PrivateDataSlot handle) => handle._handle.IsValid;
+
+	/// <summary>vkDestroyPrivateDataSlotEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyPrivateDataSlotEXT(Vk.AllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyPrivateDataSlotEXT(Device._handle, _handle, pAllocator);
+
+	/// <summary>vkDestroyPrivateDataSlotEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyPrivateDataSlotEXT(in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyPrivateDataSlotEXT(Device._handle, _handle, allocator);
+
 }
 
 public unsafe partial struct DebugReportCallback : IHandleType<DebugReportCallback>
@@ -93,7 +135,7 @@ public unsafe partial struct DebugReportCallback : IHandleType<DebugReportCallba
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
-	private readonly Handle<DebugReportCallback> _handle;
+	internal readonly Handle<DebugReportCallback> _handle;
 	readonly Handle<DebugReportCallback> IHandleType<DebugReportCallback>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
@@ -118,6 +160,17 @@ public unsafe partial struct DebugReportCallback : IHandleType<DebugReportCallba
 	public static bool operator != (DebugReportCallback l, DebugReportCallback r) => l._handle != r._handle;
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static implicit operator bool (DebugReportCallback handle) => handle._handle.IsValid;
+
+	/// <summary>vkDestroyDebugReportCallbackEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugReportCallbackEXT(Vk.AllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDebugReportCallbackEXT(Instance._handle, _handle, pAllocator);
+
+	/// <summary>vkDestroyDebugReportCallbackEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugReportCallbackEXT(in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyDebugReportCallbackEXT(Instance._handle, _handle, allocator);
+
 }
 
 public unsafe partial struct DebugUtilsMessenger : IHandleType<DebugUtilsMessenger>
@@ -127,7 +180,7 @@ public unsafe partial struct DebugUtilsMessenger : IHandleType<DebugUtilsMesseng
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
-	private readonly Handle<DebugUtilsMessenger> _handle;
+	internal readonly Handle<DebugUtilsMessenger> _handle;
 	readonly Handle<DebugUtilsMessenger> IHandleType<DebugUtilsMessenger>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
@@ -152,6 +205,17 @@ public unsafe partial struct DebugUtilsMessenger : IHandleType<DebugUtilsMesseng
 	public static bool operator != (DebugUtilsMessenger l, DebugUtilsMessenger r) => l._handle != r._handle;
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static implicit operator bool (DebugUtilsMessenger handle) => handle._handle.IsValid;
+
+	/// <summary>vkDestroyDebugUtilsMessengerEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugUtilsMessengerEXT(Vk.AllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDebugUtilsMessengerEXT(Instance._handle, _handle, pAllocator);
+
+	/// <summary>vkDestroyDebugUtilsMessengerEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyDebugUtilsMessengerEXT(in Vk.AllocationCallbacks allocator)
+		=> Functions.DestroyDebugUtilsMessengerEXT(Instance._handle, _handle, allocator);
+
 }
 
 } // namespace Vk.EXT
