@@ -14,17 +14,15 @@ using System.Runtime.CompilerServices;
 namespace Vk.NV
 {
 
-public unsafe partial struct IndirectCommandsLayout : IHandleType<IndirectCommandsLayout>
+public unsafe partial class IndirectCommandsLayout : IHandleType<IndirectCommandsLayout>
 {
-	public static readonly IndirectCommandsLayout Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<IndirectCommandsLayout> _handle;
-	readonly Handle<IndirectCommandsLayout> IHandleType<IndirectCommandsLayout>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<IndirectCommandsLayout> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public IndirectCommandsLayout(in Vk.Device parent, Vk.Handle<IndirectCommandsLayout> handle)
 	{
@@ -32,46 +30,43 @@ public unsafe partial struct IndirectCommandsLayout : IHandleType<IndirectComman
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[IndirectCommandsLayout 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is IndirectCommandsLayout t) && (t._handle == _handle);
-	readonly bool IEquatable<IndirectCommandsLayout>.Equals(IndirectCommandsLayout other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[IndirectCommandsLayout 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is IndirectCommandsLayout t) && (t.Handle == Handle);
+	bool IEquatable<IndirectCommandsLayout>.Equals(IndirectCommandsLayout? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<IndirectCommandsLayout> (in IndirectCommandsLayout handle) => handle._handle;
+	public static implicit operator Vk.Handle<IndirectCommandsLayout> (IndirectCommandsLayout? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (IndirectCommandsLayout l, IndirectCommandsLayout r) => l._handle == r._handle;
+	public static bool operator == (IndirectCommandsLayout? l, IndirectCommandsLayout? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (IndirectCommandsLayout? l, IndirectCommandsLayout? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (IndirectCommandsLayout l, IndirectCommandsLayout r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (IndirectCommandsLayout handle) => handle._handle.IsValid;
+	public static implicit operator bool (IndirectCommandsLayout? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroyIndirectCommandsLayoutNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyIndirectCommandsLayoutNV(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyIndirectCommandsLayoutNV(Device._handle, _handle, pAllocator);
+		=> Functions.vkDestroyIndirectCommandsLayoutNV(Device.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyIndirectCommandsLayoutNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyIndirectCommandsLayoutNV(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyIndirectCommandsLayoutNV(Device._handle, _handle, allocator);
+		=> Functions.DestroyIndirectCommandsLayoutNV(Device.Handle, Handle, allocator);
 
 }
 
-public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStructure>
+public unsafe partial class AccelerationStructure : IHandleType<AccelerationStructure>
 {
-	public static readonly AccelerationStructure Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<AccelerationStructure> _handle;
-	readonly Handle<AccelerationStructure> IHandleType<AccelerationStructure>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<AccelerationStructure> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public AccelerationStructure(in Vk.Device parent, Vk.Handle<AccelerationStructure> handle)
 	{
@@ -79,22 +74,21 @@ public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStr
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[AccelerationStructure 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is AccelerationStructure t) && (t._handle == _handle);
-	readonly bool IEquatable<AccelerationStructure>.Equals(AccelerationStructure other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[AccelerationStructure 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is AccelerationStructure t) && (t.Handle == Handle);
+	bool IEquatable<AccelerationStructure>.Equals(AccelerationStructure? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<AccelerationStructure> (in AccelerationStructure handle) => handle._handle;
+	public static implicit operator Vk.Handle<AccelerationStructure> (AccelerationStructure? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (AccelerationStructure l, AccelerationStructure r) => l._handle == r._handle;
+	public static bool operator == (AccelerationStructure? l, AccelerationStructure? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (AccelerationStructure? l, AccelerationStructure? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (AccelerationStructure l, AccelerationStructure r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (AccelerationStructure handle) => handle._handle.IsValid;
+	public static implicit operator bool (AccelerationStructure? handle) => handle?.Handle.IsValid ?? false;
 
 }
 

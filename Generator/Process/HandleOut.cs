@@ -212,11 +212,11 @@ namespace Gen
 		{
 			var argStr = String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
-			var callStr = "_handle, " + String.Join(", ",
+			var callStr = "Handle, " + String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			if (callStr.EndsWith(", ")) {
-				callStr = "_handle";
+				callStr = "Handle";
 			}
 			return new(
 				cmd.Name,
@@ -234,11 +234,11 @@ namespace Gen
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(2)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			var call0 = cmd.Arguments[0].Type.Substring("Vk.Handle<".Length).TrimEnd('>') switch { 
-				"Vk.Instance" => "Instance._handle",
-				"Vk.Device" => "Device._handle",
-				_ => "Parent._handle"
+				"Vk.Instance" => "Instance.Handle",
+				"Vk.Device" => "Device.Handle",
+				_ => "Parent.Handle"
 			};
-			callStr = call0 + ", _handle" + (callStr.Length > 0 ? $", {callStr}" : "");
+			callStr = call0 + ", Handle" + (callStr.Length > 0 ? $", {callStr}" : "");
 			return new(
 				cmd.Name,
 				$"public {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
@@ -251,11 +251,11 @@ namespace Gen
 		{
 			var argStr = String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
-			var callStr = "_handle, " + String.Join(", ",
+			var callStr = "Handle, " + String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			if (callStr.EndsWith(", ")) {
-				callStr = "_handle";
+				callStr = "Handle";
 			}
 			return new(
 				cmd.Name,
@@ -272,19 +272,19 @@ namespace Gen
 
 			var argStr = String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(skip).SkipLast(1).Select(arg => $"{arg.Type} {arg.Name}"));
-			argStr += $", out {lastType} {last.Name}";
+			argStr += $", out {lastType}? {last.Name}";
 			var callStr = String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(skip).SkipLast(1)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			callStr += (alt ? ", out HANDLE" : ", &HANDLE");
 			if (skip >= 1) {
-				callStr = "_handle, " + callStr;
+				callStr = "Handle, " + callStr;
 			}
 			if (skip == 2) {
 				var call0 = cmd.Arguments[0].Type.Substring("Vk.Handle<".Length).TrimEnd('>') switch {
-					"Vk.Instance" => "Instance._handle",
-					"Vk.Device" => "Device._handle",
-					_ => "Parent._handle"
+					"Vk.Instance" => "Instance.Handle",
+					"Vk.Device" => "Device.Handle",
+					_ => "Parent.Handle"
 				};
 				callStr = call0 + ", " + callStr;
 			}
@@ -298,14 +298,14 @@ namespace Gen
 						$"Vk.Version APIV = new({(alt ? "createInfo." : "pCreateInfo->")}ApplicationInfo->ApiVersion);\n" +
 						$"Vk.Handle<{lastType}> HANDLE;\n" +
 						$"var RESULT = {fnTable}.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr});\n" +
-						$"{last.Name} = (RESULT == Result.Success) ? new(HANDLE, APIV) : new();\n" +
+						$"{last.Name} = (RESULT == Result.Success) ? new(HANDLE, APIV) : null;\n" +
 						"return RESULT;"
 					)
 					: (cmd.ReturnType != "void")
 					? (
 						$"Vk.Handle<{lastType}> HANDLE;\n" +
 						$"var RESULT = {fnTable}.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr});\n" +
-						$"{last.Name} = (RESULT == Result.Success) ? new({(global ? "" : "this, ")}HANDLE) : new();\n" +
+						$"{last.Name} = (RESULT == Result.Success) ? new({(global ? "" : "this, ")}HANDLE) : null;\n" +
 						"return RESULT;"
 					)
 					: (

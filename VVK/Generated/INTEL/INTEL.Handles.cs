@@ -14,17 +14,15 @@ using System.Runtime.CompilerServices;
 namespace Vk.INTEL
 {
 
-public unsafe partial struct PerformanceConfiguration : IHandleType<PerformanceConfiguration>
+public unsafe partial class PerformanceConfiguration : IHandleType<PerformanceConfiguration>
 {
-	public static readonly PerformanceConfiguration Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<PerformanceConfiguration> _handle;
-	readonly Handle<PerformanceConfiguration> IHandleType<PerformanceConfiguration>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<PerformanceConfiguration> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public PerformanceConfiguration(in Vk.Device parent, Vk.Handle<PerformanceConfiguration> handle)
 	{
@@ -32,27 +30,26 @@ public unsafe partial struct PerformanceConfiguration : IHandleType<PerformanceC
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[PerformanceConfiguration 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is PerformanceConfiguration t) && (t._handle == _handle);
-	readonly bool IEquatable<PerformanceConfiguration>.Equals(PerformanceConfiguration other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[PerformanceConfiguration 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is PerformanceConfiguration t) && (t.Handle == Handle);
+	bool IEquatable<PerformanceConfiguration>.Equals(PerformanceConfiguration? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<PerformanceConfiguration> (in PerformanceConfiguration handle) => handle._handle;
+	public static implicit operator Vk.Handle<PerformanceConfiguration> (PerformanceConfiguration? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (PerformanceConfiguration l, PerformanceConfiguration r) => l._handle == r._handle;
+	public static bool operator == (PerformanceConfiguration? l, PerformanceConfiguration? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (PerformanceConfiguration? l, PerformanceConfiguration? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (PerformanceConfiguration l, PerformanceConfiguration r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (PerformanceConfiguration handle) => handle._handle.IsValid;
+	public static implicit operator bool (PerformanceConfiguration? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkReleasePerformanceConfigurationINTEL</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ReleasePerformanceConfigurationINTEL()
-		=> Functions.vkReleasePerformanceConfigurationINTEL(Device._handle, _handle);
+		=> Functions.vkReleasePerformanceConfigurationINTEL(Device.Handle, Handle);
 
 }
 

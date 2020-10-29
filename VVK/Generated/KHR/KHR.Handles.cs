@@ -14,17 +14,15 @@ using System.Runtime.CompilerServices;
 namespace Vk.KHR
 {
 
-public unsafe partial struct DescriptorUpdateTemplate : IHandleType<DescriptorUpdateTemplate>
+public unsafe partial class DescriptorUpdateTemplate : IHandleType<DescriptorUpdateTemplate>
 {
-	public static readonly DescriptorUpdateTemplate Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<DescriptorUpdateTemplate> _handle;
-	readonly Handle<DescriptorUpdateTemplate> IHandleType<DescriptorUpdateTemplate>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<DescriptorUpdateTemplate> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public DescriptorUpdateTemplate(in Vk.Device parent, Vk.Handle<DescriptorUpdateTemplate> handle)
 	{
@@ -32,36 +30,33 @@ public unsafe partial struct DescriptorUpdateTemplate : IHandleType<DescriptorUp
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[DescriptorUpdateTemplate 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is DescriptorUpdateTemplate t) && (t._handle == _handle);
-	readonly bool IEquatable<DescriptorUpdateTemplate>.Equals(DescriptorUpdateTemplate other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[DescriptorUpdateTemplate 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is DescriptorUpdateTemplate t) && (t.Handle == Handle);
+	bool IEquatable<DescriptorUpdateTemplate>.Equals(DescriptorUpdateTemplate? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<DescriptorUpdateTemplate> (in DescriptorUpdateTemplate handle) => handle._handle;
+	public static implicit operator Vk.Handle<DescriptorUpdateTemplate> (DescriptorUpdateTemplate? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (DescriptorUpdateTemplate l, DescriptorUpdateTemplate r) => l._handle == r._handle;
+	public static bool operator == (DescriptorUpdateTemplate? l, DescriptorUpdateTemplate? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (DescriptorUpdateTemplate? l, DescriptorUpdateTemplate? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (DescriptorUpdateTemplate l, DescriptorUpdateTemplate r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (DescriptorUpdateTemplate handle) => handle._handle.IsValid;
+	public static implicit operator bool (DescriptorUpdateTemplate? handle) => handle?.Handle.IsValid ?? false;
 
 }
 
-public unsafe partial struct SamplerYcbcrConversion : IHandleType<SamplerYcbcrConversion>
+public unsafe partial class SamplerYcbcrConversion : IHandleType<SamplerYcbcrConversion>
 {
-	public static readonly SamplerYcbcrConversion Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<SamplerYcbcrConversion> _handle;
-	readonly Handle<SamplerYcbcrConversion> IHandleType<SamplerYcbcrConversion>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<SamplerYcbcrConversion> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public SamplerYcbcrConversion(in Vk.Device parent, Vk.Handle<SamplerYcbcrConversion> handle)
 	{
@@ -69,36 +64,33 @@ public unsafe partial struct SamplerYcbcrConversion : IHandleType<SamplerYcbcrCo
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[SamplerYcbcrConversion 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is SamplerYcbcrConversion t) && (t._handle == _handle);
-	readonly bool IEquatable<SamplerYcbcrConversion>.Equals(SamplerYcbcrConversion other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[SamplerYcbcrConversion 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is SamplerYcbcrConversion t) && (t.Handle == Handle);
+	bool IEquatable<SamplerYcbcrConversion>.Equals(SamplerYcbcrConversion? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<SamplerYcbcrConversion> (in SamplerYcbcrConversion handle) => handle._handle;
+	public static implicit operator Vk.Handle<SamplerYcbcrConversion> (SamplerYcbcrConversion? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (SamplerYcbcrConversion l, SamplerYcbcrConversion r) => l._handle == r._handle;
+	public static bool operator == (SamplerYcbcrConversion? l, SamplerYcbcrConversion? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (SamplerYcbcrConversion? l, SamplerYcbcrConversion? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (SamplerYcbcrConversion l, SamplerYcbcrConversion r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (SamplerYcbcrConversion handle) => handle._handle.IsValid;
+	public static implicit operator bool (SamplerYcbcrConversion? handle) => handle?.Handle.IsValid ?? false;
 
 }
 
-public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStructure>
+public unsafe partial class AccelerationStructure : IHandleType<AccelerationStructure>
 {
-	public static readonly AccelerationStructure Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<AccelerationStructure> _handle;
-	readonly Handle<AccelerationStructure> IHandleType<AccelerationStructure>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<AccelerationStructure> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public AccelerationStructure(in Vk.Device parent, Vk.Handle<AccelerationStructure> handle)
 	{
@@ -106,61 +98,58 @@ public unsafe partial struct AccelerationStructure : IHandleType<AccelerationStr
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[AccelerationStructure 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is AccelerationStructure t) && (t._handle == _handle);
-	readonly bool IEquatable<AccelerationStructure>.Equals(AccelerationStructure other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[AccelerationStructure 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is AccelerationStructure t) && (t.Handle == Handle);
+	bool IEquatable<AccelerationStructure>.Equals(AccelerationStructure? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<AccelerationStructure> (in AccelerationStructure handle) => handle._handle;
+	public static implicit operator Vk.Handle<AccelerationStructure> (AccelerationStructure? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (AccelerationStructure l, AccelerationStructure r) => l._handle == r._handle;
+	public static bool operator == (AccelerationStructure? l, AccelerationStructure? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (AccelerationStructure? l, AccelerationStructure? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (AccelerationStructure l, AccelerationStructure r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (AccelerationStructure handle) => handle._handle.IsValid;
+	public static implicit operator bool (AccelerationStructure? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroyAccelerationStructureKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureKHR(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyAccelerationStructureKHR(Device._handle, _handle, pAllocator);
+		=> Functions.vkDestroyAccelerationStructureKHR(Device.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyAccelerationStructureKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureKHR(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyAccelerationStructureKHR(Device._handle, _handle, allocator);
+		=> Functions.DestroyAccelerationStructureKHR(Device.Handle, Handle, allocator);
 
 	/// <summary>vkDestroyAccelerationStructureNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureNV(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyAccelerationStructureNV(Device._handle, _handle, pAllocator);
+		=> Functions.vkDestroyAccelerationStructureNV(Device.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyAccelerationStructureNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureNV(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyAccelerationStructureNV(Device._handle, _handle, allocator);
+		=> Functions.DestroyAccelerationStructureNV(Device.Handle, Handle, allocator);
 
 	/// <summary>vkGetAccelerationStructureHandleNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetAccelerationStructureHandleNV(ulong dataSize, void* pData)
-		=> Functions.vkGetAccelerationStructureHandleNV(Device._handle, _handle, dataSize, pData);
+		=> Functions.vkGetAccelerationStructureHandleNV(Device.Handle, Handle, dataSize, pData);
 
 }
 
-public unsafe partial struct DeferredOperation : IHandleType<DeferredOperation>
+public unsafe partial class DeferredOperation : IHandleType<DeferredOperation>
 {
-	public static readonly DeferredOperation Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<DeferredOperation> _handle;
-	readonly Handle<DeferredOperation> IHandleType<DeferredOperation>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<DeferredOperation> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public DeferredOperation(in Vk.Device parent, Vk.Handle<DeferredOperation> handle)
 	{
@@ -168,231 +157,219 @@ public unsafe partial struct DeferredOperation : IHandleType<DeferredOperation>
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[DeferredOperation 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is DeferredOperation t) && (t._handle == _handle);
-	readonly bool IEquatable<DeferredOperation>.Equals(DeferredOperation other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[DeferredOperation 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is DeferredOperation t) && (t.Handle == Handle);
+	bool IEquatable<DeferredOperation>.Equals(DeferredOperation? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<DeferredOperation> (in DeferredOperation handle) => handle._handle;
+	public static implicit operator Vk.Handle<DeferredOperation> (DeferredOperation? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (DeferredOperation l, DeferredOperation r) => l._handle == r._handle;
+	public static bool operator == (DeferredOperation? l, DeferredOperation? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (DeferredOperation? l, DeferredOperation? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (DeferredOperation l, DeferredOperation r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (DeferredOperation handle) => handle._handle.IsValid;
+	public static implicit operator bool (DeferredOperation? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroyDeferredOperationKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDeferredOperationKHR(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyDeferredOperationKHR(Device._handle, _handle, pAllocator);
+		=> Functions.vkDestroyDeferredOperationKHR(Device.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyDeferredOperationKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDeferredOperationKHR(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyDeferredOperationKHR(Device._handle, _handle, allocator);
+		=> Functions.DestroyDeferredOperationKHR(Device.Handle, Handle, allocator);
 
 	/// <summary>vkGetDeferredOperationMaxConcurrencyKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public uint GetDeferredOperationMaxConcurrencyKHR()
-		=> Functions.vkGetDeferredOperationMaxConcurrencyKHR(Device._handle, _handle);
+		=> Functions.vkGetDeferredOperationMaxConcurrencyKHR(Device.Handle, Handle);
 
 	/// <summary>vkGetDeferredOperationResultKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDeferredOperationResultKHR()
-		=> Functions.vkGetDeferredOperationResultKHR(Device._handle, _handle);
+		=> Functions.vkGetDeferredOperationResultKHR(Device.Handle, Handle);
 
 	/// <summary>vkDeferredOperationJoinKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result DeferredOperationJoinKHR()
-		=> Functions.vkDeferredOperationJoinKHR(Device._handle, _handle);
+		=> Functions.vkDeferredOperationJoinKHR(Device.Handle, Handle);
 
 }
 
-public unsafe partial struct Display : IHandleType<Display>
+public unsafe partial class Display : IHandleType<Display>
 {
-	public static readonly Display Null = new();
 
 	public readonly Vk.PhysicalDevice Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
-	internal readonly Handle<Display> _handle;
-	readonly Handle<Display> IHandleType<Display>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<Display> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public Display(in Vk.PhysicalDevice parent, Vk.Handle<Display> handle)
 	{
 		Parent = parent;
 		Functions = parent.Functions;
 		Instance = parent.Instance;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[Display 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is Display t) && (t._handle == _handle);
-	readonly bool IEquatable<Display>.Equals(Display other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[Display 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is Display t) && (t.Handle == Handle);
+	bool IEquatable<Display>.Equals(Display? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<Display> (in Display handle) => handle._handle;
+	public static implicit operator Vk.Handle<Display> (Display? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (Display l, Display r) => l._handle == r._handle;
+	public static bool operator == (Display? l, Display? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (Display? l, Display? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (Display l, Display r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (Display handle) => handle._handle.IsValid;
+	public static implicit operator bool (Display? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkGetDisplayModePropertiesKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayModePropertiesKHR(uint* pPropertyCount, Vk.KHR.DisplayModeProperties* pProperties)
-		=> Functions.vkGetDisplayModePropertiesKHR(Parent._handle, _handle, pPropertyCount, pProperties);
+		=> Functions.vkGetDisplayModePropertiesKHR(Parent.Handle, Handle, pPropertyCount, pProperties);
 
 	/// <summary>vkGetDisplayModePropertiesKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayModePropertiesKHR(out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties> properties)
-		=> Functions.GetDisplayModePropertiesKHR(Parent._handle, _handle, out propertyCount, properties);
+		=> Functions.GetDisplayModePropertiesKHR(Parent.Handle, Handle, out propertyCount, properties);
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDisplayModeKHR(Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.KHR.DisplayMode>* pMode)
-		=> Functions.vkCreateDisplayModeKHR(Parent._handle, _handle, pCreateInfo, pAllocator, pMode);
+		=> Functions.vkCreateDisplayModeKHR(Parent.Handle, Handle, pCreateInfo, pAllocator, pMode);
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayModeKHR(Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DisplayMode pMode)
+	public Vk.Result CreateDisplayModeKHR(Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DisplayMode? pMode)
 	{
 		Vk.Handle<Vk.KHR.DisplayMode> HANDLE;
-		var RESULT = Functions.vkCreateDisplayModeKHR(Parent._handle, _handle, pCreateInfo, pAllocator, &HANDLE);
-		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		var RESULT = Functions.vkCreateDisplayModeKHR(Parent.Handle, Handle, pCreateInfo, pAllocator, &HANDLE);
+		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : null;
 		return RESULT;
 	}
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDisplayModeKHR(in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.DisplayMode> mode)
-		=> Functions.CreateDisplayModeKHR(Parent._handle, _handle, createInfo, allocator, out mode);
+		=> Functions.CreateDisplayModeKHR(Parent.Handle, Handle, createInfo, allocator, out mode);
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayModeKHR(in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.DisplayMode pMode)
+	public Vk.Result CreateDisplayModeKHR(in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.DisplayMode? pMode)
 	{
 		Vk.Handle<Vk.KHR.DisplayMode> HANDLE;
-		var RESULT = Functions.CreateDisplayModeKHR(Parent._handle, _handle, createInfo, allocator, out HANDLE);
-		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		var RESULT = Functions.CreateDisplayModeKHR(Parent.Handle, Handle, createInfo, allocator, out HANDLE);
+		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : null;
 		return RESULT;
 	}
 
 	/// <summary>vkReleaseDisplayEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ReleaseDisplayEXT()
-		=> Functions.vkReleaseDisplayEXT(Parent._handle, _handle);
+		=> Functions.vkReleaseDisplayEXT(Parent.Handle, Handle);
 
 	/// <summary>vkGetDisplayModeProperties2KHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayModeProperties2KHR(uint* pPropertyCount, Vk.KHR.DisplayModeProperties2* pProperties)
-		=> Functions.vkGetDisplayModeProperties2KHR(Parent._handle, _handle, pPropertyCount, pProperties);
+		=> Functions.vkGetDisplayModeProperties2KHR(Parent.Handle, Handle, pPropertyCount, pProperties);
 
 	/// <summary>vkGetDisplayModeProperties2KHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetDisplayModeProperties2KHR(out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties2> properties)
-		=> Functions.GetDisplayModeProperties2KHR(Parent._handle, _handle, out propertyCount, properties);
+		=> Functions.GetDisplayModeProperties2KHR(Parent.Handle, Handle, out propertyCount, properties);
 
 }
 
-public unsafe partial struct DisplayMode : IHandleType<DisplayMode>
+public unsafe partial class DisplayMode : IHandleType<DisplayMode>
 {
-	public static readonly DisplayMode Null = new();
 
 	public readonly Vk.KHR.Display Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
-	internal readonly Handle<DisplayMode> _handle;
-	readonly Handle<DisplayMode> IHandleType<DisplayMode>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<DisplayMode> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public DisplayMode(in Vk.KHR.Display parent, Vk.Handle<DisplayMode> handle)
 	{
 		Parent = parent;
 		Functions = parent.Functions;
 		Instance = parent.Instance;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[DisplayMode 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is DisplayMode t) && (t._handle == _handle);
-	readonly bool IEquatable<DisplayMode>.Equals(DisplayMode other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[DisplayMode 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is DisplayMode t) && (t.Handle == Handle);
+	bool IEquatable<DisplayMode>.Equals(DisplayMode? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<DisplayMode> (in DisplayMode handle) => handle._handle;
+	public static implicit operator Vk.Handle<DisplayMode> (DisplayMode? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (DisplayMode l, DisplayMode r) => l._handle == r._handle;
+	public static bool operator == (DisplayMode? l, DisplayMode? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (DisplayMode? l, DisplayMode? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (DisplayMode l, DisplayMode r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (DisplayMode handle) => handle._handle.IsValid;
+	public static implicit operator bool (DisplayMode? handle) => handle?.Handle.IsValid ?? false;
 
 }
 
-public unsafe partial struct Surface : IHandleType<Surface>
+public unsafe partial class Surface : IHandleType<Surface>
 {
-	public static readonly Surface Null = new();
 
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
-	internal readonly Handle<Surface> _handle;
-	readonly Handle<Surface> IHandleType<Surface>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<Surface> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public Surface(in Vk.Instance parent, Vk.Handle<Surface> handle)
 	{
 		Parent = parent;
 		Functions = parent.Functions;
 		Instance = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[Surface 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is Surface t) && (t._handle == _handle);
-	readonly bool IEquatable<Surface>.Equals(Surface other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[Surface 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is Surface t) && (t.Handle == Handle);
+	bool IEquatable<Surface>.Equals(Surface? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<Surface> (in Surface handle) => handle._handle;
+	public static implicit operator Vk.Handle<Surface> (Surface? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (Surface l, Surface r) => l._handle == r._handle;
+	public static bool operator == (Surface? l, Surface? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (Surface? l, Surface? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (Surface l, Surface r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (Surface handle) => handle._handle.IsValid;
+	public static implicit operator bool (Surface? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroySurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySurfaceKHR(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroySurfaceKHR(Instance._handle, _handle, pAllocator);
+		=> Functions.vkDestroySurfaceKHR(Instance.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroySurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySurfaceKHR(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroySurfaceKHR(Instance._handle, _handle, allocator);
+		=> Functions.DestroySurfaceKHR(Instance.Handle, Handle, allocator);
 
 }
 
-public unsafe partial struct Swapchain : IHandleType<Swapchain>
+public unsafe partial class Swapchain : IHandleType<Swapchain>
 {
-	public static readonly Swapchain Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<Swapchain> _handle;
-	readonly Handle<Swapchain> IHandleType<Swapchain>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<Swapchain> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public Swapchain(in Vk.Device parent, Vk.Handle<Swapchain> handle)
 	{
@@ -400,102 +377,101 @@ public unsafe partial struct Swapchain : IHandleType<Swapchain>
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[Swapchain 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is Swapchain t) && (t._handle == _handle);
-	readonly bool IEquatable<Swapchain>.Equals(Swapchain other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[Swapchain 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is Swapchain t) && (t.Handle == Handle);
+	bool IEquatable<Swapchain>.Equals(Swapchain? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<Swapchain> (in Swapchain handle) => handle._handle;
+	public static implicit operator Vk.Handle<Swapchain> (Swapchain? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (Swapchain l, Swapchain r) => l._handle == r._handle;
+	public static bool operator == (Swapchain? l, Swapchain? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (Swapchain? l, Swapchain? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (Swapchain l, Swapchain r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (Swapchain handle) => handle._handle.IsValid;
+	public static implicit operator bool (Swapchain? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroySwapchainKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySwapchainKHR(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroySwapchainKHR(Device._handle, _handle, pAllocator);
+		=> Functions.vkDestroySwapchainKHR(Device.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroySwapchainKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySwapchainKHR(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroySwapchainKHR(Device._handle, _handle, allocator);
+		=> Functions.DestroySwapchainKHR(Device.Handle, Handle, allocator);
 
 	/// <summary>vkGetSwapchainImagesKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainImagesKHR(uint* pSwapchainImageCount, Vk.Handle<Vk.Image>* pSwapchainImages)
-		=> Functions.vkGetSwapchainImagesKHR(Device._handle, _handle, pSwapchainImageCount, pSwapchainImages);
+		=> Functions.vkGetSwapchainImagesKHR(Device.Handle, Handle, pSwapchainImageCount, pSwapchainImages);
 
 	/// <summary>vkGetSwapchainImagesKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainImagesKHR(out uint swapchainImageCount, in Span<Vk.Handle<Vk.Image>> swapchainImages)
-		=> Functions.GetSwapchainImagesKHR(Device._handle, _handle, out swapchainImageCount, swapchainImages);
+		=> Functions.GetSwapchainImagesKHR(Device.Handle, Handle, out swapchainImageCount, swapchainImages);
 
 	/// <summary>vkAcquireNextImageKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AcquireNextImageKHR(ulong timeout, Vk.Handle<Vk.Semaphore> semaphore, Vk.Handle<Vk.Fence> fence, uint* pImageIndex)
-		=> Functions.vkAcquireNextImageKHR(Device._handle, _handle, timeout, semaphore, fence, pImageIndex);
+		=> Functions.vkAcquireNextImageKHR(Device.Handle, Handle, timeout, semaphore, fence, pImageIndex);
 
 	/// <summary>vkAcquireNextImageKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AcquireNextImageKHR(ulong timeout, Vk.Handle<Vk.Semaphore> semaphore, Vk.Handle<Vk.Fence> fence, out uint imageIndex)
-		=> Functions.AcquireNextImageKHR(Device._handle, _handle, timeout, semaphore, fence, out imageIndex);
+		=> Functions.AcquireNextImageKHR(Device.Handle, Handle, timeout, semaphore, fence, out imageIndex);
 
 	/// <summary>vkGetSwapchainCounterEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainCounterEXT(Vk.EXT.SurfaceCounterFlags counter, ulong* pCounterValue)
-		=> Functions.vkGetSwapchainCounterEXT(Device._handle, _handle, counter, pCounterValue);
+		=> Functions.vkGetSwapchainCounterEXT(Device.Handle, Handle, counter, pCounterValue);
 
 	/// <summary>vkGetSwapchainCounterEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainCounterEXT(Vk.EXT.SurfaceCounterFlags counter, out ulong counterValue)
-		=> Functions.GetSwapchainCounterEXT(Device._handle, _handle, counter, out counterValue);
+		=> Functions.GetSwapchainCounterEXT(Device.Handle, Handle, counter, out counterValue);
 
 	/// <summary>vkGetSwapchainStatusKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetSwapchainStatusKHR()
-		=> Functions.vkGetSwapchainStatusKHR(Device._handle, _handle);
+		=> Functions.vkGetSwapchainStatusKHR(Device.Handle, Handle);
 
 	/// <summary>vkGetRefreshCycleDurationGOOGLE</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetRefreshCycleDurationGOOGLE(Vk.GOOGLE.RefreshCycleDuration* pDisplayTimingProperties)
-		=> Functions.vkGetRefreshCycleDurationGOOGLE(Device._handle, _handle, pDisplayTimingProperties);
+		=> Functions.vkGetRefreshCycleDurationGOOGLE(Device.Handle, Handle, pDisplayTimingProperties);
 
 	/// <summary>vkGetRefreshCycleDurationGOOGLE</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetRefreshCycleDurationGOOGLE(out Vk.GOOGLE.RefreshCycleDuration displayTimingProperties)
-		=> Functions.GetRefreshCycleDurationGOOGLE(Device._handle, _handle, out displayTimingProperties);
+		=> Functions.GetRefreshCycleDurationGOOGLE(Device.Handle, Handle, out displayTimingProperties);
 
 	/// <summary>vkGetPastPresentationTimingGOOGLE</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPastPresentationTimingGOOGLE(uint* pPresentationTimingCount, Vk.GOOGLE.PastPresentationTiming* pPresentationTimings)
-		=> Functions.vkGetPastPresentationTimingGOOGLE(Device._handle, _handle, pPresentationTimingCount, pPresentationTimings);
+		=> Functions.vkGetPastPresentationTimingGOOGLE(Device.Handle, Handle, pPresentationTimingCount, pPresentationTimings);
 
 	/// <summary>vkGetPastPresentationTimingGOOGLE</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPastPresentationTimingGOOGLE(out uint presentationTimingCount, in Span<Vk.GOOGLE.PastPresentationTiming> presentationTimings)
-		=> Functions.GetPastPresentationTimingGOOGLE(Device._handle, _handle, out presentationTimingCount, presentationTimings);
+		=> Functions.GetPastPresentationTimingGOOGLE(Device.Handle, Handle, out presentationTimingCount, presentationTimings);
 
 	/// <summary>vkSetLocalDimmingAMD</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetLocalDimmingAMD(Vk.Bool32 localDimmingEnable)
-		=> Functions.vkSetLocalDimmingAMD(Device._handle, _handle, localDimmingEnable);
+		=> Functions.vkSetLocalDimmingAMD(Device.Handle, Handle, localDimmingEnable);
 
 	/// <summary>vkAcquireFullScreenExclusiveModeEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AcquireFullScreenExclusiveModeEXT()
-		=> Functions.vkAcquireFullScreenExclusiveModeEXT(Device._handle, _handle);
+		=> Functions.vkAcquireFullScreenExclusiveModeEXT(Device.Handle, Handle);
 
 	/// <summary>vkReleaseFullScreenExclusiveModeEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ReleaseFullScreenExclusiveModeEXT()
-		=> Functions.vkReleaseFullScreenExclusiveModeEXT(Device._handle, _handle);
+		=> Functions.vkReleaseFullScreenExclusiveModeEXT(Device.Handle, Handle);
 
 }
 

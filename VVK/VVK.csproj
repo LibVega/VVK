@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
-    <RootNamespace>VVK</RootNamespace>
+    <RootNamespace>Vk</RootNamespace>
     <Version>1.2.158.0</Version>
     <Authors>Sean Moss</Authors>
     <Company>N/A</Company>

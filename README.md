@@ -34,7 +34,7 @@ This is an abridged version of the usage guide found on the Wiki.
   * Functions are in `InstanceFunctionTable` and `DeviceFunctionTable`.
   * Handles are split into two types:
     * `Vk.Handle<Vk.TYPE>` for the raw object handles (pointers)
-    * `Vk.TYPE` for composite handle objects, which hold the handle parent object and related references, in addition to the raw handle. They also have the functions associated with the specific handle type.
+    * `Vk.TYPE` for composite handle objects, which hold the handle parent object and related references, in addition to the raw handle. They also have the functions associated with the specific handle type. These are class types.
   *  There are special types for native strings (`Vk.NativeString`) and fixed strings (`Vk.FixedString`).
   * Typed structs (those that start with a `VkStructureType` field) have special static `New()` and `Init()` functions that should be used to ensure that the fields are setup correctly. ***This is very important to remember.***
 * Functions

@@ -14,9 +14,9 @@ namespace Vk
 	/// Represents an opaque but typed handle to an API object.
 	/// </summary>
 	/// <typeparam name="T">The handle class type that matches to this opaque type.</typeparam>
-	[StructLayout(LayoutKind.Explicit, Pack = 8, Size = 8)]
+	[StructLayout(LayoutKind.Sequential, Pack = 8, Size = 8)]
 	public unsafe partial struct Handle<T> : IEquatable<Handle<T>>
-		where T : struct, IHandleType<T>
+		where T : class, IHandleType<T>
 	{
 		/// <summary>
 		/// Special constant <c>null</c> value representing an uninitialized handle.
@@ -25,7 +25,7 @@ namespace Vk
 
 		#region Fields
 		// The raw handle
-		[FieldOffset(0)] private readonly void* _handle;
+		private readonly void* _handle;
 
 		/// <summary>
 		/// The opaque handle value as a raw pointer.
@@ -95,12 +95,9 @@ namespace Vk
 	/// Interface for all types that represent handles to API objects.
 	/// </summary>
 	/// <typeparam name="T">The (self-referential) handle class type that implements the interface.</typeparam>
-	public unsafe interface IHandleType<T> : IEquatable<T>
-		where T : struct, IHandleType<T>
+	public interface IHandleType<T> : IEquatable<T>
+		where T : class, IHandleType<T>
 	{
-		/// <summary>
-		/// The opaque handle to the object.
-		/// </summary>
-		Handle<T> Handle { get; }
+		
 	}
 }

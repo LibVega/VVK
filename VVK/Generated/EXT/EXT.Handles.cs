@@ -14,17 +14,15 @@ using System.Runtime.CompilerServices;
 namespace Vk.EXT
 {
 
-public unsafe partial struct ValidationCache : IHandleType<ValidationCache>
+public unsafe partial class ValidationCache : IHandleType<ValidationCache>
 {
-	public static readonly ValidationCache Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<ValidationCache> _handle;
-	readonly Handle<ValidationCache> IHandleType<ValidationCache>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<ValidationCache> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public ValidationCache(in Vk.Device parent, Vk.Handle<ValidationCache> handle)
 	{
@@ -32,66 +30,63 @@ public unsafe partial struct ValidationCache : IHandleType<ValidationCache>
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[ValidationCache 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is ValidationCache t) && (t._handle == _handle);
-	readonly bool IEquatable<ValidationCache>.Equals(ValidationCache other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[ValidationCache 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is ValidationCache t) && (t.Handle == Handle);
+	bool IEquatable<ValidationCache>.Equals(ValidationCache? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<ValidationCache> (in ValidationCache handle) => handle._handle;
+	public static implicit operator Vk.Handle<ValidationCache> (ValidationCache? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (ValidationCache l, ValidationCache r) => l._handle == r._handle;
+	public static bool operator == (ValidationCache? l, ValidationCache? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (ValidationCache? l, ValidationCache? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (ValidationCache l, ValidationCache r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (ValidationCache handle) => handle._handle.IsValid;
+	public static implicit operator bool (ValidationCache? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroyValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyValidationCacheEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyValidationCacheEXT(Device._handle, _handle, pAllocator);
+		=> Functions.vkDestroyValidationCacheEXT(Device.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyValidationCacheEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyValidationCacheEXT(Device._handle, _handle, allocator);
+		=> Functions.DestroyValidationCacheEXT(Device.Handle, Handle, allocator);
 
 	/// <summary>vkGetValidationCacheDataEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetValidationCacheDataEXT(ulong* pDataSize, void* pData)
-		=> Functions.vkGetValidationCacheDataEXT(Device._handle, _handle, pDataSize, pData);
+		=> Functions.vkGetValidationCacheDataEXT(Device.Handle, Handle, pDataSize, pData);
 
 	/// <summary>vkGetValidationCacheDataEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetValidationCacheDataEXT(out ulong dataSize, void* pData)
-		=> Functions.GetValidationCacheDataEXT(Device._handle, _handle, out dataSize, pData);
+		=> Functions.GetValidationCacheDataEXT(Device.Handle, Handle, out dataSize, pData);
 
 	/// <summary>vkMergeValidationCachesEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result MergeValidationCachesEXT(uint srcCacheCount, Vk.Handle<Vk.EXT.ValidationCache>* pSrcCaches)
-		=> Functions.vkMergeValidationCachesEXT(Device._handle, _handle, srcCacheCount, pSrcCaches);
+		=> Functions.vkMergeValidationCachesEXT(Device.Handle, Handle, srcCacheCount, pSrcCaches);
 
 	/// <summary>vkMergeValidationCachesEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result MergeValidationCachesEXT(in ReadOnlySpan<Vk.Handle<Vk.EXT.ValidationCache>> srcCaches)
-		=> Functions.MergeValidationCachesEXT(Device._handle, _handle, srcCaches);
+		=> Functions.MergeValidationCachesEXT(Device.Handle, Handle, srcCaches);
 
 }
 
-public unsafe partial struct PrivateDataSlot : IHandleType<PrivateDataSlot>
+public unsafe partial class PrivateDataSlot : IHandleType<PrivateDataSlot>
 {
-	public static readonly PrivateDataSlot Null = new();
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	public readonly Vk.Device Device;
-	internal readonly Handle<PrivateDataSlot> _handle;
-	readonly Handle<PrivateDataSlot> IHandleType<PrivateDataSlot>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<PrivateDataSlot> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public PrivateDataSlot(in Vk.Device parent, Vk.Handle<PrivateDataSlot> handle)
 	{
@@ -99,122 +94,115 @@ public unsafe partial struct PrivateDataSlot : IHandleType<PrivateDataSlot>
 		Functions = parent.Functions;
 		Instance = parent.Instance;
 		Device = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[PrivateDataSlot 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is PrivateDataSlot t) && (t._handle == _handle);
-	readonly bool IEquatable<PrivateDataSlot>.Equals(PrivateDataSlot other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[PrivateDataSlot 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is PrivateDataSlot t) && (t.Handle == Handle);
+	bool IEquatable<PrivateDataSlot>.Equals(PrivateDataSlot? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<PrivateDataSlot> (in PrivateDataSlot handle) => handle._handle;
+	public static implicit operator Vk.Handle<PrivateDataSlot> (PrivateDataSlot? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (PrivateDataSlot l, PrivateDataSlot r) => l._handle == r._handle;
+	public static bool operator == (PrivateDataSlot? l, PrivateDataSlot? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (PrivateDataSlot? l, PrivateDataSlot? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (PrivateDataSlot l, PrivateDataSlot r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (PrivateDataSlot handle) => handle._handle.IsValid;
+	public static implicit operator bool (PrivateDataSlot? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroyPrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPrivateDataSlotEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyPrivateDataSlotEXT(Device._handle, _handle, pAllocator);
+		=> Functions.vkDestroyPrivateDataSlotEXT(Device.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyPrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPrivateDataSlotEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyPrivateDataSlotEXT(Device._handle, _handle, allocator);
+		=> Functions.DestroyPrivateDataSlotEXT(Device.Handle, Handle, allocator);
 
 }
 
-public unsafe partial struct DebugReportCallback : IHandleType<DebugReportCallback>
+public unsafe partial class DebugReportCallback : IHandleType<DebugReportCallback>
 {
-	public static readonly DebugReportCallback Null = new();
 
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
-	internal readonly Handle<DebugReportCallback> _handle;
-	readonly Handle<DebugReportCallback> IHandleType<DebugReportCallback>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<DebugReportCallback> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public DebugReportCallback(in Vk.Instance parent, Vk.Handle<DebugReportCallback> handle)
 	{
 		Parent = parent;
 		Functions = parent.Functions;
 		Instance = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[DebugReportCallback 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is DebugReportCallback t) && (t._handle == _handle);
-	readonly bool IEquatable<DebugReportCallback>.Equals(DebugReportCallback other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[DebugReportCallback 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is DebugReportCallback t) && (t.Handle == Handle);
+	bool IEquatable<DebugReportCallback>.Equals(DebugReportCallback? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<DebugReportCallback> (in DebugReportCallback handle) => handle._handle;
+	public static implicit operator Vk.Handle<DebugReportCallback> (DebugReportCallback? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (DebugReportCallback l, DebugReportCallback r) => l._handle == r._handle;
+	public static bool operator == (DebugReportCallback? l, DebugReportCallback? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (DebugReportCallback? l, DebugReportCallback? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (DebugReportCallback l, DebugReportCallback r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (DebugReportCallback handle) => handle._handle.IsValid;
+	public static implicit operator bool (DebugReportCallback? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroyDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugReportCallbackEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyDebugReportCallbackEXT(Instance._handle, _handle, pAllocator);
+		=> Functions.vkDestroyDebugReportCallbackEXT(Instance.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugReportCallbackEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyDebugReportCallbackEXT(Instance._handle, _handle, allocator);
+		=> Functions.DestroyDebugReportCallbackEXT(Instance.Handle, Handle, allocator);
 
 }
 
-public unsafe partial struct DebugUtilsMessenger : IHandleType<DebugUtilsMessenger>
+public unsafe partial class DebugUtilsMessenger : IHandleType<DebugUtilsMessenger>
 {
-	public static readonly DebugUtilsMessenger Null = new();
 
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
-	internal readonly Handle<DebugUtilsMessenger> _handle;
-	readonly Handle<DebugUtilsMessenger> IHandleType<DebugUtilsMessenger>.Handle => _handle;
-	public readonly bool IsValid => _handle.IsValid;
+	public readonly Handle<DebugUtilsMessenger> Handle;
+	public bool IsValid => Handle.IsValid;
 
 	public DebugUtilsMessenger(in Vk.Instance parent, Vk.Handle<DebugUtilsMessenger> handle)
 	{
 		Parent = parent;
 		Functions = parent.Functions;
 		Instance = parent;
-		_handle = handle;
+		Handle = handle;
 	}
 
-	public override readonly int GetHashCode() => _handle.GetHashCode();
-	public override readonly string? ToString() => $"[DebugUtilsMessenger 0x{(ulong)_handle:X16}]";
-	public override readonly bool Equals(object? o) => (o is DebugUtilsMessenger t) && (t._handle == _handle);
-	readonly bool IEquatable<DebugUtilsMessenger>.Equals(DebugUtilsMessenger other) => other._handle == _handle;
+	public override int GetHashCode() => Handle.GetHashCode();
+	public override string? ToString() => $"[DebugUtilsMessenger 0x{(ulong)Handle:X16}]";
+	public override bool Equals(object? o) => (o is DebugUtilsMessenger t) && (t.Handle == Handle);
+	bool IEquatable<DebugUtilsMessenger>.Equals(DebugUtilsMessenger? other) => (other?.Handle ?? new()) == Handle;
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator Vk.Handle<DebugUtilsMessenger> (in DebugUtilsMessenger handle) => handle._handle;
+	public static implicit operator Vk.Handle<DebugUtilsMessenger> (DebugUtilsMessenger? handle) => handle?.Handle ?? new();
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator == (DebugUtilsMessenger l, DebugUtilsMessenger r) => l._handle == r._handle;
+	public static bool operator == (DebugUtilsMessenger? l, DebugUtilsMessenger? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
+	public static bool operator != (DebugUtilsMessenger? l, DebugUtilsMessenger? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator != (DebugUtilsMessenger l, DebugUtilsMessenger r) => l._handle != r._handle;
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static implicit operator bool (DebugUtilsMessenger handle) => handle._handle.IsValid;
+	public static implicit operator bool (DebugUtilsMessenger? handle) => handle?.Handle.IsValid ?? false;
 
 	/// <summary>vkDestroyDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugUtilsMessengerEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyDebugUtilsMessengerEXT(Instance._handle, _handle, pAllocator);
+		=> Functions.vkDestroyDebugUtilsMessengerEXT(Instance.Handle, Handle, pAllocator);
 
 	/// <summary>vkDestroyDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugUtilsMessengerEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyDebugUtilsMessengerEXT(Instance._handle, _handle, allocator);
+		=> Functions.DestroyDebugUtilsMessengerEXT(Instance.Handle, Handle, allocator);
 
 }
 

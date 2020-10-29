@@ -463,7 +463,7 @@ namespace Gen
 				// Visit each handle
 				foreach (var handleSpec in vendor.Handles.Values) {
 					// Write the header
-					using var handleBlock = file.PushBlock($"public unsafe partial struct {handleSpec.Name} : IHandleType<{handleSpec.Name}>");
+					using var handleBlock = file.PushBlock($"public unsafe partial class {handleSpec.Name} : IHandleType<{handleSpec.Name}>");
 
 					// Get some info
 					bool instScope = handleSpec.Parent?.Name switch {
@@ -476,7 +476,6 @@ namespace Gen
 					};
 
 					// Write the fields
-					handleBlock.WriteLine($"public static readonly {handleSpec.Name} Null = new();");
 					handleBlock.WriteLine();
 					if (handleSpec.Parent is not null) {
 						handleBlock.WriteLine($"public readonly {handleSpec.Parent.ProcessedName} Parent;");
@@ -488,9 +487,8 @@ namespace Gen
 					if (!instScope && (handleSpec.Name != "Device")) {
 						handleBlock.WriteLine("public readonly Vk.Device Device;");
 					}
-					handleBlock.WriteLine($"internal readonly Handle<{handleSpec.Name}> _handle;");
-					handleBlock.WriteLine($"readonly Handle<{handleSpec.Name}> IHandleType<{handleSpec.Name}>.Handle => _handle;");
-					handleBlock.WriteLine( "public readonly bool IsValid => _handle.IsValid;");
+					handleBlock.WriteLine($"public readonly Handle<{handleSpec.Name}> Handle;");
+					handleBlock.WriteLine("public bool IsValid => Handle.IsValid;");
 					handleBlock.WriteLine();
 
 					// Write the ctor
@@ -521,25 +519,24 @@ namespace Gen
 							}
 						}
 						// Handle
-						ctor.WriteLine("_handle = handle;");
+						ctor.WriteLine("Handle = handle;");
 					}
 
 					// Write the overrides
-					handleBlock.WriteLine("public override readonly int GetHashCode() => _handle.GetHashCode();");
-					handleBlock.WriteLine($"public override readonly string? ToString() => $\"[{handleSpec.Name} 0x{{(ulong)_handle:X16}}]\";");
-					handleBlock.WriteLine($"public override readonly bool Equals(object? o) => (o is {handleSpec.Name} t) && (t._handle == _handle);");
-					handleBlock.WriteLine($"readonly bool IEquatable<{handleSpec.Name}>.Equals({handleSpec.Name} other) => other._handle == _handle;");
+					handleBlock.WriteLine("public override int GetHashCode() => Handle.GetHashCode();");
+					handleBlock.WriteLine($"public override string? ToString() => $\"[{handleSpec.Name} 0x{{(ulong)Handle:X16}}]\";");
+					handleBlock.WriteLine($"public override bool Equals(object? o) => (o is {handleSpec.Name} t) && (t.Handle == Handle);");
+					handleBlock.WriteLine($"bool IEquatable<{handleSpec.Name}>.Equals({handleSpec.Name}? other) => (other?.Handle ?? new()) == Handle;");
 					handleBlock.WriteLine();
 
 					// Write the operators
 					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					handleBlock.WriteLine($"public static implicit operator Vk.Handle<{handleSpec.Name}> (in {handleSpec.Name} handle) => handle._handle;");
+					handleBlock.WriteLine($"public static implicit operator Vk.Handle<{handleSpec.Name}> ({handleSpec.Name}? handle) => handle?.Handle ?? new();");
 					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					handleBlock.WriteLine($"public static bool operator == ({handleSpec.Name} l, {handleSpec.Name} r) => l._handle == r._handle;");
+					handleBlock.WriteLine($"public static bool operator == ({handleSpec.Name}? l, {handleSpec.Name}? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());");
+					handleBlock.WriteLine($"public static bool operator != ({handleSpec.Name}? l, {handleSpec.Name}? r) => (l?.Handle ?? new()) == (r?.Handle ?? new());");
 					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					handleBlock.WriteLine($"public static bool operator != ({handleSpec.Name} l, {handleSpec.Name} r) => l._handle != r._handle;");
-					handleBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					handleBlock.WriteLine($"public static implicit operator bool ({handleSpec.Name} handle) => handle._handle.IsValid;");
+					handleBlock.WriteLine($"public static implicit operator bool ({handleSpec.Name}? handle) => handle?.Handle.IsValid ?? false;");
 					handleBlock.WriteLine();
 
 					// Write the functions
