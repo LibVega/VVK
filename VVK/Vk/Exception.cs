@@ -6,7 +6,7 @@
 
 using System;
 
-namespace VVK
+namespace Vk
 {
 	/// <summary>
 	/// Exception thrown by <see cref="Vk.InstanceFunctionTable"/> and <see cref="Vk.DeviceFunctionTable"/> when an

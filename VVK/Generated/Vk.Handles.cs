@@ -102,7 +102,7 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkGetDeviceProcAddr</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, VVK.NativeString name)
+	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, Vk.NativeString name)
 		=> InstanceFunctionTable.GetDeviceProcAddr(device, name);
 
 	/// <summary>vkGetInstanceProcAddr</summary>
@@ -112,7 +112,7 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkGetInstanceProcAddr</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, VVK.NativeString name)
+	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, Vk.NativeString name)
 		=> InstanceFunctionTable.GetInstanceProcAddr(instance, name);
 
 	/// <summary>vkEnumerateInstanceVersion</summary>
@@ -142,7 +142,7 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkEnumerateInstanceExtensionProperties</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceExtensionProperties(VVK.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
 		=> InstanceFunctionTable.EnumerateInstanceExtensionProperties(layerName, out propertyCount, properties);
 
 	/// <summary>vkCreateAndroidSurfaceKHR</summary>
@@ -482,7 +482,7 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkDebugReportMessageEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DebugReportMessageEXT(Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, VVK.NativeString layerPrefix, VVK.NativeString message)
+	public void DebugReportMessageEXT(Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, Vk.NativeString layerPrefix, Vk.NativeString message)
 		=> Functions.DebugReportMessageEXT(_handle, flags, objectType, @object, location, messageCode, layerPrefix, message);
 
 	/// <summary>vkEnumeratePhysicalDeviceGroups</summary>
@@ -807,7 +807,7 @@ public unsafe partial struct PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkEnumerateDeviceExtensionProperties</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(VVK.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
 		=> Functions.EnumerateDeviceExtensionProperties(_handle, layerName, out propertyCount, properties);
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties</summary>

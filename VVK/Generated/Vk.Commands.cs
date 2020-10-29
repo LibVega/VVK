@@ -511,17 +511,17 @@ public unsafe sealed partial class InstanceFunctionTable
 	static InstanceFunctionTable()
 	{
 		vkCreateInstance =
-			(delegate* unmanaged<Vk.InstanceCreateInfo*, Vk.AllocationCallbacks*, Vk.Handle<Vk.Instance>*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkCreateInstance").ToPointer();
+			(delegate* unmanaged<Vk.InstanceCreateInfo*, Vk.AllocationCallbacks*, Vk.Handle<Vk.Instance>*, Vk.Result>)Vk.NativeLibrary.GetExport("vkCreateInstance").ToPointer();
 		vkGetDeviceProcAddr =
-			(delegate* unmanaged<Vk.Handle<Vk.Device>, byte*, delegate* unmanaged<void>>)VVK.VulkanLibrary.GetExport("vkGetDeviceProcAddr").ToPointer();
+			(delegate* unmanaged<Vk.Handle<Vk.Device>, byte*, delegate* unmanaged<void>>)Vk.NativeLibrary.GetExport("vkGetDeviceProcAddr").ToPointer();
 		vkGetInstanceProcAddr =
-			(delegate* unmanaged<Vk.Handle<Vk.Instance>, byte*, delegate* unmanaged<void>>)VVK.VulkanLibrary.GetExport("vkGetInstanceProcAddr").ToPointer();
+			(delegate* unmanaged<Vk.Handle<Vk.Instance>, byte*, delegate* unmanaged<void>>)Vk.NativeLibrary.GetExport("vkGetInstanceProcAddr").ToPointer();
 		vkEnumerateInstanceVersion =
-			(delegate* unmanaged<uint*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkEnumerateInstanceVersion").ToPointer();
+			(delegate* unmanaged<uint*, Vk.Result>)Vk.NativeLibrary.GetExport("vkEnumerateInstanceVersion").ToPointer();
 		vkEnumerateInstanceLayerProperties =
-			(delegate* unmanaged<uint*, Vk.LayerProperties*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkEnumerateInstanceLayerProperties").ToPointer();
+			(delegate* unmanaged<uint*, Vk.LayerProperties*, Vk.Result>)Vk.NativeLibrary.GetExport("vkEnumerateInstanceLayerProperties").ToPointer();
 		vkEnumerateInstanceExtensionProperties =
-			(delegate* unmanaged<byte*, uint*, Vk.ExtensionProperties*, Vk.Result>)VVK.VulkanLibrary.GetExport("vkEnumerateInstanceExtensionProperties").ToPointer();
+			(delegate* unmanaged<byte*, uint*, Vk.ExtensionProperties*, Vk.Result>)Vk.NativeLibrary.GetExport("vkEnumerateInstanceExtensionProperties").ToPointer();
 	}
 
 }

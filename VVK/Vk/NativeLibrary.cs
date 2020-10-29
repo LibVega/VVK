@@ -8,12 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace VVK
+namespace Vk
 {
 	/// <summary>
 	/// Manages the open handle to the Vulkan runtime library, and provides symbol loading functionality.
 	/// </summary>
-	public static class VulkanLibrary
+	public static class NativeLibrary
 	{
 		#region Fields
 		/// <summary>
@@ -39,7 +39,7 @@ namespace VVK
 				throw new InvalidOperationException("The Vulkan library is not loaded");
 			}
 
-			if (NativeLibrary.TryGetExport(Handle, name, out var addr)) {
+			if (System.Runtime.InteropServices.NativeLibrary.TryGetExport(Handle, name, out var addr)) {
 				return addr;
 			}
 			else {
@@ -55,7 +55,7 @@ namespace VVK
 		/// <returns>If the load was successful.</returns>
 		public static bool TryGetExport(string name, out IntPtr addr)
 		{
-			if (Handle != IntPtr.Zero && NativeLibrary.TryGetExport(Handle, name, out addr)) {
+			if (Handle != IntPtr.Zero && System.Runtime.InteropServices.NativeLibrary.TryGetExport(Handle, name, out addr)) {
 				return true;
 			}
 			else {
@@ -64,11 +64,11 @@ namespace VVK
 			}
 		}
 
-		static VulkanLibrary()
+		static NativeLibrary()
 		{
 			// Try to load the runtime library
 			foreach (var libName in EnumerateLibraryNameCandidates()) {
-				if (NativeLibrary.TryLoad(libName, out var handle)) {
+				if (System.Runtime.InteropServices.NativeLibrary.TryLoad(libName, out var handle)) {
 					Handle = handle;
 					LibraryName = libName;
 					return;

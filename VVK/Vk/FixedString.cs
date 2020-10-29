@@ -98,7 +98,7 @@ namespace Vk
 		public readonly override string ToString()
 		{
 			fixed (byte* ptr = _data) {
-				return Marshal.PtrToStringAnsi(new IntPtr(ptr), VVK.NativeString.Strlen(ptr, SIZE));
+				return Marshal.PtrToStringAnsi(new IntPtr(ptr), Vk.NativeString.Strlen(ptr, SIZE));
 			}
 		}
 		#endregion // Overrides
@@ -107,14 +107,14 @@ namespace Vk
 		public static bool operator == (in FixedString str1, in FixedString str2)
 		{
 			fixed (byte* ptr1 = str1._data, ptr2 = str2._data) {
-				return VVK.NativeString.Strcmp(ptr1, ptr2) == 0;
+				return Vk.NativeString.Strcmp(ptr1, ptr2) == 0;
 			}
 		}
 		
 		public static bool operator != (in FixedString str1, in FixedString str2)
 		{
 			fixed (byte* ptr1 = str1._data, ptr2 = str2._data) {
-				return VVK.NativeString.Strcmp(ptr1, ptr2) != 0;
+				return Vk.NativeString.Strcmp(ptr1, ptr2) != 0;
 			}
 		}
 
@@ -122,7 +122,7 @@ namespace Vk
 		{
 			fixed (byte* ptr1 = str1._data) {
 				fixed (char* ptr2 = str2) {
-					return VVK.NativeString.Strcmp(ptr1, (byte*)ptr2) == 0;
+					return Vk.NativeString.Strcmp(ptr1, (byte*)ptr2) == 0;
 				}
 			}
 		}
@@ -131,7 +131,7 @@ namespace Vk
 		{
 			fixed (byte* ptr1 = str1._data) {
 				fixed (char* ptr2 = str2) {
-					return VVK.NativeString.Strcmp(ptr1, (byte*)ptr2) != 0;
+					return Vk.NativeString.Strcmp(ptr1, (byte*)ptr2) != 0;
 				}
 			}
 		}
@@ -140,7 +140,7 @@ namespace Vk
 		{
 			fixed (byte* ptr2 = str2._data) {
 				fixed (char* ptr1 = str1) {
-					return VVK.NativeString.Strcmp(ptr2, (byte*)ptr1) == 0;
+					return Vk.NativeString.Strcmp(ptr2, (byte*)ptr1) == 0;
 				}
 			}
 		}
@@ -149,7 +149,7 @@ namespace Vk
 		{
 			fixed (byte* ptr2 = str2._data) {
 				fixed (char* ptr1 = str1) {
-					return VVK.NativeString.Strcmp(ptr2, (byte*)ptr1) != 0;
+					return Vk.NativeString.Strcmp(ptr2, (byte*)ptr1) != 0;
 				}
 			}
 		}
@@ -167,7 +167,7 @@ namespace Vk
 		/// <returns></returns>
 		public readonly int GetLength()
 		{
-			fixed (byte* ptr = _data) { return VVK.NativeString.Strlen(ptr, SIZE); }
+			fixed (byte* ptr = _data) { return Vk.NativeString.Strlen(ptr, SIZE); }
 		}
 	}
 }

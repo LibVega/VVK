@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace VVK
+namespace Vk
 {
 	/// <summary>
 	/// Wrapper type around a list of unmanaged string memory blocks. This type emulates the byte** expected by C/C++
@@ -79,7 +79,7 @@ namespace VVK
 			var strdata = stackalloc byte[str.Length * 4]; // Worst-case length
 			var len = Encoding.UTF8.GetBytes(str, new Span<byte>(strdata, str.Length * 4));
 			var nstr = (byte*)Marshal.AllocHGlobal(len + 1).ToPointer();
-			Buffer.MemoryCopy(strdata, nstr, len, len);
+			System.Buffer.MemoryCopy(strdata, nstr, len, len);
 			nstr[len] = 0;
 			Data[Count++] = nstr;
 		}
@@ -124,7 +124,7 @@ namespace VVK
 		private static byte** ReallocPointerBlock(byte** data, uint oldSize, uint newSize)
 		{
 			var @new = InitPointerBlock(newSize);
-			Buffer.MemoryCopy(data, @new, newSize * sizeof(byte*), oldSize * sizeof(byte*));
+			System.Buffer.MemoryCopy(data, @new, newSize * sizeof(byte*), oldSize * sizeof(byte*));
 			Marshal.FreeHGlobal(new IntPtr(data));
 			return @new;
 		}

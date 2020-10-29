@@ -21,7 +21,7 @@ namespace Vk
 
 		private static void* LoadFunc(Vk.Handle<Vk.Instance> inst, string name)
 		{
-			using var nname = new VVK.NativeString(name);
+			using var nname = new Vk.NativeString(name);
 			var addr = vkGetInstanceProcAddr(inst, nname.Data);
 			if (addr == null) {
 				throw new ArgumentException($"The function '{nname}' was not found", nameof(name));
@@ -31,7 +31,7 @@ namespace Vk
 
 		private static bool TryLoadFunc(Vk.Handle<Vk.Instance> inst, string name, out void* addr)
 		{
-			using var nname = new VVK.NativeString(name);
+			using var nname = new Vk.NativeString(name);
 			addr = vkGetInstanceProcAddr(inst, nname.Data);
 			return addr != null;
 		}
@@ -49,7 +49,7 @@ namespace Vk
 
 		private static void* LoadFunc(Vk.Handle<Vk.Device> dev, string name)
 		{
-			using var nname = new VVK.NativeString(name);
+			using var nname = new Vk.NativeString(name);
 			var addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);
 			if (addr == null) {
 				throw new ArgumentException($"The function '{name}' was not found", nameof(name));
@@ -59,7 +59,7 @@ namespace Vk
 
 		private static bool TryLoadFunc(Vk.Handle<Vk.Device> dev, string name, out void* addr)
 		{
-			using var nname = new VVK.NativeString(name);
+			using var nname = new Vk.NativeString(name);
 			addr = InstanceFunctionTable.vkGetDeviceProcAddr(dev, nname.Data);
 			return addr != null;
 		}

@@ -136,11 +136,11 @@ namespace Gen
 					hasAlt = true;
 				}
 				else if (tname == "byte*") {
-					altArgs.Add(new(altname, "VVK.NativeString", $"{altname}.Data", arg.Const, arg.Optional, arg));
+					altArgs.Add(new(altname, "Vk.NativeString", $"{altname}.Data", arg.Const, arg.Optional, arg));
 					hasAlt = true;
 				}
 				else if (tname == "byte**") {
-					altArgs.Add(new(altname, "VVK.NativeStringList", $"{altname}.Data", arg.Const, arg.Optional, arg));
+					altArgs.Add(new(altname, "Vk.NativeStringList", $"{altname}.Data", arg.Const, arg.Optional, arg));
 					hasAlt = true;
 				}
 				else {

@@ -38,7 +38,7 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetDeviceProcAddr(<c>Vk.Handle<Vk.Device></c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, VVK.NativeString name)
+	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, Vk.NativeString name)
 	{
 		return vkGetDeviceProcAddr(device, name.Data);
 	}
@@ -50,7 +50,7 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetInstanceProcAddr(<c>Vk.Handle<Vk.Instance></c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, VVK.NativeString name)
+	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, Vk.NativeString name)
 	{
 		return vkGetInstanceProcAddr(instance, name.Data);
 	}
@@ -89,7 +89,7 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceExtensionProperties(VVK.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
 	{
 		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
@@ -238,7 +238,7 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, VVK.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
 	{
 		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
@@ -620,7 +620,7 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkDebugReportMessageEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.DebugReportFlags</c>, <c>Vk.EXT.DebugReportObjectType</c>, <c>ulong</c>, <c>ulong</c>, <c>int</c>, <c>byte*</c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DebugReportMessageEXT(Vk.Handle<Vk.Instance> instance, Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, VVK.NativeString layerPrefix, VVK.NativeString message)
+	public void DebugReportMessageEXT(Vk.Handle<Vk.Instance> instance, Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, Vk.NativeString layerPrefix, Vk.NativeString message)
 	{
 		vkDebugReportMessageEXT(instance, flags, objectType, @object, location, messageCode, layerPrefix.Data, message.Data);
 	}

@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace VVK
+namespace Vk
 {
 	/// <summary>
 	/// IDisposable-friendly wrapper around an unmanaged pointer containing native string data. This type directly
@@ -58,7 +58,7 @@ namespace VVK
 		{
 			var len = Strlen(data);
 			Data = (byte*)Marshal.AllocHGlobal(len + 1).ToPointer();
-			Buffer.MemoryCopy(data, Data, len, len);
+			System.Buffer.MemoryCopy(data, Data, len, len);
 			Data[len] = 0;
 			Length = (uint)len;
 		}
@@ -70,7 +70,7 @@ namespace VVK
 		public NativeString(byte* data, uint length)
 		{
 			Data = (byte*)Marshal.AllocHGlobal((int)length + 1).ToPointer();
-			Buffer.MemoryCopy(data, Data, (int)length, (int)length);
+			System.Buffer.MemoryCopy(data, Data, (int)length, (int)length);
 			Data[(int)length] = 0;
 			Length = length;
 		}
@@ -83,7 +83,7 @@ namespace VVK
 			var strdata = stackalloc byte[str.Length * 4]; // Worst-case length
 			var len = Encoding.UTF8.GetBytes(str, new Span<byte>(strdata, str.Length * 4));
 			Data = (byte*)Marshal.AllocHGlobal(len + 1).ToPointer();
-			Buffer.MemoryCopy(strdata, Data, len, len);
+			System.Buffer.MemoryCopy(strdata, Data, len, len);
 			Data[len] = 0;
 			Length = (uint)len;
 		}

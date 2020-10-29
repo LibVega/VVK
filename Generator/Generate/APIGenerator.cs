@@ -149,7 +149,7 @@ namespace Gen
 					using (var ctor = block.PushBlock("static InstanceFunctionTable()")) {
 						foreach (var cmd in res.Commands.Values.Where(c => c.CommandScope == CommandScope.Global)) {
 							ctor.WriteLine($"{cmd.Name} =");
-							ctor.WriteLine($"\t({cmd.PtrPrototype})VVK.VulkanLibrary.GetExport(\"{cmd.Name}\").ToPointer();");
+							ctor.WriteLine($"\t({cmd.PtrPrototype})Vk.NativeLibrary.GetExport(\"{cmd.Name}\").ToPointer();");
 						}
 					}
 				}
