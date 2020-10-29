@@ -50,8 +50,30 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateInstance</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result CreateInstance(Vk.InstanceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Instance pInstance)
+	{
+		Vk.Version APIV = new(pCreateInfo->ApplicationInfo->ApiVersion);
+		Vk.Handle<Vk.Instance> HANDLE;
+		var RESULT = InstanceFunctionTable.vkCreateInstance(pCreateInfo, pAllocator, &HANDLE);
+		pInstance = (RESULT == Result.Success) ? new(HANDLE, APIV) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateInstance</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Vk.Result CreateInstance(in Vk.InstanceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Instance> instance)
 		=> InstanceFunctionTable.CreateInstance(createInfo, allocator, out instance);
+
+	/// <summary>vkCreateInstance</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result CreateInstance(in Vk.InstanceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Instance pInstance)
+	{
+		Vk.Version APIV = new(createInfo.ApplicationInfo->ApiVersion);
+		Vk.Handle<Vk.Instance> HANDLE;
+		var RESULT = InstanceFunctionTable.CreateInstance(createInfo, allocator, out HANDLE);
+		pInstance = (RESULT == Result.Success) ? new(HANDLE, APIV) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkDestroyInstance</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -130,8 +152,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateAndroidSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAndroidSurfaceKHR(Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateAndroidSurfaceKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateAndroidSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateAndroidSurfaceKHR(in Vk.KHR.AndroidSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateAndroidSurfaceKHR(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateAndroidSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAndroidSurfaceKHR(in Vk.KHR.AndroidSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateAndroidSurfaceKHR(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateDisplayPlaneSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -140,8 +182,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDisplayPlaneSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDisplayPlaneSurfaceKHR(Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateDisplayPlaneSurfaceKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDisplayPlaneSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDisplayPlaneSurfaceKHR(in Vk.KHR.DisplaySurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateDisplayPlaneSurfaceKHR(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateDisplayPlaneSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDisplayPlaneSurfaceKHR(in Vk.KHR.DisplaySurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateDisplayPlaneSurfaceKHR(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateViSurfaceNN</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -150,8 +212,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateViSurfaceNN</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateViSurfaceNN(Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateViSurfaceNN(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateViSurfaceNN</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateViSurfaceNN(in Vk.NN.ViSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateViSurfaceNN(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateViSurfaceNN</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateViSurfaceNN(in Vk.NN.ViSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateViSurfaceNN(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateWaylandSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -160,8 +242,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateWaylandSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWaylandSurfaceKHR(Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateWaylandSurfaceKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateWaylandSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateWaylandSurfaceKHR(in Vk.KHR.WaylandSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateWaylandSurfaceKHR(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateWaylandSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWaylandSurfaceKHR(in Vk.KHR.WaylandSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateWaylandSurfaceKHR(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateWin32SurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -170,8 +272,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateWin32SurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWin32SurfaceKHR(Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateWin32SurfaceKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateWin32SurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateWin32SurfaceKHR(in Vk.KHR.Win32SurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateWin32SurfaceKHR(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateWin32SurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateWin32SurfaceKHR(in Vk.KHR.Win32SurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateWin32SurfaceKHR(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateXlibSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -180,8 +302,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateXlibSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXlibSurfaceKHR(Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateXlibSurfaceKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateXlibSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateXlibSurfaceKHR(in Vk.KHR.XlibSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateXlibSurfaceKHR(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateXlibSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXlibSurfaceKHR(in Vk.KHR.XlibSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateXlibSurfaceKHR(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateXcbSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -190,8 +332,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateXcbSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXcbSurfaceKHR(Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateXcbSurfaceKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateXcbSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateXcbSurfaceKHR(in Vk.KHR.XcbSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateXcbSurfaceKHR(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateXcbSurfaceKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateXcbSurfaceKHR(in Vk.KHR.XcbSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateXcbSurfaceKHR(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateDirectFBSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -200,8 +362,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDirectFBSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDirectFBSurfaceEXT(Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateDirectFBSurfaceEXT(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDirectFBSurfaceEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDirectFBSurfaceEXT(in Vk.EXT.DirectFBSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateDirectFBSurfaceEXT(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateDirectFBSurfaceEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDirectFBSurfaceEXT(in Vk.EXT.DirectFBSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateDirectFBSurfaceEXT(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateImagePipeSurfaceFUCHSIA</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -210,8 +392,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateImagePipeSurfaceFUCHSIA</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImagePipeSurfaceFUCHSIA(Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateImagePipeSurfaceFUCHSIA(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateImagePipeSurfaceFUCHSIA</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateImagePipeSurfaceFUCHSIA(in Vk.FUCHSIA.ImagePipeSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateImagePipeSurfaceFUCHSIA(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateImagePipeSurfaceFUCHSIA</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImagePipeSurfaceFUCHSIA(in Vk.FUCHSIA.ImagePipeSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateImagePipeSurfaceFUCHSIA(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateStreamDescriptorSurfaceGGP</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -220,8 +422,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateStreamDescriptorSurfaceGGP</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateStreamDescriptorSurfaceGGP(Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateStreamDescriptorSurfaceGGP(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateStreamDescriptorSurfaceGGP</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateStreamDescriptorSurfaceGGP(in Vk.GGP.StreamDescriptorSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateStreamDescriptorSurfaceGGP(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateStreamDescriptorSurfaceGGP</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateStreamDescriptorSurfaceGGP(in Vk.GGP.StreamDescriptorSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateStreamDescriptorSurfaceGGP(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -230,8 +452,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugReportCallbackEXT(Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.DebugReportCallback pCallback)
+	{
+		Vk.Handle<Vk.EXT.DebugReportCallback> HANDLE;
+		var RESULT = Functions.vkCreateDebugReportCallbackEXT(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pCallback = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDebugReportCallbackEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDebugReportCallbackEXT(in Vk.EXT.DebugReportCallbackCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.EXT.DebugReportCallback> callback)
 		=> Functions.CreateDebugReportCallbackEXT(_handle, createInfo, allocator, out callback);
+
+	/// <summary>vkCreateDebugReportCallbackEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugReportCallbackEXT(in Vk.EXT.DebugReportCallbackCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugReportCallback pCallback)
+	{
+		Vk.Handle<Vk.EXT.DebugReportCallback> HANDLE;
+		var RESULT = Functions.CreateDebugReportCallbackEXT(_handle, createInfo, allocator, out HANDLE);
+		pCallback = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkDebugReportMessageEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -270,8 +512,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateIOSSurfaceMVK</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateIOSSurfaceMVK(Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateIOSSurfaceMVK(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateIOSSurfaceMVK</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateIOSSurfaceMVK(in Vk.MVK.IOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateIOSSurfaceMVK(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateIOSSurfaceMVK</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateIOSSurfaceMVK(in Vk.MVK.IOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateIOSSurfaceMVK(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateMacOSSurfaceMVK</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -280,8 +542,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateMacOSSurfaceMVK</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMacOSSurfaceMVK(Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateMacOSSurfaceMVK(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateMacOSSurfaceMVK</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateMacOSSurfaceMVK(in Vk.MVK.MacOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateMacOSSurfaceMVK(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateMacOSSurfaceMVK</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMacOSSurfaceMVK(in Vk.MVK.MacOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateMacOSSurfaceMVK(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateMetalSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -290,8 +572,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateMetalSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMetalSurfaceEXT(Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateMetalSurfaceEXT(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateMetalSurfaceEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateMetalSurfaceEXT(in Vk.EXT.MetalSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateMetalSurfaceEXT(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateMetalSurfaceEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateMetalSurfaceEXT(in Vk.EXT.MetalSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateMetalSurfaceEXT(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -300,8 +602,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.DebugUtilsMessenger pMessenger)
+	{
+		Vk.Handle<Vk.EXT.DebugUtilsMessenger> HANDLE;
+		var RESULT = Functions.vkCreateDebugUtilsMessengerEXT(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pMessenger = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDebugUtilsMessengerEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDebugUtilsMessengerEXT(in Vk.EXT.DebugUtilsMessengerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.EXT.DebugUtilsMessenger> messenger)
 		=> Functions.CreateDebugUtilsMessengerEXT(_handle, createInfo, allocator, out messenger);
+
+	/// <summary>vkCreateDebugUtilsMessengerEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDebugUtilsMessengerEXT(in Vk.EXT.DebugUtilsMessengerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugUtilsMessenger pMessenger)
+	{
+		Vk.Handle<Vk.EXT.DebugUtilsMessenger> HANDLE;
+		var RESULT = Functions.CreateDebugUtilsMessengerEXT(_handle, createInfo, allocator, out HANDLE);
+		pMessenger = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkSubmitDebugUtilsMessageEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -320,8 +642,28 @@ public unsafe partial struct Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateHeadlessSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateHeadlessSurfaceEXT(Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.vkCreateHeadlessSurfaceEXT(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateHeadlessSurfaceEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateHeadlessSurfaceEXT(in Vk.EXT.HeadlessSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Surface> surface)
 		=> Functions.CreateHeadlessSurfaceEXT(_handle, createInfo, allocator, out surface);
+
+	/// <summary>vkCreateHeadlessSurfaceEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateHeadlessSurfaceEXT(in Vk.EXT.HeadlessSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
+	{
+		Vk.Handle<Vk.KHR.Surface> HANDLE;
+		var RESULT = Functions.CreateHeadlessSurfaceEXT(_handle, createInfo, allocator, out HANDLE);
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 }
 
@@ -425,8 +767,28 @@ public unsafe partial struct PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkCreateDevice</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDevice(Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Device pDevice)
+	{
+		Vk.Handle<Vk.Device> HANDLE;
+		var RESULT = Functions.vkCreateDevice(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pDevice = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDevice</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDevice(in Vk.DeviceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Device> device)
 		=> Functions.CreateDevice(_handle, createInfo, allocator, out device);
+
+	/// <summary>vkCreateDevice</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDevice(in Vk.DeviceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Device pDevice)
+	{
+		Vk.Handle<Vk.Device> HANDLE;
+		var RESULT = Functions.CreateDevice(_handle, createInfo, allocator, out HANDLE);
+		pDevice = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkEnumerateDeviceLayerProperties</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -507,6 +869,36 @@ public unsafe partial struct PhysicalDevice : IHandleType<PhysicalDevice>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetPhysicalDeviceSurfaceSupportKHR(uint queueFamilyIndex, Vk.Handle<Vk.KHR.Surface> surface, out Vk.Bool32 supported)
 		=> Functions.GetPhysicalDeviceSurfaceSupportKHR(_handle, queueFamilyIndex, surface, out supported);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.Handle<Vk.KHR.Surface> surface, Vk.KHR.SurfaceCapabilities* pSurfaceCapabilities)
+		=> Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(_handle, surface, pSurfaceCapabilities);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.Handle<Vk.KHR.Surface> surface, out Vk.KHR.SurfaceCapabilities surfaceCapabilities)
+		=> Functions.GetPhysicalDeviceSurfaceCapabilitiesKHR(_handle, surface, out surfaceCapabilities);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.Handle<Vk.KHR.Surface> surface, uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat* pSurfaceFormats)
+		=> Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(_handle, surface, pSurfaceFormatCount, pSurfaceFormats);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.Handle<Vk.KHR.Surface> surface, out uint surfaceFormatCount, in Span<Vk.KHR.SurfaceFormat> surfaceFormats)
+		=> Functions.GetPhysicalDeviceSurfaceFormatsKHR(_handle, surface, out surfaceFormatCount, surfaceFormats);
+
+	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.Handle<Vk.KHR.Surface> surface, uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
+		=> Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(_handle, surface, pPresentModeCount, pPresentModes);
+
+	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.Handle<Vk.KHR.Surface> surface, out uint presentModeCount, in Span<Vk.KHR.PresentMode> presentModes)
+		=> Functions.GetPhysicalDeviceSurfacePresentModesKHR(_handle, surface, out presentModeCount, presentModes);
 
 	/// <summary>vkGetPhysicalDeviceWaylandPresentationSupportKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -755,8 +1147,38 @@ public unsafe partial struct PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkGetRandROutputDisplayEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, out Vk.KHR.Display pDisplay)
+	{
+		Vk.Handle<Vk.KHR.Display> HANDLE;
+		var RESULT = Functions.vkGetRandROutputDisplayEXT(_handle, dpy, rrOutput, &HANDLE);
+		pDisplay = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkGetRandROutputDisplayEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, out Vk.Handle<Vk.KHR.Display> display)
 		=> Functions.GetRandROutputDisplayEXT(_handle, dpy, rrOutput, out display);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2EXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.Handle<Vk.KHR.Surface> surface, Vk.EXT.SurfaceCapabilities2* pSurfaceCapabilities)
+		=> Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(_handle, surface, pSurfaceCapabilities);
+
+	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2EXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.Handle<Vk.KHR.Surface> surface, out Vk.EXT.SurfaceCapabilities2 surfaceCapabilities)
+		=> Functions.GetPhysicalDeviceSurfaceCapabilities2EXT(_handle, surface, out surfaceCapabilities);
+
+	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.Handle<Vk.KHR.Surface> surface, uint* pRectCount, Vk.Rect2D* pRects)
+		=> Functions.vkGetPhysicalDevicePresentRectanglesKHR(_handle, surface, pRectCount, pRects);
+
+	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.Handle<Vk.KHR.Surface> surface, out uint rectCount, in Span<Vk.Rect2D> rects)
+		=> Functions.GetPhysicalDevicePresentRectanglesKHR(_handle, surface, out rectCount, rects);
 
 	/// <summary>vkGetPhysicalDeviceMultisamplePropertiesEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -911,10 +1333,10 @@ public unsafe partial struct Device : IHandleType<Device>
 	readonly Handle<Device> IHandleType<Device>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
-	public Device(in Vk.PhysicalDevice parent, Vk.Handle<Device> handle, Vk.Version apiVersion)
+	public Device(in Vk.PhysicalDevice parent, Vk.Handle<Device> handle)
 	{
 		Parent = parent;
-		Functions = new(handle, apiVersion);
+		Functions = new(handle, parent.Instance.Functions.CoreVersion);
 		Instance = parent.Instance;
 		_handle = handle;
 	}
@@ -950,6 +1372,15 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkGetDeviceQueue</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceQueue(uint queueFamilyIndex, uint queueIndex, out Vk.Queue pQueue)
+	{
+		Vk.Handle<Vk.Queue> HANDLE;
+		Functions.vkGetDeviceQueue(_handle, queueFamilyIndex, queueIndex, &HANDLE);
+		pQueue = new(this, HANDLE);
+	}
+
+	/// <summary>vkGetDeviceQueue</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue(uint queueFamilyIndex, uint queueIndex, out Vk.Handle<Vk.Queue> queue)
 		=> Functions.GetDeviceQueue(_handle, queueFamilyIndex, queueIndex, out queue);
 
@@ -965,8 +1396,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkAllocateMemory</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AllocateMemory(Vk.MemoryAllocateInfo* pAllocateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DeviceMemory pMemory)
+	{
+		Vk.Handle<Vk.DeviceMemory> HANDLE;
+		var RESULT = Functions.vkAllocateMemory(_handle, pAllocateInfo, pAllocator, &HANDLE);
+		pMemory = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkAllocateMemory</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AllocateMemory(in Vk.MemoryAllocateInfo allocateInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.DeviceMemory> memory)
 		=> Functions.AllocateMemory(_handle, allocateInfo, allocator, out memory);
+
+	/// <summary>vkAllocateMemory</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AllocateMemory(in Vk.MemoryAllocateInfo allocateInfo, in Vk.AllocationCallbacks allocator, out Vk.DeviceMemory pMemory)
+	{
+		Vk.Handle<Vk.DeviceMemory> HANDLE;
+		var RESULT = Functions.AllocateMemory(_handle, allocateInfo, allocator, out HANDLE);
+		pMemory = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkFlushMappedMemoryRanges</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -995,8 +1446,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateFence</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateFence(Vk.FenceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence pFence)
+	{
+		Vk.Handle<Vk.Fence> HANDLE;
+		var RESULT = Functions.vkCreateFence(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateFence</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateFence(in Vk.FenceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Fence> fence)
 		=> Functions.CreateFence(_handle, createInfo, allocator, out fence);
+
+	/// <summary>vkCreateFence</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateFence(in Vk.FenceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence pFence)
+	{
+		Vk.Handle<Vk.Fence> HANDLE;
+		var RESULT = Functions.CreateFence(_handle, createInfo, allocator, out HANDLE);
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkResetFences</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1025,8 +1496,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateSemaphore</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSemaphore(Vk.SemaphoreCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Semaphore pSemaphore)
+	{
+		Vk.Handle<Vk.Semaphore> HANDLE;
+		var RESULT = Functions.vkCreateSemaphore(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSemaphore = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateSemaphore</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSemaphore(in Vk.SemaphoreCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Semaphore> semaphore)
 		=> Functions.CreateSemaphore(_handle, createInfo, allocator, out semaphore);
+
+	/// <summary>vkCreateSemaphore</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSemaphore(in Vk.SemaphoreCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Semaphore pSemaphore)
+	{
+		Vk.Handle<Vk.Semaphore> HANDLE;
+		var RESULT = Functions.CreateSemaphore(_handle, createInfo, allocator, out HANDLE);
+		pSemaphore = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateEvent</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1035,8 +1526,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateEvent</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateEvent(Vk.EventCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Event pEvent)
+	{
+		Vk.Handle<Vk.Event> HANDLE;
+		var RESULT = Functions.vkCreateEvent(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pEvent = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateEvent</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateEvent(in Vk.EventCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Event> @event)
 		=> Functions.CreateEvent(_handle, createInfo, allocator, out @event);
+
+	/// <summary>vkCreateEvent</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateEvent(in Vk.EventCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Event pEvent)
+	{
+		Vk.Handle<Vk.Event> HANDLE;
+		var RESULT = Functions.CreateEvent(_handle, createInfo, allocator, out HANDLE);
+		pEvent = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateQueryPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1045,8 +1556,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateQueryPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateQueryPool(Vk.QueryPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.QueryPool pQueryPool)
+	{
+		Vk.Handle<Vk.QueryPool> HANDLE;
+		var RESULT = Functions.vkCreateQueryPool(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pQueryPool = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateQueryPool</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateQueryPool(in Vk.QueryPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.QueryPool> queryPool)
 		=> Functions.CreateQueryPool(_handle, createInfo, allocator, out queryPool);
+
+	/// <summary>vkCreateQueryPool</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateQueryPool(in Vk.QueryPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.QueryPool pQueryPool)
+	{
+		Vk.Handle<Vk.QueryPool> HANDLE;
+		var RESULT = Functions.CreateQueryPool(_handle, createInfo, allocator, out HANDLE);
+		pQueryPool = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateBuffer</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1055,8 +1586,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateBuffer</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateBuffer(Vk.BufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Buffer pBuffer)
+	{
+		Vk.Handle<Vk.Buffer> HANDLE;
+		var RESULT = Functions.vkCreateBuffer(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pBuffer = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateBuffer</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateBuffer(in Vk.BufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Buffer> buffer)
 		=> Functions.CreateBuffer(_handle, createInfo, allocator, out buffer);
+
+	/// <summary>vkCreateBuffer</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateBuffer(in Vk.BufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Buffer pBuffer)
+	{
+		Vk.Handle<Vk.Buffer> HANDLE;
+		var RESULT = Functions.CreateBuffer(_handle, createInfo, allocator, out HANDLE);
+		pBuffer = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateBufferView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1065,8 +1616,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateBufferView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateBufferView(Vk.BufferViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.BufferView pView)
+	{
+		Vk.Handle<Vk.BufferView> HANDLE;
+		var RESULT = Functions.vkCreateBufferView(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateBufferView</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateBufferView(in Vk.BufferViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.BufferView> view)
 		=> Functions.CreateBufferView(_handle, createInfo, allocator, out view);
+
+	/// <summary>vkCreateBufferView</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateBufferView(in Vk.BufferViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.BufferView pView)
+	{
+		Vk.Handle<Vk.BufferView> HANDLE;
+		var RESULT = Functions.CreateBufferView(_handle, createInfo, allocator, out HANDLE);
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateImage</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1075,8 +1646,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateImage</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImage(Vk.ImageCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Image pImage)
+	{
+		Vk.Handle<Vk.Image> HANDLE;
+		var RESULT = Functions.vkCreateImage(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pImage = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateImage</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateImage(in Vk.ImageCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Image> image)
 		=> Functions.CreateImage(_handle, createInfo, allocator, out image);
+
+	/// <summary>vkCreateImage</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImage(in Vk.ImageCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Image pImage)
+	{
+		Vk.Handle<Vk.Image> HANDLE;
+		var RESULT = Functions.CreateImage(_handle, createInfo, allocator, out HANDLE);
+		pImage = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateImageView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1085,8 +1676,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateImageView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImageView(Vk.ImageViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.ImageView pView)
+	{
+		Vk.Handle<Vk.ImageView> HANDLE;
+		var RESULT = Functions.vkCreateImageView(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateImageView</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateImageView(in Vk.ImageViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.ImageView> view)
 		=> Functions.CreateImageView(_handle, createInfo, allocator, out view);
+
+	/// <summary>vkCreateImageView</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateImageView(in Vk.ImageViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ImageView pView)
+	{
+		Vk.Handle<Vk.ImageView> HANDLE;
+		var RESULT = Functions.CreateImageView(_handle, createInfo, allocator, out HANDLE);
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateShaderModule</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1095,8 +1706,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateShaderModule</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateShaderModule(Vk.ShaderModuleCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.ShaderModule pShaderModule)
+	{
+		Vk.Handle<Vk.ShaderModule> HANDLE;
+		var RESULT = Functions.vkCreateShaderModule(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pShaderModule = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateShaderModule</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateShaderModule(in Vk.ShaderModuleCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.ShaderModule> shaderModule)
 		=> Functions.CreateShaderModule(_handle, createInfo, allocator, out shaderModule);
+
+	/// <summary>vkCreateShaderModule</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateShaderModule(in Vk.ShaderModuleCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ShaderModule pShaderModule)
+	{
+		Vk.Handle<Vk.ShaderModule> HANDLE;
+		var RESULT = Functions.CreateShaderModule(_handle, createInfo, allocator, out HANDLE);
+		pShaderModule = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreatePipelineCache</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1105,8 +1736,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreatePipelineCache</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePipelineCache(Vk.PipelineCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.PipelineCache pPipelineCache)
+	{
+		Vk.Handle<Vk.PipelineCache> HANDLE;
+		var RESULT = Functions.vkCreatePipelineCache(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pPipelineCache = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreatePipelineCache</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreatePipelineCache(in Vk.PipelineCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.PipelineCache> pipelineCache)
 		=> Functions.CreatePipelineCache(_handle, createInfo, allocator, out pipelineCache);
+
+	/// <summary>vkCreatePipelineCache</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePipelineCache(in Vk.PipelineCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineCache pPipelineCache)
+	{
+		Vk.Handle<Vk.PipelineCache> HANDLE;
+		var RESULT = Functions.CreatePipelineCache(_handle, createInfo, allocator, out HANDLE);
+		pPipelineCache = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreatePipelineLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1115,8 +1766,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreatePipelineLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePipelineLayout(Vk.PipelineLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.PipelineLayout pPipelineLayout)
+	{
+		Vk.Handle<Vk.PipelineLayout> HANDLE;
+		var RESULT = Functions.vkCreatePipelineLayout(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pPipelineLayout = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreatePipelineLayout</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreatePipelineLayout(in Vk.PipelineLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.PipelineLayout> pipelineLayout)
 		=> Functions.CreatePipelineLayout(_handle, createInfo, allocator, out pipelineLayout);
+
+	/// <summary>vkCreatePipelineLayout</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePipelineLayout(in Vk.PipelineLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineLayout pPipelineLayout)
+	{
+		Vk.Handle<Vk.PipelineLayout> HANDLE;
+		var RESULT = Functions.CreatePipelineLayout(_handle, createInfo, allocator, out HANDLE);
+		pPipelineLayout = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateSampler</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1125,8 +1796,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateSampler</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSampler(Vk.SamplerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Sampler pSampler)
+	{
+		Vk.Handle<Vk.Sampler> HANDLE;
+		var RESULT = Functions.vkCreateSampler(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSampler = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateSampler</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSampler(in Vk.SamplerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Sampler> sampler)
 		=> Functions.CreateSampler(_handle, createInfo, allocator, out sampler);
+
+	/// <summary>vkCreateSampler</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSampler(in Vk.SamplerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Sampler pSampler)
+	{
+		Vk.Handle<Vk.Sampler> HANDLE;
+		var RESULT = Functions.CreateSampler(_handle, createInfo, allocator, out HANDLE);
+		pSampler = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateDescriptorSetLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1135,8 +1826,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorSetLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorSetLayout(Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorSetLayout pSetLayout)
+	{
+		Vk.Handle<Vk.DescriptorSetLayout> HANDLE;
+		var RESULT = Functions.vkCreateDescriptorSetLayout(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSetLayout = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDescriptorSetLayout</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDescriptorSetLayout(in Vk.DescriptorSetLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.DescriptorSetLayout> setLayout)
 		=> Functions.CreateDescriptorSetLayout(_handle, createInfo, allocator, out setLayout);
+
+	/// <summary>vkCreateDescriptorSetLayout</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorSetLayout(in Vk.DescriptorSetLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorSetLayout pSetLayout)
+	{
+		Vk.Handle<Vk.DescriptorSetLayout> HANDLE;
+		var RESULT = Functions.CreateDescriptorSetLayout(_handle, createInfo, allocator, out HANDLE);
+		pSetLayout = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateDescriptorPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1145,8 +1856,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorPool(Vk.DescriptorPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorPool pDescriptorPool)
+	{
+		Vk.Handle<Vk.DescriptorPool> HANDLE;
+		var RESULT = Functions.vkCreateDescriptorPool(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pDescriptorPool = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDescriptorPool</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDescriptorPool(in Vk.DescriptorPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.DescriptorPool> descriptorPool)
 		=> Functions.CreateDescriptorPool(_handle, createInfo, allocator, out descriptorPool);
+
+	/// <summary>vkCreateDescriptorPool</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorPool(in Vk.DescriptorPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorPool pDescriptorPool)
+	{
+		Vk.Handle<Vk.DescriptorPool> HANDLE;
+		var RESULT = Functions.CreateDescriptorPool(_handle, createInfo, allocator, out HANDLE);
+		pDescriptorPool = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkAllocateDescriptorSets</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1175,8 +1906,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateFramebuffer</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateFramebuffer(Vk.FramebufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Framebuffer pFramebuffer)
+	{
+		Vk.Handle<Vk.Framebuffer> HANDLE;
+		var RESULT = Functions.vkCreateFramebuffer(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pFramebuffer = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateFramebuffer</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateFramebuffer(in Vk.FramebufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Framebuffer> framebuffer)
 		=> Functions.CreateFramebuffer(_handle, createInfo, allocator, out framebuffer);
+
+	/// <summary>vkCreateFramebuffer</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateFramebuffer(in Vk.FramebufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Framebuffer pFramebuffer)
+	{
+		Vk.Handle<Vk.Framebuffer> HANDLE;
+		var RESULT = Functions.CreateFramebuffer(_handle, createInfo, allocator, out HANDLE);
+		pFramebuffer = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateRenderPass</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1185,8 +1936,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass(Vk.RenderPassCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass pRenderPass)
+	{
+		Vk.Handle<Vk.RenderPass> HANDLE;
+		var RESULT = Functions.vkCreateRenderPass(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateRenderPass</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateRenderPass(in Vk.RenderPassCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.RenderPass> renderPass)
 		=> Functions.CreateRenderPass(_handle, createInfo, allocator, out renderPass);
+
+	/// <summary>vkCreateRenderPass</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass(in Vk.RenderPassCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass pRenderPass)
+	{
+		Vk.Handle<Vk.RenderPass> HANDLE;
+		var RESULT = Functions.CreateRenderPass(_handle, createInfo, allocator, out HANDLE);
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateCommandPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1195,8 +1966,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateCommandPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateCommandPool(Vk.CommandPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.CommandPool pCommandPool)
+	{
+		Vk.Handle<Vk.CommandPool> HANDLE;
+		var RESULT = Functions.vkCreateCommandPool(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pCommandPool = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateCommandPool</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateCommandPool(in Vk.CommandPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.CommandPool> commandPool)
 		=> Functions.CreateCommandPool(_handle, createInfo, allocator, out commandPool);
+
+	/// <summary>vkCreateCommandPool</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateCommandPool(in Vk.CommandPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.CommandPool pCommandPool)
+	{
+		Vk.Handle<Vk.CommandPool> HANDLE;
+		var RESULT = Functions.CreateCommandPool(_handle, createInfo, allocator, out HANDLE);
+		pCommandPool = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkAllocateCommandBuffers</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1225,8 +2016,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateSwapchainKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSwapchainKHR(Vk.KHR.SwapchainCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Swapchain pSwapchain)
+	{
+		Vk.Handle<Vk.KHR.Swapchain> HANDLE;
+		var RESULT = Functions.vkCreateSwapchainKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pSwapchain = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateSwapchainKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSwapchainKHR(in Vk.KHR.SwapchainCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.Swapchain> swapchain)
 		=> Functions.CreateSwapchainKHR(_handle, createInfo, allocator, out swapchain);
+
+	/// <summary>vkCreateSwapchainKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSwapchainKHR(in Vk.KHR.SwapchainCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Swapchain pSwapchain)
+	{
+		Vk.Handle<Vk.KHR.Swapchain> HANDLE;
+		var RESULT = Functions.CreateSwapchainKHR(_handle, createInfo, allocator, out HANDLE);
+		pSwapchain = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkDebugMarkerSetObjectNameEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1265,8 +2076,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateIndirectCommandsLayoutNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateIndirectCommandsLayoutNV(Vk.NV.IndirectCommandsLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.NV.IndirectCommandsLayout pIndirectCommandsLayout)
+	{
+		Vk.Handle<Vk.NV.IndirectCommandsLayout> HANDLE;
+		var RESULT = Functions.vkCreateIndirectCommandsLayoutNV(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pIndirectCommandsLayout = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateIndirectCommandsLayoutNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateIndirectCommandsLayoutNV(in Vk.NV.IndirectCommandsLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.NV.IndirectCommandsLayout> indirectCommandsLayout)
 		=> Functions.CreateIndirectCommandsLayoutNV(_handle, createInfo, allocator, out indirectCommandsLayout);
+
+	/// <summary>vkCreateIndirectCommandsLayoutNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateIndirectCommandsLayoutNV(in Vk.NV.IndirectCommandsLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.IndirectCommandsLayout pIndirectCommandsLayout)
+	{
+		Vk.Handle<Vk.NV.IndirectCommandsLayout> HANDLE;
+		var RESULT = Functions.CreateIndirectCommandsLayoutNV(_handle, createInfo, allocator, out HANDLE);
+		pIndirectCommandsLayout = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkGetMemoryWin32HandleKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1405,8 +2236,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkRegisterDeviceEventEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result RegisterDeviceEventEXT(Vk.EXT.DeviceEventInfo* pDeviceEventInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence pFence)
+	{
+		Vk.Handle<Vk.Fence> HANDLE;
+		var RESULT = Functions.vkRegisterDeviceEventEXT(_handle, pDeviceEventInfo, pAllocator, &HANDLE);
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkRegisterDeviceEventEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result RegisterDeviceEventEXT(in Vk.EXT.DeviceEventInfo deviceEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Fence> fence)
 		=> Functions.RegisterDeviceEventEXT(_handle, deviceEventInfo, allocator, out fence);
+
+	/// <summary>vkRegisterDeviceEventEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result RegisterDeviceEventEXT(in Vk.EXT.DeviceEventInfo deviceEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence pFence)
+	{
+		Vk.Handle<Vk.Fence> HANDLE;
+		var RESULT = Functions.RegisterDeviceEventEXT(_handle, deviceEventInfo, allocator, out HANDLE);
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkRegisterDisplayEventEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1415,8 +2266,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkRegisterDisplayEventEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result RegisterDisplayEventEXT(Vk.Handle<Vk.KHR.Display> display, Vk.EXT.DisplayEventInfo* pDisplayEventInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence pFence)
+	{
+		Vk.Handle<Vk.Fence> HANDLE;
+		var RESULT = Functions.vkRegisterDisplayEventEXT(_handle, display, pDisplayEventInfo, pAllocator, &HANDLE);
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkRegisterDisplayEventEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result RegisterDisplayEventEXT(Vk.Handle<Vk.KHR.Display> display, in Vk.EXT.DisplayEventInfo displayEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.Fence> fence)
 		=> Functions.RegisterDisplayEventEXT(_handle, display, displayEventInfo, allocator, out fence);
+
+	/// <summary>vkRegisterDisplayEventEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result RegisterDisplayEventEXT(Vk.Handle<Vk.KHR.Display> display, in Vk.EXT.DisplayEventInfo displayEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence pFence)
+	{
+		Vk.Handle<Vk.Fence> HANDLE;
+		var RESULT = Functions.RegisterDisplayEventEXT(_handle, display, displayEventInfo, allocator, out HANDLE);
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkGetDeviceGroupPeerMemoryFeatures</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1515,8 +2386,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorUpdateTemplate</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorUpdateTemplate(Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
+	{
+		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
+		var RESULT = Functions.vkCreateDescriptorUpdateTemplate(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDescriptorUpdateTemplate</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDescriptorUpdateTemplate(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.DescriptorUpdateTemplate> descriptorUpdateTemplate)
 		=> Functions.CreateDescriptorUpdateTemplate(_handle, createInfo, allocator, out descriptorUpdateTemplate);
+
+	/// <summary>vkCreateDescriptorUpdateTemplate</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorUpdateTemplate(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
+	{
+		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
+		var RESULT = Functions.CreateDescriptorUpdateTemplate(_handle, createInfo, allocator, out HANDLE);
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateDescriptorUpdateTemplateKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1525,8 +2416,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorUpdateTemplateKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorUpdateTemplateKHR(Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
+	{
+		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
+		var RESULT = Functions.vkCreateDescriptorUpdateTemplateKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDescriptorUpdateTemplateKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDescriptorUpdateTemplateKHR(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.DescriptorUpdateTemplate> descriptorUpdateTemplate)
 		=> Functions.CreateDescriptorUpdateTemplateKHR(_handle, createInfo, allocator, out descriptorUpdateTemplate);
+
+	/// <summary>vkCreateDescriptorUpdateTemplateKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDescriptorUpdateTemplateKHR(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
+	{
+		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
+		var RESULT = Functions.CreateDescriptorUpdateTemplateKHR(_handle, createInfo, allocator, out HANDLE);
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkSetHdrMetadataEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1605,8 +2516,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateSamplerYcbcrConversion</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSamplerYcbcrConversion(Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
+	{
+		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
+		var RESULT = Functions.vkCreateSamplerYcbcrConversion(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateSamplerYcbcrConversion</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSamplerYcbcrConversion(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.SamplerYcbcrConversion> ycbcrConversion)
 		=> Functions.CreateSamplerYcbcrConversion(_handle, createInfo, allocator, out ycbcrConversion);
+
+	/// <summary>vkCreateSamplerYcbcrConversion</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSamplerYcbcrConversion(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
+	{
+		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
+		var RESULT = Functions.CreateSamplerYcbcrConversion(_handle, createInfo, allocator, out HANDLE);
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateSamplerYcbcrConversionKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1615,8 +2546,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateSamplerYcbcrConversionKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSamplerYcbcrConversionKHR(Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
+	{
+		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
+		var RESULT = Functions.vkCreateSamplerYcbcrConversionKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateSamplerYcbcrConversionKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateSamplerYcbcrConversionKHR(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.SamplerYcbcrConversion> ycbcrConversion)
 		=> Functions.CreateSamplerYcbcrConversionKHR(_handle, createInfo, allocator, out ycbcrConversion);
+
+	/// <summary>vkCreateSamplerYcbcrConversionKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateSamplerYcbcrConversionKHR(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
+	{
+		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
+		var RESULT = Functions.CreateSamplerYcbcrConversionKHR(_handle, createInfo, allocator, out HANDLE);
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkGetDeviceQueue2</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1625,8 +2576,26 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkGetDeviceQueue2</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceQueue2(Vk.DeviceQueueInfo2* pQueueInfo, out Vk.Queue pQueue)
+	{
+		Vk.Handle<Vk.Queue> HANDLE;
+		Functions.vkGetDeviceQueue2(_handle, pQueueInfo, &HANDLE);
+		pQueue = new(this, HANDLE);
+	}
+
+	/// <summary>vkGetDeviceQueue2</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue2(in Vk.DeviceQueueInfo2 queueInfo, out Vk.Handle<Vk.Queue> queue)
 		=> Functions.GetDeviceQueue2(_handle, queueInfo, out queue);
+
+	/// <summary>vkGetDeviceQueue2</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceQueue2(in Vk.DeviceQueueInfo2 queueInfo, out Vk.Queue pQueue)
+	{
+		Vk.Handle<Vk.Queue> HANDLE;
+		Functions.GetDeviceQueue2(_handle, queueInfo, out HANDLE);
+		pQueue = new(this, HANDLE);
+	}
 
 	/// <summary>vkCreateValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1635,8 +2604,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateValidationCacheEXT(Vk.EXT.ValidationCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.ValidationCache pValidationCache)
+	{
+		Vk.Handle<Vk.EXT.ValidationCache> HANDLE;
+		var RESULT = Functions.vkCreateValidationCacheEXT(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pValidationCache = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateValidationCacheEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateValidationCacheEXT(in Vk.EXT.ValidationCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.EXT.ValidationCache> validationCache)
 		=> Functions.CreateValidationCacheEXT(_handle, createInfo, allocator, out validationCache);
+
+	/// <summary>vkCreateValidationCacheEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateValidationCacheEXT(in Vk.EXT.ValidationCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.ValidationCache pValidationCache)
+	{
+		Vk.Handle<Vk.EXT.ValidationCache> HANDLE;
+		var RESULT = Functions.CreateValidationCacheEXT(_handle, createInfo, allocator, out HANDLE);
+		pValidationCache = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkGetDescriptorSetLayoutSupport</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1725,8 +2714,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass2</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass2(Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass pRenderPass)
+	{
+		Vk.Handle<Vk.RenderPass> HANDLE;
+		var RESULT = Functions.vkCreateRenderPass2(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateRenderPass2</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateRenderPass2(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.RenderPass> renderPass)
 		=> Functions.CreateRenderPass2(_handle, createInfo, allocator, out renderPass);
+
+	/// <summary>vkCreateRenderPass2</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass2(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass pRenderPass)
+	{
+		Vk.Handle<Vk.RenderPass> HANDLE;
+		var RESULT = Functions.CreateRenderPass2(_handle, createInfo, allocator, out HANDLE);
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreateRenderPass2KHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1735,8 +2744,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass2KHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass2KHR(Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass pRenderPass)
+	{
+		Vk.Handle<Vk.RenderPass> HANDLE;
+		var RESULT = Functions.vkCreateRenderPass2KHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateRenderPass2KHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateRenderPass2KHR(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.RenderPass> renderPass)
 		=> Functions.CreateRenderPass2KHR(_handle, createInfo, allocator, out renderPass);
+
+	/// <summary>vkCreateRenderPass2KHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRenderPass2KHR(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass pRenderPass)
+	{
+		Vk.Handle<Vk.RenderPass> HANDLE;
+		var RESULT = Functions.CreateRenderPass2KHR(_handle, createInfo, allocator, out HANDLE);
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkWaitSemaphores</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1805,8 +2834,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateAccelerationStructureNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAccelerationStructureNV(Vk.NV.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.NV.AccelerationStructure pAccelerationStructure)
+	{
+		Vk.Handle<Vk.NV.AccelerationStructure> HANDLE;
+		var RESULT = Functions.vkCreateAccelerationStructureNV(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateAccelerationStructureNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateAccelerationStructureNV(in Vk.NV.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.NV.AccelerationStructure> accelerationStructure)
 		=> Functions.CreateAccelerationStructureNV(_handle, createInfo, allocator, out accelerationStructure);
+
+	/// <summary>vkCreateAccelerationStructureNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAccelerationStructureNV(in Vk.NV.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.AccelerationStructure pAccelerationStructure)
+	{
+		Vk.Handle<Vk.NV.AccelerationStructure> HANDLE;
+		var RESULT = Functions.CreateAccelerationStructureNV(_handle, createInfo, allocator, out HANDLE);
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkGetAccelerationStructureMemoryRequirementsKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2005,8 +3054,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkAcquirePerformanceConfigurationINTEL</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AcquirePerformanceConfigurationINTEL(Vk.INTEL.PerformanceConfigurationAcquireInfo* pAcquireInfo, out Vk.INTEL.PerformanceConfiguration pConfiguration)
+	{
+		Vk.Handle<Vk.INTEL.PerformanceConfiguration> HANDLE;
+		var RESULT = Functions.vkAcquirePerformanceConfigurationINTEL(_handle, pAcquireInfo, &HANDLE);
+		pConfiguration = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkAcquirePerformanceConfigurationINTEL</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result AcquirePerformanceConfigurationINTEL(in Vk.INTEL.PerformanceConfigurationAcquireInfo acquireInfo, out Vk.Handle<Vk.INTEL.PerformanceConfiguration> configuration)
 		=> Functions.AcquirePerformanceConfigurationINTEL(_handle, acquireInfo, out configuration);
+
+	/// <summary>vkAcquirePerformanceConfigurationINTEL</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result AcquirePerformanceConfigurationINTEL(in Vk.INTEL.PerformanceConfigurationAcquireInfo acquireInfo, out Vk.INTEL.PerformanceConfiguration pConfiguration)
+	{
+		Vk.Handle<Vk.INTEL.PerformanceConfiguration> HANDLE;
+		var RESULT = Functions.AcquirePerformanceConfigurationINTEL(_handle, acquireInfo, out HANDLE);
+		pConfiguration = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkGetPerformanceParameterINTEL</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2075,8 +3144,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateAccelerationStructureKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAccelerationStructureKHR(Vk.KHR.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.AccelerationStructure pAccelerationStructure)
+	{
+		Vk.Handle<Vk.KHR.AccelerationStructure> HANDLE;
+		var RESULT = Functions.vkCreateAccelerationStructureKHR(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateAccelerationStructureKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateAccelerationStructureKHR(in Vk.KHR.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.AccelerationStructure> accelerationStructure)
 		=> Functions.CreateAccelerationStructureKHR(_handle, createInfo, allocator, out accelerationStructure);
+
+	/// <summary>vkCreateAccelerationStructureKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateAccelerationStructureKHR(in Vk.KHR.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.AccelerationStructure pAccelerationStructure)
+	{
+		Vk.Handle<Vk.KHR.AccelerationStructure> HANDLE;
+		var RESULT = Functions.CreateAccelerationStructureKHR(_handle, createInfo, allocator, out HANDLE);
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkBuildAccelerationStructureKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2105,8 +3194,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreateDeferredOperationKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDeferredOperationKHR(Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DeferredOperation pDeferredOperation)
+	{
+		Vk.Handle<Vk.KHR.DeferredOperation> HANDLE;
+		var RESULT = Functions.vkCreateDeferredOperationKHR(_handle, pAllocator, &HANDLE);
+		pDeferredOperation = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDeferredOperationKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDeferredOperationKHR(in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.DeferredOperation> deferredOperation)
 		=> Functions.CreateDeferredOperationKHR(_handle, allocator, out deferredOperation);
+
+	/// <summary>vkCreateDeferredOperationKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDeferredOperationKHR(in Vk.AllocationCallbacks allocator, out Vk.KHR.DeferredOperation pDeferredOperation)
+	{
+		Vk.Handle<Vk.KHR.DeferredOperation> HANDLE;
+		var RESULT = Functions.CreateDeferredOperationKHR(_handle, allocator, out HANDLE);
+		pDeferredOperation = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkCreatePrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2115,8 +3224,28 @@ public unsafe partial struct Device : IHandleType<Device>
 
 	/// <summary>vkCreatePrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePrivateDataSlotEXT(Vk.EXT.PrivateDataSlotCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.PrivateDataSlot pPrivateDataSlot)
+	{
+		Vk.Handle<Vk.EXT.PrivateDataSlot> HANDLE;
+		var RESULT = Functions.vkCreatePrivateDataSlotEXT(_handle, pCreateInfo, pAllocator, &HANDLE);
+		pPrivateDataSlot = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreatePrivateDataSlotEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreatePrivateDataSlotEXT(in Vk.EXT.PrivateDataSlotCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.EXT.PrivateDataSlot> privateDataSlot)
 		=> Functions.CreatePrivateDataSlotEXT(_handle, createInfo, allocator, out privateDataSlot);
+
+	/// <summary>vkCreatePrivateDataSlotEXT</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreatePrivateDataSlotEXT(in Vk.EXT.PrivateDataSlotCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.PrivateDataSlot pPrivateDataSlot)
+	{
+		Vk.Handle<Vk.EXT.PrivateDataSlot> HANDLE;
+		var RESULT = Functions.CreatePrivateDataSlotEXT(_handle, createInfo, allocator, out HANDLE);
+		pPrivateDataSlot = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkSetPrivateDataEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

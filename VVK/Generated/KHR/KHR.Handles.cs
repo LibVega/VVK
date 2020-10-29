@@ -262,8 +262,28 @@ public unsafe partial struct Display : IHandleType<Display>
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDisplayModeKHR(Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DisplayMode pMode)
+	{
+		Vk.Handle<Vk.KHR.DisplayMode> HANDLE;
+		var RESULT = Functions.vkCreateDisplayModeKHR(Parent._handle, _handle, pCreateInfo, pAllocator, &HANDLE);
+		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
+
+	/// <summary>vkCreateDisplayModeKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreateDisplayModeKHR(in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Handle<Vk.KHR.DisplayMode> mode)
 		=> Functions.CreateDisplayModeKHR(Parent._handle, _handle, createInfo, allocator, out mode);
+
+	/// <summary>vkCreateDisplayModeKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateDisplayModeKHR(in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.DisplayMode pMode)
+	{
+		Vk.Handle<Vk.KHR.DisplayMode> HANDLE;
+		var RESULT = Functions.CreateDisplayModeKHR(Parent._handle, _handle, createInfo, allocator, out HANDLE);
+		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : new();
+		return RESULT;
+	}
 
 	/// <summary>vkReleaseDisplayEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -321,18 +341,18 @@ public unsafe partial struct Surface : IHandleType<Surface>
 {
 	public static readonly Surface Null = new();
 
-	public readonly Vk.PhysicalDevice Parent;
+	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Vk.Instance Instance;
 	internal readonly Handle<Surface> _handle;
 	readonly Handle<Surface> IHandleType<Surface>.Handle => _handle;
 	public readonly bool IsValid => _handle.IsValid;
 
-	public Surface(in Vk.PhysicalDevice parent, Vk.Handle<Surface> handle)
+	public Surface(in Vk.Instance parent, Vk.Handle<Surface> handle)
 	{
 		Parent = parent;
 		Functions = parent.Functions;
-		Instance = parent.Instance;
+		Instance = parent;
 		_handle = handle;
 	}
 
@@ -359,56 +379,6 @@ public unsafe partial struct Surface : IHandleType<Surface>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySurfaceKHR(in Vk.AllocationCallbacks allocator)
 		=> Functions.DestroySurfaceKHR(Instance._handle, _handle, allocator);
-
-	/// <summary>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.KHR.SurfaceCapabilities* pSurfaceCapabilities)
-		=> Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(Parent._handle, _handle, pSurfaceCapabilities);
-
-	/// <summary>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(out Vk.KHR.SurfaceCapabilities surfaceCapabilities)
-		=> Functions.GetPhysicalDeviceSurfaceCapabilitiesKHR(Parent._handle, _handle, out surfaceCapabilities);
-
-	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(uint* pSurfaceFormatCount, Vk.KHR.SurfaceFormat* pSurfaceFormats)
-		=> Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(Parent._handle, _handle, pSurfaceFormatCount, pSurfaceFormats);
-
-	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(out uint surfaceFormatCount, in Span<Vk.KHR.SurfaceFormat> surfaceFormats)
-		=> Functions.GetPhysicalDeviceSurfaceFormatsKHR(Parent._handle, _handle, out surfaceFormatCount, surfaceFormats);
-
-	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(uint* pPresentModeCount, Vk.KHR.PresentMode* pPresentModes)
-		=> Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(Parent._handle, _handle, pPresentModeCount, pPresentModes);
-
-	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(out uint presentModeCount, in Span<Vk.KHR.PresentMode> presentModes)
-		=> Functions.GetPhysicalDeviceSurfacePresentModesKHR(Parent._handle, _handle, out presentModeCount, presentModes);
-
-	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2EXT</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.EXT.SurfaceCapabilities2* pSurfaceCapabilities)
-		=> Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(Parent._handle, _handle, pSurfaceCapabilities);
-
-	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2EXT</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(out Vk.EXT.SurfaceCapabilities2 surfaceCapabilities)
-		=> Functions.GetPhysicalDeviceSurfaceCapabilities2EXT(Parent._handle, _handle, out surfaceCapabilities);
-
-	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(uint* pRectCount, Vk.Rect2D* pRects)
-		=> Functions.vkGetPhysicalDevicePresentRectanglesKHR(Parent._handle, _handle, pRectCount, pRects);
-
-	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(out uint rectCount, in Span<Vk.Rect2D> rects)
-		=> Functions.GetPhysicalDevicePresentRectanglesKHR(Parent._handle, _handle, out rectCount, rects);
 
 }
 

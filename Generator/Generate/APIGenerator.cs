@@ -475,7 +475,7 @@ namespace Gen
 					var ctorargs = (handleSpec.Parent is not null)
 						? $"in {handleSpec.Parent.ProcessedName} parent, Vk.Handle<{handleSpec.Name}> handle"
 						: $"Vk.Handle<{handleSpec.Name}> handle";
-					if ((handleSpec.Name == "Instance") || (handleSpec.Name == "Device")) {
+					if (handleSpec.Name == "Instance") {
 						ctorargs += ", Vk.Version apiVersion";
 					}
 					using (var ctor = handleBlock.PushBlock($"public {handleSpec.Name}({ctorargs})")) {
@@ -488,7 +488,7 @@ namespace Gen
 							ctor.WriteLine("Functions = new(handle, apiVersion);");
 						}
 						else if (handleSpec.Name == "Device") {
-							ctor.WriteLine("Functions = new(handle, apiVersion);");
+							ctor.WriteLine("Functions = new(handle, parent.Instance.Functions.CoreVersion);");
 							ctor.WriteLine("Instance = parent.Instance;");
 						}
 						else {
@@ -525,7 +525,16 @@ namespace Gen
 						handleBlock.WriteLine($"/// <summary>{cmd.Name}</summary>");
 						handleBlock.WriteLine( "[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 						handleBlock.WriteLine( cmd.SigStr);
-						handleBlock.WriteLine($"\t=> {cmd.CallStr};");
+						if (!cmd.Long) {
+							handleBlock.WriteLine($"\t=> {cmd.CallStr};");
+						}
+						else {
+							handleBlock.WriteLine("{");
+							foreach (var line in cmd.CallStr.Split('\n')) {
+								handleBlock.WriteLine('\t' + line);
+							}
+							handleBlock.WriteLine("}");
+						}
 						handleBlock.WriteLine();
 					}
 				}

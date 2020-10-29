@@ -45,7 +45,7 @@ namespace Gen
 		};
 
 		// Represents a processed argument
-		public record Argument(string Name, string Type, string UseStr, bool Const, bool Optional);
+		public record Argument(string Name, string Type, string UseStr, bool Const, bool Optional, CommandSpec.Argument Spec);
 
 		#region Fields
 		// The spec that this command was generated from
@@ -67,6 +67,9 @@ namespace Gen
 		// The set of alternative arguments (with single pointers as `in` and array pointers as Spans)
 		public readonly List<Argument>? AlternateArgs;
 
+		// If this command creates an object in the form of a handle
+		public readonly bool IsObjectCreating;
+
 		// Forward
 		public bool IsAlias => Spec.IsAlias;
 		public CommandSpec? Alias => Spec.Alias;
@@ -84,6 +87,11 @@ namespace Gen
 			Arguments = args;
 			ReturnType = retType;
 			AlternateArgs = altArgs;
+
+			var last = Arguments.Last();
+			IsObjectCreating = 
+				last.Type.EndsWith('*') && last.Type.StartsWith("Vk.Handle<") && !last.Const && 
+				(last.Spec.LengthName is null);
 		}
 
 		// Process
@@ -103,7 +111,7 @@ namespace Gen
 				}
 				var aname = KEYWORD_ARGS.Contains(arg.Name) ? ('@' + arg.Name) : arg.Name;
 				var tname = argProto[aidx];
-				args.Add(new(aname, tname, aname, arg.Const, arg.Optional));
+				args.Add(new(aname, tname, aname, arg.Const, arg.Optional, arg));
 
 				// Check for special alternative arg
 				var altname = (aname[0] == 'p' && Char.IsUpper(aname[1]))
@@ -120,23 +128,23 @@ namespace Gen
 						}
 						var alttype = $"in {(arg.Const ? "ReadOnly" : "")}Span<{tname.TrimEnd('*')}>";
 						var altuse = countAdj ? $"(uint){altname}.Length, {altname}FIXED" : $"{altname}FIXED";
-						altArgs.Add(new(altname, alttype, altuse, arg.Const, arg.Optional));
+						altArgs.Add(new(altname, alttype, altuse, arg.Const, arg.Optional, arg));
 					}
 					else {
-						altArgs.Add(new(altname, $"{(arg.Const ? "in" : "out")} {tname.TrimEnd('*')}", $"{altname}FIXED", arg.Const, arg.Optional));
+						altArgs.Add(new(altname, $"{(arg.Const ? "in" : "out")} {tname.TrimEnd('*')}", $"{altname}FIXED", arg.Const, arg.Optional, arg));
 					}
 					hasAlt = true;
 				}
 				else if (tname == "byte*") {
-					altArgs.Add(new(altname, "VVK.NativeString", $"{altname}.Data", arg.Const, arg.Optional));
+					altArgs.Add(new(altname, "VVK.NativeString", $"{altname}.Data", arg.Const, arg.Optional, arg));
 					hasAlt = true;
 				}
 				else if (tname == "byte**") {
-					altArgs.Add(new(altname, "VVK.NativeStringList", $"{altname}.Data", arg.Const, arg.Optional));
+					altArgs.Add(new(altname, "VVK.NativeStringList", $"{altname}.Data", arg.Const, arg.Optional, arg));
 					hasAlt = true;
 				}
 				else {
-					altArgs.Add(new(aname, tname, aname, arg.Const, arg.Optional));
+					altArgs.Add(new(aname, tname, aname, arg.Const, arg.Optional, arg));
 				}
 
 				++aidx;
