@@ -26,31 +26,28 @@ public unsafe partial struct StreamDescriptorSurfaceCreateInfo : IEquatable<Stre
 
 	public readonly override bool Equals(object? obj) => (obj is StreamDescriptorSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<StreamDescriptorSurfaceCreateInfo>.Equals(StreamDescriptorSurfaceCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ StreamDescriptor.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in StreamDescriptorSurfaceCreateInfo l, in StreamDescriptorSurfaceCreateInfo r)
 	{
-		fixed (StreamDescriptorSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.StreamDescriptor == r.StreamDescriptor)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in StreamDescriptorSurfaceCreateInfo l, in StreamDescriptorSurfaceCreateInfo r)
 	{
-		fixed (StreamDescriptorSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<StreamDescriptorSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.StreamDescriptor != r.StreamDescriptor)
+			;
 	}
 
 
@@ -73,31 +70,28 @@ public unsafe partial struct PresentFrameToken : IEquatable<PresentFrameToken>
 
 	public readonly override bool Equals(object? obj) => (obj is PresentFrameToken o) && (this == o);
 	readonly bool IEquatable<PresentFrameToken>.Equals(PresentFrameToken obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PresentFrameToken>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FrameToken.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PresentFrameToken l, in PresentFrameToken r)
 	{
-		fixed (PresentFrameToken* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentFrameToken>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentFrameToken>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FrameToken == r.FrameToken)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PresentFrameToken l, in PresentFrameToken r)
 	{
-		fixed (PresentFrameToken* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentFrameToken>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentFrameToken>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FrameToken != r.FrameToken)
+			;
 	}
 
 

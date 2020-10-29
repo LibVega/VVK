@@ -21,31 +21,28 @@ public unsafe partial struct RefreshCycleDuration : IEquatable<RefreshCycleDurat
 
 	public readonly override bool Equals(object? obj) => (obj is RefreshCycleDuration o) && (this == o);
 	readonly bool IEquatable<RefreshCycleDuration>.Equals(RefreshCycleDuration obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (ulong* ptr = &RefreshDuration) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RefreshCycleDuration>());
-		}
+		return
+			RefreshDuration.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in RefreshCycleDuration l, in RefreshCycleDuration r)
 	{
-		fixed (RefreshCycleDuration* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RefreshCycleDuration>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RefreshCycleDuration>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.RefreshDuration == r.RefreshDuration)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in RefreshCycleDuration l, in RefreshCycleDuration r)
 	{
-		fixed (RefreshCycleDuration* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RefreshCycleDuration>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RefreshCycleDuration>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.RefreshDuration != r.RefreshDuration)
+			;
 	}
 
 }
@@ -61,31 +58,31 @@ public unsafe partial struct PastPresentationTiming : IEquatable<PastPresentatio
 
 	public readonly override bool Equals(object? obj) => (obj is PastPresentationTiming o) && (this == o);
 	readonly bool IEquatable<PastPresentationTiming>.Equals(PastPresentationTiming obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (uint* ptr = &PresentID) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PastPresentationTiming>());
-		}
+		return
+			PresentID.GetHashCode() ^ DesiredPresentTime.GetHashCode() ^ ActualPresentTime.GetHashCode() ^ EarliestPresentTime.GetHashCode()
+			^ PresentMargin.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PastPresentationTiming l, in PastPresentationTiming r)
 	{
-		fixed (PastPresentationTiming* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PastPresentationTiming>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PastPresentationTiming>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.PresentID == r.PresentID) && (l.DesiredPresentTime == r.DesiredPresentTime) && (l.ActualPresentTime == r.ActualPresentTime) && (l.EarliestPresentTime == r.EarliestPresentTime)
+			&& (l.PresentMargin == r.PresentMargin)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PastPresentationTiming l, in PastPresentationTiming r)
 	{
-		fixed (PastPresentationTiming* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PastPresentationTiming>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PastPresentationTiming>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.PresentID != r.PresentID) || (l.DesiredPresentTime != r.DesiredPresentTime) || (l.ActualPresentTime != r.ActualPresentTime) || (l.EarliestPresentTime != r.EarliestPresentTime)
+			|| (l.PresentMargin != r.PresentMargin)
+			;
 	}
 
 }
@@ -102,31 +99,28 @@ public unsafe partial struct PresentTimesInfo : IEquatable<PresentTimesInfo>
 
 	public readonly override bool Equals(object? obj) => (obj is PresentTimesInfo o) && (this == o);
 	readonly bool IEquatable<PresentTimesInfo>.Equals(PresentTimesInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PresentTimesInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SwapchainCount.GetHashCode() ^ ((ulong)Times).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PresentTimesInfo l, in PresentTimesInfo r)
 	{
-		fixed (PresentTimesInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentTimesInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentTimesInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SwapchainCount == r.SwapchainCount) && (l.Times == r.Times)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PresentTimesInfo l, in PresentTimesInfo r)
 	{
-		fixed (PresentTimesInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentTimesInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentTimesInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SwapchainCount != r.SwapchainCount) || (l.Times != r.Times)
+			;
 	}
 
 
@@ -146,31 +140,28 @@ public unsafe partial struct PresentTime : IEquatable<PresentTime>
 
 	public readonly override bool Equals(object? obj) => (obj is PresentTime o) && (this == o);
 	readonly bool IEquatable<PresentTime>.Equals(PresentTime obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (uint* ptr = &PresentID) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PresentTime>());
-		}
+		return
+			PresentID.GetHashCode() ^ DesiredPresentTime.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PresentTime l, in PresentTime r)
 	{
-		fixed (PresentTime* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentTime>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentTime>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.PresentID == r.PresentID) && (l.DesiredPresentTime == r.DesiredPresentTime)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PresentTime l, in PresentTime r)
 	{
-		fixed (PresentTime* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PresentTime>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PresentTime>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.PresentID != r.PresentID) || (l.DesiredPresentTime != r.DesiredPresentTime)
+			;
 	}
 
 }

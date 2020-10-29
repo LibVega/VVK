@@ -25,31 +25,28 @@ public unsafe partial struct PhysicalDeviceMultiviewPerViewAttributesProperties 
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMultiviewPerViewAttributesProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceMultiviewPerViewAttributesProperties>.Equals(PhysicalDeviceMultiviewPerViewAttributesProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceMultiviewPerViewAttributesProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PerViewPositionAllComponents.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceMultiviewPerViewAttributesProperties l, in PhysicalDeviceMultiviewPerViewAttributesProperties r)
 	{
-		fixed (PhysicalDeviceMultiviewPerViewAttributesProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMultiviewPerViewAttributesProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMultiviewPerViewAttributesProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PerViewPositionAllComponents == r.PerViewPositionAllComponents)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceMultiviewPerViewAttributesProperties l, in PhysicalDeviceMultiviewPerViewAttributesProperties r)
 	{
-		fixed (PhysicalDeviceMultiviewPerViewAttributesProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMultiviewPerViewAttributesProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMultiviewPerViewAttributesProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PerViewPositionAllComponents != r.PerViewPositionAllComponents)
+			;
 	}
 
 
@@ -74,31 +71,31 @@ public unsafe partial struct ImageViewHandleInfo : IEquatable<ImageViewHandleInf
 
 	public readonly override bool Equals(object? obj) => (obj is ImageViewHandleInfo o) && (this == o);
 	readonly bool IEquatable<ImageViewHandleInfo>.Equals(ImageViewHandleInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageViewHandleInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ImageView.GetHashCode() ^ DescriptorType.GetHashCode()
+			^ Sampler.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImageViewHandleInfo l, in ImageViewHandleInfo r)
 	{
-		fixed (ImageViewHandleInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewHandleInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewHandleInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ImageView == r.ImageView) && (l.DescriptorType == r.DescriptorType)
+			&& (l.Sampler == r.Sampler)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImageViewHandleInfo l, in ImageViewHandleInfo r)
 	{
-		fixed (ImageViewHandleInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewHandleInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewHandleInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ImageView != r.ImageView) || (l.DescriptorType != r.DescriptorType)
+			|| (l.Sampler != r.Sampler)
+			;
 	}
 
 
@@ -122,31 +119,28 @@ public unsafe partial struct ImageViewAddressProperties : IEquatable<ImageViewAd
 
 	public readonly override bool Equals(object? obj) => (obj is ImageViewAddressProperties o) && (this == o);
 	readonly bool IEquatable<ImageViewAddressProperties>.Equals(ImageViewAddressProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageViewAddressProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DeviceAddress.GetHashCode() ^ Size.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImageViewAddressProperties l, in ImageViewAddressProperties r)
 	{
-		fixed (ImageViewAddressProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewAddressProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewAddressProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DeviceAddress == r.DeviceAddress) && (l.Size == r.Size)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImageViewAddressProperties l, in ImageViewAddressProperties r)
 	{
-		fixed (ImageViewAddressProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewAddressProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewAddressProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DeviceAddress != r.DeviceAddress) || (l.Size != r.Size)
+			;
 	}
 
 

@@ -22,31 +22,28 @@ public unsafe partial struct NativeBufferUsage2 : IEquatable<NativeBufferUsage2>
 
 	public readonly override bool Equals(object? obj) => (obj is NativeBufferUsage2 o) && (this == o);
 	readonly bool IEquatable<NativeBufferUsage2>.Equals(NativeBufferUsage2 obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (ulong* ptr = &Consumer) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<NativeBufferUsage2>());
-		}
+		return
+			Consumer.GetHashCode() ^ Producer.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in NativeBufferUsage2 l, in NativeBufferUsage2 r)
 	{
-		fixed (NativeBufferUsage2* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<NativeBufferUsage2>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<NativeBufferUsage2>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.Consumer == r.Consumer) && (l.Producer == r.Producer)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in NativeBufferUsage2 l, in NativeBufferUsage2 r)
 	{
-		fixed (NativeBufferUsage2* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<NativeBufferUsage2>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<NativeBufferUsage2>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.Consumer != r.Consumer) || (l.Producer != r.Producer)
+			;
 	}
 
 }
@@ -62,31 +59,28 @@ public unsafe partial struct ImportAndroidHardwareBufferInfo : IEquatable<Import
 
 	public readonly override bool Equals(object? obj) => (obj is ImportAndroidHardwareBufferInfo o) && (this == o);
 	readonly bool IEquatable<ImportAndroidHardwareBufferInfo>.Equals(ImportAndroidHardwareBufferInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportAndroidHardwareBufferInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ((ulong)Buffer).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImportAndroidHardwareBufferInfo l, in ImportAndroidHardwareBufferInfo r)
 	{
-		fixed (ImportAndroidHardwareBufferInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportAndroidHardwareBufferInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportAndroidHardwareBufferInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Buffer == r.Buffer)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImportAndroidHardwareBufferInfo l, in ImportAndroidHardwareBufferInfo r)
 	{
-		fixed (ImportAndroidHardwareBufferInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportAndroidHardwareBufferInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportAndroidHardwareBufferInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Buffer != r.Buffer)
+			;
 	}
 
 
@@ -109,31 +103,28 @@ public unsafe partial struct AndroidHardwareBufferUsage : IEquatable<AndroidHard
 
 	public readonly override bool Equals(object? obj) => (obj is AndroidHardwareBufferUsage o) && (this == o);
 	readonly bool IEquatable<AndroidHardwareBufferUsage>.Equals(AndroidHardwareBufferUsage obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AndroidHardwareBufferUsage>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AndroidHardwareBufferUsage_.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in AndroidHardwareBufferUsage l, in AndroidHardwareBufferUsage r)
 	{
-		fixed (AndroidHardwareBufferUsage* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidHardwareBufferUsage>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidHardwareBufferUsage>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AndroidHardwareBufferUsage_ == r.AndroidHardwareBufferUsage_)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in AndroidHardwareBufferUsage l, in AndroidHardwareBufferUsage r)
 	{
-		fixed (AndroidHardwareBufferUsage* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidHardwareBufferUsage>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidHardwareBufferUsage>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AndroidHardwareBufferUsage_ != r.AndroidHardwareBufferUsage_)
+			;
 	}
 
 
@@ -157,31 +148,28 @@ public unsafe partial struct AndroidHardwareBufferProperties : IEquatable<Androi
 
 	public readonly override bool Equals(object? obj) => (obj is AndroidHardwareBufferProperties o) && (this == o);
 	readonly bool IEquatable<AndroidHardwareBufferProperties>.Equals(AndroidHardwareBufferProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AndroidHardwareBufferProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AllocationSize.GetHashCode() ^ MemoryTypeBits.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in AndroidHardwareBufferProperties l, in AndroidHardwareBufferProperties r)
 	{
-		fixed (AndroidHardwareBufferProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidHardwareBufferProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidHardwareBufferProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AllocationSize == r.AllocationSize) && (l.MemoryTypeBits == r.MemoryTypeBits)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in AndroidHardwareBufferProperties l, in AndroidHardwareBufferProperties r)
 	{
-		fixed (AndroidHardwareBufferProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidHardwareBufferProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidHardwareBufferProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AllocationSize != r.AllocationSize) || (l.MemoryTypeBits != r.MemoryTypeBits)
+			;
 	}
 
 
@@ -204,31 +192,28 @@ public unsafe partial struct MemoryGetAndroidHardwareBufferInfo : IEquatable<Mem
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryGetAndroidHardwareBufferInfo o) && (this == o);
 	readonly bool IEquatable<MemoryGetAndroidHardwareBufferInfo>.Equals(MemoryGetAndroidHardwareBufferInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryGetAndroidHardwareBufferInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Memory.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in MemoryGetAndroidHardwareBufferInfo l, in MemoryGetAndroidHardwareBufferInfo r)
 	{
-		fixed (MemoryGetAndroidHardwareBufferInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryGetAndroidHardwareBufferInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryGetAndroidHardwareBufferInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Memory == r.Memory)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in MemoryGetAndroidHardwareBufferInfo l, in MemoryGetAndroidHardwareBufferInfo r)
 	{
-		fixed (MemoryGetAndroidHardwareBufferInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryGetAndroidHardwareBufferInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryGetAndroidHardwareBufferInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Memory != r.Memory)
+			;
 	}
 
 
@@ -258,31 +243,34 @@ public unsafe partial struct AndroidHardwareBufferFormatProperties : IEquatable<
 
 	public readonly override bool Equals(object? obj) => (obj is AndroidHardwareBufferFormatProperties o) && (this == o);
 	readonly bool IEquatable<AndroidHardwareBufferFormatProperties>.Equals(AndroidHardwareBufferFormatProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AndroidHardwareBufferFormatProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Format.GetHashCode() ^ ExternalFormat.GetHashCode()
+			^ FormatFeatures.GetHashCode() ^ SamplerYcbcrConversionComponents.GetHashCode() ^ SuggestedYcbcrModel.GetHashCode() ^ SuggestedYcbcrRange.GetHashCode()
+			^ SuggestedXChromaOffset.GetHashCode() ^ SuggestedYChromaOffset.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in AndroidHardwareBufferFormatProperties l, in AndroidHardwareBufferFormatProperties r)
 	{
-		fixed (AndroidHardwareBufferFormatProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidHardwareBufferFormatProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidHardwareBufferFormatProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Format == r.Format) && (l.ExternalFormat == r.ExternalFormat)
+			&& (l.FormatFeatures == r.FormatFeatures) && (l.SamplerYcbcrConversionComponents == r.SamplerYcbcrConversionComponents) && (l.SuggestedYcbcrModel == r.SuggestedYcbcrModel) && (l.SuggestedYcbcrRange == r.SuggestedYcbcrRange)
+			&& (l.SuggestedXChromaOffset == r.SuggestedXChromaOffset) && (l.SuggestedYChromaOffset == r.SuggestedYChromaOffset)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in AndroidHardwareBufferFormatProperties l, in AndroidHardwareBufferFormatProperties r)
 	{
-		fixed (AndroidHardwareBufferFormatProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AndroidHardwareBufferFormatProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AndroidHardwareBufferFormatProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Format != r.Format) || (l.ExternalFormat != r.ExternalFormat)
+			|| (l.FormatFeatures != r.FormatFeatures) || (l.SamplerYcbcrConversionComponents != r.SamplerYcbcrConversionComponents) || (l.SuggestedYcbcrModel != r.SuggestedYcbcrModel) || (l.SuggestedYcbcrRange != r.SuggestedYcbcrRange)
+			|| (l.SuggestedXChromaOffset != r.SuggestedXChromaOffset) || (l.SuggestedYChromaOffset != r.SuggestedYChromaOffset)
+			;
 	}
 
 
@@ -305,31 +293,28 @@ public unsafe partial struct ExternalFormat : IEquatable<ExternalFormat>
 
 	public readonly override bool Equals(object? obj) => (obj is ExternalFormat o) && (this == o);
 	readonly bool IEquatable<ExternalFormat>.Equals(ExternalFormat obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ExternalFormat>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ExternalFormat_.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ExternalFormat l, in ExternalFormat r)
 	{
-		fixed (ExternalFormat* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalFormat>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalFormat>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ExternalFormat_ == r.ExternalFormat_)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ExternalFormat l, in ExternalFormat r)
 	{
-		fixed (ExternalFormat* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ExternalFormat>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ExternalFormat>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ExternalFormat_ != r.ExternalFormat_)
+			;
 	}
 
 

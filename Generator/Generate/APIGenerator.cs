@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Gen
 {
@@ -368,37 +369,58 @@ namespace Gen
 						}
 					}
 
+					// Needed for hashcode and equality - collapse all fields into single list
+					var fieldList = structSpec.Fields.SelectMany(fld => {
+						if (fld.SizeLiteral is null) {
+							return Enumerable.Repeat((fld.Name, fld.Type.EndsWith('*') || fld.Type.Contains("delegate")), 1);
+						}
+						else {
+							var literal = Char.IsDigit(fld.SizeLiteral[0])
+									? fld.SizeLiteral
+									: consts[fld.SizeLiteral.Substring(fld.SizeLiteral.LastIndexOf('.') + 1)].Value;
+							var count = Int32.Parse(literal);
+							return _GenerateFieldNames(fld.IsFixed ? $"{fld.Name}[{{0}}]" : $"{fld.Name}_{{0}}", count);
+						}
+					}).ToList();
+					static IEnumerable<(string, bool)> _GenerateFieldNames(string fmt, int count)
+					{
+						for (int i = 0; i < count; ++i) {
+							yield return (String.Format(fmt, i), false);
+						}
+					}
+
 					// Generate overrides
 					structBlock.WriteLine();
 					structBlock.WriteLine($"public readonly override bool Equals(object? obj) => (obj is {structSpec.Name} o) && (this == o);");
 					structBlock.WriteLine($"readonly bool IEquatable<{structSpec.Name}>.Equals({structSpec.Name} obj) => (this == obj);");
+					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveOptimization)]");
 					using (var hashBlock = structBlock.PushBlock($"public readonly override int GetHashCode()")) {
-						var field0 = structSpec.Fields[0];
-						string fixStr =
-							(field0.SizeLiteral is not null && field0.IsFixed) ? $"{field0.Name}[0]" :
-							(field0.SizeLiteral is not null && !field0.IsFixed) ? $"{field0.Name}_0" :
-							field0.Name;
-						hashBlock.WriteLine($"fixed ({structSpec.Fields[0].Type}* ptr = &{fixStr}) {{");
-						hashBlock.WriteLine($"\treturn VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<{structSpec.Name}>());");
-						hashBlock.WriteLine("}");
+						var hashList = fieldList.Select(fld => (fld.Item2 ? $"((ulong){fld.Item1})" : fld.Item1) + ".GetHashCode()").ToList();
+						hashBlock.WriteLine("return");
+						for (int hi = 0; hi < fieldList.Count; hi += 4) {
+							hashBlock.WriteLine('\t' + (hi != 0 ? "^ " : "") + String.Join(" ^ ", hashList.Skip(hi).Take(4)));
+						}
+						hashBlock.WriteLine("\t;");
 					}
 
 					// Generate the equality operators
-					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveOptimization)]");
 					using (var eqBlock = structBlock.PushBlock($"public static bool operator == (in {structSpec.Name} l, in {structSpec.Name} r)")) {
-						eqBlock.WriteLine($"fixed ({structSpec.Name}* lp = &l, rp = &r) {{");
-						eqBlock.WriteLine($"\tReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<{structSpec.Name}>());");
-						eqBlock.WriteLine($"\tReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<{structSpec.Name}>());");
-						eqBlock.WriteLine("\treturn lb.SequenceCompareTo(rb) == 0;");
-						eqBlock.WriteLine("}");
+						var eqList = fieldList.Select(fld => $"(l.{fld.Item1} == r.{fld.Item1})").ToList();
+						eqBlock.WriteLine("return");
+						for (int hi = 0; hi < fieldList.Count; hi += 4) {
+							eqBlock.WriteLine('\t' + (hi != 0 ? "&& " : "") + String.Join(" && ", eqList.Skip(hi).Take(4)));
+						}
+						eqBlock.WriteLine("\t;");
 					}
-					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveOptimization)]");
 					using (var neqBlock = structBlock.PushBlock($"public static bool operator != (in {structSpec.Name} l, in {structSpec.Name} r)")) {
-						neqBlock.WriteLine($"fixed ({structSpec.Name}* lp = &l, rp = &r) {{");
-						neqBlock.WriteLine($"\tReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<{structSpec.Name}>());");
-						neqBlock.WriteLine($"\tReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<{structSpec.Name}>());");
-						neqBlock.WriteLine("\treturn lb.SequenceCompareTo(rb) != 0;");
-						neqBlock.WriteLine("}");
+						var neqList = fieldList.Select(fld => $"(l.{fld.Item1} != r.{fld.Item1})").ToList();
+						neqBlock.WriteLine("return");
+						for (int hi = 0; hi < fieldList.Count; hi += 4) {
+							neqBlock.WriteLine('\t' + (hi != 0 ? "|| " : "") + String.Join(" || ", neqList.Skip(hi).Take(4)));
+						}
+						neqBlock.WriteLine("\t;");
 					}
 
 					// Generate the initialization functions for typed structs

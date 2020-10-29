@@ -26,31 +26,28 @@ public unsafe partial struct IOSSurfaceCreateInfo : IEquatable<IOSSurfaceCreateI
 
 	public readonly override bool Equals(object? obj) => (obj is IOSSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<IOSSurfaceCreateInfo>.Equals(IOSSurfaceCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<IOSSurfaceCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ((ulong)View).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in IOSSurfaceCreateInfo l, in IOSSurfaceCreateInfo r)
 	{
-		fixed (IOSSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.View == r.View)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in IOSSurfaceCreateInfo l, in IOSSurfaceCreateInfo r)
 	{
-		fixed (IOSSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<IOSSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.View != r.View)
+			;
 	}
 
 
@@ -74,31 +71,28 @@ public unsafe partial struct MacOSSurfaceCreateInfo : IEquatable<MacOSSurfaceCre
 
 	public readonly override bool Equals(object? obj) => (obj is MacOSSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<MacOSSurfaceCreateInfo>.Equals(MacOSSurfaceCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ((ulong)View).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in MacOSSurfaceCreateInfo l, in MacOSSurfaceCreateInfo r)
 	{
-		fixed (MacOSSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.View == r.View)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in MacOSSurfaceCreateInfo l, in MacOSSurfaceCreateInfo r)
 	{
-		fixed (MacOSSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MacOSSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.View != r.View)
+			;
 	}
 
 

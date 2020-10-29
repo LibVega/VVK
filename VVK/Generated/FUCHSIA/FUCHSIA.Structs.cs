@@ -26,31 +26,28 @@ public unsafe partial struct ImagePipeSurfaceCreateInfo : IEquatable<ImagePipeSu
 
 	public readonly override bool Equals(object? obj) => (obj is ImagePipeSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImagePipeSurfaceCreateInfo>.Equals(ImagePipeSurfaceCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ImagePipeHandle.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImagePipeSurfaceCreateInfo l, in ImagePipeSurfaceCreateInfo r)
 	{
-		fixed (ImagePipeSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.ImagePipeHandle == r.ImagePipeHandle)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImagePipeSurfaceCreateInfo l, in ImagePipeSurfaceCreateInfo r)
 	{
-		fixed (ImagePipeSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImagePipeSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.ImagePipeHandle != r.ImagePipeHandle)
+			;
 	}
 
 

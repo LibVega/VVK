@@ -25,31 +25,28 @@ public unsafe partial struct PhysicalDeviceShaderIntegerFunctions2Features : IEq
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderIntegerFunctions2Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderIntegerFunctions2Features>.Equals(PhysicalDeviceShaderIntegerFunctions2Features obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderIntegerFunctions2Features>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderIntegerFunctions2.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceShaderIntegerFunctions2Features l, in PhysicalDeviceShaderIntegerFunctions2Features r)
 	{
-		fixed (PhysicalDeviceShaderIntegerFunctions2Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderIntegerFunctions2Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderIntegerFunctions2Features>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderIntegerFunctions2 == r.ShaderIntegerFunctions2)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceShaderIntegerFunctions2Features l, in PhysicalDeviceShaderIntegerFunctions2Features r)
 	{
-		fixed (PhysicalDeviceShaderIntegerFunctions2Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderIntegerFunctions2Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderIntegerFunctions2Features>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderIntegerFunctions2 != r.ShaderIntegerFunctions2)
+			;
 	}
 
 
@@ -72,31 +69,31 @@ public unsafe partial struct PerformanceValueData : IEquatable<PerformanceValueD
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceValueData o) && (this == o);
 	readonly bool IEquatable<PerformanceValueData>.Equals(PerformanceValueData obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (uint* ptr = &Value32) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceValueData>());
-		}
+		return
+			Value32.GetHashCode() ^ Value64.GetHashCode() ^ ValueFloat.GetHashCode() ^ ValueBool.GetHashCode()
+			^ ((ulong)ValueString).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PerformanceValueData l, in PerformanceValueData r)
 	{
-		fixed (PerformanceValueData* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceValueData>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceValueData>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.Value32 == r.Value32) && (l.Value64 == r.Value64) && (l.ValueFloat == r.ValueFloat) && (l.ValueBool == r.ValueBool)
+			&& (l.ValueString == r.ValueString)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PerformanceValueData l, in PerformanceValueData r)
 	{
-		fixed (PerformanceValueData* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceValueData>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceValueData>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.Value32 != r.Value32) || (l.Value64 != r.Value64) || (l.ValueFloat != r.ValueFloat) || (l.ValueBool != r.ValueBool)
+			|| (l.ValueString != r.ValueString)
+			;
 	}
 
 }
@@ -109,31 +106,28 @@ public unsafe partial struct PerformanceValue : IEquatable<PerformanceValue>
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceValue o) && (this == o);
 	readonly bool IEquatable<PerformanceValue>.Equals(PerformanceValue obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.INTEL.PerformanceValueType* ptr = &Type) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceValue>());
-		}
+		return
+			Type.GetHashCode() ^ Data.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PerformanceValue l, in PerformanceValue r)
 	{
-		fixed (PerformanceValue* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceValue>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceValue>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.Type == r.Type) && (l.Data == r.Data)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PerformanceValue l, in PerformanceValue r)
 	{
-		fixed (PerformanceValue* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceValue>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceValue>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.Type != r.Type) || (l.Data != r.Data)
+			;
 	}
 
 }
@@ -149,31 +143,28 @@ public unsafe partial struct InitializePerformanceApiInfo : IEquatable<Initializ
 
 	public readonly override bool Equals(object? obj) => (obj is InitializePerformanceApiInfo o) && (this == o);
 	readonly bool IEquatable<InitializePerformanceApiInfo>.Equals(InitializePerformanceApiInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<InitializePerformanceApiInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ((ulong)UserData).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in InitializePerformanceApiInfo l, in InitializePerformanceApiInfo r)
 	{
-		fixed (InitializePerformanceApiInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<InitializePerformanceApiInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<InitializePerformanceApiInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.UserData == r.UserData)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in InitializePerformanceApiInfo l, in InitializePerformanceApiInfo r)
 	{
-		fixed (InitializePerformanceApiInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<InitializePerformanceApiInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<InitializePerformanceApiInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.UserData != r.UserData)
+			;
 	}
 
 
@@ -196,31 +187,28 @@ public unsafe partial struct QueryPoolPerformanceQueryCreateInfo : IEquatable<Qu
 
 	public readonly override bool Equals(object? obj) => (obj is QueryPoolPerformanceQueryCreateInfo o) && (this == o);
 	readonly bool IEquatable<QueryPoolPerformanceQueryCreateInfo>.Equals(QueryPoolPerformanceQueryCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<QueryPoolPerformanceQueryCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PerformanceCountersSampling.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in QueryPoolPerformanceQueryCreateInfo l, in QueryPoolPerformanceQueryCreateInfo r)
 	{
-		fixed (QueryPoolPerformanceQueryCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueryPoolPerformanceQueryCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueryPoolPerformanceQueryCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PerformanceCountersSampling == r.PerformanceCountersSampling)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in QueryPoolPerformanceQueryCreateInfo l, in QueryPoolPerformanceQueryCreateInfo r)
 	{
-		fixed (QueryPoolPerformanceQueryCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueryPoolPerformanceQueryCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueryPoolPerformanceQueryCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PerformanceCountersSampling != r.PerformanceCountersSampling)
+			;
 	}
 
 
@@ -243,31 +231,28 @@ public unsafe partial struct QueryPoolCreateInfo : IEquatable<QueryPoolCreateInf
 
 	public readonly override bool Equals(object? obj) => (obj is QueryPoolCreateInfo o) && (this == o);
 	readonly bool IEquatable<QueryPoolCreateInfo>.Equals(QueryPoolCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<QueryPoolCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PerformanceCountersSampling.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in QueryPoolCreateInfo l, in QueryPoolCreateInfo r)
 	{
-		fixed (QueryPoolCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueryPoolCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueryPoolCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PerformanceCountersSampling == r.PerformanceCountersSampling)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in QueryPoolCreateInfo l, in QueryPoolCreateInfo r)
 	{
-		fixed (QueryPoolCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<QueryPoolCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<QueryPoolCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PerformanceCountersSampling != r.PerformanceCountersSampling)
+			;
 	}
 
 
@@ -290,31 +275,28 @@ public unsafe partial struct PerformanceMarkerInfo : IEquatable<PerformanceMarke
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceMarkerInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceMarkerInfo>.Equals(PerformanceMarkerInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceMarkerInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Marker.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PerformanceMarkerInfo l, in PerformanceMarkerInfo r)
 	{
-		fixed (PerformanceMarkerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceMarkerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceMarkerInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Marker == r.Marker)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PerformanceMarkerInfo l, in PerformanceMarkerInfo r)
 	{
-		fixed (PerformanceMarkerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceMarkerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceMarkerInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Marker != r.Marker)
+			;
 	}
 
 
@@ -337,31 +319,28 @@ public unsafe partial struct PerformanceStreamMarkerInfo : IEquatable<Performanc
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceStreamMarkerInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceStreamMarkerInfo>.Equals(PerformanceStreamMarkerInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceStreamMarkerInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Marker.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PerformanceStreamMarkerInfo l, in PerformanceStreamMarkerInfo r)
 	{
-		fixed (PerformanceStreamMarkerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceStreamMarkerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceStreamMarkerInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Marker == r.Marker)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PerformanceStreamMarkerInfo l, in PerformanceStreamMarkerInfo r)
 	{
-		fixed (PerformanceStreamMarkerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceStreamMarkerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceStreamMarkerInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Marker != r.Marker)
+			;
 	}
 
 
@@ -386,31 +365,31 @@ public unsafe partial struct PerformanceOverrideInfo : IEquatable<PerformanceOve
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceOverrideInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceOverrideInfo>.Equals(PerformanceOverrideInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceOverrideInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Type.GetHashCode() ^ Enable.GetHashCode()
+			^ Parameter.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PerformanceOverrideInfo l, in PerformanceOverrideInfo r)
 	{
-		fixed (PerformanceOverrideInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceOverrideInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceOverrideInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Type == r.Type) && (l.Enable == r.Enable)
+			&& (l.Parameter == r.Parameter)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PerformanceOverrideInfo l, in PerformanceOverrideInfo r)
 	{
-		fixed (PerformanceOverrideInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceOverrideInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceOverrideInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Type != r.Type) || (l.Enable != r.Enable)
+			|| (l.Parameter != r.Parameter)
+			;
 	}
 
 
@@ -433,31 +412,28 @@ public unsafe partial struct PerformanceConfigurationAcquireInfo : IEquatable<Pe
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceConfigurationAcquireInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceConfigurationAcquireInfo>.Equals(PerformanceConfigurationAcquireInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PerformanceConfigurationAcquireInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Type.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PerformanceConfigurationAcquireInfo l, in PerformanceConfigurationAcquireInfo r)
 	{
-		fixed (PerformanceConfigurationAcquireInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceConfigurationAcquireInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceConfigurationAcquireInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Type == r.Type)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PerformanceConfigurationAcquireInfo l, in PerformanceConfigurationAcquireInfo r)
 	{
-		fixed (PerformanceConfigurationAcquireInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PerformanceConfigurationAcquireInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PerformanceConfigurationAcquireInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Type != r.Type)
+			;
 	}
 
 

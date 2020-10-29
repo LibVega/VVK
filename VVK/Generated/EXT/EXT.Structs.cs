@@ -27,31 +27,31 @@ public unsafe partial struct DirectFBSurfaceCreateInfo : IEquatable<DirectFBSurf
 
 	public readonly override bool Equals(object? obj) => (obj is DirectFBSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<DirectFBSurfaceCreateInfo>.Equals(DirectFBSurfaceCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DirectFBSurfaceCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ((ulong)Dfb).GetHashCode()
+			^ ((ulong)Surface).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DirectFBSurfaceCreateInfo l, in DirectFBSurfaceCreateInfo r)
 	{
-		fixed (DirectFBSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DirectFBSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DirectFBSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.Dfb == r.Dfb)
+			&& (l.Surface == r.Surface)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DirectFBSurfaceCreateInfo l, in DirectFBSurfaceCreateInfo r)
 	{
-		fixed (DirectFBSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DirectFBSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DirectFBSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.Dfb != r.Dfb)
+			|| (l.Surface != r.Surface)
+			;
 	}
 
 
@@ -76,31 +76,31 @@ public unsafe partial struct DebugReportCallbackCreateInfo : IEquatable<DebugRep
 
 	public readonly override bool Equals(object? obj) => (obj is DebugReportCallbackCreateInfo o) && (this == o);
 	readonly bool IEquatable<DebugReportCallbackCreateInfo>.Equals(DebugReportCallbackCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugReportCallbackCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ((ulong)Callback).GetHashCode()
+			^ ((ulong)UserData).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugReportCallbackCreateInfo l, in DebugReportCallbackCreateInfo r)
 	{
-		fixed (DebugReportCallbackCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugReportCallbackCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugReportCallbackCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.Callback == r.Callback)
+			&& (l.UserData == r.UserData)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugReportCallbackCreateInfo l, in DebugReportCallbackCreateInfo r)
 	{
-		fixed (DebugReportCallbackCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugReportCallbackCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugReportCallbackCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.Callback != r.Callback)
+			|| (l.UserData != r.UserData)
+			;
 	}
 
 
@@ -124,31 +124,28 @@ public unsafe partial struct ValidationFlags : IEquatable<ValidationFlags>
 
 	public readonly override bool Equals(object? obj) => (obj is ValidationFlags o) && (this == o);
 	readonly bool IEquatable<ValidationFlags>.Equals(ValidationFlags obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ValidationFlags>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DisabledValidationCheckCount.GetHashCode() ^ ((ulong)DisabledValidationChecks).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ValidationFlags l, in ValidationFlags r)
 	{
-		fixed (ValidationFlags* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ValidationFlags>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ValidationFlags>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DisabledValidationCheckCount == r.DisabledValidationCheckCount) && (l.DisabledValidationChecks == r.DisabledValidationChecks)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ValidationFlags l, in ValidationFlags r)
 	{
-		fixed (ValidationFlags* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ValidationFlags>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ValidationFlags>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DisabledValidationCheckCount != r.DisabledValidationCheckCount) || (l.DisabledValidationChecks != r.DisabledValidationChecks)
+			;
 	}
 
 
@@ -174,31 +171,31 @@ public unsafe partial struct ValidationFeatures : IEquatable<ValidationFeatures>
 
 	public readonly override bool Equals(object? obj) => (obj is ValidationFeatures o) && (this == o);
 	readonly bool IEquatable<ValidationFeatures>.Equals(ValidationFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ValidationFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ EnabledValidationFeatureCount.GetHashCode() ^ ((ulong)EnabledValidationFeatures).GetHashCode()
+			^ DisabledValidationFeatureCount.GetHashCode() ^ ((ulong)DisabledValidationFeatures).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ValidationFeatures l, in ValidationFeatures r)
 	{
-		fixed (ValidationFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ValidationFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ValidationFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.EnabledValidationFeatureCount == r.EnabledValidationFeatureCount) && (l.EnabledValidationFeatures == r.EnabledValidationFeatures)
+			&& (l.DisabledValidationFeatureCount == r.DisabledValidationFeatureCount) && (l.DisabledValidationFeatures == r.DisabledValidationFeatures)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ValidationFeatures l, in ValidationFeatures r)
 	{
-		fixed (ValidationFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ValidationFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ValidationFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.EnabledValidationFeatureCount != r.EnabledValidationFeatureCount) || (l.EnabledValidationFeatures != r.EnabledValidationFeatures)
+			|| (l.DisabledValidationFeatureCount != r.DisabledValidationFeatureCount) || (l.DisabledValidationFeatures != r.DisabledValidationFeatures)
+			;
 	}
 
 
@@ -223,31 +220,31 @@ public unsafe partial struct DebugMarkerObjectNameInfo : IEquatable<DebugMarkerO
 
 	public readonly override bool Equals(object? obj) => (obj is DebugMarkerObjectNameInfo o) && (this == o);
 	readonly bool IEquatable<DebugMarkerObjectNameInfo>.Equals(DebugMarkerObjectNameInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugMarkerObjectNameInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ObjectType.GetHashCode() ^ Object.GetHashCode()
+			^ ((ulong)ObjectName).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugMarkerObjectNameInfo l, in DebugMarkerObjectNameInfo r)
 	{
-		fixed (DebugMarkerObjectNameInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugMarkerObjectNameInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugMarkerObjectNameInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ObjectType == r.ObjectType) && (l.Object == r.Object)
+			&& (l.ObjectName == r.ObjectName)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugMarkerObjectNameInfo l, in DebugMarkerObjectNameInfo r)
 	{
-		fixed (DebugMarkerObjectNameInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugMarkerObjectNameInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugMarkerObjectNameInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ObjectType != r.ObjectType) || (l.Object != r.Object)
+			|| (l.ObjectName != r.ObjectName)
+			;
 	}
 
 
@@ -274,31 +271,31 @@ public unsafe partial struct DebugMarkerObjectTagInfo : IEquatable<DebugMarkerOb
 
 	public readonly override bool Equals(object? obj) => (obj is DebugMarkerObjectTagInfo o) && (this == o);
 	readonly bool IEquatable<DebugMarkerObjectTagInfo>.Equals(DebugMarkerObjectTagInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugMarkerObjectTagInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ObjectType.GetHashCode() ^ Object.GetHashCode()
+			^ TagName.GetHashCode() ^ TagSize.GetHashCode() ^ ((ulong)Tag).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugMarkerObjectTagInfo l, in DebugMarkerObjectTagInfo r)
 	{
-		fixed (DebugMarkerObjectTagInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugMarkerObjectTagInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugMarkerObjectTagInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ObjectType == r.ObjectType) && (l.Object == r.Object)
+			&& (l.TagName == r.TagName) && (l.TagSize == r.TagSize) && (l.Tag == r.Tag)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugMarkerObjectTagInfo l, in DebugMarkerObjectTagInfo r)
 	{
-		fixed (DebugMarkerObjectTagInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugMarkerObjectTagInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugMarkerObjectTagInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ObjectType != r.ObjectType) || (l.Object != r.Object)
+			|| (l.TagName != r.TagName) || (l.TagSize != r.TagSize) || (l.Tag != r.Tag)
+			;
 	}
 
 
@@ -322,31 +319,31 @@ public unsafe partial struct DebugMarkerMarkerInfo : IEquatable<DebugMarkerMarke
 
 	public readonly override bool Equals(object? obj) => (obj is DebugMarkerMarkerInfo o) && (this == o);
 	readonly bool IEquatable<DebugMarkerMarkerInfo>.Equals(DebugMarkerMarkerInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugMarkerMarkerInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ((ulong)MarkerName).GetHashCode() ^ Color[0].GetHashCode()
+			^ Color[1].GetHashCode() ^ Color[2].GetHashCode() ^ Color[3].GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugMarkerMarkerInfo l, in DebugMarkerMarkerInfo r)
 	{
-		fixed (DebugMarkerMarkerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugMarkerMarkerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugMarkerMarkerInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MarkerName == r.MarkerName) && (l.Color[0] == r.Color[0])
+			&& (l.Color[1] == r.Color[1]) && (l.Color[2] == r.Color[2]) && (l.Color[3] == r.Color[3])
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugMarkerMarkerInfo l, in DebugMarkerMarkerInfo r)
 	{
-		fixed (DebugMarkerMarkerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugMarkerMarkerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugMarkerMarkerInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MarkerName != r.MarkerName) || (l.Color[0] != r.Color[0])
+			|| (l.Color[1] != r.Color[1]) || (l.Color[2] != r.Color[2]) || (l.Color[3] != r.Color[3])
+			;
 	}
 
 
@@ -369,31 +366,28 @@ public unsafe partial struct DevicePrivateDataCreateInfo : IEquatable<DevicePriv
 
 	public readonly override bool Equals(object? obj) => (obj is DevicePrivateDataCreateInfo o) && (this == o);
 	readonly bool IEquatable<DevicePrivateDataCreateInfo>.Equals(DevicePrivateDataCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DevicePrivateDataCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PrivateDataSlotRequestCount.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DevicePrivateDataCreateInfo l, in DevicePrivateDataCreateInfo r)
 	{
-		fixed (DevicePrivateDataCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DevicePrivateDataCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DevicePrivateDataCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PrivateDataSlotRequestCount == r.PrivateDataSlotRequestCount)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DevicePrivateDataCreateInfo l, in DevicePrivateDataCreateInfo r)
 	{
-		fixed (DevicePrivateDataCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DevicePrivateDataCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DevicePrivateDataCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PrivateDataSlotRequestCount != r.PrivateDataSlotRequestCount)
+			;
 	}
 
 
@@ -416,31 +410,28 @@ public unsafe partial struct PrivateDataSlotCreateInfo : IEquatable<PrivateDataS
 
 	public readonly override bool Equals(object? obj) => (obj is PrivateDataSlotCreateInfo o) && (this == o);
 	readonly bool IEquatable<PrivateDataSlotCreateInfo>.Equals(PrivateDataSlotCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PrivateDataSlotCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PrivateDataSlotCreateInfo l, in PrivateDataSlotCreateInfo r)
 	{
-		fixed (PrivateDataSlotCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PrivateDataSlotCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PrivateDataSlotCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PrivateDataSlotCreateInfo l, in PrivateDataSlotCreateInfo r)
 	{
-		fixed (PrivateDataSlotCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PrivateDataSlotCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PrivateDataSlotCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags)
+			;
 	}
 
 
@@ -463,31 +454,28 @@ public unsafe partial struct PhysicalDevicePrivateDataFeatures : IEquatable<Phys
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePrivateDataFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDevicePrivateDataFeatures>.Equals(PhysicalDevicePrivateDataFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePrivateDataFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PrivateData.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDevicePrivateDataFeatures l, in PhysicalDevicePrivateDataFeatures r)
 	{
-		fixed (PhysicalDevicePrivateDataFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePrivateDataFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePrivateDataFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PrivateData == r.PrivateData)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDevicePrivateDataFeatures l, in PhysicalDevicePrivateDataFeatures r)
 	{
-		fixed (PhysicalDevicePrivateDataFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePrivateDataFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePrivateDataFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PrivateData != r.PrivateData)
+			;
 	}
 
 
@@ -520,31 +508,37 @@ public unsafe partial struct SurfaceCapabilities2 : IEquatable<SurfaceCapabiliti
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceCapabilities2 o) && (this == o);
 	readonly bool IEquatable<SurfaceCapabilities2>.Equals(SurfaceCapabilities2 obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceCapabilities2>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MinImageCount.GetHashCode() ^ MaxImageCount.GetHashCode()
+			^ CurrentExtent.GetHashCode() ^ MinImageExtent.GetHashCode() ^ MaxImageExtent.GetHashCode() ^ MaxImageArrayLayers.GetHashCode()
+			^ SupportedTransforms.GetHashCode() ^ CurrentTransform.GetHashCode() ^ SupportedCompositeAlpha.GetHashCode() ^ SupportedUsageFlags.GetHashCode()
+			^ SupportedSurfaceCounters.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SurfaceCapabilities2 l, in SurfaceCapabilities2 r)
 	{
-		fixed (SurfaceCapabilities2* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilities2>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilities2>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MinImageCount == r.MinImageCount) && (l.MaxImageCount == r.MaxImageCount)
+			&& (l.CurrentExtent == r.CurrentExtent) && (l.MinImageExtent == r.MinImageExtent) && (l.MaxImageExtent == r.MaxImageExtent) && (l.MaxImageArrayLayers == r.MaxImageArrayLayers)
+			&& (l.SupportedTransforms == r.SupportedTransforms) && (l.CurrentTransform == r.CurrentTransform) && (l.SupportedCompositeAlpha == r.SupportedCompositeAlpha) && (l.SupportedUsageFlags == r.SupportedUsageFlags)
+			&& (l.SupportedSurfaceCounters == r.SupportedSurfaceCounters)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SurfaceCapabilities2 l, in SurfaceCapabilities2 r)
 	{
-		fixed (SurfaceCapabilities2* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilities2>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilities2>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MinImageCount != r.MinImageCount) || (l.MaxImageCount != r.MaxImageCount)
+			|| (l.CurrentExtent != r.CurrentExtent) || (l.MinImageExtent != r.MinImageExtent) || (l.MaxImageExtent != r.MaxImageExtent) || (l.MaxImageArrayLayers != r.MaxImageArrayLayers)
+			|| (l.SupportedTransforms != r.SupportedTransforms) || (l.CurrentTransform != r.CurrentTransform) || (l.SupportedCompositeAlpha != r.SupportedCompositeAlpha) || (l.SupportedUsageFlags != r.SupportedUsageFlags)
+			|| (l.SupportedSurfaceCounters != r.SupportedSurfaceCounters)
+			;
 	}
 
 
@@ -567,31 +561,28 @@ public unsafe partial struct DisplayPowerInfo : IEquatable<DisplayPowerInfo>
 
 	public readonly override bool Equals(object? obj) => (obj is DisplayPowerInfo o) && (this == o);
 	readonly bool IEquatable<DisplayPowerInfo>.Equals(DisplayPowerInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayPowerInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PowerState.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DisplayPowerInfo l, in DisplayPowerInfo r)
 	{
-		fixed (DisplayPowerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPowerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPowerInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PowerState == r.PowerState)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DisplayPowerInfo l, in DisplayPowerInfo r)
 	{
-		fixed (DisplayPowerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayPowerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayPowerInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PowerState != r.PowerState)
+			;
 	}
 
 
@@ -614,31 +605,28 @@ public unsafe partial struct DeviceEventInfo : IEquatable<DeviceEventInfo>
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceEventInfo o) && (this == o);
 	readonly bool IEquatable<DeviceEventInfo>.Equals(DeviceEventInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceEventInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DeviceEvent.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DeviceEventInfo l, in DeviceEventInfo r)
 	{
-		fixed (DeviceEventInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceEventInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceEventInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DeviceEvent == r.DeviceEvent)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DeviceEventInfo l, in DeviceEventInfo r)
 	{
-		fixed (DeviceEventInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceEventInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceEventInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DeviceEvent != r.DeviceEvent)
+			;
 	}
 
 
@@ -661,31 +649,28 @@ public unsafe partial struct DisplayEventInfo : IEquatable<DisplayEventInfo>
 
 	public readonly override bool Equals(object? obj) => (obj is DisplayEventInfo o) && (this == o);
 	readonly bool IEquatable<DisplayEventInfo>.Equals(DisplayEventInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DisplayEventInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DisplayEvent.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DisplayEventInfo l, in DisplayEventInfo r)
 	{
-		fixed (DisplayEventInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayEventInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayEventInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DisplayEvent == r.DisplayEvent)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DisplayEventInfo l, in DisplayEventInfo r)
 	{
-		fixed (DisplayEventInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DisplayEventInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DisplayEventInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DisplayEvent != r.DisplayEvent)
+			;
 	}
 
 
@@ -708,31 +693,28 @@ public unsafe partial struct SwapchainCounterCreateInfo : IEquatable<SwapchainCo
 
 	public readonly override bool Equals(object? obj) => (obj is SwapchainCounterCreateInfo o) && (this == o);
 	readonly bool IEquatable<SwapchainCounterCreateInfo>.Equals(SwapchainCounterCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SwapchainCounterCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SurfaceCounters.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SwapchainCounterCreateInfo l, in SwapchainCounterCreateInfo r)
 	{
-		fixed (SwapchainCounterCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SwapchainCounterCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SwapchainCounterCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SurfaceCounters == r.SurfaceCounters)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SwapchainCounterCreateInfo l, in SwapchainCounterCreateInfo r)
 	{
-		fixed (SwapchainCounterCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SwapchainCounterCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SwapchainCounterCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SurfaceCounters != r.SurfaceCounters)
+			;
 	}
 
 
@@ -752,31 +734,28 @@ public unsafe partial struct XYColor : IEquatable<XYColor>
 
 	public readonly override bool Equals(object? obj) => (obj is XYColor o) && (this == o);
 	readonly bool IEquatable<XYColor>.Equals(XYColor obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (float* ptr = &X) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<XYColor>());
-		}
+		return
+			X.GetHashCode() ^ Y.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in XYColor l, in XYColor r)
 	{
-		fixed (XYColor* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<XYColor>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<XYColor>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.X == r.X) && (l.Y == r.Y)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in XYColor l, in XYColor r)
 	{
-		fixed (XYColor* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<XYColor>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<XYColor>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.X != r.X) || (l.Y != r.Y)
+			;
 	}
 
 }
@@ -799,31 +778,34 @@ public unsafe partial struct HdrMetadata : IEquatable<HdrMetadata>
 
 	public readonly override bool Equals(object? obj) => (obj is HdrMetadata o) && (this == o);
 	readonly bool IEquatable<HdrMetadata>.Equals(HdrMetadata obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<HdrMetadata>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DisplayPrimaryRed.GetHashCode() ^ DisplayPrimaryGreen.GetHashCode()
+			^ DisplayPrimaryBlue.GetHashCode() ^ WhitePoint.GetHashCode() ^ MaxLuminance.GetHashCode() ^ MinLuminance.GetHashCode()
+			^ MaxContentLightLevel.GetHashCode() ^ MaxFrameAverageLightLevel.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in HdrMetadata l, in HdrMetadata r)
 	{
-		fixed (HdrMetadata* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<HdrMetadata>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<HdrMetadata>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DisplayPrimaryRed == r.DisplayPrimaryRed) && (l.DisplayPrimaryGreen == r.DisplayPrimaryGreen)
+			&& (l.DisplayPrimaryBlue == r.DisplayPrimaryBlue) && (l.WhitePoint == r.WhitePoint) && (l.MaxLuminance == r.MaxLuminance) && (l.MinLuminance == r.MinLuminance)
+			&& (l.MaxContentLightLevel == r.MaxContentLightLevel) && (l.MaxFrameAverageLightLevel == r.MaxFrameAverageLightLevel)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in HdrMetadata l, in HdrMetadata r)
 	{
-		fixed (HdrMetadata* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<HdrMetadata>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<HdrMetadata>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DisplayPrimaryRed != r.DisplayPrimaryRed) || (l.DisplayPrimaryGreen != r.DisplayPrimaryGreen)
+			|| (l.DisplayPrimaryBlue != r.DisplayPrimaryBlue) || (l.WhitePoint != r.WhitePoint) || (l.MaxLuminance != r.MaxLuminance) || (l.MinLuminance != r.MinLuminance)
+			|| (l.MaxContentLightLevel != r.MaxContentLightLevel) || (l.MaxFrameAverageLightLevel != r.MaxFrameAverageLightLevel)
+			;
 	}
 
 
@@ -847,31 +829,28 @@ public unsafe partial struct MetalSurfaceCreateInfo : IEquatable<MetalSurfaceCre
 
 	public readonly override bool Equals(object? obj) => (obj is MetalSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<MetalSurfaceCreateInfo>.Equals(MetalSurfaceCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MetalSurfaceCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ((ulong)Layer).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in MetalSurfaceCreateInfo l, in MetalSurfaceCreateInfo r)
 	{
-		fixed (MetalSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MetalSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MetalSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.Layer == r.Layer)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in MetalSurfaceCreateInfo l, in MetalSurfaceCreateInfo r)
 	{
-		fixed (MetalSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MetalSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MetalSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.Layer != r.Layer)
+			;
 	}
 
 
@@ -894,31 +873,28 @@ public unsafe partial struct PhysicalDeviceDiscardRectangleProperties : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDiscardRectangleProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDiscardRectangleProperties>.Equals(PhysicalDeviceDiscardRectangleProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceDiscardRectangleProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxDiscardRectangles.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceDiscardRectangleProperties l, in PhysicalDeviceDiscardRectangleProperties r)
 	{
-		fixed (PhysicalDeviceDiscardRectangleProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDiscardRectangleProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDiscardRectangleProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxDiscardRectangles == r.MaxDiscardRectangles)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceDiscardRectangleProperties l, in PhysicalDeviceDiscardRectangleProperties r)
 	{
-		fixed (PhysicalDeviceDiscardRectangleProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDiscardRectangleProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDiscardRectangleProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxDiscardRectangles != r.MaxDiscardRectangles)
+			;
 	}
 
 
@@ -944,31 +920,31 @@ public unsafe partial struct PipelineDiscardRectangleStateCreateInfo : IEquatabl
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineDiscardRectangleStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineDiscardRectangleStateCreateInfo>.Equals(PipelineDiscardRectangleStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineDiscardRectangleStateCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ DiscardRectangleMode.GetHashCode()
+			^ DiscardRectangleCount.GetHashCode() ^ ((ulong)DiscardRectangles).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineDiscardRectangleStateCreateInfo l, in PipelineDiscardRectangleStateCreateInfo r)
 	{
-		fixed (PipelineDiscardRectangleStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineDiscardRectangleStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineDiscardRectangleStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.DiscardRectangleMode == r.DiscardRectangleMode)
+			&& (l.DiscardRectangleCount == r.DiscardRectangleCount) && (l.DiscardRectangles == r.DiscardRectangles)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineDiscardRectangleStateCreateInfo l, in PipelineDiscardRectangleStateCreateInfo r)
 	{
-		fixed (PipelineDiscardRectangleStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineDiscardRectangleStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineDiscardRectangleStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.DiscardRectangleMode != r.DiscardRectangleMode)
+			|| (l.DiscardRectangleCount != r.DiscardRectangleCount) || (l.DiscardRectangles != r.DiscardRectangles)
+			;
 	}
 
 
@@ -993,31 +969,31 @@ public unsafe partial struct ConditionalRenderingBeginInfo : IEquatable<Conditio
 
 	public readonly override bool Equals(object? obj) => (obj is ConditionalRenderingBeginInfo o) && (this == o);
 	readonly bool IEquatable<ConditionalRenderingBeginInfo>.Equals(ConditionalRenderingBeginInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ConditionalRenderingBeginInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Buffer.GetHashCode() ^ Offset.GetHashCode()
+			^ Flags.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ConditionalRenderingBeginInfo l, in ConditionalRenderingBeginInfo r)
 	{
-		fixed (ConditionalRenderingBeginInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ConditionalRenderingBeginInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ConditionalRenderingBeginInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Buffer == r.Buffer) && (l.Offset == r.Offset)
+			&& (l.Flags == r.Flags)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ConditionalRenderingBeginInfo l, in ConditionalRenderingBeginInfo r)
 	{
-		fixed (ConditionalRenderingBeginInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ConditionalRenderingBeginInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ConditionalRenderingBeginInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Buffer != r.Buffer) || (l.Offset != r.Offset)
+			|| (l.Flags != r.Flags)
+			;
 	}
 
 
@@ -1041,31 +1017,28 @@ public unsafe partial struct PhysicalDeviceSamplerFilterMinmaxProperties : IEqua
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSamplerFilterMinmaxProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSamplerFilterMinmaxProperties>.Equals(PhysicalDeviceSamplerFilterMinmaxProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSamplerFilterMinmaxProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FilterMinmaxSingleComponentFormats.GetHashCode() ^ FilterMinmaxImageComponentMapping.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceSamplerFilterMinmaxProperties l, in PhysicalDeviceSamplerFilterMinmaxProperties r)
 	{
-		fixed (PhysicalDeviceSamplerFilterMinmaxProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSamplerFilterMinmaxProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSamplerFilterMinmaxProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FilterMinmaxSingleComponentFormats == r.FilterMinmaxSingleComponentFormats) && (l.FilterMinmaxImageComponentMapping == r.FilterMinmaxImageComponentMapping)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceSamplerFilterMinmaxProperties l, in PhysicalDeviceSamplerFilterMinmaxProperties r)
 	{
-		fixed (PhysicalDeviceSamplerFilterMinmaxProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSamplerFilterMinmaxProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSamplerFilterMinmaxProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FilterMinmaxSingleComponentFormats != r.FilterMinmaxSingleComponentFormats) || (l.FilterMinmaxImageComponentMapping != r.FilterMinmaxImageComponentMapping)
+			;
 	}
 
 
@@ -1085,31 +1058,28 @@ public unsafe partial struct SampleLocation : IEquatable<SampleLocation>
 
 	public readonly override bool Equals(object? obj) => (obj is SampleLocation o) && (this == o);
 	readonly bool IEquatable<SampleLocation>.Equals(SampleLocation obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (float* ptr = &X) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SampleLocation>());
-		}
+		return
+			X.GetHashCode() ^ Y.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SampleLocation l, in SampleLocation r)
 	{
-		fixed (SampleLocation* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SampleLocation>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SampleLocation>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.X == r.X) && (l.Y == r.Y)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SampleLocation l, in SampleLocation r)
 	{
-		fixed (SampleLocation* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SampleLocation>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SampleLocation>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.X != r.X) || (l.Y != r.Y)
+			;
 	}
 
 }
@@ -1128,31 +1098,31 @@ public unsafe partial struct SampleLocationsInfo : IEquatable<SampleLocationsInf
 
 	public readonly override bool Equals(object? obj) => (obj is SampleLocationsInfo o) && (this == o);
 	readonly bool IEquatable<SampleLocationsInfo>.Equals(SampleLocationsInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SampleLocationsInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SampleLocationsPerPixel.GetHashCode() ^ SampleLocationGridSize.GetHashCode()
+			^ SampleLocationsCount.GetHashCode() ^ ((ulong)SampleLocations).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SampleLocationsInfo l, in SampleLocationsInfo r)
 	{
-		fixed (SampleLocationsInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SampleLocationsInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SampleLocationsInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SampleLocationsPerPixel == r.SampleLocationsPerPixel) && (l.SampleLocationGridSize == r.SampleLocationGridSize)
+			&& (l.SampleLocationsCount == r.SampleLocationsCount) && (l.SampleLocations == r.SampleLocations)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SampleLocationsInfo l, in SampleLocationsInfo r)
 	{
-		fixed (SampleLocationsInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SampleLocationsInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SampleLocationsInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SampleLocationsPerPixel != r.SampleLocationsPerPixel) || (l.SampleLocationGridSize != r.SampleLocationGridSize)
+			|| (l.SampleLocationsCount != r.SampleLocationsCount) || (l.SampleLocations != r.SampleLocations)
+			;
 	}
 
 
@@ -1172,31 +1142,28 @@ public unsafe partial struct AttachmentSampleLocations : IEquatable<AttachmentSa
 
 	public readonly override bool Equals(object? obj) => (obj is AttachmentSampleLocations o) && (this == o);
 	readonly bool IEquatable<AttachmentSampleLocations>.Equals(AttachmentSampleLocations obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (uint* ptr = &AttachmentIndex) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<AttachmentSampleLocations>());
-		}
+		return
+			AttachmentIndex.GetHashCode() ^ SampleLocationsInfo.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in AttachmentSampleLocations l, in AttachmentSampleLocations r)
 	{
-		fixed (AttachmentSampleLocations* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentSampleLocations>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentSampleLocations>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.AttachmentIndex == r.AttachmentIndex) && (l.SampleLocationsInfo == r.SampleLocationsInfo)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in AttachmentSampleLocations l, in AttachmentSampleLocations r)
 	{
-		fixed (AttachmentSampleLocations* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<AttachmentSampleLocations>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<AttachmentSampleLocations>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.AttachmentIndex != r.AttachmentIndex) || (l.SampleLocationsInfo != r.SampleLocationsInfo)
+			;
 	}
 
 }
@@ -1209,31 +1176,28 @@ public unsafe partial struct SubpassSampleLocations : IEquatable<SubpassSampleLo
 
 	public readonly override bool Equals(object? obj) => (obj is SubpassSampleLocations o) && (this == o);
 	readonly bool IEquatable<SubpassSampleLocations>.Equals(SubpassSampleLocations obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (uint* ptr = &SubpassIndex) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SubpassSampleLocations>());
-		}
+		return
+			SubpassIndex.GetHashCode() ^ SampleLocationsInfo.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SubpassSampleLocations l, in SubpassSampleLocations r)
 	{
-		fixed (SubpassSampleLocations* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassSampleLocations>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassSampleLocations>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.SubpassIndex == r.SubpassIndex) && (l.SampleLocationsInfo == r.SampleLocationsInfo)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SubpassSampleLocations l, in SubpassSampleLocations r)
 	{
-		fixed (SubpassSampleLocations* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SubpassSampleLocations>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SubpassSampleLocations>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.SubpassIndex != r.SubpassIndex) || (l.SampleLocationsInfo != r.SampleLocationsInfo)
+			;
 	}
 
 }
@@ -1252,31 +1216,31 @@ public unsafe partial struct RenderPassSampleLocationsBeginInfo : IEquatable<Ren
 
 	public readonly override bool Equals(object? obj) => (obj is RenderPassSampleLocationsBeginInfo o) && (this == o);
 	readonly bool IEquatable<RenderPassSampleLocationsBeginInfo>.Equals(RenderPassSampleLocationsBeginInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RenderPassSampleLocationsBeginInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AttachmentInitialSampleLocationsCount.GetHashCode() ^ ((ulong)AttachmentInitialSampleLocations).GetHashCode()
+			^ PostSubpassSampleLocationsCount.GetHashCode() ^ ((ulong)PostSubpassSampleLocations).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in RenderPassSampleLocationsBeginInfo l, in RenderPassSampleLocationsBeginInfo r)
 	{
-		fixed (RenderPassSampleLocationsBeginInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassSampleLocationsBeginInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassSampleLocationsBeginInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AttachmentInitialSampleLocationsCount == r.AttachmentInitialSampleLocationsCount) && (l.AttachmentInitialSampleLocations == r.AttachmentInitialSampleLocations)
+			&& (l.PostSubpassSampleLocationsCount == r.PostSubpassSampleLocationsCount) && (l.PostSubpassSampleLocations == r.PostSubpassSampleLocations)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in RenderPassSampleLocationsBeginInfo l, in RenderPassSampleLocationsBeginInfo r)
 	{
-		fixed (RenderPassSampleLocationsBeginInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassSampleLocationsBeginInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassSampleLocationsBeginInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AttachmentInitialSampleLocationsCount != r.AttachmentInitialSampleLocationsCount) || (l.AttachmentInitialSampleLocations != r.AttachmentInitialSampleLocations)
+			|| (l.PostSubpassSampleLocationsCount != r.PostSubpassSampleLocationsCount) || (l.PostSubpassSampleLocations != r.PostSubpassSampleLocations)
+			;
 	}
 
 
@@ -1300,31 +1264,28 @@ public unsafe partial struct PipelineSampleLocationsStateCreateInfo : IEquatable
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineSampleLocationsStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineSampleLocationsStateCreateInfo>.Equals(PipelineSampleLocationsStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineSampleLocationsStateCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SampleLocationsEnable.GetHashCode() ^ SampleLocationsInfo.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineSampleLocationsStateCreateInfo l, in PipelineSampleLocationsStateCreateInfo r)
 	{
-		fixed (PipelineSampleLocationsStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineSampleLocationsStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineSampleLocationsStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SampleLocationsEnable == r.SampleLocationsEnable) && (l.SampleLocationsInfo == r.SampleLocationsInfo)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineSampleLocationsStateCreateInfo l, in PipelineSampleLocationsStateCreateInfo r)
 	{
-		fixed (PipelineSampleLocationsStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineSampleLocationsStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineSampleLocationsStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SampleLocationsEnable != r.SampleLocationsEnable) || (l.SampleLocationsInfo != r.SampleLocationsInfo)
+			;
 	}
 
 
@@ -1351,31 +1312,31 @@ public unsafe partial struct PhysicalDeviceSampleLocationsProperties : IEquatabl
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSampleLocationsProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSampleLocationsProperties>.Equals(PhysicalDeviceSampleLocationsProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSampleLocationsProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SampleLocationSampleCounts.GetHashCode() ^ MaxSampleLocationGridSize.GetHashCode()
+			^ SampleLocationCoordinateRange[0].GetHashCode() ^ SampleLocationCoordinateRange[1].GetHashCode() ^ SampleLocationSubPixelBits.GetHashCode() ^ VariableSampleLocations.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceSampleLocationsProperties l, in PhysicalDeviceSampleLocationsProperties r)
 	{
-		fixed (PhysicalDeviceSampleLocationsProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSampleLocationsProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSampleLocationsProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SampleLocationSampleCounts == r.SampleLocationSampleCounts) && (l.MaxSampleLocationGridSize == r.MaxSampleLocationGridSize)
+			&& (l.SampleLocationCoordinateRange[0] == r.SampleLocationCoordinateRange[0]) && (l.SampleLocationCoordinateRange[1] == r.SampleLocationCoordinateRange[1]) && (l.SampleLocationSubPixelBits == r.SampleLocationSubPixelBits) && (l.VariableSampleLocations == r.VariableSampleLocations)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceSampleLocationsProperties l, in PhysicalDeviceSampleLocationsProperties r)
 	{
-		fixed (PhysicalDeviceSampleLocationsProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSampleLocationsProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSampleLocationsProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SampleLocationSampleCounts != r.SampleLocationSampleCounts) || (l.MaxSampleLocationGridSize != r.MaxSampleLocationGridSize)
+			|| (l.SampleLocationCoordinateRange[0] != r.SampleLocationCoordinateRange[0]) || (l.SampleLocationCoordinateRange[1] != r.SampleLocationCoordinateRange[1]) || (l.SampleLocationSubPixelBits != r.SampleLocationSubPixelBits) || (l.VariableSampleLocations != r.VariableSampleLocations)
+			;
 	}
 
 
@@ -1398,31 +1359,28 @@ public unsafe partial struct MultisampleProperties : IEquatable<MultisamplePrope
 
 	public readonly override bool Equals(object? obj) => (obj is MultisampleProperties o) && (this == o);
 	readonly bool IEquatable<MultisampleProperties>.Equals(MultisampleProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MultisampleProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxSampleLocationGridSize.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in MultisampleProperties l, in MultisampleProperties r)
 	{
-		fixed (MultisampleProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MultisampleProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MultisampleProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxSampleLocationGridSize == r.MaxSampleLocationGridSize)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in MultisampleProperties l, in MultisampleProperties r)
 	{
-		fixed (MultisampleProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MultisampleProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MultisampleProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxSampleLocationGridSize != r.MaxSampleLocationGridSize)
+			;
 	}
 
 
@@ -1445,31 +1403,28 @@ public unsafe partial struct SamplerReductionModeCreateInfo : IEquatable<Sampler
 
 	public readonly override bool Equals(object? obj) => (obj is SamplerReductionModeCreateInfo o) && (this == o);
 	readonly bool IEquatable<SamplerReductionModeCreateInfo>.Equals(SamplerReductionModeCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SamplerReductionModeCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ReductionMode.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SamplerReductionModeCreateInfo l, in SamplerReductionModeCreateInfo r)
 	{
-		fixed (SamplerReductionModeCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerReductionModeCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerReductionModeCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ReductionMode == r.ReductionMode)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SamplerReductionModeCreateInfo l, in SamplerReductionModeCreateInfo r)
 	{
-		fixed (SamplerReductionModeCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerReductionModeCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerReductionModeCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ReductionMode != r.ReductionMode)
+			;
 	}
 
 
@@ -1492,31 +1447,28 @@ public unsafe partial struct PhysicalDeviceBlendOperationAdvancedFeatures : IEqu
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBlendOperationAdvancedFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBlendOperationAdvancedFeatures>.Equals(PhysicalDeviceBlendOperationAdvancedFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AdvancedBlendCoherentOperations.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceBlendOperationAdvancedFeatures l, in PhysicalDeviceBlendOperationAdvancedFeatures r)
 	{
-		fixed (PhysicalDeviceBlendOperationAdvancedFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AdvancedBlendCoherentOperations == r.AdvancedBlendCoherentOperations)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceBlendOperationAdvancedFeatures l, in PhysicalDeviceBlendOperationAdvancedFeatures r)
 	{
-		fixed (PhysicalDeviceBlendOperationAdvancedFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AdvancedBlendCoherentOperations != r.AdvancedBlendCoherentOperations)
+			;
 	}
 
 
@@ -1544,31 +1496,31 @@ public unsafe partial struct PhysicalDeviceBlendOperationAdvancedProperties : IE
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBlendOperationAdvancedProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBlendOperationAdvancedProperties>.Equals(PhysicalDeviceBlendOperationAdvancedProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AdvancedBlendMaxColorAttachments.GetHashCode() ^ AdvancedBlendIndependentBlend.GetHashCode()
+			^ AdvancedBlendNonPremultipliedSrcColor.GetHashCode() ^ AdvancedBlendNonPremultipliedDstColor.GetHashCode() ^ AdvancedBlendCorrelatedOverlap.GetHashCode() ^ AdvancedBlendAllOperations.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceBlendOperationAdvancedProperties l, in PhysicalDeviceBlendOperationAdvancedProperties r)
 	{
-		fixed (PhysicalDeviceBlendOperationAdvancedProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AdvancedBlendMaxColorAttachments == r.AdvancedBlendMaxColorAttachments) && (l.AdvancedBlendIndependentBlend == r.AdvancedBlendIndependentBlend)
+			&& (l.AdvancedBlendNonPremultipliedSrcColor == r.AdvancedBlendNonPremultipliedSrcColor) && (l.AdvancedBlendNonPremultipliedDstColor == r.AdvancedBlendNonPremultipliedDstColor) && (l.AdvancedBlendCorrelatedOverlap == r.AdvancedBlendCorrelatedOverlap) && (l.AdvancedBlendAllOperations == r.AdvancedBlendAllOperations)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceBlendOperationAdvancedProperties l, in PhysicalDeviceBlendOperationAdvancedProperties r)
 	{
-		fixed (PhysicalDeviceBlendOperationAdvancedProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBlendOperationAdvancedProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AdvancedBlendMaxColorAttachments != r.AdvancedBlendMaxColorAttachments) || (l.AdvancedBlendIndependentBlend != r.AdvancedBlendIndependentBlend)
+			|| (l.AdvancedBlendNonPremultipliedSrcColor != r.AdvancedBlendNonPremultipliedSrcColor) || (l.AdvancedBlendNonPremultipliedDstColor != r.AdvancedBlendNonPremultipliedDstColor) || (l.AdvancedBlendCorrelatedOverlap != r.AdvancedBlendCorrelatedOverlap) || (l.AdvancedBlendAllOperations != r.AdvancedBlendAllOperations)
+			;
 	}
 
 
@@ -1593,31 +1545,31 @@ public unsafe partial struct PipelineColorBlendAdvancedStateCreateInfo : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineColorBlendAdvancedStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineColorBlendAdvancedStateCreateInfo>.Equals(PipelineColorBlendAdvancedStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineColorBlendAdvancedStateCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SrcPremultiplied.GetHashCode() ^ DstPremultiplied.GetHashCode()
+			^ BlendOverlap.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineColorBlendAdvancedStateCreateInfo l, in PipelineColorBlendAdvancedStateCreateInfo r)
 	{
-		fixed (PipelineColorBlendAdvancedStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineColorBlendAdvancedStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineColorBlendAdvancedStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SrcPremultiplied == r.SrcPremultiplied) && (l.DstPremultiplied == r.DstPremultiplied)
+			&& (l.BlendOverlap == r.BlendOverlap)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineColorBlendAdvancedStateCreateInfo l, in PipelineColorBlendAdvancedStateCreateInfo r)
 	{
-		fixed (PipelineColorBlendAdvancedStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineColorBlendAdvancedStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineColorBlendAdvancedStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SrcPremultiplied != r.SrcPremultiplied) || (l.DstPremultiplied != r.DstPremultiplied)
+			|| (l.BlendOverlap != r.BlendOverlap)
+			;
 	}
 
 
@@ -1641,31 +1593,28 @@ public unsafe partial struct PhysicalDeviceInlineUniformBlockFeatures : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceInlineUniformBlockFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceInlineUniformBlockFeatures>.Equals(PhysicalDeviceInlineUniformBlockFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ InlineUniformBlock.GetHashCode() ^ DescriptorBindingInlineUniformBlockUpdateAfterBind.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceInlineUniformBlockFeatures l, in PhysicalDeviceInlineUniformBlockFeatures r)
 	{
-		fixed (PhysicalDeviceInlineUniformBlockFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.InlineUniformBlock == r.InlineUniformBlock) && (l.DescriptorBindingInlineUniformBlockUpdateAfterBind == r.DescriptorBindingInlineUniformBlockUpdateAfterBind)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceInlineUniformBlockFeatures l, in PhysicalDeviceInlineUniformBlockFeatures r)
 	{
-		fixed (PhysicalDeviceInlineUniformBlockFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.InlineUniformBlock != r.InlineUniformBlock) || (l.DescriptorBindingInlineUniformBlockUpdateAfterBind != r.DescriptorBindingInlineUniformBlockUpdateAfterBind)
+			;
 	}
 
 
@@ -1692,31 +1641,31 @@ public unsafe partial struct PhysicalDeviceInlineUniformBlockProperties : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceInlineUniformBlockProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceInlineUniformBlockProperties>.Equals(PhysicalDeviceInlineUniformBlockProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxInlineUniformBlockSize.GetHashCode() ^ MaxPerStageDescriptorInlineUniformBlocks.GetHashCode()
+			^ MaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks.GetHashCode() ^ MaxDescriptorSetInlineUniformBlocks.GetHashCode() ^ MaxDescriptorSetUpdateAfterBindInlineUniformBlocks.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceInlineUniformBlockProperties l, in PhysicalDeviceInlineUniformBlockProperties r)
 	{
-		fixed (PhysicalDeviceInlineUniformBlockProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxInlineUniformBlockSize == r.MaxInlineUniformBlockSize) && (l.MaxPerStageDescriptorInlineUniformBlocks == r.MaxPerStageDescriptorInlineUniformBlocks)
+			&& (l.MaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks == r.MaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks) && (l.MaxDescriptorSetInlineUniformBlocks == r.MaxDescriptorSetInlineUniformBlocks) && (l.MaxDescriptorSetUpdateAfterBindInlineUniformBlocks == r.MaxDescriptorSetUpdateAfterBindInlineUniformBlocks)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceInlineUniformBlockProperties l, in PhysicalDeviceInlineUniformBlockProperties r)
 	{
-		fixed (PhysicalDeviceInlineUniformBlockProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceInlineUniformBlockProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxInlineUniformBlockSize != r.MaxInlineUniformBlockSize) || (l.MaxPerStageDescriptorInlineUniformBlocks != r.MaxPerStageDescriptorInlineUniformBlocks)
+			|| (l.MaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks != r.MaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks) || (l.MaxDescriptorSetInlineUniformBlocks != r.MaxDescriptorSetInlineUniformBlocks) || (l.MaxDescriptorSetUpdateAfterBindInlineUniformBlocks != r.MaxDescriptorSetUpdateAfterBindInlineUniformBlocks)
+			;
 	}
 
 
@@ -1740,31 +1689,28 @@ public unsafe partial struct WriteDescriptorSetInlineUniformBlock : IEquatable<W
 
 	public readonly override bool Equals(object? obj) => (obj is WriteDescriptorSetInlineUniformBlock o) && (this == o);
 	readonly bool IEquatable<WriteDescriptorSetInlineUniformBlock>.Equals(WriteDescriptorSetInlineUniformBlock obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<WriteDescriptorSetInlineUniformBlock>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DataSize.GetHashCode() ^ ((ulong)Data).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in WriteDescriptorSetInlineUniformBlock l, in WriteDescriptorSetInlineUniformBlock r)
 	{
-		fixed (WriteDescriptorSetInlineUniformBlock* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<WriteDescriptorSetInlineUniformBlock>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<WriteDescriptorSetInlineUniformBlock>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DataSize == r.DataSize) && (l.Data == r.Data)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in WriteDescriptorSetInlineUniformBlock l, in WriteDescriptorSetInlineUniformBlock r)
 	{
-		fixed (WriteDescriptorSetInlineUniformBlock* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<WriteDescriptorSetInlineUniformBlock>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<WriteDescriptorSetInlineUniformBlock>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DataSize != r.DataSize) || (l.Data != r.Data)
+			;
 	}
 
 
@@ -1787,31 +1733,28 @@ public unsafe partial struct DescriptorPoolInlineUniformBlockCreateInfo : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorPoolInlineUniformBlockCreateInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorPoolInlineUniformBlockCreateInfo>.Equals(DescriptorPoolInlineUniformBlockCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorPoolInlineUniformBlockCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxInlineUniformBlockBindings.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DescriptorPoolInlineUniformBlockCreateInfo l, in DescriptorPoolInlineUniformBlockCreateInfo r)
 	{
-		fixed (DescriptorPoolInlineUniformBlockCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorPoolInlineUniformBlockCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorPoolInlineUniformBlockCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxInlineUniformBlockBindings == r.MaxInlineUniformBlockBindings)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DescriptorPoolInlineUniformBlockCreateInfo l, in DescriptorPoolInlineUniformBlockCreateInfo r)
 	{
-		fixed (DescriptorPoolInlineUniformBlockCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorPoolInlineUniformBlockCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorPoolInlineUniformBlockCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxInlineUniformBlockBindings != r.MaxInlineUniformBlockBindings)
+			;
 	}
 
 
@@ -1836,31 +1779,31 @@ public unsafe partial struct ValidationCacheCreateInfo : IEquatable<ValidationCa
 
 	public readonly override bool Equals(object? obj) => (obj is ValidationCacheCreateInfo o) && (this == o);
 	readonly bool IEquatable<ValidationCacheCreateInfo>.Equals(ValidationCacheCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ValidationCacheCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ InitialDataSize.GetHashCode()
+			^ ((ulong)InitialData).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ValidationCacheCreateInfo l, in ValidationCacheCreateInfo r)
 	{
-		fixed (ValidationCacheCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ValidationCacheCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ValidationCacheCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.InitialDataSize == r.InitialDataSize)
+			&& (l.InitialData == r.InitialData)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ValidationCacheCreateInfo l, in ValidationCacheCreateInfo r)
 	{
-		fixed (ValidationCacheCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ValidationCacheCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ValidationCacheCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.InitialDataSize != r.InitialDataSize)
+			|| (l.InitialData != r.InitialData)
+			;
 	}
 
 
@@ -1883,31 +1826,28 @@ public unsafe partial struct ShaderModuleValidationCacheCreateInfo : IEquatable<
 
 	public readonly override bool Equals(object? obj) => (obj is ShaderModuleValidationCacheCreateInfo o) && (this == o);
 	readonly bool IEquatable<ShaderModuleValidationCacheCreateInfo>.Equals(ShaderModuleValidationCacheCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ShaderModuleValidationCacheCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ValidationCache.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ShaderModuleValidationCacheCreateInfo l, in ShaderModuleValidationCacheCreateInfo r)
 	{
-		fixed (ShaderModuleValidationCacheCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ShaderModuleValidationCacheCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ShaderModuleValidationCacheCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ValidationCache == r.ValidationCache)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ShaderModuleValidationCacheCreateInfo l, in ShaderModuleValidationCacheCreateInfo r)
 	{
-		fixed (ShaderModuleValidationCacheCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ShaderModuleValidationCacheCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ShaderModuleValidationCacheCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ValidationCache != r.ValidationCache)
+			;
 	}
 
 
@@ -1930,31 +1870,28 @@ public unsafe partial struct PhysicalDeviceHostQueryResetFeatures : IEquatable<P
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceHostQueryResetFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceHostQueryResetFeatures>.Equals(PhysicalDeviceHostQueryResetFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceHostQueryResetFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ HostQueryReset.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceHostQueryResetFeatures l, in PhysicalDeviceHostQueryResetFeatures r)
 	{
-		fixed (PhysicalDeviceHostQueryResetFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceHostQueryResetFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceHostQueryResetFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.HostQueryReset == r.HostQueryReset)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceHostQueryResetFeatures l, in PhysicalDeviceHostQueryResetFeatures r)
 	{
-		fixed (PhysicalDeviceHostQueryResetFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceHostQueryResetFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceHostQueryResetFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.HostQueryReset != r.HostQueryReset)
+			;
 	}
 
 
@@ -1977,31 +1914,28 @@ public unsafe partial struct DeviceQueueGlobalPriorityCreateInfo : IEquatable<De
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceQueueGlobalPriorityCreateInfo o) && (this == o);
 	readonly bool IEquatable<DeviceQueueGlobalPriorityCreateInfo>.Equals(DeviceQueueGlobalPriorityCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceQueueGlobalPriorityCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ GlobalPriority.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DeviceQueueGlobalPriorityCreateInfo l, in DeviceQueueGlobalPriorityCreateInfo r)
 	{
-		fixed (DeviceQueueGlobalPriorityCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceQueueGlobalPriorityCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceQueueGlobalPriorityCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.GlobalPriority == r.GlobalPriority)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DeviceQueueGlobalPriorityCreateInfo l, in DeviceQueueGlobalPriorityCreateInfo r)
 	{
-		fixed (DeviceQueueGlobalPriorityCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceQueueGlobalPriorityCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceQueueGlobalPriorityCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.GlobalPriority != r.GlobalPriority)
+			;
 	}
 
 
@@ -2026,31 +1960,31 @@ public unsafe partial struct DebugUtilsObjectNameInfo : IEquatable<DebugUtilsObj
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsObjectNameInfo o) && (this == o);
 	readonly bool IEquatable<DebugUtilsObjectNameInfo>.Equals(DebugUtilsObjectNameInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugUtilsObjectNameInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ObjectType.GetHashCode() ^ ObjectHandle.GetHashCode()
+			^ ((ulong)ObjectName).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugUtilsObjectNameInfo l, in DebugUtilsObjectNameInfo r)
 	{
-		fixed (DebugUtilsObjectNameInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsObjectNameInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsObjectNameInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ObjectType == r.ObjectType) && (l.ObjectHandle == r.ObjectHandle)
+			&& (l.ObjectName == r.ObjectName)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugUtilsObjectNameInfo l, in DebugUtilsObjectNameInfo r)
 	{
-		fixed (DebugUtilsObjectNameInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsObjectNameInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsObjectNameInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ObjectType != r.ObjectType) || (l.ObjectHandle != r.ObjectHandle)
+			|| (l.ObjectName != r.ObjectName)
+			;
 	}
 
 
@@ -2077,31 +2011,31 @@ public unsafe partial struct DebugUtilsObjectTagInfo : IEquatable<DebugUtilsObje
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsObjectTagInfo o) && (this == o);
 	readonly bool IEquatable<DebugUtilsObjectTagInfo>.Equals(DebugUtilsObjectTagInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugUtilsObjectTagInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ObjectType.GetHashCode() ^ ObjectHandle.GetHashCode()
+			^ TagName.GetHashCode() ^ TagSize.GetHashCode() ^ ((ulong)Tag).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugUtilsObjectTagInfo l, in DebugUtilsObjectTagInfo r)
 	{
-		fixed (DebugUtilsObjectTagInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsObjectTagInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsObjectTagInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ObjectType == r.ObjectType) && (l.ObjectHandle == r.ObjectHandle)
+			&& (l.TagName == r.TagName) && (l.TagSize == r.TagSize) && (l.Tag == r.Tag)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugUtilsObjectTagInfo l, in DebugUtilsObjectTagInfo r)
 	{
-		fixed (DebugUtilsObjectTagInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsObjectTagInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsObjectTagInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ObjectType != r.ObjectType) || (l.ObjectHandle != r.ObjectHandle)
+			|| (l.TagName != r.TagName) || (l.TagSize != r.TagSize) || (l.Tag != r.Tag)
+			;
 	}
 
 
@@ -2125,31 +2059,31 @@ public unsafe partial struct DebugUtilsLabel : IEquatable<DebugUtilsLabel>
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsLabel o) && (this == o);
 	readonly bool IEquatable<DebugUtilsLabel>.Equals(DebugUtilsLabel obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugUtilsLabel>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ((ulong)LabelName).GetHashCode() ^ Color[0].GetHashCode()
+			^ Color[1].GetHashCode() ^ Color[2].GetHashCode() ^ Color[3].GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugUtilsLabel l, in DebugUtilsLabel r)
 	{
-		fixed (DebugUtilsLabel* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsLabel>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsLabel>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.LabelName == r.LabelName) && (l.Color[0] == r.Color[0])
+			&& (l.Color[1] == r.Color[1]) && (l.Color[2] == r.Color[2]) && (l.Color[3] == r.Color[3])
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugUtilsLabel l, in DebugUtilsLabel r)
 	{
-		fixed (DebugUtilsLabel* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsLabel>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsLabel>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.LabelName != r.LabelName) || (l.Color[0] != r.Color[0])
+			|| (l.Color[1] != r.Color[1]) || (l.Color[2] != r.Color[2]) || (l.Color[3] != r.Color[3])
+			;
 	}
 
 
@@ -2176,31 +2110,31 @@ public unsafe partial struct DebugUtilsMessengerCreateInfo : IEquatable<DebugUti
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsMessengerCreateInfo o) && (this == o);
 	readonly bool IEquatable<DebugUtilsMessengerCreateInfo>.Equals(DebugUtilsMessengerCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugUtilsMessengerCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ MessageSeverity.GetHashCode()
+			^ MessageType.GetHashCode() ^ ((ulong)UserCallback).GetHashCode() ^ ((ulong)UserData).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugUtilsMessengerCreateInfo l, in DebugUtilsMessengerCreateInfo r)
 	{
-		fixed (DebugUtilsMessengerCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsMessengerCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsMessengerCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.MessageSeverity == r.MessageSeverity)
+			&& (l.MessageType == r.MessageType) && (l.UserCallback == r.UserCallback) && (l.UserData == r.UserData)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugUtilsMessengerCreateInfo l, in DebugUtilsMessengerCreateInfo r)
 	{
-		fixed (DebugUtilsMessengerCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsMessengerCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsMessengerCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.MessageSeverity != r.MessageSeverity)
+			|| (l.MessageType != r.MessageType) || (l.UserCallback != r.UserCallback) || (l.UserData != r.UserData)
+			;
 	}
 
 
@@ -2232,31 +2166,34 @@ public unsafe partial struct DebugUtilsMessengerCallbackData : IEquatable<DebugU
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsMessengerCallbackData o) && (this == o);
 	readonly bool IEquatable<DebugUtilsMessengerCallbackData>.Equals(DebugUtilsMessengerCallbackData obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DebugUtilsMessengerCallbackData>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ((ulong)MessageIdName).GetHashCode()
+			^ MessageIdNumber.GetHashCode() ^ ((ulong)Message).GetHashCode() ^ QueueLabelCount.GetHashCode() ^ ((ulong)QueueLabels).GetHashCode()
+			^ CmdBufLabelCount.GetHashCode() ^ ((ulong)CmdBufLabels).GetHashCode() ^ ObjectCount.GetHashCode() ^ ((ulong)Objects).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DebugUtilsMessengerCallbackData l, in DebugUtilsMessengerCallbackData r)
 	{
-		fixed (DebugUtilsMessengerCallbackData* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsMessengerCallbackData>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsMessengerCallbackData>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.MessageIdName == r.MessageIdName)
+			&& (l.MessageIdNumber == r.MessageIdNumber) && (l.Message == r.Message) && (l.QueueLabelCount == r.QueueLabelCount) && (l.QueueLabels == r.QueueLabels)
+			&& (l.CmdBufLabelCount == r.CmdBufLabelCount) && (l.CmdBufLabels == r.CmdBufLabels) && (l.ObjectCount == r.ObjectCount) && (l.Objects == r.Objects)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DebugUtilsMessengerCallbackData l, in DebugUtilsMessengerCallbackData r)
 	{
-		fixed (DebugUtilsMessengerCallbackData* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DebugUtilsMessengerCallbackData>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DebugUtilsMessengerCallbackData>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.MessageIdName != r.MessageIdName)
+			|| (l.MessageIdNumber != r.MessageIdNumber) || (l.Message != r.Message) || (l.QueueLabelCount != r.QueueLabelCount) || (l.QueueLabels != r.QueueLabels)
+			|| (l.CmdBufLabelCount != r.CmdBufLabelCount) || (l.CmdBufLabels != r.CmdBufLabels) || (l.ObjectCount != r.ObjectCount) || (l.Objects != r.Objects)
+			;
 	}
 
 
@@ -2279,31 +2216,28 @@ public unsafe partial struct PhysicalDeviceDeviceMemoryReportFeatures : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDeviceMemoryReportFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDeviceMemoryReportFeatures>.Equals(PhysicalDeviceDeviceMemoryReportFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceDeviceMemoryReportFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DeviceMemoryReport.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceDeviceMemoryReportFeatures l, in PhysicalDeviceDeviceMemoryReportFeatures r)
 	{
-		fixed (PhysicalDeviceDeviceMemoryReportFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDeviceMemoryReportFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDeviceMemoryReportFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DeviceMemoryReport == r.DeviceMemoryReport)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceDeviceMemoryReportFeatures l, in PhysicalDeviceDeviceMemoryReportFeatures r)
 	{
-		fixed (PhysicalDeviceDeviceMemoryReportFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDeviceMemoryReportFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDeviceMemoryReportFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DeviceMemoryReport != r.DeviceMemoryReport)
+			;
 	}
 
 
@@ -2328,31 +2262,31 @@ public unsafe partial struct DeviceDeviceMemoryReportCreateInfo : IEquatable<Dev
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceDeviceMemoryReportCreateInfo o) && (this == o);
 	readonly bool IEquatable<DeviceDeviceMemoryReportCreateInfo>.Equals(DeviceDeviceMemoryReportCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceDeviceMemoryReportCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ((ulong)UserCallback).GetHashCode()
+			^ ((ulong)UserData).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DeviceDeviceMemoryReportCreateInfo l, in DeviceDeviceMemoryReportCreateInfo r)
 	{
-		fixed (DeviceDeviceMemoryReportCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceDeviceMemoryReportCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceDeviceMemoryReportCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.UserCallback == r.UserCallback)
+			&& (l.UserData == r.UserData)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DeviceDeviceMemoryReportCreateInfo l, in DeviceDeviceMemoryReportCreateInfo r)
 	{
-		fixed (DeviceDeviceMemoryReportCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceDeviceMemoryReportCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceDeviceMemoryReportCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.UserCallback != r.UserCallback)
+			|| (l.UserData != r.UserData)
+			;
 	}
 
 
@@ -2381,31 +2315,34 @@ public unsafe partial struct DeviceMemoryReportCallbackData : IEquatable<DeviceM
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceMemoryReportCallbackData o) && (this == o);
 	readonly bool IEquatable<DeviceMemoryReportCallbackData>.Equals(DeviceMemoryReportCallbackData obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DeviceMemoryReportCallbackData>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ Type.GetHashCode()
+			^ MemoryObjectId.GetHashCode() ^ Size.GetHashCode() ^ ObjectType.GetHashCode() ^ ObjectHandle.GetHashCode()
+			^ HeapIndex.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DeviceMemoryReportCallbackData l, in DeviceMemoryReportCallbackData r)
 	{
-		fixed (DeviceMemoryReportCallbackData* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceMemoryReportCallbackData>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceMemoryReportCallbackData>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.Type == r.Type)
+			&& (l.MemoryObjectId == r.MemoryObjectId) && (l.Size == r.Size) && (l.ObjectType == r.ObjectType) && (l.ObjectHandle == r.ObjectHandle)
+			&& (l.HeapIndex == r.HeapIndex)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DeviceMemoryReportCallbackData l, in DeviceMemoryReportCallbackData r)
 	{
-		fixed (DeviceMemoryReportCallbackData* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DeviceMemoryReportCallbackData>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DeviceMemoryReportCallbackData>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.Type != r.Type)
+			|| (l.MemoryObjectId != r.MemoryObjectId) || (l.Size != r.Size) || (l.ObjectType != r.ObjectType) || (l.ObjectHandle != r.ObjectHandle)
+			|| (l.HeapIndex != r.HeapIndex)
+			;
 	}
 
 
@@ -2429,31 +2366,28 @@ public unsafe partial struct ImportMemoryHostPointerInfo : IEquatable<ImportMemo
 
 	public readonly override bool Equals(object? obj) => (obj is ImportMemoryHostPointerInfo o) && (this == o);
 	readonly bool IEquatable<ImportMemoryHostPointerInfo>.Equals(ImportMemoryHostPointerInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImportMemoryHostPointerInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ HandleType.GetHashCode() ^ ((ulong)HostPointer).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImportMemoryHostPointerInfo l, in ImportMemoryHostPointerInfo r)
 	{
-		fixed (ImportMemoryHostPointerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportMemoryHostPointerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportMemoryHostPointerInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.HandleType == r.HandleType) && (l.HostPointer == r.HostPointer)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImportMemoryHostPointerInfo l, in ImportMemoryHostPointerInfo r)
 	{
-		fixed (ImportMemoryHostPointerInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImportMemoryHostPointerInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImportMemoryHostPointerInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.HandleType != r.HandleType) || (l.HostPointer != r.HostPointer)
+			;
 	}
 
 
@@ -2476,31 +2410,28 @@ public unsafe partial struct MemoryHostPointerProperties : IEquatable<MemoryHost
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryHostPointerProperties o) && (this == o);
 	readonly bool IEquatable<MemoryHostPointerProperties>.Equals(MemoryHostPointerProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryHostPointerProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MemoryTypeBits.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in MemoryHostPointerProperties l, in MemoryHostPointerProperties r)
 	{
-		fixed (MemoryHostPointerProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryHostPointerProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryHostPointerProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MemoryTypeBits == r.MemoryTypeBits)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in MemoryHostPointerProperties l, in MemoryHostPointerProperties r)
 	{
-		fixed (MemoryHostPointerProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryHostPointerProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryHostPointerProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MemoryTypeBits != r.MemoryTypeBits)
+			;
 	}
 
 
@@ -2523,31 +2454,28 @@ public unsafe partial struct PhysicalDeviceExternalMemoryHostProperties : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExternalMemoryHostProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceExternalMemoryHostProperties>.Equals(PhysicalDeviceExternalMemoryHostProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceExternalMemoryHostProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MinImportedHostPointerAlignment.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceExternalMemoryHostProperties l, in PhysicalDeviceExternalMemoryHostProperties r)
 	{
-		fixed (PhysicalDeviceExternalMemoryHostProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalMemoryHostProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalMemoryHostProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MinImportedHostPointerAlignment == r.MinImportedHostPointerAlignment)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceExternalMemoryHostProperties l, in PhysicalDeviceExternalMemoryHostProperties r)
 	{
-		fixed (PhysicalDeviceExternalMemoryHostProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExternalMemoryHostProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExternalMemoryHostProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MinImportedHostPointerAlignment != r.MinImportedHostPointerAlignment)
+			;
 	}
 
 
@@ -2578,31 +2506,34 @@ public unsafe partial struct PhysicalDeviceConservativeRasterizationProperties :
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceConservativeRasterizationProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceConservativeRasterizationProperties>.Equals(PhysicalDeviceConservativeRasterizationProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceConservativeRasterizationProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PrimitiveOverestimationSize.GetHashCode() ^ MaxExtraPrimitiveOverestimationSize.GetHashCode()
+			^ ExtraPrimitiveOverestimationSizeGranularity.GetHashCode() ^ PrimitiveUnderestimation.GetHashCode() ^ ConservativePointAndLineRasterization.GetHashCode() ^ DegenerateTrianglesRasterized.GetHashCode()
+			^ DegenerateLinesRasterized.GetHashCode() ^ FullyCoveredFragmentShaderInputVariable.GetHashCode() ^ ConservativeRasterizationPostDepthCoverage.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceConservativeRasterizationProperties l, in PhysicalDeviceConservativeRasterizationProperties r)
 	{
-		fixed (PhysicalDeviceConservativeRasterizationProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceConservativeRasterizationProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceConservativeRasterizationProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PrimitiveOverestimationSize == r.PrimitiveOverestimationSize) && (l.MaxExtraPrimitiveOverestimationSize == r.MaxExtraPrimitiveOverestimationSize)
+			&& (l.ExtraPrimitiveOverestimationSizeGranularity == r.ExtraPrimitiveOverestimationSizeGranularity) && (l.PrimitiveUnderestimation == r.PrimitiveUnderestimation) && (l.ConservativePointAndLineRasterization == r.ConservativePointAndLineRasterization) && (l.DegenerateTrianglesRasterized == r.DegenerateTrianglesRasterized)
+			&& (l.DegenerateLinesRasterized == r.DegenerateLinesRasterized) && (l.FullyCoveredFragmentShaderInputVariable == r.FullyCoveredFragmentShaderInputVariable) && (l.ConservativeRasterizationPostDepthCoverage == r.ConservativeRasterizationPostDepthCoverage)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceConservativeRasterizationProperties l, in PhysicalDeviceConservativeRasterizationProperties r)
 	{
-		fixed (PhysicalDeviceConservativeRasterizationProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceConservativeRasterizationProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceConservativeRasterizationProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PrimitiveOverestimationSize != r.PrimitiveOverestimationSize) || (l.MaxExtraPrimitiveOverestimationSize != r.MaxExtraPrimitiveOverestimationSize)
+			|| (l.ExtraPrimitiveOverestimationSizeGranularity != r.ExtraPrimitiveOverestimationSizeGranularity) || (l.PrimitiveUnderestimation != r.PrimitiveUnderestimation) || (l.ConservativePointAndLineRasterization != r.ConservativePointAndLineRasterization) || (l.DegenerateTrianglesRasterized != r.DegenerateTrianglesRasterized)
+			|| (l.DegenerateLinesRasterized != r.DegenerateLinesRasterized) || (l.FullyCoveredFragmentShaderInputVariable != r.FullyCoveredFragmentShaderInputVariable) || (l.ConservativeRasterizationPostDepthCoverage != r.ConservativeRasterizationPostDepthCoverage)
+			;
 	}
 
 
@@ -2625,31 +2556,28 @@ public unsafe partial struct CalibratedTimestampInfo : IEquatable<CalibratedTime
 
 	public readonly override bool Equals(object? obj) => (obj is CalibratedTimestampInfo o) && (this == o);
 	readonly bool IEquatable<CalibratedTimestampInfo>.Equals(CalibratedTimestampInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CalibratedTimestampInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ TimeDomain.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in CalibratedTimestampInfo l, in CalibratedTimestampInfo r)
 	{
-		fixed (CalibratedTimestampInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CalibratedTimestampInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CalibratedTimestampInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.TimeDomain == r.TimeDomain)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in CalibratedTimestampInfo l, in CalibratedTimestampInfo r)
 	{
-		fixed (CalibratedTimestampInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CalibratedTimestampInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CalibratedTimestampInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.TimeDomain != r.TimeDomain)
+			;
 	}
 
 
@@ -2674,31 +2602,31 @@ public unsafe partial struct PipelineRasterizationConservativeStateCreateInfo : 
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationConservativeStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationConservativeStateCreateInfo>.Equals(PipelineRasterizationConservativeStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineRasterizationConservativeStateCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ ConservativeRasterizationMode.GetHashCode()
+			^ ExtraPrimitiveOverestimationSize.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineRasterizationConservativeStateCreateInfo l, in PipelineRasterizationConservativeStateCreateInfo r)
 	{
-		fixed (PipelineRasterizationConservativeStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationConservativeStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationConservativeStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.ConservativeRasterizationMode == r.ConservativeRasterizationMode)
+			&& (l.ExtraPrimitiveOverestimationSize == r.ExtraPrimitiveOverestimationSize)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineRasterizationConservativeStateCreateInfo l, in PipelineRasterizationConservativeStateCreateInfo r)
 	{
-		fixed (PipelineRasterizationConservativeStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationConservativeStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationConservativeStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.ConservativeRasterizationMode != r.ConservativeRasterizationMode)
+			|| (l.ExtraPrimitiveOverestimationSize != r.ExtraPrimitiveOverestimationSize)
+			;
 	}
 
 
@@ -2740,31 +2668,43 @@ public unsafe partial struct PhysicalDeviceDescriptorIndexingFeatures : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDescriptorIndexingFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDescriptorIndexingFeatures>.Equals(PhysicalDeviceDescriptorIndexingFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderInputAttachmentArrayDynamicIndexing.GetHashCode() ^ ShaderUniformTexelBufferArrayDynamicIndexing.GetHashCode()
+			^ ShaderStorageTexelBufferArrayDynamicIndexing.GetHashCode() ^ ShaderUniformBufferArrayNonUniformIndexing.GetHashCode() ^ ShaderSampledImageArrayNonUniformIndexing.GetHashCode() ^ ShaderStorageBufferArrayNonUniformIndexing.GetHashCode()
+			^ ShaderStorageImageArrayNonUniformIndexing.GetHashCode() ^ ShaderInputAttachmentArrayNonUniformIndexing.GetHashCode() ^ ShaderUniformTexelBufferArrayNonUniformIndexing.GetHashCode() ^ ShaderStorageTexelBufferArrayNonUniformIndexing.GetHashCode()
+			^ DescriptorBindingUniformBufferUpdateAfterBind.GetHashCode() ^ DescriptorBindingSampledImageUpdateAfterBind.GetHashCode() ^ DescriptorBindingStorageImageUpdateAfterBind.GetHashCode() ^ DescriptorBindingStorageBufferUpdateAfterBind.GetHashCode()
+			^ DescriptorBindingUniformTexelBufferUpdateAfterBind.GetHashCode() ^ DescriptorBindingStorageTexelBufferUpdateAfterBind.GetHashCode() ^ DescriptorBindingUpdateUnusedWhilePending.GetHashCode() ^ DescriptorBindingPartiallyBound.GetHashCode()
+			^ DescriptorBindingVariableDescriptorCount.GetHashCode() ^ RuntimeDescriptorArray.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceDescriptorIndexingFeatures l, in PhysicalDeviceDescriptorIndexingFeatures r)
 	{
-		fixed (PhysicalDeviceDescriptorIndexingFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderInputAttachmentArrayDynamicIndexing == r.ShaderInputAttachmentArrayDynamicIndexing) && (l.ShaderUniformTexelBufferArrayDynamicIndexing == r.ShaderUniformTexelBufferArrayDynamicIndexing)
+			&& (l.ShaderStorageTexelBufferArrayDynamicIndexing == r.ShaderStorageTexelBufferArrayDynamicIndexing) && (l.ShaderUniformBufferArrayNonUniformIndexing == r.ShaderUniformBufferArrayNonUniformIndexing) && (l.ShaderSampledImageArrayNonUniformIndexing == r.ShaderSampledImageArrayNonUniformIndexing) && (l.ShaderStorageBufferArrayNonUniformIndexing == r.ShaderStorageBufferArrayNonUniformIndexing)
+			&& (l.ShaderStorageImageArrayNonUniformIndexing == r.ShaderStorageImageArrayNonUniformIndexing) && (l.ShaderInputAttachmentArrayNonUniformIndexing == r.ShaderInputAttachmentArrayNonUniformIndexing) && (l.ShaderUniformTexelBufferArrayNonUniformIndexing == r.ShaderUniformTexelBufferArrayNonUniformIndexing) && (l.ShaderStorageTexelBufferArrayNonUniformIndexing == r.ShaderStorageTexelBufferArrayNonUniformIndexing)
+			&& (l.DescriptorBindingUniformBufferUpdateAfterBind == r.DescriptorBindingUniformBufferUpdateAfterBind) && (l.DescriptorBindingSampledImageUpdateAfterBind == r.DescriptorBindingSampledImageUpdateAfterBind) && (l.DescriptorBindingStorageImageUpdateAfterBind == r.DescriptorBindingStorageImageUpdateAfterBind) && (l.DescriptorBindingStorageBufferUpdateAfterBind == r.DescriptorBindingStorageBufferUpdateAfterBind)
+			&& (l.DescriptorBindingUniformTexelBufferUpdateAfterBind == r.DescriptorBindingUniformTexelBufferUpdateAfterBind) && (l.DescriptorBindingStorageTexelBufferUpdateAfterBind == r.DescriptorBindingStorageTexelBufferUpdateAfterBind) && (l.DescriptorBindingUpdateUnusedWhilePending == r.DescriptorBindingUpdateUnusedWhilePending) && (l.DescriptorBindingPartiallyBound == r.DescriptorBindingPartiallyBound)
+			&& (l.DescriptorBindingVariableDescriptorCount == r.DescriptorBindingVariableDescriptorCount) && (l.RuntimeDescriptorArray == r.RuntimeDescriptorArray)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceDescriptorIndexingFeatures l, in PhysicalDeviceDescriptorIndexingFeatures r)
 	{
-		fixed (PhysicalDeviceDescriptorIndexingFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderInputAttachmentArrayDynamicIndexing != r.ShaderInputAttachmentArrayDynamicIndexing) || (l.ShaderUniformTexelBufferArrayDynamicIndexing != r.ShaderUniformTexelBufferArrayDynamicIndexing)
+			|| (l.ShaderStorageTexelBufferArrayDynamicIndexing != r.ShaderStorageTexelBufferArrayDynamicIndexing) || (l.ShaderUniformBufferArrayNonUniformIndexing != r.ShaderUniformBufferArrayNonUniformIndexing) || (l.ShaderSampledImageArrayNonUniformIndexing != r.ShaderSampledImageArrayNonUniformIndexing) || (l.ShaderStorageBufferArrayNonUniformIndexing != r.ShaderStorageBufferArrayNonUniformIndexing)
+			|| (l.ShaderStorageImageArrayNonUniformIndexing != r.ShaderStorageImageArrayNonUniformIndexing) || (l.ShaderInputAttachmentArrayNonUniformIndexing != r.ShaderInputAttachmentArrayNonUniformIndexing) || (l.ShaderUniformTexelBufferArrayNonUniformIndexing != r.ShaderUniformTexelBufferArrayNonUniformIndexing) || (l.ShaderStorageTexelBufferArrayNonUniformIndexing != r.ShaderStorageTexelBufferArrayNonUniformIndexing)
+			|| (l.DescriptorBindingUniformBufferUpdateAfterBind != r.DescriptorBindingUniformBufferUpdateAfterBind) || (l.DescriptorBindingSampledImageUpdateAfterBind != r.DescriptorBindingSampledImageUpdateAfterBind) || (l.DescriptorBindingStorageImageUpdateAfterBind != r.DescriptorBindingStorageImageUpdateAfterBind) || (l.DescriptorBindingStorageBufferUpdateAfterBind != r.DescriptorBindingStorageBufferUpdateAfterBind)
+			|| (l.DescriptorBindingUniformTexelBufferUpdateAfterBind != r.DescriptorBindingUniformTexelBufferUpdateAfterBind) || (l.DescriptorBindingStorageTexelBufferUpdateAfterBind != r.DescriptorBindingStorageTexelBufferUpdateAfterBind) || (l.DescriptorBindingUpdateUnusedWhilePending != r.DescriptorBindingUpdateUnusedWhilePending) || (l.DescriptorBindingPartiallyBound != r.DescriptorBindingPartiallyBound)
+			|| (l.DescriptorBindingVariableDescriptorCount != r.DescriptorBindingVariableDescriptorCount) || (l.RuntimeDescriptorArray != r.RuntimeDescriptorArray)
+			;
 	}
 
 
@@ -2809,31 +2749,46 @@ public unsafe partial struct PhysicalDeviceDescriptorIndexingProperties : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDescriptorIndexingProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDescriptorIndexingProperties>.Equals(PhysicalDeviceDescriptorIndexingProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxUpdateAfterBindDescriptorsInAllPools.GetHashCode() ^ ShaderUniformBufferArrayNonUniformIndexingNative.GetHashCode()
+			^ ShaderSampledImageArrayNonUniformIndexingNative.GetHashCode() ^ ShaderStorageBufferArrayNonUniformIndexingNative.GetHashCode() ^ ShaderStorageImageArrayNonUniformIndexingNative.GetHashCode() ^ ShaderInputAttachmentArrayNonUniformIndexingNative.GetHashCode()
+			^ RobustBufferAccessUpdateAfterBind.GetHashCode() ^ QuadDivergentImplicitLod.GetHashCode() ^ MaxPerStageDescriptorUpdateAfterBindSamplers.GetHashCode() ^ MaxPerStageDescriptorUpdateAfterBindUniformBuffers.GetHashCode()
+			^ MaxPerStageDescriptorUpdateAfterBindStorageBuffers.GetHashCode() ^ MaxPerStageDescriptorUpdateAfterBindSampledImages.GetHashCode() ^ MaxPerStageDescriptorUpdateAfterBindStorageImages.GetHashCode() ^ MaxPerStageDescriptorUpdateAfterBindInputAttachments.GetHashCode()
+			^ MaxPerStageUpdateAfterBindResources.GetHashCode() ^ MaxDescriptorSetUpdateAfterBindSamplers.GetHashCode() ^ MaxDescriptorSetUpdateAfterBindUniformBuffers.GetHashCode() ^ MaxDescriptorSetUpdateAfterBindUniformBuffersDynamic.GetHashCode()
+			^ MaxDescriptorSetUpdateAfterBindStorageBuffers.GetHashCode() ^ MaxDescriptorSetUpdateAfterBindStorageBuffersDynamic.GetHashCode() ^ MaxDescriptorSetUpdateAfterBindSampledImages.GetHashCode() ^ MaxDescriptorSetUpdateAfterBindStorageImages.GetHashCode()
+			^ MaxDescriptorSetUpdateAfterBindInputAttachments.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceDescriptorIndexingProperties l, in PhysicalDeviceDescriptorIndexingProperties r)
 	{
-		fixed (PhysicalDeviceDescriptorIndexingProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxUpdateAfterBindDescriptorsInAllPools == r.MaxUpdateAfterBindDescriptorsInAllPools) && (l.ShaderUniformBufferArrayNonUniformIndexingNative == r.ShaderUniformBufferArrayNonUniformIndexingNative)
+			&& (l.ShaderSampledImageArrayNonUniformIndexingNative == r.ShaderSampledImageArrayNonUniformIndexingNative) && (l.ShaderStorageBufferArrayNonUniformIndexingNative == r.ShaderStorageBufferArrayNonUniformIndexingNative) && (l.ShaderStorageImageArrayNonUniformIndexingNative == r.ShaderStorageImageArrayNonUniformIndexingNative) && (l.ShaderInputAttachmentArrayNonUniformIndexingNative == r.ShaderInputAttachmentArrayNonUniformIndexingNative)
+			&& (l.RobustBufferAccessUpdateAfterBind == r.RobustBufferAccessUpdateAfterBind) && (l.QuadDivergentImplicitLod == r.QuadDivergentImplicitLod) && (l.MaxPerStageDescriptorUpdateAfterBindSamplers == r.MaxPerStageDescriptorUpdateAfterBindSamplers) && (l.MaxPerStageDescriptorUpdateAfterBindUniformBuffers == r.MaxPerStageDescriptorUpdateAfterBindUniformBuffers)
+			&& (l.MaxPerStageDescriptorUpdateAfterBindStorageBuffers == r.MaxPerStageDescriptorUpdateAfterBindStorageBuffers) && (l.MaxPerStageDescriptorUpdateAfterBindSampledImages == r.MaxPerStageDescriptorUpdateAfterBindSampledImages) && (l.MaxPerStageDescriptorUpdateAfterBindStorageImages == r.MaxPerStageDescriptorUpdateAfterBindStorageImages) && (l.MaxPerStageDescriptorUpdateAfterBindInputAttachments == r.MaxPerStageDescriptorUpdateAfterBindInputAttachments)
+			&& (l.MaxPerStageUpdateAfterBindResources == r.MaxPerStageUpdateAfterBindResources) && (l.MaxDescriptorSetUpdateAfterBindSamplers == r.MaxDescriptorSetUpdateAfterBindSamplers) && (l.MaxDescriptorSetUpdateAfterBindUniformBuffers == r.MaxDescriptorSetUpdateAfterBindUniformBuffers) && (l.MaxDescriptorSetUpdateAfterBindUniformBuffersDynamic == r.MaxDescriptorSetUpdateAfterBindUniformBuffersDynamic)
+			&& (l.MaxDescriptorSetUpdateAfterBindStorageBuffers == r.MaxDescriptorSetUpdateAfterBindStorageBuffers) && (l.MaxDescriptorSetUpdateAfterBindStorageBuffersDynamic == r.MaxDescriptorSetUpdateAfterBindStorageBuffersDynamic) && (l.MaxDescriptorSetUpdateAfterBindSampledImages == r.MaxDescriptorSetUpdateAfterBindSampledImages) && (l.MaxDescriptorSetUpdateAfterBindStorageImages == r.MaxDescriptorSetUpdateAfterBindStorageImages)
+			&& (l.MaxDescriptorSetUpdateAfterBindInputAttachments == r.MaxDescriptorSetUpdateAfterBindInputAttachments)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceDescriptorIndexingProperties l, in PhysicalDeviceDescriptorIndexingProperties r)
 	{
-		fixed (PhysicalDeviceDescriptorIndexingProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDescriptorIndexingProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxUpdateAfterBindDescriptorsInAllPools != r.MaxUpdateAfterBindDescriptorsInAllPools) || (l.ShaderUniformBufferArrayNonUniformIndexingNative != r.ShaderUniformBufferArrayNonUniformIndexingNative)
+			|| (l.ShaderSampledImageArrayNonUniformIndexingNative != r.ShaderSampledImageArrayNonUniformIndexingNative) || (l.ShaderStorageBufferArrayNonUniformIndexingNative != r.ShaderStorageBufferArrayNonUniformIndexingNative) || (l.ShaderStorageImageArrayNonUniformIndexingNative != r.ShaderStorageImageArrayNonUniformIndexingNative) || (l.ShaderInputAttachmentArrayNonUniformIndexingNative != r.ShaderInputAttachmentArrayNonUniformIndexingNative)
+			|| (l.RobustBufferAccessUpdateAfterBind != r.RobustBufferAccessUpdateAfterBind) || (l.QuadDivergentImplicitLod != r.QuadDivergentImplicitLod) || (l.MaxPerStageDescriptorUpdateAfterBindSamplers != r.MaxPerStageDescriptorUpdateAfterBindSamplers) || (l.MaxPerStageDescriptorUpdateAfterBindUniformBuffers != r.MaxPerStageDescriptorUpdateAfterBindUniformBuffers)
+			|| (l.MaxPerStageDescriptorUpdateAfterBindStorageBuffers != r.MaxPerStageDescriptorUpdateAfterBindStorageBuffers) || (l.MaxPerStageDescriptorUpdateAfterBindSampledImages != r.MaxPerStageDescriptorUpdateAfterBindSampledImages) || (l.MaxPerStageDescriptorUpdateAfterBindStorageImages != r.MaxPerStageDescriptorUpdateAfterBindStorageImages) || (l.MaxPerStageDescriptorUpdateAfterBindInputAttachments != r.MaxPerStageDescriptorUpdateAfterBindInputAttachments)
+			|| (l.MaxPerStageUpdateAfterBindResources != r.MaxPerStageUpdateAfterBindResources) || (l.MaxDescriptorSetUpdateAfterBindSamplers != r.MaxDescriptorSetUpdateAfterBindSamplers) || (l.MaxDescriptorSetUpdateAfterBindUniformBuffers != r.MaxDescriptorSetUpdateAfterBindUniformBuffers) || (l.MaxDescriptorSetUpdateAfterBindUniformBuffersDynamic != r.MaxDescriptorSetUpdateAfterBindUniformBuffersDynamic)
+			|| (l.MaxDescriptorSetUpdateAfterBindStorageBuffers != r.MaxDescriptorSetUpdateAfterBindStorageBuffers) || (l.MaxDescriptorSetUpdateAfterBindStorageBuffersDynamic != r.MaxDescriptorSetUpdateAfterBindStorageBuffersDynamic) || (l.MaxDescriptorSetUpdateAfterBindSampledImages != r.MaxDescriptorSetUpdateAfterBindSampledImages) || (l.MaxDescriptorSetUpdateAfterBindStorageImages != r.MaxDescriptorSetUpdateAfterBindStorageImages)
+			|| (l.MaxDescriptorSetUpdateAfterBindInputAttachments != r.MaxDescriptorSetUpdateAfterBindInputAttachments)
+			;
 	}
 
 
@@ -2857,31 +2812,28 @@ public unsafe partial struct DescriptorSetLayoutBindingFlagsCreateInfo : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetLayoutBindingFlagsCreateInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorSetLayoutBindingFlagsCreateInfo>.Equals(DescriptorSetLayoutBindingFlagsCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorSetLayoutBindingFlagsCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ BindingCount.GetHashCode() ^ ((ulong)BindingFlags).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DescriptorSetLayoutBindingFlagsCreateInfo l, in DescriptorSetLayoutBindingFlagsCreateInfo r)
 	{
-		fixed (DescriptorSetLayoutBindingFlagsCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetLayoutBindingFlagsCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetLayoutBindingFlagsCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.BindingCount == r.BindingCount) && (l.BindingFlags == r.BindingFlags)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DescriptorSetLayoutBindingFlagsCreateInfo l, in DescriptorSetLayoutBindingFlagsCreateInfo r)
 	{
-		fixed (DescriptorSetLayoutBindingFlagsCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetLayoutBindingFlagsCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetLayoutBindingFlagsCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.BindingCount != r.BindingCount) || (l.BindingFlags != r.BindingFlags)
+			;
 	}
 
 
@@ -2905,31 +2857,28 @@ public unsafe partial struct DescriptorSetVariableDescriptorCountAllocateInfo : 
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetVariableDescriptorCountAllocateInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorSetVariableDescriptorCountAllocateInfo>.Equals(DescriptorSetVariableDescriptorCountAllocateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorSetVariableDescriptorCountAllocateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DescriptorSetCount.GetHashCode() ^ ((ulong)DescriptorCounts).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DescriptorSetVariableDescriptorCountAllocateInfo l, in DescriptorSetVariableDescriptorCountAllocateInfo r)
 	{
-		fixed (DescriptorSetVariableDescriptorCountAllocateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountAllocateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountAllocateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DescriptorSetCount == r.DescriptorSetCount) && (l.DescriptorCounts == r.DescriptorCounts)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DescriptorSetVariableDescriptorCountAllocateInfo l, in DescriptorSetVariableDescriptorCountAllocateInfo r)
 	{
-		fixed (DescriptorSetVariableDescriptorCountAllocateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountAllocateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountAllocateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DescriptorSetCount != r.DescriptorSetCount) || (l.DescriptorCounts != r.DescriptorCounts)
+			;
 	}
 
 
@@ -2952,31 +2901,28 @@ public unsafe partial struct DescriptorSetVariableDescriptorCountLayoutSupport :
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetVariableDescriptorCountLayoutSupport o) && (this == o);
 	readonly bool IEquatable<DescriptorSetVariableDescriptorCountLayoutSupport>.Equals(DescriptorSetVariableDescriptorCountLayoutSupport obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DescriptorSetVariableDescriptorCountLayoutSupport>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxVariableDescriptorCount.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DescriptorSetVariableDescriptorCountLayoutSupport l, in DescriptorSetVariableDescriptorCountLayoutSupport r)
 	{
-		fixed (DescriptorSetVariableDescriptorCountLayoutSupport* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountLayoutSupport>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountLayoutSupport>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxVariableDescriptorCount == r.MaxVariableDescriptorCount)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DescriptorSetVariableDescriptorCountLayoutSupport l, in DescriptorSetVariableDescriptorCountLayoutSupport r)
 	{
-		fixed (DescriptorSetVariableDescriptorCountLayoutSupport* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountLayoutSupport>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DescriptorSetVariableDescriptorCountLayoutSupport>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxVariableDescriptorCount != r.MaxVariableDescriptorCount)
+			;
 	}
 
 
@@ -2996,31 +2942,28 @@ public unsafe partial struct VertexInputBindingDivisorDescription : IEquatable<V
 
 	public readonly override bool Equals(object? obj) => (obj is VertexInputBindingDivisorDescription o) && (this == o);
 	readonly bool IEquatable<VertexInputBindingDivisorDescription>.Equals(VertexInputBindingDivisorDescription obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (uint* ptr = &Binding) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<VertexInputBindingDivisorDescription>());
-		}
+		return
+			Binding.GetHashCode() ^ Divisor.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in VertexInputBindingDivisorDescription l, in VertexInputBindingDivisorDescription r)
 	{
-		fixed (VertexInputBindingDivisorDescription* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<VertexInputBindingDivisorDescription>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<VertexInputBindingDivisorDescription>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.Binding == r.Binding) && (l.Divisor == r.Divisor)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in VertexInputBindingDivisorDescription l, in VertexInputBindingDivisorDescription r)
 	{
-		fixed (VertexInputBindingDivisorDescription* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<VertexInputBindingDivisorDescription>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<VertexInputBindingDivisorDescription>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.Binding != r.Binding) || (l.Divisor != r.Divisor)
+			;
 	}
 
 }
@@ -3037,31 +2980,28 @@ public unsafe partial struct PipelineVertexInputDivisorStateCreateInfo : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineVertexInputDivisorStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineVertexInputDivisorStateCreateInfo>.Equals(PipelineVertexInputDivisorStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineVertexInputDivisorStateCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ VertexBindingDivisorCount.GetHashCode() ^ ((ulong)VertexBindingDivisors).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineVertexInputDivisorStateCreateInfo l, in PipelineVertexInputDivisorStateCreateInfo r)
 	{
-		fixed (PipelineVertexInputDivisorStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineVertexInputDivisorStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineVertexInputDivisorStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.VertexBindingDivisorCount == r.VertexBindingDivisorCount) && (l.VertexBindingDivisors == r.VertexBindingDivisors)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineVertexInputDivisorStateCreateInfo l, in PipelineVertexInputDivisorStateCreateInfo r)
 	{
-		fixed (PipelineVertexInputDivisorStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineVertexInputDivisorStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineVertexInputDivisorStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.VertexBindingDivisorCount != r.VertexBindingDivisorCount) || (l.VertexBindingDivisors != r.VertexBindingDivisors)
+			;
 	}
 
 
@@ -3084,31 +3024,28 @@ public unsafe partial struct PhysicalDeviceVertexAttributeDivisorProperties : IE
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceVertexAttributeDivisorProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceVertexAttributeDivisorProperties>.Equals(PhysicalDeviceVertexAttributeDivisorProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxVertexAttribDivisor.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceVertexAttributeDivisorProperties l, in PhysicalDeviceVertexAttributeDivisorProperties r)
 	{
-		fixed (PhysicalDeviceVertexAttributeDivisorProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxVertexAttribDivisor == r.MaxVertexAttribDivisor)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceVertexAttributeDivisorProperties l, in PhysicalDeviceVertexAttributeDivisorProperties r)
 	{
-		fixed (PhysicalDeviceVertexAttributeDivisorProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxVertexAttribDivisor != r.MaxVertexAttribDivisor)
+			;
 	}
 
 
@@ -3134,31 +3071,31 @@ public unsafe partial struct PhysicalDevicePCIBusInfoProperties : IEquatable<Phy
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePCIBusInfoProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDevicePCIBusInfoProperties>.Equals(PhysicalDevicePCIBusInfoProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePCIBusInfoProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PciDomain.GetHashCode() ^ PciBus.GetHashCode()
+			^ PciDevice.GetHashCode() ^ PciFunction.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDevicePCIBusInfoProperties l, in PhysicalDevicePCIBusInfoProperties r)
 	{
-		fixed (PhysicalDevicePCIBusInfoProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePCIBusInfoProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePCIBusInfoProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PciDomain == r.PciDomain) && (l.PciBus == r.PciBus)
+			&& (l.PciDevice == r.PciDevice) && (l.PciFunction == r.PciFunction)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDevicePCIBusInfoProperties l, in PhysicalDevicePCIBusInfoProperties r)
 	{
-		fixed (PhysicalDevicePCIBusInfoProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePCIBusInfoProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePCIBusInfoProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PciDomain != r.PciDomain) || (l.PciBus != r.PciBus)
+			|| (l.PciDevice != r.PciDevice) || (l.PciFunction != r.PciFunction)
+			;
 	}
 
 
@@ -3181,31 +3118,28 @@ public unsafe partial struct CommandBufferInheritanceConditionalRenderingInfo : 
 
 	public readonly override bool Equals(object? obj) => (obj is CommandBufferInheritanceConditionalRenderingInfo o) && (this == o);
 	readonly bool IEquatable<CommandBufferInheritanceConditionalRenderingInfo>.Equals(CommandBufferInheritanceConditionalRenderingInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<CommandBufferInheritanceConditionalRenderingInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ConditionalRenderingEnable.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in CommandBufferInheritanceConditionalRenderingInfo l, in CommandBufferInheritanceConditionalRenderingInfo r)
 	{
-		fixed (CommandBufferInheritanceConditionalRenderingInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CommandBufferInheritanceConditionalRenderingInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CommandBufferInheritanceConditionalRenderingInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ConditionalRenderingEnable == r.ConditionalRenderingEnable)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in CommandBufferInheritanceConditionalRenderingInfo l, in CommandBufferInheritanceConditionalRenderingInfo r)
 	{
-		fixed (CommandBufferInheritanceConditionalRenderingInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<CommandBufferInheritanceConditionalRenderingInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<CommandBufferInheritanceConditionalRenderingInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ConditionalRenderingEnable != r.ConditionalRenderingEnable)
+			;
 	}
 
 
@@ -3229,31 +3163,28 @@ public unsafe partial struct PhysicalDeviceConditionalRenderingFeatures : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceConditionalRenderingFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceConditionalRenderingFeatures>.Equals(PhysicalDeviceConditionalRenderingFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceConditionalRenderingFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ConditionalRendering.GetHashCode() ^ InheritedConditionalRendering.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceConditionalRenderingFeatures l, in PhysicalDeviceConditionalRenderingFeatures r)
 	{
-		fixed (PhysicalDeviceConditionalRenderingFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceConditionalRenderingFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceConditionalRenderingFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ConditionalRendering == r.ConditionalRendering) && (l.InheritedConditionalRendering == r.InheritedConditionalRendering)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceConditionalRenderingFeatures l, in PhysicalDeviceConditionalRenderingFeatures r)
 	{
-		fixed (PhysicalDeviceConditionalRenderingFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceConditionalRenderingFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceConditionalRenderingFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ConditionalRendering != r.ConditionalRendering) || (l.InheritedConditionalRendering != r.InheritedConditionalRendering)
+			;
 	}
 
 
@@ -3287,31 +3218,37 @@ public unsafe partial struct PhysicalDeviceShaderAtomicFloatFeatures : IEquatabl
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderAtomicFloatFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderAtomicFloatFeatures>.Equals(PhysicalDeviceShaderAtomicFloatFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderAtomicFloatFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderBufferFloat32Atomics.GetHashCode() ^ ShaderBufferFloat32AtomicAdd.GetHashCode()
+			^ ShaderBufferFloat64Atomics.GetHashCode() ^ ShaderBufferFloat64AtomicAdd.GetHashCode() ^ ShaderSharedFloat32Atomics.GetHashCode() ^ ShaderSharedFloat32AtomicAdd.GetHashCode()
+			^ ShaderSharedFloat64Atomics.GetHashCode() ^ ShaderSharedFloat64AtomicAdd.GetHashCode() ^ ShaderImageFloat32Atomics.GetHashCode() ^ ShaderImageFloat32AtomicAdd.GetHashCode()
+			^ SparseImageFloat32Atomics.GetHashCode() ^ SparseImageFloat32AtomicAdd.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceShaderAtomicFloatFeatures l, in PhysicalDeviceShaderAtomicFloatFeatures r)
 	{
-		fixed (PhysicalDeviceShaderAtomicFloatFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicFloatFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicFloatFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderBufferFloat32Atomics == r.ShaderBufferFloat32Atomics) && (l.ShaderBufferFloat32AtomicAdd == r.ShaderBufferFloat32AtomicAdd)
+			&& (l.ShaderBufferFloat64Atomics == r.ShaderBufferFloat64Atomics) && (l.ShaderBufferFloat64AtomicAdd == r.ShaderBufferFloat64AtomicAdd) && (l.ShaderSharedFloat32Atomics == r.ShaderSharedFloat32Atomics) && (l.ShaderSharedFloat32AtomicAdd == r.ShaderSharedFloat32AtomicAdd)
+			&& (l.ShaderSharedFloat64Atomics == r.ShaderSharedFloat64Atomics) && (l.ShaderSharedFloat64AtomicAdd == r.ShaderSharedFloat64AtomicAdd) && (l.ShaderImageFloat32Atomics == r.ShaderImageFloat32Atomics) && (l.ShaderImageFloat32AtomicAdd == r.ShaderImageFloat32AtomicAdd)
+			&& (l.SparseImageFloat32Atomics == r.SparseImageFloat32Atomics) && (l.SparseImageFloat32AtomicAdd == r.SparseImageFloat32AtomicAdd)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceShaderAtomicFloatFeatures l, in PhysicalDeviceShaderAtomicFloatFeatures r)
 	{
-		fixed (PhysicalDeviceShaderAtomicFloatFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicFloatFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderAtomicFloatFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderBufferFloat32Atomics != r.ShaderBufferFloat32Atomics) || (l.ShaderBufferFloat32AtomicAdd != r.ShaderBufferFloat32AtomicAdd)
+			|| (l.ShaderBufferFloat64Atomics != r.ShaderBufferFloat64Atomics) || (l.ShaderBufferFloat64AtomicAdd != r.ShaderBufferFloat64AtomicAdd) || (l.ShaderSharedFloat32Atomics != r.ShaderSharedFloat32Atomics) || (l.ShaderSharedFloat32AtomicAdd != r.ShaderSharedFloat32AtomicAdd)
+			|| (l.ShaderSharedFloat64Atomics != r.ShaderSharedFloat64Atomics) || (l.ShaderSharedFloat64AtomicAdd != r.ShaderSharedFloat64AtomicAdd) || (l.ShaderImageFloat32Atomics != r.ShaderImageFloat32Atomics) || (l.ShaderImageFloat32AtomicAdd != r.ShaderImageFloat32AtomicAdd)
+			|| (l.SparseImageFloat32Atomics != r.SparseImageFloat32Atomics) || (l.SparseImageFloat32AtomicAdd != r.SparseImageFloat32AtomicAdd)
+			;
 	}
 
 
@@ -3335,31 +3272,28 @@ public unsafe partial struct PhysicalDeviceVertexAttributeDivisorFeatures : IEqu
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceVertexAttributeDivisorFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceVertexAttributeDivisorFeatures>.Equals(PhysicalDeviceVertexAttributeDivisorFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ VertexAttributeInstanceRateDivisor.GetHashCode() ^ VertexAttributeInstanceRateZeroDivisor.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceVertexAttributeDivisorFeatures l, in PhysicalDeviceVertexAttributeDivisorFeatures r)
 	{
-		fixed (PhysicalDeviceVertexAttributeDivisorFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.VertexAttributeInstanceRateDivisor == r.VertexAttributeInstanceRateDivisor) && (l.VertexAttributeInstanceRateZeroDivisor == r.VertexAttributeInstanceRateZeroDivisor)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceVertexAttributeDivisorFeatures l, in PhysicalDeviceVertexAttributeDivisorFeatures r)
 	{
-		fixed (PhysicalDeviceVertexAttributeDivisorFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceVertexAttributeDivisorFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.VertexAttributeInstanceRateDivisor != r.VertexAttributeInstanceRateDivisor) || (l.VertexAttributeInstanceRateZeroDivisor != r.VertexAttributeInstanceRateZeroDivisor)
+			;
 	}
 
 
@@ -3382,31 +3316,28 @@ public unsafe partial struct ImageViewASTCDecodeMode : IEquatable<ImageViewASTCD
 
 	public readonly override bool Equals(object? obj) => (obj is ImageViewASTCDecodeMode o) && (this == o);
 	readonly bool IEquatable<ImageViewASTCDecodeMode>.Equals(ImageViewASTCDecodeMode obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageViewASTCDecodeMode>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DecodeMode.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImageViewASTCDecodeMode l, in ImageViewASTCDecodeMode r)
 	{
-		fixed (ImageViewASTCDecodeMode* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewASTCDecodeMode>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewASTCDecodeMode>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DecodeMode == r.DecodeMode)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImageViewASTCDecodeMode l, in ImageViewASTCDecodeMode r)
 	{
-		fixed (ImageViewASTCDecodeMode* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageViewASTCDecodeMode>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageViewASTCDecodeMode>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DecodeMode != r.DecodeMode)
+			;
 	}
 
 
@@ -3429,31 +3360,28 @@ public unsafe partial struct PhysicalDeviceASTCDecodeFeatures : IEquatable<Physi
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceASTCDecodeFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceASTCDecodeFeatures>.Equals(PhysicalDeviceASTCDecodeFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceASTCDecodeFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DecodeModeSharedExponent.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceASTCDecodeFeatures l, in PhysicalDeviceASTCDecodeFeatures r)
 	{
-		fixed (PhysicalDeviceASTCDecodeFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceASTCDecodeFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceASTCDecodeFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DecodeModeSharedExponent == r.DecodeModeSharedExponent)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceASTCDecodeFeatures l, in PhysicalDeviceASTCDecodeFeatures r)
 	{
-		fixed (PhysicalDeviceASTCDecodeFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceASTCDecodeFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceASTCDecodeFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DecodeModeSharedExponent != r.DecodeModeSharedExponent)
+			;
 	}
 
 
@@ -3477,31 +3405,28 @@ public unsafe partial struct PhysicalDeviceTransformFeedbackFeatures : IEquatabl
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTransformFeedbackFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTransformFeedbackFeatures>.Equals(PhysicalDeviceTransformFeedbackFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceTransformFeedbackFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ TransformFeedback.GetHashCode() ^ GeometryStreams.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceTransformFeedbackFeatures l, in PhysicalDeviceTransformFeedbackFeatures r)
 	{
-		fixed (PhysicalDeviceTransformFeedbackFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.TransformFeedback == r.TransformFeedback) && (l.GeometryStreams == r.GeometryStreams)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceTransformFeedbackFeatures l, in PhysicalDeviceTransformFeedbackFeatures r)
 	{
-		fixed (PhysicalDeviceTransformFeedbackFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.TransformFeedback != r.TransformFeedback) || (l.GeometryStreams != r.GeometryStreams)
+			;
 	}
 
 
@@ -3533,31 +3458,34 @@ public unsafe partial struct PhysicalDeviceTransformFeedbackProperties : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTransformFeedbackProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTransformFeedbackProperties>.Equals(PhysicalDeviceTransformFeedbackProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceTransformFeedbackProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxTransformFeedbackStreams.GetHashCode() ^ MaxTransformFeedbackBuffers.GetHashCode()
+			^ MaxTransformFeedbackBufferSize.GetHashCode() ^ MaxTransformFeedbackStreamDataSize.GetHashCode() ^ MaxTransformFeedbackBufferDataSize.GetHashCode() ^ MaxTransformFeedbackBufferDataStride.GetHashCode()
+			^ TransformFeedbackQueries.GetHashCode() ^ TransformFeedbackStreamsLinesTriangles.GetHashCode() ^ TransformFeedbackRasterizationStreamSelect.GetHashCode() ^ TransformFeedbackDraw.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceTransformFeedbackProperties l, in PhysicalDeviceTransformFeedbackProperties r)
 	{
-		fixed (PhysicalDeviceTransformFeedbackProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxTransformFeedbackStreams == r.MaxTransformFeedbackStreams) && (l.MaxTransformFeedbackBuffers == r.MaxTransformFeedbackBuffers)
+			&& (l.MaxTransformFeedbackBufferSize == r.MaxTransformFeedbackBufferSize) && (l.MaxTransformFeedbackStreamDataSize == r.MaxTransformFeedbackStreamDataSize) && (l.MaxTransformFeedbackBufferDataSize == r.MaxTransformFeedbackBufferDataSize) && (l.MaxTransformFeedbackBufferDataStride == r.MaxTransformFeedbackBufferDataStride)
+			&& (l.TransformFeedbackQueries == r.TransformFeedbackQueries) && (l.TransformFeedbackStreamsLinesTriangles == r.TransformFeedbackStreamsLinesTriangles) && (l.TransformFeedbackRasterizationStreamSelect == r.TransformFeedbackRasterizationStreamSelect) && (l.TransformFeedbackDraw == r.TransformFeedbackDraw)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceTransformFeedbackProperties l, in PhysicalDeviceTransformFeedbackProperties r)
 	{
-		fixed (PhysicalDeviceTransformFeedbackProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTransformFeedbackProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxTransformFeedbackStreams != r.MaxTransformFeedbackStreams) || (l.MaxTransformFeedbackBuffers != r.MaxTransformFeedbackBuffers)
+			|| (l.MaxTransformFeedbackBufferSize != r.MaxTransformFeedbackBufferSize) || (l.MaxTransformFeedbackStreamDataSize != r.MaxTransformFeedbackStreamDataSize) || (l.MaxTransformFeedbackBufferDataSize != r.MaxTransformFeedbackBufferDataSize) || (l.MaxTransformFeedbackBufferDataStride != r.MaxTransformFeedbackBufferDataStride)
+			|| (l.TransformFeedbackQueries != r.TransformFeedbackQueries) || (l.TransformFeedbackStreamsLinesTriangles != r.TransformFeedbackStreamsLinesTriangles) || (l.TransformFeedbackRasterizationStreamSelect != r.TransformFeedbackRasterizationStreamSelect) || (l.TransformFeedbackDraw != r.TransformFeedbackDraw)
+			;
 	}
 
 
@@ -3581,31 +3509,28 @@ public unsafe partial struct PipelineRasterizationStateStreamCreateInfo : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationStateStreamCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationStateStreamCreateInfo>.Equals(PipelineRasterizationStateStreamCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineRasterizationStateStreamCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ RasterizationStream.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineRasterizationStateStreamCreateInfo l, in PipelineRasterizationStateStreamCreateInfo r)
 	{
-		fixed (PipelineRasterizationStateStreamCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationStateStreamCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationStateStreamCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.RasterizationStream == r.RasterizationStream)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineRasterizationStateStreamCreateInfo l, in PipelineRasterizationStateStreamCreateInfo r)
 	{
-		fixed (PipelineRasterizationStateStreamCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationStateStreamCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationStateStreamCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.RasterizationStream != r.RasterizationStream)
+			;
 	}
 
 
@@ -3629,31 +3554,28 @@ public unsafe partial struct DrmFormatModifierPropertiesList : IEquatable<DrmFor
 
 	public readonly override bool Equals(object? obj) => (obj is DrmFormatModifierPropertiesList o) && (this == o);
 	readonly bool IEquatable<DrmFormatModifierPropertiesList>.Equals(DrmFormatModifierPropertiesList obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DrmFormatModifierPropertiesList>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DrmFormatModifierCount.GetHashCode() ^ ((ulong)DrmFormatModifierProperties).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DrmFormatModifierPropertiesList l, in DrmFormatModifierPropertiesList r)
 	{
-		fixed (DrmFormatModifierPropertiesList* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DrmFormatModifierPropertiesList>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DrmFormatModifierPropertiesList>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DrmFormatModifierCount == r.DrmFormatModifierCount) && (l.DrmFormatModifierProperties == r.DrmFormatModifierProperties)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DrmFormatModifierPropertiesList l, in DrmFormatModifierPropertiesList r)
 	{
-		fixed (DrmFormatModifierPropertiesList* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DrmFormatModifierPropertiesList>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DrmFormatModifierPropertiesList>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DrmFormatModifierCount != r.DrmFormatModifierCount) || (l.DrmFormatModifierProperties != r.DrmFormatModifierProperties)
+			;
 	}
 
 
@@ -3674,31 +3596,28 @@ public unsafe partial struct DrmFormatModifierProperties : IEquatable<DrmFormatM
 
 	public readonly override bool Equals(object? obj) => (obj is DrmFormatModifierProperties o) && (this == o);
 	readonly bool IEquatable<DrmFormatModifierProperties>.Equals(DrmFormatModifierProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (ulong* ptr = &DrmFormatModifier) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<DrmFormatModifierProperties>());
-		}
+		return
+			DrmFormatModifier.GetHashCode() ^ DrmFormatModifierPlaneCount.GetHashCode() ^ DrmFormatModifierTilingFeatures.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in DrmFormatModifierProperties l, in DrmFormatModifierProperties r)
 	{
-		fixed (DrmFormatModifierProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DrmFormatModifierProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DrmFormatModifierProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.DrmFormatModifier == r.DrmFormatModifier) && (l.DrmFormatModifierPlaneCount == r.DrmFormatModifierPlaneCount) && (l.DrmFormatModifierTilingFeatures == r.DrmFormatModifierTilingFeatures)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in DrmFormatModifierProperties l, in DrmFormatModifierProperties r)
 	{
-		fixed (DrmFormatModifierProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<DrmFormatModifierProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<DrmFormatModifierProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.DrmFormatModifier != r.DrmFormatModifier) || (l.DrmFormatModifierPlaneCount != r.DrmFormatModifierPlaneCount) || (l.DrmFormatModifierTilingFeatures != r.DrmFormatModifierTilingFeatures)
+			;
 	}
 
 }
@@ -3717,31 +3636,31 @@ public unsafe partial struct PhysicalDeviceImageDrmFormatModifierInfo : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImageDrmFormatModifierInfo o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceImageDrmFormatModifierInfo>.Equals(PhysicalDeviceImageDrmFormatModifierInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceImageDrmFormatModifierInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DrmFormatModifier.GetHashCode() ^ SharingMode.GetHashCode()
+			^ QueueFamilyIndexCount.GetHashCode() ^ ((ulong)QueueFamilyIndices).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceImageDrmFormatModifierInfo l, in PhysicalDeviceImageDrmFormatModifierInfo r)
 	{
-		fixed (PhysicalDeviceImageDrmFormatModifierInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageDrmFormatModifierInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageDrmFormatModifierInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DrmFormatModifier == r.DrmFormatModifier) && (l.SharingMode == r.SharingMode)
+			&& (l.QueueFamilyIndexCount == r.QueueFamilyIndexCount) && (l.QueueFamilyIndices == r.QueueFamilyIndices)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceImageDrmFormatModifierInfo l, in PhysicalDeviceImageDrmFormatModifierInfo r)
 	{
-		fixed (PhysicalDeviceImageDrmFormatModifierInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageDrmFormatModifierInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageDrmFormatModifierInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DrmFormatModifier != r.DrmFormatModifier) || (l.SharingMode != r.SharingMode)
+			|| (l.QueueFamilyIndexCount != r.QueueFamilyIndexCount) || (l.QueueFamilyIndices != r.QueueFamilyIndices)
+			;
 	}
 
 
@@ -3765,31 +3684,28 @@ public unsafe partial struct ImageDrmFormatModifierListCreateInfo : IEquatable<I
 
 	public readonly override bool Equals(object? obj) => (obj is ImageDrmFormatModifierListCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImageDrmFormatModifierListCreateInfo>.Equals(ImageDrmFormatModifierListCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageDrmFormatModifierListCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DrmFormatModifierCount.GetHashCode() ^ ((ulong)DrmFormatModifiers).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImageDrmFormatModifierListCreateInfo l, in ImageDrmFormatModifierListCreateInfo r)
 	{
-		fixed (ImageDrmFormatModifierListCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageDrmFormatModifierListCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageDrmFormatModifierListCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DrmFormatModifierCount == r.DrmFormatModifierCount) && (l.DrmFormatModifiers == r.DrmFormatModifiers)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImageDrmFormatModifierListCreateInfo l, in ImageDrmFormatModifierListCreateInfo r)
 	{
-		fixed (ImageDrmFormatModifierListCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageDrmFormatModifierListCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageDrmFormatModifierListCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DrmFormatModifierCount != r.DrmFormatModifierCount) || (l.DrmFormatModifiers != r.DrmFormatModifiers)
+			;
 	}
 
 
@@ -3814,31 +3730,31 @@ public unsafe partial struct ImageDrmFormatModifierExplicitCreateInfo : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is ImageDrmFormatModifierExplicitCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImageDrmFormatModifierExplicitCreateInfo>.Equals(ImageDrmFormatModifierExplicitCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageDrmFormatModifierExplicitCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DrmFormatModifier.GetHashCode() ^ DrmFormatModifierPlaneCount.GetHashCode()
+			^ ((ulong)PlaneLayouts).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImageDrmFormatModifierExplicitCreateInfo l, in ImageDrmFormatModifierExplicitCreateInfo r)
 	{
-		fixed (ImageDrmFormatModifierExplicitCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageDrmFormatModifierExplicitCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageDrmFormatModifierExplicitCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DrmFormatModifier == r.DrmFormatModifier) && (l.DrmFormatModifierPlaneCount == r.DrmFormatModifierPlaneCount)
+			&& (l.PlaneLayouts == r.PlaneLayouts)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImageDrmFormatModifierExplicitCreateInfo l, in ImageDrmFormatModifierExplicitCreateInfo r)
 	{
-		fixed (ImageDrmFormatModifierExplicitCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageDrmFormatModifierExplicitCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageDrmFormatModifierExplicitCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DrmFormatModifier != r.DrmFormatModifier) || (l.DrmFormatModifierPlaneCount != r.DrmFormatModifierPlaneCount)
+			|| (l.PlaneLayouts != r.PlaneLayouts)
+			;
 	}
 
 
@@ -3861,31 +3777,28 @@ public unsafe partial struct ImageDrmFormatModifierProperties : IEquatable<Image
 
 	public readonly override bool Equals(object? obj) => (obj is ImageDrmFormatModifierProperties o) && (this == o);
 	readonly bool IEquatable<ImageDrmFormatModifierProperties>.Equals(ImageDrmFormatModifierProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageDrmFormatModifierProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DrmFormatModifier.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImageDrmFormatModifierProperties l, in ImageDrmFormatModifierProperties r)
 	{
-		fixed (ImageDrmFormatModifierProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageDrmFormatModifierProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageDrmFormatModifierProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DrmFormatModifier == r.DrmFormatModifier)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImageDrmFormatModifierProperties l, in ImageDrmFormatModifierProperties r)
 	{
-		fixed (ImageDrmFormatModifierProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageDrmFormatModifierProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageDrmFormatModifierProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DrmFormatModifier != r.DrmFormatModifier)
+			;
 	}
 
 
@@ -3908,31 +3821,28 @@ public unsafe partial struct ImageStencilUsageCreateInfo : IEquatable<ImageStenc
 
 	public readonly override bool Equals(object? obj) => (obj is ImageStencilUsageCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImageStencilUsageCreateInfo>.Equals(ImageStencilUsageCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<ImageStencilUsageCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ StencilUsage.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in ImageStencilUsageCreateInfo l, in ImageStencilUsageCreateInfo r)
 	{
-		fixed (ImageStencilUsageCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageStencilUsageCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageStencilUsageCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.StencilUsage == r.StencilUsage)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in ImageStencilUsageCreateInfo l, in ImageStencilUsageCreateInfo r)
 	{
-		fixed (ImageStencilUsageCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<ImageStencilUsageCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<ImageStencilUsageCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.StencilUsage != r.StencilUsage)
+			;
 	}
 
 
@@ -3957,31 +3867,31 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMapFeatures : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMapFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMapFeatures>.Equals(PhysicalDeviceFragmentDensityMapFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FragmentDensityMap.GetHashCode() ^ FragmentDensityMapDynamic.GetHashCode()
+			^ FragmentDensityMapNonSubsampledImages.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceFragmentDensityMapFeatures l, in PhysicalDeviceFragmentDensityMapFeatures r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMapFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FragmentDensityMap == r.FragmentDensityMap) && (l.FragmentDensityMapDynamic == r.FragmentDensityMapDynamic)
+			&& (l.FragmentDensityMapNonSubsampledImages == r.FragmentDensityMapNonSubsampledImages)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceFragmentDensityMapFeatures l, in PhysicalDeviceFragmentDensityMapFeatures r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMapFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FragmentDensityMap != r.FragmentDensityMap) || (l.FragmentDensityMapDynamic != r.FragmentDensityMapDynamic)
+			|| (l.FragmentDensityMapNonSubsampledImages != r.FragmentDensityMapNonSubsampledImages)
+			;
 	}
 
 
@@ -4004,31 +3914,28 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMap2Features : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMap2Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMap2Features>.Equals(PhysicalDeviceFragmentDensityMap2Features obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Features>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FragmentDensityMapDeferred.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceFragmentDensityMap2Features l, in PhysicalDeviceFragmentDensityMap2Features r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMap2Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Features>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FragmentDensityMapDeferred == r.FragmentDensityMapDeferred)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceFragmentDensityMap2Features l, in PhysicalDeviceFragmentDensityMap2Features r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMap2Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Features>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FragmentDensityMapDeferred != r.FragmentDensityMapDeferred)
+			;
 	}
 
 
@@ -4053,31 +3960,31 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMapProperties : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMapProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMapProperties>.Equals(PhysicalDeviceFragmentDensityMapProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MinFragmentDensityTexelSize.GetHashCode() ^ MaxFragmentDensityTexelSize.GetHashCode()
+			^ FragmentDensityInvocations.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceFragmentDensityMapProperties l, in PhysicalDeviceFragmentDensityMapProperties r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMapProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MinFragmentDensityTexelSize == r.MinFragmentDensityTexelSize) && (l.MaxFragmentDensityTexelSize == r.MaxFragmentDensityTexelSize)
+			&& (l.FragmentDensityInvocations == r.FragmentDensityInvocations)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceFragmentDensityMapProperties l, in PhysicalDeviceFragmentDensityMapProperties r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMapProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMapProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MinFragmentDensityTexelSize != r.MinFragmentDensityTexelSize) || (l.MaxFragmentDensityTexelSize != r.MaxFragmentDensityTexelSize)
+			|| (l.FragmentDensityInvocations != r.FragmentDensityInvocations)
+			;
 	}
 
 
@@ -4103,31 +4010,31 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMap2Properties : IEqua
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMap2Properties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMap2Properties>.Equals(PhysicalDeviceFragmentDensityMap2Properties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Properties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SubsampledLoads.GetHashCode() ^ SubsampledCoarseReconstructionEarlyAccess.GetHashCode()
+			^ MaxSubsampledArrayLayers.GetHashCode() ^ MaxDescriptorSetSubsampledSamplers.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceFragmentDensityMap2Properties l, in PhysicalDeviceFragmentDensityMap2Properties r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMap2Properties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Properties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Properties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SubsampledLoads == r.SubsampledLoads) && (l.SubsampledCoarseReconstructionEarlyAccess == r.SubsampledCoarseReconstructionEarlyAccess)
+			&& (l.MaxSubsampledArrayLayers == r.MaxSubsampledArrayLayers) && (l.MaxDescriptorSetSubsampledSamplers == r.MaxDescriptorSetSubsampledSamplers)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceFragmentDensityMap2Properties l, in PhysicalDeviceFragmentDensityMap2Properties r)
 	{
-		fixed (PhysicalDeviceFragmentDensityMap2Properties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Properties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentDensityMap2Properties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SubsampledLoads != r.SubsampledLoads) || (l.SubsampledCoarseReconstructionEarlyAccess != r.SubsampledCoarseReconstructionEarlyAccess)
+			|| (l.MaxSubsampledArrayLayers != r.MaxSubsampledArrayLayers) || (l.MaxDescriptorSetSubsampledSamplers != r.MaxDescriptorSetSubsampledSamplers)
+			;
 	}
 
 
@@ -4150,31 +4057,28 @@ public unsafe partial struct RenderPassFragmentDensityMapCreateInfo : IEquatable
 
 	public readonly override bool Equals(object? obj) => (obj is RenderPassFragmentDensityMapCreateInfo o) && (this == o);
 	readonly bool IEquatable<RenderPassFragmentDensityMapCreateInfo>.Equals(RenderPassFragmentDensityMapCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<RenderPassFragmentDensityMapCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FragmentDensityMapAttachment.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in RenderPassFragmentDensityMapCreateInfo l, in RenderPassFragmentDensityMapCreateInfo r)
 	{
-		fixed (RenderPassFragmentDensityMapCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassFragmentDensityMapCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassFragmentDensityMapCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FragmentDensityMapAttachment == r.FragmentDensityMapAttachment)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in RenderPassFragmentDensityMapCreateInfo l, in RenderPassFragmentDensityMapCreateInfo r)
 	{
-		fixed (RenderPassFragmentDensityMapCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<RenderPassFragmentDensityMapCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<RenderPassFragmentDensityMapCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FragmentDensityMapAttachment != r.FragmentDensityMapAttachment)
+			;
 	}
 
 
@@ -4197,31 +4101,28 @@ public unsafe partial struct PhysicalDeviceScalarBlockLayoutFeatures : IEquatabl
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceScalarBlockLayoutFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceScalarBlockLayoutFeatures>.Equals(PhysicalDeviceScalarBlockLayoutFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceScalarBlockLayoutFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ScalarBlockLayout.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceScalarBlockLayoutFeatures l, in PhysicalDeviceScalarBlockLayoutFeatures r)
 	{
-		fixed (PhysicalDeviceScalarBlockLayoutFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceScalarBlockLayoutFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceScalarBlockLayoutFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ScalarBlockLayout == r.ScalarBlockLayout)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceScalarBlockLayoutFeatures l, in PhysicalDeviceScalarBlockLayoutFeatures r)
 	{
-		fixed (PhysicalDeviceScalarBlockLayoutFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceScalarBlockLayoutFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceScalarBlockLayoutFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ScalarBlockLayout != r.ScalarBlockLayout)
+			;
 	}
 
 
@@ -4244,31 +4145,28 @@ public unsafe partial struct PhysicalDeviceDepthClipEnableFeatures : IEquatable<
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDepthClipEnableFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDepthClipEnableFeatures>.Equals(PhysicalDeviceDepthClipEnableFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceDepthClipEnableFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DepthClipEnable.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceDepthClipEnableFeatures l, in PhysicalDeviceDepthClipEnableFeatures r)
 	{
-		fixed (PhysicalDeviceDepthClipEnableFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDepthClipEnableFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDepthClipEnableFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DepthClipEnable == r.DepthClipEnable)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceDepthClipEnableFeatures l, in PhysicalDeviceDepthClipEnableFeatures r)
 	{
-		fixed (PhysicalDeviceDepthClipEnableFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceDepthClipEnableFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceDepthClipEnableFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DepthClipEnable != r.DepthClipEnable)
+			;
 	}
 
 
@@ -4292,31 +4190,28 @@ public unsafe partial struct PipelineRasterizationDepthClipStateCreateInfo : IEq
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationDepthClipStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationDepthClipStateCreateInfo>.Equals(PipelineRasterizationDepthClipStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineRasterizationDepthClipStateCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ DepthClipEnable.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineRasterizationDepthClipStateCreateInfo l, in PipelineRasterizationDepthClipStateCreateInfo r)
 	{
-		fixed (PipelineRasterizationDepthClipStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationDepthClipStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationDepthClipStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.DepthClipEnable == r.DepthClipEnable)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineRasterizationDepthClipStateCreateInfo l, in PipelineRasterizationDepthClipStateCreateInfo r)
 	{
-		fixed (PipelineRasterizationDepthClipStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationDepthClipStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationDepthClipStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.DepthClipEnable != r.DepthClipEnable)
+			;
 	}
 
 
@@ -4370,31 +4265,52 @@ public unsafe partial struct PhysicalDeviceMemoryBudgetProperties : IEquatable<P
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMemoryBudgetProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceMemoryBudgetProperties>.Equals(PhysicalDeviceMemoryBudgetProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceMemoryBudgetProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ HeapBudget_0.GetHashCode() ^ HeapBudget_1.GetHashCode()
+			^ HeapBudget_2.GetHashCode() ^ HeapBudget_3.GetHashCode() ^ HeapBudget_4.GetHashCode() ^ HeapBudget_5.GetHashCode()
+			^ HeapBudget_6.GetHashCode() ^ HeapBudget_7.GetHashCode() ^ HeapBudget_8.GetHashCode() ^ HeapBudget_9.GetHashCode()
+			^ HeapBudget_10.GetHashCode() ^ HeapBudget_11.GetHashCode() ^ HeapBudget_12.GetHashCode() ^ HeapBudget_13.GetHashCode()
+			^ HeapBudget_14.GetHashCode() ^ HeapBudget_15.GetHashCode() ^ HeapUsage_0.GetHashCode() ^ HeapUsage_1.GetHashCode()
+			^ HeapUsage_2.GetHashCode() ^ HeapUsage_3.GetHashCode() ^ HeapUsage_4.GetHashCode() ^ HeapUsage_5.GetHashCode()
+			^ HeapUsage_6.GetHashCode() ^ HeapUsage_7.GetHashCode() ^ HeapUsage_8.GetHashCode() ^ HeapUsage_9.GetHashCode()
+			^ HeapUsage_10.GetHashCode() ^ HeapUsage_11.GetHashCode() ^ HeapUsage_12.GetHashCode() ^ HeapUsage_13.GetHashCode()
+			^ HeapUsage_14.GetHashCode() ^ HeapUsage_15.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceMemoryBudgetProperties l, in PhysicalDeviceMemoryBudgetProperties r)
 	{
-		fixed (PhysicalDeviceMemoryBudgetProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMemoryBudgetProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMemoryBudgetProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.HeapBudget_0 == r.HeapBudget_0) && (l.HeapBudget_1 == r.HeapBudget_1)
+			&& (l.HeapBudget_2 == r.HeapBudget_2) && (l.HeapBudget_3 == r.HeapBudget_3) && (l.HeapBudget_4 == r.HeapBudget_4) && (l.HeapBudget_5 == r.HeapBudget_5)
+			&& (l.HeapBudget_6 == r.HeapBudget_6) && (l.HeapBudget_7 == r.HeapBudget_7) && (l.HeapBudget_8 == r.HeapBudget_8) && (l.HeapBudget_9 == r.HeapBudget_9)
+			&& (l.HeapBudget_10 == r.HeapBudget_10) && (l.HeapBudget_11 == r.HeapBudget_11) && (l.HeapBudget_12 == r.HeapBudget_12) && (l.HeapBudget_13 == r.HeapBudget_13)
+			&& (l.HeapBudget_14 == r.HeapBudget_14) && (l.HeapBudget_15 == r.HeapBudget_15) && (l.HeapUsage_0 == r.HeapUsage_0) && (l.HeapUsage_1 == r.HeapUsage_1)
+			&& (l.HeapUsage_2 == r.HeapUsage_2) && (l.HeapUsage_3 == r.HeapUsage_3) && (l.HeapUsage_4 == r.HeapUsage_4) && (l.HeapUsage_5 == r.HeapUsage_5)
+			&& (l.HeapUsage_6 == r.HeapUsage_6) && (l.HeapUsage_7 == r.HeapUsage_7) && (l.HeapUsage_8 == r.HeapUsage_8) && (l.HeapUsage_9 == r.HeapUsage_9)
+			&& (l.HeapUsage_10 == r.HeapUsage_10) && (l.HeapUsage_11 == r.HeapUsage_11) && (l.HeapUsage_12 == r.HeapUsage_12) && (l.HeapUsage_13 == r.HeapUsage_13)
+			&& (l.HeapUsage_14 == r.HeapUsage_14) && (l.HeapUsage_15 == r.HeapUsage_15)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceMemoryBudgetProperties l, in PhysicalDeviceMemoryBudgetProperties r)
 	{
-		fixed (PhysicalDeviceMemoryBudgetProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMemoryBudgetProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMemoryBudgetProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.HeapBudget_0 != r.HeapBudget_0) || (l.HeapBudget_1 != r.HeapBudget_1)
+			|| (l.HeapBudget_2 != r.HeapBudget_2) || (l.HeapBudget_3 != r.HeapBudget_3) || (l.HeapBudget_4 != r.HeapBudget_4) || (l.HeapBudget_5 != r.HeapBudget_5)
+			|| (l.HeapBudget_6 != r.HeapBudget_6) || (l.HeapBudget_7 != r.HeapBudget_7) || (l.HeapBudget_8 != r.HeapBudget_8) || (l.HeapBudget_9 != r.HeapBudget_9)
+			|| (l.HeapBudget_10 != r.HeapBudget_10) || (l.HeapBudget_11 != r.HeapBudget_11) || (l.HeapBudget_12 != r.HeapBudget_12) || (l.HeapBudget_13 != r.HeapBudget_13)
+			|| (l.HeapBudget_14 != r.HeapBudget_14) || (l.HeapBudget_15 != r.HeapBudget_15) || (l.HeapUsage_0 != r.HeapUsage_0) || (l.HeapUsage_1 != r.HeapUsage_1)
+			|| (l.HeapUsage_2 != r.HeapUsage_2) || (l.HeapUsage_3 != r.HeapUsage_3) || (l.HeapUsage_4 != r.HeapUsage_4) || (l.HeapUsage_5 != r.HeapUsage_5)
+			|| (l.HeapUsage_6 != r.HeapUsage_6) || (l.HeapUsage_7 != r.HeapUsage_7) || (l.HeapUsage_8 != r.HeapUsage_8) || (l.HeapUsage_9 != r.HeapUsage_9)
+			|| (l.HeapUsage_10 != r.HeapUsage_10) || (l.HeapUsage_11 != r.HeapUsage_11) || (l.HeapUsage_12 != r.HeapUsage_12) || (l.HeapUsage_13 != r.HeapUsage_13)
+			|| (l.HeapUsage_14 != r.HeapUsage_14) || (l.HeapUsage_15 != r.HeapUsage_15)
+			;
 	}
 
 
@@ -4417,31 +4333,28 @@ public unsafe partial struct PhysicalDeviceMemoryPriorityFeatures : IEquatable<P
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMemoryPriorityFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceMemoryPriorityFeatures>.Equals(PhysicalDeviceMemoryPriorityFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceMemoryPriorityFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MemoryPriority.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceMemoryPriorityFeatures l, in PhysicalDeviceMemoryPriorityFeatures r)
 	{
-		fixed (PhysicalDeviceMemoryPriorityFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMemoryPriorityFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMemoryPriorityFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MemoryPriority == r.MemoryPriority)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceMemoryPriorityFeatures l, in PhysicalDeviceMemoryPriorityFeatures r)
 	{
-		fixed (PhysicalDeviceMemoryPriorityFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceMemoryPriorityFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceMemoryPriorityFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MemoryPriority != r.MemoryPriority)
+			;
 	}
 
 
@@ -4464,31 +4377,28 @@ public unsafe partial struct MemoryPriorityAllocateInfo : IEquatable<MemoryPrior
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryPriorityAllocateInfo o) && (this == o);
 	readonly bool IEquatable<MemoryPriorityAllocateInfo>.Equals(MemoryPriorityAllocateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<MemoryPriorityAllocateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Priority.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in MemoryPriorityAllocateInfo l, in MemoryPriorityAllocateInfo r)
 	{
-		fixed (MemoryPriorityAllocateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryPriorityAllocateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryPriorityAllocateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Priority == r.Priority)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in MemoryPriorityAllocateInfo l, in MemoryPriorityAllocateInfo r)
 	{
-		fixed (MemoryPriorityAllocateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<MemoryPriorityAllocateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<MemoryPriorityAllocateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Priority != r.Priority)
+			;
 	}
 
 
@@ -4513,31 +4423,31 @@ public unsafe partial struct PhysicalDeviceBufferDeviceAddressFeatures : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBufferDeviceAddressFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBufferDeviceAddressFeatures>.Equals(PhysicalDeviceBufferDeviceAddressFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ BufferDeviceAddress.GetHashCode() ^ BufferDeviceAddressCaptureReplay.GetHashCode()
+			^ BufferDeviceAddressMultiDevice.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceBufferDeviceAddressFeatures l, in PhysicalDeviceBufferDeviceAddressFeatures r)
 	{
-		fixed (PhysicalDeviceBufferDeviceAddressFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.BufferDeviceAddress == r.BufferDeviceAddress) && (l.BufferDeviceAddressCaptureReplay == r.BufferDeviceAddressCaptureReplay)
+			&& (l.BufferDeviceAddressMultiDevice == r.BufferDeviceAddressMultiDevice)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceBufferDeviceAddressFeatures l, in PhysicalDeviceBufferDeviceAddressFeatures r)
 	{
-		fixed (PhysicalDeviceBufferDeviceAddressFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBufferDeviceAddressFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.BufferDeviceAddress != r.BufferDeviceAddress) || (l.BufferDeviceAddressCaptureReplay != r.BufferDeviceAddressCaptureReplay)
+			|| (l.BufferDeviceAddressMultiDevice != r.BufferDeviceAddressMultiDevice)
+			;
 	}
 
 
@@ -4562,31 +4472,31 @@ public unsafe partial struct PhysicalDeviceBufferAddressFeatures : IEquatable<Ph
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBufferAddressFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBufferAddressFeatures>.Equals(PhysicalDeviceBufferAddressFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceBufferAddressFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ BufferDeviceAddress.GetHashCode() ^ BufferDeviceAddressCaptureReplay.GetHashCode()
+			^ BufferDeviceAddressMultiDevice.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceBufferAddressFeatures l, in PhysicalDeviceBufferAddressFeatures r)
 	{
-		fixed (PhysicalDeviceBufferAddressFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBufferAddressFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBufferAddressFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.BufferDeviceAddress == r.BufferDeviceAddress) && (l.BufferDeviceAddressCaptureReplay == r.BufferDeviceAddressCaptureReplay)
+			&& (l.BufferDeviceAddressMultiDevice == r.BufferDeviceAddressMultiDevice)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceBufferAddressFeatures l, in PhysicalDeviceBufferAddressFeatures r)
 	{
-		fixed (PhysicalDeviceBufferAddressFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceBufferAddressFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceBufferAddressFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.BufferDeviceAddress != r.BufferDeviceAddress) || (l.BufferDeviceAddressCaptureReplay != r.BufferDeviceAddressCaptureReplay)
+			|| (l.BufferDeviceAddressMultiDevice != r.BufferDeviceAddressMultiDevice)
+			;
 	}
 
 
@@ -4609,31 +4519,28 @@ public unsafe partial struct BufferDeviceAddressInfo : IEquatable<BufferDeviceAd
 
 	public readonly override bool Equals(object? obj) => (obj is BufferDeviceAddressInfo o) && (this == o);
 	readonly bool IEquatable<BufferDeviceAddressInfo>.Equals(BufferDeviceAddressInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BufferDeviceAddressInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Buffer.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in BufferDeviceAddressInfo l, in BufferDeviceAddressInfo r)
 	{
-		fixed (BufferDeviceAddressInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Buffer == r.Buffer)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in BufferDeviceAddressInfo l, in BufferDeviceAddressInfo r)
 	{
-		fixed (BufferDeviceAddressInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferDeviceAddressInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Buffer != r.Buffer)
+			;
 	}
 
 
@@ -4656,31 +4563,28 @@ public unsafe partial struct BufferDeviceAddressCreateInfo : IEquatable<BufferDe
 
 	public readonly override bool Equals(object? obj) => (obj is BufferDeviceAddressCreateInfo o) && (this == o);
 	readonly bool IEquatable<BufferDeviceAddressCreateInfo>.Equals(BufferDeviceAddressCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<BufferDeviceAddressCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ DeviceAddress.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in BufferDeviceAddressCreateInfo l, in BufferDeviceAddressCreateInfo r)
 	{
-		fixed (BufferDeviceAddressCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferDeviceAddressCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferDeviceAddressCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.DeviceAddress == r.DeviceAddress)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in BufferDeviceAddressCreateInfo l, in BufferDeviceAddressCreateInfo r)
 	{
-		fixed (BufferDeviceAddressCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<BufferDeviceAddressCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<BufferDeviceAddressCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.DeviceAddress != r.DeviceAddress)
+			;
 	}
 
 
@@ -4703,31 +4607,28 @@ public unsafe partial struct PhysicalDeviceImageViewImageFormatInfo : IEquatable
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImageViewImageFormatInfo o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceImageViewImageFormatInfo>.Equals(PhysicalDeviceImageViewImageFormatInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceImageViewImageFormatInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ImageViewType.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceImageViewImageFormatInfo l, in PhysicalDeviceImageViewImageFormatInfo r)
 	{
-		fixed (PhysicalDeviceImageViewImageFormatInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageViewImageFormatInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageViewImageFormatInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ImageViewType == r.ImageViewType)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceImageViewImageFormatInfo l, in PhysicalDeviceImageViewImageFormatInfo r)
 	{
-		fixed (PhysicalDeviceImageViewImageFormatInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageViewImageFormatInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageViewImageFormatInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ImageViewType != r.ImageViewType)
+			;
 	}
 
 
@@ -4751,31 +4652,28 @@ public unsafe partial struct FilterCubicImageViewImageFormatProperties : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is FilterCubicImageViewImageFormatProperties o) && (this == o);
 	readonly bool IEquatable<FilterCubicImageViewImageFormatProperties>.Equals(FilterCubicImageViewImageFormatProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<FilterCubicImageViewImageFormatProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FilterCubic.GetHashCode() ^ FilterCubicMinmax.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in FilterCubicImageViewImageFormatProperties l, in FilterCubicImageViewImageFormatProperties r)
 	{
-		fixed (FilterCubicImageViewImageFormatProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FilterCubicImageViewImageFormatProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FilterCubicImageViewImageFormatProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FilterCubic == r.FilterCubic) && (l.FilterCubicMinmax == r.FilterCubicMinmax)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in FilterCubicImageViewImageFormatProperties l, in FilterCubicImageViewImageFormatProperties r)
 	{
-		fixed (FilterCubicImageViewImageFormatProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<FilterCubicImageViewImageFormatProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<FilterCubicImageViewImageFormatProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FilterCubic != r.FilterCubic) || (l.FilterCubicMinmax != r.FilterCubicMinmax)
+			;
 	}
 
 
@@ -4798,31 +4696,28 @@ public unsafe partial struct PhysicalDeviceTextureCompressionASTCHDRFeatures : I
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTextureCompressionASTCHDRFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTextureCompressionASTCHDRFeatures>.Equals(PhysicalDeviceTextureCompressionASTCHDRFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceTextureCompressionASTCHDRFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ TextureCompressionASTC_HDR.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceTextureCompressionASTCHDRFeatures l, in PhysicalDeviceTextureCompressionASTCHDRFeatures r)
 	{
-		fixed (PhysicalDeviceTextureCompressionASTCHDRFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTextureCompressionASTCHDRFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTextureCompressionASTCHDRFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.TextureCompressionASTC_HDR == r.TextureCompressionASTC_HDR)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceTextureCompressionASTCHDRFeatures l, in PhysicalDeviceTextureCompressionASTCHDRFeatures r)
 	{
-		fixed (PhysicalDeviceTextureCompressionASTCHDRFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTextureCompressionASTCHDRFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTextureCompressionASTCHDRFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.TextureCompressionASTC_HDR != r.TextureCompressionASTC_HDR)
+			;
 	}
 
 
@@ -4845,31 +4740,28 @@ public unsafe partial struct PhysicalDeviceYcbcrImageArraysFeatures : IEquatable
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceYcbcrImageArraysFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceYcbcrImageArraysFeatures>.Equals(PhysicalDeviceYcbcrImageArraysFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceYcbcrImageArraysFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ YcbcrImageArrays.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceYcbcrImageArraysFeatures l, in PhysicalDeviceYcbcrImageArraysFeatures r)
 	{
-		fixed (PhysicalDeviceYcbcrImageArraysFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceYcbcrImageArraysFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceYcbcrImageArraysFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.YcbcrImageArrays == r.YcbcrImageArrays)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceYcbcrImageArraysFeatures l, in PhysicalDeviceYcbcrImageArraysFeatures r)
 	{
-		fixed (PhysicalDeviceYcbcrImageArraysFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceYcbcrImageArraysFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceYcbcrImageArraysFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.YcbcrImageArrays != r.YcbcrImageArrays)
+			;
 	}
 
 
@@ -4889,31 +4781,28 @@ public unsafe partial struct PipelineCreationFeedback : IEquatable<PipelineCreat
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineCreationFeedback o) && (this == o);
 	readonly bool IEquatable<PipelineCreationFeedback>.Equals(PipelineCreationFeedback obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.EXT.PipelineCreationFeedbackFlags* ptr = &Flags) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineCreationFeedback>());
-		}
+		return
+			Flags.GetHashCode() ^ Duration.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineCreationFeedback l, in PipelineCreationFeedback r)
 	{
-		fixed (PipelineCreationFeedback* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineCreationFeedback>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineCreationFeedback>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.Flags == r.Flags) && (l.Duration == r.Duration)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineCreationFeedback l, in PipelineCreationFeedback r)
 	{
-		fixed (PipelineCreationFeedback* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineCreationFeedback>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineCreationFeedback>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.Flags != r.Flags) || (l.Duration != r.Duration)
+			;
 	}
 
 }
@@ -4931,31 +4820,31 @@ public unsafe partial struct PipelineCreationFeedbackCreateInfo : IEquatable<Pip
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineCreationFeedbackCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineCreationFeedbackCreateInfo>.Equals(PipelineCreationFeedbackCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineCreationFeedbackCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ((ulong)PipelineCreationFeedback).GetHashCode() ^ PipelineStageCreationFeedbackCount.GetHashCode()
+			^ ((ulong)PipelineStageCreationFeedbacks).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineCreationFeedbackCreateInfo l, in PipelineCreationFeedbackCreateInfo r)
 	{
-		fixed (PipelineCreationFeedbackCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineCreationFeedbackCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineCreationFeedbackCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PipelineCreationFeedback == r.PipelineCreationFeedback) && (l.PipelineStageCreationFeedbackCount == r.PipelineStageCreationFeedbackCount)
+			&& (l.PipelineStageCreationFeedbacks == r.PipelineStageCreationFeedbacks)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineCreationFeedbackCreateInfo l, in PipelineCreationFeedbackCreateInfo r)
 	{
-		fixed (PipelineCreationFeedbackCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineCreationFeedbackCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineCreationFeedbackCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PipelineCreationFeedback != r.PipelineCreationFeedback) || (l.PipelineStageCreationFeedbackCount != r.PipelineStageCreationFeedbackCount)
+			|| (l.PipelineStageCreationFeedbacks != r.PipelineStageCreationFeedbacks)
+			;
 	}
 
 
@@ -4978,31 +4867,28 @@ public unsafe partial struct SurfaceFullScreenExclusiveInfo : IEquatable<Surface
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceFullScreenExclusiveInfo o) && (this == o);
 	readonly bool IEquatable<SurfaceFullScreenExclusiveInfo>.Equals(SurfaceFullScreenExclusiveInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceFullScreenExclusiveInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FullScreenExclusive.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SurfaceFullScreenExclusiveInfo l, in SurfaceFullScreenExclusiveInfo r)
 	{
-		fixed (SurfaceFullScreenExclusiveInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFullScreenExclusiveInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFullScreenExclusiveInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FullScreenExclusive == r.FullScreenExclusive)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SurfaceFullScreenExclusiveInfo l, in SurfaceFullScreenExclusiveInfo r)
 	{
-		fixed (SurfaceFullScreenExclusiveInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFullScreenExclusiveInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFullScreenExclusiveInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FullScreenExclusive != r.FullScreenExclusive)
+			;
 	}
 
 
@@ -5025,31 +4911,28 @@ public unsafe partial struct SurfaceFullScreenExclusiveWin32Info : IEquatable<Su
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceFullScreenExclusiveWin32Info o) && (this == o);
 	readonly bool IEquatable<SurfaceFullScreenExclusiveWin32Info>.Equals(SurfaceFullScreenExclusiveWin32Info obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceFullScreenExclusiveWin32Info>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ((ulong)Hmonitor).GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SurfaceFullScreenExclusiveWin32Info l, in SurfaceFullScreenExclusiveWin32Info r)
 	{
-		fixed (SurfaceFullScreenExclusiveWin32Info* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFullScreenExclusiveWin32Info>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFullScreenExclusiveWin32Info>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Hmonitor == r.Hmonitor)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SurfaceFullScreenExclusiveWin32Info l, in SurfaceFullScreenExclusiveWin32Info r)
 	{
-		fixed (SurfaceFullScreenExclusiveWin32Info* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceFullScreenExclusiveWin32Info>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceFullScreenExclusiveWin32Info>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Hmonitor != r.Hmonitor)
+			;
 	}
 
 
@@ -5072,31 +4955,28 @@ public unsafe partial struct SurfaceCapabilitiesFullScreenExclusive : IEquatable
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceCapabilitiesFullScreenExclusive o) && (this == o);
 	readonly bool IEquatable<SurfaceCapabilitiesFullScreenExclusive>.Equals(SurfaceCapabilitiesFullScreenExclusive obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SurfaceCapabilitiesFullScreenExclusive>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FullScreenExclusiveSupported.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SurfaceCapabilitiesFullScreenExclusive l, in SurfaceCapabilitiesFullScreenExclusive r)
 	{
-		fixed (SurfaceCapabilitiesFullScreenExclusive* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilitiesFullScreenExclusive>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilitiesFullScreenExclusive>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FullScreenExclusiveSupported == r.FullScreenExclusiveSupported)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SurfaceCapabilitiesFullScreenExclusive l, in SurfaceCapabilitiesFullScreenExclusive r)
 	{
-		fixed (SurfaceCapabilitiesFullScreenExclusive* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SurfaceCapabilitiesFullScreenExclusive>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SurfaceCapabilitiesFullScreenExclusive>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FullScreenExclusiveSupported != r.FullScreenExclusiveSupported)
+			;
 	}
 
 
@@ -5119,31 +4999,28 @@ public unsafe partial struct HeadlessSurfaceCreateInfo : IEquatable<HeadlessSurf
 
 	public readonly override bool Equals(object? obj) => (obj is HeadlessSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<HeadlessSurfaceCreateInfo>.Equals(HeadlessSurfaceCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<HeadlessSurfaceCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in HeadlessSurfaceCreateInfo l, in HeadlessSurfaceCreateInfo r)
 	{
-		fixed (HeadlessSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<HeadlessSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<HeadlessSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in HeadlessSurfaceCreateInfo l, in HeadlessSurfaceCreateInfo r)
 	{
-		fixed (HeadlessSurfaceCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<HeadlessSurfaceCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<HeadlessSurfaceCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags)
+			;
 	}
 
 
@@ -5166,31 +5043,28 @@ public unsafe partial struct PhysicalDeviceIndexTypeUint8Features : IEquatable<P
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceIndexTypeUint8Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceIndexTypeUint8Features>.Equals(PhysicalDeviceIndexTypeUint8Features obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceIndexTypeUint8Features>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ IndexTypeUint8.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceIndexTypeUint8Features l, in PhysicalDeviceIndexTypeUint8Features r)
 	{
-		fixed (PhysicalDeviceIndexTypeUint8Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceIndexTypeUint8Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceIndexTypeUint8Features>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.IndexTypeUint8 == r.IndexTypeUint8)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceIndexTypeUint8Features l, in PhysicalDeviceIndexTypeUint8Features r)
 	{
-		fixed (PhysicalDeviceIndexTypeUint8Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceIndexTypeUint8Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceIndexTypeUint8Features>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.IndexTypeUint8 != r.IndexTypeUint8)
+			;
 	}
 
 
@@ -5215,31 +5089,31 @@ public unsafe partial struct PhysicalDeviceFragmentShaderInterlockFeatures : IEq
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentShaderInterlockFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentShaderInterlockFeatures>.Equals(PhysicalDeviceFragmentShaderInterlockFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceFragmentShaderInterlockFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FragmentShaderSampleInterlock.GetHashCode() ^ FragmentShaderPixelInterlock.GetHashCode()
+			^ FragmentShaderShadingRateInterlock.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceFragmentShaderInterlockFeatures l, in PhysicalDeviceFragmentShaderInterlockFeatures r)
 	{
-		fixed (PhysicalDeviceFragmentShaderInterlockFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShaderInterlockFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShaderInterlockFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FragmentShaderSampleInterlock == r.FragmentShaderSampleInterlock) && (l.FragmentShaderPixelInterlock == r.FragmentShaderPixelInterlock)
+			&& (l.FragmentShaderShadingRateInterlock == r.FragmentShaderShadingRateInterlock)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceFragmentShaderInterlockFeatures l, in PhysicalDeviceFragmentShaderInterlockFeatures r)
 	{
-		fixed (PhysicalDeviceFragmentShaderInterlockFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceFragmentShaderInterlockFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceFragmentShaderInterlockFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FragmentShaderSampleInterlock != r.FragmentShaderSampleInterlock) || (l.FragmentShaderPixelInterlock != r.FragmentShaderPixelInterlock)
+			|| (l.FragmentShaderShadingRateInterlock != r.FragmentShaderShadingRateInterlock)
+			;
 	}
 
 
@@ -5262,31 +5136,28 @@ public unsafe partial struct PhysicalDeviceShaderDemoteToHelperInvocationFeature
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderDemoteToHelperInvocationFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderDemoteToHelperInvocationFeatures>.Equals(PhysicalDeviceShaderDemoteToHelperInvocationFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderDemoteToHelperInvocationFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderDemoteToHelperInvocation.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceShaderDemoteToHelperInvocationFeatures l, in PhysicalDeviceShaderDemoteToHelperInvocationFeatures r)
 	{
-		fixed (PhysicalDeviceShaderDemoteToHelperInvocationFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderDemoteToHelperInvocationFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderDemoteToHelperInvocationFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderDemoteToHelperInvocation == r.ShaderDemoteToHelperInvocation)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceShaderDemoteToHelperInvocationFeatures l, in PhysicalDeviceShaderDemoteToHelperInvocationFeatures r)
 	{
-		fixed (PhysicalDeviceShaderDemoteToHelperInvocationFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderDemoteToHelperInvocationFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderDemoteToHelperInvocationFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderDemoteToHelperInvocation != r.ShaderDemoteToHelperInvocation)
+			;
 	}
 
 
@@ -5309,31 +5180,28 @@ public unsafe partial struct PhysicalDeviceTexelBufferAlignmentFeatures : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTexelBufferAlignmentFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTexelBufferAlignmentFeatures>.Equals(PhysicalDeviceTexelBufferAlignmentFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ TexelBufferAlignment.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceTexelBufferAlignmentFeatures l, in PhysicalDeviceTexelBufferAlignmentFeatures r)
 	{
-		fixed (PhysicalDeviceTexelBufferAlignmentFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.TexelBufferAlignment == r.TexelBufferAlignment)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceTexelBufferAlignmentFeatures l, in PhysicalDeviceTexelBufferAlignmentFeatures r)
 	{
-		fixed (PhysicalDeviceTexelBufferAlignmentFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.TexelBufferAlignment != r.TexelBufferAlignment)
+			;
 	}
 
 
@@ -5359,31 +5227,31 @@ public unsafe partial struct PhysicalDeviceTexelBufferAlignmentProperties : IEqu
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTexelBufferAlignmentProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTexelBufferAlignmentProperties>.Equals(PhysicalDeviceTexelBufferAlignmentProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ StorageTexelBufferOffsetAlignmentBytes.GetHashCode() ^ StorageTexelBufferOffsetSingleTexelAlignment.GetHashCode()
+			^ UniformTexelBufferOffsetAlignmentBytes.GetHashCode() ^ UniformTexelBufferOffsetSingleTexelAlignment.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceTexelBufferAlignmentProperties l, in PhysicalDeviceTexelBufferAlignmentProperties r)
 	{
-		fixed (PhysicalDeviceTexelBufferAlignmentProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.StorageTexelBufferOffsetAlignmentBytes == r.StorageTexelBufferOffsetAlignmentBytes) && (l.StorageTexelBufferOffsetSingleTexelAlignment == r.StorageTexelBufferOffsetSingleTexelAlignment)
+			&& (l.UniformTexelBufferOffsetAlignmentBytes == r.UniformTexelBufferOffsetAlignmentBytes) && (l.UniformTexelBufferOffsetSingleTexelAlignment == r.UniformTexelBufferOffsetSingleTexelAlignment)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceTexelBufferAlignmentProperties l, in PhysicalDeviceTexelBufferAlignmentProperties r)
 	{
-		fixed (PhysicalDeviceTexelBufferAlignmentProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceTexelBufferAlignmentProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.StorageTexelBufferOffsetAlignmentBytes != r.StorageTexelBufferOffsetAlignmentBytes) || (l.StorageTexelBufferOffsetSingleTexelAlignment != r.StorageTexelBufferOffsetSingleTexelAlignment)
+			|| (l.UniformTexelBufferOffsetAlignmentBytes != r.UniformTexelBufferOffsetAlignmentBytes) || (l.UniformTexelBufferOffsetSingleTexelAlignment != r.UniformTexelBufferOffsetSingleTexelAlignment)
+			;
 	}
 
 
@@ -5407,31 +5275,28 @@ public unsafe partial struct PhysicalDeviceSubgroupSizeControlFeatures : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSubgroupSizeControlFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSubgroupSizeControlFeatures>.Equals(PhysicalDeviceSubgroupSizeControlFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ SubgroupSizeControl.GetHashCode() ^ ComputeFullSubgroups.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceSubgroupSizeControlFeatures l, in PhysicalDeviceSubgroupSizeControlFeatures r)
 	{
-		fixed (PhysicalDeviceSubgroupSizeControlFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.SubgroupSizeControl == r.SubgroupSizeControl) && (l.ComputeFullSubgroups == r.ComputeFullSubgroups)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceSubgroupSizeControlFeatures l, in PhysicalDeviceSubgroupSizeControlFeatures r)
 	{
-		fixed (PhysicalDeviceSubgroupSizeControlFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.SubgroupSizeControl != r.SubgroupSizeControl) || (l.ComputeFullSubgroups != r.ComputeFullSubgroups)
+			;
 	}
 
 
@@ -5457,31 +5322,31 @@ public unsafe partial struct PhysicalDeviceSubgroupSizeControlProperties : IEqua
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSubgroupSizeControlProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSubgroupSizeControlProperties>.Equals(PhysicalDeviceSubgroupSizeControlProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MinSubgroupSize.GetHashCode() ^ MaxSubgroupSize.GetHashCode()
+			^ MaxComputeWorkgroupSubgroups.GetHashCode() ^ RequiredSubgroupSizeStages.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceSubgroupSizeControlProperties l, in PhysicalDeviceSubgroupSizeControlProperties r)
 	{
-		fixed (PhysicalDeviceSubgroupSizeControlProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MinSubgroupSize == r.MinSubgroupSize) && (l.MaxSubgroupSize == r.MaxSubgroupSize)
+			&& (l.MaxComputeWorkgroupSubgroups == r.MaxComputeWorkgroupSubgroups) && (l.RequiredSubgroupSizeStages == r.RequiredSubgroupSizeStages)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceSubgroupSizeControlProperties l, in PhysicalDeviceSubgroupSizeControlProperties r)
 	{
-		fixed (PhysicalDeviceSubgroupSizeControlProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceSubgroupSizeControlProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MinSubgroupSize != r.MinSubgroupSize) || (l.MaxSubgroupSize != r.MaxSubgroupSize)
+			|| (l.MaxComputeWorkgroupSubgroups != r.MaxComputeWorkgroupSubgroups) || (l.RequiredSubgroupSizeStages != r.RequiredSubgroupSizeStages)
+			;
 	}
 
 
@@ -5504,31 +5369,28 @@ public unsafe partial struct PipelineShaderStageRequiredSubgroupSizeCreateInfo :
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineShaderStageRequiredSubgroupSizeCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineShaderStageRequiredSubgroupSizeCreateInfo>.Equals(PipelineShaderStageRequiredSubgroupSizeCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineShaderStageRequiredSubgroupSizeCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RequiredSubgroupSize.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineShaderStageRequiredSubgroupSizeCreateInfo l, in PipelineShaderStageRequiredSubgroupSizeCreateInfo r)
 	{
-		fixed (PipelineShaderStageRequiredSubgroupSizeCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineShaderStageRequiredSubgroupSizeCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineShaderStageRequiredSubgroupSizeCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RequiredSubgroupSize == r.RequiredSubgroupSize)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineShaderStageRequiredSubgroupSizeCreateInfo l, in PipelineShaderStageRequiredSubgroupSizeCreateInfo r)
 	{
-		fixed (PipelineShaderStageRequiredSubgroupSizeCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineShaderStageRequiredSubgroupSizeCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineShaderStageRequiredSubgroupSizeCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RequiredSubgroupSize != r.RequiredSubgroupSize)
+			;
 	}
 
 
@@ -5556,31 +5418,31 @@ public unsafe partial struct PhysicalDeviceLineRasterizationFeatures : IEquatabl
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceLineRasterizationFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceLineRasterizationFeatures>.Equals(PhysicalDeviceLineRasterizationFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceLineRasterizationFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RectangularLines.GetHashCode() ^ BresenhamLines.GetHashCode()
+			^ SmoothLines.GetHashCode() ^ StippledRectangularLines.GetHashCode() ^ StippledBresenhamLines.GetHashCode() ^ StippledSmoothLines.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceLineRasterizationFeatures l, in PhysicalDeviceLineRasterizationFeatures r)
 	{
-		fixed (PhysicalDeviceLineRasterizationFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RectangularLines == r.RectangularLines) && (l.BresenhamLines == r.BresenhamLines)
+			&& (l.SmoothLines == r.SmoothLines) && (l.StippledRectangularLines == r.StippledRectangularLines) && (l.StippledBresenhamLines == r.StippledBresenhamLines) && (l.StippledSmoothLines == r.StippledSmoothLines)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceLineRasterizationFeatures l, in PhysicalDeviceLineRasterizationFeatures r)
 	{
-		fixed (PhysicalDeviceLineRasterizationFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RectangularLines != r.RectangularLines) || (l.BresenhamLines != r.BresenhamLines)
+			|| (l.SmoothLines != r.SmoothLines) || (l.StippledRectangularLines != r.StippledRectangularLines) || (l.StippledBresenhamLines != r.StippledBresenhamLines) || (l.StippledSmoothLines != r.StippledSmoothLines)
+			;
 	}
 
 
@@ -5603,31 +5465,28 @@ public unsafe partial struct PhysicalDeviceLineRasterizationProperties : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceLineRasterizationProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceLineRasterizationProperties>.Equals(PhysicalDeviceLineRasterizationProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceLineRasterizationProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ LineSubPixelPrecisionBits.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceLineRasterizationProperties l, in PhysicalDeviceLineRasterizationProperties r)
 	{
-		fixed (PhysicalDeviceLineRasterizationProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.LineSubPixelPrecisionBits == r.LineSubPixelPrecisionBits)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceLineRasterizationProperties l, in PhysicalDeviceLineRasterizationProperties r)
 	{
-		fixed (PhysicalDeviceLineRasterizationProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceLineRasterizationProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.LineSubPixelPrecisionBits != r.LineSubPixelPrecisionBits)
+			;
 	}
 
 
@@ -5653,31 +5512,31 @@ public unsafe partial struct PipelineRasterizationLineStateCreateInfo : IEquatab
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationLineStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationLineStateCreateInfo>.Equals(PipelineRasterizationLineStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PipelineRasterizationLineStateCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ LineRasterizationMode.GetHashCode() ^ StippledLineEnable.GetHashCode()
+			^ LineStippleFactor.GetHashCode() ^ LineStipplePattern.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PipelineRasterizationLineStateCreateInfo l, in PipelineRasterizationLineStateCreateInfo r)
 	{
-		fixed (PipelineRasterizationLineStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationLineStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationLineStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.LineRasterizationMode == r.LineRasterizationMode) && (l.StippledLineEnable == r.StippledLineEnable)
+			&& (l.LineStippleFactor == r.LineStippleFactor) && (l.LineStipplePattern == r.LineStipplePattern)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PipelineRasterizationLineStateCreateInfo l, in PipelineRasterizationLineStateCreateInfo r)
 	{
-		fixed (PipelineRasterizationLineStateCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PipelineRasterizationLineStateCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PipelineRasterizationLineStateCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.LineRasterizationMode != r.LineRasterizationMode) || (l.StippledLineEnable != r.StippledLineEnable)
+			|| (l.LineStippleFactor != r.LineStippleFactor) || (l.LineStipplePattern != r.LineStipplePattern)
+			;
 	}
 
 
@@ -5700,31 +5559,28 @@ public unsafe partial struct PhysicalDevicePipelineCreationCacheControlFeatures 
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePipelineCreationCacheControlFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDevicePipelineCreationCacheControlFeatures>.Equals(PhysicalDevicePipelineCreationCacheControlFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevicePipelineCreationCacheControlFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ PipelineCreationCacheControl.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDevicePipelineCreationCacheControlFeatures l, in PhysicalDevicePipelineCreationCacheControlFeatures r)
 	{
-		fixed (PhysicalDevicePipelineCreationCacheControlFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePipelineCreationCacheControlFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePipelineCreationCacheControlFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.PipelineCreationCacheControl == r.PipelineCreationCacheControl)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDevicePipelineCreationCacheControlFeatures l, in PhysicalDevicePipelineCreationCacheControlFeatures r)
 	{
-		fixed (PhysicalDevicePipelineCreationCacheControlFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevicePipelineCreationCacheControlFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevicePipelineCreationCacheControlFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.PipelineCreationCacheControl != r.PipelineCreationCacheControl)
+			;
 	}
 
 
@@ -5751,31 +5607,31 @@ public unsafe partial struct PhysicalDeviceToolProperties : IEquatable<PhysicalD
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceToolProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceToolProperties>.Equals(PhysicalDeviceToolProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceToolProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Name.GetHashCode() ^ Version.GetHashCode()
+			^ Purposes.GetHashCode() ^ Description.GetHashCode() ^ Layer.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceToolProperties l, in PhysicalDeviceToolProperties r)
 	{
-		fixed (PhysicalDeviceToolProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceToolProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceToolProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Name == r.Name) && (l.Version == r.Version)
+			&& (l.Purposes == r.Purposes) && (l.Description == r.Description) && (l.Layer == r.Layer)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceToolProperties l, in PhysicalDeviceToolProperties r)
 	{
-		fixed (PhysicalDeviceToolProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceToolProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceToolProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Name != r.Name) || (l.Version != r.Version)
+			|| (l.Purposes != r.Purposes) || (l.Description != r.Description) || (l.Layer != r.Layer)
+			;
 	}
 
 
@@ -5799,31 +5655,28 @@ public unsafe partial struct SamplerCustomBorderColorCreateInfo : IEquatable<Sam
 
 	public readonly override bool Equals(object? obj) => (obj is SamplerCustomBorderColorCreateInfo o) && (this == o);
 	readonly bool IEquatable<SamplerCustomBorderColorCreateInfo>.Equals(SamplerCustomBorderColorCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<SamplerCustomBorderColorCreateInfo>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ CustomBorderColor.GetHashCode() ^ Format.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in SamplerCustomBorderColorCreateInfo l, in SamplerCustomBorderColorCreateInfo r)
 	{
-		fixed (SamplerCustomBorderColorCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerCustomBorderColorCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerCustomBorderColorCreateInfo>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.CustomBorderColor == r.CustomBorderColor) && (l.Format == r.Format)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in SamplerCustomBorderColorCreateInfo l, in SamplerCustomBorderColorCreateInfo r)
 	{
-		fixed (SamplerCustomBorderColorCreateInfo* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<SamplerCustomBorderColorCreateInfo>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<SamplerCustomBorderColorCreateInfo>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.CustomBorderColor != r.CustomBorderColor) || (l.Format != r.Format)
+			;
 	}
 
 
@@ -5846,31 +5699,28 @@ public unsafe partial struct PhysicalDeviceCustomBorderColorProperties : IEquata
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceCustomBorderColorProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceCustomBorderColorProperties>.Equals(PhysicalDeviceCustomBorderColorProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceCustomBorderColorProperties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxCustomBorderColorSamplers.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceCustomBorderColorProperties l, in PhysicalDeviceCustomBorderColorProperties r)
 	{
-		fixed (PhysicalDeviceCustomBorderColorProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorProperties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxCustomBorderColorSamplers == r.MaxCustomBorderColorSamplers)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceCustomBorderColorProperties l, in PhysicalDeviceCustomBorderColorProperties r)
 	{
-		fixed (PhysicalDeviceCustomBorderColorProperties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorProperties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorProperties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxCustomBorderColorSamplers != r.MaxCustomBorderColorSamplers)
+			;
 	}
 
 
@@ -5894,31 +5744,28 @@ public unsafe partial struct PhysicalDeviceCustomBorderColorFeatures : IEquatabl
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceCustomBorderColorFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceCustomBorderColorFeatures>.Equals(PhysicalDeviceCustomBorderColorFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceCustomBorderColorFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ CustomBorderColors.GetHashCode() ^ CustomBorderColorWithoutFormat.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceCustomBorderColorFeatures l, in PhysicalDeviceCustomBorderColorFeatures r)
 	{
-		fixed (PhysicalDeviceCustomBorderColorFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.CustomBorderColors == r.CustomBorderColors) && (l.CustomBorderColorWithoutFormat == r.CustomBorderColorWithoutFormat)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceCustomBorderColorFeatures l, in PhysicalDeviceCustomBorderColorFeatures r)
 	{
-		fixed (PhysicalDeviceCustomBorderColorFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceCustomBorderColorFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.CustomBorderColors != r.CustomBorderColors) || (l.CustomBorderColorWithoutFormat != r.CustomBorderColorWithoutFormat)
+			;
 	}
 
 
@@ -5941,31 +5788,28 @@ public unsafe partial struct PhysicalDeviceExtendedDynamicStateFeatures : IEquat
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExtendedDynamicStateFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceExtendedDynamicStateFeatures>.Equals(PhysicalDeviceExtendedDynamicStateFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceExtendedDynamicStateFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ExtendedDynamicState.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceExtendedDynamicStateFeatures l, in PhysicalDeviceExtendedDynamicStateFeatures r)
 	{
-		fixed (PhysicalDeviceExtendedDynamicStateFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExtendedDynamicStateFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExtendedDynamicStateFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ExtendedDynamicState == r.ExtendedDynamicState)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceExtendedDynamicStateFeatures l, in PhysicalDeviceExtendedDynamicStateFeatures r)
 	{
-		fixed (PhysicalDeviceExtendedDynamicStateFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceExtendedDynamicStateFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceExtendedDynamicStateFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ExtendedDynamicState != r.ExtendedDynamicState)
+			;
 	}
 
 
@@ -5990,31 +5834,31 @@ public unsafe partial struct PhysicalDeviceRobustness2Features : IEquatable<Phys
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceRobustness2Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceRobustness2Features>.Equals(PhysicalDeviceRobustness2Features obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceRobustness2Features>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RobustBufferAccess2.GetHashCode() ^ RobustImageAccess2.GetHashCode()
+			^ NullDescriptor.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceRobustness2Features l, in PhysicalDeviceRobustness2Features r)
 	{
-		fixed (PhysicalDeviceRobustness2Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRobustness2Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRobustness2Features>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RobustBufferAccess2 == r.RobustBufferAccess2) && (l.RobustImageAccess2 == r.RobustImageAccess2)
+			&& (l.NullDescriptor == r.NullDescriptor)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceRobustness2Features l, in PhysicalDeviceRobustness2Features r)
 	{
-		fixed (PhysicalDeviceRobustness2Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRobustness2Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRobustness2Features>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RobustBufferAccess2 != r.RobustBufferAccess2) || (l.RobustImageAccess2 != r.RobustImageAccess2)
+			|| (l.NullDescriptor != r.NullDescriptor)
+			;
 	}
 
 
@@ -6038,31 +5882,28 @@ public unsafe partial struct PhysicalDeviceRobustness2Properties : IEquatable<Ph
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceRobustness2Properties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceRobustness2Properties>.Equals(PhysicalDeviceRobustness2Properties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceRobustness2Properties>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RobustStorageBufferAccessSizeAlignment.GetHashCode() ^ RobustUniformBufferAccessSizeAlignment.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceRobustness2Properties l, in PhysicalDeviceRobustness2Properties r)
 	{
-		fixed (PhysicalDeviceRobustness2Properties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRobustness2Properties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRobustness2Properties>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RobustStorageBufferAccessSizeAlignment == r.RobustStorageBufferAccessSizeAlignment) && (l.RobustUniformBufferAccessSizeAlignment == r.RobustUniformBufferAccessSizeAlignment)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceRobustness2Properties l, in PhysicalDeviceRobustness2Properties r)
 	{
-		fixed (PhysicalDeviceRobustness2Properties* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceRobustness2Properties>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceRobustness2Properties>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RobustStorageBufferAccessSizeAlignment != r.RobustStorageBufferAccessSizeAlignment) || (l.RobustUniformBufferAccessSizeAlignment != r.RobustUniformBufferAccessSizeAlignment)
+			;
 	}
 
 
@@ -6085,31 +5926,28 @@ public unsafe partial struct PhysicalDeviceImageRobustnessFeatures : IEquatable<
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImageRobustnessFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceImageRobustnessFeatures>.Equals(PhysicalDeviceImageRobustnessFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceImageRobustnessFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RobustImageAccess.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceImageRobustnessFeatures l, in PhysicalDeviceImageRobustnessFeatures r)
 	{
-		fixed (PhysicalDeviceImageRobustnessFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageRobustnessFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageRobustnessFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RobustImageAccess == r.RobustImageAccess)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceImageRobustnessFeatures l, in PhysicalDeviceImageRobustnessFeatures r)
 	{
-		fixed (PhysicalDeviceImageRobustnessFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceImageRobustnessFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceImageRobustnessFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RobustImageAccess != r.RobustImageAccess)
+			;
 	}
 
 
@@ -6133,31 +5971,28 @@ public unsafe partial struct PhysicalDevice4444FormatsFeatures : IEquatable<Phys
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevice4444FormatsFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDevice4444FormatsFeatures>.Equals(PhysicalDevice4444FormatsFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDevice4444FormatsFeatures>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FormatA4R4G4B4.GetHashCode() ^ FormatA4B4G4R4.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDevice4444FormatsFeatures l, in PhysicalDevice4444FormatsFeatures r)
 	{
-		fixed (PhysicalDevice4444FormatsFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevice4444FormatsFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevice4444FormatsFeatures>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FormatA4R4G4B4 == r.FormatA4R4G4B4) && (l.FormatA4B4G4R4 == r.FormatA4B4G4R4)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDevice4444FormatsFeatures l, in PhysicalDevice4444FormatsFeatures r)
 	{
-		fixed (PhysicalDevice4444FormatsFeatures* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDevice4444FormatsFeatures>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDevice4444FormatsFeatures>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FormatA4R4G4B4 != r.FormatA4R4G4B4) || (l.FormatA4B4G4R4 != r.FormatA4B4G4R4)
+			;
 	}
 
 
@@ -6181,31 +6016,28 @@ public unsafe partial struct PhysicalDeviceShaderImageAtomicInt64Features : IEqu
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderImageAtomicInt64Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderImageAtomicInt64Features>.Equals(PhysicalDeviceShaderImageAtomicInt64Features obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
-		fixed (Vk.StructureType* ptr = &sType) {
-			return VVK.Hasher.HashBytes(ptr, (uint)Unsafe.SizeOf<PhysicalDeviceShaderImageAtomicInt64Features>());
-		}
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderImageInt64Atomics.GetHashCode() ^ SparseImageInt64Atomics.GetHashCode()
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator == (in PhysicalDeviceShaderImageAtomicInt64Features l, in PhysicalDeviceShaderImageAtomicInt64Features r)
 	{
-		fixed (PhysicalDeviceShaderImageAtomicInt64Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderImageAtomicInt64Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderImageAtomicInt64Features>());
-			return lb.SequenceCompareTo(rb) == 0;
-		}
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderImageInt64Atomics == r.ShaderImageInt64Atomics) && (l.SparseImageInt64Atomics == r.SparseImageInt64Atomics)
+			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public static bool operator != (in PhysicalDeviceShaderImageAtomicInt64Features l, in PhysicalDeviceShaderImageAtomicInt64Features r)
 	{
-		fixed (PhysicalDeviceShaderImageAtomicInt64Features* lp = &l, rp = &r) {
-			ReadOnlySpan<byte> lb = new((byte*)lp, Unsafe.SizeOf<PhysicalDeviceShaderImageAtomicInt64Features>());
-			ReadOnlySpan<byte> rb = new((byte*)rp, Unsafe.SizeOf<PhysicalDeviceShaderImageAtomicInt64Features>());
-			return lb.SequenceCompareTo(rb) != 0;
-		}
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderImageInt64Atomics != r.ShaderImageInt64Atomics) || (l.SparseImageInt64Atomics != r.SparseImageInt64Atomics)
+			;
 	}
 
 
