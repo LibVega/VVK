@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Vk
+namespace Vk.Extras
 {
 	/// <summary>
 	/// Contains utility functionality for working with <see cref="Vk.Result"/> values.

@@ -50,7 +50,7 @@ namespace Vk
 		public FixedString(string str)
 		{
 			var len = Math.Min(str.Length, SIZE - 1);
-			var strData = Encoding.ASCII.GetBytes(str);
+			var strData = Encoding.UTF8.GetBytes(str);
 
 			for (int i = 0; i < len; ++i) {
 				_data[i] = strData[i];
@@ -98,7 +98,7 @@ namespace Vk
 		public readonly override string ToString()
 		{
 			fixed (byte* ptr = _data) {
-				return Marshal.PtrToStringAnsi(new IntPtr(ptr), Vk.NativeString.Strlen(ptr, SIZE));
+				return Marshal.PtrToStringUTF8(new IntPtr(ptr), Vk.NativeString.Strlen(ptr, SIZE));
 			}
 		}
 		#endregion // Overrides
@@ -167,7 +167,10 @@ namespace Vk
 		/// <returns></returns>
 		public readonly int GetLength()
 		{
-			fixed (byte* ptr = _data) { return Vk.NativeString.Strlen(ptr, SIZE); }
+			fixed (byte* ptr = _data) {
+				var len = Vk.NativeString.Strlen(ptr, SIZE);
+				return Encoding.UTF8.GetCharCount(ptr, len);
+			}
 		}
 	}
 }

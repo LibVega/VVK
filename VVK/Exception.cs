@@ -6,26 +6,8 @@
 
 using System;
 
-namespace Vk
+namespace Vk.Extras
 {
-	/// <summary>
-	/// Exception thrown by <see cref="Vk.InstanceFunctionTable"/> and <see cref="Vk.DeviceFunctionTable"/> when an
-	/// extension function is called that has not been loaded by the table.
-	/// </summary>
-	public sealed class FunctionNotLoadedException : Exception
-	{
-		/// <summary>
-		/// The name of the function that was called and was not loaded.
-		/// </summary>
-		public readonly string FunctionName;
-
-		internal FunctionNotLoadedException(string func) :
-			base($"Attempt to call function '{func}' which has not been loaded")
-		{
-			FunctionName = func;
-		}
-	}
-
 	/// <summary>
 	/// Exception that is thrown for <see cref="Vk.Result"/> error codes.
 	/// </summary>
