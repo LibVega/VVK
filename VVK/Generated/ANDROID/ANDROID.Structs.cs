@@ -46,6 +46,10 @@ public unsafe partial struct NativeBufferUsage2 : IEquatable<NativeBufferUsage2>
 			;
 	}
 
+
+	/// <summary>Creates a new NativeBufferUsage2 value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out NativeBufferUsage2 value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -84,12 +88,9 @@ public unsafe partial struct ImportAndroidHardwareBufferInfo : IEquatable<Import
 	}
 
 
-	/// <summary>Creates a new ImportAndroidHardwareBufferInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImportAndroidHardwareBufferInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImportAndroidHardwareBufferInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImportAndroidHardwareBufferInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -128,12 +129,9 @@ public unsafe partial struct AndroidHardwareBufferUsage : IEquatable<AndroidHard
 	}
 
 
-	/// <summary>Creates a new AndroidHardwareBufferUsage value with the correct type field.</summary>
+	/// <summary>Creates a new AndroidHardwareBufferUsage value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AndroidHardwareBufferUsage value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref AndroidHardwareBufferUsage value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -173,12 +171,9 @@ public unsafe partial struct AndroidHardwareBufferProperties : IEquatable<Androi
 	}
 
 
-	/// <summary>Creates a new AndroidHardwareBufferProperties value with the correct type field.</summary>
+	/// <summary>Creates a new AndroidHardwareBufferProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AndroidHardwareBufferProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref AndroidHardwareBufferProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -217,12 +212,9 @@ public unsafe partial struct MemoryGetAndroidHardwareBufferInfo : IEquatable<Mem
 	}
 
 
-	/// <summary>Creates a new MemoryGetAndroidHardwareBufferInfo value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryGetAndroidHardwareBufferInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryGetAndroidHardwareBufferInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryGetAndroidHardwareBufferInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -274,12 +266,9 @@ public unsafe partial struct AndroidHardwareBufferFormatProperties : IEquatable<
 	}
 
 
-	/// <summary>Creates a new AndroidHardwareBufferFormatProperties value with the correct type field.</summary>
+	/// <summary>Creates a new AndroidHardwareBufferFormatProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AndroidHardwareBufferFormatProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref AndroidHardwareBufferFormatProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -318,12 +307,9 @@ public unsafe partial struct ExternalFormat : IEquatable<ExternalFormat>
 	}
 
 
-	/// <summary>Creates a new ExternalFormat value with the correct type field.</summary>
+	/// <summary>Creates a new ExternalFormat value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExternalFormat value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExternalFormat value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.ANDROID

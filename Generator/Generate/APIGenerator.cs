@@ -423,19 +423,18 @@ namespace Gen
 						neqBlock.WriteLine("\t;");
 					}
 
-					// Generate the initialization functions for typed structs
+					// Generate the initialization functions for structs
+					structBlock.WriteLine();
+					structBlock.WriteLine(
+						$"/// <summary>Creates a new {structSpec.Name} value with the correct default fields.</summary>");
+					structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					if (structSpec.HasSType) {
-						structBlock.WriteLine();
-						structBlock.WriteLine(
-							$"/// <summary>Creates a new {structSpec.Name} value with the correct type field.</summary>");
-						structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 						structBlock.WriteLine(
 							$"public static void New(out {structSpec.Name} value) => value = new() {{ sType = TYPE }};");
+					}
+					else {
 						structBlock.WriteLine(
-							$"/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>");
-						structBlock.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-						structBlock.WriteLine(
-							$"public static void Init(ref {structSpec.Name} value) {{ value.sType = TYPE; value.pNext = null; }}");
+							$"public static void New(out {structSpec.Name} value) => value = new();");
 					}
 				}
 			}

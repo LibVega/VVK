@@ -50,12 +50,9 @@ public unsafe partial struct PhysicalDeviceMultiviewPerViewAttributesProperties 
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceMultiviewPerViewAttributesProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceMultiviewPerViewAttributesProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceMultiviewPerViewAttributesProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceMultiviewPerViewAttributesProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -99,12 +96,9 @@ public unsafe partial struct ImageViewHandleInfo : IEquatable<ImageViewHandleInf
 	}
 
 
-	/// <summary>Creates a new ImageViewHandleInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImageViewHandleInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageViewHandleInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageViewHandleInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -144,12 +138,9 @@ public unsafe partial struct ImageViewAddressProperties : IEquatable<ImageViewAd
 	}
 
 
-	/// <summary>Creates a new ImageViewAddressProperties value with the correct type field.</summary>
+	/// <summary>Creates a new ImageViewAddressProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageViewAddressProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageViewAddressProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.NVX

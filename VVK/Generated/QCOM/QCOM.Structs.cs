@@ -50,12 +50,9 @@ public unsafe partial struct RenderPassTransformBeginInfo : IEquatable<RenderPas
 	}
 
 
-	/// <summary>Creates a new RenderPassTransformBeginInfo value with the correct type field.</summary>
+	/// <summary>Creates a new RenderPassTransformBeginInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassTransformBeginInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref RenderPassTransformBeginInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -95,12 +92,9 @@ public unsafe partial struct CommandBufferInheritanceRenderPassTransformInfo : I
 	}
 
 
-	/// <summary>Creates a new CommandBufferInheritanceRenderPassTransformInfo value with the correct type field.</summary>
+	/// <summary>Creates a new CommandBufferInheritanceRenderPassTransformInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CommandBufferInheritanceRenderPassTransformInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref CommandBufferInheritanceRenderPassTransformInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.QCOM

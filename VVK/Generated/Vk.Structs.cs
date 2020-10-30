@@ -49,12 +49,9 @@ public unsafe partial struct BaseOutStructure : IEquatable<BaseOutStructure>
 	}
 
 
-	/// <summary>Creates a new BaseOutStructure value with the correct type field.</summary>
+	/// <summary>Creates a new BaseOutStructure value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BaseOutStructure value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BaseOutStructure value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -92,12 +89,9 @@ public unsafe partial struct BaseInStructure : IEquatable<BaseInStructure>
 	}
 
 
-	/// <summary>Creates a new BaseInStructure value with the correct type field.</summary>
+	/// <summary>Creates a new BaseInStructure value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BaseInStructure value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BaseInStructure value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -132,6 +126,10 @@ public unsafe partial struct Offset2D : IEquatable<Offset2D>
 			;
 	}
 
+
+	/// <summary>Creates a new Offset2D value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out Offset2D value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -167,6 +165,10 @@ public unsafe partial struct Offset3D : IEquatable<Offset3D>
 			;
 	}
 
+
+	/// <summary>Creates a new Offset3D value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out Offset3D value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -201,6 +203,10 @@ public unsafe partial struct Extent2D : IEquatable<Extent2D>
 			;
 	}
 
+
+	/// <summary>Creates a new Extent2D value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out Extent2D value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -236,6 +242,10 @@ public unsafe partial struct Extent3D : IEquatable<Extent3D>
 			;
 	}
 
+
+	/// <summary>Creates a new Extent3D value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out Extent3D value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -277,6 +287,10 @@ public unsafe partial struct Viewport : IEquatable<Viewport>
 			;
 	}
 
+
+	/// <summary>Creates a new Viewport value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out Viewport value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -311,6 +325,10 @@ public unsafe partial struct Rect2D : IEquatable<Rect2D>
 			;
 	}
 
+
+	/// <summary>Creates a new Rect2D value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out Rect2D value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -346,6 +364,10 @@ public unsafe partial struct ClearRect : IEquatable<ClearRect>
 			;
 	}
 
+
+	/// <summary>Creates a new ClearRect value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ClearRect value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -382,6 +404,10 @@ public unsafe partial struct ComponentMapping : IEquatable<ComponentMapping>
 			;
 	}
 
+
+	/// <summary>Creates a new ComponentMapping value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ComponentMapping value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -429,6 +455,10 @@ public unsafe partial struct PhysicalDeviceProperties : IEquatable<PhysicalDevic
 			;
 	}
 
+
+	/// <summary>Creates a new PhysicalDeviceProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -463,6 +493,10 @@ public unsafe partial struct ExtensionProperties : IEquatable<ExtensionPropertie
 			;
 	}
 
+
+	/// <summary>Creates a new ExtensionProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ExtensionProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -499,6 +533,10 @@ public unsafe partial struct LayerProperties : IEquatable<LayerProperties>
 			;
 	}
 
+
+	/// <summary>Creates a new LayerProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out LayerProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -544,12 +582,9 @@ public unsafe partial struct ApplicationInfo : IEquatable<ApplicationInfo>
 	}
 
 
-	/// <summary>Creates a new ApplicationInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ApplicationInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ApplicationInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ApplicationInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -591,6 +626,10 @@ public unsafe partial struct AllocationCallbacks : IEquatable<AllocationCallback
 			;
 	}
 
+
+	/// <summary>Creates a new AllocationCallbacks value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out AllocationCallbacks value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -635,12 +674,9 @@ public unsafe partial struct DeviceQueueCreateInfo : IEquatable<DeviceQueueCreat
 	}
 
 
-	/// <summary>Creates a new DeviceQueueCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceQueueCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceQueueCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceQueueCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -692,12 +728,9 @@ public unsafe partial struct DeviceCreateInfo : IEquatable<DeviceCreateInfo>
 	}
 
 
-	/// <summary>Creates a new DeviceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -744,12 +777,9 @@ public unsafe partial struct InstanceCreateInfo : IEquatable<InstanceCreateInfo>
 	}
 
 
-	/// <summary>Creates a new InstanceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new InstanceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out InstanceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref InstanceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -786,6 +816,10 @@ public unsafe partial struct QueueFamilyProperties : IEquatable<QueueFamilyPrope
 			;
 	}
 
+
+	/// <summary>Creates a new QueueFamilyProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out QueueFamilyProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -904,6 +938,10 @@ public unsafe partial struct PhysicalDeviceMemoryProperties : IEquatable<Physica
 			;
 	}
 
+
+	/// <summary>Creates a new PhysicalDeviceMemoryProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceMemoryProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -943,12 +981,9 @@ public unsafe partial struct MemoryAllocateInfo : IEquatable<MemoryAllocateInfo>
 	}
 
 
-	/// <summary>Creates a new MemoryAllocateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryAllocateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryAllocateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryAllocateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -984,6 +1019,10 @@ public unsafe partial struct MemoryRequirements : IEquatable<MemoryRequirements>
 			;
 	}
 
+
+	/// <summary>Creates a new MemoryRequirements value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out MemoryRequirements value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1019,6 +1058,10 @@ public unsafe partial struct SparseImageFormatProperties : IEquatable<SparseImag
 			;
 	}
 
+
+	/// <summary>Creates a new SparseImageFormatProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SparseImageFormatProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1059,6 +1102,10 @@ public unsafe partial struct SparseImageMemoryRequirements : IEquatable<SparseIm
 			;
 	}
 
+
+	/// <summary>Creates a new SparseImageMemoryRequirements value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SparseImageMemoryRequirements value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1093,6 +1140,10 @@ public unsafe partial struct MemoryType : IEquatable<MemoryType>
 			;
 	}
 
+
+	/// <summary>Creates a new MemoryType value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out MemoryType value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1127,6 +1178,10 @@ public unsafe partial struct MemoryHeap : IEquatable<MemoryHeap>
 			;
 	}
 
+
+	/// <summary>Creates a new MemoryHeap value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out MemoryHeap value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1170,12 +1225,9 @@ public unsafe partial struct MappedMemoryRange : IEquatable<MappedMemoryRange>
 	}
 
 
-	/// <summary>Creates a new MappedMemoryRange value with the correct type field.</summary>
+	/// <summary>Creates a new MappedMemoryRange value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MappedMemoryRange value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MappedMemoryRange value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1211,6 +1263,10 @@ public unsafe partial struct FormatProperties : IEquatable<FormatProperties>
 			;
 	}
 
+
+	/// <summary>Creates a new FormatProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out FormatProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1251,6 +1307,10 @@ public unsafe partial struct ImageFormatProperties : IEquatable<ImageFormatPrope
 			;
 	}
 
+
+	/// <summary>Creates a new ImageFormatProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageFormatProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1286,6 +1346,10 @@ public unsafe partial struct DescriptorBufferInfo : IEquatable<DescriptorBufferI
 			;
 	}
 
+
+	/// <summary>Creates a new DescriptorBufferInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DescriptorBufferInfo value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1321,6 +1385,10 @@ public unsafe partial struct DescriptorImageInfo : IEquatable<DescriptorImageInf
 			;
 	}
 
+
+	/// <summary>Creates a new DescriptorImageInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DescriptorImageInfo value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1372,12 +1440,9 @@ public unsafe partial struct WriteDescriptorSet : IEquatable<WriteDescriptorSet>
 	}
 
 
-	/// <summary>Creates a new WriteDescriptorSet value with the correct type field.</summary>
+	/// <summary>Creates a new WriteDescriptorSet value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out WriteDescriptorSet value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref WriteDescriptorSet value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1428,12 +1493,9 @@ public unsafe partial struct CopyDescriptorSet : IEquatable<CopyDescriptorSet>
 	}
 
 
-	/// <summary>Creates a new CopyDescriptorSet value with the correct type field.</summary>
+	/// <summary>Creates a new CopyDescriptorSet value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CopyDescriptorSet value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref CopyDescriptorSet value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1480,12 +1542,9 @@ public unsafe partial struct BufferCreateInfo : IEquatable<BufferCreateInfo>
 	}
 
 
-	/// <summary>Creates a new BufferCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BufferCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BufferCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BufferCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1531,12 +1590,9 @@ public unsafe partial struct BufferViewCreateInfo : IEquatable<BufferViewCreateI
 	}
 
 
-	/// <summary>Creates a new BufferViewCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BufferViewCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BufferViewCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BufferViewCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1572,6 +1628,10 @@ public unsafe partial struct ImageSubresource : IEquatable<ImageSubresource>
 			;
 	}
 
+
+	/// <summary>Creates a new ImageSubresource value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageSubresource value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1608,6 +1668,10 @@ public unsafe partial struct ImageSubresourceLayers : IEquatable<ImageSubresourc
 			;
 	}
 
+
+	/// <summary>Creates a new ImageSubresourceLayers value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageSubresourceLayers value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1648,6 +1712,10 @@ public unsafe partial struct ImageSubresourceRange : IEquatable<ImageSubresource
 			;
 	}
 
+
+	/// <summary>Creates a new ImageSubresourceRange value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageSubresourceRange value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1687,12 +1755,9 @@ public unsafe partial struct MemoryBarrier : IEquatable<MemoryBarrier>
 	}
 
 
-	/// <summary>Creates a new MemoryBarrier value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryBarrier value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryBarrier value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryBarrier value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1743,12 +1808,9 @@ public unsafe partial struct BufferMemoryBarrier : IEquatable<BufferMemoryBarrie
 	}
 
 
-	/// <summary>Creates a new BufferMemoryBarrier value with the correct type field.</summary>
+	/// <summary>Creates a new BufferMemoryBarrier value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BufferMemoryBarrier value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BufferMemoryBarrier value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1800,12 +1862,9 @@ public unsafe partial struct ImageMemoryBarrier : IEquatable<ImageMemoryBarrier>
 	}
 
 
-	/// <summary>Creates a new ImageMemoryBarrier value with the correct type field.</summary>
+	/// <summary>Creates a new ImageMemoryBarrier value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageMemoryBarrier value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageMemoryBarrier value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1865,12 +1924,9 @@ public unsafe partial struct ImageCreateInfo : IEquatable<ImageCreateInfo>
 	}
 
 
-	/// <summary>Creates a new ImageCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImageCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1911,6 +1967,10 @@ public unsafe partial struct SubresourceLayout : IEquatable<SubresourceLayout>
 			;
 	}
 
+
+	/// <summary>Creates a new SubresourceLayout value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SubresourceLayout value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1957,12 +2017,9 @@ public unsafe partial struct ImageViewCreateInfo : IEquatable<ImageViewCreateInf
 	}
 
 
-	/// <summary>Creates a new ImageViewCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImageViewCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageViewCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageViewCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1998,6 +2055,10 @@ public unsafe partial struct BufferCopy : IEquatable<BufferCopy>
 			;
 	}
 
+
+	/// <summary>Creates a new BufferCopy value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out BufferCopy value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2038,6 +2099,10 @@ public unsafe partial struct SparseMemoryBind : IEquatable<SparseMemoryBind>
 			;
 	}
 
+
+	/// <summary>Creates a new SparseMemoryBind value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SparseMemoryBind value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2079,6 +2144,10 @@ public unsafe partial struct SparseImageMemoryBind : IEquatable<SparseImageMemor
 			;
 	}
 
+
+	/// <summary>Creates a new SparseImageMemoryBind value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SparseImageMemoryBind value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2114,6 +2183,10 @@ public unsafe partial struct SparseBufferMemoryBindInfo : IEquatable<SparseBuffe
 			;
 	}
 
+
+	/// <summary>Creates a new SparseBufferMemoryBindInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SparseBufferMemoryBindInfo value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2149,6 +2222,10 @@ public unsafe partial struct SparseImageOpaqueMemoryBindInfo : IEquatable<Sparse
 			;
 	}
 
+
+	/// <summary>Creates a new SparseImageOpaqueMemoryBindInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SparseImageOpaqueMemoryBindInfo value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2184,6 +2261,10 @@ public unsafe partial struct SparseImageMemoryBindInfo : IEquatable<SparseImageM
 			;
 	}
 
+
+	/// <summary>Creates a new SparseImageMemoryBindInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SparseImageMemoryBindInfo value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2237,12 +2318,9 @@ public unsafe partial struct BindSparseInfo : IEquatable<BindSparseInfo>
 	}
 
 
-	/// <summary>Creates a new BindSparseInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BindSparseInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindSparseInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BindSparseInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2283,6 +2361,10 @@ public unsafe partial struct ImageCopy : IEquatable<ImageCopy>
 			;
 	}
 
+
+	/// <summary>Creates a new ImageCopy value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageCopy value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2324,6 +2406,10 @@ public unsafe partial struct ImageBlit : IEquatable<ImageBlit>
 			;
 	}
 
+
+	/// <summary>Creates a new ImageBlit value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageBlit value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2365,6 +2451,10 @@ public unsafe partial struct BufferImageCopy : IEquatable<BufferImageCopy>
 			;
 	}
 
+
+	/// <summary>Creates a new BufferImageCopy value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out BufferImageCopy value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2405,6 +2495,10 @@ public unsafe partial struct ImageResolve : IEquatable<ImageResolve>
 			;
 	}
 
+
+	/// <summary>Creates a new ImageResolve value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ImageResolve value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2448,12 +2542,9 @@ public unsafe partial struct ShaderModuleCreateInfo : IEquatable<ShaderModuleCre
 	}
 
 
-	/// <summary>Creates a new ShaderModuleCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ShaderModuleCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ShaderModuleCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ShaderModuleCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2494,6 +2585,10 @@ public unsafe partial struct DescriptorSetLayoutBinding : IEquatable<DescriptorS
 			;
 	}
 
+
+	/// <summary>Creates a new DescriptorSetLayoutBinding value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DescriptorSetLayoutBinding value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2537,12 +2632,9 @@ public unsafe partial struct DescriptorSetLayoutCreateInfo : IEquatable<Descript
 	}
 
 
-	/// <summary>Creates a new DescriptorSetLayoutCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorSetLayoutCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorSetLayoutCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorSetLayoutCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2577,6 +2669,10 @@ public unsafe partial struct DescriptorPoolSize : IEquatable<DescriptorPoolSize>
 			;
 	}
 
+
+	/// <summary>Creates a new DescriptorPoolSize value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DescriptorPoolSize value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2621,12 +2717,9 @@ public unsafe partial struct DescriptorPoolCreateInfo : IEquatable<DescriptorPoo
 	}
 
 
-	/// <summary>Creates a new DescriptorPoolCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorPoolCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorPoolCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorPoolCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2670,12 +2763,9 @@ public unsafe partial struct DescriptorSetAllocateInfo : IEquatable<DescriptorSe
 	}
 
 
-	/// <summary>Creates a new DescriptorSetAllocateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorSetAllocateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorSetAllocateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorSetAllocateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2711,6 +2801,10 @@ public unsafe partial struct SpecializationMapEntry : IEquatable<SpecializationM
 			;
 	}
 
+
+	/// <summary>Creates a new SpecializationMapEntry value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SpecializationMapEntry value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2747,6 +2841,10 @@ public unsafe partial struct SpecializationInfo : IEquatable<SpecializationInfo>
 			;
 	}
 
+
+	/// <summary>Creates a new SpecializationInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SpecializationInfo value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2792,12 +2890,9 @@ public unsafe partial struct PipelineShaderStageCreateInfo : IEquatable<Pipeline
 	}
 
 
-	/// <summary>Creates a new PipelineShaderStageCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineShaderStageCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineShaderStageCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineShaderStageCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2843,12 +2938,9 @@ public unsafe partial struct ComputePipelineCreateInfo : IEquatable<ComputePipel
 	}
 
 
-	/// <summary>Creates a new ComputePipelineCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ComputePipelineCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ComputePipelineCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ComputePipelineCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2884,6 +2976,10 @@ public unsafe partial struct VertexInputBindingDescription : IEquatable<VertexIn
 			;
 	}
 
+
+	/// <summary>Creates a new VertexInputBindingDescription value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out VertexInputBindingDescription value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2920,6 +3016,10 @@ public unsafe partial struct VertexInputAttributeDescription : IEquatable<Vertex
 			;
 	}
 
+
+	/// <summary>Creates a new VertexInputAttributeDescription value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out VertexInputAttributeDescription value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -2965,12 +3065,9 @@ public unsafe partial struct PipelineVertexInputStateCreateInfo : IEquatable<Pip
 	}
 
 
-	/// <summary>Creates a new PipelineVertexInputStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineVertexInputStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineVertexInputStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineVertexInputStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3014,12 +3111,9 @@ public unsafe partial struct PipelineInputAssemblyStateCreateInfo : IEquatable<P
 	}
 
 
-	/// <summary>Creates a new PipelineInputAssemblyStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineInputAssemblyStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineInputAssemblyStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineInputAssemblyStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3059,12 +3153,9 @@ public unsafe partial struct PipelineTessellationStateCreateInfo : IEquatable<Pi
 	}
 
 
-	/// <summary>Creates a new PipelineTessellationStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineTessellationStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineTessellationStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineTessellationStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3110,12 +3201,9 @@ public unsafe partial struct PipelineViewportStateCreateInfo : IEquatable<Pipeli
 	}
 
 
-	/// <summary>Creates a new PipelineViewportStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineViewportStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineViewportStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineViewportStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3173,12 +3261,9 @@ public unsafe partial struct PipelineRasterizationStateCreateInfo : IEquatable<P
 	}
 
 
-	/// <summary>Creates a new PipelineRasterizationStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineRasterizationStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineRasterizationStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineRasterizationStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3229,12 +3314,9 @@ public unsafe partial struct PipelineMultisampleStateCreateInfo : IEquatable<Pip
 	}
 
 
-	/// <summary>Creates a new PipelineMultisampleStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineMultisampleStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineMultisampleStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineMultisampleStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3278,6 +3360,10 @@ public unsafe partial struct PipelineColorBlendAttachmentState : IEquatable<Pipe
 			;
 	}
 
+
+	/// <summary>Creates a new PipelineColorBlendAttachmentState value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PipelineColorBlendAttachmentState value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3327,12 +3413,9 @@ public unsafe partial struct PipelineColorBlendStateCreateInfo : IEquatable<Pipe
 	}
 
 
-	/// <summary>Creates a new PipelineColorBlendStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineColorBlendStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineColorBlendStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineColorBlendStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3376,12 +3459,9 @@ public unsafe partial struct PipelineDynamicStateCreateInfo : IEquatable<Pipelin
 	}
 
 
-	/// <summary>Creates a new PipelineDynamicStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineDynamicStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineDynamicStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineDynamicStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3424,6 +3504,10 @@ public unsafe partial struct StencilOpState : IEquatable<StencilOpState>
 			;
 	}
 
+
+	/// <summary>Creates a new StencilOpState value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out StencilOpState value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3477,12 +3561,9 @@ public unsafe partial struct PipelineDepthStencilStateCreateInfo : IEquatable<Pi
 	}
 
 
-	/// <summary>Creates a new PipelineDepthStencilStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineDepthStencilStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineDepthStencilStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineDepthStencilStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3549,12 +3630,9 @@ public unsafe partial struct GraphicsPipelineCreateInfo : IEquatable<GraphicsPip
 	}
 
 
-	/// <summary>Creates a new GraphicsPipelineCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new GraphicsPipelineCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out GraphicsPipelineCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref GraphicsPipelineCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3598,12 +3676,9 @@ public unsafe partial struct PipelineCacheCreateInfo : IEquatable<PipelineCacheC
 	}
 
 
-	/// <summary>Creates a new PipelineCacheCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineCacheCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineCacheCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineCacheCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3639,6 +3714,10 @@ public unsafe partial struct PushConstantRange : IEquatable<PushConstantRange>
 			;
 	}
 
+
+	/// <summary>Creates a new PushConstantRange value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PushConstantRange value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3684,12 +3763,9 @@ public unsafe partial struct PipelineLayoutCreateInfo : IEquatable<PipelineLayou
 	}
 
 
-	/// <summary>Creates a new PipelineLayoutCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineLayoutCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineLayoutCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineLayoutCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3755,12 +3831,9 @@ public unsafe partial struct SamplerCreateInfo : IEquatable<SamplerCreateInfo>
 	}
 
 
-	/// <summary>Creates a new SamplerCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SamplerCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SamplerCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SamplerCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3800,12 +3873,9 @@ public unsafe partial struct CommandPoolCreateInfo : IEquatable<CommandPoolCreat
 	}
 
 
-	/// <summary>Creates a new CommandPoolCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new CommandPoolCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CommandPoolCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref CommandPoolCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3849,12 +3919,9 @@ public unsafe partial struct CommandBufferAllocateInfo : IEquatable<CommandBuffe
 	}
 
 
-	/// <summary>Creates a new CommandBufferAllocateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new CommandBufferAllocateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CommandBufferAllocateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref CommandBufferAllocateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3901,12 +3968,9 @@ public unsafe partial struct CommandBufferInheritanceInfo : IEquatable<CommandBu
 	}
 
 
-	/// <summary>Creates a new CommandBufferInheritanceInfo value with the correct type field.</summary>
+	/// <summary>Creates a new CommandBufferInheritanceInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CommandBufferInheritanceInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref CommandBufferInheritanceInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3946,12 +4010,9 @@ public unsafe partial struct CommandBufferBeginInfo : IEquatable<CommandBufferBe
 	}
 
 
-	/// <summary>Creates a new CommandBufferBeginInfo value with the correct type field.</summary>
+	/// <summary>Creates a new CommandBufferBeginInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out CommandBufferBeginInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref CommandBufferBeginInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -3997,12 +4058,9 @@ public unsafe partial struct RenderPassBeginInfo : IEquatable<RenderPassBeginInf
 	}
 
 
-	/// <summary>Creates a new RenderPassBeginInfo value with the correct type field.</summary>
+	/// <summary>Creates a new RenderPassBeginInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassBeginInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref RenderPassBeginInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -4044,6 +4102,10 @@ public unsafe partial struct ClearColorValue : IEquatable<ClearColorValue>
 			;
 	}
 
+
+	/// <summary>Creates a new ClearColorValue value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ClearColorValue value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4078,6 +4140,10 @@ public unsafe partial struct ClearDepthStencilValue : IEquatable<ClearDepthStenc
 			;
 	}
 
+
+	/// <summary>Creates a new ClearDepthStencilValue value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ClearDepthStencilValue value) => value = new();
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -4112,6 +4178,10 @@ public unsafe partial struct ClearValue : IEquatable<ClearValue>
 			;
 	}
 
+
+	/// <summary>Creates a new ClearValue value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ClearValue value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4147,6 +4217,10 @@ public unsafe partial struct ClearAttachment : IEquatable<ClearAttachment>
 			;
 	}
 
+
+	/// <summary>Creates a new ClearAttachment value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ClearAttachment value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4194,6 +4268,10 @@ public unsafe partial struct AttachmentDescription : IEquatable<AttachmentDescri
 			;
 	}
 
+
+	/// <summary>Creates a new AttachmentDescription value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out AttachmentDescription value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4228,6 +4306,10 @@ public unsafe partial struct AttachmentReference : IEquatable<AttachmentReferenc
 			;
 	}
 
+
+	/// <summary>Creates a new AttachmentReference value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out AttachmentReference value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4276,6 +4358,10 @@ public unsafe partial struct SubpassDescription : IEquatable<SubpassDescription>
 			;
 	}
 
+
+	/// <summary>Creates a new SubpassDescription value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SubpassDescription value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4318,6 +4404,10 @@ public unsafe partial struct SubpassDependency : IEquatable<SubpassDependency>
 			;
 	}
 
+
+	/// <summary>Creates a new SubpassDependency value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out SubpassDependency value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4368,12 +4458,9 @@ public unsafe partial struct RenderPassCreateInfo : IEquatable<RenderPassCreateI
 	}
 
 
-	/// <summary>Creates a new RenderPassCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new RenderPassCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref RenderPassCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4412,12 +4499,9 @@ public unsafe partial struct EventCreateInfo : IEquatable<EventCreateInfo>
 	}
 
 
-	/// <summary>Creates a new EventCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new EventCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out EventCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref EventCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4456,12 +4540,9 @@ public unsafe partial struct FenceCreateInfo : IEquatable<FenceCreateInfo>
 	}
 
 
-	/// <summary>Creates a new FenceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new FenceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out FenceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref FenceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4588,6 +4669,10 @@ public unsafe partial struct PhysicalDeviceFeatures : IEquatable<PhysicalDeviceF
 			;
 	}
 
+
+	/// <summary>Creates a new PhysicalDeviceFeatures value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceFeatures value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4628,6 +4713,10 @@ public unsafe partial struct PhysicalDeviceSparseProperties : IEquatable<Physica
 			;
 	}
 
+
+	/// <summary>Creates a new PhysicalDeviceSparseProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceSparseProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4850,6 +4939,10 @@ public unsafe partial struct PhysicalDeviceLimits : IEquatable<PhysicalDeviceLim
 			;
 	}
 
+
+	/// <summary>Creates a new PhysicalDeviceLimits value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceLimits value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4888,12 +4981,9 @@ public unsafe partial struct SemaphoreCreateInfo : IEquatable<SemaphoreCreateInf
 	}
 
 
-	/// <summary>Creates a new SemaphoreCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SemaphoreCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SemaphoreCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SemaphoreCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4938,12 +5028,9 @@ public unsafe partial struct QueryPoolCreateInfo : IEquatable<QueryPoolCreateInf
 	}
 
 
-	/// <summary>Creates a new QueryPoolCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new QueryPoolCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out QueryPoolCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref QueryPoolCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -4994,12 +5081,9 @@ public unsafe partial struct FramebufferCreateInfo : IEquatable<FramebufferCreat
 	}
 
 
-	/// <summary>Creates a new FramebufferCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new FramebufferCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out FramebufferCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref FramebufferCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5036,6 +5120,10 @@ public unsafe partial struct DrawIndirectCommand : IEquatable<DrawIndirectComman
 			;
 	}
 
+
+	/// <summary>Creates a new DrawIndirectCommand value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DrawIndirectCommand value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5076,6 +5164,10 @@ public unsafe partial struct DrawIndexedIndirectCommand : IEquatable<DrawIndexed
 			;
 	}
 
+
+	/// <summary>Creates a new DrawIndexedIndirectCommand value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DrawIndexedIndirectCommand value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5111,6 +5203,10 @@ public unsafe partial struct DispatchIndirectCommand : IEquatable<DispatchIndire
 			;
 	}
 
+
+	/// <summary>Creates a new DispatchIndirectCommand value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DispatchIndirectCommand value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5161,12 +5257,9 @@ public unsafe partial struct SubmitInfo : IEquatable<SubmitInfo>
 	}
 
 
-	/// <summary>Creates a new SubmitInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SubmitInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubmitInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SubmitInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5205,12 +5298,9 @@ public unsafe partial struct PhysicalDeviceFeatures2 : IEquatable<PhysicalDevice
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceFeatures2 value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceFeatures2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceFeatures2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceFeatures2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5249,12 +5339,9 @@ public unsafe partial struct PhysicalDeviceProperties2 : IEquatable<PhysicalDevi
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceProperties2 value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceProperties2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceProperties2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceProperties2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5293,12 +5380,9 @@ public unsafe partial struct FormatProperties2 : IEquatable<FormatProperties2>
 	}
 
 
-	/// <summary>Creates a new FormatProperties2 value with the correct type field.</summary>
+	/// <summary>Creates a new FormatProperties2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out FormatProperties2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref FormatProperties2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5337,12 +5421,9 @@ public unsafe partial struct ImageFormatProperties2 : IEquatable<ImageFormatProp
 	}
 
 
-	/// <summary>Creates a new ImageFormatProperties2 value with the correct type field.</summary>
+	/// <summary>Creates a new ImageFormatProperties2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageFormatProperties2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageFormatProperties2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5388,12 +5469,9 @@ public unsafe partial struct PhysicalDeviceImageFormatInfo2 : IEquatable<Physica
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceImageFormatInfo2 value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceImageFormatInfo2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceImageFormatInfo2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceImageFormatInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5432,12 +5510,9 @@ public unsafe partial struct QueueFamilyProperties2 : IEquatable<QueueFamilyProp
 	}
 
 
-	/// <summary>Creates a new QueueFamilyProperties2 value with the correct type field.</summary>
+	/// <summary>Creates a new QueueFamilyProperties2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out QueueFamilyProperties2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref QueueFamilyProperties2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5476,12 +5551,9 @@ public unsafe partial struct PhysicalDeviceMemoryProperties2 : IEquatable<Physic
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceMemoryProperties2 value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceMemoryProperties2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceMemoryProperties2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceMemoryProperties2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5520,12 +5592,9 @@ public unsafe partial struct SparseImageFormatProperties2 : IEquatable<SparseIma
 	}
 
 
-	/// <summary>Creates a new SparseImageFormatProperties2 value with the correct type field.</summary>
+	/// <summary>Creates a new SparseImageFormatProperties2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SparseImageFormatProperties2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SparseImageFormatProperties2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5571,12 +5640,9 @@ public unsafe partial struct PhysicalDeviceSparseImageFormatInfo2 : IEquatable<P
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceSparseImageFormatInfo2 value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceSparseImageFormatInfo2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceSparseImageFormatInfo2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceSparseImageFormatInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5613,6 +5679,10 @@ public unsafe partial struct ConformanceVersion : IEquatable<ConformanceVersion>
 			;
 	}
 
+
+	/// <summary>Creates a new ConformanceVersion value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ConformanceVersion value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5657,12 +5727,9 @@ public unsafe partial struct PhysicalDeviceDriverProperties : IEquatable<Physica
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceDriverProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceDriverProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceDriverProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceDriverProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5702,12 +5769,9 @@ public unsafe partial struct PhysicalDeviceVariablePointersFeatures : IEquatable
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceVariablePointersFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceVariablePointersFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceVariablePointersFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceVariablePointersFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5747,12 +5811,9 @@ public unsafe partial struct PhysicalDeviceVariablePointerFeatures : IEquatable<
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceVariablePointerFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceVariablePointerFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceVariablePointerFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceVariablePointerFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5788,6 +5849,10 @@ public unsafe partial struct ExternalMemoryProperties : IEquatable<ExternalMemor
 			;
 	}
 
+
+	/// <summary>Creates a new ExternalMemoryProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out ExternalMemoryProperties value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5826,12 +5891,9 @@ public unsafe partial struct PhysicalDeviceExternalImageFormatInfo : IEquatable<
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceExternalImageFormatInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceExternalImageFormatInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceExternalImageFormatInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceExternalImageFormatInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5870,12 +5932,9 @@ public unsafe partial struct ExternalImageFormatProperties : IEquatable<External
 	}
 
 
-	/// <summary>Creates a new ExternalImageFormatProperties value with the correct type field.</summary>
+	/// <summary>Creates a new ExternalImageFormatProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExternalImageFormatProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExternalImageFormatProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5919,12 +5978,9 @@ public unsafe partial struct PhysicalDeviceExternalBufferInfo : IEquatable<Physi
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceExternalBufferInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceExternalBufferInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceExternalBufferInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceExternalBufferInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5963,12 +6019,9 @@ public unsafe partial struct ExternalBufferProperties : IEquatable<ExternalBuffe
 	}
 
 
-	/// <summary>Creates a new ExternalBufferProperties value with the correct type field.</summary>
+	/// <summary>Creates a new ExternalBufferProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExternalBufferProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExternalBufferProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6014,12 +6067,9 @@ public unsafe partial struct PhysicalDeviceIDProperties : IEquatable<PhysicalDev
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceIDProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceIDProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceIDProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceIDProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6058,12 +6108,9 @@ public unsafe partial struct ExternalMemoryImageCreateInfo : IEquatable<External
 	}
 
 
-	/// <summary>Creates a new ExternalMemoryImageCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ExternalMemoryImageCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExternalMemoryImageCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExternalMemoryImageCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6102,12 +6149,9 @@ public unsafe partial struct ExternalMemoryBufferCreateInfo : IEquatable<Externa
 	}
 
 
-	/// <summary>Creates a new ExternalMemoryBufferCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ExternalMemoryBufferCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExternalMemoryBufferCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExternalMemoryBufferCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6146,12 +6190,9 @@ public unsafe partial struct ExportMemoryAllocateInfo : IEquatable<ExportMemoryA
 	}
 
 
-	/// <summary>Creates a new ExportMemoryAllocateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ExportMemoryAllocateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExportMemoryAllocateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExportMemoryAllocateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6190,12 +6231,9 @@ public unsafe partial struct PhysicalDeviceExternalSemaphoreInfo : IEquatable<Ph
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceExternalSemaphoreInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceExternalSemaphoreInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceExternalSemaphoreInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceExternalSemaphoreInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6239,12 +6277,9 @@ public unsafe partial struct ExternalSemaphoreProperties : IEquatable<ExternalSe
 	}
 
 
-	/// <summary>Creates a new ExternalSemaphoreProperties value with the correct type field.</summary>
+	/// <summary>Creates a new ExternalSemaphoreProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExternalSemaphoreProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExternalSemaphoreProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6283,12 +6318,9 @@ public unsafe partial struct ExportSemaphoreCreateInfo : IEquatable<ExportSemaph
 	}
 
 
-	/// <summary>Creates a new ExportSemaphoreCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ExportSemaphoreCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExportSemaphoreCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExportSemaphoreCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6327,12 +6359,9 @@ public unsafe partial struct PhysicalDeviceExternalFenceInfo : IEquatable<Physic
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceExternalFenceInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceExternalFenceInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceExternalFenceInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceExternalFenceInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6376,12 +6405,9 @@ public unsafe partial struct ExternalFenceProperties : IEquatable<ExternalFenceP
 	}
 
 
-	/// <summary>Creates a new ExternalFenceProperties value with the correct type field.</summary>
+	/// <summary>Creates a new ExternalFenceProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExternalFenceProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExternalFenceProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6420,12 +6446,9 @@ public unsafe partial struct ExportFenceCreateInfo : IEquatable<ExportFenceCreat
 	}
 
 
-	/// <summary>Creates a new ExportFenceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ExportFenceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ExportFenceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ExportFenceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6469,12 +6492,9 @@ public unsafe partial struct PhysicalDeviceMultiviewFeatures : IEquatable<Physic
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceMultiviewFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceMultiviewFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceMultiviewFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceMultiviewFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6514,12 +6534,9 @@ public unsafe partial struct PhysicalDeviceMultiviewProperties : IEquatable<Phys
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceMultiviewProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceMultiviewProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceMultiviewProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceMultiviewProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6566,12 +6583,9 @@ public unsafe partial struct RenderPassMultiviewCreateInfo : IEquatable<RenderPa
 	}
 
 
-	/// <summary>Creates a new RenderPassMultiviewCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new RenderPassMultiviewCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassMultiviewCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref RenderPassMultiviewCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6667,12 +6681,9 @@ public unsafe partial struct PhysicalDeviceGroupProperties : IEquatable<Physical
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceGroupProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceGroupProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceGroupProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceGroupProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6712,12 +6723,9 @@ public unsafe partial struct MemoryAllocateFlagsInfo : IEquatable<MemoryAllocate
 	}
 
 
-	/// <summary>Creates a new MemoryAllocateFlagsInfo value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryAllocateFlagsInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryAllocateFlagsInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryAllocateFlagsInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6761,12 +6769,9 @@ public unsafe partial struct BindBufferMemoryInfo : IEquatable<BindBufferMemoryI
 	}
 
 
-	/// <summary>Creates a new BindBufferMemoryInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BindBufferMemoryInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindBufferMemoryInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BindBufferMemoryInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6806,12 +6811,9 @@ public unsafe partial struct BindBufferMemoryDeviceGroupInfo : IEquatable<BindBu
 	}
 
 
-	/// <summary>Creates a new BindBufferMemoryDeviceGroupInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BindBufferMemoryDeviceGroupInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindBufferMemoryDeviceGroupInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BindBufferMemoryDeviceGroupInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6855,12 +6857,9 @@ public unsafe partial struct BindImageMemoryInfo : IEquatable<BindImageMemoryInf
 	}
 
 
-	/// <summary>Creates a new BindImageMemoryInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BindImageMemoryInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindImageMemoryInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BindImageMemoryInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6905,12 +6904,9 @@ public unsafe partial struct BindImageMemoryDeviceGroupInfo : IEquatable<BindIma
 	}
 
 
-	/// <summary>Creates a new BindImageMemoryDeviceGroupInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BindImageMemoryDeviceGroupInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindImageMemoryDeviceGroupInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BindImageMemoryDeviceGroupInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6954,12 +6950,9 @@ public unsafe partial struct DeviceGroupRenderPassBeginInfo : IEquatable<DeviceG
 	}
 
 
-	/// <summary>Creates a new DeviceGroupRenderPassBeginInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceGroupRenderPassBeginInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceGroupRenderPassBeginInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceGroupRenderPassBeginInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -6998,12 +6991,9 @@ public unsafe partial struct DeviceGroupCommandBufferBeginInfo : IEquatable<Devi
 	}
 
 
-	/// <summary>Creates a new DeviceGroupCommandBufferBeginInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceGroupCommandBufferBeginInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceGroupCommandBufferBeginInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceGroupCommandBufferBeginInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7050,12 +7040,9 @@ public unsafe partial struct DeviceGroupSubmitInfo : IEquatable<DeviceGroupSubmi
 	}
 
 
-	/// <summary>Creates a new DeviceGroupSubmitInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceGroupSubmitInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceGroupSubmitInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceGroupSubmitInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7095,12 +7082,9 @@ public unsafe partial struct DeviceGroupBindSparseInfo : IEquatable<DeviceGroupB
 	}
 
 
-	/// <summary>Creates a new DeviceGroupBindSparseInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceGroupBindSparseInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceGroupBindSparseInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceGroupBindSparseInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7140,12 +7124,9 @@ public unsafe partial struct DeviceGroupDeviceCreateInfo : IEquatable<DeviceGrou
 	}
 
 
-	/// <summary>Creates a new DeviceGroupDeviceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceGroupDeviceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceGroupDeviceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceGroupDeviceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7187,6 +7168,10 @@ public unsafe partial struct DescriptorUpdateTemplateEntry : IEquatable<Descript
 			;
 	}
 
+
+	/// <summary>Creates a new DescriptorUpdateTemplateEntry value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out DescriptorUpdateTemplateEntry value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7238,12 +7223,9 @@ public unsafe partial struct DescriptorUpdateTemplateCreateInfo : IEquatable<Des
 	}
 
 
-	/// <summary>Creates a new DescriptorUpdateTemplateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorUpdateTemplateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorUpdateTemplateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorUpdateTemplateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7279,6 +7261,10 @@ public unsafe partial struct InputAttachmentAspectReference : IEquatable<InputAt
 			;
 	}
 
+
+	/// <summary>Creates a new InputAttachmentAspectReference value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out InputAttachmentAspectReference value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7318,12 +7304,9 @@ public unsafe partial struct RenderPassInputAttachmentAspectCreateInfo : IEquata
 	}
 
 
-	/// <summary>Creates a new RenderPassInputAttachmentAspectCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new RenderPassInputAttachmentAspectCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassInputAttachmentAspectCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref RenderPassInputAttachmentAspectCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7368,12 +7351,9 @@ public unsafe partial struct PhysicalDevice16BitStorageFeatures : IEquatable<Phy
 	}
 
 
-	/// <summary>Creates a new PhysicalDevice16BitStorageFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDevice16BitStorageFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDevice16BitStorageFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDevice16BitStorageFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7418,12 +7398,9 @@ public unsafe partial struct PhysicalDeviceSubgroupProperties : IEquatable<Physi
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceSubgroupProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceSubgroupProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceSubgroupProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceSubgroupProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7462,12 +7439,9 @@ public unsafe partial struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures :
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceShaderSubgroupExtendedTypesFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceShaderSubgroupExtendedTypesFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceShaderSubgroupExtendedTypesFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceShaderSubgroupExtendedTypesFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7506,12 +7480,9 @@ public unsafe partial struct BufferMemoryRequirementsInfo2 : IEquatable<BufferMe
 	}
 
 
-	/// <summary>Creates a new BufferMemoryRequirementsInfo2 value with the correct type field.</summary>
+	/// <summary>Creates a new BufferMemoryRequirementsInfo2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BufferMemoryRequirementsInfo2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BufferMemoryRequirementsInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7550,12 +7521,9 @@ public unsafe partial struct ImageMemoryRequirementsInfo2 : IEquatable<ImageMemo
 	}
 
 
-	/// <summary>Creates a new ImageMemoryRequirementsInfo2 value with the correct type field.</summary>
+	/// <summary>Creates a new ImageMemoryRequirementsInfo2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageMemoryRequirementsInfo2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageMemoryRequirementsInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7594,12 +7562,9 @@ public unsafe partial struct ImageSparseMemoryRequirementsInfo2 : IEquatable<Ima
 	}
 
 
-	/// <summary>Creates a new ImageSparseMemoryRequirementsInfo2 value with the correct type field.</summary>
+	/// <summary>Creates a new ImageSparseMemoryRequirementsInfo2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageSparseMemoryRequirementsInfo2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageSparseMemoryRequirementsInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7638,12 +7603,9 @@ public unsafe partial struct MemoryRequirements2 : IEquatable<MemoryRequirements
 	}
 
 
-	/// <summary>Creates a new MemoryRequirements2 value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryRequirements2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryRequirements2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryRequirements2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7682,12 +7644,9 @@ public unsafe partial struct SparseImageMemoryRequirements2 : IEquatable<SparseI
 	}
 
 
-	/// <summary>Creates a new SparseImageMemoryRequirements2 value with the correct type field.</summary>
+	/// <summary>Creates a new SparseImageMemoryRequirements2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SparseImageMemoryRequirements2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SparseImageMemoryRequirements2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7726,12 +7685,9 @@ public unsafe partial struct PhysicalDevicePointClippingProperties : IEquatable<
 	}
 
 
-	/// <summary>Creates a new PhysicalDevicePointClippingProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDevicePointClippingProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDevicePointClippingProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDevicePointClippingProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7771,12 +7727,9 @@ public unsafe partial struct MemoryDedicatedRequirements : IEquatable<MemoryDedi
 	}
 
 
-	/// <summary>Creates a new MemoryDedicatedRequirements value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryDedicatedRequirements value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryDedicatedRequirements value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryDedicatedRequirements value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7816,12 +7769,9 @@ public unsafe partial struct MemoryDedicatedAllocateInfo : IEquatable<MemoryDedi
 	}
 
 
-	/// <summary>Creates a new MemoryDedicatedAllocateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryDedicatedAllocateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryDedicatedAllocateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryDedicatedAllocateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7860,12 +7810,9 @@ public unsafe partial struct ImageViewUsageCreateInfo : IEquatable<ImageViewUsag
 	}
 
 
-	/// <summary>Creates a new ImageViewUsageCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImageViewUsageCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageViewUsageCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageViewUsageCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7904,12 +7851,9 @@ public unsafe partial struct PipelineTessellationDomainOriginStateCreateInfo : I
 	}
 
 
-	/// <summary>Creates a new PipelineTessellationDomainOriginStateCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PipelineTessellationDomainOriginStateCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PipelineTessellationDomainOriginStateCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PipelineTessellationDomainOriginStateCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -7948,12 +7892,9 @@ public unsafe partial struct SamplerYcbcrConversionInfo : IEquatable<SamplerYcbc
 	}
 
 
-	/// <summary>Creates a new SamplerYcbcrConversionInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SamplerYcbcrConversionInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SamplerYcbcrConversionInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SamplerYcbcrConversionInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8005,12 +7946,9 @@ public unsafe partial struct SamplerYcbcrConversionCreateInfo : IEquatable<Sampl
 	}
 
 
-	/// <summary>Creates a new SamplerYcbcrConversionCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SamplerYcbcrConversionCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SamplerYcbcrConversionCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SamplerYcbcrConversionCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8049,12 +7987,9 @@ public unsafe partial struct BindImagePlaneMemoryInfo : IEquatable<BindImagePlan
 	}
 
 
-	/// <summary>Creates a new BindImagePlaneMemoryInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BindImagePlaneMemoryInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BindImagePlaneMemoryInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BindImagePlaneMemoryInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8093,12 +8028,9 @@ public unsafe partial struct ImagePlaneMemoryRequirementsInfo : IEquatable<Image
 	}
 
 
-	/// <summary>Creates a new ImagePlaneMemoryRequirementsInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImagePlaneMemoryRequirementsInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImagePlaneMemoryRequirementsInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImagePlaneMemoryRequirementsInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8137,12 +8069,9 @@ public unsafe partial struct PhysicalDeviceSamplerYcbcrConversionFeatures : IEqu
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceSamplerYcbcrConversionFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceSamplerYcbcrConversionFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceSamplerYcbcrConversionFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceSamplerYcbcrConversionFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8181,12 +8110,9 @@ public unsafe partial struct SamplerYcbcrConversionImageFormatProperties : IEqua
 	}
 
 
-	/// <summary>Creates a new SamplerYcbcrConversionImageFormatProperties value with the correct type field.</summary>
+	/// <summary>Creates a new SamplerYcbcrConversionImageFormatProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SamplerYcbcrConversionImageFormatProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SamplerYcbcrConversionImageFormatProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8225,12 +8151,9 @@ public unsafe partial struct ProtectedSubmitInfo : IEquatable<ProtectedSubmitInf
 	}
 
 
-	/// <summary>Creates a new ProtectedSubmitInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ProtectedSubmitInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ProtectedSubmitInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ProtectedSubmitInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8269,12 +8192,9 @@ public unsafe partial struct PhysicalDeviceProtectedMemoryFeatures : IEquatable<
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceProtectedMemoryFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceProtectedMemoryFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceProtectedMemoryFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceProtectedMemoryFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8313,12 +8233,9 @@ public unsafe partial struct PhysicalDeviceProtectedMemoryProperties : IEquatabl
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceProtectedMemoryProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceProtectedMemoryProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceProtectedMemoryProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceProtectedMemoryProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8362,12 +8279,9 @@ public unsafe partial struct DeviceQueueInfo2 : IEquatable<DeviceQueueInfo2>
 	}
 
 
-	/// <summary>Creates a new DeviceQueueInfo2 value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceQueueInfo2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceQueueInfo2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceQueueInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8407,12 +8321,9 @@ public unsafe partial struct PhysicalDeviceSamplerFilterMinmaxProperties : IEqua
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceSamplerFilterMinmaxProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceSamplerFilterMinmaxProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceSamplerFilterMinmaxProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceSamplerFilterMinmaxProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8451,12 +8362,9 @@ public unsafe partial struct SamplerReductionModeCreateInfo : IEquatable<Sampler
 	}
 
 
-	/// <summary>Creates a new SamplerReductionModeCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SamplerReductionModeCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SamplerReductionModeCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SamplerReductionModeCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8496,12 +8404,9 @@ public unsafe partial struct ImageFormatListCreateInfo : IEquatable<ImageFormatL
 	}
 
 
-	/// <summary>Creates a new ImageFormatListCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImageFormatListCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageFormatListCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageFormatListCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8541,12 +8446,9 @@ public unsafe partial struct PhysicalDeviceMaintenance3Properties : IEquatable<P
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceMaintenance3Properties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceMaintenance3Properties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceMaintenance3Properties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceMaintenance3Properties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8585,12 +8487,9 @@ public unsafe partial struct DescriptorSetLayoutSupport : IEquatable<DescriptorS
 	}
 
 
-	/// <summary>Creates a new DescriptorSetLayoutSupport value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorSetLayoutSupport value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorSetLayoutSupport value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorSetLayoutSupport value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8629,12 +8528,9 @@ public unsafe partial struct PhysicalDeviceShaderDrawParametersFeatures : IEquat
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceShaderDrawParametersFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceShaderDrawParametersFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceShaderDrawParametersFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceShaderDrawParametersFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8673,12 +8569,9 @@ public unsafe partial struct PhysicalDeviceShaderDrawParameterFeatures : IEquata
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceShaderDrawParameterFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceShaderDrawParameterFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceShaderDrawParameterFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceShaderDrawParameterFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8718,12 +8611,9 @@ public unsafe partial struct PhysicalDeviceShaderFloat16Int8Features : IEquatabl
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceShaderFloat16Int8Features value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceShaderFloat16Int8Features value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceShaderFloat16Int8Features value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceShaderFloat16Int8Features value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8790,12 +8680,9 @@ public unsafe partial struct PhysicalDeviceFloatControlsProperties : IEquatable<
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceFloatControlsProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceFloatControlsProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceFloatControlsProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceFloatControlsProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8834,12 +8721,9 @@ public unsafe partial struct PhysicalDeviceHostQueryResetFeatures : IEquatable<P
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceHostQueryResetFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceHostQueryResetFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceHostQueryResetFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceHostQueryResetFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8912,12 +8796,9 @@ public unsafe partial struct PhysicalDeviceDescriptorIndexingFeatures : IEquatab
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceDescriptorIndexingFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceDescriptorIndexingFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceDescriptorIndexingFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceDescriptorIndexingFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8996,12 +8877,9 @@ public unsafe partial struct PhysicalDeviceDescriptorIndexingProperties : IEquat
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceDescriptorIndexingProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceDescriptorIndexingProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceDescriptorIndexingProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceDescriptorIndexingProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9041,12 +8919,9 @@ public unsafe partial struct DescriptorSetLayoutBindingFlagsCreateInfo : IEquata
 	}
 
 
-	/// <summary>Creates a new DescriptorSetLayoutBindingFlagsCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorSetLayoutBindingFlagsCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorSetLayoutBindingFlagsCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorSetLayoutBindingFlagsCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9086,12 +8961,9 @@ public unsafe partial struct DescriptorSetVariableDescriptorCountAllocateInfo : 
 	}
 
 
-	/// <summary>Creates a new DescriptorSetVariableDescriptorCountAllocateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorSetVariableDescriptorCountAllocateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorSetVariableDescriptorCountAllocateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorSetVariableDescriptorCountAllocateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9130,12 +9002,9 @@ public unsafe partial struct DescriptorSetVariableDescriptorCountLayoutSupport :
 	}
 
 
-	/// <summary>Creates a new DescriptorSetVariableDescriptorCountLayoutSupport value with the correct type field.</summary>
+	/// <summary>Creates a new DescriptorSetVariableDescriptorCountLayoutSupport value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DescriptorSetVariableDescriptorCountLayoutSupport value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DescriptorSetVariableDescriptorCountLayoutSupport value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9188,12 +9057,9 @@ public unsafe partial struct AttachmentDescription2 : IEquatable<AttachmentDescr
 	}
 
 
-	/// <summary>Creates a new AttachmentDescription2 value with the correct type field.</summary>
+	/// <summary>Creates a new AttachmentDescription2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AttachmentDescription2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref AttachmentDescription2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9237,12 +9103,9 @@ public unsafe partial struct AttachmentReference2 : IEquatable<AttachmentReferen
 	}
 
 
-	/// <summary>Creates a new AttachmentReference2 value with the correct type field.</summary>
+	/// <summary>Creates a new AttachmentReference2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AttachmentReference2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref AttachmentReference2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9300,12 +9163,9 @@ public unsafe partial struct SubpassDescription2 : IEquatable<SubpassDescription
 	}
 
 
-	/// <summary>Creates a new SubpassDescription2 value with the correct type field.</summary>
+	/// <summary>Creates a new SubpassDescription2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubpassDescription2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SubpassDescription2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9357,12 +9217,9 @@ public unsafe partial struct SubpassDependency2 : IEquatable<SubpassDependency2>
 	}
 
 
-	/// <summary>Creates a new SubpassDependency2 value with the correct type field.</summary>
+	/// <summary>Creates a new SubpassDependency2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubpassDependency2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SubpassDependency2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9415,12 +9272,9 @@ public unsafe partial struct RenderPassCreateInfo2 : IEquatable<RenderPassCreate
 	}
 
 
-	/// <summary>Creates a new RenderPassCreateInfo2 value with the correct type field.</summary>
+	/// <summary>Creates a new RenderPassCreateInfo2 value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassCreateInfo2 value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref RenderPassCreateInfo2 value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9459,12 +9313,9 @@ public unsafe partial struct SubpassBeginInfo : IEquatable<SubpassBeginInfo>
 	}
 
 
-	/// <summary>Creates a new SubpassBeginInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SubpassBeginInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubpassBeginInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SubpassBeginInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9502,12 +9353,9 @@ public unsafe partial struct SubpassEndInfo : IEquatable<SubpassEndInfo>
 	}
 
 
-	/// <summary>Creates a new SubpassEndInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SubpassEndInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubpassEndInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SubpassEndInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9546,12 +9394,9 @@ public unsafe partial struct PhysicalDeviceTimelineSemaphoreFeatures : IEquatabl
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceTimelineSemaphoreFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceTimelineSemaphoreFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceTimelineSemaphoreFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceTimelineSemaphoreFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9590,12 +9435,9 @@ public unsafe partial struct PhysicalDeviceTimelineSemaphoreProperties : IEquata
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceTimelineSemaphoreProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceTimelineSemaphoreProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceTimelineSemaphoreProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceTimelineSemaphoreProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9635,12 +9477,9 @@ public unsafe partial struct SemaphoreTypeCreateInfo : IEquatable<SemaphoreTypeC
 	}
 
 
-	/// <summary>Creates a new SemaphoreTypeCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SemaphoreTypeCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SemaphoreTypeCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SemaphoreTypeCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9685,12 +9524,9 @@ public unsafe partial struct TimelineSemaphoreSubmitInfo : IEquatable<TimelineSe
 	}
 
 
-	/// <summary>Creates a new TimelineSemaphoreSubmitInfo value with the correct type field.</summary>
+	/// <summary>Creates a new TimelineSemaphoreSubmitInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out TimelineSemaphoreSubmitInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref TimelineSemaphoreSubmitInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9735,12 +9571,9 @@ public unsafe partial struct SemaphoreWaitInfo : IEquatable<SemaphoreWaitInfo>
 	}
 
 
-	/// <summary>Creates a new SemaphoreWaitInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SemaphoreWaitInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SemaphoreWaitInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SemaphoreWaitInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9780,12 +9613,9 @@ public unsafe partial struct SemaphoreSignalInfo : IEquatable<SemaphoreSignalInf
 	}
 
 
-	/// <summary>Creates a new SemaphoreSignalInfo value with the correct type field.</summary>
+	/// <summary>Creates a new SemaphoreSignalInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SemaphoreSignalInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SemaphoreSignalInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9829,12 +9659,9 @@ public unsafe partial struct PhysicalDevice8BitStorageFeatures : IEquatable<Phys
 	}
 
 
-	/// <summary>Creates a new PhysicalDevice8BitStorageFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDevice8BitStorageFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDevice8BitStorageFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDevice8BitStorageFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9878,12 +9705,9 @@ public unsafe partial struct PhysicalDeviceVulkanMemoryModelFeatures : IEquatabl
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceVulkanMemoryModelFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceVulkanMemoryModelFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceVulkanMemoryModelFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceVulkanMemoryModelFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9923,12 +9747,9 @@ public unsafe partial struct PhysicalDeviceShaderAtomicInt64Features : IEquatabl
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceShaderAtomicInt64Features value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceShaderAtomicInt64Features value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceShaderAtomicInt64Features value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceShaderAtomicInt64Features value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9973,12 +9794,9 @@ public unsafe partial struct PhysicalDeviceDepthStencilResolveProperties : IEqua
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceDepthStencilResolveProperties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceDepthStencilResolveProperties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceDepthStencilResolveProperties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceDepthStencilResolveProperties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10022,12 +9840,9 @@ public unsafe partial struct SubpassDescriptionDepthStencilResolve : IEquatable<
 	}
 
 
-	/// <summary>Creates a new SubpassDescriptionDepthStencilResolve value with the correct type field.</summary>
+	/// <summary>Creates a new SubpassDescriptionDepthStencilResolve value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out SubpassDescriptionDepthStencilResolve value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref SubpassDescriptionDepthStencilResolve value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10066,12 +9881,9 @@ public unsafe partial struct ImageStencilUsageCreateInfo : IEquatable<ImageStenc
 	}
 
 
-	/// <summary>Creates a new ImageStencilUsageCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImageStencilUsageCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImageStencilUsageCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImageStencilUsageCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10110,12 +9922,9 @@ public unsafe partial struct PhysicalDeviceScalarBlockLayoutFeatures : IEquatabl
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceScalarBlockLayoutFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceScalarBlockLayoutFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceScalarBlockLayoutFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceScalarBlockLayoutFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10154,12 +9963,9 @@ public unsafe partial struct PhysicalDeviceUniformBufferStandardLayoutFeatures :
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceUniformBufferStandardLayoutFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceUniformBufferStandardLayoutFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceUniformBufferStandardLayoutFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceUniformBufferStandardLayoutFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10203,12 +10009,9 @@ public unsafe partial struct PhysicalDeviceBufferDeviceAddressFeatures : IEquata
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceBufferDeviceAddressFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceBufferDeviceAddressFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceBufferDeviceAddressFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceBufferDeviceAddressFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10247,12 +10050,9 @@ public unsafe partial struct BufferDeviceAddressInfo : IEquatable<BufferDeviceAd
 	}
 
 
-	/// <summary>Creates a new BufferDeviceAddressInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BufferDeviceAddressInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BufferDeviceAddressInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BufferDeviceAddressInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10291,12 +10091,9 @@ public unsafe partial struct BufferOpaqueCaptureAddressCreateInfo : IEquatable<B
 	}
 
 
-	/// <summary>Creates a new BufferOpaqueCaptureAddressCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new BufferOpaqueCaptureAddressCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out BufferOpaqueCaptureAddressCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref BufferOpaqueCaptureAddressCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10335,12 +10132,9 @@ public unsafe partial struct PhysicalDeviceImagelessFramebufferFeatures : IEquat
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceImagelessFramebufferFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceImagelessFramebufferFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceImagelessFramebufferFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceImagelessFramebufferFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10380,12 +10174,9 @@ public unsafe partial struct FramebufferAttachmentsCreateInfo : IEquatable<Frame
 	}
 
 
-	/// <summary>Creates a new FramebufferAttachmentsCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new FramebufferAttachmentsCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out FramebufferAttachmentsCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref FramebufferAttachmentsCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10436,12 +10227,9 @@ public unsafe partial struct FramebufferAttachmentImageInfo : IEquatable<Framebu
 	}
 
 
-	/// <summary>Creates a new FramebufferAttachmentImageInfo value with the correct type field.</summary>
+	/// <summary>Creates a new FramebufferAttachmentImageInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out FramebufferAttachmentImageInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref FramebufferAttachmentImageInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10481,12 +10269,9 @@ public unsafe partial struct RenderPassAttachmentBeginInfo : IEquatable<RenderPa
 	}
 
 
-	/// <summary>Creates a new RenderPassAttachmentBeginInfo value with the correct type field.</summary>
+	/// <summary>Creates a new RenderPassAttachmentBeginInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out RenderPassAttachmentBeginInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref RenderPassAttachmentBeginInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10525,12 +10310,9 @@ public unsafe partial struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures :
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceSeparateDepthStencilLayoutsFeatures value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceSeparateDepthStencilLayoutsFeatures value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceSeparateDepthStencilLayoutsFeatures value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceSeparateDepthStencilLayoutsFeatures value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10569,12 +10351,9 @@ public unsafe partial struct AttachmentReferenceStencilLayout : IEquatable<Attac
 	}
 
 
-	/// <summary>Creates a new AttachmentReferenceStencilLayout value with the correct type field.</summary>
+	/// <summary>Creates a new AttachmentReferenceStencilLayout value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AttachmentReferenceStencilLayout value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref AttachmentReferenceStencilLayout value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10614,12 +10393,9 @@ public unsafe partial struct AttachmentDescriptionStencilLayout : IEquatable<Att
 	}
 
 
-	/// <summary>Creates a new AttachmentDescriptionStencilLayout value with the correct type field.</summary>
+	/// <summary>Creates a new AttachmentDescriptionStencilLayout value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out AttachmentDescriptionStencilLayout value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref AttachmentDescriptionStencilLayout value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10658,12 +10434,9 @@ public unsafe partial struct MemoryOpaqueCaptureAddressAllocateInfo : IEquatable
 	}
 
 
-	/// <summary>Creates a new MemoryOpaqueCaptureAddressAllocateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new MemoryOpaqueCaptureAddressAllocateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MemoryOpaqueCaptureAddressAllocateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MemoryOpaqueCaptureAddressAllocateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10702,12 +10475,9 @@ public unsafe partial struct DeviceMemoryOpaqueCaptureAddressInfo : IEquatable<D
 	}
 
 
-	/// <summary>Creates a new DeviceMemoryOpaqueCaptureAddressInfo value with the correct type field.</summary>
+	/// <summary>Creates a new DeviceMemoryOpaqueCaptureAddressInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out DeviceMemoryOpaqueCaptureAddressInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref DeviceMemoryOpaqueCaptureAddressInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10766,12 +10536,9 @@ public unsafe partial struct PhysicalDeviceVulkan11Features : IEquatable<Physica
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceVulkan11Features value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceVulkan11Features value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceVulkan11Features value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceVulkan11Features value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10836,12 +10603,9 @@ public unsafe partial struct PhysicalDeviceVulkan11Properties : IEquatable<Physi
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceVulkan11Properties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceVulkan11Properties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceVulkan11Properties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceVulkan11Properties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10962,12 +10726,9 @@ public unsafe partial struct PhysicalDeviceVulkan12Features : IEquatable<Physica
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceVulkan12Features value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceVulkan12Features value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceVulkan12Features value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceVulkan12Features value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -11096,12 +10857,9 @@ public unsafe partial struct PhysicalDeviceVulkan12Properties : IEquatable<Physi
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceVulkan12Properties value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceVulkan12Properties value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceVulkan12Properties value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceVulkan12Properties value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk

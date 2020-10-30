@@ -25,20 +25,24 @@ The code for the generator and the bindings are under the MIT license.
 
 This is an abridged version of the usage guide found on the Wiki.
 
-* Naming
-  * All types are in the `Vk` namespace. Types in extension vendors are further divided into namespaces (e.g. `Vk.KHR`, `Vk.EXT`, `Vk.NV`, ...).
-  * All constant values are in the `Vk.Constants` static class.
-* Typing
-  * All enum and bitmask types are `enum`s in the API.
-  * All composite types are `struct`s.
-  * Functions are in `InstanceFunctionTable` and `DeviceFunctionTable`.
-  * Handles are split into two types:
-    * `Vk.Handle<Vk.TYPE>` for the raw object handles (pointers)
-    * `Vk.TYPE` for composite handle objects, which hold the handle parent object and related references, in addition to the raw handle. They also have the functions associated with the specific handle type. These are class types.
-  *  There are special types for native strings (`Vk.NativeString`) and fixed strings (`Vk.FixedString`).
-  * Typed structs (those that start with a `VkStructureType` field) have special static `New()` and `Init()` functions that should be used to ensure that the fields are setup correctly. ***This is very important to remember.***
-* Functions
-  * Functions are placed into function tables.
-  * Functions are loaded with `vkGetInstanceProcAddr` and `vkGetDeviceProcAddr`.
-  * Functions in the tables take raw pointers, but there are additionally functions in the handle types that take `in` and `out` variables.
-  * Global functions are in `Vk.Instance`, and `Vk.InstanceFunctionTable`.
+### Naming
+
+* All types are in the `Vk` namespace. Types in extension vendors are further divided into namespaces (e.g. `Vk.KHR`, `Vk.EXT`, `Vk.NV`, ...).
+* All constant values are in the `Vk.Constants` static class.
+
+### Typing
+
+* All enum and bitmask types are `enum`s in the API.
+* All composite types are `struct`s.
+* Handles are split into two types:
+  * `Vk.Handle<Vk.TYPE>` for the raw object handles (pointers)
+  * `Vk.TYPE` for composite handle objects, which hold the handle parent object and related references, in addition to the raw handle. They also have the functions associated with the specific handle type. These are class types.
+*  There are special types for native strings (`Vk.NativeString`) and fixed strings (`Vk.FixedString`).
+* All struct types have a static `New()` function used to setup their fields properly. This is important for "typed" structs (that start with a `VkStructureType` field), as this sets up their `sType` field correctly. ***It is important to remember to use these functions, or always manually init the type.***
+
+### Functions
+
+* Functions are placed into function tables.
+* Functions are loaded with `vkGetInstanceProcAddr` and `vkGetDeviceProcAddr`.
+* Functions in the tables take raw pointers, but there are additionally functions in the handle types that take `in` and `out` variables.
+* Global functions are in `Vk.Instance`, and `Vk.InstanceFunctionTable`.

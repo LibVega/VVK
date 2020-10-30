@@ -45,6 +45,10 @@ public unsafe partial struct RefreshCycleDuration : IEquatable<RefreshCycleDurat
 			;
 	}
 
+
+	/// <summary>Creates a new RefreshCycleDuration value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out RefreshCycleDuration value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -85,6 +89,10 @@ public unsafe partial struct PastPresentationTiming : IEquatable<PastPresentatio
 			;
 	}
 
+
+	/// <summary>Creates a new PastPresentationTiming value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PastPresentationTiming value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -124,12 +132,9 @@ public unsafe partial struct PresentTimesInfo : IEquatable<PresentTimesInfo>
 	}
 
 
-	/// <summary>Creates a new PresentTimesInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PresentTimesInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PresentTimesInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PresentTimesInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -164,6 +169,10 @@ public unsafe partial struct PresentTime : IEquatable<PresentTime>
 			;
 	}
 
+
+	/// <summary>Creates a new PresentTime value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PresentTime value) => value = new();
 }
 
 } // namespace Vk.GOOGLE

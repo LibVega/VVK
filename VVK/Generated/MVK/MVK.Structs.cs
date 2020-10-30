@@ -51,12 +51,9 @@ public unsafe partial struct IOSSurfaceCreateInfo : IEquatable<IOSSurfaceCreateI
 	}
 
 
-	/// <summary>Creates a new IOSSurfaceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new IOSSurfaceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out IOSSurfaceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref IOSSurfaceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -96,12 +93,9 @@ public unsafe partial struct MacOSSurfaceCreateInfo : IEquatable<MacOSSurfaceCre
 	}
 
 
-	/// <summary>Creates a new MacOSSurfaceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new MacOSSurfaceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out MacOSSurfaceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref MacOSSurfaceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.MVK

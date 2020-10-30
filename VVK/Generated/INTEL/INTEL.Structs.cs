@@ -50,12 +50,9 @@ public unsafe partial struct PhysicalDeviceShaderIntegerFunctions2Features : IEq
 	}
 
 
-	/// <summary>Creates a new PhysicalDeviceShaderIntegerFunctions2Features value with the correct type field.</summary>
+	/// <summary>Creates a new PhysicalDeviceShaderIntegerFunctions2Features value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PhysicalDeviceShaderIntegerFunctions2Features value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PhysicalDeviceShaderIntegerFunctions2Features value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -96,6 +93,10 @@ public unsafe partial struct PerformanceValueData : IEquatable<PerformanceValueD
 			;
 	}
 
+
+	/// <summary>Creates a new PerformanceValueData value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PerformanceValueData value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -130,6 +131,10 @@ public unsafe partial struct PerformanceValue : IEquatable<PerformanceValue>
 			;
 	}
 
+
+	/// <summary>Creates a new PerformanceValue value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PerformanceValue value) => value = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -168,12 +173,9 @@ public unsafe partial struct InitializePerformanceApiInfo : IEquatable<Initializ
 	}
 
 
-	/// <summary>Creates a new InitializePerformanceApiInfo value with the correct type field.</summary>
+	/// <summary>Creates a new InitializePerformanceApiInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out InitializePerformanceApiInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref InitializePerformanceApiInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -212,12 +214,9 @@ public unsafe partial struct QueryPoolPerformanceQueryCreateInfo : IEquatable<Qu
 	}
 
 
-	/// <summary>Creates a new QueryPoolPerformanceQueryCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new QueryPoolPerformanceQueryCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out QueryPoolPerformanceQueryCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref QueryPoolPerformanceQueryCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -256,12 +255,9 @@ public unsafe partial struct QueryPoolCreateInfo : IEquatable<QueryPoolCreateInf
 	}
 
 
-	/// <summary>Creates a new QueryPoolCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new QueryPoolCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out QueryPoolCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref QueryPoolCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -300,12 +296,9 @@ public unsafe partial struct PerformanceMarkerInfo : IEquatable<PerformanceMarke
 	}
 
 
-	/// <summary>Creates a new PerformanceMarkerInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PerformanceMarkerInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PerformanceMarkerInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PerformanceMarkerInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -344,12 +337,9 @@ public unsafe partial struct PerformanceStreamMarkerInfo : IEquatable<Performanc
 	}
 
 
-	/// <summary>Creates a new PerformanceStreamMarkerInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PerformanceStreamMarkerInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PerformanceStreamMarkerInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PerformanceStreamMarkerInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -393,12 +383,9 @@ public unsafe partial struct PerformanceOverrideInfo : IEquatable<PerformanceOve
 	}
 
 
-	/// <summary>Creates a new PerformanceOverrideInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PerformanceOverrideInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PerformanceOverrideInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PerformanceOverrideInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -437,12 +424,9 @@ public unsafe partial struct PerformanceConfigurationAcquireInfo : IEquatable<Pe
 	}
 
 
-	/// <summary>Creates a new PerformanceConfigurationAcquireInfo value with the correct type field.</summary>
+	/// <summary>Creates a new PerformanceConfigurationAcquireInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PerformanceConfigurationAcquireInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PerformanceConfigurationAcquireInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.INTEL

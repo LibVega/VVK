@@ -51,12 +51,9 @@ public unsafe partial struct StreamDescriptorSurfaceCreateInfo : IEquatable<Stre
 	}
 
 
-	/// <summary>Creates a new StreamDescriptorSurfaceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new StreamDescriptorSurfaceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out StreamDescriptorSurfaceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref StreamDescriptorSurfaceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -95,12 +92,9 @@ public unsafe partial struct PresentFrameToken : IEquatable<PresentFrameToken>
 	}
 
 
-	/// <summary>Creates a new PresentFrameToken value with the correct type field.</summary>
+	/// <summary>Creates a new PresentFrameToken value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out PresentFrameToken value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref PresentFrameToken value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.GGP

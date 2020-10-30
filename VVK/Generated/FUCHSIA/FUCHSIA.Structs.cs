@@ -51,12 +51,9 @@ public unsafe partial struct ImagePipeSurfaceCreateInfo : IEquatable<ImagePipeSu
 	}
 
 
-	/// <summary>Creates a new ImagePipeSurfaceCreateInfo value with the correct type field.</summary>
+	/// <summary>Creates a new ImagePipeSurfaceCreateInfo value with the correct default fields.</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out ImagePipeSurfaceCreateInfo value) => value = new() { sType = TYPE };
-	/// <summary>Initializes the sType and pNext fields to the correct default values.</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Init(ref ImagePipeSurfaceCreateInfo value) { value.sType = TYPE; value.pNext = null; }
 }
 
 } // namespace Vk.FUCHSIA
