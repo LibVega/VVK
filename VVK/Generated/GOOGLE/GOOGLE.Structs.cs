@@ -18,6 +18,12 @@ namespace Vk.GOOGLE
 public unsafe partial struct RefreshCycleDuration : IEquatable<RefreshCycleDuration>
 {
 	public ulong RefreshDuration;
+	public RefreshCycleDuration(
+		ulong refreshDuration = default
+	) {
+		RefreshDuration = refreshDuration;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is RefreshCycleDuration o) && (this == o);
 	readonly bool IEquatable<RefreshCycleDuration>.Equals(RefreshCycleDuration obj) => (this == obj);
@@ -59,6 +65,20 @@ public unsafe partial struct PastPresentationTiming : IEquatable<PastPresentatio
 	public ulong ActualPresentTime;
 	public ulong EarliestPresentTime;
 	public ulong PresentMargin;
+	public PastPresentationTiming(
+		uint presentID = default,
+		ulong desiredPresentTime = default,
+		ulong actualPresentTime = default,
+		ulong earliestPresentTime = default,
+		ulong presentMargin = default
+	) {
+		PresentID = presentID;
+		DesiredPresentTime = desiredPresentTime;
+		ActualPresentTime = actualPresentTime;
+		EarliestPresentTime = earliestPresentTime;
+		PresentMargin = presentMargin;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PastPresentationTiming o) && (this == o);
 	readonly bool IEquatable<PastPresentationTiming>.Equals(PastPresentationTiming obj) => (this == obj);
@@ -104,6 +124,16 @@ public unsafe partial struct PresentTimesInfo : IEquatable<PresentTimesInfo>
 	public void* pNext;
 	public uint SwapchainCount;
 	public Vk.GOOGLE.PresentTime* Times;
+	public PresentTimesInfo(
+		uint swapchainCount = default,
+		in Vk.GOOGLE.PresentTime* times = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SwapchainCount = swapchainCount;
+		Times = times;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PresentTimesInfo o) && (this == o);
 	readonly bool IEquatable<PresentTimesInfo>.Equals(PresentTimesInfo obj) => (this == obj);
@@ -142,6 +172,14 @@ public unsafe partial struct PresentTime : IEquatable<PresentTime>
 {
 	public uint PresentID;
 	public ulong DesiredPresentTime;
+	public PresentTime(
+		uint presentID = default,
+		ulong desiredPresentTime = default
+	) {
+		PresentID = presentID;
+		DesiredPresentTime = desiredPresentTime;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PresentTime o) && (this == o);
 	readonly bool IEquatable<PresentTime>.Equals(PresentTime obj) => (this == obj);

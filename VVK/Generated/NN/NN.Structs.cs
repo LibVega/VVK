@@ -23,6 +23,16 @@ public unsafe partial struct ViSurfaceCreateInfo : IEquatable<ViSurfaceCreateInf
 	public void* pNext;
 	public Vk.NN.ViSurfaceCreateFlags Flags;
 	public void* Window;
+	public ViSurfaceCreateInfo(
+		in Vk.NN.ViSurfaceCreateFlags flags = default,
+		void* window = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		Window = window;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ViSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<ViSurfaceCreateInfo>.Equals(ViSurfaceCreateInfo obj) => (this == obj);

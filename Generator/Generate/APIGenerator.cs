@@ -8,13 +8,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Gen
 {
 	// Writes the processed spec results out to C# source files
 	public static class APIGenerator
 	{
+		// List of known argument names that match C# keywords
+		private static readonly List<string> KEYWORDS = new() { 
+			"object", "event"
+		};
+
 		// Top-level writing task
 		public static bool GenerateResults(ProcessResults res)
 		{
@@ -367,6 +371,58 @@ namespace Gen
 						else {
 							structBlock.WriteLine($"{fprefix}public {field.Type} {field.Name};");
 						}
+					}
+
+					// Constructor
+					if (!structSpec.IsUnion && (!structSpec.HasSType || structSpec.Fields.Count > 2)) {
+						structBlock.WriteLine($"public {structSpec.Name}(");
+						int rem = structSpec.Fields.Count - (structSpec.HasSType ? 2 : 0);
+						foreach (var field in structSpec.Fields.Skip(structSpec.HasSType ? 2 : 0)) {
+							var argname = Char.ToLowerInvariant(field.Name[0]) + field.Name.Substring(1);
+							if (KEYWORDS.Contains(argname)) {
+								argname = '@' + argname;
+							}
+							var isstruct = field.Type.StartsWith("Vk.");
+							if (field.SizeLiteral is not null) {
+								var literal = Char.IsDigit(field.SizeLiteral[0])
+									? field.SizeLiteral
+									: consts[field.SizeLiteral.Substring(field.SizeLiteral.LastIndexOf('.') + 1)].Value;
+								var count = Int32.Parse(literal);
+								rem += (count - 1);
+								for (int i = 0; i < count; ++i) {
+									structBlock.WriteLine($"\t{(isstruct ? "in " : "")}{field.Type} {argname}{i} = default{((--rem == 0) ? "" : ",")}");
+								}
+							}
+							else {
+								structBlock.WriteLine($"\t{(isstruct ? "in " : "")}{field.Type} {argname} = default{((--rem == 0) ? "" : ",")}");
+							}
+						}
+						structBlock.WriteLine(") {");
+						if (structSpec.HasSType) {
+							structBlock.WriteLine("\tsType = TYPE;");
+							structBlock.WriteLine("\tpNext = null;");
+						}
+						foreach (var field in structSpec.Fields.Skip(structSpec.HasSType ? 2 : 0)) {
+							var argname = Char.ToLowerInvariant(field.Name[0]) + field.Name.Substring(1);
+							if (KEYWORDS.Contains(argname)) {
+								argname = '@' + argname;
+							}
+							var isstruct = field.Type.StartsWith("Vk.");
+							if (field.SizeLiteral is not null) {
+								var literal = Char.IsDigit(field.SizeLiteral[0])
+									? field.SizeLiteral
+									: consts[field.SizeLiteral.Substring(field.SizeLiteral.LastIndexOf('.') + 1)].Value;
+								var count = Int32.Parse(literal);
+								for (int i = 0; i < count; ++i) {
+									structBlock.WriteLine($"\t{field.Name}{(field.IsFixed ? $"[{i}]" : $"_{i}")} = {argname}{i};");
+								}
+							}
+							else {
+								structBlock.WriteLine($"\t{field.Name} = {argname};");
+							}
+						}
+						structBlock.WriteLine("}");
+						structBlock.WriteLine();
 					}
 
 					// Needed for hashcode and equality - collapse all fields into single list

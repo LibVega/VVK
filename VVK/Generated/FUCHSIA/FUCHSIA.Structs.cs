@@ -23,6 +23,16 @@ public unsafe partial struct ImagePipeSurfaceCreateInfo : IEquatable<ImagePipeSu
 	public void* pNext;
 	public Vk.FUCHSIA.ImagePipeSurfaceCreateFlags Flags;
 	public uint ImagePipeHandle;
+	public ImagePipeSurfaceCreateInfo(
+		in Vk.FUCHSIA.ImagePipeSurfaceCreateFlags flags = default,
+		uint imagePipeHandle = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		ImagePipeHandle = imagePipeHandle;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImagePipeSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImagePipeSurfaceCreateInfo>.Equals(ImagePipeSurfaceCreateInfo obj) => (this == obj);

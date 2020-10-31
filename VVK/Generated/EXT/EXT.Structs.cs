@@ -24,6 +24,18 @@ public unsafe partial struct DirectFBSurfaceCreateInfo : IEquatable<DirectFBSurf
 	public Vk.EXT.DirectFBSurfaceCreateFlags Flags;
 	public void* Dfb;
 	public void* Surface;
+	public DirectFBSurfaceCreateInfo(
+		in Vk.EXT.DirectFBSurfaceCreateFlags flags = default,
+		void* dfb = default,
+		void* surface = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		Dfb = dfb;
+		Surface = surface;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DirectFBSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<DirectFBSurfaceCreateInfo>.Equals(DirectFBSurfaceCreateInfo obj) => (this == obj);
@@ -70,6 +82,18 @@ public unsafe partial struct DebugReportCallbackCreateInfo : IEquatable<DebugRep
 	public Vk.EXT.DebugReportFlags Flags;
 	public delegate* managed<Vk.EXT.DebugReportFlags, Vk.EXT.DebugReportObjectType, ulong, ulong, int, byte*, byte*, void*, Vk.Bool32> Callback;
 	public void* UserData;
+	public DebugReportCallbackCreateInfo(
+		in Vk.EXT.DebugReportFlags flags = default,
+		delegate* managed<Vk.EXT.DebugReportFlags, Vk.EXT.DebugReportObjectType, ulong, ulong, int, byte*, byte*, void*, Vk.Bool32> callback = default,
+		void* userData = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		Callback = callback;
+		UserData = userData;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugReportCallbackCreateInfo o) && (this == o);
 	readonly bool IEquatable<DebugReportCallbackCreateInfo>.Equals(DebugReportCallbackCreateInfo obj) => (this == obj);
@@ -115,6 +139,16 @@ public unsafe partial struct ValidationFlags : IEquatable<ValidationFlags>
 	public void* pNext;
 	public uint DisabledValidationCheckCount;
 	public Vk.EXT.ValidationCheck* DisabledValidationChecks;
+	public ValidationFlags(
+		uint disabledValidationCheckCount = default,
+		in Vk.EXT.ValidationCheck* disabledValidationChecks = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DisabledValidationCheckCount = disabledValidationCheckCount;
+		DisabledValidationChecks = disabledValidationChecks;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ValidationFlags o) && (this == o);
 	readonly bool IEquatable<ValidationFlags>.Equals(ValidationFlags obj) => (this == obj);
@@ -159,6 +193,20 @@ public unsafe partial struct ValidationFeatures : IEquatable<ValidationFeatures>
 	public Vk.EXT.ValidationFeatureEnable* EnabledValidationFeatures;
 	public uint DisabledValidationFeatureCount;
 	public Vk.EXT.ValidationFeatureDisable* DisabledValidationFeatures;
+	public ValidationFeatures(
+		uint enabledValidationFeatureCount = default,
+		in Vk.EXT.ValidationFeatureEnable* enabledValidationFeatures = default,
+		uint disabledValidationFeatureCount = default,
+		in Vk.EXT.ValidationFeatureDisable* disabledValidationFeatures = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		EnabledValidationFeatureCount = enabledValidationFeatureCount;
+		EnabledValidationFeatures = enabledValidationFeatures;
+		DisabledValidationFeatureCount = disabledValidationFeatureCount;
+		DisabledValidationFeatures = disabledValidationFeatures;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ValidationFeatures o) && (this == o);
 	readonly bool IEquatable<ValidationFeatures>.Equals(ValidationFeatures obj) => (this == obj);
@@ -205,6 +253,18 @@ public unsafe partial struct DebugMarkerObjectNameInfo : IEquatable<DebugMarkerO
 	public Vk.EXT.DebugReportObjectType ObjectType;
 	public ulong Object;
 	public byte* ObjectName;
+	public DebugMarkerObjectNameInfo(
+		in Vk.EXT.DebugReportObjectType objectType = default,
+		ulong @object = default,
+		byte* objectName = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ObjectType = objectType;
+		Object = @object;
+		ObjectName = objectName;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugMarkerObjectNameInfo o) && (this == o);
 	readonly bool IEquatable<DebugMarkerObjectNameInfo>.Equals(DebugMarkerObjectNameInfo obj) => (this == obj);
@@ -253,6 +313,22 @@ public unsafe partial struct DebugMarkerObjectTagInfo : IEquatable<DebugMarkerOb
 	public ulong TagName;
 	public ulong TagSize;
 	public void* Tag;
+	public DebugMarkerObjectTagInfo(
+		in Vk.EXT.DebugReportObjectType objectType = default,
+		ulong @object = default,
+		ulong tagName = default,
+		ulong tagSize = default,
+		void* tag = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ObjectType = objectType;
+		Object = @object;
+		TagName = tagName;
+		TagSize = tagSize;
+		Tag = tag;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugMarkerObjectTagInfo o) && (this == o);
 	readonly bool IEquatable<DebugMarkerObjectTagInfo>.Equals(DebugMarkerObjectTagInfo obj) => (this == obj);
@@ -298,6 +374,22 @@ public unsafe partial struct DebugMarkerMarkerInfo : IEquatable<DebugMarkerMarke
 	public void* pNext;
 	public byte* MarkerName;
 	public fixed float Color[4];
+	public DebugMarkerMarkerInfo(
+		byte* markerName = default,
+		float color0 = default,
+		float color1 = default,
+		float color2 = default,
+		float color3 = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MarkerName = markerName;
+		Color[0] = color0;
+		Color[1] = color1;
+		Color[2] = color2;
+		Color[3] = color3;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugMarkerMarkerInfo o) && (this == o);
 	readonly bool IEquatable<DebugMarkerMarkerInfo>.Equals(DebugMarkerMarkerInfo obj) => (this == obj);
@@ -342,6 +434,14 @@ public unsafe partial struct DevicePrivateDataCreateInfo : IEquatable<DevicePriv
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint PrivateDataSlotRequestCount;
+	public DevicePrivateDataCreateInfo(
+		uint privateDataSlotRequestCount = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PrivateDataSlotRequestCount = privateDataSlotRequestCount;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DevicePrivateDataCreateInfo o) && (this == o);
 	readonly bool IEquatable<DevicePrivateDataCreateInfo>.Equals(DevicePrivateDataCreateInfo obj) => (this == obj);
@@ -383,6 +483,14 @@ public unsafe partial struct PrivateDataSlotCreateInfo : IEquatable<PrivateDataS
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.PrivateDataSlotCreateFlags Flags;
+	public PrivateDataSlotCreateInfo(
+		in Vk.EXT.PrivateDataSlotCreateFlags flags = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PrivateDataSlotCreateInfo o) && (this == o);
 	readonly bool IEquatable<PrivateDataSlotCreateInfo>.Equals(PrivateDataSlotCreateInfo obj) => (this == obj);
@@ -424,6 +532,14 @@ public unsafe partial struct PhysicalDevicePrivateDataFeatures : IEquatable<Phys
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 PrivateData;
+	public PhysicalDevicePrivateDataFeatures(
+		in Vk.Bool32 privateData = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PrivateData = privateData;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePrivateDataFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDevicePrivateDataFeatures>.Equals(PhysicalDevicePrivateDataFeatures obj) => (this == obj);
@@ -475,6 +591,34 @@ public unsafe partial struct SurfaceCapabilities2 : IEquatable<SurfaceCapabiliti
 	public Vk.KHR.CompositeAlphaFlags SupportedCompositeAlpha;
 	public Vk.ImageUsageFlags SupportedUsageFlags;
 	public Vk.EXT.SurfaceCounterFlags SupportedSurfaceCounters;
+	public SurfaceCapabilities2(
+		uint minImageCount = default,
+		uint maxImageCount = default,
+		in Vk.Extent2D currentExtent = default,
+		in Vk.Extent2D minImageExtent = default,
+		in Vk.Extent2D maxImageExtent = default,
+		uint maxImageArrayLayers = default,
+		in Vk.KHR.SurfaceTransformFlags supportedTransforms = default,
+		in Vk.KHR.SurfaceTransformFlags currentTransform = default,
+		in Vk.KHR.CompositeAlphaFlags supportedCompositeAlpha = default,
+		in Vk.ImageUsageFlags supportedUsageFlags = default,
+		in Vk.EXT.SurfaceCounterFlags supportedSurfaceCounters = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MinImageCount = minImageCount;
+		MaxImageCount = maxImageCount;
+		CurrentExtent = currentExtent;
+		MinImageExtent = minImageExtent;
+		MaxImageExtent = maxImageExtent;
+		MaxImageArrayLayers = maxImageArrayLayers;
+		SupportedTransforms = supportedTransforms;
+		CurrentTransform = currentTransform;
+		SupportedCompositeAlpha = supportedCompositeAlpha;
+		SupportedUsageFlags = supportedUsageFlags;
+		SupportedSurfaceCounters = supportedSurfaceCounters;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceCapabilities2 o) && (this == o);
 	readonly bool IEquatable<SurfaceCapabilities2>.Equals(SurfaceCapabilities2 obj) => (this == obj);
@@ -525,6 +669,14 @@ public unsafe partial struct DisplayPowerInfo : IEquatable<DisplayPowerInfo>
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.DisplayPowerState PowerState;
+	public DisplayPowerInfo(
+		in Vk.EXT.DisplayPowerState powerState = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PowerState = powerState;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DisplayPowerInfo o) && (this == o);
 	readonly bool IEquatable<DisplayPowerInfo>.Equals(DisplayPowerInfo obj) => (this == obj);
@@ -566,6 +718,14 @@ public unsafe partial struct DeviceEventInfo : IEquatable<DeviceEventInfo>
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.DeviceEventType DeviceEvent;
+	public DeviceEventInfo(
+		in Vk.EXT.DeviceEventType deviceEvent = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DeviceEvent = deviceEvent;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceEventInfo o) && (this == o);
 	readonly bool IEquatable<DeviceEventInfo>.Equals(DeviceEventInfo obj) => (this == obj);
@@ -607,6 +767,14 @@ public unsafe partial struct DisplayEventInfo : IEquatable<DisplayEventInfo>
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.DisplayEventType DisplayEvent;
+	public DisplayEventInfo(
+		in Vk.EXT.DisplayEventType displayEvent = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DisplayEvent = displayEvent;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DisplayEventInfo o) && (this == o);
 	readonly bool IEquatable<DisplayEventInfo>.Equals(DisplayEventInfo obj) => (this == obj);
@@ -648,6 +816,14 @@ public unsafe partial struct SwapchainCounterCreateInfo : IEquatable<SwapchainCo
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.SurfaceCounterFlags SurfaceCounters;
+	public SwapchainCounterCreateInfo(
+		in Vk.EXT.SurfaceCounterFlags surfaceCounters = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SurfaceCounters = surfaceCounters;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SwapchainCounterCreateInfo o) && (this == o);
 	readonly bool IEquatable<SwapchainCounterCreateInfo>.Equals(SwapchainCounterCreateInfo obj) => (this == obj);
@@ -686,6 +862,14 @@ public unsafe partial struct XYColor : IEquatable<XYColor>
 {
 	public float X;
 	public float Y;
+	public XYColor(
+		float x = default,
+		float y = default
+	) {
+		X = x;
+		Y = y;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is XYColor o) && (this == o);
 	readonly bool IEquatable<XYColor>.Equals(XYColor obj) => (this == obj);
@@ -734,6 +918,28 @@ public unsafe partial struct HdrMetadata : IEquatable<HdrMetadata>
 	public float MinLuminance;
 	public float MaxContentLightLevel;
 	public float MaxFrameAverageLightLevel;
+	public HdrMetadata(
+		in Vk.EXT.XYColor displayPrimaryRed = default,
+		in Vk.EXT.XYColor displayPrimaryGreen = default,
+		in Vk.EXT.XYColor displayPrimaryBlue = default,
+		in Vk.EXT.XYColor whitePoint = default,
+		float maxLuminance = default,
+		float minLuminance = default,
+		float maxContentLightLevel = default,
+		float maxFrameAverageLightLevel = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DisplayPrimaryRed = displayPrimaryRed;
+		DisplayPrimaryGreen = displayPrimaryGreen;
+		DisplayPrimaryBlue = displayPrimaryBlue;
+		WhitePoint = whitePoint;
+		MaxLuminance = maxLuminance;
+		MinLuminance = minLuminance;
+		MaxContentLightLevel = maxContentLightLevel;
+		MaxFrameAverageLightLevel = maxFrameAverageLightLevel;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is HdrMetadata o) && (this == o);
 	readonly bool IEquatable<HdrMetadata>.Equals(HdrMetadata obj) => (this == obj);
@@ -782,6 +988,16 @@ public unsafe partial struct MetalSurfaceCreateInfo : IEquatable<MetalSurfaceCre
 	public void* pNext;
 	public Vk.EXT.MetalSurfaceCreateFlags Flags;
 	public void* Layer;
+	public MetalSurfaceCreateInfo(
+		in Vk.EXT.MetalSurfaceCreateFlags flags = default,
+		void* layer = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		Layer = layer;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is MetalSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<MetalSurfaceCreateInfo>.Equals(MetalSurfaceCreateInfo obj) => (this == obj);
@@ -823,6 +1039,14 @@ public unsafe partial struct PhysicalDeviceDiscardRectangleProperties : IEquatab
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MaxDiscardRectangles;
+	public PhysicalDeviceDiscardRectangleProperties(
+		uint maxDiscardRectangles = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxDiscardRectangles = maxDiscardRectangles;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDiscardRectangleProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDiscardRectangleProperties>.Equals(PhysicalDeviceDiscardRectangleProperties obj) => (this == obj);
@@ -867,6 +1091,20 @@ public unsafe partial struct PipelineDiscardRectangleStateCreateInfo : IEquatabl
 	public Vk.EXT.DiscardRectangleMode DiscardRectangleMode;
 	public uint DiscardRectangleCount;
 	public Vk.Rect2D* DiscardRectangles;
+	public PipelineDiscardRectangleStateCreateInfo(
+		in Vk.EXT.PipelineDiscardRectangleStateCreateFlags flags = default,
+		in Vk.EXT.DiscardRectangleMode discardRectangleMode = default,
+		uint discardRectangleCount = default,
+		in Vk.Rect2D* discardRectangles = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		DiscardRectangleMode = discardRectangleMode;
+		DiscardRectangleCount = discardRectangleCount;
+		DiscardRectangles = discardRectangles;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineDiscardRectangleStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineDiscardRectangleStateCreateInfo>.Equals(PipelineDiscardRectangleStateCreateInfo obj) => (this == obj);
@@ -913,6 +1151,18 @@ public unsafe partial struct ConditionalRenderingBeginInfo : IEquatable<Conditio
 	public Vk.Handle<Vk.Buffer> Buffer;
 	public Vk.DeviceSize Offset;
 	public Vk.EXT.ConditionalRenderingFlags Flags;
+	public ConditionalRenderingBeginInfo(
+		in Vk.Handle<Vk.Buffer> buffer = default,
+		in Vk.DeviceSize offset = default,
+		in Vk.EXT.ConditionalRenderingFlags flags = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Buffer = buffer;
+		Offset = offset;
+		Flags = flags;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ConditionalRenderingBeginInfo o) && (this == o);
 	readonly bool IEquatable<ConditionalRenderingBeginInfo>.Equals(ConditionalRenderingBeginInfo obj) => (this == obj);
@@ -958,6 +1208,16 @@ public unsafe partial struct PhysicalDeviceSamplerFilterMinmaxProperties : IEqua
 	public void* pNext;
 	public Vk.Bool32 FilterMinmaxSingleComponentFormats;
 	public Vk.Bool32 FilterMinmaxImageComponentMapping;
+	public PhysicalDeviceSamplerFilterMinmaxProperties(
+		in Vk.Bool32 filterMinmaxSingleComponentFormats = default,
+		in Vk.Bool32 filterMinmaxImageComponentMapping = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FilterMinmaxSingleComponentFormats = filterMinmaxSingleComponentFormats;
+		FilterMinmaxImageComponentMapping = filterMinmaxImageComponentMapping;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSamplerFilterMinmaxProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSamplerFilterMinmaxProperties>.Equals(PhysicalDeviceSamplerFilterMinmaxProperties obj) => (this == obj);
@@ -996,6 +1256,14 @@ public unsafe partial struct SampleLocation : IEquatable<SampleLocation>
 {
 	public float X;
 	public float Y;
+	public SampleLocation(
+		float x = default,
+		float y = default
+	) {
+		X = x;
+		Y = y;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SampleLocation o) && (this == o);
 	readonly bool IEquatable<SampleLocation>.Equals(SampleLocation obj) => (this == obj);
@@ -1040,6 +1308,20 @@ public unsafe partial struct SampleLocationsInfo : IEquatable<SampleLocationsInf
 	public Vk.Extent2D SampleLocationGridSize;
 	public uint SampleLocationsCount;
 	public Vk.EXT.SampleLocation* SampleLocations;
+	public SampleLocationsInfo(
+		in Vk.SampleCountFlags sampleLocationsPerPixel = default,
+		in Vk.Extent2D sampleLocationGridSize = default,
+		uint sampleLocationsCount = default,
+		in Vk.EXT.SampleLocation* sampleLocations = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SampleLocationsPerPixel = sampleLocationsPerPixel;
+		SampleLocationGridSize = sampleLocationGridSize;
+		SampleLocationsCount = sampleLocationsCount;
+		SampleLocations = sampleLocations;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SampleLocationsInfo o) && (this == o);
 	readonly bool IEquatable<SampleLocationsInfo>.Equals(SampleLocationsInfo obj) => (this == obj);
@@ -1081,6 +1363,14 @@ public unsafe partial struct AttachmentSampleLocations : IEquatable<AttachmentSa
 {
 	public uint AttachmentIndex;
 	public Vk.EXT.SampleLocationsInfo SampleLocationsInfo;
+	public AttachmentSampleLocations(
+		uint attachmentIndex = default,
+		in Vk.EXT.SampleLocationsInfo sampleLocationsInfo = default
+	) {
+		AttachmentIndex = attachmentIndex;
+		SampleLocationsInfo = sampleLocationsInfo;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is AttachmentSampleLocations o) && (this == o);
 	readonly bool IEquatable<AttachmentSampleLocations>.Equals(AttachmentSampleLocations obj) => (this == obj);
@@ -1119,6 +1409,14 @@ public unsafe partial struct SubpassSampleLocations : IEquatable<SubpassSampleLo
 {
 	public uint SubpassIndex;
 	public Vk.EXT.SampleLocationsInfo SampleLocationsInfo;
+	public SubpassSampleLocations(
+		uint subpassIndex = default,
+		in Vk.EXT.SampleLocationsInfo sampleLocationsInfo = default
+	) {
+		SubpassIndex = subpassIndex;
+		SampleLocationsInfo = sampleLocationsInfo;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SubpassSampleLocations o) && (this == o);
 	readonly bool IEquatable<SubpassSampleLocations>.Equals(SubpassSampleLocations obj) => (this == obj);
@@ -1163,6 +1461,20 @@ public unsafe partial struct RenderPassSampleLocationsBeginInfo : IEquatable<Ren
 	public Vk.EXT.AttachmentSampleLocations* AttachmentInitialSampleLocations;
 	public uint PostSubpassSampleLocationsCount;
 	public Vk.EXT.SubpassSampleLocations* PostSubpassSampleLocations;
+	public RenderPassSampleLocationsBeginInfo(
+		uint attachmentInitialSampleLocationsCount = default,
+		in Vk.EXT.AttachmentSampleLocations* attachmentInitialSampleLocations = default,
+		uint postSubpassSampleLocationsCount = default,
+		in Vk.EXT.SubpassSampleLocations* postSubpassSampleLocations = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		AttachmentInitialSampleLocationsCount = attachmentInitialSampleLocationsCount;
+		AttachmentInitialSampleLocations = attachmentInitialSampleLocations;
+		PostSubpassSampleLocationsCount = postSubpassSampleLocationsCount;
+		PostSubpassSampleLocations = postSubpassSampleLocations;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is RenderPassSampleLocationsBeginInfo o) && (this == o);
 	readonly bool IEquatable<RenderPassSampleLocationsBeginInfo>.Equals(RenderPassSampleLocationsBeginInfo obj) => (this == obj);
@@ -1208,6 +1520,16 @@ public unsafe partial struct PipelineSampleLocationsStateCreateInfo : IEquatable
 	public void* pNext;
 	public Vk.Bool32 SampleLocationsEnable;
 	public Vk.EXT.SampleLocationsInfo SampleLocationsInfo;
+	public PipelineSampleLocationsStateCreateInfo(
+		in Vk.Bool32 sampleLocationsEnable = default,
+		in Vk.EXT.SampleLocationsInfo sampleLocationsInfo = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SampleLocationsEnable = sampleLocationsEnable;
+		SampleLocationsInfo = sampleLocationsInfo;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineSampleLocationsStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineSampleLocationsStateCreateInfo>.Equals(PipelineSampleLocationsStateCreateInfo obj) => (this == obj);
@@ -1253,6 +1575,24 @@ public unsafe partial struct PhysicalDeviceSampleLocationsProperties : IEquatabl
 	public fixed float SampleLocationCoordinateRange[2];
 	public uint SampleLocationSubPixelBits;
 	public Vk.Bool32 VariableSampleLocations;
+	public PhysicalDeviceSampleLocationsProperties(
+		in Vk.SampleCountFlags sampleLocationSampleCounts = default,
+		in Vk.Extent2D maxSampleLocationGridSize = default,
+		float sampleLocationCoordinateRange0 = default,
+		float sampleLocationCoordinateRange1 = default,
+		uint sampleLocationSubPixelBits = default,
+		in Vk.Bool32 variableSampleLocations = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SampleLocationSampleCounts = sampleLocationSampleCounts;
+		MaxSampleLocationGridSize = maxSampleLocationGridSize;
+		SampleLocationCoordinateRange[0] = sampleLocationCoordinateRange0;
+		SampleLocationCoordinateRange[1] = sampleLocationCoordinateRange1;
+		SampleLocationSubPixelBits = sampleLocationSubPixelBits;
+		VariableSampleLocations = variableSampleLocations;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSampleLocationsProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSampleLocationsProperties>.Equals(PhysicalDeviceSampleLocationsProperties obj) => (this == obj);
@@ -1297,6 +1637,14 @@ public unsafe partial struct MultisampleProperties : IEquatable<MultisamplePrope
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Extent2D MaxSampleLocationGridSize;
+	public MultisampleProperties(
+		in Vk.Extent2D maxSampleLocationGridSize = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxSampleLocationGridSize = maxSampleLocationGridSize;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is MultisampleProperties o) && (this == o);
 	readonly bool IEquatable<MultisampleProperties>.Equals(MultisampleProperties obj) => (this == obj);
@@ -1338,6 +1686,14 @@ public unsafe partial struct SamplerReductionModeCreateInfo : IEquatable<Sampler
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.SamplerReductionMode ReductionMode;
+	public SamplerReductionModeCreateInfo(
+		in Vk.SamplerReductionMode reductionMode = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ReductionMode = reductionMode;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SamplerReductionModeCreateInfo o) && (this == o);
 	readonly bool IEquatable<SamplerReductionModeCreateInfo>.Equals(SamplerReductionModeCreateInfo obj) => (this == obj);
@@ -1379,6 +1735,14 @@ public unsafe partial struct PhysicalDeviceBlendOperationAdvancedFeatures : IEqu
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 AdvancedBlendCoherentOperations;
+	public PhysicalDeviceBlendOperationAdvancedFeatures(
+		in Vk.Bool32 advancedBlendCoherentOperations = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		AdvancedBlendCoherentOperations = advancedBlendCoherentOperations;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBlendOperationAdvancedFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBlendOperationAdvancedFeatures>.Equals(PhysicalDeviceBlendOperationAdvancedFeatures obj) => (this == obj);
@@ -1425,6 +1789,24 @@ public unsafe partial struct PhysicalDeviceBlendOperationAdvancedProperties : IE
 	public Vk.Bool32 AdvancedBlendNonPremultipliedDstColor;
 	public Vk.Bool32 AdvancedBlendCorrelatedOverlap;
 	public Vk.Bool32 AdvancedBlendAllOperations;
+	public PhysicalDeviceBlendOperationAdvancedProperties(
+		uint advancedBlendMaxColorAttachments = default,
+		in Vk.Bool32 advancedBlendIndependentBlend = default,
+		in Vk.Bool32 advancedBlendNonPremultipliedSrcColor = default,
+		in Vk.Bool32 advancedBlendNonPremultipliedDstColor = default,
+		in Vk.Bool32 advancedBlendCorrelatedOverlap = default,
+		in Vk.Bool32 advancedBlendAllOperations = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		AdvancedBlendMaxColorAttachments = advancedBlendMaxColorAttachments;
+		AdvancedBlendIndependentBlend = advancedBlendIndependentBlend;
+		AdvancedBlendNonPremultipliedSrcColor = advancedBlendNonPremultipliedSrcColor;
+		AdvancedBlendNonPremultipliedDstColor = advancedBlendNonPremultipliedDstColor;
+		AdvancedBlendCorrelatedOverlap = advancedBlendCorrelatedOverlap;
+		AdvancedBlendAllOperations = advancedBlendAllOperations;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBlendOperationAdvancedProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBlendOperationAdvancedProperties>.Equals(PhysicalDeviceBlendOperationAdvancedProperties obj) => (this == obj);
@@ -1471,6 +1853,18 @@ public unsafe partial struct PipelineColorBlendAdvancedStateCreateInfo : IEquata
 	public Vk.Bool32 SrcPremultiplied;
 	public Vk.Bool32 DstPremultiplied;
 	public Vk.EXT.BlendOverlap BlendOverlap;
+	public PipelineColorBlendAdvancedStateCreateInfo(
+		in Vk.Bool32 srcPremultiplied = default,
+		in Vk.Bool32 dstPremultiplied = default,
+		in Vk.EXT.BlendOverlap blendOverlap = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SrcPremultiplied = srcPremultiplied;
+		DstPremultiplied = dstPremultiplied;
+		BlendOverlap = blendOverlap;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineColorBlendAdvancedStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineColorBlendAdvancedStateCreateInfo>.Equals(PipelineColorBlendAdvancedStateCreateInfo obj) => (this == obj);
@@ -1516,6 +1910,16 @@ public unsafe partial struct PhysicalDeviceInlineUniformBlockFeatures : IEquatab
 	public void* pNext;
 	public Vk.Bool32 InlineUniformBlock;
 	public Vk.Bool32 DescriptorBindingInlineUniformBlockUpdateAfterBind;
+	public PhysicalDeviceInlineUniformBlockFeatures(
+		in Vk.Bool32 inlineUniformBlock = default,
+		in Vk.Bool32 descriptorBindingInlineUniformBlockUpdateAfterBind = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		InlineUniformBlock = inlineUniformBlock;
+		DescriptorBindingInlineUniformBlockUpdateAfterBind = descriptorBindingInlineUniformBlockUpdateAfterBind;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceInlineUniformBlockFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceInlineUniformBlockFeatures>.Equals(PhysicalDeviceInlineUniformBlockFeatures obj) => (this == obj);
@@ -1561,6 +1965,22 @@ public unsafe partial struct PhysicalDeviceInlineUniformBlockProperties : IEquat
 	public uint MaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks;
 	public uint MaxDescriptorSetInlineUniformBlocks;
 	public uint MaxDescriptorSetUpdateAfterBindInlineUniformBlocks;
+	public PhysicalDeviceInlineUniformBlockProperties(
+		uint maxInlineUniformBlockSize = default,
+		uint maxPerStageDescriptorInlineUniformBlocks = default,
+		uint maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks = default,
+		uint maxDescriptorSetInlineUniformBlocks = default,
+		uint maxDescriptorSetUpdateAfterBindInlineUniformBlocks = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxInlineUniformBlockSize = maxInlineUniformBlockSize;
+		MaxPerStageDescriptorInlineUniformBlocks = maxPerStageDescriptorInlineUniformBlocks;
+		MaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks = maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks;
+		MaxDescriptorSetInlineUniformBlocks = maxDescriptorSetInlineUniformBlocks;
+		MaxDescriptorSetUpdateAfterBindInlineUniformBlocks = maxDescriptorSetUpdateAfterBindInlineUniformBlocks;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceInlineUniformBlockProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceInlineUniformBlockProperties>.Equals(PhysicalDeviceInlineUniformBlockProperties obj) => (this == obj);
@@ -1606,6 +2026,16 @@ public unsafe partial struct WriteDescriptorSetInlineUniformBlock : IEquatable<W
 	public void* pNext;
 	public uint DataSize;
 	public void* Data;
+	public WriteDescriptorSetInlineUniformBlock(
+		uint dataSize = default,
+		void* data = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DataSize = dataSize;
+		Data = data;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is WriteDescriptorSetInlineUniformBlock o) && (this == o);
 	readonly bool IEquatable<WriteDescriptorSetInlineUniformBlock>.Equals(WriteDescriptorSetInlineUniformBlock obj) => (this == obj);
@@ -1647,6 +2077,14 @@ public unsafe partial struct DescriptorPoolInlineUniformBlockCreateInfo : IEquat
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MaxInlineUniformBlockBindings;
+	public DescriptorPoolInlineUniformBlockCreateInfo(
+		uint maxInlineUniformBlockBindings = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxInlineUniformBlockBindings = maxInlineUniformBlockBindings;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorPoolInlineUniformBlockCreateInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorPoolInlineUniformBlockCreateInfo>.Equals(DescriptorPoolInlineUniformBlockCreateInfo obj) => (this == obj);
@@ -1690,6 +2128,18 @@ public unsafe partial struct ValidationCacheCreateInfo : IEquatable<ValidationCa
 	public Vk.EXT.ValidationCacheCreateFlags Flags;
 	public ulong InitialDataSize;
 	public void* InitialData;
+	public ValidationCacheCreateInfo(
+		in Vk.EXT.ValidationCacheCreateFlags flags = default,
+		ulong initialDataSize = default,
+		void* initialData = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		InitialDataSize = initialDataSize;
+		InitialData = initialData;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ValidationCacheCreateInfo o) && (this == o);
 	readonly bool IEquatable<ValidationCacheCreateInfo>.Equals(ValidationCacheCreateInfo obj) => (this == obj);
@@ -1734,6 +2184,14 @@ public unsafe partial struct ShaderModuleValidationCacheCreateInfo : IEquatable<
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Handle<Vk.EXT.ValidationCache> ValidationCache;
+	public ShaderModuleValidationCacheCreateInfo(
+		in Vk.Handle<Vk.EXT.ValidationCache> validationCache = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ValidationCache = validationCache;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ShaderModuleValidationCacheCreateInfo o) && (this == o);
 	readonly bool IEquatable<ShaderModuleValidationCacheCreateInfo>.Equals(ShaderModuleValidationCacheCreateInfo obj) => (this == obj);
@@ -1775,6 +2233,14 @@ public unsafe partial struct PhysicalDeviceHostQueryResetFeatures : IEquatable<P
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 HostQueryReset;
+	public PhysicalDeviceHostQueryResetFeatures(
+		in Vk.Bool32 hostQueryReset = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		HostQueryReset = hostQueryReset;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceHostQueryResetFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceHostQueryResetFeatures>.Equals(PhysicalDeviceHostQueryResetFeatures obj) => (this == obj);
@@ -1816,6 +2282,14 @@ public unsafe partial struct DeviceQueueGlobalPriorityCreateInfo : IEquatable<De
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.QueueGlobalPriority GlobalPriority;
+	public DeviceQueueGlobalPriorityCreateInfo(
+		in Vk.EXT.QueueGlobalPriority globalPriority = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		GlobalPriority = globalPriority;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceQueueGlobalPriorityCreateInfo o) && (this == o);
 	readonly bool IEquatable<DeviceQueueGlobalPriorityCreateInfo>.Equals(DeviceQueueGlobalPriorityCreateInfo obj) => (this == obj);
@@ -1859,6 +2333,18 @@ public unsafe partial struct DebugUtilsObjectNameInfo : IEquatable<DebugUtilsObj
 	public Vk.ObjectType ObjectType;
 	public ulong ObjectHandle;
 	public byte* ObjectName;
+	public DebugUtilsObjectNameInfo(
+		in Vk.ObjectType objectType = default,
+		ulong objectHandle = default,
+		byte* objectName = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ObjectType = objectType;
+		ObjectHandle = objectHandle;
+		ObjectName = objectName;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsObjectNameInfo o) && (this == o);
 	readonly bool IEquatable<DebugUtilsObjectNameInfo>.Equals(DebugUtilsObjectNameInfo obj) => (this == obj);
@@ -1907,6 +2393,22 @@ public unsafe partial struct DebugUtilsObjectTagInfo : IEquatable<DebugUtilsObje
 	public ulong TagName;
 	public ulong TagSize;
 	public void* Tag;
+	public DebugUtilsObjectTagInfo(
+		in Vk.ObjectType objectType = default,
+		ulong objectHandle = default,
+		ulong tagName = default,
+		ulong tagSize = default,
+		void* tag = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ObjectType = objectType;
+		ObjectHandle = objectHandle;
+		TagName = tagName;
+		TagSize = tagSize;
+		Tag = tag;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsObjectTagInfo o) && (this == o);
 	readonly bool IEquatable<DebugUtilsObjectTagInfo>.Equals(DebugUtilsObjectTagInfo obj) => (this == obj);
@@ -1952,6 +2454,22 @@ public unsafe partial struct DebugUtilsLabel : IEquatable<DebugUtilsLabel>
 	public void* pNext;
 	public byte* LabelName;
 	public fixed float Color[4];
+	public DebugUtilsLabel(
+		byte* labelName = default,
+		float color0 = default,
+		float color1 = default,
+		float color2 = default,
+		float color3 = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		LabelName = labelName;
+		Color[0] = color0;
+		Color[1] = color1;
+		Color[2] = color2;
+		Color[3] = color3;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsLabel o) && (this == o);
 	readonly bool IEquatable<DebugUtilsLabel>.Equals(DebugUtilsLabel obj) => (this == obj);
@@ -2000,6 +2518,22 @@ public unsafe partial struct DebugUtilsMessengerCreateInfo : IEquatable<DebugUti
 	public Vk.EXT.DebugUtilsMessageTypeFlags MessageType;
 	public delegate* managed<Vk.EXT.DebugUtilsMessageSeverityFlags, Vk.EXT.DebugUtilsMessageTypeFlags, Vk.EXT.DebugUtilsMessengerCallbackData*, void*, Vk.Bool32> UserCallback;
 	public void* UserData;
+	public DebugUtilsMessengerCreateInfo(
+		in Vk.EXT.DebugUtilsMessengerCreateFlags flags = default,
+		in Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity = default,
+		in Vk.EXT.DebugUtilsMessageTypeFlags messageType = default,
+		delegate* managed<Vk.EXT.DebugUtilsMessageSeverityFlags, Vk.EXT.DebugUtilsMessageTypeFlags, Vk.EXT.DebugUtilsMessengerCallbackData*, void*, Vk.Bool32> userCallback = default,
+		void* userData = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		MessageSeverity = messageSeverity;
+		MessageType = messageType;
+		UserCallback = userCallback;
+		UserData = userData;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsMessengerCreateInfo o) && (this == o);
 	readonly bool IEquatable<DebugUtilsMessengerCreateInfo>.Equals(DebugUtilsMessengerCreateInfo obj) => (this == obj);
@@ -2053,6 +2587,32 @@ public unsafe partial struct DebugUtilsMessengerCallbackData : IEquatable<DebugU
 	public Vk.EXT.DebugUtilsLabel* CmdBufLabels;
 	public uint ObjectCount;
 	public Vk.EXT.DebugUtilsObjectNameInfo* Objects;
+	public DebugUtilsMessengerCallbackData(
+		in Vk.EXT.DebugUtilsMessengerCallbackDataFlags flags = default,
+		byte* messageIdName = default,
+		int messageIdNumber = default,
+		byte* message = default,
+		uint queueLabelCount = default,
+		in Vk.EXT.DebugUtilsLabel* queueLabels = default,
+		uint cmdBufLabelCount = default,
+		in Vk.EXT.DebugUtilsLabel* cmdBufLabels = default,
+		uint objectCount = default,
+		in Vk.EXT.DebugUtilsObjectNameInfo* objects = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		MessageIdName = messageIdName;
+		MessageIdNumber = messageIdNumber;
+		Message = message;
+		QueueLabelCount = queueLabelCount;
+		QueueLabels = queueLabels;
+		CmdBufLabelCount = cmdBufLabelCount;
+		CmdBufLabels = cmdBufLabels;
+		ObjectCount = objectCount;
+		Objects = objects;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DebugUtilsMessengerCallbackData o) && (this == o);
 	readonly bool IEquatable<DebugUtilsMessengerCallbackData>.Equals(DebugUtilsMessengerCallbackData obj) => (this == obj);
@@ -2100,6 +2660,14 @@ public unsafe partial struct PhysicalDeviceDeviceMemoryReportFeatures : IEquatab
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 DeviceMemoryReport;
+	public PhysicalDeviceDeviceMemoryReportFeatures(
+		in Vk.Bool32 deviceMemoryReport = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DeviceMemoryReport = deviceMemoryReport;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDeviceMemoryReportFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDeviceMemoryReportFeatures>.Equals(PhysicalDeviceDeviceMemoryReportFeatures obj) => (this == obj);
@@ -2143,6 +2711,18 @@ public unsafe partial struct DeviceDeviceMemoryReportCreateInfo : IEquatable<Dev
 	public Vk.EXT.DeviceMemoryReportFlags Flags;
 	public delegate* managed<Vk.EXT.DeviceMemoryReportCallbackData*, void*, void> UserCallback;
 	public void* UserData;
+	public DeviceDeviceMemoryReportCreateInfo(
+		in Vk.EXT.DeviceMemoryReportFlags flags = default,
+		delegate* managed<Vk.EXT.DeviceMemoryReportCallbackData*, void*, void> userCallback = default,
+		void* userData = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		UserCallback = userCallback;
+		UserData = userData;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceDeviceMemoryReportCreateInfo o) && (this == o);
 	readonly bool IEquatable<DeviceDeviceMemoryReportCreateInfo>.Equals(DeviceDeviceMemoryReportCreateInfo obj) => (this == obj);
@@ -2193,6 +2773,26 @@ public unsafe partial struct DeviceMemoryReportCallbackData : IEquatable<DeviceM
 	public Vk.ObjectType ObjectType;
 	public ulong ObjectHandle;
 	public uint HeapIndex;
+	public DeviceMemoryReportCallbackData(
+		in Vk.EXT.DeviceMemoryReportFlags flags = default,
+		in Vk.EXT.DeviceMemoryReportEventType type = default,
+		ulong memoryObjectId = default,
+		in Vk.DeviceSize size = default,
+		in Vk.ObjectType objectType = default,
+		ulong objectHandle = default,
+		uint heapIndex = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		Type = type;
+		MemoryObjectId = memoryObjectId;
+		Size = size;
+		ObjectType = objectType;
+		ObjectHandle = objectHandle;
+		HeapIndex = heapIndex;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceMemoryReportCallbackData o) && (this == o);
 	readonly bool IEquatable<DeviceMemoryReportCallbackData>.Equals(DeviceMemoryReportCallbackData obj) => (this == obj);
@@ -2241,6 +2841,16 @@ public unsafe partial struct ImportMemoryHostPointerInfo : IEquatable<ImportMemo
 	public void* pNext;
 	public Vk.ExternalMemoryHandleTypeFlags HandleType;
 	public void* HostPointer;
+	public ImportMemoryHostPointerInfo(
+		in Vk.ExternalMemoryHandleTypeFlags handleType = default,
+		void* hostPointer = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		HandleType = handleType;
+		HostPointer = hostPointer;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImportMemoryHostPointerInfo o) && (this == o);
 	readonly bool IEquatable<ImportMemoryHostPointerInfo>.Equals(ImportMemoryHostPointerInfo obj) => (this == obj);
@@ -2282,6 +2892,14 @@ public unsafe partial struct MemoryHostPointerProperties : IEquatable<MemoryHost
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MemoryTypeBits;
+	public MemoryHostPointerProperties(
+		uint memoryTypeBits = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MemoryTypeBits = memoryTypeBits;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryHostPointerProperties o) && (this == o);
 	readonly bool IEquatable<MemoryHostPointerProperties>.Equals(MemoryHostPointerProperties obj) => (this == obj);
@@ -2323,6 +2941,14 @@ public unsafe partial struct PhysicalDeviceExternalMemoryHostProperties : IEquat
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.DeviceSize MinImportedHostPointerAlignment;
+	public PhysicalDeviceExternalMemoryHostProperties(
+		in Vk.DeviceSize minImportedHostPointerAlignment = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MinImportedHostPointerAlignment = minImportedHostPointerAlignment;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExternalMemoryHostProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceExternalMemoryHostProperties>.Equals(PhysicalDeviceExternalMemoryHostProperties obj) => (this == obj);
@@ -2372,6 +2998,30 @@ public unsafe partial struct PhysicalDeviceConservativeRasterizationProperties :
 	public Vk.Bool32 DegenerateLinesRasterized;
 	public Vk.Bool32 FullyCoveredFragmentShaderInputVariable;
 	public Vk.Bool32 ConservativeRasterizationPostDepthCoverage;
+	public PhysicalDeviceConservativeRasterizationProperties(
+		float primitiveOverestimationSize = default,
+		float maxExtraPrimitiveOverestimationSize = default,
+		float extraPrimitiveOverestimationSizeGranularity = default,
+		in Vk.Bool32 primitiveUnderestimation = default,
+		in Vk.Bool32 conservativePointAndLineRasterization = default,
+		in Vk.Bool32 degenerateTrianglesRasterized = default,
+		in Vk.Bool32 degenerateLinesRasterized = default,
+		in Vk.Bool32 fullyCoveredFragmentShaderInputVariable = default,
+		in Vk.Bool32 conservativeRasterizationPostDepthCoverage = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PrimitiveOverestimationSize = primitiveOverestimationSize;
+		MaxExtraPrimitiveOverestimationSize = maxExtraPrimitiveOverestimationSize;
+		ExtraPrimitiveOverestimationSizeGranularity = extraPrimitiveOverestimationSizeGranularity;
+		PrimitiveUnderestimation = primitiveUnderestimation;
+		ConservativePointAndLineRasterization = conservativePointAndLineRasterization;
+		DegenerateTrianglesRasterized = degenerateTrianglesRasterized;
+		DegenerateLinesRasterized = degenerateLinesRasterized;
+		FullyCoveredFragmentShaderInputVariable = fullyCoveredFragmentShaderInputVariable;
+		ConservativeRasterizationPostDepthCoverage = conservativeRasterizationPostDepthCoverage;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceConservativeRasterizationProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceConservativeRasterizationProperties>.Equals(PhysicalDeviceConservativeRasterizationProperties obj) => (this == obj);
@@ -2419,6 +3069,14 @@ public unsafe partial struct CalibratedTimestampInfo : IEquatable<CalibratedTime
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.TimeDomain TimeDomain;
+	public CalibratedTimestampInfo(
+		in Vk.EXT.TimeDomain timeDomain = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		TimeDomain = timeDomain;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is CalibratedTimestampInfo o) && (this == o);
 	readonly bool IEquatable<CalibratedTimestampInfo>.Equals(CalibratedTimestampInfo obj) => (this == obj);
@@ -2462,6 +3120,18 @@ public unsafe partial struct PipelineRasterizationConservativeStateCreateInfo : 
 	public Vk.EXT.PipelineRasterizationConservativeStateCreateFlags Flags;
 	public Vk.EXT.ConservativeRasterizationMode ConservativeRasterizationMode;
 	public float ExtraPrimitiveOverestimationSize;
+	public PipelineRasterizationConservativeStateCreateInfo(
+		in Vk.EXT.PipelineRasterizationConservativeStateCreateFlags flags = default,
+		in Vk.EXT.ConservativeRasterizationMode conservativeRasterizationMode = default,
+		float extraPrimitiveOverestimationSize = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		ConservativeRasterizationMode = conservativeRasterizationMode;
+		ExtraPrimitiveOverestimationSize = extraPrimitiveOverestimationSize;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationConservativeStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationConservativeStateCreateInfo>.Equals(PipelineRasterizationConservativeStateCreateInfo obj) => (this == obj);
@@ -2525,6 +3195,52 @@ public unsafe partial struct PhysicalDeviceDescriptorIndexingFeatures : IEquatab
 	public Vk.Bool32 DescriptorBindingPartiallyBound;
 	public Vk.Bool32 DescriptorBindingVariableDescriptorCount;
 	public Vk.Bool32 RuntimeDescriptorArray;
+	public PhysicalDeviceDescriptorIndexingFeatures(
+		in Vk.Bool32 shaderInputAttachmentArrayDynamicIndexing = default,
+		in Vk.Bool32 shaderUniformTexelBufferArrayDynamicIndexing = default,
+		in Vk.Bool32 shaderStorageTexelBufferArrayDynamicIndexing = default,
+		in Vk.Bool32 shaderUniformBufferArrayNonUniformIndexing = default,
+		in Vk.Bool32 shaderSampledImageArrayNonUniformIndexing = default,
+		in Vk.Bool32 shaderStorageBufferArrayNonUniformIndexing = default,
+		in Vk.Bool32 shaderStorageImageArrayNonUniformIndexing = default,
+		in Vk.Bool32 shaderInputAttachmentArrayNonUniformIndexing = default,
+		in Vk.Bool32 shaderUniformTexelBufferArrayNonUniformIndexing = default,
+		in Vk.Bool32 shaderStorageTexelBufferArrayNonUniformIndexing = default,
+		in Vk.Bool32 descriptorBindingUniformBufferUpdateAfterBind = default,
+		in Vk.Bool32 descriptorBindingSampledImageUpdateAfterBind = default,
+		in Vk.Bool32 descriptorBindingStorageImageUpdateAfterBind = default,
+		in Vk.Bool32 descriptorBindingStorageBufferUpdateAfterBind = default,
+		in Vk.Bool32 descriptorBindingUniformTexelBufferUpdateAfterBind = default,
+		in Vk.Bool32 descriptorBindingStorageTexelBufferUpdateAfterBind = default,
+		in Vk.Bool32 descriptorBindingUpdateUnusedWhilePending = default,
+		in Vk.Bool32 descriptorBindingPartiallyBound = default,
+		in Vk.Bool32 descriptorBindingVariableDescriptorCount = default,
+		in Vk.Bool32 runtimeDescriptorArray = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderInputAttachmentArrayDynamicIndexing = shaderInputAttachmentArrayDynamicIndexing;
+		ShaderUniformTexelBufferArrayDynamicIndexing = shaderUniformTexelBufferArrayDynamicIndexing;
+		ShaderStorageTexelBufferArrayDynamicIndexing = shaderStorageTexelBufferArrayDynamicIndexing;
+		ShaderUniformBufferArrayNonUniformIndexing = shaderUniformBufferArrayNonUniformIndexing;
+		ShaderSampledImageArrayNonUniformIndexing = shaderSampledImageArrayNonUniformIndexing;
+		ShaderStorageBufferArrayNonUniformIndexing = shaderStorageBufferArrayNonUniformIndexing;
+		ShaderStorageImageArrayNonUniformIndexing = shaderStorageImageArrayNonUniformIndexing;
+		ShaderInputAttachmentArrayNonUniformIndexing = shaderInputAttachmentArrayNonUniformIndexing;
+		ShaderUniformTexelBufferArrayNonUniformIndexing = shaderUniformTexelBufferArrayNonUniformIndexing;
+		ShaderStorageTexelBufferArrayNonUniformIndexing = shaderStorageTexelBufferArrayNonUniformIndexing;
+		DescriptorBindingUniformBufferUpdateAfterBind = descriptorBindingUniformBufferUpdateAfterBind;
+		DescriptorBindingSampledImageUpdateAfterBind = descriptorBindingSampledImageUpdateAfterBind;
+		DescriptorBindingStorageImageUpdateAfterBind = descriptorBindingStorageImageUpdateAfterBind;
+		DescriptorBindingStorageBufferUpdateAfterBind = descriptorBindingStorageBufferUpdateAfterBind;
+		DescriptorBindingUniformTexelBufferUpdateAfterBind = descriptorBindingUniformTexelBufferUpdateAfterBind;
+		DescriptorBindingStorageTexelBufferUpdateAfterBind = descriptorBindingStorageTexelBufferUpdateAfterBind;
+		DescriptorBindingUpdateUnusedWhilePending = descriptorBindingUpdateUnusedWhilePending;
+		DescriptorBindingPartiallyBound = descriptorBindingPartiallyBound;
+		DescriptorBindingVariableDescriptorCount = descriptorBindingVariableDescriptorCount;
+		RuntimeDescriptorArray = runtimeDescriptorArray;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDescriptorIndexingFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDescriptorIndexingFeatures>.Equals(PhysicalDeviceDescriptorIndexingFeatures obj) => (this == obj);
@@ -2603,6 +3319,58 @@ public unsafe partial struct PhysicalDeviceDescriptorIndexingProperties : IEquat
 	public uint MaxDescriptorSetUpdateAfterBindSampledImages;
 	public uint MaxDescriptorSetUpdateAfterBindStorageImages;
 	public uint MaxDescriptorSetUpdateAfterBindInputAttachments;
+	public PhysicalDeviceDescriptorIndexingProperties(
+		uint maxUpdateAfterBindDescriptorsInAllPools = default,
+		in Vk.Bool32 shaderUniformBufferArrayNonUniformIndexingNative = default,
+		in Vk.Bool32 shaderSampledImageArrayNonUniformIndexingNative = default,
+		in Vk.Bool32 shaderStorageBufferArrayNonUniformIndexingNative = default,
+		in Vk.Bool32 shaderStorageImageArrayNonUniformIndexingNative = default,
+		in Vk.Bool32 shaderInputAttachmentArrayNonUniformIndexingNative = default,
+		in Vk.Bool32 robustBufferAccessUpdateAfterBind = default,
+		in Vk.Bool32 quadDivergentImplicitLod = default,
+		uint maxPerStageDescriptorUpdateAfterBindSamplers = default,
+		uint maxPerStageDescriptorUpdateAfterBindUniformBuffers = default,
+		uint maxPerStageDescriptorUpdateAfterBindStorageBuffers = default,
+		uint maxPerStageDescriptorUpdateAfterBindSampledImages = default,
+		uint maxPerStageDescriptorUpdateAfterBindStorageImages = default,
+		uint maxPerStageDescriptorUpdateAfterBindInputAttachments = default,
+		uint maxPerStageUpdateAfterBindResources = default,
+		uint maxDescriptorSetUpdateAfterBindSamplers = default,
+		uint maxDescriptorSetUpdateAfterBindUniformBuffers = default,
+		uint maxDescriptorSetUpdateAfterBindUniformBuffersDynamic = default,
+		uint maxDescriptorSetUpdateAfterBindStorageBuffers = default,
+		uint maxDescriptorSetUpdateAfterBindStorageBuffersDynamic = default,
+		uint maxDescriptorSetUpdateAfterBindSampledImages = default,
+		uint maxDescriptorSetUpdateAfterBindStorageImages = default,
+		uint maxDescriptorSetUpdateAfterBindInputAttachments = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxUpdateAfterBindDescriptorsInAllPools = maxUpdateAfterBindDescriptorsInAllPools;
+		ShaderUniformBufferArrayNonUniformIndexingNative = shaderUniformBufferArrayNonUniformIndexingNative;
+		ShaderSampledImageArrayNonUniformIndexingNative = shaderSampledImageArrayNonUniformIndexingNative;
+		ShaderStorageBufferArrayNonUniformIndexingNative = shaderStorageBufferArrayNonUniformIndexingNative;
+		ShaderStorageImageArrayNonUniformIndexingNative = shaderStorageImageArrayNonUniformIndexingNative;
+		ShaderInputAttachmentArrayNonUniformIndexingNative = shaderInputAttachmentArrayNonUniformIndexingNative;
+		RobustBufferAccessUpdateAfterBind = robustBufferAccessUpdateAfterBind;
+		QuadDivergentImplicitLod = quadDivergentImplicitLod;
+		MaxPerStageDescriptorUpdateAfterBindSamplers = maxPerStageDescriptorUpdateAfterBindSamplers;
+		MaxPerStageDescriptorUpdateAfterBindUniformBuffers = maxPerStageDescriptorUpdateAfterBindUniformBuffers;
+		MaxPerStageDescriptorUpdateAfterBindStorageBuffers = maxPerStageDescriptorUpdateAfterBindStorageBuffers;
+		MaxPerStageDescriptorUpdateAfterBindSampledImages = maxPerStageDescriptorUpdateAfterBindSampledImages;
+		MaxPerStageDescriptorUpdateAfterBindStorageImages = maxPerStageDescriptorUpdateAfterBindStorageImages;
+		MaxPerStageDescriptorUpdateAfterBindInputAttachments = maxPerStageDescriptorUpdateAfterBindInputAttachments;
+		MaxPerStageUpdateAfterBindResources = maxPerStageUpdateAfterBindResources;
+		MaxDescriptorSetUpdateAfterBindSamplers = maxDescriptorSetUpdateAfterBindSamplers;
+		MaxDescriptorSetUpdateAfterBindUniformBuffers = maxDescriptorSetUpdateAfterBindUniformBuffers;
+		MaxDescriptorSetUpdateAfterBindUniformBuffersDynamic = maxDescriptorSetUpdateAfterBindUniformBuffersDynamic;
+		MaxDescriptorSetUpdateAfterBindStorageBuffers = maxDescriptorSetUpdateAfterBindStorageBuffers;
+		MaxDescriptorSetUpdateAfterBindStorageBuffersDynamic = maxDescriptorSetUpdateAfterBindStorageBuffersDynamic;
+		MaxDescriptorSetUpdateAfterBindSampledImages = maxDescriptorSetUpdateAfterBindSampledImages;
+		MaxDescriptorSetUpdateAfterBindStorageImages = maxDescriptorSetUpdateAfterBindStorageImages;
+		MaxDescriptorSetUpdateAfterBindInputAttachments = maxDescriptorSetUpdateAfterBindInputAttachments;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDescriptorIndexingProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDescriptorIndexingProperties>.Equals(PhysicalDeviceDescriptorIndexingProperties obj) => (this == obj);
@@ -2663,6 +3431,16 @@ public unsafe partial struct DescriptorSetLayoutBindingFlagsCreateInfo : IEquata
 	public void* pNext;
 	public uint BindingCount;
 	public Vk.DescriptorBindingFlags* BindingFlags;
+	public DescriptorSetLayoutBindingFlagsCreateInfo(
+		uint bindingCount = default,
+		in Vk.DescriptorBindingFlags* bindingFlags = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		BindingCount = bindingCount;
+		BindingFlags = bindingFlags;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetLayoutBindingFlagsCreateInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorSetLayoutBindingFlagsCreateInfo>.Equals(DescriptorSetLayoutBindingFlagsCreateInfo obj) => (this == obj);
@@ -2705,6 +3483,16 @@ public unsafe partial struct DescriptorSetVariableDescriptorCountAllocateInfo : 
 	public void* pNext;
 	public uint DescriptorSetCount;
 	public uint* DescriptorCounts;
+	public DescriptorSetVariableDescriptorCountAllocateInfo(
+		uint descriptorSetCount = default,
+		uint* descriptorCounts = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DescriptorSetCount = descriptorSetCount;
+		DescriptorCounts = descriptorCounts;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetVariableDescriptorCountAllocateInfo o) && (this == o);
 	readonly bool IEquatable<DescriptorSetVariableDescriptorCountAllocateInfo>.Equals(DescriptorSetVariableDescriptorCountAllocateInfo obj) => (this == obj);
@@ -2746,6 +3534,14 @@ public unsafe partial struct DescriptorSetVariableDescriptorCountLayoutSupport :
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MaxVariableDescriptorCount;
+	public DescriptorSetVariableDescriptorCountLayoutSupport(
+		uint maxVariableDescriptorCount = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxVariableDescriptorCount = maxVariableDescriptorCount;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DescriptorSetVariableDescriptorCountLayoutSupport o) && (this == o);
 	readonly bool IEquatable<DescriptorSetVariableDescriptorCountLayoutSupport>.Equals(DescriptorSetVariableDescriptorCountLayoutSupport obj) => (this == obj);
@@ -2784,6 +3580,14 @@ public unsafe partial struct VertexInputBindingDivisorDescription : IEquatable<V
 {
 	public uint Binding;
 	public uint Divisor;
+	public VertexInputBindingDivisorDescription(
+		uint binding = default,
+		uint divisor = default
+	) {
+		Binding = binding;
+		Divisor = divisor;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is VertexInputBindingDivisorDescription o) && (this == o);
 	readonly bool IEquatable<VertexInputBindingDivisorDescription>.Equals(VertexInputBindingDivisorDescription obj) => (this == obj);
@@ -2826,6 +3630,16 @@ public unsafe partial struct PipelineVertexInputDivisorStateCreateInfo : IEquata
 	public void* pNext;
 	public uint VertexBindingDivisorCount;
 	public Vk.EXT.VertexInputBindingDivisorDescription* VertexBindingDivisors;
+	public PipelineVertexInputDivisorStateCreateInfo(
+		uint vertexBindingDivisorCount = default,
+		in Vk.EXT.VertexInputBindingDivisorDescription* vertexBindingDivisors = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		VertexBindingDivisorCount = vertexBindingDivisorCount;
+		VertexBindingDivisors = vertexBindingDivisors;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineVertexInputDivisorStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineVertexInputDivisorStateCreateInfo>.Equals(PipelineVertexInputDivisorStateCreateInfo obj) => (this == obj);
@@ -2867,6 +3681,14 @@ public unsafe partial struct PhysicalDeviceVertexAttributeDivisorProperties : IE
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MaxVertexAttribDivisor;
+	public PhysicalDeviceVertexAttributeDivisorProperties(
+		uint maxVertexAttribDivisor = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxVertexAttribDivisor = maxVertexAttribDivisor;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceVertexAttributeDivisorProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceVertexAttributeDivisorProperties>.Equals(PhysicalDeviceVertexAttributeDivisorProperties obj) => (this == obj);
@@ -2911,6 +3733,20 @@ public unsafe partial struct PhysicalDevicePCIBusInfoProperties : IEquatable<Phy
 	public uint PciBus;
 	public uint PciDevice;
 	public uint PciFunction;
+	public PhysicalDevicePCIBusInfoProperties(
+		uint pciDomain = default,
+		uint pciBus = default,
+		uint pciDevice = default,
+		uint pciFunction = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PciDomain = pciDomain;
+		PciBus = pciBus;
+		PciDevice = pciDevice;
+		PciFunction = pciFunction;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePCIBusInfoProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDevicePCIBusInfoProperties>.Equals(PhysicalDevicePCIBusInfoProperties obj) => (this == obj);
@@ -2955,6 +3791,14 @@ public unsafe partial struct CommandBufferInheritanceConditionalRenderingInfo : 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 ConditionalRenderingEnable;
+	public CommandBufferInheritanceConditionalRenderingInfo(
+		in Vk.Bool32 conditionalRenderingEnable = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ConditionalRenderingEnable = conditionalRenderingEnable;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is CommandBufferInheritanceConditionalRenderingInfo o) && (this == o);
 	readonly bool IEquatable<CommandBufferInheritanceConditionalRenderingInfo>.Equals(CommandBufferInheritanceConditionalRenderingInfo obj) => (this == obj);
@@ -2997,6 +3841,16 @@ public unsafe partial struct PhysicalDeviceConditionalRenderingFeatures : IEquat
 	public void* pNext;
 	public Vk.Bool32 ConditionalRendering;
 	public Vk.Bool32 InheritedConditionalRendering;
+	public PhysicalDeviceConditionalRenderingFeatures(
+		in Vk.Bool32 conditionalRendering = default,
+		in Vk.Bool32 inheritedConditionalRendering = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ConditionalRendering = conditionalRendering;
+		InheritedConditionalRendering = inheritedConditionalRendering;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceConditionalRenderingFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceConditionalRenderingFeatures>.Equals(PhysicalDeviceConditionalRenderingFeatures obj) => (this == obj);
@@ -3049,6 +3903,36 @@ public unsafe partial struct PhysicalDeviceShaderAtomicFloatFeatures : IEquatabl
 	public Vk.Bool32 ShaderImageFloat32AtomicAdd;
 	public Vk.Bool32 SparseImageFloat32Atomics;
 	public Vk.Bool32 SparseImageFloat32AtomicAdd;
+	public PhysicalDeviceShaderAtomicFloatFeatures(
+		in Vk.Bool32 shaderBufferFloat32Atomics = default,
+		in Vk.Bool32 shaderBufferFloat32AtomicAdd = default,
+		in Vk.Bool32 shaderBufferFloat64Atomics = default,
+		in Vk.Bool32 shaderBufferFloat64AtomicAdd = default,
+		in Vk.Bool32 shaderSharedFloat32Atomics = default,
+		in Vk.Bool32 shaderSharedFloat32AtomicAdd = default,
+		in Vk.Bool32 shaderSharedFloat64Atomics = default,
+		in Vk.Bool32 shaderSharedFloat64AtomicAdd = default,
+		in Vk.Bool32 shaderImageFloat32Atomics = default,
+		in Vk.Bool32 shaderImageFloat32AtomicAdd = default,
+		in Vk.Bool32 sparseImageFloat32Atomics = default,
+		in Vk.Bool32 sparseImageFloat32AtomicAdd = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderBufferFloat32Atomics = shaderBufferFloat32Atomics;
+		ShaderBufferFloat32AtomicAdd = shaderBufferFloat32AtomicAdd;
+		ShaderBufferFloat64Atomics = shaderBufferFloat64Atomics;
+		ShaderBufferFloat64AtomicAdd = shaderBufferFloat64AtomicAdd;
+		ShaderSharedFloat32Atomics = shaderSharedFloat32Atomics;
+		ShaderSharedFloat32AtomicAdd = shaderSharedFloat32AtomicAdd;
+		ShaderSharedFloat64Atomics = shaderSharedFloat64Atomics;
+		ShaderSharedFloat64AtomicAdd = shaderSharedFloat64AtomicAdd;
+		ShaderImageFloat32Atomics = shaderImageFloat32Atomics;
+		ShaderImageFloat32AtomicAdd = shaderImageFloat32AtomicAdd;
+		SparseImageFloat32Atomics = sparseImageFloat32Atomics;
+		SparseImageFloat32AtomicAdd = sparseImageFloat32AtomicAdd;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderAtomicFloatFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderAtomicFloatFeatures>.Equals(PhysicalDeviceShaderAtomicFloatFeatures obj) => (this == obj);
@@ -3100,6 +3984,16 @@ public unsafe partial struct PhysicalDeviceVertexAttributeDivisorFeatures : IEqu
 	public void* pNext;
 	public Vk.Bool32 VertexAttributeInstanceRateDivisor;
 	public Vk.Bool32 VertexAttributeInstanceRateZeroDivisor;
+	public PhysicalDeviceVertexAttributeDivisorFeatures(
+		in Vk.Bool32 vertexAttributeInstanceRateDivisor = default,
+		in Vk.Bool32 vertexAttributeInstanceRateZeroDivisor = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		VertexAttributeInstanceRateDivisor = vertexAttributeInstanceRateDivisor;
+		VertexAttributeInstanceRateZeroDivisor = vertexAttributeInstanceRateZeroDivisor;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceVertexAttributeDivisorFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceVertexAttributeDivisorFeatures>.Equals(PhysicalDeviceVertexAttributeDivisorFeatures obj) => (this == obj);
@@ -3141,6 +4035,14 @@ public unsafe partial struct ImageViewASTCDecodeMode : IEquatable<ImageViewASTCD
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Format DecodeMode;
+	public ImageViewASTCDecodeMode(
+		in Vk.Format decodeMode = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DecodeMode = decodeMode;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImageViewASTCDecodeMode o) && (this == o);
 	readonly bool IEquatable<ImageViewASTCDecodeMode>.Equals(ImageViewASTCDecodeMode obj) => (this == obj);
@@ -3182,6 +4084,14 @@ public unsafe partial struct PhysicalDeviceASTCDecodeFeatures : IEquatable<Physi
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 DecodeModeSharedExponent;
+	public PhysicalDeviceASTCDecodeFeatures(
+		in Vk.Bool32 decodeModeSharedExponent = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DecodeModeSharedExponent = decodeModeSharedExponent;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceASTCDecodeFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceASTCDecodeFeatures>.Equals(PhysicalDeviceASTCDecodeFeatures obj) => (this == obj);
@@ -3224,6 +4134,16 @@ public unsafe partial struct PhysicalDeviceTransformFeedbackFeatures : IEquatabl
 	public void* pNext;
 	public Vk.Bool32 TransformFeedback;
 	public Vk.Bool32 GeometryStreams;
+	public PhysicalDeviceTransformFeedbackFeatures(
+		in Vk.Bool32 transformFeedback = default,
+		in Vk.Bool32 geometryStreams = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		TransformFeedback = transformFeedback;
+		GeometryStreams = geometryStreams;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTransformFeedbackFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTransformFeedbackFeatures>.Equals(PhysicalDeviceTransformFeedbackFeatures obj) => (this == obj);
@@ -3274,6 +4194,32 @@ public unsafe partial struct PhysicalDeviceTransformFeedbackProperties : IEquata
 	public Vk.Bool32 TransformFeedbackStreamsLinesTriangles;
 	public Vk.Bool32 TransformFeedbackRasterizationStreamSelect;
 	public Vk.Bool32 TransformFeedbackDraw;
+	public PhysicalDeviceTransformFeedbackProperties(
+		uint maxTransformFeedbackStreams = default,
+		uint maxTransformFeedbackBuffers = default,
+		in Vk.DeviceSize maxTransformFeedbackBufferSize = default,
+		uint maxTransformFeedbackStreamDataSize = default,
+		uint maxTransformFeedbackBufferDataSize = default,
+		uint maxTransformFeedbackBufferDataStride = default,
+		in Vk.Bool32 transformFeedbackQueries = default,
+		in Vk.Bool32 transformFeedbackStreamsLinesTriangles = default,
+		in Vk.Bool32 transformFeedbackRasterizationStreamSelect = default,
+		in Vk.Bool32 transformFeedbackDraw = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxTransformFeedbackStreams = maxTransformFeedbackStreams;
+		MaxTransformFeedbackBuffers = maxTransformFeedbackBuffers;
+		MaxTransformFeedbackBufferSize = maxTransformFeedbackBufferSize;
+		MaxTransformFeedbackStreamDataSize = maxTransformFeedbackStreamDataSize;
+		MaxTransformFeedbackBufferDataSize = maxTransformFeedbackBufferDataSize;
+		MaxTransformFeedbackBufferDataStride = maxTransformFeedbackBufferDataStride;
+		TransformFeedbackQueries = transformFeedbackQueries;
+		TransformFeedbackStreamsLinesTriangles = transformFeedbackStreamsLinesTriangles;
+		TransformFeedbackRasterizationStreamSelect = transformFeedbackRasterizationStreamSelect;
+		TransformFeedbackDraw = transformFeedbackDraw;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTransformFeedbackProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTransformFeedbackProperties>.Equals(PhysicalDeviceTransformFeedbackProperties obj) => (this == obj);
@@ -3322,6 +4268,16 @@ public unsafe partial struct PipelineRasterizationStateStreamCreateInfo : IEquat
 	public void* pNext;
 	public Vk.EXT.PipelineRasterizationStateStreamCreateFlags Flags;
 	public uint RasterizationStream;
+	public PipelineRasterizationStateStreamCreateInfo(
+		in Vk.EXT.PipelineRasterizationStateStreamCreateFlags flags = default,
+		uint rasterizationStream = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		RasterizationStream = rasterizationStream;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationStateStreamCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationStateStreamCreateInfo>.Equals(PipelineRasterizationStateStreamCreateInfo obj) => (this == obj);
@@ -3364,6 +4320,16 @@ public unsafe partial struct DrmFormatModifierPropertiesList : IEquatable<DrmFor
 	public void* pNext;
 	public uint DrmFormatModifierCount;
 	public Vk.EXT.DrmFormatModifierProperties* DrmFormatModifierProperties;
+	public DrmFormatModifierPropertiesList(
+		uint drmFormatModifierCount = default,
+		in Vk.EXT.DrmFormatModifierProperties* drmFormatModifierProperties = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DrmFormatModifierCount = drmFormatModifierCount;
+		DrmFormatModifierProperties = drmFormatModifierProperties;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DrmFormatModifierPropertiesList o) && (this == o);
 	readonly bool IEquatable<DrmFormatModifierPropertiesList>.Equals(DrmFormatModifierPropertiesList obj) => (this == obj);
@@ -3403,6 +4369,16 @@ public unsafe partial struct DrmFormatModifierProperties : IEquatable<DrmFormatM
 	public ulong DrmFormatModifier;
 	public uint DrmFormatModifierPlaneCount;
 	public Vk.FormatFeatureFlags DrmFormatModifierTilingFeatures;
+	public DrmFormatModifierProperties(
+		ulong drmFormatModifier = default,
+		uint drmFormatModifierPlaneCount = default,
+		in Vk.FormatFeatureFlags drmFormatModifierTilingFeatures = default
+	) {
+		DrmFormatModifier = drmFormatModifier;
+		DrmFormatModifierPlaneCount = drmFormatModifierPlaneCount;
+		DrmFormatModifierTilingFeatures = drmFormatModifierTilingFeatures;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DrmFormatModifierProperties o) && (this == o);
 	readonly bool IEquatable<DrmFormatModifierProperties>.Equals(DrmFormatModifierProperties obj) => (this == obj);
@@ -3447,6 +4423,20 @@ public unsafe partial struct PhysicalDeviceImageDrmFormatModifierInfo : IEquatab
 	public Vk.SharingMode SharingMode;
 	public uint QueueFamilyIndexCount;
 	public uint* QueueFamilyIndices;
+	public PhysicalDeviceImageDrmFormatModifierInfo(
+		ulong drmFormatModifier = default,
+		in Vk.SharingMode sharingMode = default,
+		uint queueFamilyIndexCount = default,
+		uint* queueFamilyIndices = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DrmFormatModifier = drmFormatModifier;
+		SharingMode = sharingMode;
+		QueueFamilyIndexCount = queueFamilyIndexCount;
+		QueueFamilyIndices = queueFamilyIndices;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImageDrmFormatModifierInfo o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceImageDrmFormatModifierInfo>.Equals(PhysicalDeviceImageDrmFormatModifierInfo obj) => (this == obj);
@@ -3492,6 +4482,16 @@ public unsafe partial struct ImageDrmFormatModifierListCreateInfo : IEquatable<I
 	public void* pNext;
 	public uint DrmFormatModifierCount;
 	public ulong* DrmFormatModifiers;
+	public ImageDrmFormatModifierListCreateInfo(
+		uint drmFormatModifierCount = default,
+		ulong* drmFormatModifiers = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DrmFormatModifierCount = drmFormatModifierCount;
+		DrmFormatModifiers = drmFormatModifiers;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImageDrmFormatModifierListCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImageDrmFormatModifierListCreateInfo>.Equals(ImageDrmFormatModifierListCreateInfo obj) => (this == obj);
@@ -3535,6 +4535,18 @@ public unsafe partial struct ImageDrmFormatModifierExplicitCreateInfo : IEquatab
 	public ulong DrmFormatModifier;
 	public uint DrmFormatModifierPlaneCount;
 	public Vk.SubresourceLayout* PlaneLayouts;
+	public ImageDrmFormatModifierExplicitCreateInfo(
+		ulong drmFormatModifier = default,
+		uint drmFormatModifierPlaneCount = default,
+		in Vk.SubresourceLayout* planeLayouts = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DrmFormatModifier = drmFormatModifier;
+		DrmFormatModifierPlaneCount = drmFormatModifierPlaneCount;
+		PlaneLayouts = planeLayouts;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImageDrmFormatModifierExplicitCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImageDrmFormatModifierExplicitCreateInfo>.Equals(ImageDrmFormatModifierExplicitCreateInfo obj) => (this == obj);
@@ -3579,6 +4591,14 @@ public unsafe partial struct ImageDrmFormatModifierProperties : IEquatable<Image
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong DrmFormatModifier;
+	public ImageDrmFormatModifierProperties(
+		ulong drmFormatModifier = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DrmFormatModifier = drmFormatModifier;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImageDrmFormatModifierProperties o) && (this == o);
 	readonly bool IEquatable<ImageDrmFormatModifierProperties>.Equals(ImageDrmFormatModifierProperties obj) => (this == obj);
@@ -3620,6 +4640,14 @@ public unsafe partial struct ImageStencilUsageCreateInfo : IEquatable<ImageStenc
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageUsageFlags StencilUsage;
+	public ImageStencilUsageCreateInfo(
+		in Vk.ImageUsageFlags stencilUsage = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		StencilUsage = stencilUsage;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImageStencilUsageCreateInfo o) && (this == o);
 	readonly bool IEquatable<ImageStencilUsageCreateInfo>.Equals(ImageStencilUsageCreateInfo obj) => (this == obj);
@@ -3663,6 +4691,18 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMapFeatures : IEquatab
 	public Vk.Bool32 FragmentDensityMap;
 	public Vk.Bool32 FragmentDensityMapDynamic;
 	public Vk.Bool32 FragmentDensityMapNonSubsampledImages;
+	public PhysicalDeviceFragmentDensityMapFeatures(
+		in Vk.Bool32 fragmentDensityMap = default,
+		in Vk.Bool32 fragmentDensityMapDynamic = default,
+		in Vk.Bool32 fragmentDensityMapNonSubsampledImages = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FragmentDensityMap = fragmentDensityMap;
+		FragmentDensityMapDynamic = fragmentDensityMapDynamic;
+		FragmentDensityMapNonSubsampledImages = fragmentDensityMapNonSubsampledImages;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMapFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMapFeatures>.Equals(PhysicalDeviceFragmentDensityMapFeatures obj) => (this == obj);
@@ -3707,6 +4747,14 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMap2Features : IEquata
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 FragmentDensityMapDeferred;
+	public PhysicalDeviceFragmentDensityMap2Features(
+		in Vk.Bool32 fragmentDensityMapDeferred = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FragmentDensityMapDeferred = fragmentDensityMapDeferred;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMap2Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMap2Features>.Equals(PhysicalDeviceFragmentDensityMap2Features obj) => (this == obj);
@@ -3750,6 +4798,18 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMapProperties : IEquat
 	public Vk.Extent2D MinFragmentDensityTexelSize;
 	public Vk.Extent2D MaxFragmentDensityTexelSize;
 	public Vk.Bool32 FragmentDensityInvocations;
+	public PhysicalDeviceFragmentDensityMapProperties(
+		in Vk.Extent2D minFragmentDensityTexelSize = default,
+		in Vk.Extent2D maxFragmentDensityTexelSize = default,
+		in Vk.Bool32 fragmentDensityInvocations = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MinFragmentDensityTexelSize = minFragmentDensityTexelSize;
+		MaxFragmentDensityTexelSize = maxFragmentDensityTexelSize;
+		FragmentDensityInvocations = fragmentDensityInvocations;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMapProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMapProperties>.Equals(PhysicalDeviceFragmentDensityMapProperties obj) => (this == obj);
@@ -3797,6 +4857,20 @@ public unsafe partial struct PhysicalDeviceFragmentDensityMap2Properties : IEqua
 	public Vk.Bool32 SubsampledCoarseReconstructionEarlyAccess;
 	public uint MaxSubsampledArrayLayers;
 	public uint MaxDescriptorSetSubsampledSamplers;
+	public PhysicalDeviceFragmentDensityMap2Properties(
+		in Vk.Bool32 subsampledLoads = default,
+		in Vk.Bool32 subsampledCoarseReconstructionEarlyAccess = default,
+		uint maxSubsampledArrayLayers = default,
+		uint maxDescriptorSetSubsampledSamplers = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SubsampledLoads = subsampledLoads;
+		SubsampledCoarseReconstructionEarlyAccess = subsampledCoarseReconstructionEarlyAccess;
+		MaxSubsampledArrayLayers = maxSubsampledArrayLayers;
+		MaxDescriptorSetSubsampledSamplers = maxDescriptorSetSubsampledSamplers;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentDensityMap2Properties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentDensityMap2Properties>.Equals(PhysicalDeviceFragmentDensityMap2Properties obj) => (this == obj);
@@ -3841,6 +4915,14 @@ public unsafe partial struct RenderPassFragmentDensityMapCreateInfo : IEquatable
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.AttachmentReference FragmentDensityMapAttachment;
+	public RenderPassFragmentDensityMapCreateInfo(
+		in Vk.AttachmentReference fragmentDensityMapAttachment = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FragmentDensityMapAttachment = fragmentDensityMapAttachment;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is RenderPassFragmentDensityMapCreateInfo o) && (this == o);
 	readonly bool IEquatable<RenderPassFragmentDensityMapCreateInfo>.Equals(RenderPassFragmentDensityMapCreateInfo obj) => (this == obj);
@@ -3882,6 +4964,14 @@ public unsafe partial struct PhysicalDeviceScalarBlockLayoutFeatures : IEquatabl
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 ScalarBlockLayout;
+	public PhysicalDeviceScalarBlockLayoutFeatures(
+		in Vk.Bool32 scalarBlockLayout = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ScalarBlockLayout = scalarBlockLayout;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceScalarBlockLayoutFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceScalarBlockLayoutFeatures>.Equals(PhysicalDeviceScalarBlockLayoutFeatures obj) => (this == obj);
@@ -3923,6 +5013,14 @@ public unsafe partial struct PhysicalDeviceDepthClipEnableFeatures : IEquatable<
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 DepthClipEnable;
+	public PhysicalDeviceDepthClipEnableFeatures(
+		in Vk.Bool32 depthClipEnable = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DepthClipEnable = depthClipEnable;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceDepthClipEnableFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceDepthClipEnableFeatures>.Equals(PhysicalDeviceDepthClipEnableFeatures obj) => (this == obj);
@@ -3965,6 +5063,16 @@ public unsafe partial struct PipelineRasterizationDepthClipStateCreateInfo : IEq
 	public void* pNext;
 	public Vk.EXT.PipelineRasterizationDepthClipStateCreateFlags Flags;
 	public Vk.Bool32 DepthClipEnable;
+	public PipelineRasterizationDepthClipStateCreateInfo(
+		in Vk.EXT.PipelineRasterizationDepthClipStateCreateFlags flags = default,
+		in Vk.Bool32 depthClipEnable = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		DepthClipEnable = depthClipEnable;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationDepthClipStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationDepthClipStateCreateInfo>.Equals(PipelineRasterizationDepthClipStateCreateInfo obj) => (this == obj);
@@ -4037,6 +5145,76 @@ public unsafe partial struct PhysicalDeviceMemoryBudgetProperties : IEquatable<P
 	public Vk.DeviceSize HeapUsage_13;
 	public Vk.DeviceSize HeapUsage_14;
 	public Vk.DeviceSize HeapUsage_15;
+	public PhysicalDeviceMemoryBudgetProperties(
+		in Vk.DeviceSize heapBudget0 = default,
+		in Vk.DeviceSize heapBudget1 = default,
+		in Vk.DeviceSize heapBudget2 = default,
+		in Vk.DeviceSize heapBudget3 = default,
+		in Vk.DeviceSize heapBudget4 = default,
+		in Vk.DeviceSize heapBudget5 = default,
+		in Vk.DeviceSize heapBudget6 = default,
+		in Vk.DeviceSize heapBudget7 = default,
+		in Vk.DeviceSize heapBudget8 = default,
+		in Vk.DeviceSize heapBudget9 = default,
+		in Vk.DeviceSize heapBudget10 = default,
+		in Vk.DeviceSize heapBudget11 = default,
+		in Vk.DeviceSize heapBudget12 = default,
+		in Vk.DeviceSize heapBudget13 = default,
+		in Vk.DeviceSize heapBudget14 = default,
+		in Vk.DeviceSize heapBudget15 = default,
+		in Vk.DeviceSize heapUsage0 = default,
+		in Vk.DeviceSize heapUsage1 = default,
+		in Vk.DeviceSize heapUsage2 = default,
+		in Vk.DeviceSize heapUsage3 = default,
+		in Vk.DeviceSize heapUsage4 = default,
+		in Vk.DeviceSize heapUsage5 = default,
+		in Vk.DeviceSize heapUsage6 = default,
+		in Vk.DeviceSize heapUsage7 = default,
+		in Vk.DeviceSize heapUsage8 = default,
+		in Vk.DeviceSize heapUsage9 = default,
+		in Vk.DeviceSize heapUsage10 = default,
+		in Vk.DeviceSize heapUsage11 = default,
+		in Vk.DeviceSize heapUsage12 = default,
+		in Vk.DeviceSize heapUsage13 = default,
+		in Vk.DeviceSize heapUsage14 = default,
+		in Vk.DeviceSize heapUsage15 = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		HeapBudget_0 = heapBudget0;
+		HeapBudget_1 = heapBudget1;
+		HeapBudget_2 = heapBudget2;
+		HeapBudget_3 = heapBudget3;
+		HeapBudget_4 = heapBudget4;
+		HeapBudget_5 = heapBudget5;
+		HeapBudget_6 = heapBudget6;
+		HeapBudget_7 = heapBudget7;
+		HeapBudget_8 = heapBudget8;
+		HeapBudget_9 = heapBudget9;
+		HeapBudget_10 = heapBudget10;
+		HeapBudget_11 = heapBudget11;
+		HeapBudget_12 = heapBudget12;
+		HeapBudget_13 = heapBudget13;
+		HeapBudget_14 = heapBudget14;
+		HeapBudget_15 = heapBudget15;
+		HeapUsage_0 = heapUsage0;
+		HeapUsage_1 = heapUsage1;
+		HeapUsage_2 = heapUsage2;
+		HeapUsage_3 = heapUsage3;
+		HeapUsage_4 = heapUsage4;
+		HeapUsage_5 = heapUsage5;
+		HeapUsage_6 = heapUsage6;
+		HeapUsage_7 = heapUsage7;
+		HeapUsage_8 = heapUsage8;
+		HeapUsage_9 = heapUsage9;
+		HeapUsage_10 = heapUsage10;
+		HeapUsage_11 = heapUsage11;
+		HeapUsage_12 = heapUsage12;
+		HeapUsage_13 = heapUsage13;
+		HeapUsage_14 = heapUsage14;
+		HeapUsage_15 = heapUsage15;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMemoryBudgetProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceMemoryBudgetProperties>.Equals(PhysicalDeviceMemoryBudgetProperties obj) => (this == obj);
@@ -4102,6 +5280,14 @@ public unsafe partial struct PhysicalDeviceMemoryPriorityFeatures : IEquatable<P
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 MemoryPriority;
+	public PhysicalDeviceMemoryPriorityFeatures(
+		in Vk.Bool32 memoryPriority = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MemoryPriority = memoryPriority;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMemoryPriorityFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceMemoryPriorityFeatures>.Equals(PhysicalDeviceMemoryPriorityFeatures obj) => (this == obj);
@@ -4143,6 +5329,14 @@ public unsafe partial struct MemoryPriorityAllocateInfo : IEquatable<MemoryPrior
 	public Vk.StructureType sType;
 	public void* pNext;
 	public float Priority;
+	public MemoryPriorityAllocateInfo(
+		float priority = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Priority = priority;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryPriorityAllocateInfo o) && (this == o);
 	readonly bool IEquatable<MemoryPriorityAllocateInfo>.Equals(MemoryPriorityAllocateInfo obj) => (this == obj);
@@ -4186,6 +5380,18 @@ public unsafe partial struct PhysicalDeviceBufferDeviceAddressFeatures : IEquata
 	public Vk.Bool32 BufferDeviceAddress;
 	public Vk.Bool32 BufferDeviceAddressCaptureReplay;
 	public Vk.Bool32 BufferDeviceAddressMultiDevice;
+	public PhysicalDeviceBufferDeviceAddressFeatures(
+		in Vk.Bool32 bufferDeviceAddress = default,
+		in Vk.Bool32 bufferDeviceAddressCaptureReplay = default,
+		in Vk.Bool32 bufferDeviceAddressMultiDevice = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		BufferDeviceAddress = bufferDeviceAddress;
+		BufferDeviceAddressCaptureReplay = bufferDeviceAddressCaptureReplay;
+		BufferDeviceAddressMultiDevice = bufferDeviceAddressMultiDevice;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBufferDeviceAddressFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBufferDeviceAddressFeatures>.Equals(PhysicalDeviceBufferDeviceAddressFeatures obj) => (this == obj);
@@ -4232,6 +5438,18 @@ public unsafe partial struct PhysicalDeviceBufferAddressFeatures : IEquatable<Ph
 	public Vk.Bool32 BufferDeviceAddress;
 	public Vk.Bool32 BufferDeviceAddressCaptureReplay;
 	public Vk.Bool32 BufferDeviceAddressMultiDevice;
+	public PhysicalDeviceBufferAddressFeatures(
+		in Vk.Bool32 bufferDeviceAddress = default,
+		in Vk.Bool32 bufferDeviceAddressCaptureReplay = default,
+		in Vk.Bool32 bufferDeviceAddressMultiDevice = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		BufferDeviceAddress = bufferDeviceAddress;
+		BufferDeviceAddressCaptureReplay = bufferDeviceAddressCaptureReplay;
+		BufferDeviceAddressMultiDevice = bufferDeviceAddressMultiDevice;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceBufferAddressFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceBufferAddressFeatures>.Equals(PhysicalDeviceBufferAddressFeatures obj) => (this == obj);
@@ -4276,6 +5494,14 @@ public unsafe partial struct BufferDeviceAddressInfo : IEquatable<BufferDeviceAd
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Handle<Vk.Buffer> Buffer;
+	public BufferDeviceAddressInfo(
+		in Vk.Handle<Vk.Buffer> buffer = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Buffer = buffer;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is BufferDeviceAddressInfo o) && (this == o);
 	readonly bool IEquatable<BufferDeviceAddressInfo>.Equals(BufferDeviceAddressInfo obj) => (this == obj);
@@ -4317,6 +5543,14 @@ public unsafe partial struct BufferDeviceAddressCreateInfo : IEquatable<BufferDe
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong DeviceAddress;
+	public BufferDeviceAddressCreateInfo(
+		ulong deviceAddress = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DeviceAddress = deviceAddress;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is BufferDeviceAddressCreateInfo o) && (this == o);
 	readonly bool IEquatable<BufferDeviceAddressCreateInfo>.Equals(BufferDeviceAddressCreateInfo obj) => (this == obj);
@@ -4358,6 +5592,14 @@ public unsafe partial struct PhysicalDeviceImageViewImageFormatInfo : IEquatable
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.ImageViewType ImageViewType;
+	public PhysicalDeviceImageViewImageFormatInfo(
+		in Vk.ImageViewType imageViewType = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ImageViewType = imageViewType;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImageViewImageFormatInfo o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceImageViewImageFormatInfo>.Equals(PhysicalDeviceImageViewImageFormatInfo obj) => (this == obj);
@@ -4400,6 +5642,16 @@ public unsafe partial struct FilterCubicImageViewImageFormatProperties : IEquata
 	public void* pNext;
 	public Vk.Bool32 FilterCubic;
 	public Vk.Bool32 FilterCubicMinmax;
+	public FilterCubicImageViewImageFormatProperties(
+		in Vk.Bool32 filterCubic = default,
+		in Vk.Bool32 filterCubicMinmax = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FilterCubic = filterCubic;
+		FilterCubicMinmax = filterCubicMinmax;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is FilterCubicImageViewImageFormatProperties o) && (this == o);
 	readonly bool IEquatable<FilterCubicImageViewImageFormatProperties>.Equals(FilterCubicImageViewImageFormatProperties obj) => (this == obj);
@@ -4441,6 +5693,14 @@ public unsafe partial struct PhysicalDeviceTextureCompressionASTCHDRFeatures : I
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 TextureCompressionASTC_HDR;
+	public PhysicalDeviceTextureCompressionASTCHDRFeatures(
+		in Vk.Bool32 textureCompressionASTC_HDR = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		TextureCompressionASTC_HDR = textureCompressionASTC_HDR;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTextureCompressionASTCHDRFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTextureCompressionASTCHDRFeatures>.Equals(PhysicalDeviceTextureCompressionASTCHDRFeatures obj) => (this == obj);
@@ -4482,6 +5742,14 @@ public unsafe partial struct PhysicalDeviceYcbcrImageArraysFeatures : IEquatable
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 YcbcrImageArrays;
+	public PhysicalDeviceYcbcrImageArraysFeatures(
+		in Vk.Bool32 ycbcrImageArrays = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		YcbcrImageArrays = ycbcrImageArrays;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceYcbcrImageArraysFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceYcbcrImageArraysFeatures>.Equals(PhysicalDeviceYcbcrImageArraysFeatures obj) => (this == obj);
@@ -4520,6 +5788,14 @@ public unsafe partial struct PipelineCreationFeedback : IEquatable<PipelineCreat
 {
 	public Vk.EXT.PipelineCreationFeedbackFlags Flags;
 	public ulong Duration;
+	public PipelineCreationFeedback(
+		in Vk.EXT.PipelineCreationFeedbackFlags flags = default,
+		ulong duration = default
+	) {
+		Flags = flags;
+		Duration = duration;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineCreationFeedback o) && (this == o);
 	readonly bool IEquatable<PipelineCreationFeedback>.Equals(PipelineCreationFeedback obj) => (this == obj);
@@ -4563,6 +5839,18 @@ public unsafe partial struct PipelineCreationFeedbackCreateInfo : IEquatable<Pip
 	public Vk.EXT.PipelineCreationFeedback* PipelineCreationFeedback;
 	public uint PipelineStageCreationFeedbackCount;
 	public Vk.EXT.PipelineCreationFeedback** PipelineStageCreationFeedbacks;
+	public PipelineCreationFeedbackCreateInfo(
+		in Vk.EXT.PipelineCreationFeedback* pipelineCreationFeedback = default,
+		uint pipelineStageCreationFeedbackCount = default,
+		in Vk.EXT.PipelineCreationFeedback** pipelineStageCreationFeedbacks = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PipelineCreationFeedback = pipelineCreationFeedback;
+		PipelineStageCreationFeedbackCount = pipelineStageCreationFeedbackCount;
+		PipelineStageCreationFeedbacks = pipelineStageCreationFeedbacks;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineCreationFeedbackCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineCreationFeedbackCreateInfo>.Equals(PipelineCreationFeedbackCreateInfo obj) => (this == obj);
@@ -4607,6 +5895,14 @@ public unsafe partial struct SurfaceFullScreenExclusiveInfo : IEquatable<Surface
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.FullScreenExclusive FullScreenExclusive;
+	public SurfaceFullScreenExclusiveInfo(
+		in Vk.EXT.FullScreenExclusive fullScreenExclusive = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FullScreenExclusive = fullScreenExclusive;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceFullScreenExclusiveInfo o) && (this == o);
 	readonly bool IEquatable<SurfaceFullScreenExclusiveInfo>.Equals(SurfaceFullScreenExclusiveInfo obj) => (this == obj);
@@ -4648,6 +5944,14 @@ public unsafe partial struct SurfaceFullScreenExclusiveWin32Info : IEquatable<Su
 	public Vk.StructureType sType;
 	public void* pNext;
 	public void* Hmonitor;
+	public SurfaceFullScreenExclusiveWin32Info(
+		void* hmonitor = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Hmonitor = hmonitor;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceFullScreenExclusiveWin32Info o) && (this == o);
 	readonly bool IEquatable<SurfaceFullScreenExclusiveWin32Info>.Equals(SurfaceFullScreenExclusiveWin32Info obj) => (this == obj);
@@ -4689,6 +5993,14 @@ public unsafe partial struct SurfaceCapabilitiesFullScreenExclusive : IEquatable
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 FullScreenExclusiveSupported;
+	public SurfaceCapabilitiesFullScreenExclusive(
+		in Vk.Bool32 fullScreenExclusiveSupported = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FullScreenExclusiveSupported = fullScreenExclusiveSupported;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SurfaceCapabilitiesFullScreenExclusive o) && (this == o);
 	readonly bool IEquatable<SurfaceCapabilitiesFullScreenExclusive>.Equals(SurfaceCapabilitiesFullScreenExclusive obj) => (this == obj);
@@ -4730,6 +6042,14 @@ public unsafe partial struct HeadlessSurfaceCreateInfo : IEquatable<HeadlessSurf
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.EXT.HeadlessSurfaceCreateFlags Flags;
+	public HeadlessSurfaceCreateInfo(
+		in Vk.EXT.HeadlessSurfaceCreateFlags flags = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is HeadlessSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<HeadlessSurfaceCreateInfo>.Equals(HeadlessSurfaceCreateInfo obj) => (this == obj);
@@ -4771,6 +6091,14 @@ public unsafe partial struct PhysicalDeviceIndexTypeUint8Features : IEquatable<P
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 IndexTypeUint8;
+	public PhysicalDeviceIndexTypeUint8Features(
+		in Vk.Bool32 indexTypeUint8 = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		IndexTypeUint8 = indexTypeUint8;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceIndexTypeUint8Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceIndexTypeUint8Features>.Equals(PhysicalDeviceIndexTypeUint8Features obj) => (this == obj);
@@ -4814,6 +6142,18 @@ public unsafe partial struct PhysicalDeviceFragmentShaderInterlockFeatures : IEq
 	public Vk.Bool32 FragmentShaderSampleInterlock;
 	public Vk.Bool32 FragmentShaderPixelInterlock;
 	public Vk.Bool32 FragmentShaderShadingRateInterlock;
+	public PhysicalDeviceFragmentShaderInterlockFeatures(
+		in Vk.Bool32 fragmentShaderSampleInterlock = default,
+		in Vk.Bool32 fragmentShaderPixelInterlock = default,
+		in Vk.Bool32 fragmentShaderShadingRateInterlock = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FragmentShaderSampleInterlock = fragmentShaderSampleInterlock;
+		FragmentShaderPixelInterlock = fragmentShaderPixelInterlock;
+		FragmentShaderShadingRateInterlock = fragmentShaderShadingRateInterlock;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentShaderInterlockFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceFragmentShaderInterlockFeatures>.Equals(PhysicalDeviceFragmentShaderInterlockFeatures obj) => (this == obj);
@@ -4858,6 +6198,14 @@ public unsafe partial struct PhysicalDeviceShaderDemoteToHelperInvocationFeature
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 ShaderDemoteToHelperInvocation;
+	public PhysicalDeviceShaderDemoteToHelperInvocationFeatures(
+		in Vk.Bool32 shaderDemoteToHelperInvocation = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderDemoteToHelperInvocation = shaderDemoteToHelperInvocation;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderDemoteToHelperInvocationFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderDemoteToHelperInvocationFeatures>.Equals(PhysicalDeviceShaderDemoteToHelperInvocationFeatures obj) => (this == obj);
@@ -4899,6 +6247,14 @@ public unsafe partial struct PhysicalDeviceTexelBufferAlignmentFeatures : IEquat
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 TexelBufferAlignment;
+	public PhysicalDeviceTexelBufferAlignmentFeatures(
+		in Vk.Bool32 texelBufferAlignment = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		TexelBufferAlignment = texelBufferAlignment;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTexelBufferAlignmentFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTexelBufferAlignmentFeatures>.Equals(PhysicalDeviceTexelBufferAlignmentFeatures obj) => (this == obj);
@@ -4943,6 +6299,20 @@ public unsafe partial struct PhysicalDeviceTexelBufferAlignmentProperties : IEqu
 	public Vk.Bool32 StorageTexelBufferOffsetSingleTexelAlignment;
 	public Vk.DeviceSize UniformTexelBufferOffsetAlignmentBytes;
 	public Vk.Bool32 UniformTexelBufferOffsetSingleTexelAlignment;
+	public PhysicalDeviceTexelBufferAlignmentProperties(
+		in Vk.DeviceSize storageTexelBufferOffsetAlignmentBytes = default,
+		in Vk.Bool32 storageTexelBufferOffsetSingleTexelAlignment = default,
+		in Vk.DeviceSize uniformTexelBufferOffsetAlignmentBytes = default,
+		in Vk.Bool32 uniformTexelBufferOffsetSingleTexelAlignment = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		StorageTexelBufferOffsetAlignmentBytes = storageTexelBufferOffsetAlignmentBytes;
+		StorageTexelBufferOffsetSingleTexelAlignment = storageTexelBufferOffsetSingleTexelAlignment;
+		UniformTexelBufferOffsetAlignmentBytes = uniformTexelBufferOffsetAlignmentBytes;
+		UniformTexelBufferOffsetSingleTexelAlignment = uniformTexelBufferOffsetSingleTexelAlignment;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceTexelBufferAlignmentProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceTexelBufferAlignmentProperties>.Equals(PhysicalDeviceTexelBufferAlignmentProperties obj) => (this == obj);
@@ -4988,6 +6358,16 @@ public unsafe partial struct PhysicalDeviceSubgroupSizeControlFeatures : IEquata
 	public void* pNext;
 	public Vk.Bool32 SubgroupSizeControl;
 	public Vk.Bool32 ComputeFullSubgroups;
+	public PhysicalDeviceSubgroupSizeControlFeatures(
+		in Vk.Bool32 subgroupSizeControl = default,
+		in Vk.Bool32 computeFullSubgroups = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SubgroupSizeControl = subgroupSizeControl;
+		ComputeFullSubgroups = computeFullSubgroups;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSubgroupSizeControlFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSubgroupSizeControlFeatures>.Equals(PhysicalDeviceSubgroupSizeControlFeatures obj) => (this == obj);
@@ -5032,6 +6412,20 @@ public unsafe partial struct PhysicalDeviceSubgroupSizeControlProperties : IEqua
 	public uint MaxSubgroupSize;
 	public uint MaxComputeWorkgroupSubgroups;
 	public Vk.ShaderStageFlags RequiredSubgroupSizeStages;
+	public PhysicalDeviceSubgroupSizeControlProperties(
+		uint minSubgroupSize = default,
+		uint maxSubgroupSize = default,
+		uint maxComputeWorkgroupSubgroups = default,
+		in Vk.ShaderStageFlags requiredSubgroupSizeStages = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MinSubgroupSize = minSubgroupSize;
+		MaxSubgroupSize = maxSubgroupSize;
+		MaxComputeWorkgroupSubgroups = maxComputeWorkgroupSubgroups;
+		RequiredSubgroupSizeStages = requiredSubgroupSizeStages;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceSubgroupSizeControlProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceSubgroupSizeControlProperties>.Equals(PhysicalDeviceSubgroupSizeControlProperties obj) => (this == obj);
@@ -5076,6 +6470,14 @@ public unsafe partial struct PipelineShaderStageRequiredSubgroupSizeCreateInfo :
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint RequiredSubgroupSize;
+	public PipelineShaderStageRequiredSubgroupSizeCreateInfo(
+		uint requiredSubgroupSize = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		RequiredSubgroupSize = requiredSubgroupSize;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineShaderStageRequiredSubgroupSizeCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineShaderStageRequiredSubgroupSizeCreateInfo>.Equals(PipelineShaderStageRequiredSubgroupSizeCreateInfo obj) => (this == obj);
@@ -5122,6 +6524,24 @@ public unsafe partial struct PhysicalDeviceLineRasterizationFeatures : IEquatabl
 	public Vk.Bool32 StippledRectangularLines;
 	public Vk.Bool32 StippledBresenhamLines;
 	public Vk.Bool32 StippledSmoothLines;
+	public PhysicalDeviceLineRasterizationFeatures(
+		in Vk.Bool32 rectangularLines = default,
+		in Vk.Bool32 bresenhamLines = default,
+		in Vk.Bool32 smoothLines = default,
+		in Vk.Bool32 stippledRectangularLines = default,
+		in Vk.Bool32 stippledBresenhamLines = default,
+		in Vk.Bool32 stippledSmoothLines = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		RectangularLines = rectangularLines;
+		BresenhamLines = bresenhamLines;
+		SmoothLines = smoothLines;
+		StippledRectangularLines = stippledRectangularLines;
+		StippledBresenhamLines = stippledBresenhamLines;
+		StippledSmoothLines = stippledSmoothLines;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceLineRasterizationFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceLineRasterizationFeatures>.Equals(PhysicalDeviceLineRasterizationFeatures obj) => (this == obj);
@@ -5166,6 +6586,14 @@ public unsafe partial struct PhysicalDeviceLineRasterizationProperties : IEquata
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint LineSubPixelPrecisionBits;
+	public PhysicalDeviceLineRasterizationProperties(
+		uint lineSubPixelPrecisionBits = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		LineSubPixelPrecisionBits = lineSubPixelPrecisionBits;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceLineRasterizationProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceLineRasterizationProperties>.Equals(PhysicalDeviceLineRasterizationProperties obj) => (this == obj);
@@ -5210,6 +6638,20 @@ public unsafe partial struct PipelineRasterizationLineStateCreateInfo : IEquatab
 	public Vk.Bool32 StippledLineEnable;
 	public uint LineStippleFactor;
 	public ushort LineStipplePattern;
+	public PipelineRasterizationLineStateCreateInfo(
+		in Vk.EXT.LineRasterizationMode lineRasterizationMode = default,
+		in Vk.Bool32 stippledLineEnable = default,
+		uint lineStippleFactor = default,
+		ushort lineStipplePattern = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		LineRasterizationMode = lineRasterizationMode;
+		StippledLineEnable = stippledLineEnable;
+		LineStippleFactor = lineStippleFactor;
+		LineStipplePattern = lineStipplePattern;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationLineStateCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationLineStateCreateInfo>.Equals(PipelineRasterizationLineStateCreateInfo obj) => (this == obj);
@@ -5254,6 +6696,14 @@ public unsafe partial struct PhysicalDevicePipelineCreationCacheControlFeatures 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 PipelineCreationCacheControl;
+	public PhysicalDevicePipelineCreationCacheControlFeatures(
+		in Vk.Bool32 pipelineCreationCacheControl = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PipelineCreationCacheControl = pipelineCreationCacheControl;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevicePipelineCreationCacheControlFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDevicePipelineCreationCacheControlFeatures>.Equals(PhysicalDevicePipelineCreationCacheControlFeatures obj) => (this == obj);
@@ -5299,6 +6749,22 @@ public unsafe partial struct PhysicalDeviceToolProperties : IEquatable<PhysicalD
 	public Vk.EXT.ToolPurposeFlags Purposes;
 	public Vk.FixedString Description;
 	public Vk.FixedString Layer;
+	public PhysicalDeviceToolProperties(
+		in Vk.FixedString name = default,
+		in Vk.FixedString version = default,
+		in Vk.EXT.ToolPurposeFlags purposes = default,
+		in Vk.FixedString description = default,
+		in Vk.FixedString layer = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Name = name;
+		Version = version;
+		Purposes = purposes;
+		Description = description;
+		Layer = layer;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceToolProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceToolProperties>.Equals(PhysicalDeviceToolProperties obj) => (this == obj);
@@ -5344,6 +6810,16 @@ public unsafe partial struct SamplerCustomBorderColorCreateInfo : IEquatable<Sam
 	public void* pNext;
 	public Vk.ClearColorValue CustomBorderColor;
 	public Vk.Format Format;
+	public SamplerCustomBorderColorCreateInfo(
+		in Vk.ClearColorValue customBorderColor = default,
+		in Vk.Format format = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		CustomBorderColor = customBorderColor;
+		Format = format;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SamplerCustomBorderColorCreateInfo o) && (this == o);
 	readonly bool IEquatable<SamplerCustomBorderColorCreateInfo>.Equals(SamplerCustomBorderColorCreateInfo obj) => (this == obj);
@@ -5385,6 +6861,14 @@ public unsafe partial struct PhysicalDeviceCustomBorderColorProperties : IEquata
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint MaxCustomBorderColorSamplers;
+	public PhysicalDeviceCustomBorderColorProperties(
+		uint maxCustomBorderColorSamplers = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxCustomBorderColorSamplers = maxCustomBorderColorSamplers;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceCustomBorderColorProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceCustomBorderColorProperties>.Equals(PhysicalDeviceCustomBorderColorProperties obj) => (this == obj);
@@ -5427,6 +6911,16 @@ public unsafe partial struct PhysicalDeviceCustomBorderColorFeatures : IEquatabl
 	public void* pNext;
 	public Vk.Bool32 CustomBorderColors;
 	public Vk.Bool32 CustomBorderColorWithoutFormat;
+	public PhysicalDeviceCustomBorderColorFeatures(
+		in Vk.Bool32 customBorderColors = default,
+		in Vk.Bool32 customBorderColorWithoutFormat = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		CustomBorderColors = customBorderColors;
+		CustomBorderColorWithoutFormat = customBorderColorWithoutFormat;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceCustomBorderColorFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceCustomBorderColorFeatures>.Equals(PhysicalDeviceCustomBorderColorFeatures obj) => (this == obj);
@@ -5468,6 +6962,14 @@ public unsafe partial struct PhysicalDeviceExtendedDynamicStateFeatures : IEquat
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 ExtendedDynamicState;
+	public PhysicalDeviceExtendedDynamicStateFeatures(
+		in Vk.Bool32 extendedDynamicState = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ExtendedDynamicState = extendedDynamicState;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceExtendedDynamicStateFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceExtendedDynamicStateFeatures>.Equals(PhysicalDeviceExtendedDynamicStateFeatures obj) => (this == obj);
@@ -5511,6 +7013,18 @@ public unsafe partial struct PhysicalDeviceRobustness2Features : IEquatable<Phys
 	public Vk.Bool32 RobustBufferAccess2;
 	public Vk.Bool32 RobustImageAccess2;
 	public Vk.Bool32 NullDescriptor;
+	public PhysicalDeviceRobustness2Features(
+		in Vk.Bool32 robustBufferAccess2 = default,
+		in Vk.Bool32 robustImageAccess2 = default,
+		in Vk.Bool32 nullDescriptor = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		RobustBufferAccess2 = robustBufferAccess2;
+		RobustImageAccess2 = robustImageAccess2;
+		NullDescriptor = nullDescriptor;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceRobustness2Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceRobustness2Features>.Equals(PhysicalDeviceRobustness2Features obj) => (this == obj);
@@ -5556,6 +7070,16 @@ public unsafe partial struct PhysicalDeviceRobustness2Properties : IEquatable<Ph
 	public void* pNext;
 	public Vk.DeviceSize RobustStorageBufferAccessSizeAlignment;
 	public Vk.DeviceSize RobustUniformBufferAccessSizeAlignment;
+	public PhysicalDeviceRobustness2Properties(
+		in Vk.DeviceSize robustStorageBufferAccessSizeAlignment = default,
+		in Vk.DeviceSize robustUniformBufferAccessSizeAlignment = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		RobustStorageBufferAccessSizeAlignment = robustStorageBufferAccessSizeAlignment;
+		RobustUniformBufferAccessSizeAlignment = robustUniformBufferAccessSizeAlignment;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceRobustness2Properties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceRobustness2Properties>.Equals(PhysicalDeviceRobustness2Properties obj) => (this == obj);
@@ -5597,6 +7121,14 @@ public unsafe partial struct PhysicalDeviceImageRobustnessFeatures : IEquatable<
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 RobustImageAccess;
+	public PhysicalDeviceImageRobustnessFeatures(
+		in Vk.Bool32 robustImageAccess = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		RobustImageAccess = robustImageAccess;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceImageRobustnessFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceImageRobustnessFeatures>.Equals(PhysicalDeviceImageRobustnessFeatures obj) => (this == obj);
@@ -5639,6 +7171,16 @@ public unsafe partial struct PhysicalDevice4444FormatsFeatures : IEquatable<Phys
 	public void* pNext;
 	public Vk.Bool32 FormatA4R4G4B4;
 	public Vk.Bool32 FormatA4B4G4R4;
+	public PhysicalDevice4444FormatsFeatures(
+		in Vk.Bool32 formatA4R4G4B4 = default,
+		in Vk.Bool32 formatA4B4G4R4 = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FormatA4R4G4B4 = formatA4R4G4B4;
+		FormatA4B4G4R4 = formatA4B4G4R4;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDevice4444FormatsFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDevice4444FormatsFeatures>.Equals(PhysicalDevice4444FormatsFeatures obj) => (this == obj);
@@ -5681,6 +7223,16 @@ public unsafe partial struct PhysicalDeviceShaderImageAtomicInt64Features : IEqu
 	public void* pNext;
 	public Vk.Bool32 ShaderImageInt64Atomics;
 	public Vk.Bool32 SparseImageInt64Atomics;
+	public PhysicalDeviceShaderImageAtomicInt64Features(
+		in Vk.Bool32 shaderImageInt64Atomics = default,
+		in Vk.Bool32 sparseImageInt64Atomics = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderImageInt64Atomics = shaderImageInt64Atomics;
+		SparseImageInt64Atomics = sparseImageInt64Atomics;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderImageAtomicInt64Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderImageAtomicInt64Features>.Equals(PhysicalDeviceShaderImageAtomicInt64Features obj) => (this == obj);

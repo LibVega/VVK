@@ -22,6 +22,14 @@ public unsafe partial struct PipelineRasterizationStateRasterizationOrder : IEqu
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.AMD.RasterizationOrder RasterizationOrder;
+	public PipelineRasterizationStateRasterizationOrder(
+		in Vk.AMD.RasterizationOrder rasterizationOrder = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		RasterizationOrder = rasterizationOrder;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineRasterizationStateRasterizationOrder o) && (this == o);
 	readonly bool IEquatable<PipelineRasterizationStateRasterizationOrder>.Equals(PipelineRasterizationStateRasterizationOrder obj) => (this == obj);
@@ -63,6 +71,14 @@ public unsafe partial struct DisplayNativeHdrSurfaceCapabilities : IEquatable<Di
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 LocalDimmingSupport;
+	public DisplayNativeHdrSurfaceCapabilities(
+		in Vk.Bool32 localDimmingSupport = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		LocalDimmingSupport = localDimmingSupport;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DisplayNativeHdrSurfaceCapabilities o) && (this == o);
 	readonly bool IEquatable<DisplayNativeHdrSurfaceCapabilities>.Equals(DisplayNativeHdrSurfaceCapabilities obj) => (this == obj);
@@ -104,6 +120,14 @@ public unsafe partial struct SwapchainDisplayNativeHdrCreateInfo : IEquatable<Sw
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 LocalDimmingEnable;
+	public SwapchainDisplayNativeHdrCreateInfo(
+		in Vk.Bool32 localDimmingEnable = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		LocalDimmingEnable = localDimmingEnable;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is SwapchainDisplayNativeHdrCreateInfo o) && (this == o);
 	readonly bool IEquatable<SwapchainDisplayNativeHdrCreateInfo>.Equals(SwapchainDisplayNativeHdrCreateInfo obj) => (this == obj);
@@ -145,6 +169,14 @@ public unsafe partial struct TextureLODGatherFormatProperties : IEquatable<Textu
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 SupportsTextureGatherLODBiasAMD;
+	public TextureLODGatherFormatProperties(
+		in Vk.Bool32 supportsTextureGatherLODBiasAMD = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		SupportsTextureGatherLODBiasAMD = supportsTextureGatherLODBiasAMD;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is TextureLODGatherFormatProperties o) && (this == o);
 	readonly bool IEquatable<TextureLODGatherFormatProperties>.Equals(TextureLODGatherFormatProperties obj) => (this == obj);
@@ -186,6 +218,20 @@ public unsafe partial struct ShaderResourceUsage : IEquatable<ShaderResourceUsag
 	public uint LdsSizePerLocalWorkGroup;
 	public ulong LdsUsageSizeInBytes;
 	public ulong ScratchMemUsageInBytes;
+	public ShaderResourceUsage(
+		uint numUsedVgprs = default,
+		uint numUsedSgprs = default,
+		uint ldsSizePerLocalWorkGroup = default,
+		ulong ldsUsageSizeInBytes = default,
+		ulong scratchMemUsageInBytes = default
+	) {
+		NumUsedVgprs = numUsedVgprs;
+		NumUsedSgprs = numUsedSgprs;
+		LdsSizePerLocalWorkGroup = ldsSizePerLocalWorkGroup;
+		LdsUsageSizeInBytes = ldsUsageSizeInBytes;
+		ScratchMemUsageInBytes = scratchMemUsageInBytes;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ShaderResourceUsage o) && (this == o);
 	readonly bool IEquatable<ShaderResourceUsage>.Equals(ShaderResourceUsage obj) => (this == obj);
@@ -232,6 +278,28 @@ public unsafe partial struct ShaderStatisticsInfo : IEquatable<ShaderStatisticsI
 	public uint NumAvailableVgprs;
 	public uint NumAvailableSgprs;
 	public fixed uint ComputeWorkGroupSize[3];
+	public ShaderStatisticsInfo(
+		in Vk.ShaderStageFlags shaderStageMask = default,
+		in Vk.AMD.ShaderResourceUsage resourceUsage = default,
+		uint numPhysicalVgprs = default,
+		uint numPhysicalSgprs = default,
+		uint numAvailableVgprs = default,
+		uint numAvailableSgprs = default,
+		uint computeWorkGroupSize0 = default,
+		uint computeWorkGroupSize1 = default,
+		uint computeWorkGroupSize2 = default
+	) {
+		ShaderStageMask = shaderStageMask;
+		ResourceUsage = resourceUsage;
+		NumPhysicalVgprs = numPhysicalVgprs;
+		NumPhysicalSgprs = numPhysicalSgprs;
+		NumAvailableVgprs = numAvailableVgprs;
+		NumAvailableSgprs = numAvailableSgprs;
+		ComputeWorkGroupSize[0] = computeWorkGroupSize0;
+		ComputeWorkGroupSize[1] = computeWorkGroupSize1;
+		ComputeWorkGroupSize[2] = computeWorkGroupSize2;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ShaderStatisticsInfo o) && (this == o);
 	readonly bool IEquatable<ShaderStatisticsInfo>.Equals(ShaderStatisticsInfo obj) => (this == obj);
@@ -292,6 +360,40 @@ public unsafe partial struct PhysicalDeviceShaderCoreProperties : IEquatable<Phy
 	public uint MinVgprAllocation;
 	public uint MaxVgprAllocation;
 	public uint VgprAllocationGranularity;
+	public PhysicalDeviceShaderCoreProperties(
+		uint shaderEngineCount = default,
+		uint shaderArraysPerEngineCount = default,
+		uint computeUnitsPerShaderArray = default,
+		uint simdPerComputeUnit = default,
+		uint wavefrontsPerSimd = default,
+		uint wavefrontSize = default,
+		uint sgprsPerSimd = default,
+		uint minSgprAllocation = default,
+		uint maxSgprAllocation = default,
+		uint sgprAllocationGranularity = default,
+		uint vgprsPerSimd = default,
+		uint minVgprAllocation = default,
+		uint maxVgprAllocation = default,
+		uint vgprAllocationGranularity = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderEngineCount = shaderEngineCount;
+		ShaderArraysPerEngineCount = shaderArraysPerEngineCount;
+		ComputeUnitsPerShaderArray = computeUnitsPerShaderArray;
+		SimdPerComputeUnit = simdPerComputeUnit;
+		WavefrontsPerSimd = wavefrontsPerSimd;
+		WavefrontSize = wavefrontSize;
+		SgprsPerSimd = sgprsPerSimd;
+		MinSgprAllocation = minSgprAllocation;
+		MaxSgprAllocation = maxSgprAllocation;
+		SgprAllocationGranularity = sgprAllocationGranularity;
+		VgprsPerSimd = vgprsPerSimd;
+		MinVgprAllocation = minVgprAllocation;
+		MaxVgprAllocation = maxVgprAllocation;
+		VgprAllocationGranularity = vgprAllocationGranularity;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderCoreProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderCoreProperties>.Equals(PhysicalDeviceShaderCoreProperties obj) => (this == obj);
@@ -343,6 +445,16 @@ public unsafe partial struct PhysicalDeviceShaderCoreProperties2 : IEquatable<Ph
 	public void* pNext;
 	public Vk.AMD.ShaderCorePropertiesFlags ShaderCoreFeatures;
 	public uint ActiveComputeUnitCount;
+	public PhysicalDeviceShaderCoreProperties2(
+		in Vk.AMD.ShaderCorePropertiesFlags shaderCoreFeatures = default,
+		uint activeComputeUnitCount = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderCoreFeatures = shaderCoreFeatures;
+		ActiveComputeUnitCount = activeComputeUnitCount;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderCoreProperties2 o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderCoreProperties2>.Equals(PhysicalDeviceShaderCoreProperties2 obj) => (this == obj);
@@ -384,6 +496,14 @@ public unsafe partial struct DeviceMemoryOverallocationCreateInfo : IEquatable<D
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.AMD.MemoryOverallocationBehavior OverallocationBehavior;
+	public DeviceMemoryOverallocationCreateInfo(
+		in Vk.AMD.MemoryOverallocationBehavior overallocationBehavior = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		OverallocationBehavior = overallocationBehavior;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is DeviceMemoryOverallocationCreateInfo o) && (this == o);
 	readonly bool IEquatable<DeviceMemoryOverallocationCreateInfo>.Equals(DeviceMemoryOverallocationCreateInfo obj) => (this == obj);
@@ -425,6 +545,14 @@ public unsafe partial struct PipelineCompilerControlCreateInfo : IEquatable<Pipe
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.AMD.PipelineCompilerControlFlags CompilerControlFlags;
+	public PipelineCompilerControlCreateInfo(
+		in Vk.AMD.PipelineCompilerControlFlags compilerControlFlags = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		CompilerControlFlags = compilerControlFlags;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PipelineCompilerControlCreateInfo o) && (this == o);
 	readonly bool IEquatable<PipelineCompilerControlCreateInfo>.Equals(PipelineCompilerControlCreateInfo obj) => (this == obj);
@@ -466,6 +594,14 @@ public unsafe partial struct PhysicalDeviceCoherentMemoryFeatures : IEquatable<P
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 DeviceCoherentMemory;
+	public PhysicalDeviceCoherentMemoryFeatures(
+		in Vk.Bool32 deviceCoherentMemory = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DeviceCoherentMemory = deviceCoherentMemory;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceCoherentMemoryFeatures o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceCoherentMemoryFeatures>.Equals(PhysicalDeviceCoherentMemoryFeatures obj) => (this == obj);

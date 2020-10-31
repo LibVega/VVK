@@ -22,6 +22,14 @@ public unsafe partial struct PhysicalDeviceShaderIntegerFunctions2Features : IEq
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 ShaderIntegerFunctions2;
+	public PhysicalDeviceShaderIntegerFunctions2Features(
+		in Vk.Bool32 shaderIntegerFunctions2 = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderIntegerFunctions2 = shaderIntegerFunctions2;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceShaderIntegerFunctions2Features o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceShaderIntegerFunctions2Features>.Equals(PhysicalDeviceShaderIntegerFunctions2Features obj) => (this == obj);
@@ -104,6 +112,14 @@ public unsafe partial struct PerformanceValue : IEquatable<PerformanceValue>
 {
 	public Vk.INTEL.PerformanceValueType Type;
 	public Vk.INTEL.PerformanceValueData Data;
+	public PerformanceValue(
+		in Vk.INTEL.PerformanceValueType type = default,
+		in Vk.INTEL.PerformanceValueData data = default
+	) {
+		Type = type;
+		Data = data;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceValue o) && (this == o);
 	readonly bool IEquatable<PerformanceValue>.Equals(PerformanceValue obj) => (this == obj);
@@ -145,6 +161,14 @@ public unsafe partial struct InitializePerformanceApiInfo : IEquatable<Initializ
 	public Vk.StructureType sType;
 	public void* pNext;
 	public void* UserData;
+	public InitializePerformanceApiInfo(
+		void* userData = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		UserData = userData;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is InitializePerformanceApiInfo o) && (this == o);
 	readonly bool IEquatable<InitializePerformanceApiInfo>.Equals(InitializePerformanceApiInfo obj) => (this == obj);
@@ -186,6 +210,14 @@ public unsafe partial struct QueryPoolPerformanceQueryCreateInfo : IEquatable<Qu
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.INTEL.QueryPoolSamplingMode PerformanceCountersSampling;
+	public QueryPoolPerformanceQueryCreateInfo(
+		in Vk.INTEL.QueryPoolSamplingMode performanceCountersSampling = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PerformanceCountersSampling = performanceCountersSampling;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is QueryPoolPerformanceQueryCreateInfo o) && (this == o);
 	readonly bool IEquatable<QueryPoolPerformanceQueryCreateInfo>.Equals(QueryPoolPerformanceQueryCreateInfo obj) => (this == obj);
@@ -227,6 +259,14 @@ public unsafe partial struct QueryPoolCreateInfo : IEquatable<QueryPoolCreateInf
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.INTEL.QueryPoolSamplingMode PerformanceCountersSampling;
+	public QueryPoolCreateInfo(
+		in Vk.INTEL.QueryPoolSamplingMode performanceCountersSampling = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PerformanceCountersSampling = performanceCountersSampling;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is QueryPoolCreateInfo o) && (this == o);
 	readonly bool IEquatable<QueryPoolCreateInfo>.Equals(QueryPoolCreateInfo obj) => (this == obj);
@@ -268,6 +308,14 @@ public unsafe partial struct PerformanceMarkerInfo : IEquatable<PerformanceMarke
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong Marker;
+	public PerformanceMarkerInfo(
+		ulong marker = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Marker = marker;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceMarkerInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceMarkerInfo>.Equals(PerformanceMarkerInfo obj) => (this == obj);
@@ -309,6 +357,14 @@ public unsafe partial struct PerformanceStreamMarkerInfo : IEquatable<Performanc
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint Marker;
+	public PerformanceStreamMarkerInfo(
+		uint marker = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Marker = marker;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceStreamMarkerInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceStreamMarkerInfo>.Equals(PerformanceStreamMarkerInfo obj) => (this == obj);
@@ -352,6 +408,18 @@ public unsafe partial struct PerformanceOverrideInfo : IEquatable<PerformanceOve
 	public Vk.INTEL.PerformanceOverrideType Type;
 	public Vk.Bool32 Enable;
 	public ulong Parameter;
+	public PerformanceOverrideInfo(
+		in Vk.INTEL.PerformanceOverrideType type = default,
+		in Vk.Bool32 enable = default,
+		ulong parameter = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Type = type;
+		Enable = enable;
+		Parameter = parameter;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceOverrideInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceOverrideInfo>.Equals(PerformanceOverrideInfo obj) => (this == obj);
@@ -396,6 +464,14 @@ public unsafe partial struct PerformanceConfigurationAcquireInfo : IEquatable<Pe
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.INTEL.PerformanceConfigurationType Type;
+	public PerformanceConfigurationAcquireInfo(
+		in Vk.INTEL.PerformanceConfigurationType type = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Type = type;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PerformanceConfigurationAcquireInfo o) && (this == o);
 	readonly bool IEquatable<PerformanceConfigurationAcquireInfo>.Equals(PerformanceConfigurationAcquireInfo obj) => (this == obj);

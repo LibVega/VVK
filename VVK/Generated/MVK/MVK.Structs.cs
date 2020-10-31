@@ -23,6 +23,16 @@ public unsafe partial struct IOSSurfaceCreateInfo : IEquatable<IOSSurfaceCreateI
 	public void* pNext;
 	public Vk.MVK.IOSSurfaceCreateFlags Flags;
 	public void* View;
+	public IOSSurfaceCreateInfo(
+		in Vk.MVK.IOSSurfaceCreateFlags flags = default,
+		void* view = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		View = view;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is IOSSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<IOSSurfaceCreateInfo>.Equals(IOSSurfaceCreateInfo obj) => (this == obj);
@@ -65,6 +75,16 @@ public unsafe partial struct MacOSSurfaceCreateInfo : IEquatable<MacOSSurfaceCre
 	public void* pNext;
 	public Vk.MVK.MacOSSurfaceCreateFlags Flags;
 	public void* View;
+	public MacOSSurfaceCreateInfo(
+		in Vk.MVK.MacOSSurfaceCreateFlags flags = default,
+		void* view = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		View = view;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is MacOSSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<MacOSSurfaceCreateInfo>.Equals(MacOSSurfaceCreateInfo obj) => (this == obj);

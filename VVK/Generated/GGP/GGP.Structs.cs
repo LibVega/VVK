@@ -23,6 +23,16 @@ public unsafe partial struct StreamDescriptorSurfaceCreateInfo : IEquatable<Stre
 	public void* pNext;
 	public Vk.GGP.StreamDescriptorSurfaceCreateFlags Flags;
 	public uint StreamDescriptor;
+	public StreamDescriptorSurfaceCreateInfo(
+		in Vk.GGP.StreamDescriptorSurfaceCreateFlags flags = default,
+		uint streamDescriptor = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Flags = flags;
+		StreamDescriptor = streamDescriptor;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is StreamDescriptorSurfaceCreateInfo o) && (this == o);
 	readonly bool IEquatable<StreamDescriptorSurfaceCreateInfo>.Equals(StreamDescriptorSurfaceCreateInfo obj) => (this == obj);
@@ -64,6 +74,14 @@ public unsafe partial struct PresentFrameToken : IEquatable<PresentFrameToken>
 	public Vk.StructureType sType;
 	public void* pNext;
 	public uint FrameToken;
+	public PresentFrameToken(
+		uint frameToken = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FrameToken = frameToken;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PresentFrameToken o) && (this == o);
 	readonly bool IEquatable<PresentFrameToken>.Equals(PresentFrameToken obj) => (this == obj);

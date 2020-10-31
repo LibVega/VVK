@@ -19,6 +19,14 @@ public unsafe partial struct NativeBufferUsage2 : IEquatable<NativeBufferUsage2>
 {
 	public ulong Consumer;
 	public ulong Producer;
+	public NativeBufferUsage2(
+		ulong consumer = default,
+		ulong producer = default
+	) {
+		Consumer = consumer;
+		Producer = producer;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is NativeBufferUsage2 o) && (this == o);
 	readonly bool IEquatable<NativeBufferUsage2>.Equals(NativeBufferUsage2 obj) => (this == obj);
@@ -60,6 +68,14 @@ public unsafe partial struct ImportAndroidHardwareBufferInfo : IEquatable<Import
 	public Vk.StructureType sType;
 	public void* pNext;
 	public void* Buffer;
+	public ImportAndroidHardwareBufferInfo(
+		void* buffer = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Buffer = buffer;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImportAndroidHardwareBufferInfo o) && (this == o);
 	readonly bool IEquatable<ImportAndroidHardwareBufferInfo>.Equals(ImportAndroidHardwareBufferInfo obj) => (this == obj);
@@ -101,6 +117,14 @@ public unsafe partial struct AndroidHardwareBufferUsage : IEquatable<AndroidHard
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong AndroidHardwareBufferUsage_;
+	public AndroidHardwareBufferUsage(
+		ulong androidHardwareBufferUsage_ = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		AndroidHardwareBufferUsage_ = androidHardwareBufferUsage_;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is AndroidHardwareBufferUsage o) && (this == o);
 	readonly bool IEquatable<AndroidHardwareBufferUsage>.Equals(AndroidHardwareBufferUsage obj) => (this == obj);
@@ -143,6 +167,16 @@ public unsafe partial struct AndroidHardwareBufferProperties : IEquatable<Androi
 	public void* pNext;
 	public Vk.DeviceSize AllocationSize;
 	public uint MemoryTypeBits;
+	public AndroidHardwareBufferProperties(
+		in Vk.DeviceSize allocationSize = default,
+		uint memoryTypeBits = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		AllocationSize = allocationSize;
+		MemoryTypeBits = memoryTypeBits;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is AndroidHardwareBufferProperties o) && (this == o);
 	readonly bool IEquatable<AndroidHardwareBufferProperties>.Equals(AndroidHardwareBufferProperties obj) => (this == obj);
@@ -184,6 +218,14 @@ public unsafe partial struct MemoryGetAndroidHardwareBufferInfo : IEquatable<Mem
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Handle<Vk.DeviceMemory> Memory;
+	public MemoryGetAndroidHardwareBufferInfo(
+		in Vk.Handle<Vk.DeviceMemory> memory = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Memory = memory;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is MemoryGetAndroidHardwareBufferInfo o) && (this == o);
 	readonly bool IEquatable<MemoryGetAndroidHardwareBufferInfo>.Equals(MemoryGetAndroidHardwareBufferInfo obj) => (this == obj);
@@ -232,6 +274,28 @@ public unsafe partial struct AndroidHardwareBufferFormatProperties : IEquatable<
 	public Vk.SamplerYcbcrRange SuggestedYcbcrRange;
 	public Vk.ChromaLocation SuggestedXChromaOffset;
 	public Vk.ChromaLocation SuggestedYChromaOffset;
+	public AndroidHardwareBufferFormatProperties(
+		in Vk.Format format = default,
+		ulong externalFormat = default,
+		in Vk.FormatFeatureFlags formatFeatures = default,
+		in Vk.ComponentMapping samplerYcbcrConversionComponents = default,
+		in Vk.SamplerYcbcrModelConversion suggestedYcbcrModel = default,
+		in Vk.SamplerYcbcrRange suggestedYcbcrRange = default,
+		in Vk.ChromaLocation suggestedXChromaOffset = default,
+		in Vk.ChromaLocation suggestedYChromaOffset = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Format = format;
+		ExternalFormat = externalFormat;
+		FormatFeatures = formatFeatures;
+		SamplerYcbcrConversionComponents = samplerYcbcrConversionComponents;
+		SuggestedYcbcrModel = suggestedYcbcrModel;
+		SuggestedYcbcrRange = suggestedYcbcrRange;
+		SuggestedXChromaOffset = suggestedXChromaOffset;
+		SuggestedYChromaOffset = suggestedYChromaOffset;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is AndroidHardwareBufferFormatProperties o) && (this == o);
 	readonly bool IEquatable<AndroidHardwareBufferFormatProperties>.Equals(AndroidHardwareBufferFormatProperties obj) => (this == obj);
@@ -279,6 +343,14 @@ public unsafe partial struct ExternalFormat : IEquatable<ExternalFormat>
 	public Vk.StructureType sType;
 	public void* pNext;
 	public ulong ExternalFormat_;
+	public ExternalFormat(
+		ulong externalFormat_ = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ExternalFormat_ = externalFormat_;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ExternalFormat o) && (this == o);
 	readonly bool IEquatable<ExternalFormat>.Equals(ExternalFormat obj) => (this == obj);

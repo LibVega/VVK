@@ -22,6 +22,14 @@ public unsafe partial struct RenderPassTransformBeginInfo : IEquatable<RenderPas
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.KHR.SurfaceTransformFlags Transform;
+	public RenderPassTransformBeginInfo(
+		in Vk.KHR.SurfaceTransformFlags transform = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Transform = transform;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is RenderPassTransformBeginInfo o) && (this == o);
 	readonly bool IEquatable<RenderPassTransformBeginInfo>.Equals(RenderPassTransformBeginInfo obj) => (this == obj);
@@ -64,6 +72,16 @@ public unsafe partial struct CommandBufferInheritanceRenderPassTransformInfo : I
 	public void* pNext;
 	public Vk.KHR.SurfaceTransformFlags Transform;
 	public Vk.Rect2D RenderArea;
+	public CommandBufferInheritanceRenderPassTransformInfo(
+		in Vk.KHR.SurfaceTransformFlags transform = default,
+		in Vk.Rect2D renderArea = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Transform = transform;
+		RenderArea = renderArea;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is CommandBufferInheritanceRenderPassTransformInfo o) && (this == o);
 	readonly bool IEquatable<CommandBufferInheritanceRenderPassTransformInfo>.Equals(CommandBufferInheritanceRenderPassTransformInfo obj) => (this == obj);

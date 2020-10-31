@@ -22,6 +22,14 @@ public unsafe partial struct PhysicalDeviceMultiviewPerViewAttributesProperties 
 	public Vk.StructureType sType;
 	public void* pNext;
 	public Vk.Bool32 PerViewPositionAllComponents;
+	public PhysicalDeviceMultiviewPerViewAttributesProperties(
+		in Vk.Bool32 perViewPositionAllComponents = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		PerViewPositionAllComponents = perViewPositionAllComponents;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceMultiviewPerViewAttributesProperties o) && (this == o);
 	readonly bool IEquatable<PhysicalDeviceMultiviewPerViewAttributesProperties>.Equals(PhysicalDeviceMultiviewPerViewAttributesProperties obj) => (this == obj);
@@ -65,6 +73,18 @@ public unsafe partial struct ImageViewHandleInfo : IEquatable<ImageViewHandleInf
 	public Vk.Handle<Vk.ImageView> ImageView;
 	public Vk.DescriptorType DescriptorType;
 	public Vk.Handle<Vk.Sampler> Sampler;
+	public ImageViewHandleInfo(
+		in Vk.Handle<Vk.ImageView> imageView = default,
+		in Vk.DescriptorType descriptorType = default,
+		in Vk.Handle<Vk.Sampler> sampler = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ImageView = imageView;
+		DescriptorType = descriptorType;
+		Sampler = sampler;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImageViewHandleInfo o) && (this == o);
 	readonly bool IEquatable<ImageViewHandleInfo>.Equals(ImageViewHandleInfo obj) => (this == obj);
@@ -110,6 +130,16 @@ public unsafe partial struct ImageViewAddressProperties : IEquatable<ImageViewAd
 	public void* pNext;
 	public ulong DeviceAddress;
 	public Vk.DeviceSize Size;
+	public ImageViewAddressProperties(
+		ulong deviceAddress = default,
+		in Vk.DeviceSize size = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		DeviceAddress = deviceAddress;
+		Size = size;
+	}
+
 
 	public readonly override bool Equals(object? obj) => (obj is ImageViewAddressProperties o) && (this == o);
 	readonly bool IEquatable<ImageViewAddressProperties>.Equals(ImageViewAddressProperties obj) => (this == obj);
