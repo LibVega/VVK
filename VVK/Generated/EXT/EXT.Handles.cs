@@ -16,6 +16,7 @@ namespace Vk.EXT
 
 public unsafe partial class ValidationCache : IHandleType<ValidationCache>
 {
+	public static readonly ValidationCache Null = new(Device.Null, Vk.Handle<ValidationCache>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -80,6 +81,7 @@ public unsafe partial class ValidationCache : IHandleType<ValidationCache>
 
 public unsafe partial class PrivateDataSlot : IHandleType<PrivateDataSlot>
 {
+	public static readonly PrivateDataSlot Null = new(Device.Null, Vk.Handle<PrivateDataSlot>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -124,6 +126,7 @@ public unsafe partial class PrivateDataSlot : IHandleType<PrivateDataSlot>
 
 public unsafe partial class DebugReportCallback : IHandleType<DebugReportCallback>
 {
+	public static readonly DebugReportCallback Null = new(Instance.Null, Vk.Handle<DebugReportCallback>.Null);
 
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
@@ -166,6 +169,7 @@ public unsafe partial class DebugReportCallback : IHandleType<DebugReportCallbac
 
 public unsafe partial class DebugUtilsMessenger : IHandleType<DebugUtilsMessenger>
 {
+	public static readonly DebugUtilsMessenger Null = new(Instance.Null, Vk.Handle<DebugUtilsMessenger>.Null);
 
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;

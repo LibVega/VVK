@@ -16,6 +16,7 @@ namespace Vk
 
 public unsafe partial class Instance : IHandleType<Instance>
 {
+	public static readonly Instance Null = new(Vk.Handle<Instance>.Null, default);
 
 	public readonly Vk.InstanceFunctionTable Functions;
 	public readonly Handle<Instance> Handle;
@@ -47,12 +48,12 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateInstance</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result CreateInstance(Vk.InstanceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Instance? pInstance)
+	public static Vk.Result CreateInstance(Vk.InstanceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Instance pInstance)
 	{
 		Vk.Version APIV = new(pCreateInfo->ApplicationInfo->ApiVersion);
 		Vk.Handle<Vk.Instance> HANDLE;
 		var RESULT = InstanceFunctionTable.vkCreateInstance(pCreateInfo, pAllocator, &HANDLE);
-		pInstance = (RESULT == Result.Success) ? new(HANDLE, APIV) : null;
+		pInstance = (RESULT == Result.Success) ? new(HANDLE, APIV) : Vk.Instance.Null;
 		return RESULT;
 	}
 
@@ -63,12 +64,12 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateInstance</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result CreateInstance(in Vk.InstanceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Instance? pInstance)
+	public static Vk.Result CreateInstance(in Vk.InstanceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Instance pInstance)
 	{
 		Vk.Version APIV = new(createInfo.ApplicationInfo->ApiVersion);
 		Vk.Handle<Vk.Instance> HANDLE;
 		var RESULT = InstanceFunctionTable.CreateInstance(createInfo, allocator, out HANDLE);
-		pInstance = (RESULT == Result.Success) ? new(HANDLE, APIV) : null;
+		pInstance = (RESULT == Result.Success) ? new(HANDLE, APIV) : Vk.Instance.Null;
 		return RESULT;
 	}
 
@@ -149,11 +150,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateAndroidSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateAndroidSurfaceKHR(Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateAndroidSurfaceKHR(Vk.KHR.AndroidSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateAndroidSurfaceKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -164,11 +165,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateAndroidSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateAndroidSurfaceKHR(in Vk.KHR.AndroidSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateAndroidSurfaceKHR(in Vk.KHR.AndroidSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateAndroidSurfaceKHR(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -179,11 +180,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDisplayPlaneSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayPlaneSurfaceKHR(Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateDisplayPlaneSurfaceKHR(Vk.KHR.DisplaySurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateDisplayPlaneSurfaceKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -194,11 +195,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDisplayPlaneSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayPlaneSurfaceKHR(in Vk.KHR.DisplaySurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateDisplayPlaneSurfaceKHR(in Vk.KHR.DisplaySurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateDisplayPlaneSurfaceKHR(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -209,11 +210,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateViSurfaceNN</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateViSurfaceNN(Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateViSurfaceNN(Vk.NN.ViSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateViSurfaceNN(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -224,11 +225,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateViSurfaceNN</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateViSurfaceNN(in Vk.NN.ViSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateViSurfaceNN(in Vk.NN.ViSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateViSurfaceNN(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -239,11 +240,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateWaylandSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateWaylandSurfaceKHR(Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateWaylandSurfaceKHR(Vk.KHR.WaylandSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateWaylandSurfaceKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -254,11 +255,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateWaylandSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateWaylandSurfaceKHR(in Vk.KHR.WaylandSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateWaylandSurfaceKHR(in Vk.KHR.WaylandSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateWaylandSurfaceKHR(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -269,11 +270,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateWin32SurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateWin32SurfaceKHR(Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateWin32SurfaceKHR(Vk.KHR.Win32SurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateWin32SurfaceKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -284,11 +285,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateWin32SurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateWin32SurfaceKHR(in Vk.KHR.Win32SurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateWin32SurfaceKHR(in Vk.KHR.Win32SurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateWin32SurfaceKHR(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -299,11 +300,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateXlibSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateXlibSurfaceKHR(Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateXlibSurfaceKHR(Vk.KHR.XlibSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateXlibSurfaceKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -314,11 +315,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateXlibSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateXlibSurfaceKHR(in Vk.KHR.XlibSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateXlibSurfaceKHR(in Vk.KHR.XlibSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateXlibSurfaceKHR(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -329,11 +330,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateXcbSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateXcbSurfaceKHR(Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateXcbSurfaceKHR(Vk.KHR.XcbSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateXcbSurfaceKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -344,11 +345,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateXcbSurfaceKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateXcbSurfaceKHR(in Vk.KHR.XcbSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateXcbSurfaceKHR(in Vk.KHR.XcbSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateXcbSurfaceKHR(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -359,11 +360,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDirectFBSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDirectFBSurfaceEXT(Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateDirectFBSurfaceEXT(Vk.EXT.DirectFBSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateDirectFBSurfaceEXT(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -374,11 +375,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDirectFBSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDirectFBSurfaceEXT(in Vk.EXT.DirectFBSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateDirectFBSurfaceEXT(in Vk.EXT.DirectFBSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateDirectFBSurfaceEXT(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -389,11 +390,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateImagePipeSurfaceFUCHSIA</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateImagePipeSurfaceFUCHSIA(Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateImagePipeSurfaceFUCHSIA(Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateImagePipeSurfaceFUCHSIA(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -404,11 +405,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateImagePipeSurfaceFUCHSIA</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateImagePipeSurfaceFUCHSIA(in Vk.FUCHSIA.ImagePipeSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateImagePipeSurfaceFUCHSIA(in Vk.FUCHSIA.ImagePipeSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateImagePipeSurfaceFUCHSIA(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -419,11 +420,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateStreamDescriptorSurfaceGGP</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateStreamDescriptorSurfaceGGP(Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateStreamDescriptorSurfaceGGP(Vk.GGP.StreamDescriptorSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateStreamDescriptorSurfaceGGP(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -434,11 +435,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateStreamDescriptorSurfaceGGP</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateStreamDescriptorSurfaceGGP(in Vk.GGP.StreamDescriptorSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateStreamDescriptorSurfaceGGP(in Vk.GGP.StreamDescriptorSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateStreamDescriptorSurfaceGGP(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -449,11 +450,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDebugReportCallbackEXT(Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.DebugReportCallback? pCallback)
+	public Vk.Result CreateDebugReportCallbackEXT(Vk.EXT.DebugReportCallbackCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.DebugReportCallback pCallback)
 	{
 		Vk.Handle<Vk.EXT.DebugReportCallback> HANDLE;
 		var RESULT = Functions.vkCreateDebugReportCallbackEXT(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pCallback = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pCallback = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.DebugReportCallback.Null;
 		return RESULT;
 	}
 
@@ -464,11 +465,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDebugReportCallbackEXT(in Vk.EXT.DebugReportCallbackCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugReportCallback? pCallback)
+	public Vk.Result CreateDebugReportCallbackEXT(in Vk.EXT.DebugReportCallbackCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugReportCallback pCallback)
 	{
 		Vk.Handle<Vk.EXT.DebugReportCallback> HANDLE;
 		var RESULT = Functions.CreateDebugReportCallbackEXT(Handle, createInfo, allocator, out HANDLE);
-		pCallback = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pCallback = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.DebugReportCallback.Null;
 		return RESULT;
 	}
 
@@ -509,11 +510,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateIOSSurfaceMVK</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateIOSSurfaceMVK(Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateIOSSurfaceMVK(Vk.MVK.IOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateIOSSurfaceMVK(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -524,11 +525,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateIOSSurfaceMVK</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateIOSSurfaceMVK(in Vk.MVK.IOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateIOSSurfaceMVK(in Vk.MVK.IOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateIOSSurfaceMVK(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -539,11 +540,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateMacOSSurfaceMVK</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateMacOSSurfaceMVK(Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateMacOSSurfaceMVK(Vk.MVK.MacOSSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateMacOSSurfaceMVK(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -554,11 +555,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateMacOSSurfaceMVK</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateMacOSSurfaceMVK(in Vk.MVK.MacOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateMacOSSurfaceMVK(in Vk.MVK.MacOSSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateMacOSSurfaceMVK(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -569,11 +570,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateMetalSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateMetalSurfaceEXT(Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateMetalSurfaceEXT(Vk.EXT.MetalSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateMetalSurfaceEXT(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -584,11 +585,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateMetalSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateMetalSurfaceEXT(in Vk.EXT.MetalSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateMetalSurfaceEXT(in Vk.EXT.MetalSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateMetalSurfaceEXT(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -599,11 +600,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.DebugUtilsMessenger? pMessenger)
+	public Vk.Result CreateDebugUtilsMessengerEXT(Vk.EXT.DebugUtilsMessengerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.DebugUtilsMessenger pMessenger)
 	{
 		Vk.Handle<Vk.EXT.DebugUtilsMessenger> HANDLE;
 		var RESULT = Functions.vkCreateDebugUtilsMessengerEXT(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pMessenger = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pMessenger = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.DebugUtilsMessenger.Null;
 		return RESULT;
 	}
 
@@ -614,11 +615,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDebugUtilsMessengerEXT(in Vk.EXT.DebugUtilsMessengerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugUtilsMessenger? pMessenger)
+	public Vk.Result CreateDebugUtilsMessengerEXT(in Vk.EXT.DebugUtilsMessengerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.DebugUtilsMessenger pMessenger)
 	{
 		Vk.Handle<Vk.EXT.DebugUtilsMessenger> HANDLE;
 		var RESULT = Functions.CreateDebugUtilsMessengerEXT(Handle, createInfo, allocator, out HANDLE);
-		pMessenger = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pMessenger = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.DebugUtilsMessenger.Null;
 		return RESULT;
 	}
 
@@ -639,11 +640,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateHeadlessSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateHeadlessSurfaceEXT(Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateHeadlessSurfaceEXT(Vk.EXT.HeadlessSurfaceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.vkCreateHeadlessSurfaceEXT(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -654,11 +655,11 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkCreateHeadlessSurfaceEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateHeadlessSurfaceEXT(in Vk.EXT.HeadlessSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface? pSurface)
+	public Vk.Result CreateHeadlessSurfaceEXT(in Vk.EXT.HeadlessSurfaceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Surface pSurface)
 	{
 		Vk.Handle<Vk.KHR.Surface> HANDLE;
 		var RESULT = Functions.CreateHeadlessSurfaceEXT(Handle, createInfo, allocator, out HANDLE);
-		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSurface = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Surface.Null;
 		return RESULT;
 	}
 
@@ -666,6 +667,7 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 public unsafe partial class PhysicalDevice : IHandleType<PhysicalDevice>
 {
+	public static readonly PhysicalDevice Null = new(Instance.Null, Vk.Handle<PhysicalDevice>.Null);
 
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
@@ -761,11 +763,11 @@ public unsafe partial class PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkCreateDevice</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDevice(Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Device? pDevice)
+	public Vk.Result CreateDevice(Vk.DeviceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Device pDevice)
 	{
 		Vk.Handle<Vk.Device> HANDLE;
 		var RESULT = Functions.vkCreateDevice(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pDevice = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDevice = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Device.Null;
 		return RESULT;
 	}
 
@@ -776,11 +778,11 @@ public unsafe partial class PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkCreateDevice</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDevice(in Vk.DeviceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Device? pDevice)
+	public Vk.Result CreateDevice(in Vk.DeviceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Device pDevice)
 	{
 		Vk.Handle<Vk.Device> HANDLE;
 		var RESULT = Functions.CreateDevice(Handle, createInfo, allocator, out HANDLE);
-		pDevice = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDevice = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Device.Null;
 		return RESULT;
 	}
 
@@ -1141,11 +1143,11 @@ public unsafe partial class PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkGetRandROutputDisplayEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, out Vk.KHR.Display? pDisplay)
+	public Vk.Result GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, out Vk.KHR.Display pDisplay)
 	{
 		Vk.Handle<Vk.KHR.Display> HANDLE;
 		var RESULT = Functions.vkGetRandROutputDisplayEXT(Handle, dpy, rrOutput, &HANDLE);
-		pDisplay = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDisplay = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Display.Null;
 		return RESULT;
 	}
 
@@ -1318,6 +1320,7 @@ public unsafe partial class PhysicalDevice : IHandleType<PhysicalDevice>
 
 public unsafe partial class Device : IHandleType<Device>
 {
+	public static readonly Device Null = new(PhysicalDevice.Null, Vk.Handle<Device>.Null);
 
 	public readonly Vk.PhysicalDevice Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -1363,7 +1366,7 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkGetDeviceQueue</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetDeviceQueue(uint queueFamilyIndex, uint queueIndex, out Vk.Queue? pQueue)
+	public void GetDeviceQueue(uint queueFamilyIndex, uint queueIndex, out Vk.Queue pQueue)
 	{
 		Vk.Handle<Vk.Queue> HANDLE;
 		Functions.vkGetDeviceQueue(Handle, queueFamilyIndex, queueIndex, &HANDLE);
@@ -1387,11 +1390,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkAllocateMemory</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result AllocateMemory(Vk.MemoryAllocateInfo* pAllocateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DeviceMemory? pMemory)
+	public Vk.Result AllocateMemory(Vk.MemoryAllocateInfo* pAllocateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DeviceMemory pMemory)
 	{
 		Vk.Handle<Vk.DeviceMemory> HANDLE;
 		var RESULT = Functions.vkAllocateMemory(Handle, pAllocateInfo, pAllocator, &HANDLE);
-		pMemory = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pMemory = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DeviceMemory.Null;
 		return RESULT;
 	}
 
@@ -1402,11 +1405,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkAllocateMemory</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result AllocateMemory(in Vk.MemoryAllocateInfo allocateInfo, in Vk.AllocationCallbacks allocator, out Vk.DeviceMemory? pMemory)
+	public Vk.Result AllocateMemory(in Vk.MemoryAllocateInfo allocateInfo, in Vk.AllocationCallbacks allocator, out Vk.DeviceMemory pMemory)
 	{
 		Vk.Handle<Vk.DeviceMemory> HANDLE;
 		var RESULT = Functions.AllocateMemory(Handle, allocateInfo, allocator, out HANDLE);
-		pMemory = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pMemory = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DeviceMemory.Null;
 		return RESULT;
 	}
 
@@ -1437,11 +1440,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateFence</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateFence(Vk.FenceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence? pFence)
+	public Vk.Result CreateFence(Vk.FenceCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence pFence)
 	{
 		Vk.Handle<Vk.Fence> HANDLE;
 		var RESULT = Functions.vkCreateFence(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Fence.Null;
 		return RESULT;
 	}
 
@@ -1452,11 +1455,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateFence</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateFence(in Vk.FenceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence? pFence)
+	public Vk.Result CreateFence(in Vk.FenceCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence pFence)
 	{
 		Vk.Handle<Vk.Fence> HANDLE;
 		var RESULT = Functions.CreateFence(Handle, createInfo, allocator, out HANDLE);
-		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Fence.Null;
 		return RESULT;
 	}
 
@@ -1487,11 +1490,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSemaphore</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSemaphore(Vk.SemaphoreCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Semaphore? pSemaphore)
+	public Vk.Result CreateSemaphore(Vk.SemaphoreCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Semaphore pSemaphore)
 	{
 		Vk.Handle<Vk.Semaphore> HANDLE;
 		var RESULT = Functions.vkCreateSemaphore(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSemaphore = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSemaphore = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Semaphore.Null;
 		return RESULT;
 	}
 
@@ -1502,11 +1505,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSemaphore</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSemaphore(in Vk.SemaphoreCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Semaphore? pSemaphore)
+	public Vk.Result CreateSemaphore(in Vk.SemaphoreCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Semaphore pSemaphore)
 	{
 		Vk.Handle<Vk.Semaphore> HANDLE;
 		var RESULT = Functions.CreateSemaphore(Handle, createInfo, allocator, out HANDLE);
-		pSemaphore = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSemaphore = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Semaphore.Null;
 		return RESULT;
 	}
 
@@ -1517,11 +1520,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateEvent</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateEvent(Vk.EventCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Event? pEvent)
+	public Vk.Result CreateEvent(Vk.EventCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Event pEvent)
 	{
 		Vk.Handle<Vk.Event> HANDLE;
 		var RESULT = Functions.vkCreateEvent(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pEvent = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pEvent = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Event.Null;
 		return RESULT;
 	}
 
@@ -1532,11 +1535,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateEvent</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateEvent(in Vk.EventCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Event? pEvent)
+	public Vk.Result CreateEvent(in Vk.EventCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Event pEvent)
 	{
 		Vk.Handle<Vk.Event> HANDLE;
 		var RESULT = Functions.CreateEvent(Handle, createInfo, allocator, out HANDLE);
-		pEvent = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pEvent = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Event.Null;
 		return RESULT;
 	}
 
@@ -1547,11 +1550,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateQueryPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateQueryPool(Vk.QueryPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.QueryPool? pQueryPool)
+	public Vk.Result CreateQueryPool(Vk.QueryPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.QueryPool pQueryPool)
 	{
 		Vk.Handle<Vk.QueryPool> HANDLE;
 		var RESULT = Functions.vkCreateQueryPool(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pQueryPool = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pQueryPool = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.QueryPool.Null;
 		return RESULT;
 	}
 
@@ -1562,11 +1565,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateQueryPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateQueryPool(in Vk.QueryPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.QueryPool? pQueryPool)
+	public Vk.Result CreateQueryPool(in Vk.QueryPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.QueryPool pQueryPool)
 	{
 		Vk.Handle<Vk.QueryPool> HANDLE;
 		var RESULT = Functions.CreateQueryPool(Handle, createInfo, allocator, out HANDLE);
-		pQueryPool = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pQueryPool = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.QueryPool.Null;
 		return RESULT;
 	}
 
@@ -1577,11 +1580,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateBuffer</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateBuffer(Vk.BufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Buffer? pBuffer)
+	public Vk.Result CreateBuffer(Vk.BufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Buffer pBuffer)
 	{
 		Vk.Handle<Vk.Buffer> HANDLE;
 		var RESULT = Functions.vkCreateBuffer(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pBuffer = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pBuffer = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Buffer.Null;
 		return RESULT;
 	}
 
@@ -1592,11 +1595,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateBuffer</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateBuffer(in Vk.BufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Buffer? pBuffer)
+	public Vk.Result CreateBuffer(in Vk.BufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Buffer pBuffer)
 	{
 		Vk.Handle<Vk.Buffer> HANDLE;
 		var RESULT = Functions.CreateBuffer(Handle, createInfo, allocator, out HANDLE);
-		pBuffer = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pBuffer = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Buffer.Null;
 		return RESULT;
 	}
 
@@ -1607,11 +1610,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateBufferView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateBufferView(Vk.BufferViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.BufferView? pView)
+	public Vk.Result CreateBufferView(Vk.BufferViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.BufferView pView)
 	{
 		Vk.Handle<Vk.BufferView> HANDLE;
 		var RESULT = Functions.vkCreateBufferView(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pView = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.BufferView.Null;
 		return RESULT;
 	}
 
@@ -1622,11 +1625,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateBufferView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateBufferView(in Vk.BufferViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.BufferView? pView)
+	public Vk.Result CreateBufferView(in Vk.BufferViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.BufferView pView)
 	{
 		Vk.Handle<Vk.BufferView> HANDLE;
 		var RESULT = Functions.CreateBufferView(Handle, createInfo, allocator, out HANDLE);
-		pView = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.BufferView.Null;
 		return RESULT;
 	}
 
@@ -1637,11 +1640,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateImage</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateImage(Vk.ImageCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Image? pImage)
+	public Vk.Result CreateImage(Vk.ImageCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Image pImage)
 	{
 		Vk.Handle<Vk.Image> HANDLE;
 		var RESULT = Functions.vkCreateImage(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pImage = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pImage = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Image.Null;
 		return RESULT;
 	}
 
@@ -1652,11 +1655,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateImage</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateImage(in Vk.ImageCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Image? pImage)
+	public Vk.Result CreateImage(in Vk.ImageCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Image pImage)
 	{
 		Vk.Handle<Vk.Image> HANDLE;
 		var RESULT = Functions.CreateImage(Handle, createInfo, allocator, out HANDLE);
-		pImage = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pImage = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Image.Null;
 		return RESULT;
 	}
 
@@ -1667,11 +1670,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateImageView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateImageView(Vk.ImageViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.ImageView? pView)
+	public Vk.Result CreateImageView(Vk.ImageViewCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.ImageView pView)
 	{
 		Vk.Handle<Vk.ImageView> HANDLE;
 		var RESULT = Functions.vkCreateImageView(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pView = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.ImageView.Null;
 		return RESULT;
 	}
 
@@ -1682,11 +1685,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateImageView</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateImageView(in Vk.ImageViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ImageView? pView)
+	public Vk.Result CreateImageView(in Vk.ImageViewCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ImageView pView)
 	{
 		Vk.Handle<Vk.ImageView> HANDLE;
 		var RESULT = Functions.CreateImageView(Handle, createInfo, allocator, out HANDLE);
-		pView = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pView = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.ImageView.Null;
 		return RESULT;
 	}
 
@@ -1697,11 +1700,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateShaderModule</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateShaderModule(Vk.ShaderModuleCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.ShaderModule? pShaderModule)
+	public Vk.Result CreateShaderModule(Vk.ShaderModuleCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.ShaderModule pShaderModule)
 	{
 		Vk.Handle<Vk.ShaderModule> HANDLE;
 		var RESULT = Functions.vkCreateShaderModule(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pShaderModule = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pShaderModule = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.ShaderModule.Null;
 		return RESULT;
 	}
 
@@ -1712,11 +1715,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateShaderModule</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateShaderModule(in Vk.ShaderModuleCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ShaderModule? pShaderModule)
+	public Vk.Result CreateShaderModule(in Vk.ShaderModuleCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.ShaderModule pShaderModule)
 	{
 		Vk.Handle<Vk.ShaderModule> HANDLE;
 		var RESULT = Functions.CreateShaderModule(Handle, createInfo, allocator, out HANDLE);
-		pShaderModule = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pShaderModule = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.ShaderModule.Null;
 		return RESULT;
 	}
 
@@ -1727,11 +1730,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreatePipelineCache</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreatePipelineCache(Vk.PipelineCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.PipelineCache? pPipelineCache)
+	public Vk.Result CreatePipelineCache(Vk.PipelineCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.PipelineCache pPipelineCache)
 	{
 		Vk.Handle<Vk.PipelineCache> HANDLE;
 		var RESULT = Functions.vkCreatePipelineCache(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pPipelineCache = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pPipelineCache = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.PipelineCache.Null;
 		return RESULT;
 	}
 
@@ -1742,11 +1745,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreatePipelineCache</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreatePipelineCache(in Vk.PipelineCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineCache? pPipelineCache)
+	public Vk.Result CreatePipelineCache(in Vk.PipelineCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineCache pPipelineCache)
 	{
 		Vk.Handle<Vk.PipelineCache> HANDLE;
 		var RESULT = Functions.CreatePipelineCache(Handle, createInfo, allocator, out HANDLE);
-		pPipelineCache = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pPipelineCache = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.PipelineCache.Null;
 		return RESULT;
 	}
 
@@ -1757,11 +1760,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreatePipelineLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreatePipelineLayout(Vk.PipelineLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.PipelineLayout? pPipelineLayout)
+	public Vk.Result CreatePipelineLayout(Vk.PipelineLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.PipelineLayout pPipelineLayout)
 	{
 		Vk.Handle<Vk.PipelineLayout> HANDLE;
 		var RESULT = Functions.vkCreatePipelineLayout(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pPipelineLayout = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pPipelineLayout = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.PipelineLayout.Null;
 		return RESULT;
 	}
 
@@ -1772,11 +1775,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreatePipelineLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreatePipelineLayout(in Vk.PipelineLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineLayout? pPipelineLayout)
+	public Vk.Result CreatePipelineLayout(in Vk.PipelineLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.PipelineLayout pPipelineLayout)
 	{
 		Vk.Handle<Vk.PipelineLayout> HANDLE;
 		var RESULT = Functions.CreatePipelineLayout(Handle, createInfo, allocator, out HANDLE);
-		pPipelineLayout = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pPipelineLayout = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.PipelineLayout.Null;
 		return RESULT;
 	}
 
@@ -1787,11 +1790,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSampler</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSampler(Vk.SamplerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Sampler? pSampler)
+	public Vk.Result CreateSampler(Vk.SamplerCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Sampler pSampler)
 	{
 		Vk.Handle<Vk.Sampler> HANDLE;
 		var RESULT = Functions.vkCreateSampler(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSampler = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSampler = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Sampler.Null;
 		return RESULT;
 	}
 
@@ -1802,11 +1805,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSampler</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSampler(in Vk.SamplerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Sampler? pSampler)
+	public Vk.Result CreateSampler(in Vk.SamplerCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Sampler pSampler)
 	{
 		Vk.Handle<Vk.Sampler> HANDLE;
 		var RESULT = Functions.CreateSampler(Handle, createInfo, allocator, out HANDLE);
-		pSampler = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSampler = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Sampler.Null;
 		return RESULT;
 	}
 
@@ -1817,11 +1820,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorSetLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorSetLayout(Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorSetLayout? pSetLayout)
+	public Vk.Result CreateDescriptorSetLayout(Vk.DescriptorSetLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorSetLayout pSetLayout)
 	{
 		Vk.Handle<Vk.DescriptorSetLayout> HANDLE;
 		var RESULT = Functions.vkCreateDescriptorSetLayout(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSetLayout = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSetLayout = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorSetLayout.Null;
 		return RESULT;
 	}
 
@@ -1832,11 +1835,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorSetLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorSetLayout(in Vk.DescriptorSetLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorSetLayout? pSetLayout)
+	public Vk.Result CreateDescriptorSetLayout(in Vk.DescriptorSetLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorSetLayout pSetLayout)
 	{
 		Vk.Handle<Vk.DescriptorSetLayout> HANDLE;
 		var RESULT = Functions.CreateDescriptorSetLayout(Handle, createInfo, allocator, out HANDLE);
-		pSetLayout = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSetLayout = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorSetLayout.Null;
 		return RESULT;
 	}
 
@@ -1847,11 +1850,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorPool(Vk.DescriptorPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorPool? pDescriptorPool)
+	public Vk.Result CreateDescriptorPool(Vk.DescriptorPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorPool pDescriptorPool)
 	{
 		Vk.Handle<Vk.DescriptorPool> HANDLE;
 		var RESULT = Functions.vkCreateDescriptorPool(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pDescriptorPool = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDescriptorPool = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorPool.Null;
 		return RESULT;
 	}
 
@@ -1862,11 +1865,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorPool(in Vk.DescriptorPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorPool? pDescriptorPool)
+	public Vk.Result CreateDescriptorPool(in Vk.DescriptorPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorPool pDescriptorPool)
 	{
 		Vk.Handle<Vk.DescriptorPool> HANDLE;
 		var RESULT = Functions.CreateDescriptorPool(Handle, createInfo, allocator, out HANDLE);
-		pDescriptorPool = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDescriptorPool = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorPool.Null;
 		return RESULT;
 	}
 
@@ -1897,11 +1900,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateFramebuffer</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateFramebuffer(Vk.FramebufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Framebuffer? pFramebuffer)
+	public Vk.Result CreateFramebuffer(Vk.FramebufferCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Framebuffer pFramebuffer)
 	{
 		Vk.Handle<Vk.Framebuffer> HANDLE;
 		var RESULT = Functions.vkCreateFramebuffer(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pFramebuffer = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFramebuffer = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Framebuffer.Null;
 		return RESULT;
 	}
 
@@ -1912,11 +1915,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateFramebuffer</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateFramebuffer(in Vk.FramebufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Framebuffer? pFramebuffer)
+	public Vk.Result CreateFramebuffer(in Vk.FramebufferCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.Framebuffer pFramebuffer)
 	{
 		Vk.Handle<Vk.Framebuffer> HANDLE;
 		var RESULT = Functions.CreateFramebuffer(Handle, createInfo, allocator, out HANDLE);
-		pFramebuffer = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFramebuffer = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Framebuffer.Null;
 		return RESULT;
 	}
 
@@ -1927,11 +1930,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRenderPass(Vk.RenderPassCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass? pRenderPass)
+	public Vk.Result CreateRenderPass(Vk.RenderPassCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass pRenderPass)
 	{
 		Vk.Handle<Vk.RenderPass> HANDLE;
 		var RESULT = Functions.vkCreateRenderPass(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.RenderPass.Null;
 		return RESULT;
 	}
 
@@ -1942,11 +1945,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRenderPass(in Vk.RenderPassCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass? pRenderPass)
+	public Vk.Result CreateRenderPass(in Vk.RenderPassCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass pRenderPass)
 	{
 		Vk.Handle<Vk.RenderPass> HANDLE;
 		var RESULT = Functions.CreateRenderPass(Handle, createInfo, allocator, out HANDLE);
-		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.RenderPass.Null;
 		return RESULT;
 	}
 
@@ -1957,11 +1960,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateCommandPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateCommandPool(Vk.CommandPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.CommandPool? pCommandPool)
+	public Vk.Result CreateCommandPool(Vk.CommandPoolCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.CommandPool pCommandPool)
 	{
 		Vk.Handle<Vk.CommandPool> HANDLE;
 		var RESULT = Functions.vkCreateCommandPool(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pCommandPool = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pCommandPool = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.CommandPool.Null;
 		return RESULT;
 	}
 
@@ -1972,11 +1975,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateCommandPool</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateCommandPool(in Vk.CommandPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.CommandPool? pCommandPool)
+	public Vk.Result CreateCommandPool(in Vk.CommandPoolCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.CommandPool pCommandPool)
 	{
 		Vk.Handle<Vk.CommandPool> HANDLE;
 		var RESULT = Functions.CreateCommandPool(Handle, createInfo, allocator, out HANDLE);
-		pCommandPool = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pCommandPool = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.CommandPool.Null;
 		return RESULT;
 	}
 
@@ -2007,11 +2010,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSwapchainKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSwapchainKHR(Vk.KHR.SwapchainCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Swapchain? pSwapchain)
+	public Vk.Result CreateSwapchainKHR(Vk.KHR.SwapchainCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.Swapchain pSwapchain)
 	{
 		Vk.Handle<Vk.KHR.Swapchain> HANDLE;
 		var RESULT = Functions.vkCreateSwapchainKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pSwapchain = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSwapchain = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Swapchain.Null;
 		return RESULT;
 	}
 
@@ -2022,11 +2025,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSwapchainKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSwapchainKHR(in Vk.KHR.SwapchainCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Swapchain? pSwapchain)
+	public Vk.Result CreateSwapchainKHR(in Vk.KHR.SwapchainCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.Swapchain pSwapchain)
 	{
 		Vk.Handle<Vk.KHR.Swapchain> HANDLE;
 		var RESULT = Functions.CreateSwapchainKHR(Handle, createInfo, allocator, out HANDLE);
-		pSwapchain = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pSwapchain = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.Swapchain.Null;
 		return RESULT;
 	}
 
@@ -2067,11 +2070,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateIndirectCommandsLayoutNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateIndirectCommandsLayoutNV(Vk.NV.IndirectCommandsLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.NV.IndirectCommandsLayout? pIndirectCommandsLayout)
+	public Vk.Result CreateIndirectCommandsLayoutNV(Vk.NV.IndirectCommandsLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.NV.IndirectCommandsLayout pIndirectCommandsLayout)
 	{
 		Vk.Handle<Vk.NV.IndirectCommandsLayout> HANDLE;
 		var RESULT = Functions.vkCreateIndirectCommandsLayoutNV(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pIndirectCommandsLayout = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pIndirectCommandsLayout = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.NV.IndirectCommandsLayout.Null;
 		return RESULT;
 	}
 
@@ -2082,11 +2085,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateIndirectCommandsLayoutNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateIndirectCommandsLayoutNV(in Vk.NV.IndirectCommandsLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.IndirectCommandsLayout? pIndirectCommandsLayout)
+	public Vk.Result CreateIndirectCommandsLayoutNV(in Vk.NV.IndirectCommandsLayoutCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.IndirectCommandsLayout pIndirectCommandsLayout)
 	{
 		Vk.Handle<Vk.NV.IndirectCommandsLayout> HANDLE;
 		var RESULT = Functions.CreateIndirectCommandsLayoutNV(Handle, createInfo, allocator, out HANDLE);
-		pIndirectCommandsLayout = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pIndirectCommandsLayout = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.NV.IndirectCommandsLayout.Null;
 		return RESULT;
 	}
 
@@ -2227,11 +2230,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkRegisterDeviceEventEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result RegisterDeviceEventEXT(Vk.EXT.DeviceEventInfo* pDeviceEventInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence? pFence)
+	public Vk.Result RegisterDeviceEventEXT(Vk.EXT.DeviceEventInfo* pDeviceEventInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence pFence)
 	{
 		Vk.Handle<Vk.Fence> HANDLE;
 		var RESULT = Functions.vkRegisterDeviceEventEXT(Handle, pDeviceEventInfo, pAllocator, &HANDLE);
-		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Fence.Null;
 		return RESULT;
 	}
 
@@ -2242,11 +2245,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkRegisterDeviceEventEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result RegisterDeviceEventEXT(in Vk.EXT.DeviceEventInfo deviceEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence? pFence)
+	public Vk.Result RegisterDeviceEventEXT(in Vk.EXT.DeviceEventInfo deviceEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence pFence)
 	{
 		Vk.Handle<Vk.Fence> HANDLE;
 		var RESULT = Functions.RegisterDeviceEventEXT(Handle, deviceEventInfo, allocator, out HANDLE);
-		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Fence.Null;
 		return RESULT;
 	}
 
@@ -2257,11 +2260,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkRegisterDisplayEventEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result RegisterDisplayEventEXT(Vk.Handle<Vk.KHR.Display> display, Vk.EXT.DisplayEventInfo* pDisplayEventInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence? pFence)
+	public Vk.Result RegisterDisplayEventEXT(Vk.Handle<Vk.KHR.Display> display, Vk.EXT.DisplayEventInfo* pDisplayEventInfo, Vk.AllocationCallbacks* pAllocator, out Vk.Fence pFence)
 	{
 		Vk.Handle<Vk.Fence> HANDLE;
 		var RESULT = Functions.vkRegisterDisplayEventEXT(Handle, display, pDisplayEventInfo, pAllocator, &HANDLE);
-		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Fence.Null;
 		return RESULT;
 	}
 
@@ -2272,11 +2275,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkRegisterDisplayEventEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result RegisterDisplayEventEXT(Vk.Handle<Vk.KHR.Display> display, in Vk.EXT.DisplayEventInfo displayEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence? pFence)
+	public Vk.Result RegisterDisplayEventEXT(Vk.Handle<Vk.KHR.Display> display, in Vk.EXT.DisplayEventInfo displayEventInfo, in Vk.AllocationCallbacks allocator, out Vk.Fence pFence)
 	{
 		Vk.Handle<Vk.Fence> HANDLE;
 		var RESULT = Functions.RegisterDisplayEventEXT(Handle, display, displayEventInfo, allocator, out HANDLE);
-		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pFence = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.Fence.Null;
 		return RESULT;
 	}
 
@@ -2377,11 +2380,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorUpdateTemplate</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorUpdateTemplate(Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorUpdateTemplate? pDescriptorUpdateTemplate)
+	public Vk.Result CreateDescriptorUpdateTemplate(Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
 	{
 		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
 		var RESULT = Functions.vkCreateDescriptorUpdateTemplate(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorUpdateTemplate.Null;
 		return RESULT;
 	}
 
@@ -2392,11 +2395,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorUpdateTemplate</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorUpdateTemplate(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate? pDescriptorUpdateTemplate)
+	public Vk.Result CreateDescriptorUpdateTemplate(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
 	{
 		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
 		var RESULT = Functions.CreateDescriptorUpdateTemplate(Handle, createInfo, allocator, out HANDLE);
-		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorUpdateTemplate.Null;
 		return RESULT;
 	}
 
@@ -2407,11 +2410,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorUpdateTemplateKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorUpdateTemplateKHR(Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorUpdateTemplate? pDescriptorUpdateTemplate)
+	public Vk.Result CreateDescriptorUpdateTemplateKHR(Vk.DescriptorUpdateTemplateCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
 	{
 		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
 		var RESULT = Functions.vkCreateDescriptorUpdateTemplateKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorUpdateTemplate.Null;
 		return RESULT;
 	}
 
@@ -2422,11 +2425,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDescriptorUpdateTemplateKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDescriptorUpdateTemplateKHR(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate? pDescriptorUpdateTemplate)
+	public Vk.Result CreateDescriptorUpdateTemplateKHR(in Vk.DescriptorUpdateTemplateCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.DescriptorUpdateTemplate pDescriptorUpdateTemplate)
 	{
 		Vk.Handle<Vk.DescriptorUpdateTemplate> HANDLE;
 		var RESULT = Functions.CreateDescriptorUpdateTemplateKHR(Handle, createInfo, allocator, out HANDLE);
-		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDescriptorUpdateTemplate = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.DescriptorUpdateTemplate.Null;
 		return RESULT;
 	}
 
@@ -2507,11 +2510,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSamplerYcbcrConversion</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSamplerYcbcrConversion(Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.SamplerYcbcrConversion? pYcbcrConversion)
+	public Vk.Result CreateSamplerYcbcrConversion(Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
 	{
 		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
 		var RESULT = Functions.vkCreateSamplerYcbcrConversion(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.SamplerYcbcrConversion.Null;
 		return RESULT;
 	}
 
@@ -2522,11 +2525,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSamplerYcbcrConversion</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSamplerYcbcrConversion(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion? pYcbcrConversion)
+	public Vk.Result CreateSamplerYcbcrConversion(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
 	{
 		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
 		var RESULT = Functions.CreateSamplerYcbcrConversion(Handle, createInfo, allocator, out HANDLE);
-		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.SamplerYcbcrConversion.Null;
 		return RESULT;
 	}
 
@@ -2537,11 +2540,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSamplerYcbcrConversionKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSamplerYcbcrConversionKHR(Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.SamplerYcbcrConversion? pYcbcrConversion)
+	public Vk.Result CreateSamplerYcbcrConversionKHR(Vk.SamplerYcbcrConversionCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
 	{
 		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
 		var RESULT = Functions.vkCreateSamplerYcbcrConversionKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.SamplerYcbcrConversion.Null;
 		return RESULT;
 	}
 
@@ -2552,11 +2555,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateSamplerYcbcrConversionKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateSamplerYcbcrConversionKHR(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion? pYcbcrConversion)
+	public Vk.Result CreateSamplerYcbcrConversionKHR(in Vk.SamplerYcbcrConversionCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.SamplerYcbcrConversion pYcbcrConversion)
 	{
 		Vk.Handle<Vk.SamplerYcbcrConversion> HANDLE;
 		var RESULT = Functions.CreateSamplerYcbcrConversionKHR(Handle, createInfo, allocator, out HANDLE);
-		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pYcbcrConversion = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.SamplerYcbcrConversion.Null;
 		return RESULT;
 	}
 
@@ -2567,7 +2570,7 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkGetDeviceQueue2</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetDeviceQueue2(Vk.DeviceQueueInfo2* pQueueInfo, out Vk.Queue? pQueue)
+	public void GetDeviceQueue2(Vk.DeviceQueueInfo2* pQueueInfo, out Vk.Queue pQueue)
 	{
 		Vk.Handle<Vk.Queue> HANDLE;
 		Functions.vkGetDeviceQueue2(Handle, pQueueInfo, &HANDLE);
@@ -2581,7 +2584,7 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkGetDeviceQueue2</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetDeviceQueue2(in Vk.DeviceQueueInfo2 queueInfo, out Vk.Queue? pQueue)
+	public void GetDeviceQueue2(in Vk.DeviceQueueInfo2 queueInfo, out Vk.Queue pQueue)
 	{
 		Vk.Handle<Vk.Queue> HANDLE;
 		Functions.GetDeviceQueue2(Handle, queueInfo, out HANDLE);
@@ -2595,11 +2598,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateValidationCacheEXT(Vk.EXT.ValidationCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.ValidationCache? pValidationCache)
+	public Vk.Result CreateValidationCacheEXT(Vk.EXT.ValidationCacheCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.ValidationCache pValidationCache)
 	{
 		Vk.Handle<Vk.EXT.ValidationCache> HANDLE;
 		var RESULT = Functions.vkCreateValidationCacheEXT(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pValidationCache = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pValidationCache = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.ValidationCache.Null;
 		return RESULT;
 	}
 
@@ -2610,11 +2613,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateValidationCacheEXT(in Vk.EXT.ValidationCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.ValidationCache? pValidationCache)
+	public Vk.Result CreateValidationCacheEXT(in Vk.EXT.ValidationCacheCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.ValidationCache pValidationCache)
 	{
 		Vk.Handle<Vk.EXT.ValidationCache> HANDLE;
 		var RESULT = Functions.CreateValidationCacheEXT(Handle, createInfo, allocator, out HANDLE);
-		pValidationCache = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pValidationCache = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.ValidationCache.Null;
 		return RESULT;
 	}
 
@@ -2705,11 +2708,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass2</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRenderPass2(Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass? pRenderPass)
+	public Vk.Result CreateRenderPass2(Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass pRenderPass)
 	{
 		Vk.Handle<Vk.RenderPass> HANDLE;
 		var RESULT = Functions.vkCreateRenderPass2(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.RenderPass.Null;
 		return RESULT;
 	}
 
@@ -2720,11 +2723,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass2</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRenderPass2(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass? pRenderPass)
+	public Vk.Result CreateRenderPass2(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass pRenderPass)
 	{
 		Vk.Handle<Vk.RenderPass> HANDLE;
 		var RESULT = Functions.CreateRenderPass2(Handle, createInfo, allocator, out HANDLE);
-		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.RenderPass.Null;
 		return RESULT;
 	}
 
@@ -2735,11 +2738,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass2KHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRenderPass2KHR(Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass? pRenderPass)
+	public Vk.Result CreateRenderPass2KHR(Vk.RenderPassCreateInfo2* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.RenderPass pRenderPass)
 	{
 		Vk.Handle<Vk.RenderPass> HANDLE;
 		var RESULT = Functions.vkCreateRenderPass2KHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.RenderPass.Null;
 		return RESULT;
 	}
 
@@ -2750,11 +2753,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateRenderPass2KHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRenderPass2KHR(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass? pRenderPass)
+	public Vk.Result CreateRenderPass2KHR(in Vk.RenderPassCreateInfo2 createInfo, in Vk.AllocationCallbacks allocator, out Vk.RenderPass pRenderPass)
 	{
 		Vk.Handle<Vk.RenderPass> HANDLE;
 		var RESULT = Functions.CreateRenderPass2KHR(Handle, createInfo, allocator, out HANDLE);
-		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pRenderPass = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.RenderPass.Null;
 		return RESULT;
 	}
 
@@ -2825,11 +2828,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateAccelerationStructureNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateAccelerationStructureNV(Vk.NV.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.NV.AccelerationStructure? pAccelerationStructure)
+	public Vk.Result CreateAccelerationStructureNV(Vk.NV.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.NV.AccelerationStructure pAccelerationStructure)
 	{
 		Vk.Handle<Vk.NV.AccelerationStructure> HANDLE;
 		var RESULT = Functions.vkCreateAccelerationStructureNV(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.NV.AccelerationStructure.Null;
 		return RESULT;
 	}
 
@@ -2840,11 +2843,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateAccelerationStructureNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateAccelerationStructureNV(in Vk.NV.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.AccelerationStructure? pAccelerationStructure)
+	public Vk.Result CreateAccelerationStructureNV(in Vk.NV.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.NV.AccelerationStructure pAccelerationStructure)
 	{
 		Vk.Handle<Vk.NV.AccelerationStructure> HANDLE;
 		var RESULT = Functions.CreateAccelerationStructureNV(Handle, createInfo, allocator, out HANDLE);
-		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.NV.AccelerationStructure.Null;
 		return RESULT;
 	}
 
@@ -3045,11 +3048,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkAcquirePerformanceConfigurationINTEL</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result AcquirePerformanceConfigurationINTEL(Vk.INTEL.PerformanceConfigurationAcquireInfo* pAcquireInfo, out Vk.INTEL.PerformanceConfiguration? pConfiguration)
+	public Vk.Result AcquirePerformanceConfigurationINTEL(Vk.INTEL.PerformanceConfigurationAcquireInfo* pAcquireInfo, out Vk.INTEL.PerformanceConfiguration pConfiguration)
 	{
 		Vk.Handle<Vk.INTEL.PerformanceConfiguration> HANDLE;
 		var RESULT = Functions.vkAcquirePerformanceConfigurationINTEL(Handle, pAcquireInfo, &HANDLE);
-		pConfiguration = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pConfiguration = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.INTEL.PerformanceConfiguration.Null;
 		return RESULT;
 	}
 
@@ -3060,11 +3063,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkAcquirePerformanceConfigurationINTEL</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result AcquirePerformanceConfigurationINTEL(in Vk.INTEL.PerformanceConfigurationAcquireInfo acquireInfo, out Vk.INTEL.PerformanceConfiguration? pConfiguration)
+	public Vk.Result AcquirePerformanceConfigurationINTEL(in Vk.INTEL.PerformanceConfigurationAcquireInfo acquireInfo, out Vk.INTEL.PerformanceConfiguration pConfiguration)
 	{
 		Vk.Handle<Vk.INTEL.PerformanceConfiguration> HANDLE;
 		var RESULT = Functions.AcquirePerformanceConfigurationINTEL(Handle, acquireInfo, out HANDLE);
-		pConfiguration = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pConfiguration = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.INTEL.PerformanceConfiguration.Null;
 		return RESULT;
 	}
 
@@ -3135,11 +3138,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateAccelerationStructureKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateAccelerationStructureKHR(Vk.KHR.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.AccelerationStructure? pAccelerationStructure)
+	public Vk.Result CreateAccelerationStructureKHR(Vk.KHR.AccelerationStructureCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.AccelerationStructure pAccelerationStructure)
 	{
 		Vk.Handle<Vk.KHR.AccelerationStructure> HANDLE;
 		var RESULT = Functions.vkCreateAccelerationStructureKHR(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.AccelerationStructure.Null;
 		return RESULT;
 	}
 
@@ -3150,11 +3153,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateAccelerationStructureKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateAccelerationStructureKHR(in Vk.KHR.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.AccelerationStructure? pAccelerationStructure)
+	public Vk.Result CreateAccelerationStructureKHR(in Vk.KHR.AccelerationStructureCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.AccelerationStructure pAccelerationStructure)
 	{
 		Vk.Handle<Vk.KHR.AccelerationStructure> HANDLE;
 		var RESULT = Functions.CreateAccelerationStructureKHR(Handle, createInfo, allocator, out HANDLE);
-		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pAccelerationStructure = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.AccelerationStructure.Null;
 		return RESULT;
 	}
 
@@ -3185,11 +3188,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDeferredOperationKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDeferredOperationKHR(Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DeferredOperation? pDeferredOperation)
+	public Vk.Result CreateDeferredOperationKHR(Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DeferredOperation pDeferredOperation)
 	{
 		Vk.Handle<Vk.KHR.DeferredOperation> HANDLE;
 		var RESULT = Functions.vkCreateDeferredOperationKHR(Handle, pAllocator, &HANDLE);
-		pDeferredOperation = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDeferredOperation = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.DeferredOperation.Null;
 		return RESULT;
 	}
 
@@ -3200,11 +3203,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreateDeferredOperationKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDeferredOperationKHR(in Vk.AllocationCallbacks allocator, out Vk.KHR.DeferredOperation? pDeferredOperation)
+	public Vk.Result CreateDeferredOperationKHR(in Vk.AllocationCallbacks allocator, out Vk.KHR.DeferredOperation pDeferredOperation)
 	{
 		Vk.Handle<Vk.KHR.DeferredOperation> HANDLE;
 		var RESULT = Functions.CreateDeferredOperationKHR(Handle, allocator, out HANDLE);
-		pDeferredOperation = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pDeferredOperation = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.DeferredOperation.Null;
 		return RESULT;
 	}
 
@@ -3215,11 +3218,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreatePrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreatePrivateDataSlotEXT(Vk.EXT.PrivateDataSlotCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.PrivateDataSlot? pPrivateDataSlot)
+	public Vk.Result CreatePrivateDataSlotEXT(Vk.EXT.PrivateDataSlotCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.EXT.PrivateDataSlot pPrivateDataSlot)
 	{
 		Vk.Handle<Vk.EXT.PrivateDataSlot> HANDLE;
 		var RESULT = Functions.vkCreatePrivateDataSlotEXT(Handle, pCreateInfo, pAllocator, &HANDLE);
-		pPrivateDataSlot = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pPrivateDataSlot = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.PrivateDataSlot.Null;
 		return RESULT;
 	}
 
@@ -3230,11 +3233,11 @@ public unsafe partial class Device : IHandleType<Device>
 
 	/// <summary>vkCreatePrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreatePrivateDataSlotEXT(in Vk.EXT.PrivateDataSlotCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.PrivateDataSlot? pPrivateDataSlot)
+	public Vk.Result CreatePrivateDataSlotEXT(in Vk.EXT.PrivateDataSlotCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.EXT.PrivateDataSlot pPrivateDataSlot)
 	{
 		Vk.Handle<Vk.EXT.PrivateDataSlot> HANDLE;
 		var RESULT = Functions.CreatePrivateDataSlotEXT(Handle, createInfo, allocator, out HANDLE);
-		pPrivateDataSlot = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pPrivateDataSlot = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.EXT.PrivateDataSlot.Null;
 		return RESULT;
 	}
 
@@ -3257,6 +3260,7 @@ public unsafe partial class Device : IHandleType<Device>
 
 public unsafe partial class Queue : IHandleType<Queue>
 {
+	public static readonly Queue Null = new(Device.Null, Vk.Handle<Queue>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -3376,6 +3380,7 @@ public unsafe partial class Queue : IHandleType<Queue>
 
 public unsafe partial class CommandBuffer : IHandleType<CommandBuffer>
 {
+	public static readonly CommandBuffer Null = new(CommandPool.Null, Vk.Handle<CommandBuffer>.Null);
 
 	public readonly Vk.CommandPool Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4380,6 +4385,7 @@ public unsafe partial class CommandBuffer : IHandleType<CommandBuffer>
 
 public unsafe partial class DeviceMemory : IHandleType<DeviceMemory>
 {
+	public static readonly DeviceMemory Null = new(Device.Null, Vk.Handle<DeviceMemory>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4449,6 +4455,7 @@ public unsafe partial class DeviceMemory : IHandleType<DeviceMemory>
 
 public unsafe partial class CommandPool : IHandleType<CommandPool>
 {
+	public static readonly CommandPool Null = new(Device.Null, Vk.Handle<CommandPool>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4518,6 +4525,7 @@ public unsafe partial class CommandPool : IHandleType<CommandPool>
 
 public unsafe partial class Buffer : IHandleType<Buffer>
 {
+	public static readonly Buffer Null = new(Device.Null, Vk.Handle<Buffer>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4577,6 +4585,7 @@ public unsafe partial class Buffer : IHandleType<Buffer>
 
 public unsafe partial class BufferView : IHandleType<BufferView>
 {
+	public static readonly BufferView Null = new(Device.Null, Vk.Handle<BufferView>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4621,6 +4630,7 @@ public unsafe partial class BufferView : IHandleType<BufferView>
 
 public unsafe partial class Image : IHandleType<Image>
 {
+	public static readonly Image Null = new(Device.Null, Vk.Handle<Image>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4715,6 +4725,7 @@ public unsafe partial class Image : IHandleType<Image>
 
 public unsafe partial class ImageView : IHandleType<ImageView>
 {
+	public static readonly ImageView Null = new(Device.Null, Vk.Handle<ImageView>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4769,6 +4780,7 @@ public unsafe partial class ImageView : IHandleType<ImageView>
 
 public unsafe partial class ShaderModule : IHandleType<ShaderModule>
 {
+	public static readonly ShaderModule Null = new(Device.Null, Vk.Handle<ShaderModule>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4813,6 +4825,7 @@ public unsafe partial class ShaderModule : IHandleType<ShaderModule>
 
 public unsafe partial class Pipeline : IHandleType<Pipeline>
 {
+	public static readonly Pipeline Null = new(Device.Null, Vk.Handle<Pipeline>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4887,6 +4900,7 @@ public unsafe partial class Pipeline : IHandleType<Pipeline>
 
 public unsafe partial class PipelineLayout : IHandleType<PipelineLayout>
 {
+	public static readonly PipelineLayout Null = new(Device.Null, Vk.Handle<PipelineLayout>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4931,6 +4945,7 @@ public unsafe partial class PipelineLayout : IHandleType<PipelineLayout>
 
 public unsafe partial class Sampler : IHandleType<Sampler>
 {
+	public static readonly Sampler Null = new(Device.Null, Vk.Handle<Sampler>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -4975,6 +4990,7 @@ public unsafe partial class Sampler : IHandleType<Sampler>
 
 public unsafe partial class DescriptorSet : IHandleType<DescriptorSet>
 {
+	public static readonly DescriptorSet Null = new(DescriptorPool.Null, Vk.Handle<DescriptorSet>.Null);
 
 	public readonly Vk.DescriptorPool Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5019,6 +5035,7 @@ public unsafe partial class DescriptorSet : IHandleType<DescriptorSet>
 
 public unsafe partial class DescriptorSetLayout : IHandleType<DescriptorSetLayout>
 {
+	public static readonly DescriptorSetLayout Null = new(Device.Null, Vk.Handle<DescriptorSetLayout>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5063,6 +5080,7 @@ public unsafe partial class DescriptorSetLayout : IHandleType<DescriptorSetLayou
 
 public unsafe partial class DescriptorPool : IHandleType<DescriptorPool>
 {
+	public static readonly DescriptorPool Null = new(Device.Null, Vk.Handle<DescriptorPool>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5122,6 +5140,7 @@ public unsafe partial class DescriptorPool : IHandleType<DescriptorPool>
 
 public unsafe partial class Fence : IHandleType<Fence>
 {
+	public static readonly Fence Null = new(Device.Null, Vk.Handle<Fence>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5171,6 +5190,7 @@ public unsafe partial class Fence : IHandleType<Fence>
 
 public unsafe partial class Semaphore : IHandleType<Semaphore>
 {
+	public static readonly Semaphore Null = new(Device.Null, Vk.Handle<Semaphore>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5235,6 +5255,7 @@ public unsafe partial class Semaphore : IHandleType<Semaphore>
 
 public unsafe partial class Event : IHandleType<Event>
 {
+	public static readonly Event Null = new(Device.Null, Vk.Handle<Event>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5294,6 +5315,7 @@ public unsafe partial class Event : IHandleType<Event>
 
 public unsafe partial class QueryPool : IHandleType<QueryPool>
 {
+	public static readonly QueryPool Null = new(Device.Null, Vk.Handle<QueryPool>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5353,6 +5375,7 @@ public unsafe partial class QueryPool : IHandleType<QueryPool>
 
 public unsafe partial class Framebuffer : IHandleType<Framebuffer>
 {
+	public static readonly Framebuffer Null = new(Device.Null, Vk.Handle<Framebuffer>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5397,6 +5420,7 @@ public unsafe partial class Framebuffer : IHandleType<Framebuffer>
 
 public unsafe partial class RenderPass : IHandleType<RenderPass>
 {
+	public static readonly RenderPass Null = new(Device.Null, Vk.Handle<RenderPass>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5451,6 +5475,7 @@ public unsafe partial class RenderPass : IHandleType<RenderPass>
 
 public unsafe partial class PipelineCache : IHandleType<PipelineCache>
 {
+	public static readonly PipelineCache Null = new(Device.Null, Vk.Handle<PipelineCache>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5555,6 +5580,7 @@ public unsafe partial class PipelineCache : IHandleType<PipelineCache>
 
 public unsafe partial class DescriptorUpdateTemplate : IHandleType<DescriptorUpdateTemplate>
 {
+	public static readonly DescriptorUpdateTemplate Null = new(Device.Null, Vk.Handle<DescriptorUpdateTemplate>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -5609,6 +5635,7 @@ public unsafe partial class DescriptorUpdateTemplate : IHandleType<DescriptorUpd
 
 public unsafe partial class SamplerYcbcrConversion : IHandleType<SamplerYcbcrConversion>
 {
+	public static readonly SamplerYcbcrConversion Null = new(Device.Null, Vk.Handle<SamplerYcbcrConversion>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;

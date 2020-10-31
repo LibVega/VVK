@@ -531,6 +531,13 @@ namespace Gen
 					};
 
 					// Write the fields
+					var nullargs = (handleSpec.Parent is not null)
+						? $"{handleSpec.Parent.Name}.Null, Vk.Handle<{handleSpec.Name}>.Null"
+						: $"Vk.Handle<{handleSpec.Name}>.Null";
+					if (handleSpec.Name == "Instance") {
+						nullargs += ", default";
+					}
+					handleBlock.WriteLine($"public static readonly {handleSpec.Name} Null = new({nullargs});");
 					handleBlock.WriteLine();
 					if (handleSpec.Parent is not null) {
 						handleBlock.WriteLine($"public readonly {handleSpec.Parent.ProcessedName} Parent;");

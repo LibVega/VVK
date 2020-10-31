@@ -16,6 +16,7 @@ namespace Vk.INTEL
 
 public unsafe partial class PerformanceConfiguration : IHandleType<PerformanceConfiguration>
 {
+	public static readonly PerformanceConfiguration Null = new(Device.Null, Vk.Handle<PerformanceConfiguration>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;

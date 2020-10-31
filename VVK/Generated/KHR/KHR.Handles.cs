@@ -16,6 +16,7 @@ namespace Vk.KHR
 
 public unsafe partial class DescriptorUpdateTemplate : IHandleType<DescriptorUpdateTemplate>
 {
+	public static readonly DescriptorUpdateTemplate Null = new(Device.Null, Vk.Handle<DescriptorUpdateTemplate>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -50,6 +51,7 @@ public unsafe partial class DescriptorUpdateTemplate : IHandleType<DescriptorUpd
 
 public unsafe partial class SamplerYcbcrConversion : IHandleType<SamplerYcbcrConversion>
 {
+	public static readonly SamplerYcbcrConversion Null = new(Device.Null, Vk.Handle<SamplerYcbcrConversion>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -84,6 +86,7 @@ public unsafe partial class SamplerYcbcrConversion : IHandleType<SamplerYcbcrCon
 
 public unsafe partial class AccelerationStructure : IHandleType<AccelerationStructure>
 {
+	public static readonly AccelerationStructure Null = new(Device.Null, Vk.Handle<AccelerationStructure>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -143,6 +146,7 @@ public unsafe partial class AccelerationStructure : IHandleType<AccelerationStru
 
 public unsafe partial class DeferredOperation : IHandleType<DeferredOperation>
 {
+	public static readonly DeferredOperation Null = new(Device.Null, Vk.Handle<DeferredOperation>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -202,6 +206,7 @@ public unsafe partial class DeferredOperation : IHandleType<DeferredOperation>
 
 public unsafe partial class Display : IHandleType<Display>
 {
+	public static readonly Display Null = new(PhysicalDevice.Null, Vk.Handle<Display>.Null);
 
 	public readonly Vk.PhysicalDevice Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
@@ -247,11 +252,11 @@ public unsafe partial class Display : IHandleType<Display>
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayModeKHR(Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DisplayMode? pMode)
+	public Vk.Result CreateDisplayModeKHR(Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, out Vk.KHR.DisplayMode pMode)
 	{
 		Vk.Handle<Vk.KHR.DisplayMode> HANDLE;
 		var RESULT = Functions.vkCreateDisplayModeKHR(Parent.Handle, Handle, pCreateInfo, pAllocator, &HANDLE);
-		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.DisplayMode.Null;
 		return RESULT;
 	}
 
@@ -262,11 +267,11 @@ public unsafe partial class Display : IHandleType<Display>
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateDisplayModeKHR(in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.DisplayMode? pMode)
+	public Vk.Result CreateDisplayModeKHR(in Vk.KHR.DisplayModeCreateInfo createInfo, in Vk.AllocationCallbacks allocator, out Vk.KHR.DisplayMode pMode)
 	{
 		Vk.Handle<Vk.KHR.DisplayMode> HANDLE;
 		var RESULT = Functions.CreateDisplayModeKHR(Parent.Handle, Handle, createInfo, allocator, out HANDLE);
-		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : null;
+		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.DisplayMode.Null;
 		return RESULT;
 	}
 
@@ -289,6 +294,7 @@ public unsafe partial class Display : IHandleType<Display>
 
 public unsafe partial class DisplayMode : IHandleType<DisplayMode>
 {
+	public static readonly DisplayMode Null = new(Display.Null, Vk.Handle<DisplayMode>.Null);
 
 	public readonly Vk.KHR.Display Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
@@ -321,6 +327,7 @@ public unsafe partial class DisplayMode : IHandleType<DisplayMode>
 
 public unsafe partial class Surface : IHandleType<Surface>
 {
+	public static readonly Surface Null = new(Instance.Null, Vk.Handle<Surface>.Null);
 
 	public readonly Vk.Instance Parent;
 	public readonly Vk.InstanceFunctionTable Functions;
@@ -363,6 +370,7 @@ public unsafe partial class Surface : IHandleType<Surface>
 
 public unsafe partial class Swapchain : IHandleType<Swapchain>
 {
+	public static readonly Swapchain Null = new(Device.Null, Vk.Handle<Swapchain>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;

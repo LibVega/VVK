@@ -38,7 +38,7 @@ This is an abridged version of the usage guide found on the Wiki.
   * `Vk.Handle<Vk.TYPE>` for the raw object handles (pointers)
   * `Vk.TYPE` for composite handle objects, which hold the handle parent object and related references, in addition to the raw handle. They also have the functions associated with the specific handle type. These are class types.
 *  There are special types for native strings (`Vk.NativeString`) and fixed strings (`Vk.FixedString`).
-* All struct types have a static `New()` function used to setup their fields properly. This is important for "typed" structs (that start with a `VkStructureType` field), as this sets up their `sType` field correctly. ***It is important to remember to use these functions, or always manually init the type.***
+* All struct types have a static `New()` function used to setup their fields properly. This is important for "typed" structs (that start with a `VkStructureType` field), as this sets up their `sType` field correctly. Struct constructors with parameters will also set the `sType` field to the correct value. ***It is important to remember to use `New()` or a constructor with parameters, or always manually init the type.***
 
 ### Functions
 

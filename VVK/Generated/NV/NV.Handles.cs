@@ -16,6 +16,7 @@ namespace Vk.NV
 
 public unsafe partial class IndirectCommandsLayout : IHandleType<IndirectCommandsLayout>
 {
+	public static readonly IndirectCommandsLayout Null = new(Device.Null, Vk.Handle<IndirectCommandsLayout>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;
@@ -60,6 +61,7 @@ public unsafe partial class IndirectCommandsLayout : IHandleType<IndirectCommand
 
 public unsafe partial class AccelerationStructure : IHandleType<AccelerationStructure>
 {
+	public static readonly AccelerationStructure Null = new(Device.Null, Vk.Handle<AccelerationStructure>.Null);
 
 	public readonly Vk.Device Parent;
 	public readonly Vk.DeviceFunctionTable Functions;

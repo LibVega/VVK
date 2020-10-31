@@ -1,4 +1,4 @@
-﻿/*
+/*
  * MIT License - Copyright (c) 2020 Sean Moss
  * This file is subject to the terms and conditions of the MIT License, the text of which can be found in the 'LICENSE'
  * file at the root of this repository, or online at <https://opensource.org/licenses/MIT>.
@@ -272,7 +272,7 @@ namespace Gen
 
 			var argStr = String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(skip).SkipLast(1).Select(arg => $"{arg.Type} {arg.Name}"));
-			argStr += $", out {lastType}? {last.Name}";
+			argStr += $", out {lastType} {last.Name}";
 			var callStr = String.Join(", ",
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(skip).SkipLast(1)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
@@ -298,14 +298,14 @@ namespace Gen
 						$"Vk.Version APIV = new({(alt ? "createInfo." : "pCreateInfo->")}ApplicationInfo->ApiVersion);\n" +
 						$"Vk.Handle<{lastType}> HANDLE;\n" +
 						$"var RESULT = {fnTable}.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr});\n" +
-						$"{last.Name} = (RESULT == Result.Success) ? new(HANDLE, APIV) : null;\n" +
+						$"{last.Name} = (RESULT == Result.Success) ? new(HANDLE, APIV) : {lastType}.Null;\n" +
 						"return RESULT;"
 					)
 					: (cmd.ReturnType != "void")
 					? (
 						$"Vk.Handle<{lastType}> HANDLE;\n" +
 						$"var RESULT = {fnTable}.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr});\n" +
-						$"{last.Name} = (RESULT == Result.Success) ? new({(global ? "" : "this, ")}HANDLE) : null;\n" +
+						$"{last.Name} = (RESULT == Result.Success) ? new({(global ? "" : "this, ")}HANDLE) : {lastType}.Null;\n" +
 						"return RESULT;"
 					)
 					: (
