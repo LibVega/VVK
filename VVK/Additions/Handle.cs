@@ -1,4 +1,4 @@
-﻿/*
+/*
  * MIT License - Copyright (c) 2020 Sean Moss
  * This file is subject to the terms and conditions of the MIT License, the text of which can be found in the 'LICENSE'
  * file at the root of this repository, or online at <https://opensource.org/licenses/MIT>.
@@ -88,6 +88,9 @@ namespace Vk
 		public static implicit operator ulong (in Handle<T> handle) => (ulong)handle._handle;
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static implicit operator IntPtr (in Handle<T> handle) => new IntPtr(handle._handle);
+
+		public static implicit operator Handle<T> (void* addr)
+			=> (addr == null) ? Null : throw new ArgumentException("Cannot create Vk.Handle from non-null pointer");
 		#endregion // Operators
 	}
 
