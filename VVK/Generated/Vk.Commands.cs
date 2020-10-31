@@ -131,54 +131,30 @@ public unsafe sealed partial class InstanceFunctionTable
 		Vk.Version V11 = new(1, 1, 0);
 		Vk.Version V12 = new(1, 2, 0);
 
-		if (version >= V10) {
 			vkDestroyInstance =
 				(delegate* unmanaged<Vk.Handle<Vk.Instance>, Vk.AllocationCallbacks*, void>)LoadFunc(inst, "vkDestroyInstance");
-		}
-		if (version >= V10) {
 			vkEnumeratePhysicalDevices =
 				(delegate* unmanaged<Vk.Handle<Vk.Instance>, uint*, Vk.Handle<Vk.PhysicalDevice>*, Vk.Result>)LoadFunc(inst, "vkEnumeratePhysicalDevices");
-		}
-		if (version >= V10) {
 			vkGetPhysicalDeviceProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, Vk.PhysicalDeviceProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceProperties");
-		}
-		if (version >= V10) {
 			vkGetPhysicalDeviceQueueFamilyProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, uint*, Vk.QueueFamilyProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceQueueFamilyProperties");
-		}
-		if (version >= V10) {
 			vkGetPhysicalDeviceMemoryProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, Vk.PhysicalDeviceMemoryProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceMemoryProperties");
-		}
-		if (version >= V10) {
 			vkGetPhysicalDeviceFeatures =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, Vk.PhysicalDeviceFeatures*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFeatures");
-		}
-		if (version >= V10) {
 			vkGetPhysicalDeviceFormatProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, Vk.Format, Vk.FormatProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceFormatProperties");
-		}
-		if (version >= V10) {
 			vkGetPhysicalDeviceImageFormatProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, Vk.Format, Vk.ImageType, Vk.ImageTiling, Vk.ImageUsageFlags, Vk.ImageCreateFlags, Vk.ImageFormatProperties*, Vk.Result>)LoadFunc(inst, "vkGetPhysicalDeviceImageFormatProperties");
-		}
-		if (version >= V10) {
 			vkCreateDevice =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, Vk.DeviceCreateInfo*, Vk.AllocationCallbacks*, Vk.Handle<Vk.Device>*, Vk.Result>)LoadFunc(inst, "vkCreateDevice");
-		}
-		if (version >= V10) {
 			vkEnumerateDeviceLayerProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, uint*, Vk.LayerProperties*, Vk.Result>)LoadFunc(inst, "vkEnumerateDeviceLayerProperties");
-		}
-		if (version >= V10) {
 			vkEnumerateDeviceExtensionProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, byte*, uint*, Vk.ExtensionProperties*, Vk.Result>)LoadFunc(inst, "vkEnumerateDeviceExtensionProperties");
-		}
-		if (version >= V10) {
 			vkGetPhysicalDeviceSparseImageFormatProperties =
 				(delegate* unmanaged<Vk.Handle<Vk.PhysicalDevice>, Vk.Format, Vk.ImageType, Vk.SampleCountFlags, Vk.ImageUsageFlags, Vk.ImageTiling, uint*, Vk.SparseImageFormatProperties*, void>)LoadFunc(inst, "vkGetPhysicalDeviceSparseImageFormatProperties");
-		}
 		if (TryLoadFunc(inst, "vkCreateAndroidSurfaceKHR", out addr)) {
 			vkCreateAndroidSurfaceKHR =
 				(delegate* unmanaged<Vk.Handle<Vk.Instance>, Vk.KHR.AndroidSurfaceCreateInfo*, Vk.AllocationCallbacks*, Vk.Handle<Vk.KHR.Surface>*, Vk.Result>)addr;

@@ -136,10 +136,14 @@ namespace Gen
 								ctor.WriteLine($"}}");
 							}
 							else if (cmd.IsCore) { // Throw exception when we cant load core functions
-								ctor.WriteLine($"if (version >= V{cmd.Spec.FeatureVersion!.Value}) {{");
+								if (cmd.Spec.FeatureVersion!.Value > 10) {
+									ctor.WriteLine($"if (version >= V{cmd.Spec.FeatureVersion!.Value}) {{");
+								}
 								ctor.WriteLine($"\t{cmd.Name} =");
 								ctor.WriteLine($"\t\t({cmd.PtrPrototype})LoadFunc(inst, \"{cmd.Name}\");");
-								ctor.WriteLine("}");
+								if (cmd.Spec.FeatureVersion!.Value > 10) {
+									ctor.WriteLine("}");
+								}
 							}
 							else { // Don't throw exception for vendor functions
 								ctor.WriteLine($"if (TryLoadFunc(inst, \"{cmd.Name}\", out addr)) {{");
@@ -567,10 +571,10 @@ namespace Gen
 						}
 						// Function table, Instance/Device
 						if ((handleSpec.Name == "Instance")) {
-							ctor.WriteLine("Functions = new(handle, apiVersion);");
+							ctor.WriteLine("Functions = handle ? new(handle, apiVersion) : new();");
 						}
 						else if (handleSpec.Name == "Device") {
-							ctor.WriteLine("Functions = new(handle, parent.Instance.Functions.CoreVersion);");
+							ctor.WriteLine("Functions = handle ? new(handle, parent.Instance.Functions.CoreVersion) : new();");
 							ctor.WriteLine("Instance = parent.Instance;");
 						}
 						else {
@@ -606,16 +610,17 @@ namespace Gen
 						handleBlock.WriteLine($"/// <summary>{cmd.Name}</summary>");
 						handleBlock.WriteLine( "[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 						handleBlock.WriteLine( cmd.SigStr);
+						handleBlock.WriteLine( "{");
+						handleBlock.WriteLine($"\tif ({cmd.FuncTable}.{cmd.Name} == null) throw new Vk.Extras.FunctionNotLoadedException(\"{cmd.Name}\");");
 						if (!cmd.Long) {
-							handleBlock.WriteLine($"\t=> {cmd.CallStr};");
+							handleBlock.WriteLine($"\t{cmd.CallStr};");
 						}
 						else {
-							handleBlock.WriteLine("{");
 							foreach (var line in cmd.CallStr.Split('\n')) {
 								handleBlock.WriteLine('\t' + line);
 							}
-							handleBlock.WriteLine("}");
 						}
+						handleBlock.WriteLine("}");
 						handleBlock.WriteLine();
 					}
 				}

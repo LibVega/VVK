@@ -50,32 +50,50 @@ public unsafe partial class ValidationCache : IHandleType<ValidationCache>
 	/// <summary>vkDestroyValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyValidationCacheEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyValidationCacheEXT(Device.Handle, Handle, pAllocator);
+	{
+		if (Functions.vkDestroyValidationCacheEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyValidationCacheEXT");
+		Functions.vkDestroyValidationCacheEXT(Device.Handle, Handle, pAllocator);
+	}
 
 	/// <summary>vkDestroyValidationCacheEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyValidationCacheEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyValidationCacheEXT(Device.Handle, Handle, allocator);
+	{
+		if (Functions.vkDestroyValidationCacheEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyValidationCacheEXT");
+		Functions.DestroyValidationCacheEXT(Device.Handle, Handle, allocator);
+	}
 
 	/// <summary>vkGetValidationCacheDataEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetValidationCacheDataEXT(ulong* pDataSize, void* pData)
-		=> Functions.vkGetValidationCacheDataEXT(Device.Handle, Handle, pDataSize, pData);
+	{
+		if (Functions.vkGetValidationCacheDataEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetValidationCacheDataEXT");
+		return Functions.vkGetValidationCacheDataEXT(Device.Handle, Handle, pDataSize, pData);
+	}
 
 	/// <summary>vkGetValidationCacheDataEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result GetValidationCacheDataEXT(out ulong dataSize, void* pData)
-		=> Functions.GetValidationCacheDataEXT(Device.Handle, Handle, out dataSize, pData);
+	{
+		if (Functions.vkGetValidationCacheDataEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetValidationCacheDataEXT");
+		return Functions.GetValidationCacheDataEXT(Device.Handle, Handle, out dataSize, pData);
+	}
 
 	/// <summary>vkMergeValidationCachesEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result MergeValidationCachesEXT(uint srcCacheCount, Vk.Handle<Vk.EXT.ValidationCache>* pSrcCaches)
-		=> Functions.vkMergeValidationCachesEXT(Device.Handle, Handle, srcCacheCount, pSrcCaches);
+	{
+		if (Functions.vkMergeValidationCachesEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkMergeValidationCachesEXT");
+		return Functions.vkMergeValidationCachesEXT(Device.Handle, Handle, srcCacheCount, pSrcCaches);
+	}
 
 	/// <summary>vkMergeValidationCachesEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result MergeValidationCachesEXT(in ReadOnlySpan<Vk.Handle<Vk.EXT.ValidationCache>> srcCaches)
-		=> Functions.MergeValidationCachesEXT(Device.Handle, Handle, srcCaches);
+	{
+		if (Functions.vkMergeValidationCachesEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkMergeValidationCachesEXT");
+		return Functions.MergeValidationCachesEXT(Device.Handle, Handle, srcCaches);
+	}
 
 }
 
@@ -115,12 +133,18 @@ public unsafe partial class PrivateDataSlot : IHandleType<PrivateDataSlot>
 	/// <summary>vkDestroyPrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPrivateDataSlotEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyPrivateDataSlotEXT(Device.Handle, Handle, pAllocator);
+	{
+		if (Functions.vkDestroyPrivateDataSlotEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyPrivateDataSlotEXT");
+		Functions.vkDestroyPrivateDataSlotEXT(Device.Handle, Handle, pAllocator);
+	}
 
 	/// <summary>vkDestroyPrivateDataSlotEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPrivateDataSlotEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyPrivateDataSlotEXT(Device.Handle, Handle, allocator);
+	{
+		if (Functions.vkDestroyPrivateDataSlotEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyPrivateDataSlotEXT");
+		Functions.DestroyPrivateDataSlotEXT(Device.Handle, Handle, allocator);
+	}
 
 }
 
@@ -158,12 +182,18 @@ public unsafe partial class DebugReportCallback : IHandleType<DebugReportCallbac
 	/// <summary>vkDestroyDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugReportCallbackEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyDebugReportCallbackEXT(Instance.Handle, Handle, pAllocator);
+	{
+		if (Functions.vkDestroyDebugReportCallbackEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyDebugReportCallbackEXT");
+		Functions.vkDestroyDebugReportCallbackEXT(Instance.Handle, Handle, pAllocator);
+	}
 
 	/// <summary>vkDestroyDebugReportCallbackEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugReportCallbackEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyDebugReportCallbackEXT(Instance.Handle, Handle, allocator);
+	{
+		if (Functions.vkDestroyDebugReportCallbackEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyDebugReportCallbackEXT");
+		Functions.DestroyDebugReportCallbackEXT(Instance.Handle, Handle, allocator);
+	}
 
 }
 
@@ -201,12 +231,18 @@ public unsafe partial class DebugUtilsMessenger : IHandleType<DebugUtilsMessenge
 	/// <summary>vkDestroyDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugUtilsMessengerEXT(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyDebugUtilsMessengerEXT(Instance.Handle, Handle, pAllocator);
+	{
+		if (Functions.vkDestroyDebugUtilsMessengerEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyDebugUtilsMessengerEXT");
+		Functions.vkDestroyDebugUtilsMessengerEXT(Instance.Handle, Handle, pAllocator);
+	}
 
 	/// <summary>vkDestroyDebugUtilsMessengerEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDebugUtilsMessengerEXT(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyDebugUtilsMessengerEXT(Instance.Handle, Handle, allocator);
+	{
+		if (Functions.vkDestroyDebugUtilsMessengerEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyDebugUtilsMessengerEXT");
+		Functions.DestroyDebugUtilsMessengerEXT(Instance.Handle, Handle, allocator);
+	}
 
 }
 

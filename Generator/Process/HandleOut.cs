@@ -38,7 +38,7 @@ namespace Gen
 			"vkGetRandROutputDisplayEXT", "vkGetDeviceQueue"
 		};
 
-		public record HandleCommand(string Name, string SigStr, string CallStr, bool Long);
+		public record HandleCommand(string Name, string FuncTable, string SigStr, string CallStr, bool Long);
 
 		#region Fields
 		// The spec that this handle was processed from
@@ -200,10 +200,12 @@ namespace Gen
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Select(arg => $"{arg.Type} {arg.Name}"));
 			var callStr = String.Join(", ", 
 				(alt ? cmd.AlternateArgs! : cmd.Arguments).Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
+			var ret = cmd.ReturnType != "void";
 			return new(
 				cmd.Name,
+				"InstanceFunctionTable",
 				$"public static {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
-				$"InstanceFunctionTable.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}InstanceFunctionTable.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
 				false
 			);			
 		}
@@ -218,10 +220,12 @@ namespace Gen
 			if (callStr.EndsWith(", ")) {
 				callStr = "Handle";
 			}
+			var ret = cmd.ReturnType != "void";
 			return new(
 				cmd.Name,
+				"Functions",
 				$"public {cmd.ReturnType} {cmd.Name.Substring("vkCmd".Length)}({argStr})",
-				$"Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
 				false
 			);
 		}
@@ -239,10 +243,12 @@ namespace Gen
 				_ => "Parent.Handle"
 			};
 			callStr = call0 + ", Handle" + (callStr.Length > 0 ? $", {callStr}" : "");
+			var ret = cmd.ReturnType != "void";
 			return new(
 				cmd.Name,
+				"Functions",
 				$"public {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
-				$"Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
 				false
 			);
 		}
@@ -257,10 +263,12 @@ namespace Gen
 			if (callStr.EndsWith(", ")) {
 				callStr = "Handle";
 			}
+			var ret = cmd.ReturnType != "void";
 			return new(
 				cmd.Name,
+				"Functions",
 				$"public {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
-				$"Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
 				false
 			);
 		}
@@ -292,6 +300,7 @@ namespace Gen
 			var fnTable = global ? "InstanceFunctionTable" : "Functions";
 			return new(
 				cmd.Name,
+				fnTable,
 				$"public{(global ? " static" : "")} {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
 				(cmd.Name == "vkCreateInstance") // Singular unique case that requires the api version as arg
 					? (

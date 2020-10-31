@@ -50,12 +50,18 @@ public unsafe partial class IndirectCommandsLayout : IHandleType<IndirectCommand
 	/// <summary>vkDestroyIndirectCommandsLayoutNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyIndirectCommandsLayoutNV(Vk.AllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyIndirectCommandsLayoutNV(Device.Handle, Handle, pAllocator);
+	{
+		if (Functions.vkDestroyIndirectCommandsLayoutNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyIndirectCommandsLayoutNV");
+		Functions.vkDestroyIndirectCommandsLayoutNV(Device.Handle, Handle, pAllocator);
+	}
 
 	/// <summary>vkDestroyIndirectCommandsLayoutNV</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyIndirectCommandsLayoutNV(in Vk.AllocationCallbacks allocator)
-		=> Functions.DestroyIndirectCommandsLayoutNV(Device.Handle, Handle, allocator);
+	{
+		if (Functions.vkDestroyIndirectCommandsLayoutNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyIndirectCommandsLayoutNV");
+		Functions.DestroyIndirectCommandsLayoutNV(Device.Handle, Handle, allocator);
+	}
 
 }
 

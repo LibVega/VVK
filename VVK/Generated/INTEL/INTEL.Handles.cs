@@ -50,7 +50,10 @@ public unsafe partial class PerformanceConfiguration : IHandleType<PerformanceCo
 	/// <summary>vkReleasePerformanceConfigurationINTEL</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result ReleasePerformanceConfigurationINTEL()
-		=> Functions.vkReleasePerformanceConfigurationINTEL(Device.Handle, Handle);
+	{
+		if (Functions.vkReleasePerformanceConfigurationINTEL == null) throw new Vk.Extras.FunctionNotLoadedException("vkReleasePerformanceConfigurationINTEL");
+		return Functions.vkReleasePerformanceConfigurationINTEL(Device.Handle, Handle);
+	}
 
 }
 

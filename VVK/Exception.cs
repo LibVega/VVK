@@ -45,4 +45,21 @@ namespace Vk.Extras
 			UserMessage = userMsg;
 		}
 	}
+
+	/// <summary>
+	/// Exception that is thrown when attempting to call an API function that was not loaded.
+	/// </summary>
+	public sealed class FunctionNotLoadedException : Exception
+	{
+		/// <summary>
+		/// The name of the function that was called without being loaded.
+		/// </summary>
+		public readonly string Function;
+
+		internal FunctionNotLoadedException(string fn)
+			: base($"Attempt to call null function '{fn}'")
+		{
+			Function = fn;
+		}
+	}
 }
