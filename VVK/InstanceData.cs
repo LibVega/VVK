@@ -29,17 +29,17 @@ namespace Vk
 		/// <summary>
 		/// The list of physical devices available to the instance.
 		/// </summary>
-		public IReadOnlyCollection<Vk.PhysicalDevice> PhysicalDevices => _devices;
+		public IReadOnlyList<Vk.PhysicalDevice> PhysicalDevices => _devices;
 		private readonly Vk.PhysicalDevice[] _devices;
 		/// <summary>
 		/// The list of names of extensions supported by the instance.
 		/// </summary>
-		public IReadOnlyCollection<string> ExtensionNames => _extensions;
+		public IReadOnlyList<string> ExtensionNames => _extensions;
 		private readonly string[] _extensions;
 		/// <summary>
 		/// The list of names of debug layers supported by the instance.
 		/// </summary>
-		public IReadOnlyCollection<string> LayerNames => _layers;
+		public IReadOnlyList<string> LayerNames => _layers;
 		private readonly string[] _layers;
 		#endregion // Fields
 

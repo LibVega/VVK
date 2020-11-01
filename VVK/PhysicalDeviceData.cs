@@ -66,12 +66,12 @@ namespace Vk
 		/// <summary>
 		/// The memory types supported by the device.
 		/// </summary>
-		public IReadOnlyCollection<Vk.MemoryType> MemoryTypes => _memoryTypes;
+		public IReadOnlyList<Vk.MemoryType> MemoryTypes => _memoryTypes;
 		private readonly Vk.MemoryType[] _memoryTypes;
 		/// <summary>
 		/// The memory heaps available to the device.
 		/// </summary>
-		public IReadOnlyCollection<Vk.MemoryHeap> MemoryHeaps => _memoryHeaps;
+		public IReadOnlyList<Vk.MemoryHeap> MemoryHeaps => _memoryHeaps;
 		private readonly Vk.MemoryHeap[] _memoryHeaps;
 		/// <summary>
 		/// The number of memory types supported by the device.
@@ -93,7 +93,7 @@ namespace Vk
 		/// <summary>
 		/// The queue families available on the device.
 		/// </summary>
-		public IReadOnlyCollection<Vk.QueueFamilyProperties> QueueFamilies => _queueFamilies;
+		public IReadOnlyList<Vk.QueueFamilyProperties> QueueFamilies => _queueFamilies;
 		private readonly Vk.QueueFamilyProperties[] _queueFamilies;
 		/// <summary>
 		/// The number of queue families available on the device.
