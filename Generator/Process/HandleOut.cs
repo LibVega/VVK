@@ -31,7 +31,8 @@ namespace Gen
 			{ "vkGetPhysicalDeviceSurfaceFormatsKHR", "PhysicalDevice" },
 			{ "vkGetPhysicalDeviceSurfacePresentModesKHR", "PhysicalDevice" },
 			{ "vkGetPhysicalDeviceSurfaceCapabilities2EXT", "PhysicalDevice" },
-			{ "vkGetPhysicalDevicePresentRectanglesKHR", "PhysicalDevice" }
+			{ "vkGetPhysicalDevicePresentRectanglesKHR", "PhysicalDevice" },
+			{ "EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR", "PhysicalDevice" }
 		};
 		// A few object creation commands create identical signatures for alt functions
 		private static readonly List<string> NO_ALT_CREATE_COMMAND = new() {
@@ -114,14 +115,14 @@ namespace Gen
 
 			// All global commands go in instance
 			if ((cmd.CommandScope == CommandScope.Global) && Name == "Instance") {
-				_commands.Add(MakeGlobalCommand(cmd, false));
+				_commands.Add(MakeGlobalCommand(cmd, cmd.Arguments));
 				if (cmd.IsObjectCreating) {
-					_commands.Add(MakeObjectCreatingCommand(cmd, true, 0, false));
+					_commands.Add(MakeObjectCreatingCommand(cmd, cmd.Arguments, true, 0, false));
 				}
 				if (cmd.AlternateArgs is not null) {
-					_commands.Add(MakeGlobalCommand(cmd, true));
+					_commands.Add(MakeGlobalCommand(cmd, cmd.AlternateArgs[0]));
 					if (cmd.IsObjectCreating && !noaltcreate) {
-						_commands.Add(MakeObjectCreatingCommand(cmd, true, 0, true));
+						_commands.Add(MakeObjectCreatingCommand(cmd, cmd.AlternateArgs[0], true, 0, true));
 					}
 				}
 				return true;
@@ -129,9 +130,9 @@ namespace Gen
 
 			// All "vkCmd*" automatically are part of command buffer (no object creating commands)
 			if (cmd.Name.StartsWith("vkCmd") && (Name == "CommandBuffer")) {
-				_commands.Add(MakeCommandBufferCommand(cmd, false));
+				_commands.Add(MakeCommandBufferCommand(cmd, cmd.Arguments));
 				if (cmd.AlternateArgs is not null) {
-					_commands.Add(MakeCommandBufferCommand(cmd, true));
+					_commands.Add(MakeCommandBufferCommand(cmd, cmd.AlternateArgs[0]));
 				}
 				return true;
 			}
@@ -139,14 +140,14 @@ namespace Gen
 			// All arg2 overrides are treated as first arg commands
 			if (ARG_OVERRIDES.TryGetValue(cmd.Name, out var otype)) {
 				if (otype == Name) {
-					_commands.Add(MakeFirstArgCommand(cmd, false));
+					_commands.Add(MakeFirstArgCommand(cmd, cmd.Arguments));
 					if (cmd.IsObjectCreating) {
-						_commands.Add(MakeObjectCreatingCommand(cmd, false, 1, false));
+						_commands.Add(MakeObjectCreatingCommand(cmd, cmd.Arguments, false, 1, false));
 					}
 					if (cmd.AlternateArgs is not null) {
-						_commands.Add(MakeFirstArgCommand(cmd, true));
+						_commands.Add(MakeFirstArgCommand(cmd, cmd.AlternateArgs[0]));
 						if (cmd.IsObjectCreating && !noaltcreate) {
-							_commands.Add(MakeObjectCreatingCommand(cmd, false, 1, true));
+							_commands.Add(MakeObjectCreatingCommand(cmd, cmd.AlternateArgs[0], false, 1, true));
 						}
 					}
 					return true;
@@ -163,14 +164,17 @@ namespace Gen
 					cmd.Name.StartsWith("vkRelease"))) {
 				var hname = cmd.Arguments[1].Type.Substring("Vk.Handle<".Length).TrimEnd('>');
 				if (hname == ProcessedName) {
-					_commands.Add(MakeSecondArgCommand(Parent!, cmd, false));
+					_commands.Add(MakeSecondArgCommand(cmd, cmd.Arguments));
 					if (cmd.IsObjectCreating) {
-						_commands.Add(MakeObjectCreatingCommand(cmd, false, 2, false));
+						_commands.Add(MakeObjectCreatingCommand(cmd, cmd.Arguments, false, 2, false));
 					}
 					if (cmd.AlternateArgs is not null) {
-						_commands.Add(MakeSecondArgCommand(Parent!, cmd, true));
+						_commands.Add(MakeSecondArgCommand(cmd, cmd.AlternateArgs[0]));
 						if (cmd.IsObjectCreating && !noaltcreate) {
-							_commands.Add(MakeObjectCreatingCommand(cmd, false, 2, true));
+							_commands.Add(MakeObjectCreatingCommand(cmd, cmd.AlternateArgs[0], false, 2, true));
+						}
+						if (cmd.AlternateArgs.Count > 1) {
+							_commands.Add(MakeSecondArgCommand(cmd, cmd.AlternateArgs[1]));
 						}
 					}
 					return true;
@@ -182,14 +186,17 @@ namespace Gen
 			if ((cmd.Arguments.Count >= 1) && cmd.Arguments[0].Type.StartsWith("Vk.Handle<")) {
 				var hname = cmd.Arguments[0].Type.Substring("Vk.Handle<".Length);
 				if (hname.TrimEnd('>') == ProcessedName) {
-					_commands.Add(MakeFirstArgCommand(cmd, false));
+					_commands.Add(MakeFirstArgCommand(cmd, cmd.Arguments));
 					if (cmd.IsObjectCreating) {
-						_commands.Add(MakeObjectCreatingCommand(cmd, false, 1, false));
+						_commands.Add(MakeObjectCreatingCommand(cmd, cmd.Arguments, false, 1, false));
 					}
 					if (cmd.AlternateArgs is not null) {
-						_commands.Add(MakeFirstArgCommand(cmd, true));
+						_commands.Add(MakeFirstArgCommand(cmd, cmd.AlternateArgs[0]));
 						if (cmd.IsObjectCreating && !noaltcreate) {
-							_commands.Add(MakeObjectCreatingCommand(cmd, false, 1, true));
+							_commands.Add(MakeObjectCreatingCommand(cmd, cmd.AlternateArgs[0], false, 1, true));
+						}
+						if (cmd.AlternateArgs.Count > 1) {
+							_commands.Add(MakeFirstArgCommand(cmd, cmd.AlternateArgs[1]));
 						}
 					}
 					return true;
@@ -199,28 +206,24 @@ namespace Gen
 			return false;
 		}
 
-		private static HandleCommand MakeGlobalCommand(CommandOut cmd, bool alt)
+		private static HandleCommand MakeGlobalCommand(CommandOut cmd, List<CommandOut.Argument> args)
 		{
-			var argStr = String.Join(", ", 
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Select(arg => $"{arg.Type} {arg.Name}"));
-			var callStr = String.Join(", ", 
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
+			var argStr = String.Join(", ", args.Select(arg => $"{arg.Type} {arg.Name}"));
+			var callStr = String.Join(", ", args.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			var ret = cmd.ReturnType != "void";
 			return new(
 				cmd.Name,
 				"InstanceFunctionTable",
 				$"public static {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
-				$"{(ret ? "return " : "")}InstanceFunctionTable.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}InstanceFunctionTable.{cmd.Name.Substring(2)}({callStr})",
 				false
 			);			
 		}
 
-		private static HandleCommand MakeCommandBufferCommand(CommandOut cmd, bool alt)
+		private static HandleCommand MakeCommandBufferCommand(CommandOut cmd, List<CommandOut.Argument> args)
 		{
-			var argStr = String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
-			var callStr = "Handle, " + String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1)
+			var argStr = String.Join(", ", args.Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
+			var callStr = "Handle, " + String.Join(", ", args.Skip(1)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			if (callStr.EndsWith(", ")) {
 				callStr = "Handle";
@@ -230,17 +233,15 @@ namespace Gen
 				cmd.Name,
 				"Functions",
 				$"public {cmd.ReturnType} {cmd.Name.Substring("vkCmd".Length)}({argStr})",
-				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(2)}({callStr})",
 				false
 			);
 		}
 
-		private static HandleCommand MakeSecondArgCommand(HandleOut parent, CommandOut cmd, bool alt)
+		private static HandleCommand MakeSecondArgCommand(CommandOut cmd, List<CommandOut.Argument> args)
 		{
-			var argStr = String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(2).Select(arg => $"{arg.Type} {arg.Name}"));
-			var callStr = String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(2)
+			var argStr = String.Join(", ", args.Skip(2).Select(arg => $"{arg.Type} {arg.Name}"));
+			var callStr = String.Join(", ", args.Skip(2)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			var call0 = cmd.Arguments[0].Type.Substring("Vk.Handle<".Length).TrimEnd('>') switch { 
 				"Vk.Instance" => "Instance.Handle",
@@ -253,17 +254,15 @@ namespace Gen
 				cmd.Name,
 				"Functions",
 				$"public {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
-				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(2)}({callStr})",
 				false
 			);
 		}
 
-		private static HandleCommand MakeFirstArgCommand(CommandOut cmd, bool alt)
+		private static HandleCommand MakeFirstArgCommand(CommandOut cmd, List<CommandOut.Argument> args)
 		{
-			var argStr = String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
-			var callStr = "Handle, " + String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(1)
+			var argStr = String.Join(", ", args.Skip(1).Select(arg => $"{arg.Type} {arg.Name}"));
+			var callStr = "Handle, " + String.Join(", ", args.Skip(1)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			if (callStr.EndsWith(", ")) {
 				callStr = "Handle";
@@ -273,21 +272,19 @@ namespace Gen
 				cmd.Name,
 				"Functions",
 				$"public {cmd.ReturnType} {cmd.Name.Substring("vk".Length)}({argStr})",
-				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr})",
+				$"{(ret ? "return " : "")}Functions.{cmd.Name.Substring(2)}({callStr})",
 				false
 			);
 		}
 
-		private static HandleCommand MakeObjectCreatingCommand(CommandOut cmd, bool global, int skip, bool alt)
+		private static HandleCommand MakeObjectCreatingCommand(CommandOut cmd, List<CommandOut.Argument> args, bool global, int skip, bool alt)
 		{
 			var last = cmd.Arguments.Last();
 			var lastType = last.Type.Substring("Vk.Handle<".Length).TrimEnd('>', '*');
 
-			var argStr = String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(skip).SkipLast(1).Select(arg => $"{arg.Type} {arg.Name}"));
+			var argStr = String.Join(", ", args.Skip(skip).SkipLast(1).Select(arg => $"{arg.Type} {arg.Name}"));
 			argStr += $", out {lastType} {last.Name}";
-			var callStr = String.Join(", ",
-				(alt ? cmd.AlternateArgs! : cmd.Arguments).Skip(skip).SkipLast(1)
+			var callStr = String.Join(", ", args.Skip(skip).SkipLast(1)
 					.Select(arg => arg.Type.StartsWith("out ") ? "out " + arg.Name : arg.Name));
 			callStr += (alt ? ", out HANDLE" : ", &HANDLE");
 			if (skip >= 1) {
@@ -311,20 +308,20 @@ namespace Gen
 					? (
 						$"Vk.Version APIV = new({(alt ? "createInfo." : "pCreateInfo->")}ApplicationInfo->ApiVersion);\n" +
 						$"Vk.Handle<{lastType}> HANDLE;\n" +
-						$"var RESULT = {fnTable}.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr});\n" +
+						$"var RESULT = {fnTable}.{cmd.Name.Substring(2)}({callStr});\n" +
 						$"{last.Name} = (RESULT == Result.Success) ? new(HANDLE, APIV) : {lastType}.Null;\n" +
 						"return RESULT;"
 					)
 					: (cmd.ReturnType != "void")
 					? (
 						$"Vk.Handle<{lastType}> HANDLE;\n" +
-						$"var RESULT = {fnTable}.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr});\n" +
+						$"var RESULT = {fnTable}.{cmd.Name.Substring(2)}({callStr});\n" +
 						$"{last.Name} = (RESULT == Result.Success) ? new({(global ? "" : "this, ")}HANDLE) : {lastType}.Null;\n" +
 						"return RESULT;"
 					)
 					: (
 						$"Vk.Handle<{lastType}> HANDLE;\n" +
-						$"{fnTable}.{cmd.Name.Substring(alt ? "vk".Length : 0)}({callStr});\n" +
+						$"{fnTable}.{cmd.Name.Substring(2)}({callStr});\n" +
 						$"{last.Name} = new({(global ? "" : "this, ")}HANDLE);"
 					),
 				true

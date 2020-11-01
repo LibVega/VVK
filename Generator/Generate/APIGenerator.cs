@@ -267,23 +267,60 @@ namespace Gen
 
 				// Alternate function
 				if (cmd.AlternateArgs is not null) {
-					var altArgStr = String.Join(", ", cmd.AlternateArgs.Select(arg => $"{arg.Type} {arg.Name}"));
-					var altCallStr = String.Join(", ", cmd.AlternateArgs.Select(arg => arg.UseStr));
-					block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
-					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-					using (var func = block.PushBlock($"public {(glob ? "static " : "")}{cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({altArgStr})")) {
-						foreach (var arg in cmd.AlternateArgs.Where(a => a.UseStr.EndsWith("FIXED"))) {
-							if (arg.Type.Contains("Span<")) {
-								var tstr = arg.Type.Substring(arg.Type.IndexOf('<') + 1);
-								tstr = tstr.Substring(0, tstr.Length - 1);
-								func.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = {arg.Name})");
+					foreach (var altArgs in cmd.AlternateArgs) {
+						var altArgStr = String.Join(", ", altArgs.Select(arg => $"{arg.Type} {arg.Name}"));
+						var altCallStr = String.Join(", ", altArgs.Select(arg => arg.UseStr));
+						block.WriteLine($"/// <summary>{cmd.Name}({typeStr})</summary>");
+						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						using (var func = block.PushBlock($"public {(glob ? "static " : "")}{cmd.ReturnType} {cmd.Name.Substring("Vk".Length)}({altArgStr})")) {
+							bool anyFixed = false;
+							foreach (var arg in altArgs.Where(a => a.UseStr.EndsWith("FIXED") && !a.Type.Contains("[]"))) {
+								if (arg.Type.Contains("Span<")) {
+									var tstr = arg.Type.Substring(arg.Type.IndexOf('<') + 1);
+									tstr = tstr.Substring(0, tstr.Length - 1);
+									func.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = {arg.Name})");
+								}
+								else {
+									var tstr = arg.Type.Substring(arg.Type.IndexOf(' ') + 1);
+									func.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = &{arg.Name})");
+								}
+								anyFixed = true;
 							}
-							else {
-								var tstr = arg.Type.Substring(arg.Type.IndexOf(' ') + 1);
-								func.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = &{arg.Name})");
+
+							SourceBlock fixedBlock = anyFixed ? func.PushBlock(null) : func;
+							if (altArgs.Last().Type.Contains("[]")) {
+								var firstCallStr = String.Join(", ", altArgs.SkipLast(1).Select(arg => arg.UseStr))
+									+ ", &COUNT, null";
+								if (firstCallStr.StartsWith(',')) {
+									firstCallStr = firstCallStr.Substring(", ".Length);
+								}
+								fixedBlock.WriteLine("uint COUNT = 0;");
+								if (cmd.ReturnType == "Vk.Result") {
+									fixedBlock.WriteLine($"var res = {cmd.Name}({firstCallStr});");
+									fixedBlock.WriteLine( "if (res != Vk.Result.Success) {");
+									fixedBlock.WriteLine($"\t{altArgs.Last().Name} = Array.Empty<{altArgs.Last().Type.Substring("out ".Length).TrimEnd('[', ']')}>();");
+									fixedBlock.WriteLine( "\treturn res;");
+									fixedBlock.WriteLine("}");
+								}
+								else {
+									fixedBlock.WriteLine($"{cmd.Name}({firstCallStr});");
+								}
+								fixedBlock.WriteLine($"{altArgs.Last().Name} = new {altArgs.Last().Type.Substring("out ".Length).TrimEnd('[', ']')}[COUNT];");
+							}
+
+							foreach (var arg in altArgs.Where(a => a.UseStr.StartsWith('&') && !a.UseStr.Contains("COUNT"))) {
+								fixedBlock.WriteLine($"uint {arg.UseStr.Split(',')[0].Substring(1)} = (uint){arg.Name}.Length;");
+							}
+							foreach (var arg in altArgs.Where(a => a.Type.Contains("[]"))) {
+								var tstr = arg.Type.Substring("out ".Length).TrimEnd('[', ']');
+								fixedBlock.WriteLine($"fixed ({tstr}* {arg.Name}FIXED = {arg.Name})");
+							}
+							fixedBlock.WriteLine($"{((cmd.ReturnType != "void") ? "return " : "")}{cmd.Name}({altCallStr});");
+
+							if (!ReferenceEquals(fixedBlock, func)) {
+								fixedBlock.Dispose();
 							}
 						}
-						func.WriteLine($"{((cmd.ReturnType != "void") ? "return " : "")}{cmd.Name}({altCallStr});");
 					}
 				}
 			}

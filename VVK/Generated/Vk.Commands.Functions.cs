@@ -28,7 +28,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.InstanceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Instance>* instanceFIXED = &instance)
-		return vkCreateInstance(createInfoFIXED, allocatorFIXED, instanceFIXED);
+		{
+			return vkCreateInstance(createInfoFIXED, allocatorFIXED, instanceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceProcAddr(<c>Vk.Handle<Vk.Device></c>, <c>byte*</c>)</summary>
@@ -65,7 +68,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public static Vk.Result EnumerateInstanceVersion(out uint apiVersion)
 	{
 		fixed (uint* apiVersionFIXED = &apiVersion)
-		return vkEnumerateInstanceVersion(apiVersionFIXED);
+		{
+			return vkEnumerateInstanceVersion(apiVersionFIXED);
+		}
+
 	}
 
 	/// <summary>vkEnumerateInstanceLayerProperties(<c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
@@ -75,11 +81,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateInstanceLayerProperties(<c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceLayerProperties(out uint propertyCount, in Span<Vk.LayerProperties> properties)
+	public static Vk.Result EnumerateInstanceLayerProperties(in Span<Vk.LayerProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.LayerProperties* propertiesFIXED = properties)
-		return vkEnumerateInstanceLayerProperties(propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkEnumerateInstanceLayerProperties(&propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkEnumerateInstanceLayerProperties(<c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result EnumerateInstanceLayerProperties(out Vk.LayerProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkEnumerateInstanceLayerProperties(&COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.LayerProperties>();
+			return res;
+		}
+		properties = new Vk.LayerProperties[COUNT];
+		fixed (Vk.LayerProperties* propertiesFIXED = properties)
+		return vkEnumerateInstanceLayerProperties(&COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
@@ -89,11 +113,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, in Span<Vk.ExtensionProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
-		return vkEnumerateInstanceExtensionProperties(layerName.Data, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkEnumerateInstanceExtensionProperties(layerName.Data, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, out Vk.ExtensionProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkEnumerateInstanceExtensionProperties(layerName.Data, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.ExtensionProperties>();
+			return res;
+		}
+		properties = new Vk.ExtensionProperties[COUNT];
+		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
+		return vkEnumerateInstanceExtensionProperties(layerName.Data, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkDestroyInstance(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -106,7 +148,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void DestroyInstance(Vk.Handle<Vk.Instance> instance, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyInstance(instance, allocatorFIXED);
+		{
+			vkDestroyInstance(instance, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkEnumeratePhysicalDevices(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.Handle<Vk.PhysicalDevice>*</c>)</summary>
@@ -116,11 +161,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumeratePhysicalDevices(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.Handle<Vk.PhysicalDevice>*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDevices(Vk.Handle<Vk.Instance> instance, out uint physicalDeviceCount, in Span<Vk.Handle<Vk.PhysicalDevice>> physicalDevices)
+	public Vk.Result EnumeratePhysicalDevices(Vk.Handle<Vk.Instance> instance, in Span<Vk.Handle<Vk.PhysicalDevice>> physicalDevices)
 	{
-		fixed (uint* physicalDeviceCountFIXED = &physicalDeviceCount)
 		fixed (Vk.Handle<Vk.PhysicalDevice>* physicalDevicesFIXED = physicalDevices)
-		return vkEnumeratePhysicalDevices(instance, physicalDeviceCountFIXED, physicalDevicesFIXED);
+		{
+			uint physicalDevicesLength = (uint)physicalDevices.Length;
+			return vkEnumeratePhysicalDevices(instance, &physicalDevicesLength, physicalDevicesFIXED);
+		}
+
+	}
+
+	/// <summary>vkEnumeratePhysicalDevices(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.Handle<Vk.PhysicalDevice>*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDevices(Vk.Handle<Vk.Instance> instance, out Vk.Handle<Vk.PhysicalDevice>[] physicalDevices)
+	{
+		uint COUNT = 0;
+		var res = vkEnumeratePhysicalDevices(instance, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			physicalDevices = Array.Empty<Vk.Handle<Vk.PhysicalDevice>>();
+			return res;
+		}
+		physicalDevices = new Vk.Handle<Vk.PhysicalDevice>[COUNT];
+		fixed (Vk.Handle<Vk.PhysicalDevice>* physicalDevicesFIXED = physicalDevices)
+		return vkEnumeratePhysicalDevices(instance, &COUNT, physicalDevicesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceProperties*</c>)</summary>
@@ -133,7 +196,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceProperties properties)
 	{
 		fixed (Vk.PhysicalDeviceProperties* propertiesFIXED = &properties)
-		vkGetPhysicalDeviceProperties(physicalDevice, propertiesFIXED);
+		{
+			vkGetPhysicalDeviceProperties(physicalDevice, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties*</c>)</summary>
@@ -143,11 +209,25 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetPhysicalDeviceQueueFamilyProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint queueFamilyPropertyCount, in Span<Vk.QueueFamilyProperties> queueFamilyProperties)
+	public void GetPhysicalDeviceQueueFamilyProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.QueueFamilyProperties> queueFamilyProperties)
 	{
-		fixed (uint* queueFamilyPropertyCountFIXED = &queueFamilyPropertyCount)
 		fixed (Vk.QueueFamilyProperties* queueFamilyPropertiesFIXED = queueFamilyProperties)
-		vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, queueFamilyPropertyCountFIXED, queueFamilyPropertiesFIXED);
+		{
+			uint queueFamilyPropertiesLength = (uint)queueFamilyProperties.Length;
+			vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyPropertiesLength, queueFamilyPropertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.QueueFamilyProperties[] queueFamilyProperties)
+	{
+		uint COUNT = 0;
+		vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &COUNT, null);
+		queueFamilyProperties = new Vk.QueueFamilyProperties[COUNT];
+		fixed (Vk.QueueFamilyProperties* queueFamilyPropertiesFIXED = queueFamilyProperties)
+		vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &COUNT, queueFamilyPropertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceMemoryProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceMemoryProperties*</c>)</summary>
@@ -160,7 +240,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceMemoryProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceMemoryProperties memoryProperties)
 	{
 		fixed (Vk.PhysicalDeviceMemoryProperties* memoryPropertiesFIXED = &memoryProperties)
-		vkGetPhysicalDeviceMemoryProperties(physicalDevice, memoryPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceMemoryProperties(physicalDevice, memoryPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceFeatures(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceFeatures*</c>)</summary>
@@ -173,7 +256,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceFeatures(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceFeatures features)
 	{
 		fixed (Vk.PhysicalDeviceFeatures* featuresFIXED = &features)
-		vkGetPhysicalDeviceFeatures(physicalDevice, featuresFIXED);
+		{
+			vkGetPhysicalDeviceFeatures(physicalDevice, featuresFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceFormatProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.FormatProperties*</c>)</summary>
@@ -186,7 +272,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceFormatProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, out Vk.FormatProperties formatProperties)
 	{
 		fixed (Vk.FormatProperties* formatPropertiesFIXED = &formatProperties)
-		vkGetPhysicalDeviceFormatProperties(physicalDevice, format, formatPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceFormatProperties(physicalDevice, format, formatPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceImageFormatProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.ImageTiling</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageCreateFlags</c>, <c>Vk.ImageFormatProperties*</c>)</summary>
@@ -199,7 +288,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetPhysicalDeviceImageFormatProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, out Vk.ImageFormatProperties imageFormatProperties)
 	{
 		fixed (Vk.ImageFormatProperties* imageFormatPropertiesFIXED = &imageFormatProperties)
-		return vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, imageFormatPropertiesFIXED);
+		{
+			return vkGetPhysicalDeviceImageFormatProperties(physicalDevice, format, type, tiling, usage, flags, imageFormatPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateDevice(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.DeviceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Device>*</c>)</summary>
@@ -214,7 +306,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.DeviceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Device>* deviceFIXED = &device)
-		return vkCreateDevice(physicalDevice, createInfoFIXED, allocatorFIXED, deviceFIXED);
+		{
+			return vkCreateDevice(physicalDevice, createInfoFIXED, allocatorFIXED, deviceFIXED);
+		}
+
 	}
 
 	/// <summary>vkEnumerateDeviceLayerProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
@@ -224,11 +319,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateDeviceLayerProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceLayerProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint propertyCount, in Span<Vk.LayerProperties> properties)
+	public Vk.Result EnumerateDeviceLayerProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.LayerProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.LayerProperties* propertiesFIXED = properties)
-		return vkEnumerateDeviceLayerProperties(physicalDevice, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkEnumerateDeviceLayerProperties(physicalDevice, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkEnumerateDeviceLayerProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.LayerProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumerateDeviceLayerProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.LayerProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkEnumerateDeviceLayerProperties(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.LayerProperties>();
+			return res;
+		}
+		properties = new Vk.LayerProperties[COUNT];
+		fixed (Vk.LayerProperties* propertiesFIXED = properties)
+		return vkEnumerateDeviceLayerProperties(physicalDevice, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
@@ -238,11 +351,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString layerName, out uint propertyCount, in Span<Vk.ExtensionProperties> properties)
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString layerName, in Span<Vk.ExtensionProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
-		return vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString layerName, out Vk.ExtensionProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.ExtensionProperties>();
+			return res;
+		}
+		properties = new Vk.ExtensionProperties[COUNT];
+		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
+		return vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageTiling</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties*</c>)</summary>
@@ -252,11 +383,25 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageTiling</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetPhysicalDeviceSparseImageFormatProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, Vk.ImageType type, Vk.SampleCountFlags samples, Vk.ImageUsageFlags usage, Vk.ImageTiling tiling, out uint propertyCount, in Span<Vk.SparseImageFormatProperties> properties)
+	public void GetPhysicalDeviceSparseImageFormatProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, Vk.ImageType type, Vk.SampleCountFlags samples, Vk.ImageUsageFlags usage, Vk.ImageTiling tiling, in Span<Vk.SparseImageFormatProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.SparseImageFormatProperties* propertiesFIXED = properties)
-		vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageTiling</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, Vk.ImageType type, Vk.SampleCountFlags samples, Vk.ImageUsageFlags usage, Vk.ImageTiling tiling, out Vk.SparseImageFormatProperties[] properties)
+	{
+		uint COUNT = 0;
+		vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, &COUNT, null);
+		properties = new Vk.SparseImageFormatProperties[COUNT];
+		fixed (Vk.SparseImageFormatProperties* propertiesFIXED = properties)
+		vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkCreateAndroidSurfaceKHR(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.KHR.AndroidSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -271,7 +416,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.KHR.AndroidSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateAndroidSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateAndroidSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceDisplayPropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties*</c>)</summary>
@@ -281,11 +429,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceDisplayPropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayPropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayProperties> properties)
+	public Vk.Result GetPhysicalDeviceDisplayPropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.KHR.DisplayProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.KHR.DisplayProperties* propertiesFIXED = properties)
-		return vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceDisplayPropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayPropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.KHR.DisplayProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.KHR.DisplayProperties>();
+			return res;
+		}
+		properties = new Vk.KHR.DisplayProperties[COUNT];
+		fixed (Vk.KHR.DisplayProperties* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceDisplayPlanePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties*</c>)</summary>
@@ -295,11 +461,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceDisplayPlanePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayPlanePropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayPlaneProperties> properties)
+	public Vk.Result GetPhysicalDeviceDisplayPlanePropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.KHR.DisplayPlaneProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.KHR.DisplayPlaneProperties* propertiesFIXED = properties)
-		return vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceDisplayPlanePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayPlanePropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.KHR.DisplayPlaneProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.KHR.DisplayPlaneProperties>();
+			return res;
+		}
+		properties = new Vk.KHR.DisplayPlaneProperties[COUNT];
+		fixed (Vk.KHR.DisplayPlaneProperties* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetDisplayPlaneSupportedDisplaysKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>uint*</c>, <c>Vk.Handle<Vk.KHR.Display>*</c>)</summary>
@@ -309,11 +493,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetDisplayPlaneSupportedDisplaysKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>uint*</c>, <c>Vk.Handle<Vk.KHR.Display>*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, uint planeIndex, out uint displayCount, in Span<Vk.Handle<Vk.KHR.Display>> displays)
+	public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, uint planeIndex, in Span<Vk.Handle<Vk.KHR.Display>> displays)
 	{
-		fixed (uint* displayCountFIXED = &displayCount)
 		fixed (Vk.Handle<Vk.KHR.Display>* displaysFIXED = displays)
-		return vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, displayCountFIXED, displaysFIXED);
+		{
+			uint displaysLength = (uint)displays.Length;
+			return vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, &displaysLength, displaysFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetDisplayPlaneSupportedDisplaysKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>uint*</c>, <c>Vk.Handle<Vk.KHR.Display>*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, uint planeIndex, out Vk.Handle<Vk.KHR.Display>[] displays)
+	{
+		uint COUNT = 0;
+		var res = vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			displays = Array.Empty<Vk.Handle<Vk.KHR.Display>>();
+			return res;
+		}
+		displays = new Vk.Handle<Vk.KHR.Display>[COUNT];
+		fixed (Vk.Handle<Vk.KHR.Display>* displaysFIXED = displays)
+		return vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, &COUNT, displaysFIXED);
 	}
 
 	/// <summary>vkGetDisplayModePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties*</c>)</summary>
@@ -323,11 +525,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetDisplayModePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayModePropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Display> display, out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties> properties)
+	public Vk.Result GetDisplayModePropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Display> display, in Span<Vk.KHR.DisplayModeProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.KHR.DisplayModeProperties* propertiesFIXED = properties)
-		return vkGetDisplayModePropertiesKHR(physicalDevice, display, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetDisplayModePropertiesKHR(physicalDevice, display, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetDisplayModePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayModePropertiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Display> display, out Vk.KHR.DisplayModeProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkGetDisplayModePropertiesKHR(physicalDevice, display, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.KHR.DisplayModeProperties>();
+			return res;
+		}
+		properties = new Vk.KHR.DisplayModeProperties[COUNT];
+		fixed (Vk.KHR.DisplayModeProperties* propertiesFIXED = properties)
+		return vkGetDisplayModePropertiesKHR(physicalDevice, display, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkCreateDisplayModeKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>Vk.KHR.DisplayModeCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.DisplayMode>*</c>)</summary>
@@ -342,7 +562,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.KHR.DisplayModeCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.DisplayMode>* modeFIXED = &mode)
-		return vkCreateDisplayModeKHR(physicalDevice, display, createInfoFIXED, allocatorFIXED, modeFIXED);
+		{
+			return vkCreateDisplayModeKHR(physicalDevice, display, createInfoFIXED, allocatorFIXED, modeFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDisplayPlaneCapabilitiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.DisplayMode></c>, <c>uint</c>, <c>Vk.KHR.DisplayPlaneCapabilities*</c>)</summary>
@@ -355,7 +578,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetDisplayPlaneCapabilitiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.DisplayMode> mode, uint planeIndex, out Vk.KHR.DisplayPlaneCapabilities capabilities)
 	{
 		fixed (Vk.KHR.DisplayPlaneCapabilities* capabilitiesFIXED = &capabilities)
-		return vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, capabilitiesFIXED);
+		{
+			return vkGetDisplayPlaneCapabilitiesKHR(physicalDevice, mode, planeIndex, capabilitiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateDisplayPlaneSurfaceKHR(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.KHR.DisplaySurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -370,7 +596,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.KHR.DisplaySurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateDisplayPlaneSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateDisplayPlaneSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroySurfaceKHR(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -383,7 +612,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void DestroySurfaceKHR(Vk.Handle<Vk.Instance> instance, Vk.Handle<Vk.KHR.Surface> surface, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroySurfaceKHR(instance, surface, allocatorFIXED);
+		{
+			vkDestroySurfaceKHR(instance, surface, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceSupportKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>Vk.Bool32*</c>)</summary>
@@ -396,7 +628,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetPhysicalDeviceSurfaceSupportKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, uint queueFamilyIndex, Vk.Handle<Vk.KHR.Surface> surface, out Vk.Bool32 supported)
 	{
 		fixed (Vk.Bool32* supportedFIXED = &supported)
-		return vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, supportedFIXED);
+		{
+			return vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, queueFamilyIndex, surface, supportedFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceCapabilitiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>Vk.KHR.SurfaceCapabilities*</c>)</summary>
@@ -409,7 +644,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetPhysicalDeviceSurfaceCapabilitiesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out Vk.KHR.SurfaceCapabilities surfaceCapabilities)
 	{
 		fixed (Vk.KHR.SurfaceCapabilities* surfaceCapabilitiesFIXED = &surfaceCapabilities)
-		return vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, surfaceCapabilitiesFIXED);
+		{
+			return vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, surfaceCapabilitiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat*</c>)</summary>
@@ -419,11 +657,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out uint surfaceFormatCount, in Span<Vk.KHR.SurfaceFormat> surfaceFormats)
+	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, in Span<Vk.KHR.SurfaceFormat> surfaceFormats)
 	{
-		fixed (uint* surfaceFormatCountFIXED = &surfaceFormatCount)
 		fixed (Vk.KHR.SurfaceFormat* surfaceFormatsFIXED = surfaceFormats)
-		return vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, surfaceFormatCountFIXED, surfaceFormatsFIXED);
+		{
+			uint surfaceFormatsLength = (uint)surfaceFormats.Length;
+			return vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &surfaceFormatsLength, surfaceFormatsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSurfaceFormatsKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceFormatsKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out Vk.KHR.SurfaceFormat[] surfaceFormats)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			surfaceFormats = Array.Empty<Vk.KHR.SurfaceFormat>();
+			return res;
+		}
+		surfaceFormats = new Vk.KHR.SurfaceFormat[COUNT];
+		fixed (Vk.KHR.SurfaceFormat* surfaceFormatsFIXED = surfaceFormats)
+		return vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &COUNT, surfaceFormatsFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
@@ -433,11 +689,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out uint presentModeCount, in Span<Vk.KHR.PresentMode> presentModes)
+	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, in Span<Vk.KHR.PresentMode> presentModes)
 	{
-		fixed (uint* presentModeCountFIXED = &presentModeCount)
 		fixed (Vk.KHR.PresentMode* presentModesFIXED = presentModes)
-		return vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, presentModeCountFIXED, presentModesFIXED);
+		{
+			uint presentModesLength = (uint)presentModes.Length;
+			return vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &presentModesLength, presentModesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSurfacePresentModesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfacePresentModesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out Vk.KHR.PresentMode[] presentModes)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			presentModes = Array.Empty<Vk.KHR.PresentMode>();
+			return res;
+		}
+		presentModes = new Vk.KHR.PresentMode[COUNT];
+		fixed (Vk.KHR.PresentMode* presentModesFIXED = presentModes)
+		return vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &COUNT, presentModesFIXED);
 	}
 
 	/// <summary>vkCreateViSurfaceNN(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.NN.ViSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -452,7 +726,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.NN.ViSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateViSurfaceNN(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateViSurfaceNN(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateWaylandSurfaceKHR(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.KHR.WaylandSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -467,7 +744,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.KHR.WaylandSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateWaylandSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateWaylandSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceWaylandPresentationSupportKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>void*</c>)</summary>
@@ -487,7 +767,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.KHR.Win32SurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateWin32SurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateWin32SurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceWin32PresentationSupportKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>)</summary>
@@ -507,7 +790,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.KHR.XlibSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateXlibSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateXlibSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceXlibPresentationSupportKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>void*</c>, <c>ulong</c>)</summary>
@@ -527,7 +813,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.KHR.XcbSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateXcbSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateXcbSurfaceKHR(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceXcbPresentationSupportKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>void*</c>, <c>uint</c>)</summary>
@@ -547,7 +836,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.EXT.DirectFBSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateDirectFBSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateDirectFBSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceDirectFBPresentationSupportEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>void*</c>)</summary>
@@ -567,7 +859,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.FUCHSIA.ImagePipeSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateImagePipeSurfaceFUCHSIA(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateImagePipeSurfaceFUCHSIA(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateStreamDescriptorSurfaceGGP(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.GGP.StreamDescriptorSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -582,7 +877,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.GGP.StreamDescriptorSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateStreamDescriptorSurfaceGGP(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateStreamDescriptorSurfaceGGP(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateDebugReportCallbackEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.DebugReportCallbackCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.EXT.DebugReportCallback>*</c>)</summary>
@@ -597,7 +895,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.EXT.DebugReportCallbackCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.EXT.DebugReportCallback>* callbackFIXED = &callback)
-		return vkCreateDebugReportCallbackEXT(instance, createInfoFIXED, allocatorFIXED, callbackFIXED);
+		{
+			return vkCreateDebugReportCallbackEXT(instance, createInfoFIXED, allocatorFIXED, callbackFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyDebugReportCallbackEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.Handle<Vk.EXT.DebugReportCallback></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -610,7 +911,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void DestroyDebugReportCallbackEXT(Vk.Handle<Vk.Instance> instance, Vk.Handle<Vk.EXT.DebugReportCallback> callback, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDebugReportCallbackEXT(instance, callback, allocatorFIXED);
+		{
+			vkDestroyDebugReportCallbackEXT(instance, callback, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkDebugReportMessageEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.DebugReportFlags</c>, <c>Vk.EXT.DebugReportObjectType</c>, <c>ulong</c>, <c>ulong</c>, <c>int</c>, <c>byte*</c>, <c>byte*</c>)</summary>
@@ -635,7 +939,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetPhysicalDeviceExternalImageFormatPropertiesNV(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, Vk.ImageType type, Vk.ImageTiling tiling, Vk.ImageUsageFlags usage, Vk.ImageCreateFlags flags, Vk.NV.ExternalMemoryHandleTypeFlags externalHandleType, out Vk.NV.ExternalImageFormatProperties externalImageFormatProperties)
 	{
 		fixed (Vk.NV.ExternalImageFormatProperties* externalImageFormatPropertiesFIXED = &externalImageFormatProperties)
-		return vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, externalImageFormatPropertiesFIXED);
+		{
+			return vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice, format, type, tiling, usage, flags, externalHandleType, externalImageFormatPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceFeatures2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceFeatures2*</c>)</summary>
@@ -648,7 +955,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceFeatures2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceFeatures2 features)
 	{
 		fixed (Vk.PhysicalDeviceFeatures2* featuresFIXED = &features)
-		vkGetPhysicalDeviceFeatures2(physicalDevice, featuresFIXED);
+		{
+			vkGetPhysicalDeviceFeatures2(physicalDevice, featuresFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceFeatures2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceFeatures2*</c>)</summary>
@@ -661,7 +971,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceFeatures2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceFeatures2 features)
 	{
 		fixed (Vk.PhysicalDeviceFeatures2* featuresFIXED = &features)
-		vkGetPhysicalDeviceFeatures2KHR(physicalDevice, featuresFIXED);
+		{
+			vkGetPhysicalDeviceFeatures2KHR(physicalDevice, featuresFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceProperties2*</c>)</summary>
@@ -674,7 +987,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceProperties2 properties)
 	{
 		fixed (Vk.PhysicalDeviceProperties2* propertiesFIXED = &properties)
-		vkGetPhysicalDeviceProperties2(physicalDevice, propertiesFIXED);
+		{
+			vkGetPhysicalDeviceProperties2(physicalDevice, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceProperties2*</c>)</summary>
@@ -687,7 +1003,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceProperties2 properties)
 	{
 		fixed (Vk.PhysicalDeviceProperties2* propertiesFIXED = &properties)
-		vkGetPhysicalDeviceProperties2KHR(physicalDevice, propertiesFIXED);
+		{
+			vkGetPhysicalDeviceProperties2KHR(physicalDevice, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceFormatProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.FormatProperties2*</c>)</summary>
@@ -700,7 +1019,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceFormatProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, out Vk.FormatProperties2 formatProperties)
 	{
 		fixed (Vk.FormatProperties2* formatPropertiesFIXED = &formatProperties)
-		vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, formatPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceFormatProperties2(physicalDevice, format, formatPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceFormatProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.FormatProperties2*</c>)</summary>
@@ -713,7 +1035,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceFormatProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Format format, out Vk.FormatProperties2 formatProperties)
 	{
 		fixed (Vk.FormatProperties2* formatPropertiesFIXED = &formatProperties)
-		vkGetPhysicalDeviceFormatProperties2KHR(physicalDevice, format, formatPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceFormatProperties2KHR(physicalDevice, format, formatPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceImageFormatProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceImageFormatInfo2*</c>, <c>Vk.ImageFormatProperties2*</c>)</summary>
@@ -727,7 +1052,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceImageFormatInfo2* imageFormatInfoFIXED = &imageFormatInfo)
 		fixed (Vk.ImageFormatProperties2* imageFormatPropertiesFIXED = &imageFormatProperties)
-		return vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, imageFormatInfoFIXED, imageFormatPropertiesFIXED);
+		{
+			return vkGetPhysicalDeviceImageFormatProperties2(physicalDevice, imageFormatInfoFIXED, imageFormatPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceImageFormatProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceImageFormatInfo2*</c>, <c>Vk.ImageFormatProperties2*</c>)</summary>
@@ -741,7 +1069,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceImageFormatInfo2* imageFormatInfoFIXED = &imageFormatInfo)
 		fixed (Vk.ImageFormatProperties2* imageFormatPropertiesFIXED = &imageFormatProperties)
-		return vkGetPhysicalDeviceImageFormatProperties2KHR(physicalDevice, imageFormatInfoFIXED, imageFormatPropertiesFIXED);
+		{
+			return vkGetPhysicalDeviceImageFormatProperties2KHR(physicalDevice, imageFormatInfoFIXED, imageFormatPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
@@ -751,11 +1082,25 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetPhysicalDeviceQueueFamilyProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint queueFamilyPropertyCount, in Span<Vk.QueueFamilyProperties2> queueFamilyProperties)
+	public void GetPhysicalDeviceQueueFamilyProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.QueueFamilyProperties2> queueFamilyProperties)
 	{
-		fixed (uint* queueFamilyPropertyCountFIXED = &queueFamilyPropertyCount)
 		fixed (Vk.QueueFamilyProperties2* queueFamilyPropertiesFIXED = queueFamilyProperties)
-		vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, queueFamilyPropertyCountFIXED, queueFamilyPropertiesFIXED);
+		{
+			uint queueFamilyPropertiesLength = (uint)queueFamilyProperties.Length;
+			vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, &queueFamilyPropertiesLength, queueFamilyPropertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.QueueFamilyProperties2[] queueFamilyProperties)
+	{
+		uint COUNT = 0;
+		vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, &COUNT, null);
+		queueFamilyProperties = new Vk.QueueFamilyProperties2[COUNT];
+		fixed (Vk.QueueFamilyProperties2* queueFamilyPropertiesFIXED = queueFamilyProperties)
+		vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, &COUNT, queueFamilyPropertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
@@ -765,11 +1110,25 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetPhysicalDeviceQueueFamilyProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint queueFamilyPropertyCount, in Span<Vk.QueueFamilyProperties2> queueFamilyProperties)
+	public void GetPhysicalDeviceQueueFamilyProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.QueueFamilyProperties2> queueFamilyProperties)
 	{
-		fixed (uint* queueFamilyPropertyCountFIXED = &queueFamilyPropertyCount)
 		fixed (Vk.QueueFamilyProperties2* queueFamilyPropertiesFIXED = queueFamilyProperties)
-		vkGetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice, queueFamilyPropertyCountFIXED, queueFamilyPropertiesFIXED);
+		{
+			uint queueFamilyPropertiesLength = (uint)queueFamilyProperties.Length;
+			vkGetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice, &queueFamilyPropertiesLength, queueFamilyPropertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceQueueFamilyProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.QueueFamilyProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.QueueFamilyProperties2[] queueFamilyProperties)
+	{
+		uint COUNT = 0;
+		vkGetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice, &COUNT, null);
+		queueFamilyProperties = new Vk.QueueFamilyProperties2[COUNT];
+		fixed (Vk.QueueFamilyProperties2* queueFamilyPropertiesFIXED = queueFamilyProperties)
+		vkGetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice, &COUNT, queueFamilyPropertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceMemoryProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceMemoryProperties2*</c>)</summary>
@@ -782,7 +1141,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceMemoryProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceMemoryProperties2 memoryProperties)
 	{
 		fixed (Vk.PhysicalDeviceMemoryProperties2* memoryPropertiesFIXED = &memoryProperties)
-		vkGetPhysicalDeviceMemoryProperties2(physicalDevice, memoryPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceMemoryProperties2(physicalDevice, memoryPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceMemoryProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceMemoryProperties2*</c>)</summary>
@@ -795,7 +1157,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceMemoryProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.PhysicalDeviceMemoryProperties2 memoryProperties)
 	{
 		fixed (Vk.PhysicalDeviceMemoryProperties2* memoryPropertiesFIXED = &memoryProperties)
-		vkGetPhysicalDeviceMemoryProperties2KHR(physicalDevice, memoryPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceMemoryProperties2KHR(physicalDevice, memoryPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
@@ -805,12 +1170,30 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetPhysicalDeviceSparseImageFormatProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, out uint propertyCount, in Span<Vk.SparseImageFormatProperties2> properties)
+	public void GetPhysicalDeviceSparseImageFormatProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, in Span<Vk.SparseImageFormatProperties2> properties)
 	{
 		fixed (Vk.PhysicalDeviceSparseImageFormatInfo2* formatInfoFIXED = &formatInfo)
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.SparseImageFormatProperties2* propertiesFIXED = properties)
-		vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, formatInfoFIXED, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, formatInfoFIXED, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties2(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, out Vk.SparseImageFormatProperties2[] properties)
+	{
+		fixed (Vk.PhysicalDeviceSparseImageFormatInfo2* formatInfoFIXED = &formatInfo)
+		{
+			uint COUNT = 0;
+			vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, formatInfoFIXED, &COUNT, null);
+			properties = new Vk.SparseImageFormatProperties2[COUNT];
+			fixed (Vk.SparseImageFormatProperties2* propertiesFIXED = properties)
+			vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, formatInfoFIXED, &COUNT, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
@@ -820,12 +1203,30 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, out uint propertyCount, in Span<Vk.SparseImageFormatProperties2> properties)
+	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, in Span<Vk.SparseImageFormatProperties2> properties)
 	{
 		fixed (Vk.PhysicalDeviceSparseImageFormatInfo2* formatInfoFIXED = &formatInfo)
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.SparseImageFormatProperties2* propertiesFIXED = properties)
-		vkGetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice, formatInfoFIXED, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			vkGetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice, formatInfoFIXED, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceSparseImageFormatInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.PhysicalDeviceSparseImageFormatInfo2 formatInfo, out Vk.SparseImageFormatProperties2[] properties)
+	{
+		fixed (Vk.PhysicalDeviceSparseImageFormatInfo2* formatInfoFIXED = &formatInfo)
+		{
+			uint COUNT = 0;
+			vkGetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice, formatInfoFIXED, &COUNT, null);
+			properties = new Vk.SparseImageFormatProperties2[COUNT];
+			fixed (Vk.SparseImageFormatProperties2* propertiesFIXED = properties)
+			vkGetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice, formatInfoFIXED, &COUNT, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceExternalBufferProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceExternalBufferInfo*</c>, <c>Vk.ExternalBufferProperties*</c>)</summary>
@@ -839,7 +1240,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceExternalBufferInfo* externalBufferInfoFIXED = &externalBufferInfo)
 		fixed (Vk.ExternalBufferProperties* externalBufferPropertiesFIXED = &externalBufferProperties)
-		vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, externalBufferInfoFIXED, externalBufferPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceExternalBufferProperties(physicalDevice, externalBufferInfoFIXED, externalBufferPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceExternalBufferPropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceExternalBufferInfo*</c>, <c>Vk.ExternalBufferProperties*</c>)</summary>
@@ -853,7 +1257,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceExternalBufferInfo* externalBufferInfoFIXED = &externalBufferInfo)
 		fixed (Vk.ExternalBufferProperties* externalBufferPropertiesFIXED = &externalBufferProperties)
-		vkGetPhysicalDeviceExternalBufferPropertiesKHR(physicalDevice, externalBufferInfoFIXED, externalBufferPropertiesFIXED);
+		{
+			vkGetPhysicalDeviceExternalBufferPropertiesKHR(physicalDevice, externalBufferInfoFIXED, externalBufferPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceExternalSemaphoreProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceExternalSemaphoreInfo*</c>, <c>Vk.ExternalSemaphoreProperties*</c>)</summary>
@@ -867,7 +1274,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceExternalSemaphoreInfo* externalSemaphoreInfoFIXED = &externalSemaphoreInfo)
 		fixed (Vk.ExternalSemaphoreProperties* externalSemaphorePropertiesFIXED = &externalSemaphoreProperties)
-		vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, externalSemaphoreInfoFIXED, externalSemaphorePropertiesFIXED);
+		{
+			vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice, externalSemaphoreInfoFIXED, externalSemaphorePropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceExternalSemaphoreInfo*</c>, <c>Vk.ExternalSemaphoreProperties*</c>)</summary>
@@ -881,7 +1291,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceExternalSemaphoreInfo* externalSemaphoreInfoFIXED = &externalSemaphoreInfo)
 		fixed (Vk.ExternalSemaphoreProperties* externalSemaphorePropertiesFIXED = &externalSemaphoreProperties)
-		vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(physicalDevice, externalSemaphoreInfoFIXED, externalSemaphorePropertiesFIXED);
+		{
+			vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(physicalDevice, externalSemaphoreInfoFIXED, externalSemaphorePropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceExternalFenceProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceExternalFenceInfo*</c>, <c>Vk.ExternalFenceProperties*</c>)</summary>
@@ -895,7 +1308,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceExternalFenceInfo* externalFenceInfoFIXED = &externalFenceInfo)
 		fixed (Vk.ExternalFenceProperties* externalFencePropertiesFIXED = &externalFenceProperties)
-		vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, externalFenceInfoFIXED, externalFencePropertiesFIXED);
+		{
+			vkGetPhysicalDeviceExternalFenceProperties(physicalDevice, externalFenceInfoFIXED, externalFencePropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceExternalFencePropertiesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.PhysicalDeviceExternalFenceInfo*</c>, <c>Vk.ExternalFenceProperties*</c>)</summary>
@@ -909,7 +1325,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.PhysicalDeviceExternalFenceInfo* externalFenceInfoFIXED = &externalFenceInfo)
 		fixed (Vk.ExternalFenceProperties* externalFencePropertiesFIXED = &externalFenceProperties)
-		vkGetPhysicalDeviceExternalFencePropertiesKHR(physicalDevice, externalFenceInfoFIXED, externalFencePropertiesFIXED);
+		{
+			vkGetPhysicalDeviceExternalFencePropertiesKHR(physicalDevice, externalFenceInfoFIXED, externalFencePropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkReleaseDisplayEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>)</summary>
@@ -932,7 +1351,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetRandROutputDisplayEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, void* dpy, ulong rrOutput, out Vk.Handle<Vk.KHR.Display> display)
 	{
 		fixed (Vk.Handle<Vk.KHR.Display>* displayFIXED = &display)
-		return vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, displayFIXED);
+		{
+			return vkGetRandROutputDisplayEXT(physicalDevice, dpy, rrOutput, displayFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2EXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>Vk.EXT.SurfaceCapabilities2*</c>)</summary>
@@ -945,7 +1367,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public Vk.Result GetPhysicalDeviceSurfaceCapabilities2EXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out Vk.EXT.SurfaceCapabilities2 surfaceCapabilities)
 	{
 		fixed (Vk.EXT.SurfaceCapabilities2* surfaceCapabilitiesFIXED = &surfaceCapabilities)
-		return vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, surfaceCapabilitiesFIXED);
+		{
+			return vkGetPhysicalDeviceSurfaceCapabilities2EXT(physicalDevice, surface, surfaceCapabilitiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkEnumeratePhysicalDeviceGroups(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
@@ -955,11 +1380,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumeratePhysicalDeviceGroups(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDeviceGroups(Vk.Handle<Vk.Instance> instance, out uint physicalDeviceGroupCount, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
+	public Vk.Result EnumeratePhysicalDeviceGroups(Vk.Handle<Vk.Instance> instance, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
 	{
-		fixed (uint* physicalDeviceGroupCountFIXED = &physicalDeviceGroupCount)
 		fixed (Vk.PhysicalDeviceGroupProperties* physicalDeviceGroupPropertiesFIXED = physicalDeviceGroupProperties)
-		return vkEnumeratePhysicalDeviceGroups(instance, physicalDeviceGroupCountFIXED, physicalDeviceGroupPropertiesFIXED);
+		{
+			uint physicalDeviceGroupPropertiesLength = (uint)physicalDeviceGroupProperties.Length;
+			return vkEnumeratePhysicalDeviceGroups(instance, &physicalDeviceGroupPropertiesLength, physicalDeviceGroupPropertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkEnumeratePhysicalDeviceGroups(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDeviceGroups(Vk.Handle<Vk.Instance> instance, out Vk.PhysicalDeviceGroupProperties[] physicalDeviceGroupProperties)
+	{
+		uint COUNT = 0;
+		var res = vkEnumeratePhysicalDeviceGroups(instance, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			physicalDeviceGroupProperties = Array.Empty<Vk.PhysicalDeviceGroupProperties>();
+			return res;
+		}
+		physicalDeviceGroupProperties = new Vk.PhysicalDeviceGroupProperties[COUNT];
+		fixed (Vk.PhysicalDeviceGroupProperties* physicalDeviceGroupPropertiesFIXED = physicalDeviceGroupProperties)
+		return vkEnumeratePhysicalDeviceGroups(instance, &COUNT, physicalDeviceGroupPropertiesFIXED);
 	}
 
 	/// <summary>vkEnumeratePhysicalDeviceGroupsKHR(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
@@ -969,11 +1412,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumeratePhysicalDeviceGroupsKHR(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(Vk.Handle<Vk.Instance> instance, out uint physicalDeviceGroupCount, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
+	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(Vk.Handle<Vk.Instance> instance, in Span<Vk.PhysicalDeviceGroupProperties> physicalDeviceGroupProperties)
 	{
-		fixed (uint* physicalDeviceGroupCountFIXED = &physicalDeviceGroupCount)
 		fixed (Vk.PhysicalDeviceGroupProperties* physicalDeviceGroupPropertiesFIXED = physicalDeviceGroupProperties)
-		return vkEnumeratePhysicalDeviceGroupsKHR(instance, physicalDeviceGroupCountFIXED, physicalDeviceGroupPropertiesFIXED);
+		{
+			uint physicalDeviceGroupPropertiesLength = (uint)physicalDeviceGroupProperties.Length;
+			return vkEnumeratePhysicalDeviceGroupsKHR(instance, &physicalDeviceGroupPropertiesLength, physicalDeviceGroupPropertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkEnumeratePhysicalDeviceGroupsKHR(<c>Vk.Handle<Vk.Instance></c>, <c>uint*</c>, <c>Vk.PhysicalDeviceGroupProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result EnumeratePhysicalDeviceGroupsKHR(Vk.Handle<Vk.Instance> instance, out Vk.PhysicalDeviceGroupProperties[] physicalDeviceGroupProperties)
+	{
+		uint COUNT = 0;
+		var res = vkEnumeratePhysicalDeviceGroupsKHR(instance, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			physicalDeviceGroupProperties = Array.Empty<Vk.PhysicalDeviceGroupProperties>();
+			return res;
+		}
+		physicalDeviceGroupProperties = new Vk.PhysicalDeviceGroupProperties[COUNT];
+		fixed (Vk.PhysicalDeviceGroupProperties* physicalDeviceGroupPropertiesFIXED = physicalDeviceGroupProperties)
+		return vkEnumeratePhysicalDeviceGroupsKHR(instance, &COUNT, physicalDeviceGroupPropertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.Rect2D*</c>)</summary>
@@ -983,11 +1444,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.Rect2D*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out uint rectCount, in Span<Vk.Rect2D> rects)
+	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, in Span<Vk.Rect2D> rects)
 	{
-		fixed (uint* rectCountFIXED = &rectCount)
 		fixed (Vk.Rect2D* rectsFIXED = rects)
-		return vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, rectCountFIXED, rectsFIXED);
+		{
+			uint rectsLength = (uint)rects.Length;
+			return vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, &rectsLength, rectsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDevicePresentRectanglesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>uint*</c>, <c>Vk.Rect2D*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDevicePresentRectanglesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Surface> surface, out Vk.Rect2D[] rects)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			rects = Array.Empty<Vk.Rect2D>();
+			return res;
+		}
+		rects = new Vk.Rect2D[COUNT];
+		fixed (Vk.Rect2D* rectsFIXED = rects)
+		return vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, &COUNT, rectsFIXED);
 	}
 
 	/// <summary>vkCreateIOSSurfaceMVK(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.MVK.IOSSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -1002,7 +1481,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.MVK.IOSSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateIOSSurfaceMVK(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateIOSSurfaceMVK(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateMacOSSurfaceMVK(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.MVK.MacOSSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -1017,7 +1499,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.MVK.MacOSSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateMacOSSurfaceMVK(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateMacOSSurfaceMVK(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateMetalSurfaceEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.MetalSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -1032,7 +1517,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.EXT.MetalSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateMetalSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateMetalSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceMultisamplePropertiesEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.SampleCountFlags</c>, <c>Vk.EXT.MultisampleProperties*</c>)</summary>
@@ -1045,7 +1533,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void GetPhysicalDeviceMultisamplePropertiesEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.SampleCountFlags samples, out Vk.EXT.MultisampleProperties multisampleProperties)
 	{
 		fixed (Vk.EXT.MultisampleProperties* multisamplePropertiesFIXED = &multisampleProperties)
-		vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, multisamplePropertiesFIXED);
+		{
+			vkGetPhysicalDeviceMultisamplePropertiesEXT(physicalDevice, samples, multisamplePropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceCapabilities2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>Vk.KHR.SurfaceCapabilities2*</c>)</summary>
@@ -1059,7 +1550,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
 		fixed (Vk.KHR.SurfaceCapabilities2* surfaceCapabilitiesFIXED = &surfaceCapabilities)
-		return vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, surfaceInfoFIXED, surfaceCapabilitiesFIXED);
+		{
+			return vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice, surfaceInfoFIXED, surfaceCapabilitiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfaceFormats2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat2*</c>)</summary>
@@ -1069,12 +1563,34 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSurfaceFormats2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfaceFormats2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out uint surfaceFormatCount, in Span<Vk.KHR.SurfaceFormat2> surfaceFormats)
+	public Vk.Result GetPhysicalDeviceSurfaceFormats2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, in Span<Vk.KHR.SurfaceFormat2> surfaceFormats)
 	{
 		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
-		fixed (uint* surfaceFormatCountFIXED = &surfaceFormatCount)
 		fixed (Vk.KHR.SurfaceFormat2* surfaceFormatsFIXED = surfaceFormats)
-		return vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, surfaceInfoFIXED, surfaceFormatCountFIXED, surfaceFormatsFIXED);
+		{
+			uint surfaceFormatsLength = (uint)surfaceFormats.Length;
+			return vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, surfaceInfoFIXED, &surfaceFormatsLength, surfaceFormatsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSurfaceFormats2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.SurfaceFormat2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfaceFormats2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out Vk.KHR.SurfaceFormat2[] surfaceFormats)
+	{
+		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
+		{
+			uint COUNT = 0;
+			var res = vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, surfaceInfoFIXED, &COUNT, null);
+			if (res != Vk.Result.Success) {
+				surfaceFormats = Array.Empty<Vk.KHR.SurfaceFormat2>();
+				return res;
+			}
+			surfaceFormats = new Vk.KHR.SurfaceFormat2[COUNT];
+			fixed (Vk.KHR.SurfaceFormat2* surfaceFormatsFIXED = surfaceFormats)
+			return vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, surfaceInfoFIXED, &COUNT, surfaceFormatsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceDisplayProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties2*</c>)</summary>
@@ -1084,11 +1600,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceDisplayProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayProperties2> properties)
+	public Vk.Result GetPhysicalDeviceDisplayProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.KHR.DisplayProperties2> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.KHR.DisplayProperties2* propertiesFIXED = properties)
-		return vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceDisplayProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.KHR.DisplayProperties2[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.KHR.DisplayProperties2>();
+			return res;
+		}
+		properties = new Vk.KHR.DisplayProperties2[COUNT];
+		fixed (Vk.KHR.DisplayProperties2* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceDisplayPlaneProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties2*</c>)</summary>
@@ -1098,11 +1632,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceDisplayPlaneProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceDisplayPlaneProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint propertyCount, in Span<Vk.KHR.DisplayPlaneProperties2> properties)
+	public Vk.Result GetPhysicalDeviceDisplayPlaneProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.KHR.DisplayPlaneProperties2> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.KHR.DisplayPlaneProperties2* propertiesFIXED = properties)
-		return vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceDisplayPlaneProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.DisplayPlaneProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceDisplayPlaneProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.KHR.DisplayPlaneProperties2[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.KHR.DisplayPlaneProperties2>();
+			return res;
+		}
+		properties = new Vk.KHR.DisplayPlaneProperties2[COUNT];
+		fixed (Vk.KHR.DisplayPlaneProperties2* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetDisplayModeProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties2*</c>)</summary>
@@ -1112,11 +1664,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetDisplayModeProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayModeProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Display> display, out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties2> properties)
+	public Vk.Result GetDisplayModeProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Display> display, in Span<Vk.KHR.DisplayModeProperties2> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.KHR.DisplayModeProperties2* propertiesFIXED = properties)
-		return vkGetDisplayModeProperties2KHR(physicalDevice, display, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetDisplayModeProperties2KHR(physicalDevice, display, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetDisplayModeProperties2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>uint*</c>, <c>Vk.KHR.DisplayModeProperties2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayModeProperties2KHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.Handle<Vk.KHR.Display> display, out Vk.KHR.DisplayModeProperties2[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkGetDisplayModeProperties2KHR(physicalDevice, display, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.KHR.DisplayModeProperties2>();
+			return res;
+		}
+		properties = new Vk.KHR.DisplayModeProperties2[COUNT];
+		fixed (Vk.KHR.DisplayModeProperties2* propertiesFIXED = properties)
+		return vkGetDisplayModeProperties2KHR(physicalDevice, display, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetDisplayPlaneCapabilities2KHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.DisplayPlaneInfo2*</c>, <c>Vk.KHR.DisplayPlaneCapabilities2*</c>)</summary>
@@ -1130,7 +1700,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.KHR.DisplayPlaneInfo2* displayPlaneInfoFIXED = &displayPlaneInfo)
 		fixed (Vk.KHR.DisplayPlaneCapabilities2* capabilitiesFIXED = &capabilities)
-		return vkGetDisplayPlaneCapabilities2KHR(physicalDevice, displayPlaneInfoFIXED, capabilitiesFIXED);
+		{
+			return vkGetDisplayPlaneCapabilities2KHR(physicalDevice, displayPlaneInfoFIXED, capabilitiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.EXT.TimeDomain*</c>)</summary>
@@ -1140,11 +1713,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.EXT.TimeDomain*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceCalibrateableTimeDomainsEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint timeDomainCount, in Span<Vk.EXT.TimeDomain> timeDomains)
+	public Vk.Result GetPhysicalDeviceCalibrateableTimeDomainsEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.EXT.TimeDomain> timeDomains)
 	{
-		fixed (uint* timeDomainCountFIXED = &timeDomainCount)
 		fixed (Vk.EXT.TimeDomain* timeDomainsFIXED = timeDomains)
-		return vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, timeDomainCountFIXED, timeDomainsFIXED);
+		{
+			uint timeDomainsLength = (uint)timeDomains.Length;
+			return vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, &timeDomainsLength, timeDomainsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.EXT.TimeDomain*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceCalibrateableTimeDomainsEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.EXT.TimeDomain[] timeDomains)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			timeDomains = Array.Empty<Vk.EXT.TimeDomain>();
+			return res;
+		}
+		timeDomains = new Vk.EXT.TimeDomain[COUNT];
+		fixed (Vk.EXT.TimeDomain* timeDomainsFIXED = timeDomains)
+		return vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(physicalDevice, &COUNT, timeDomainsFIXED);
 	}
 
 	/// <summary>vkCreateDebugUtilsMessengerEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.DebugUtilsMessengerCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.EXT.DebugUtilsMessenger>*</c>)</summary>
@@ -1159,7 +1750,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.EXT.DebugUtilsMessengerCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.EXT.DebugUtilsMessenger>* messengerFIXED = &messenger)
-		return vkCreateDebugUtilsMessengerEXT(instance, createInfoFIXED, allocatorFIXED, messengerFIXED);
+		{
+			return vkCreateDebugUtilsMessengerEXT(instance, createInfoFIXED, allocatorFIXED, messengerFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyDebugUtilsMessengerEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.Handle<Vk.EXT.DebugUtilsMessenger></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1172,7 +1766,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void DestroyDebugUtilsMessengerEXT(Vk.Handle<Vk.Instance> instance, Vk.Handle<Vk.EXT.DebugUtilsMessenger> messenger, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDebugUtilsMessengerEXT(instance, messenger, allocatorFIXED);
+		{
+			vkDestroyDebugUtilsMessengerEXT(instance, messenger, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkSubmitDebugUtilsMessageEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.DebugUtilsMessageSeverityFlags</c>, <c>Vk.EXT.DebugUtilsMessageTypeFlags</c>, <c>Vk.EXT.DebugUtilsMessengerCallbackData*</c>)</summary>
@@ -1185,7 +1782,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	public void SubmitDebugUtilsMessageEXT(Vk.Handle<Vk.Instance> instance, Vk.EXT.DebugUtilsMessageSeverityFlags messageSeverity, Vk.EXT.DebugUtilsMessageTypeFlags messageTypes, in Vk.EXT.DebugUtilsMessengerCallbackData callbackData)
 	{
 		fixed (Vk.EXT.DebugUtilsMessengerCallbackData* callbackDataFIXED = &callbackData)
-		vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, callbackDataFIXED);
+		{
+			vkSubmitDebugUtilsMessageEXT(instance, messageSeverity, messageTypes, callbackDataFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.NV.CooperativeMatrixProperties*</c>)</summary>
@@ -1195,11 +1795,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.NV.CooperativeMatrixProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceCooperativeMatrixPropertiesNV(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint propertyCount, in Span<Vk.NV.CooperativeMatrixProperties> properties)
+	public Vk.Result GetPhysicalDeviceCooperativeMatrixPropertiesNV(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.NV.CooperativeMatrixProperties> properties)
 	{
-		fixed (uint* propertyCountFIXED = &propertyCount)
 		fixed (Vk.NV.CooperativeMatrixProperties* propertiesFIXED = properties)
-		return vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, propertyCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.NV.CooperativeMatrixProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceCooperativeMatrixPropertiesNV(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.NV.CooperativeMatrixProperties[] properties)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			properties = Array.Empty<Vk.NV.CooperativeMatrixProperties>();
+			return res;
+		}
+		properties = new Vk.NV.CooperativeMatrixProperties[COUNT];
+		fixed (Vk.NV.CooperativeMatrixProperties* propertiesFIXED = properties)
+		return vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceSurfacePresentModes2EXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
@@ -1209,12 +1827,34 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSurfacePresentModes2EXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSurfacePresentModes2EXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out uint presentModeCount, in Span<Vk.KHR.PresentMode> presentModes)
+	public Vk.Result GetPhysicalDeviceSurfacePresentModes2EXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, in Span<Vk.KHR.PresentMode> presentModes)
 	{
 		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
-		fixed (uint* presentModeCountFIXED = &presentModeCount)
 		fixed (Vk.KHR.PresentMode* presentModesFIXED = presentModes)
-		return vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, surfaceInfoFIXED, presentModeCountFIXED, presentModesFIXED);
+		{
+			uint presentModesLength = (uint)presentModes.Length;
+			return vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, surfaceInfoFIXED, &presentModesLength, presentModesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSurfacePresentModes2EXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>uint*</c>, <c>Vk.KHR.PresentMode*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSurfacePresentModes2EXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Vk.KHR.PhysicalDeviceSurfaceInfo2 surfaceInfo, out Vk.KHR.PresentMode[] presentModes)
+	{
+		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
+		{
+			uint COUNT = 0;
+			var res = vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, surfaceInfoFIXED, &COUNT, null);
+			if (res != Vk.Result.Success) {
+				presentModes = Array.Empty<Vk.KHR.PresentMode>();
+				return res;
+			}
+			presentModes = new Vk.KHR.PresentMode[COUNT];
+			fixed (Vk.KHR.PresentMode* presentModesFIXED = presentModes)
+			return vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, surfaceInfoFIXED, &COUNT, presentModesFIXED);
+		}
+
 	}
 
 	/// <summary>vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>uint*</c>, <c>Vk.KHR.PerformanceCounter*</c>, <c>Vk.KHR.PerformanceCounterDescription*</c>)</summary>
@@ -1224,12 +1864,15 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint</c>, <c>uint*</c>, <c>Vk.KHR.PerformanceCounter*</c>, <c>Vk.KHR.PerformanceCounterDescription*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, uint queueFamilyIndex, out uint counterCount, in Span<Vk.KHR.PerformanceCounter> counters, in Span<Vk.KHR.PerformanceCounterDescription> counterDescriptions)
+	public Vk.Result EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, uint queueFamilyIndex, in Span<Vk.KHR.PerformanceCounter> counters, in Span<Vk.KHR.PerformanceCounterDescription> counterDescriptions)
 	{
-		fixed (uint* counterCountFIXED = &counterCount)
 		fixed (Vk.KHR.PerformanceCounter* countersFIXED = counters)
 		fixed (Vk.KHR.PerformanceCounterDescription* counterDescriptionsFIXED = counterDescriptions)
-		return vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, counterCountFIXED, countersFIXED, counterDescriptionsFIXED);
+		{
+			uint countersLength = (uint)counters.Length;
+			return vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice, queueFamilyIndex, &countersLength, countersFIXED, counterDescriptionsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.KHR.QueryPoolPerformanceCreateInfo*</c>, <c>uint*</c>)</summary>
@@ -1243,7 +1886,10 @@ public unsafe sealed partial class InstanceFunctionTable
 	{
 		fixed (Vk.KHR.QueryPoolPerformanceCreateInfo* performanceQueryCreateInfoFIXED = &performanceQueryCreateInfo)
 		fixed (uint* numPassesFIXED = &numPasses)
-		vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, performanceQueryCreateInfoFIXED, numPassesFIXED);
+		{
+			vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice, performanceQueryCreateInfoFIXED, numPassesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateHeadlessSurfaceEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.HeadlessSurfaceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Surface>*</c>)</summary>
@@ -1258,7 +1904,10 @@ public unsafe sealed partial class InstanceFunctionTable
 		fixed (Vk.EXT.HeadlessSurfaceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Surface>* surfaceFIXED = &surface)
-		return vkCreateHeadlessSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		{
+			return vkCreateHeadlessSurfaceEXT(instance, createInfoFIXED, allocatorFIXED, surfaceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.NV.FramebufferMixedSamplesCombination*</c>)</summary>
@@ -1268,11 +1917,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.NV.FramebufferMixedSamplesCombination*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint combinationCount, in Span<Vk.NV.FramebufferMixedSamplesCombination> combinations)
+	public Vk.Result GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.NV.FramebufferMixedSamplesCombination> combinations)
 	{
-		fixed (uint* combinationCountFIXED = &combinationCount)
 		fixed (Vk.NV.FramebufferMixedSamplesCombination* combinationsFIXED = combinations)
-		return vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, combinationCountFIXED, combinationsFIXED);
+		{
+			uint combinationsLength = (uint)combinations.Length;
+			return vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, &combinationsLength, combinationsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.NV.FramebufferMixedSamplesCombination*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.NV.FramebufferMixedSamplesCombination[] combinations)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			combinations = Array.Empty<Vk.NV.FramebufferMixedSamplesCombination>();
+			return res;
+		}
+		combinations = new Vk.NV.FramebufferMixedSamplesCombination[COUNT];
+		fixed (Vk.NV.FramebufferMixedSamplesCombination* combinationsFIXED = combinations)
+		return vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, &COUNT, combinationsFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceToolPropertiesEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.EXT.PhysicalDeviceToolProperties*</c>)</summary>
@@ -1282,11 +1949,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceToolPropertiesEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.EXT.PhysicalDeviceToolProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceToolPropertiesEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint toolCount, in Span<Vk.EXT.PhysicalDeviceToolProperties> toolProperties)
+	public Vk.Result GetPhysicalDeviceToolPropertiesEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.EXT.PhysicalDeviceToolProperties> toolProperties)
 	{
-		fixed (uint* toolCountFIXED = &toolCount)
 		fixed (Vk.EXT.PhysicalDeviceToolProperties* toolPropertiesFIXED = toolProperties)
-		return vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, toolCountFIXED, toolPropertiesFIXED);
+		{
+			uint toolPropertiesLength = (uint)toolProperties.Length;
+			return vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, &toolPropertiesLength, toolPropertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceToolPropertiesEXT(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.EXT.PhysicalDeviceToolProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceToolPropertiesEXT(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.EXT.PhysicalDeviceToolProperties[] toolProperties)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			toolProperties = Array.Empty<Vk.EXT.PhysicalDeviceToolProperties>();
+			return res;
+		}
+		toolProperties = new Vk.EXT.PhysicalDeviceToolProperties[COUNT];
+		fixed (Vk.EXT.PhysicalDeviceToolProperties* toolPropertiesFIXED = toolProperties)
+		return vkGetPhysicalDeviceToolPropertiesEXT(physicalDevice, &COUNT, toolPropertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceFragmentShadingRatesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.PhysicalDeviceFragmentShadingRate*</c>)</summary>
@@ -1296,11 +1981,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetPhysicalDeviceFragmentShadingRatesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.PhysicalDeviceFragmentShadingRate*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPhysicalDeviceFragmentShadingRatesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out uint fragmentShadingRateCount, in Span<Vk.KHR.PhysicalDeviceFragmentShadingRate> fragmentShadingRates)
+	public Vk.Result GetPhysicalDeviceFragmentShadingRatesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, in Span<Vk.KHR.PhysicalDeviceFragmentShadingRate> fragmentShadingRates)
 	{
-		fixed (uint* fragmentShadingRateCountFIXED = &fragmentShadingRateCount)
 		fixed (Vk.KHR.PhysicalDeviceFragmentShadingRate* fragmentShadingRatesFIXED = fragmentShadingRates)
-		return vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, fragmentShadingRateCountFIXED, fragmentShadingRatesFIXED);
+		{
+			uint fragmentShadingRatesLength = (uint)fragmentShadingRates.Length;
+			return vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, &fragmentShadingRatesLength, fragmentShadingRatesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPhysicalDeviceFragmentShadingRatesKHR(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>uint*</c>, <c>Vk.KHR.PhysicalDeviceFragmentShadingRate*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPhysicalDeviceFragmentShadingRatesKHR(Vk.Handle<Vk.PhysicalDevice> physicalDevice, out Vk.KHR.PhysicalDeviceFragmentShadingRate[] fragmentShadingRates)
+	{
+		uint COUNT = 0;
+		var res = vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			fragmentShadingRates = Array.Empty<Vk.KHR.PhysicalDeviceFragmentShadingRate>();
+			return res;
+		}
+		fragmentShadingRates = new Vk.KHR.PhysicalDeviceFragmentShadingRate[COUNT];
+		fixed (Vk.KHR.PhysicalDeviceFragmentShadingRate* fragmentShadingRatesFIXED = fragmentShadingRates)
+		return vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, &COUNT, fragmentShadingRatesFIXED);
 	}
 
 }
@@ -1317,7 +2020,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyDevice(Vk.Handle<Vk.Device> device, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDevice(device, allocatorFIXED);
+		{
+			vkDestroyDevice(device, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceQueue(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>uint</c>, <c>Vk.Handle<Vk.Queue>*</c>)</summary>
@@ -1330,7 +2036,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetDeviceQueue(Vk.Handle<Vk.Device> device, uint queueFamilyIndex, uint queueIndex, out Vk.Handle<Vk.Queue> queue)
 	{
 		fixed (Vk.Handle<Vk.Queue>* queueFIXED = &queue)
-		vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, queueFIXED);
+		{
+			vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, queueFIXED);
+		}
+
 	}
 
 	/// <summary>vkQueueSubmit(<c>Vk.Handle<Vk.Queue></c>, <c>uint</c>, <c>Vk.SubmitInfo*</c>, <c>Vk.Handle<Vk.Fence></c>)</summary>
@@ -1343,7 +2052,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result QueueSubmit(Vk.Handle<Vk.Queue> queue, in ReadOnlySpan<Vk.SubmitInfo> submits, Vk.Handle<Vk.Fence> fence)
 	{
 		fixed (Vk.SubmitInfo* submitsFIXED = submits)
-		return vkQueueSubmit(queue, (uint)submits.Length, submitsFIXED, fence);
+		{
+			return vkQueueSubmit(queue, (uint)submits.Length, submitsFIXED, fence);
+		}
+
 	}
 
 	/// <summary>vkQueueWaitIdle(<c>Vk.Handle<Vk.Queue></c>)</summary>
@@ -1368,7 +2080,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.MemoryAllocateInfo* allocateInfoFIXED = &allocateInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.DeviceMemory>* memoryFIXED = &memory)
-		return vkAllocateMemory(device, allocateInfoFIXED, allocatorFIXED, memoryFIXED);
+		{
+			return vkAllocateMemory(device, allocateInfoFIXED, allocatorFIXED, memoryFIXED);
+		}
+
 	}
 
 	/// <summary>vkFreeMemory(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DeviceMemory></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1381,7 +2096,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void FreeMemory(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.DeviceMemory> memory, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkFreeMemory(device, memory, allocatorFIXED);
+		{
+			vkFreeMemory(device, memory, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkMapMemory(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DeviceMemory></c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>Vk.MemoryMapFlags</c>, <c>void**</c>)</summary>
@@ -1404,7 +2122,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result FlushMappedMemoryRanges(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.MappedMemoryRange> memoryRanges)
 	{
 		fixed (Vk.MappedMemoryRange* memoryRangesFIXED = memoryRanges)
-		return vkFlushMappedMemoryRanges(device, (uint)memoryRanges.Length, memoryRangesFIXED);
+		{
+			return vkFlushMappedMemoryRanges(device, (uint)memoryRanges.Length, memoryRangesFIXED);
+		}
+
 	}
 
 	/// <summary>vkInvalidateMappedMemoryRanges(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.MappedMemoryRange*</c>)</summary>
@@ -1417,7 +2138,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result InvalidateMappedMemoryRanges(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.MappedMemoryRange> memoryRanges)
 	{
 		fixed (Vk.MappedMemoryRange* memoryRangesFIXED = memoryRanges)
-		return vkInvalidateMappedMemoryRanges(device, (uint)memoryRanges.Length, memoryRangesFIXED);
+		{
+			return vkInvalidateMappedMemoryRanges(device, (uint)memoryRanges.Length, memoryRangesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceMemoryCommitment(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DeviceMemory></c>, <c>Vk.DeviceSize*</c>)</summary>
@@ -1430,7 +2154,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetDeviceMemoryCommitment(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.DeviceMemory> memory, out Vk.DeviceSize committedMemoryInBytes)
 	{
 		fixed (Vk.DeviceSize* committedMemoryInBytesFIXED = &committedMemoryInBytes)
-		vkGetDeviceMemoryCommitment(device, memory, committedMemoryInBytesFIXED);
+		{
+			vkGetDeviceMemoryCommitment(device, memory, committedMemoryInBytesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferMemoryRequirements(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.MemoryRequirements*</c>)</summary>
@@ -1443,7 +2170,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetBufferMemoryRequirements(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Buffer> buffer, out Vk.MemoryRequirements memoryRequirements)
 	{
 		fixed (Vk.MemoryRequirements* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetBufferMemoryRequirements(device, buffer, memoryRequirementsFIXED);
+		{
+			vkGetBufferMemoryRequirements(device, buffer, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindBufferMemory(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.Handle<Vk.DeviceMemory></c>, <c>Vk.DeviceSize</c>)</summary>
@@ -1461,7 +2191,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetImageMemoryRequirements(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Image> image, out Vk.MemoryRequirements memoryRequirements)
 	{
 		fixed (Vk.MemoryRequirements* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetImageMemoryRequirements(device, image, memoryRequirementsFIXED);
+		{
+			vkGetImageMemoryRequirements(device, image, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindImageMemory(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.Handle<Vk.DeviceMemory></c>, <c>Vk.DeviceSize</c>)</summary>
@@ -1476,11 +2209,25 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetImageSparseMemoryRequirements(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Image></c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetImageSparseMemoryRequirements(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Image> image, out uint sparseMemoryRequirementCount, in Span<Vk.SparseImageMemoryRequirements> sparseMemoryRequirements)
+	public void GetImageSparseMemoryRequirements(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Image> image, in Span<Vk.SparseImageMemoryRequirements> sparseMemoryRequirements)
 	{
-		fixed (uint* sparseMemoryRequirementCountFIXED = &sparseMemoryRequirementCount)
 		fixed (Vk.SparseImageMemoryRequirements* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
-		vkGetImageSparseMemoryRequirements(device, image, sparseMemoryRequirementCountFIXED, sparseMemoryRequirementsFIXED);
+		{
+			uint sparseMemoryRequirementsLength = (uint)sparseMemoryRequirements.Length;
+			vkGetImageSparseMemoryRequirements(device, image, &sparseMemoryRequirementsLength, sparseMemoryRequirementsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetImageSparseMemoryRequirements(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Image></c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Image> image, out Vk.SparseImageMemoryRequirements[] sparseMemoryRequirements)
+	{
+		uint COUNT = 0;
+		vkGetImageSparseMemoryRequirements(device, image, &COUNT, null);
+		sparseMemoryRequirements = new Vk.SparseImageMemoryRequirements[COUNT];
+		fixed (Vk.SparseImageMemoryRequirements* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
+		vkGetImageSparseMemoryRequirements(device, image, &COUNT, sparseMemoryRequirementsFIXED);
 	}
 
 	/// <summary>vkQueueBindSparse(<c>Vk.Handle<Vk.Queue></c>, <c>uint</c>, <c>Vk.BindSparseInfo*</c>, <c>Vk.Handle<Vk.Fence></c>)</summary>
@@ -1493,7 +2240,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result QueueBindSparse(Vk.Handle<Vk.Queue> queue, in ReadOnlySpan<Vk.BindSparseInfo> bindInfo, Vk.Handle<Vk.Fence> fence)
 	{
 		fixed (Vk.BindSparseInfo* bindInfoFIXED = bindInfo)
-		return vkQueueBindSparse(queue, (uint)bindInfo.Length, bindInfoFIXED, fence);
+		{
+			return vkQueueBindSparse(queue, (uint)bindInfo.Length, bindInfoFIXED, fence);
+		}
+
 	}
 
 	/// <summary>vkCreateFence(<c>Vk.Handle<Vk.Device></c>, <c>Vk.FenceCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Fence>*</c>)</summary>
@@ -1508,7 +2258,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.FenceCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Fence>* fenceFIXED = &fence)
-		return vkCreateFence(device, createInfoFIXED, allocatorFIXED, fenceFIXED);
+		{
+			return vkCreateFence(device, createInfoFIXED, allocatorFIXED, fenceFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyFence(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Fence></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1521,7 +2274,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyFence(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Fence> fence, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyFence(device, fence, allocatorFIXED);
+		{
+			vkDestroyFence(device, fence, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkResetFences(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.Handle<Vk.Fence>*</c>)</summary>
@@ -1534,7 +2290,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result ResetFences(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.Handle<Vk.Fence>> fences)
 	{
 		fixed (Vk.Handle<Vk.Fence>* fencesFIXED = fences)
-		return vkResetFences(device, (uint)fences.Length, fencesFIXED);
+		{
+			return vkResetFences(device, (uint)fences.Length, fencesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetFenceStatus(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Fence></c>)</summary>
@@ -1552,7 +2311,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result WaitForFences(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.Handle<Vk.Fence>> fences, Vk.Bool32 waitAll, ulong timeout)
 	{
 		fixed (Vk.Handle<Vk.Fence>* fencesFIXED = fences)
-		return vkWaitForFences(device, (uint)fences.Length, fencesFIXED, waitAll, timeout);
+		{
+			return vkWaitForFences(device, (uint)fences.Length, fencesFIXED, waitAll, timeout);
+		}
+
 	}
 
 	/// <summary>vkCreateSemaphore(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SemaphoreCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Semaphore>*</c>)</summary>
@@ -1567,7 +2329,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.SemaphoreCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Semaphore>* semaphoreFIXED = &semaphore)
-		return vkCreateSemaphore(device, createInfoFIXED, allocatorFIXED, semaphoreFIXED);
+		{
+			return vkCreateSemaphore(device, createInfoFIXED, allocatorFIXED, semaphoreFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroySemaphore(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Semaphore></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1580,7 +2345,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroySemaphore(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Semaphore> semaphore, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroySemaphore(device, semaphore, allocatorFIXED);
+		{
+			vkDestroySemaphore(device, semaphore, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateEvent(<c>Vk.Handle<Vk.Device></c>, <c>Vk.EventCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Event>*</c>)</summary>
@@ -1595,7 +2363,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.EventCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Event>* @eventFIXED = &@event)
-		return vkCreateEvent(device, createInfoFIXED, allocatorFIXED, @eventFIXED);
+		{
+			return vkCreateEvent(device, createInfoFIXED, allocatorFIXED, @eventFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyEvent(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Event></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1608,7 +2379,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyEvent(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Event> @event, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyEvent(device, @event, allocatorFIXED);
+		{
+			vkDestroyEvent(device, @event, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetEventStatus(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Event></c>)</summary>
@@ -1638,7 +2412,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.QueryPoolCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.QueryPool>* queryPoolFIXED = &queryPool)
-		return vkCreateQueryPool(device, createInfoFIXED, allocatorFIXED, queryPoolFIXED);
+		{
+			return vkCreateQueryPool(device, createInfoFIXED, allocatorFIXED, queryPoolFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyQueryPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.QueryPool></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1651,7 +2428,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyQueryPool(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.QueryPool> queryPool, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyQueryPool(device, queryPool, allocatorFIXED);
+		{
+			vkDestroyQueryPool(device, queryPool, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetQueryPoolResults(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.QueryPool></c>, <c>uint</c>, <c>uint</c>, <c>ulong</c>, <c>void*</c>, <c>Vk.DeviceSize</c>, <c>Vk.QueryResultFlags</c>)</summary>
@@ -1681,7 +2461,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.BufferCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Buffer>* bufferFIXED = &buffer)
-		return vkCreateBuffer(device, createInfoFIXED, allocatorFIXED, bufferFIXED);
+		{
+			return vkCreateBuffer(device, createInfoFIXED, allocatorFIXED, bufferFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyBuffer(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1694,7 +2477,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyBuffer(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Buffer> buffer, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyBuffer(device, buffer, allocatorFIXED);
+		{
+			vkDestroyBuffer(device, buffer, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateBufferView(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferViewCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.BufferView>*</c>)</summary>
@@ -1709,7 +2495,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.BufferViewCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.BufferView>* viewFIXED = &view)
-		return vkCreateBufferView(device, createInfoFIXED, allocatorFIXED, viewFIXED);
+		{
+			return vkCreateBufferView(device, createInfoFIXED, allocatorFIXED, viewFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyBufferView(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.BufferView></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1722,7 +2511,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyBufferView(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.BufferView> bufferView, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyBufferView(device, bufferView, allocatorFIXED);
+		{
+			vkDestroyBufferView(device, bufferView, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateImage(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Image>*</c>)</summary>
@@ -1737,7 +2529,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.ImageCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Image>* imageFIXED = &image)
-		return vkCreateImage(device, createInfoFIXED, allocatorFIXED, imageFIXED);
+		{
+			return vkCreateImage(device, createInfoFIXED, allocatorFIXED, imageFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyImage(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1750,7 +2545,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyImage(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Image> image, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyImage(device, image, allocatorFIXED);
+		{
+			vkDestroyImage(device, image, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetImageSubresourceLayout(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageSubresource*</c>, <c>Vk.SubresourceLayout*</c>)</summary>
@@ -1764,7 +2562,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.ImageSubresource* subresourceFIXED = &subresource)
 		fixed (Vk.SubresourceLayout* layoutFIXED = &layout)
-		vkGetImageSubresourceLayout(device, image, subresourceFIXED, layoutFIXED);
+		{
+			vkGetImageSubresourceLayout(device, image, subresourceFIXED, layoutFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateImageView(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageViewCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.ImageView>*</c>)</summary>
@@ -1779,7 +2580,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.ImageViewCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.ImageView>* viewFIXED = &view)
-		return vkCreateImageView(device, createInfoFIXED, allocatorFIXED, viewFIXED);
+		{
+			return vkCreateImageView(device, createInfoFIXED, allocatorFIXED, viewFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyImageView(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.ImageView></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1792,7 +2596,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyImageView(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.ImageView> imageView, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyImageView(device, imageView, allocatorFIXED);
+		{
+			vkDestroyImageView(device, imageView, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateShaderModule(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ShaderModuleCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.ShaderModule>*</c>)</summary>
@@ -1807,7 +2614,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.ShaderModuleCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.ShaderModule>* shaderModuleFIXED = &shaderModule)
-		return vkCreateShaderModule(device, createInfoFIXED, allocatorFIXED, shaderModuleFIXED);
+		{
+			return vkCreateShaderModule(device, createInfoFIXED, allocatorFIXED, shaderModuleFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyShaderModule(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.ShaderModule></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1820,7 +2630,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyShaderModule(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.ShaderModule> shaderModule, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyShaderModule(device, shaderModule, allocatorFIXED);
+		{
+			vkDestroyShaderModule(device, shaderModule, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreatePipelineCache(<c>Vk.Handle<Vk.Device></c>, <c>Vk.PipelineCacheCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.PipelineCache>*</c>)</summary>
@@ -1835,7 +2648,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.PipelineCacheCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.PipelineCache>* pipelineCacheFIXED = &pipelineCache)
-		return vkCreatePipelineCache(device, createInfoFIXED, allocatorFIXED, pipelineCacheFIXED);
+		{
+			return vkCreatePipelineCache(device, createInfoFIXED, allocatorFIXED, pipelineCacheFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyPipelineCache(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.PipelineCache></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1848,7 +2664,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyPipelineCache(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.PipelineCache> pipelineCache, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyPipelineCache(device, pipelineCache, allocatorFIXED);
+		{
+			vkDestroyPipelineCache(device, pipelineCache, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPipelineCacheData(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.PipelineCache></c>, <c>ulong*</c>, <c>void*</c>)</summary>
@@ -1861,7 +2680,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetPipelineCacheData(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.PipelineCache> pipelineCache, out ulong dataSize, void* pData)
 	{
 		fixed (ulong* dataSizeFIXED = &dataSize)
-		return vkGetPipelineCacheData(device, pipelineCache, dataSizeFIXED, pData);
+		{
+			return vkGetPipelineCacheData(device, pipelineCache, dataSizeFIXED, pData);
+		}
+
 	}
 
 	/// <summary>vkMergePipelineCaches(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.PipelineCache></c>, <c>uint</c>, <c>Vk.Handle<Vk.PipelineCache>*</c>)</summary>
@@ -1874,7 +2696,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result MergePipelineCaches(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.PipelineCache> dstCache, in ReadOnlySpan<Vk.Handle<Vk.PipelineCache>> srcCaches)
 	{
 		fixed (Vk.Handle<Vk.PipelineCache>* srcCachesFIXED = srcCaches)
-		return vkMergePipelineCaches(device, dstCache, (uint)srcCaches.Length, srcCachesFIXED);
+		{
+			return vkMergePipelineCaches(device, dstCache, (uint)srcCaches.Length, srcCachesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateGraphicsPipelines(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.PipelineCache></c>, <c>uint</c>, <c>Vk.GraphicsPipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Pipeline>*</c>)</summary>
@@ -1889,7 +2714,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.GraphicsPipelineCreateInfo* createInfosFIXED = createInfos)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Pipeline>* pipelinesFIXED = pipelines)
-		return vkCreateGraphicsPipelines(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		{
+			return vkCreateGraphicsPipelines(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateComputePipelines(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.PipelineCache></c>, <c>uint</c>, <c>Vk.ComputePipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Pipeline>*</c>)</summary>
@@ -1904,7 +2732,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.ComputePipelineCreateInfo* createInfosFIXED = createInfos)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Pipeline>* pipelinesFIXED = pipelines)
-		return vkCreateComputePipelines(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		{
+			return vkCreateComputePipelines(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyPipeline(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Pipeline></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1917,7 +2748,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyPipeline(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Pipeline> pipeline, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyPipeline(device, pipeline, allocatorFIXED);
+		{
+			vkDestroyPipeline(device, pipeline, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreatePipelineLayout(<c>Vk.Handle<Vk.Device></c>, <c>Vk.PipelineLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.PipelineLayout>*</c>)</summary>
@@ -1932,7 +2766,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.PipelineLayoutCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.PipelineLayout>* pipelineLayoutFIXED = &pipelineLayout)
-		return vkCreatePipelineLayout(device, createInfoFIXED, allocatorFIXED, pipelineLayoutFIXED);
+		{
+			return vkCreatePipelineLayout(device, createInfoFIXED, allocatorFIXED, pipelineLayoutFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyPipelineLayout(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.PipelineLayout></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1945,7 +2782,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyPipelineLayout(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.PipelineLayout> pipelineLayout, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyPipelineLayout(device, pipelineLayout, allocatorFIXED);
+		{
+			vkDestroyPipelineLayout(device, pipelineLayout, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateSampler(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SamplerCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Sampler>*</c>)</summary>
@@ -1960,7 +2800,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.SamplerCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Sampler>* samplerFIXED = &sampler)
-		return vkCreateSampler(device, createInfoFIXED, allocatorFIXED, samplerFIXED);
+		{
+			return vkCreateSampler(device, createInfoFIXED, allocatorFIXED, samplerFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroySampler(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Sampler></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -1973,7 +2816,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroySampler(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Sampler> sampler, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroySampler(device, sampler, allocatorFIXED);
+		{
+			vkDestroySampler(device, sampler, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateDescriptorSetLayout(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.DescriptorSetLayout>*</c>)</summary>
@@ -1988,7 +2834,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.DescriptorSetLayoutCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.DescriptorSetLayout>* setLayoutFIXED = &setLayout)
-		return vkCreateDescriptorSetLayout(device, createInfoFIXED, allocatorFIXED, setLayoutFIXED);
+		{
+			return vkCreateDescriptorSetLayout(device, createInfoFIXED, allocatorFIXED, setLayoutFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyDescriptorSetLayout(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DescriptorSetLayout></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -2001,7 +2850,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyDescriptorSetLayout(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.DescriptorSetLayout> descriptorSetLayout, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDescriptorSetLayout(device, descriptorSetLayout, allocatorFIXED);
+		{
+			vkDestroyDescriptorSetLayout(device, descriptorSetLayout, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateDescriptorPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DescriptorPoolCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.DescriptorPool>*</c>)</summary>
@@ -2016,7 +2868,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.DescriptorPoolCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.DescriptorPool>* descriptorPoolFIXED = &descriptorPool)
-		return vkCreateDescriptorPool(device, createInfoFIXED, allocatorFIXED, descriptorPoolFIXED);
+		{
+			return vkCreateDescriptorPool(device, createInfoFIXED, allocatorFIXED, descriptorPoolFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyDescriptorPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DescriptorPool></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -2029,7 +2884,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyDescriptorPool(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.DescriptorPool> descriptorPool, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDescriptorPool(device, descriptorPool, allocatorFIXED);
+		{
+			vkDestroyDescriptorPool(device, descriptorPool, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkResetDescriptorPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DescriptorPool></c>, <c>Vk.DescriptorPoolResetFlags</c>)</summary>
@@ -2048,7 +2906,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.DescriptorSetAllocateInfo* allocateInfoFIXED = &allocateInfo)
 		fixed (Vk.Handle<Vk.DescriptorSet>* descriptorSetsFIXED = descriptorSets)
-		return vkAllocateDescriptorSets(device, allocateInfoFIXED, descriptorSetsFIXED);
+		{
+			return vkAllocateDescriptorSets(device, allocateInfoFIXED, descriptorSetsFIXED);
+		}
+
 	}
 
 	/// <summary>vkFreeDescriptorSets(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DescriptorPool></c>, <c>uint</c>, <c>Vk.Handle<Vk.DescriptorSet>*</c>)</summary>
@@ -2061,7 +2922,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result FreeDescriptorSets(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.DescriptorPool> descriptorPool, in ReadOnlySpan<Vk.Handle<Vk.DescriptorSet>> descriptorSets)
 	{
 		fixed (Vk.Handle<Vk.DescriptorSet>* descriptorSetsFIXED = descriptorSets)
-		return vkFreeDescriptorSets(device, descriptorPool, (uint)descriptorSets.Length, descriptorSetsFIXED);
+		{
+			return vkFreeDescriptorSets(device, descriptorPool, (uint)descriptorSets.Length, descriptorSetsFIXED);
+		}
+
 	}
 
 	/// <summary>vkUpdateDescriptorSets(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.WriteDescriptorSet*</c>, <c>uint</c>, <c>Vk.CopyDescriptorSet*</c>)</summary>
@@ -2075,7 +2939,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.WriteDescriptorSet* descriptorWritesFIXED = descriptorWrites)
 		fixed (Vk.CopyDescriptorSet* descriptorCopiesFIXED = descriptorCopies)
-		vkUpdateDescriptorSets(device, (uint)descriptorWrites.Length, descriptorWritesFIXED, (uint)descriptorCopies.Length, descriptorCopiesFIXED);
+		{
+			vkUpdateDescriptorSets(device, (uint)descriptorWrites.Length, descriptorWritesFIXED, (uint)descriptorCopies.Length, descriptorCopiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateFramebuffer(<c>Vk.Handle<Vk.Device></c>, <c>Vk.FramebufferCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Framebuffer>*</c>)</summary>
@@ -2090,7 +2957,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.FramebufferCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Framebuffer>* framebufferFIXED = &framebuffer)
-		return vkCreateFramebuffer(device, createInfoFIXED, allocatorFIXED, framebufferFIXED);
+		{
+			return vkCreateFramebuffer(device, createInfoFIXED, allocatorFIXED, framebufferFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyFramebuffer(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Framebuffer></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -2103,7 +2973,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyFramebuffer(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Framebuffer> framebuffer, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyFramebuffer(device, framebuffer, allocatorFIXED);
+		{
+			vkDestroyFramebuffer(device, framebuffer, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateRenderPass(<c>Vk.Handle<Vk.Device></c>, <c>Vk.RenderPassCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.RenderPass>*</c>)</summary>
@@ -2118,7 +2991,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.RenderPassCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.RenderPass>* renderPassFIXED = &renderPass)
-		return vkCreateRenderPass(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+		{
+			return vkCreateRenderPass(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyRenderPass(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.RenderPass></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -2131,7 +3007,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyRenderPass(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.RenderPass> renderPass, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyRenderPass(device, renderPass, allocatorFIXED);
+		{
+			vkDestroyRenderPass(device, renderPass, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetRenderAreaGranularity(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.RenderPass></c>, <c>Vk.Extent2D*</c>)</summary>
@@ -2144,7 +3023,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetRenderAreaGranularity(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.RenderPass> renderPass, out Vk.Extent2D granularity)
 	{
 		fixed (Vk.Extent2D* granularityFIXED = &granularity)
-		vkGetRenderAreaGranularity(device, renderPass, granularityFIXED);
+		{
+			vkGetRenderAreaGranularity(device, renderPass, granularityFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateCommandPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.CommandPoolCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.CommandPool>*</c>)</summary>
@@ -2159,7 +3041,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.CommandPoolCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.CommandPool>* commandPoolFIXED = &commandPool)
-		return vkCreateCommandPool(device, createInfoFIXED, allocatorFIXED, commandPoolFIXED);
+		{
+			return vkCreateCommandPool(device, createInfoFIXED, allocatorFIXED, commandPoolFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyCommandPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.CommandPool></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -2172,7 +3057,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyCommandPool(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.CommandPool> commandPool, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyCommandPool(device, commandPool, allocatorFIXED);
+		{
+			vkDestroyCommandPool(device, commandPool, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkResetCommandPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.CommandPool></c>, <c>Vk.CommandPoolResetFlags</c>)</summary>
@@ -2191,7 +3079,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.CommandBufferAllocateInfo* allocateInfoFIXED = &allocateInfo)
 		fixed (Vk.Handle<Vk.CommandBuffer>* commandBuffersFIXED = commandBuffers)
-		return vkAllocateCommandBuffers(device, allocateInfoFIXED, commandBuffersFIXED);
+		{
+			return vkAllocateCommandBuffers(device, allocateInfoFIXED, commandBuffersFIXED);
+		}
+
 	}
 
 	/// <summary>vkFreeCommandBuffers(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.CommandPool></c>, <c>uint</c>, <c>Vk.Handle<Vk.CommandBuffer>*</c>)</summary>
@@ -2204,7 +3095,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void FreeCommandBuffers(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.CommandPool> commandPool, in ReadOnlySpan<Vk.Handle<Vk.CommandBuffer>> commandBuffers)
 	{
 		fixed (Vk.Handle<Vk.CommandBuffer>* commandBuffersFIXED = commandBuffers)
-		vkFreeCommandBuffers(device, commandPool, (uint)commandBuffers.Length, commandBuffersFIXED);
+		{
+			vkFreeCommandBuffers(device, commandPool, (uint)commandBuffers.Length, commandBuffersFIXED);
+		}
+
 	}
 
 	/// <summary>vkBeginCommandBuffer(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.CommandBufferBeginInfo*</c>)</summary>
@@ -2217,7 +3111,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BeginCommandBuffer(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.CommandBufferBeginInfo beginInfo)
 	{
 		fixed (Vk.CommandBufferBeginInfo* beginInfoFIXED = &beginInfo)
-		return vkBeginCommandBuffer(commandBuffer, beginInfoFIXED);
+		{
+			return vkBeginCommandBuffer(commandBuffer, beginInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkEndCommandBuffer(<c>Vk.Handle<Vk.CommandBuffer></c>)</summary>
@@ -2245,7 +3142,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetViewport(Vk.Handle<Vk.CommandBuffer> commandBuffer, uint firstViewport, in ReadOnlySpan<Vk.Viewport> viewports)
 	{
 		fixed (Vk.Viewport* viewportsFIXED = viewports)
-		vkCmdSetViewport(commandBuffer, firstViewport, (uint)viewports.Length, viewportsFIXED);
+		{
+			vkCmdSetViewport(commandBuffer, firstViewport, (uint)viewports.Length, viewportsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetScissor(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
@@ -2258,7 +3158,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetScissor(Vk.Handle<Vk.CommandBuffer> commandBuffer, uint firstScissor, in ReadOnlySpan<Vk.Rect2D> scissors)
 	{
 		fixed (Vk.Rect2D* scissorsFIXED = scissors)
-		vkCmdSetScissor(commandBuffer, firstScissor, (uint)scissors.Length, scissorsFIXED);
+		{
+			vkCmdSetScissor(commandBuffer, firstScissor, (uint)scissors.Length, scissorsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetLineWidth(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>float</c>)</summary>
@@ -2281,7 +3184,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetBlendConstants(Vk.Handle<Vk.CommandBuffer> commandBuffer, in float blendConstants)
 	{
 		fixed (float* blendConstantsFIXED = &blendConstants)
-		vkCmdSetBlendConstants(commandBuffer, blendConstantsFIXED);
+		{
+			vkCmdSetBlendConstants(commandBuffer, blendConstantsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetDepthBounds(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>float</c>, <c>float</c>)</summary>
@@ -2315,7 +3221,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.Handle<Vk.DescriptorSet>* descriptorSetsFIXED = descriptorSets)
 		fixed (uint* dynamicOffsetsFIXED = dynamicOffsets)
-		vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, (uint)descriptorSets.Length, descriptorSetsFIXED, (uint)dynamicOffsets.Length, dynamicOffsetsFIXED);
+		{
+			vkCmdBindDescriptorSets(commandBuffer, pipelineBindPoint, layout, firstSet, (uint)descriptorSets.Length, descriptorSetsFIXED, (uint)dynamicOffsets.Length, dynamicOffsetsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBindIndexBuffer(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.IndexType</c>)</summary>
@@ -2334,7 +3243,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.Handle<Vk.Buffer>* buffersFIXED = buffers)
 		fixed (Vk.DeviceSize* offsetsFIXED = offsets)
-		vkCmdBindVertexBuffers(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED);
+		{
+			vkCmdBindVertexBuffers(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdDraw(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
@@ -2377,7 +3289,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyBuffer(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.Handle<Vk.Buffer> srcBuffer, Vk.Handle<Vk.Buffer> dstBuffer, in ReadOnlySpan<Vk.BufferCopy> regions)
 	{
 		fixed (Vk.BufferCopy* regionsFIXED = regions)
-		vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, (uint)regions.Length, regionsFIXED);
+		{
+			vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, (uint)regions.Length, regionsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyImage(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageCopy*</c>)</summary>
@@ -2390,7 +3305,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyImage(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.Handle<Vk.Image> srcImage, Vk.ImageLayout srcImageLayout, Vk.Handle<Vk.Image> dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageCopy> regions)
 	{
 		fixed (Vk.ImageCopy* regionsFIXED = regions)
-		vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+		{
+			vkCmdCopyImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBlitImage(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageBlit*</c>, <c>Vk.Filter</c>)</summary>
@@ -2403,7 +3321,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBlitImage(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.Handle<Vk.Image> srcImage, Vk.ImageLayout srcImageLayout, Vk.Handle<Vk.Image> dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageBlit> regions, Vk.Filter filter)
 	{
 		fixed (Vk.ImageBlit* regionsFIXED = regions)
-		vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED, filter);
+		{
+			vkCmdBlitImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED, filter);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyBufferToImage(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.BufferImageCopy*</c>)</summary>
@@ -2416,7 +3337,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyBufferToImage(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.Handle<Vk.Buffer> srcBuffer, Vk.Handle<Vk.Image> dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.BufferImageCopy> regions)
 	{
 		fixed (Vk.BufferImageCopy* regionsFIXED = regions)
-		vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+		{
+			vkCmdCopyBufferToImage(commandBuffer, srcBuffer, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyImageToBuffer(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>uint</c>, <c>Vk.BufferImageCopy*</c>)</summary>
@@ -2429,7 +3353,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyImageToBuffer(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.Handle<Vk.Image> srcImage, Vk.ImageLayout srcImageLayout, Vk.Handle<Vk.Buffer> dstBuffer, in ReadOnlySpan<Vk.BufferImageCopy> regions)
 	{
 		fixed (Vk.BufferImageCopy* regionsFIXED = regions)
-		vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, (uint)regions.Length, regionsFIXED);
+		{
+			vkCmdCopyImageToBuffer(commandBuffer, srcImage, srcImageLayout, dstBuffer, (uint)regions.Length, regionsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdUpdateBuffer(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>void*</c>)</summary>
@@ -2453,7 +3380,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.ClearColorValue* colorFIXED = &color)
 		fixed (Vk.ImageSubresourceRange* rangesFIXED = ranges)
-		vkCmdClearColorImage(commandBuffer, image, imageLayout, colorFIXED, (uint)ranges.Length, rangesFIXED);
+		{
+			vkCmdClearColorImage(commandBuffer, image, imageLayout, colorFIXED, (uint)ranges.Length, rangesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdClearDepthStencilImage(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>Vk.ClearDepthStencilValue*</c>, <c>uint</c>, <c>Vk.ImageSubresourceRange*</c>)</summary>
@@ -2467,7 +3397,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.ClearDepthStencilValue* depthStencilFIXED = &depthStencil)
 		fixed (Vk.ImageSubresourceRange* rangesFIXED = ranges)
-		vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, depthStencilFIXED, (uint)ranges.Length, rangesFIXED);
+		{
+			vkCmdClearDepthStencilImage(commandBuffer, image, imageLayout, depthStencilFIXED, (uint)ranges.Length, rangesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdClearAttachments(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>Vk.ClearAttachment*</c>, <c>uint</c>, <c>Vk.ClearRect*</c>)</summary>
@@ -2481,7 +3414,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.ClearAttachment* attachmentsFIXED = attachments)
 		fixed (Vk.ClearRect* rectsFIXED = rects)
-		vkCmdClearAttachments(commandBuffer, (uint)attachments.Length, attachmentsFIXED, (uint)rects.Length, rectsFIXED);
+		{
+			vkCmdClearAttachments(commandBuffer, (uint)attachments.Length, attachmentsFIXED, (uint)rects.Length, rectsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdResolveImage(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>Vk.Handle<Vk.Image></c>, <c>Vk.ImageLayout</c>, <c>uint</c>, <c>Vk.ImageResolve*</c>)</summary>
@@ -2494,7 +3430,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdResolveImage(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.Handle<Vk.Image> srcImage, Vk.ImageLayout srcImageLayout, Vk.Handle<Vk.Image> dstImage, Vk.ImageLayout dstImageLayout, in ReadOnlySpan<Vk.ImageResolve> regions)
 	{
 		fixed (Vk.ImageResolve* regionsFIXED = regions)
-		vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+		{
+			vkCmdResolveImage(commandBuffer, srcImage, srcImageLayout, dstImage, dstImageLayout, (uint)regions.Length, regionsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetEvent(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Event></c>, <c>Vk.PipelineStageFlags</c>)</summary>
@@ -2520,7 +3459,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.MemoryBarrier* memoryBarriersFIXED = memoryBarriers)
 		fixed (Vk.BufferMemoryBarrier* bufferMemoryBarriersFIXED = bufferMemoryBarriers)
 		fixed (Vk.ImageMemoryBarrier* imageMemoryBarriersFIXED = imageMemoryBarriers)
-		vkCmdWaitEvents(commandBuffer, (uint)events.Length, eventsFIXED, srcStageMask, dstStageMask, (uint)memoryBarriers.Length, memoryBarriersFIXED, (uint)bufferMemoryBarriers.Length, bufferMemoryBarriersFIXED, (uint)imageMemoryBarriers.Length, imageMemoryBarriersFIXED);
+		{
+			vkCmdWaitEvents(commandBuffer, (uint)events.Length, eventsFIXED, srcStageMask, dstStageMask, (uint)memoryBarriers.Length, memoryBarriersFIXED, (uint)bufferMemoryBarriers.Length, bufferMemoryBarriersFIXED, (uint)imageMemoryBarriers.Length, imageMemoryBarriersFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdPipelineBarrier(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.DependencyFlags</c>, <c>uint</c>, <c>Vk.MemoryBarrier*</c>, <c>uint</c>, <c>Vk.BufferMemoryBarrier*</c>, <c>uint</c>, <c>Vk.ImageMemoryBarrier*</c>)</summary>
@@ -2535,7 +3477,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.MemoryBarrier* memoryBarriersFIXED = memoryBarriers)
 		fixed (Vk.BufferMemoryBarrier* bufferMemoryBarriersFIXED = bufferMemoryBarriers)
 		fixed (Vk.ImageMemoryBarrier* imageMemoryBarriersFIXED = imageMemoryBarriers)
-		vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, (uint)memoryBarriers.Length, memoryBarriersFIXED, (uint)bufferMemoryBarriers.Length, bufferMemoryBarriersFIXED, (uint)imageMemoryBarriers.Length, imageMemoryBarriersFIXED);
+		{
+			vkCmdPipelineBarrier(commandBuffer, srcStageMask, dstStageMask, dependencyFlags, (uint)memoryBarriers.Length, memoryBarriersFIXED, (uint)bufferMemoryBarriers.Length, bufferMemoryBarriersFIXED, (uint)imageMemoryBarriers.Length, imageMemoryBarriersFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBeginQuery(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.QueryPool></c>, <c>uint</c>, <c>Vk.QueryControlFlags</c>)</summary>
@@ -2558,7 +3503,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBeginConditionalRenderingEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.EXT.ConditionalRenderingBeginInfo conditionalRenderingBegin)
 	{
 		fixed (Vk.EXT.ConditionalRenderingBeginInfo* conditionalRenderingBeginFIXED = &conditionalRenderingBegin)
-		vkCmdBeginConditionalRenderingEXT(commandBuffer, conditionalRenderingBeginFIXED);
+		{
+			vkCmdBeginConditionalRenderingEXT(commandBuffer, conditionalRenderingBeginFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdEndConditionalRenderingEXT(<c>Vk.Handle<Vk.CommandBuffer></c>)</summary>
@@ -2596,7 +3544,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBeginRenderPass(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.RenderPassBeginInfo renderPassBegin, Vk.SubpassContents contents)
 	{
 		fixed (Vk.RenderPassBeginInfo* renderPassBeginFIXED = &renderPassBegin)
-		vkCmdBeginRenderPass(commandBuffer, renderPassBeginFIXED, contents);
+		{
+			vkCmdBeginRenderPass(commandBuffer, renderPassBeginFIXED, contents);
+		}
+
 	}
 
 	/// <summary>vkCmdNextSubpass(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.SubpassContents</c>)</summary>
@@ -2619,7 +3570,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdExecuteCommands(Vk.Handle<Vk.CommandBuffer> commandBuffer, in ReadOnlySpan<Vk.Handle<Vk.CommandBuffer>> commandBuffers)
 	{
 		fixed (Vk.Handle<Vk.CommandBuffer>* commandBuffersFIXED = commandBuffers)
-		vkCmdExecuteCommands(commandBuffer, (uint)commandBuffers.Length, commandBuffersFIXED);
+		{
+			vkCmdExecuteCommands(commandBuffer, (uint)commandBuffers.Length, commandBuffersFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateSharedSwapchainsKHR(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.KHR.SwapchainCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Swapchain>*</c>)</summary>
@@ -2634,7 +3588,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.KHR.SwapchainCreateInfo* createInfosFIXED = createInfos)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Swapchain>* swapchainsFIXED = swapchains)
-		return vkCreateSharedSwapchainsKHR(device, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, swapchainsFIXED);
+		{
+			return vkCreateSharedSwapchainsKHR(device, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, swapchainsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateSwapchainKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.SwapchainCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.Swapchain>*</c>)</summary>
@@ -2649,7 +3606,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.KHR.SwapchainCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.Swapchain>* swapchainFIXED = &swapchain)
-		return vkCreateSwapchainKHR(device, createInfoFIXED, allocatorFIXED, swapchainFIXED);
+		{
+			return vkCreateSwapchainKHR(device, createInfoFIXED, allocatorFIXED, swapchainFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroySwapchainKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -2662,7 +3622,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroySwapchainKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroySwapchainKHR(device, swapchain, allocatorFIXED);
+		{
+			vkDestroySwapchainKHR(device, swapchain, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSwapchainImagesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>uint*</c>, <c>Vk.Handle<Vk.Image>*</c>)</summary>
@@ -2672,11 +3635,29 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetSwapchainImagesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>uint*</c>, <c>Vk.Handle<Vk.Image>*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetSwapchainImagesKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, out uint swapchainImageCount, in Span<Vk.Handle<Vk.Image>> swapchainImages)
+	public Vk.Result GetSwapchainImagesKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, in Span<Vk.Handle<Vk.Image>> swapchainImages)
 	{
-		fixed (uint* swapchainImageCountFIXED = &swapchainImageCount)
 		fixed (Vk.Handle<Vk.Image>* swapchainImagesFIXED = swapchainImages)
-		return vkGetSwapchainImagesKHR(device, swapchain, swapchainImageCountFIXED, swapchainImagesFIXED);
+		{
+			uint swapchainImagesLength = (uint)swapchainImages.Length;
+			return vkGetSwapchainImagesKHR(device, swapchain, &swapchainImagesLength, swapchainImagesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetSwapchainImagesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>uint*</c>, <c>Vk.Handle<Vk.Image>*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSwapchainImagesKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, out Vk.Handle<Vk.Image>[] swapchainImages)
+	{
+		uint COUNT = 0;
+		var res = vkGetSwapchainImagesKHR(device, swapchain, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			swapchainImages = Array.Empty<Vk.Handle<Vk.Image>>();
+			return res;
+		}
+		swapchainImages = new Vk.Handle<Vk.Image>[COUNT];
+		fixed (Vk.Handle<Vk.Image>* swapchainImagesFIXED = swapchainImages)
+		return vkGetSwapchainImagesKHR(device, swapchain, &COUNT, swapchainImagesFIXED);
 	}
 
 	/// <summary>vkAcquireNextImageKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>ulong</c>, <c>Vk.Handle<Vk.Semaphore></c>, <c>Vk.Handle<Vk.Fence></c>, <c>uint*</c>)</summary>
@@ -2689,7 +3670,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result AcquireNextImageKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, ulong timeout, Vk.Handle<Vk.Semaphore> semaphore, Vk.Handle<Vk.Fence> fence, out uint imageIndex)
 	{
 		fixed (uint* imageIndexFIXED = &imageIndex)
-		return vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, imageIndexFIXED);
+		{
+			return vkAcquireNextImageKHR(device, swapchain, timeout, semaphore, fence, imageIndexFIXED);
+		}
+
 	}
 
 	/// <summary>vkQueuePresentKHR(<c>Vk.Handle<Vk.Queue></c>, <c>Vk.KHR.PresentInfo*</c>)</summary>
@@ -2702,7 +3686,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result QueuePresentKHR(Vk.Handle<Vk.Queue> queue, in Vk.KHR.PresentInfo presentInfo)
 	{
 		fixed (Vk.KHR.PresentInfo* presentInfoFIXED = &presentInfo)
-		return vkQueuePresentKHR(queue, presentInfoFIXED);
+		{
+			return vkQueuePresentKHR(queue, presentInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkDebugMarkerSetObjectNameEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.EXT.DebugMarkerObjectNameInfo*</c>)</summary>
@@ -2715,7 +3702,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result DebugMarkerSetObjectNameEXT(Vk.Handle<Vk.Device> device, in Vk.EXT.DebugMarkerObjectNameInfo nameInfo)
 	{
 		fixed (Vk.EXT.DebugMarkerObjectNameInfo* nameInfoFIXED = &nameInfo)
-		return vkDebugMarkerSetObjectNameEXT(device, nameInfoFIXED);
+		{
+			return vkDebugMarkerSetObjectNameEXT(device, nameInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkDebugMarkerSetObjectTagEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.EXT.DebugMarkerObjectTagInfo*</c>)</summary>
@@ -2728,7 +3718,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result DebugMarkerSetObjectTagEXT(Vk.Handle<Vk.Device> device, in Vk.EXT.DebugMarkerObjectTagInfo tagInfo)
 	{
 		fixed (Vk.EXT.DebugMarkerObjectTagInfo* tagInfoFIXED = &tagInfo)
-		return vkDebugMarkerSetObjectTagEXT(device, tagInfoFIXED);
+		{
+			return vkDebugMarkerSetObjectTagEXT(device, tagInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdDebugMarkerBeginEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.EXT.DebugMarkerMarkerInfo*</c>)</summary>
@@ -2741,7 +3734,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdDebugMarkerBeginEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.EXT.DebugMarkerMarkerInfo markerInfo)
 	{
 		fixed (Vk.EXT.DebugMarkerMarkerInfo* markerInfoFIXED = &markerInfo)
-		vkCmdDebugMarkerBeginEXT(commandBuffer, markerInfoFIXED);
+		{
+			vkCmdDebugMarkerBeginEXT(commandBuffer, markerInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdDebugMarkerEndEXT(<c>Vk.Handle<Vk.CommandBuffer></c>)</summary>
@@ -2759,7 +3755,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdDebugMarkerInsertEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.EXT.DebugMarkerMarkerInfo markerInfo)
 	{
 		fixed (Vk.EXT.DebugMarkerMarkerInfo* markerInfoFIXED = &markerInfo)
-		vkCmdDebugMarkerInsertEXT(commandBuffer, markerInfoFIXED);
+		{
+			vkCmdDebugMarkerInsertEXT(commandBuffer, markerInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetMemoryWin32HandleNV(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DeviceMemory></c>, <c>Vk.NV.ExternalMemoryHandleTypeFlags</c>, <c>void**</c>)</summary>
@@ -2777,7 +3776,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdExecuteGeneratedCommandsNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.Bool32 isPreprocessed, in Vk.NV.GeneratedCommandsInfo generatedCommandsInfo)
 	{
 		fixed (Vk.NV.GeneratedCommandsInfo* generatedCommandsInfoFIXED = &generatedCommandsInfo)
-		vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, generatedCommandsInfoFIXED);
+		{
+			vkCmdExecuteGeneratedCommandsNV(commandBuffer, isPreprocessed, generatedCommandsInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdPreprocessGeneratedCommandsNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.NV.GeneratedCommandsInfo*</c>)</summary>
@@ -2790,7 +3792,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdPreprocessGeneratedCommandsNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.NV.GeneratedCommandsInfo generatedCommandsInfo)
 	{
 		fixed (Vk.NV.GeneratedCommandsInfo* generatedCommandsInfoFIXED = &generatedCommandsInfo)
-		vkCmdPreprocessGeneratedCommandsNV(commandBuffer, generatedCommandsInfoFIXED);
+		{
+			vkCmdPreprocessGeneratedCommandsNV(commandBuffer, generatedCommandsInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBindPipelineShaderGroupNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.PipelineBindPoint</c>, <c>Vk.Handle<Vk.Pipeline></c>, <c>uint</c>)</summary>
@@ -2809,7 +3814,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.NV.GeneratedCommandsMemoryRequirementsInfo* infoFIXED = &info)
 		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetGeneratedCommandsMemoryRequirementsNV(device, infoFIXED, memoryRequirementsFIXED);
+		{
+			vkGetGeneratedCommandsMemoryRequirementsNV(device, infoFIXED, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateIndirectCommandsLayoutNV(<c>Vk.Handle<Vk.Device></c>, <c>Vk.NV.IndirectCommandsLayoutCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.NV.IndirectCommandsLayout>*</c>)</summary>
@@ -2824,7 +3832,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.NV.IndirectCommandsLayoutCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.NV.IndirectCommandsLayout>* indirectCommandsLayoutFIXED = &indirectCommandsLayout)
-		return vkCreateIndirectCommandsLayoutNV(device, createInfoFIXED, allocatorFIXED, indirectCommandsLayoutFIXED);
+		{
+			return vkCreateIndirectCommandsLayoutNV(device, createInfoFIXED, allocatorFIXED, indirectCommandsLayoutFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyIndirectCommandsLayoutNV(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.NV.IndirectCommandsLayout></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -2837,7 +3848,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyIndirectCommandsLayoutNV(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.NV.IndirectCommandsLayout> indirectCommandsLayout, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, allocatorFIXED);
+		{
+			vkDestroyIndirectCommandsLayoutNV(device, indirectCommandsLayout, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdPushDescriptorSetKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.PipelineBindPoint</c>, <c>Vk.Handle<Vk.PipelineLayout></c>, <c>uint</c>, <c>uint</c>, <c>Vk.WriteDescriptorSet*</c>)</summary>
@@ -2850,7 +3864,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdPushDescriptorSetKHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.PipelineBindPoint pipelineBindPoint, Vk.Handle<Vk.PipelineLayout> layout, uint set, in ReadOnlySpan<Vk.WriteDescriptorSet> descriptorWrites)
 	{
 		fixed (Vk.WriteDescriptorSet* descriptorWritesFIXED = descriptorWrites)
-		vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, (uint)descriptorWrites.Length, descriptorWritesFIXED);
+		{
+			vkCmdPushDescriptorSetKHR(commandBuffer, pipelineBindPoint, layout, set, (uint)descriptorWrites.Length, descriptorWritesFIXED);
+		}
+
 	}
 
 	/// <summary>vkTrimCommandPool(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.CommandPool></c>, <c>Vk.CommandPoolTrimFlags</c>)</summary>
@@ -2873,7 +3890,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetMemoryWin32HandleKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.MemoryGetWin32HandleInfo getWin32HandleInfo, void** pHandle)
 	{
 		fixed (Vk.KHR.MemoryGetWin32HandleInfo* getWin32HandleInfoFIXED = &getWin32HandleInfo)
-		return vkGetMemoryWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+		{
+			return vkGetMemoryWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+		}
+
 	}
 
 	/// <summary>vkGetMemoryWin32HandlePropertiesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>void*</c>, <c>Vk.KHR.MemoryWin32HandleProperties*</c>)</summary>
@@ -2886,7 +3906,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetMemoryWin32HandlePropertiesKHR(Vk.Handle<Vk.Device> device, Vk.ExternalMemoryHandleTypeFlags handleType, void* handle, out Vk.KHR.MemoryWin32HandleProperties memoryWin32HandleProperties)
 	{
 		fixed (Vk.KHR.MemoryWin32HandleProperties* memoryWin32HandlePropertiesFIXED = &memoryWin32HandleProperties)
-		return vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, memoryWin32HandlePropertiesFIXED);
+		{
+			return vkGetMemoryWin32HandlePropertiesKHR(device, handleType, handle, memoryWin32HandlePropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetMemoryFdKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.MemoryGetFdInfo*</c>, <c>int*</c>)</summary>
@@ -2900,7 +3923,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.KHR.MemoryGetFdInfo* getFdInfoFIXED = &getFdInfo)
 		fixed (int* fdFIXED = &fd)
-		return vkGetMemoryFdKHR(device, getFdInfoFIXED, fdFIXED);
+		{
+			return vkGetMemoryFdKHR(device, getFdInfoFIXED, fdFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetMemoryFdPropertiesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>int</c>, <c>Vk.KHR.MemoryFdProperties*</c>)</summary>
@@ -2913,7 +3939,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetMemoryFdPropertiesKHR(Vk.Handle<Vk.Device> device, Vk.ExternalMemoryHandleTypeFlags handleType, int fd, out Vk.KHR.MemoryFdProperties memoryFdProperties)
 	{
 		fixed (Vk.KHR.MemoryFdProperties* memoryFdPropertiesFIXED = &memoryFdProperties)
-		return vkGetMemoryFdPropertiesKHR(device, handleType, fd, memoryFdPropertiesFIXED);
+		{
+			return vkGetMemoryFdPropertiesKHR(device, handleType, fd, memoryFdPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSemaphoreWin32HandleKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.SemaphoreGetWin32HandleInfo*</c>, <c>void**</c>)</summary>
@@ -2926,7 +3955,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetSemaphoreWin32HandleKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.SemaphoreGetWin32HandleInfo getWin32HandleInfo, void** pHandle)
 	{
 		fixed (Vk.KHR.SemaphoreGetWin32HandleInfo* getWin32HandleInfoFIXED = &getWin32HandleInfo)
-		return vkGetSemaphoreWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+		{
+			return vkGetSemaphoreWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+		}
+
 	}
 
 	/// <summary>vkImportSemaphoreWin32HandleKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.ImportSemaphoreWin32HandleInfo*</c>)</summary>
@@ -2939,7 +3971,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result ImportSemaphoreWin32HandleKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.ImportSemaphoreWin32HandleInfo importSemaphoreWin32HandleInfo)
 	{
 		fixed (Vk.KHR.ImportSemaphoreWin32HandleInfo* importSemaphoreWin32HandleInfoFIXED = &importSemaphoreWin32HandleInfo)
-		return vkImportSemaphoreWin32HandleKHR(device, importSemaphoreWin32HandleInfoFIXED);
+		{
+			return vkImportSemaphoreWin32HandleKHR(device, importSemaphoreWin32HandleInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSemaphoreFdKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.SemaphoreGetFdInfo*</c>, <c>int*</c>)</summary>
@@ -2953,7 +3988,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.KHR.SemaphoreGetFdInfo* getFdInfoFIXED = &getFdInfo)
 		fixed (int* fdFIXED = &fd)
-		return vkGetSemaphoreFdKHR(device, getFdInfoFIXED, fdFIXED);
+		{
+			return vkGetSemaphoreFdKHR(device, getFdInfoFIXED, fdFIXED);
+		}
+
 	}
 
 	/// <summary>vkImportSemaphoreFdKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.ImportSemaphoreFdInfo*</c>)</summary>
@@ -2966,7 +4004,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result ImportSemaphoreFdKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.ImportSemaphoreFdInfo importSemaphoreFdInfo)
 	{
 		fixed (Vk.KHR.ImportSemaphoreFdInfo* importSemaphoreFdInfoFIXED = &importSemaphoreFdInfo)
-		return vkImportSemaphoreFdKHR(device, importSemaphoreFdInfoFIXED);
+		{
+			return vkImportSemaphoreFdKHR(device, importSemaphoreFdInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetFenceWin32HandleKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.FenceGetWin32HandleInfo*</c>, <c>void**</c>)</summary>
@@ -2979,7 +4020,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetFenceWin32HandleKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.FenceGetWin32HandleInfo getWin32HandleInfo, void** pHandle)
 	{
 		fixed (Vk.KHR.FenceGetWin32HandleInfo* getWin32HandleInfoFIXED = &getWin32HandleInfo)
-		return vkGetFenceWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+		{
+			return vkGetFenceWin32HandleKHR(device, getWin32HandleInfoFIXED, pHandle);
+		}
+
 	}
 
 	/// <summary>vkImportFenceWin32HandleKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.ImportFenceWin32HandleInfo*</c>)</summary>
@@ -2992,7 +4036,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result ImportFenceWin32HandleKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.ImportFenceWin32HandleInfo importFenceWin32HandleInfo)
 	{
 		fixed (Vk.KHR.ImportFenceWin32HandleInfo* importFenceWin32HandleInfoFIXED = &importFenceWin32HandleInfo)
-		return vkImportFenceWin32HandleKHR(device, importFenceWin32HandleInfoFIXED);
+		{
+			return vkImportFenceWin32HandleKHR(device, importFenceWin32HandleInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetFenceFdKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.FenceGetFdInfo*</c>, <c>int*</c>)</summary>
@@ -3006,7 +4053,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.KHR.FenceGetFdInfo* getFdInfoFIXED = &getFdInfo)
 		fixed (int* fdFIXED = &fd)
-		return vkGetFenceFdKHR(device, getFdInfoFIXED, fdFIXED);
+		{
+			return vkGetFenceFdKHR(device, getFdInfoFIXED, fdFIXED);
+		}
+
 	}
 
 	/// <summary>vkImportFenceFdKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.ImportFenceFdInfo*</c>)</summary>
@@ -3019,7 +4069,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result ImportFenceFdKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.ImportFenceFdInfo importFenceFdInfo)
 	{
 		fixed (Vk.KHR.ImportFenceFdInfo* importFenceFdInfoFIXED = &importFenceFdInfo)
-		return vkImportFenceFdKHR(device, importFenceFdInfoFIXED);
+		{
+			return vkImportFenceFdKHR(device, importFenceFdInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkDisplayPowerControlEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>Vk.EXT.DisplayPowerInfo*</c>)</summary>
@@ -3032,7 +4085,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result DisplayPowerControlEXT(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Display> display, in Vk.EXT.DisplayPowerInfo displayPowerInfo)
 	{
 		fixed (Vk.EXT.DisplayPowerInfo* displayPowerInfoFIXED = &displayPowerInfo)
-		return vkDisplayPowerControlEXT(device, display, displayPowerInfoFIXED);
+		{
+			return vkDisplayPowerControlEXT(device, display, displayPowerInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkRegisterDeviceEventEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.EXT.DeviceEventInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Fence>*</c>)</summary>
@@ -3047,7 +4103,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.EXT.DeviceEventInfo* deviceEventInfoFIXED = &deviceEventInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Fence>* fenceFIXED = &fence)
-		return vkRegisterDeviceEventEXT(device, deviceEventInfoFIXED, allocatorFIXED, fenceFIXED);
+		{
+			return vkRegisterDeviceEventEXT(device, deviceEventInfoFIXED, allocatorFIXED, fenceFIXED);
+		}
+
 	}
 
 	/// <summary>vkRegisterDisplayEventEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Display></c>, <c>Vk.EXT.DisplayEventInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Fence>*</c>)</summary>
@@ -3062,7 +4121,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.EXT.DisplayEventInfo* displayEventInfoFIXED = &displayEventInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Fence>* fenceFIXED = &fence)
-		return vkRegisterDisplayEventEXT(device, display, displayEventInfoFIXED, allocatorFIXED, fenceFIXED);
+		{
+			return vkRegisterDisplayEventEXT(device, display, displayEventInfoFIXED, allocatorFIXED, fenceFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSwapchainCounterEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>Vk.EXT.SurfaceCounterFlags</c>, <c>ulong*</c>)</summary>
@@ -3075,7 +4137,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetSwapchainCounterEXT(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, Vk.EXT.SurfaceCounterFlags counter, out ulong counterValue)
 	{
 		fixed (ulong* counterValueFIXED = &counterValue)
-		return vkGetSwapchainCounterEXT(device, swapchain, counter, counterValueFIXED);
+		{
+			return vkGetSwapchainCounterEXT(device, swapchain, counter, counterValueFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceGroupPeerMemoryFeatures(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>Vk.PeerMemoryFeatureFlags*</c>)</summary>
@@ -3088,7 +4153,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetDeviceGroupPeerMemoryFeatures(Vk.Handle<Vk.Device> device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, out Vk.PeerMemoryFeatureFlags peerMemoryFeatures)
 	{
 		fixed (Vk.PeerMemoryFeatureFlags* peerMemoryFeaturesFIXED = &peerMemoryFeatures)
-		vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, peerMemoryFeaturesFIXED);
+		{
+			vkGetDeviceGroupPeerMemoryFeatures(device, heapIndex, localDeviceIndex, remoteDeviceIndex, peerMemoryFeaturesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceGroupPeerMemoryFeaturesKHR(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>Vk.PeerMemoryFeatureFlags*</c>)</summary>
@@ -3101,7 +4169,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetDeviceGroupPeerMemoryFeaturesKHR(Vk.Handle<Vk.Device> device, uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, out Vk.PeerMemoryFeatureFlags peerMemoryFeatures)
 	{
 		fixed (Vk.PeerMemoryFeatureFlags* peerMemoryFeaturesFIXED = &peerMemoryFeatures)
-		vkGetDeviceGroupPeerMemoryFeaturesKHR(device, heapIndex, localDeviceIndex, remoteDeviceIndex, peerMemoryFeaturesFIXED);
+		{
+			vkGetDeviceGroupPeerMemoryFeaturesKHR(device, heapIndex, localDeviceIndex, remoteDeviceIndex, peerMemoryFeaturesFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindBufferMemory2(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.BindBufferMemoryInfo*</c>)</summary>
@@ -3114,7 +4185,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BindBufferMemory2(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.BindBufferMemoryInfo> bindInfos)
 	{
 		fixed (Vk.BindBufferMemoryInfo* bindInfosFIXED = bindInfos)
-		return vkBindBufferMemory2(device, (uint)bindInfos.Length, bindInfosFIXED);
+		{
+			return vkBindBufferMemory2(device, (uint)bindInfos.Length, bindInfosFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindBufferMemory2KHR(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.BindBufferMemoryInfo*</c>)</summary>
@@ -3127,7 +4201,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BindBufferMemory2KHR(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.BindBufferMemoryInfo> bindInfos)
 	{
 		fixed (Vk.BindBufferMemoryInfo* bindInfosFIXED = bindInfos)
-		return vkBindBufferMemory2KHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+		{
+			return vkBindBufferMemory2KHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindImageMemory2(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.BindImageMemoryInfo*</c>)</summary>
@@ -3140,7 +4217,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BindImageMemory2(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.BindImageMemoryInfo> bindInfos)
 	{
 		fixed (Vk.BindImageMemoryInfo* bindInfosFIXED = bindInfos)
-		return vkBindImageMemory2(device, (uint)bindInfos.Length, bindInfosFIXED);
+		{
+			return vkBindImageMemory2(device, (uint)bindInfos.Length, bindInfosFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindImageMemory2KHR(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.BindImageMemoryInfo*</c>)</summary>
@@ -3153,7 +4233,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BindImageMemory2KHR(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.BindImageMemoryInfo> bindInfos)
 	{
 		fixed (Vk.BindImageMemoryInfo* bindInfosFIXED = bindInfos)
-		return vkBindImageMemory2KHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+		{
+			return vkBindImageMemory2KHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetDeviceMask(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>)</summary>
@@ -3176,7 +4259,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetDeviceGroupPresentCapabilitiesKHR(Vk.Handle<Vk.Device> device, out Vk.KHR.DeviceGroupPresentCapabilities deviceGroupPresentCapabilities)
 	{
 		fixed (Vk.KHR.DeviceGroupPresentCapabilities* deviceGroupPresentCapabilitiesFIXED = &deviceGroupPresentCapabilities)
-		return vkGetDeviceGroupPresentCapabilitiesKHR(device, deviceGroupPresentCapabilitiesFIXED);
+		{
+			return vkGetDeviceGroupPresentCapabilitiesKHR(device, deviceGroupPresentCapabilitiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceGroupSurfacePresentModesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Surface></c>, <c>Vk.KHR.DeviceGroupPresentModeFlags*</c>)</summary>
@@ -3189,7 +4275,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetDeviceGroupSurfacePresentModesKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Surface> surface, out Vk.KHR.DeviceGroupPresentModeFlags modes)
 	{
 		fixed (Vk.KHR.DeviceGroupPresentModeFlags* modesFIXED = &modes)
-		return vkGetDeviceGroupSurfacePresentModesKHR(device, surface, modesFIXED);
+		{
+			return vkGetDeviceGroupSurfacePresentModesKHR(device, surface, modesFIXED);
+		}
+
 	}
 
 	/// <summary>vkAcquireNextImage2KHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.AcquireNextImageInfo*</c>, <c>uint*</c>)</summary>
@@ -3203,7 +4292,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.KHR.AcquireNextImageInfo* acquireInfoFIXED = &acquireInfo)
 		fixed (uint* imageIndexFIXED = &imageIndex)
-		return vkAcquireNextImage2KHR(device, acquireInfoFIXED, imageIndexFIXED);
+		{
+			return vkAcquireNextImage2KHR(device, acquireInfoFIXED, imageIndexFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdDispatchBase(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
@@ -3228,7 +4320,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.DescriptorUpdateTemplateCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.DescriptorUpdateTemplate>* descriptorUpdateTemplateFIXED = &descriptorUpdateTemplate)
-		return vkCreateDescriptorUpdateTemplate(device, createInfoFIXED, allocatorFIXED, descriptorUpdateTemplateFIXED);
+		{
+			return vkCreateDescriptorUpdateTemplate(device, createInfoFIXED, allocatorFIXED, descriptorUpdateTemplateFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateDescriptorUpdateTemplateKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DescriptorUpdateTemplateCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.DescriptorUpdateTemplate>*</c>)</summary>
@@ -3243,7 +4338,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.DescriptorUpdateTemplateCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.DescriptorUpdateTemplate>* descriptorUpdateTemplateFIXED = &descriptorUpdateTemplate)
-		return vkCreateDescriptorUpdateTemplateKHR(device, createInfoFIXED, allocatorFIXED, descriptorUpdateTemplateFIXED);
+		{
+			return vkCreateDescriptorUpdateTemplateKHR(device, createInfoFIXED, allocatorFIXED, descriptorUpdateTemplateFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyDescriptorUpdateTemplate(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DescriptorUpdateTemplate></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -3256,7 +4354,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyDescriptorUpdateTemplate(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.DescriptorUpdateTemplate> descriptorUpdateTemplate, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, allocatorFIXED);
+		{
+			vkDestroyDescriptorUpdateTemplate(device, descriptorUpdateTemplate, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyDescriptorUpdateTemplateKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DescriptorUpdateTemplate></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -3269,7 +4370,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyDescriptorUpdateTemplateKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.DescriptorUpdateTemplate> descriptorUpdateTemplate, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDescriptorUpdateTemplateKHR(device, descriptorUpdateTemplate, allocatorFIXED);
+		{
+			vkDestroyDescriptorUpdateTemplateKHR(device, descriptorUpdateTemplate, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkUpdateDescriptorSetWithTemplate(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.DescriptorSet></c>, <c>Vk.Handle<Vk.DescriptorUpdateTemplate></c>, <c>void*</c>)</summary>
@@ -3298,7 +4402,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.Handle<Vk.KHR.Swapchain>* swapchainsFIXED = swapchains)
 		fixed (Vk.EXT.HdrMetadata* metadataFIXED = metadata)
-		vkSetHdrMetadataEXT(device, (uint)swapchains.Length, swapchainsFIXED, metadataFIXED);
+		{
+			vkSetHdrMetadataEXT(device, (uint)swapchains.Length, swapchainsFIXED, metadataFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSwapchainStatusKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>)</summary>
@@ -3316,7 +4423,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetRefreshCycleDurationGOOGLE(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, out Vk.GOOGLE.RefreshCycleDuration displayTimingProperties)
 	{
 		fixed (Vk.GOOGLE.RefreshCycleDuration* displayTimingPropertiesFIXED = &displayTimingProperties)
-		return vkGetRefreshCycleDurationGOOGLE(device, swapchain, displayTimingPropertiesFIXED);
+		{
+			return vkGetRefreshCycleDurationGOOGLE(device, swapchain, displayTimingPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPastPresentationTimingGOOGLE(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>uint*</c>, <c>Vk.GOOGLE.PastPresentationTiming*</c>)</summary>
@@ -3326,11 +4436,29 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetPastPresentationTimingGOOGLE(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>uint*</c>, <c>Vk.GOOGLE.PastPresentationTiming*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPastPresentationTimingGOOGLE(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, out uint presentationTimingCount, in Span<Vk.GOOGLE.PastPresentationTiming> presentationTimings)
+	public Vk.Result GetPastPresentationTimingGOOGLE(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, in Span<Vk.GOOGLE.PastPresentationTiming> presentationTimings)
 	{
-		fixed (uint* presentationTimingCountFIXED = &presentationTimingCount)
 		fixed (Vk.GOOGLE.PastPresentationTiming* presentationTimingsFIXED = presentationTimings)
-		return vkGetPastPresentationTimingGOOGLE(device, swapchain, presentationTimingCountFIXED, presentationTimingsFIXED);
+		{
+			uint presentationTimingsLength = (uint)presentationTimings.Length;
+			return vkGetPastPresentationTimingGOOGLE(device, swapchain, &presentationTimingsLength, presentationTimingsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPastPresentationTimingGOOGLE(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>uint*</c>, <c>Vk.GOOGLE.PastPresentationTiming*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPastPresentationTimingGOOGLE(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.Swapchain> swapchain, out Vk.GOOGLE.PastPresentationTiming[] presentationTimings)
+	{
+		uint COUNT = 0;
+		var res = vkGetPastPresentationTimingGOOGLE(device, swapchain, &COUNT, null);
+		if (res != Vk.Result.Success) {
+			presentationTimings = Array.Empty<Vk.GOOGLE.PastPresentationTiming>();
+			return res;
+		}
+		presentationTimings = new Vk.GOOGLE.PastPresentationTiming[COUNT];
+		fixed (Vk.GOOGLE.PastPresentationTiming* presentationTimingsFIXED = presentationTimings)
+		return vkGetPastPresentationTimingGOOGLE(device, swapchain, &COUNT, presentationTimingsFIXED);
 	}
 
 	/// <summary>vkCmdSetViewportWScalingNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>Vk.NV.ViewportWScaling*</c>)</summary>
@@ -3343,7 +4471,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetViewportWScalingNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, uint firstViewport, in ReadOnlySpan<Vk.NV.ViewportWScaling> viewportWScalings)
 	{
 		fixed (Vk.NV.ViewportWScaling* viewportWScalingsFIXED = viewportWScalings)
-		vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, (uint)viewportWScalings.Length, viewportWScalingsFIXED);
+		{
+			vkCmdSetViewportWScalingNV(commandBuffer, firstViewport, (uint)viewportWScalings.Length, viewportWScalingsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetDiscardRectangleEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
@@ -3356,7 +4487,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetDiscardRectangleEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, uint firstDiscardRectangle, in ReadOnlySpan<Vk.Rect2D> discardRectangles)
 	{
 		fixed (Vk.Rect2D* discardRectanglesFIXED = discardRectangles)
-		vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, (uint)discardRectangles.Length, discardRectanglesFIXED);
+		{
+			vkCmdSetDiscardRectangleEXT(commandBuffer, firstDiscardRectangle, (uint)discardRectangles.Length, discardRectanglesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetSampleLocationsEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.EXT.SampleLocationsInfo*</c>)</summary>
@@ -3369,7 +4503,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetSampleLocationsEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.EXT.SampleLocationsInfo sampleLocationsInfo)
 	{
 		fixed (Vk.EXT.SampleLocationsInfo* sampleLocationsInfoFIXED = &sampleLocationsInfo)
-		vkCmdSetSampleLocationsEXT(commandBuffer, sampleLocationsInfoFIXED);
+		{
+			vkCmdSetSampleLocationsEXT(commandBuffer, sampleLocationsInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferMemoryRequirements2(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
@@ -3383,7 +4520,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.BufferMemoryRequirementsInfo2* infoFIXED = &info)
 		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetBufferMemoryRequirements2(device, infoFIXED, memoryRequirementsFIXED);
+		{
+			vkGetBufferMemoryRequirements2(device, infoFIXED, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferMemoryRequirements2KHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
@@ -3397,7 +4537,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.BufferMemoryRequirementsInfo2* infoFIXED = &info)
 		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetBufferMemoryRequirements2KHR(device, infoFIXED, memoryRequirementsFIXED);
+		{
+			vkGetBufferMemoryRequirements2KHR(device, infoFIXED, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetImageMemoryRequirements2(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
@@ -3411,7 +4554,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.ImageMemoryRequirementsInfo2* infoFIXED = &info)
 		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetImageMemoryRequirements2(device, infoFIXED, memoryRequirementsFIXED);
+		{
+			vkGetImageMemoryRequirements2(device, infoFIXED, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetImageMemoryRequirements2KHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageMemoryRequirementsInfo2*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
@@ -3425,7 +4571,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.ImageMemoryRequirementsInfo2* infoFIXED = &info)
 		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetImageMemoryRequirements2KHR(device, infoFIXED, memoryRequirementsFIXED);
+		{
+			vkGetImageMemoryRequirements2KHR(device, infoFIXED, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetImageSparseMemoryRequirements2(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
@@ -3435,12 +4584,30 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetImageSparseMemoryRequirements2(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetImageSparseMemoryRequirements2(Vk.Handle<Vk.Device> device, in Vk.ImageSparseMemoryRequirementsInfo2 info, out uint sparseMemoryRequirementCount, in Span<Vk.SparseImageMemoryRequirements2> sparseMemoryRequirements)
+	public void GetImageSparseMemoryRequirements2(Vk.Handle<Vk.Device> device, in Vk.ImageSparseMemoryRequirementsInfo2 info, in Span<Vk.SparseImageMemoryRequirements2> sparseMemoryRequirements)
 	{
 		fixed (Vk.ImageSparseMemoryRequirementsInfo2* infoFIXED = &info)
-		fixed (uint* sparseMemoryRequirementCountFIXED = &sparseMemoryRequirementCount)
 		fixed (Vk.SparseImageMemoryRequirements2* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
-		vkGetImageSparseMemoryRequirements2(device, infoFIXED, sparseMemoryRequirementCountFIXED, sparseMemoryRequirementsFIXED);
+		{
+			uint sparseMemoryRequirementsLength = (uint)sparseMemoryRequirements.Length;
+			vkGetImageSparseMemoryRequirements2(device, infoFIXED, &sparseMemoryRequirementsLength, sparseMemoryRequirementsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetImageSparseMemoryRequirements2(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements2(Vk.Handle<Vk.Device> device, in Vk.ImageSparseMemoryRequirementsInfo2 info, out Vk.SparseImageMemoryRequirements2[] sparseMemoryRequirements)
+	{
+		fixed (Vk.ImageSparseMemoryRequirementsInfo2* infoFIXED = &info)
+		{
+			uint COUNT = 0;
+			vkGetImageSparseMemoryRequirements2(device, infoFIXED, &COUNT, null);
+			sparseMemoryRequirements = new Vk.SparseImageMemoryRequirements2[COUNT];
+			fixed (Vk.SparseImageMemoryRequirements2* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
+			vkGetImageSparseMemoryRequirements2(device, infoFIXED, &COUNT, sparseMemoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetImageSparseMemoryRequirements2KHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
@@ -3450,12 +4617,30 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetImageSparseMemoryRequirements2KHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetImageSparseMemoryRequirements2KHR(Vk.Handle<Vk.Device> device, in Vk.ImageSparseMemoryRequirementsInfo2 info, out uint sparseMemoryRequirementCount, in Span<Vk.SparseImageMemoryRequirements2> sparseMemoryRequirements)
+	public void GetImageSparseMemoryRequirements2KHR(Vk.Handle<Vk.Device> device, in Vk.ImageSparseMemoryRequirementsInfo2 info, in Span<Vk.SparseImageMemoryRequirements2> sparseMemoryRequirements)
 	{
 		fixed (Vk.ImageSparseMemoryRequirementsInfo2* infoFIXED = &info)
-		fixed (uint* sparseMemoryRequirementCountFIXED = &sparseMemoryRequirementCount)
 		fixed (Vk.SparseImageMemoryRequirements2* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
-		vkGetImageSparseMemoryRequirements2KHR(device, infoFIXED, sparseMemoryRequirementCountFIXED, sparseMemoryRequirementsFIXED);
+		{
+			uint sparseMemoryRequirementsLength = (uint)sparseMemoryRequirements.Length;
+			vkGetImageSparseMemoryRequirements2KHR(device, infoFIXED, &sparseMemoryRequirementsLength, sparseMemoryRequirementsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetImageSparseMemoryRequirements2KHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ImageSparseMemoryRequirementsInfo2*</c>, <c>uint*</c>, <c>Vk.SparseImageMemoryRequirements2*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements2KHR(Vk.Handle<Vk.Device> device, in Vk.ImageSparseMemoryRequirementsInfo2 info, out Vk.SparseImageMemoryRequirements2[] sparseMemoryRequirements)
+	{
+		fixed (Vk.ImageSparseMemoryRequirementsInfo2* infoFIXED = &info)
+		{
+			uint COUNT = 0;
+			vkGetImageSparseMemoryRequirements2KHR(device, infoFIXED, &COUNT, null);
+			sparseMemoryRequirements = new Vk.SparseImageMemoryRequirements2[COUNT];
+			fixed (Vk.SparseImageMemoryRequirements2* sparseMemoryRequirementsFIXED = sparseMemoryRequirements)
+			vkGetImageSparseMemoryRequirements2KHR(device, infoFIXED, &COUNT, sparseMemoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateSamplerYcbcrConversion(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SamplerYcbcrConversionCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.SamplerYcbcrConversion>*</c>)</summary>
@@ -3470,7 +4655,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.SamplerYcbcrConversionCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.SamplerYcbcrConversion>* ycbcrConversionFIXED = &ycbcrConversion)
-		return vkCreateSamplerYcbcrConversion(device, createInfoFIXED, allocatorFIXED, ycbcrConversionFIXED);
+		{
+			return vkCreateSamplerYcbcrConversion(device, createInfoFIXED, allocatorFIXED, ycbcrConversionFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateSamplerYcbcrConversionKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SamplerYcbcrConversionCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.SamplerYcbcrConversion>*</c>)</summary>
@@ -3485,7 +4673,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.SamplerYcbcrConversionCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.SamplerYcbcrConversion>* ycbcrConversionFIXED = &ycbcrConversion)
-		return vkCreateSamplerYcbcrConversionKHR(device, createInfoFIXED, allocatorFIXED, ycbcrConversionFIXED);
+		{
+			return vkCreateSamplerYcbcrConversionKHR(device, createInfoFIXED, allocatorFIXED, ycbcrConversionFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroySamplerYcbcrConversion(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.SamplerYcbcrConversion></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -3498,7 +4689,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroySamplerYcbcrConversion(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.SamplerYcbcrConversion> ycbcrConversion, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroySamplerYcbcrConversion(device, ycbcrConversion, allocatorFIXED);
+		{
+			vkDestroySamplerYcbcrConversion(device, ycbcrConversion, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroySamplerYcbcrConversionKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.SamplerYcbcrConversion></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -3511,7 +4705,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroySamplerYcbcrConversionKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.SamplerYcbcrConversion> ycbcrConversion, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroySamplerYcbcrConversionKHR(device, ycbcrConversion, allocatorFIXED);
+		{
+			vkDestroySamplerYcbcrConversionKHR(device, ycbcrConversion, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceQueue2(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DeviceQueueInfo2*</c>, <c>Vk.Handle<Vk.Queue>*</c>)</summary>
@@ -3525,7 +4722,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.DeviceQueueInfo2* queueInfoFIXED = &queueInfo)
 		fixed (Vk.Handle<Vk.Queue>* queueFIXED = &queue)
-		vkGetDeviceQueue2(device, queueInfoFIXED, queueFIXED);
+		{
+			vkGetDeviceQueue2(device, queueInfoFIXED, queueFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateValidationCacheEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.EXT.ValidationCacheCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.EXT.ValidationCache>*</c>)</summary>
@@ -3540,7 +4740,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.EXT.ValidationCacheCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.EXT.ValidationCache>* validationCacheFIXED = &validationCache)
-		return vkCreateValidationCacheEXT(device, createInfoFIXED, allocatorFIXED, validationCacheFIXED);
+		{
+			return vkCreateValidationCacheEXT(device, createInfoFIXED, allocatorFIXED, validationCacheFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyValidationCacheEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.EXT.ValidationCache></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -3553,7 +4756,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyValidationCacheEXT(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.EXT.ValidationCache> validationCache, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyValidationCacheEXT(device, validationCache, allocatorFIXED);
+		{
+			vkDestroyValidationCacheEXT(device, validationCache, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetValidationCacheDataEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.EXT.ValidationCache></c>, <c>ulong*</c>, <c>void*</c>)</summary>
@@ -3566,7 +4772,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetValidationCacheDataEXT(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.EXT.ValidationCache> validationCache, out ulong dataSize, void* pData)
 	{
 		fixed (ulong* dataSizeFIXED = &dataSize)
-		return vkGetValidationCacheDataEXT(device, validationCache, dataSizeFIXED, pData);
+		{
+			return vkGetValidationCacheDataEXT(device, validationCache, dataSizeFIXED, pData);
+		}
+
 	}
 
 	/// <summary>vkMergeValidationCachesEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.EXT.ValidationCache></c>, <c>uint</c>, <c>Vk.Handle<Vk.EXT.ValidationCache>*</c>)</summary>
@@ -3579,7 +4788,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result MergeValidationCachesEXT(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.EXT.ValidationCache> dstCache, in ReadOnlySpan<Vk.Handle<Vk.EXT.ValidationCache>> srcCaches)
 	{
 		fixed (Vk.Handle<Vk.EXT.ValidationCache>* srcCachesFIXED = srcCaches)
-		return vkMergeValidationCachesEXT(device, dstCache, (uint)srcCaches.Length, srcCachesFIXED);
+		{
+			return vkMergeValidationCachesEXT(device, dstCache, (uint)srcCaches.Length, srcCachesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDescriptorSetLayoutSupport(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.DescriptorSetLayoutSupport*</c>)</summary>
@@ -3593,7 +4805,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.DescriptorSetLayoutCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.DescriptorSetLayoutSupport* supportFIXED = &support)
-		vkGetDescriptorSetLayoutSupport(device, createInfoFIXED, supportFIXED);
+		{
+			vkGetDescriptorSetLayoutSupport(device, createInfoFIXED, supportFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDescriptorSetLayoutSupportKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DescriptorSetLayoutCreateInfo*</c>, <c>Vk.DescriptorSetLayoutSupport*</c>)</summary>
@@ -3607,7 +4822,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.DescriptorSetLayoutCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.DescriptorSetLayoutSupport* supportFIXED = &support)
-		vkGetDescriptorSetLayoutSupportKHR(device, createInfoFIXED, supportFIXED);
+		{
+			vkGetDescriptorSetLayoutSupportKHR(device, createInfoFIXED, supportFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSwapchainGrallocUsageANDROID(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Format</c>, <c>Vk.ImageUsageFlags</c>, <c>int*</c>)</summary>
@@ -3620,7 +4838,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetSwapchainGrallocUsageANDROID(Vk.Handle<Vk.Device> device, Vk.Format format, Vk.ImageUsageFlags imageUsage, out int grallocUsage)
 	{
 		fixed (int* grallocUsageFIXED = &grallocUsage)
-		return vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsageFIXED);
+		{
+			return vkGetSwapchainGrallocUsageANDROID(device, format, imageUsage, grallocUsageFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSwapchainGrallocUsage2ANDROID(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Format</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ANDROID.SwapchainImageUsageFlags</c>, <c>ulong*</c>, <c>ulong*</c>)</summary>
@@ -3634,7 +4855,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (ulong* grallocConsumerUsageFIXED = &grallocConsumerUsage)
 		fixed (ulong* grallocProducerUsageFIXED = &grallocProducerUsage)
-		return vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsageFIXED, grallocProducerUsageFIXED);
+		{
+			return vkGetSwapchainGrallocUsage2ANDROID(device, format, imageUsage, swapchainImageUsage, grallocConsumerUsageFIXED, grallocProducerUsageFIXED);
+		}
+
 	}
 
 	/// <summary>vkAcquireImageANDROID(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Image></c>, <c>int</c>, <c>Vk.Handle<Vk.Semaphore></c>, <c>Vk.Handle<Vk.Fence></c>)</summary>
@@ -3653,7 +4877,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.Handle<Vk.Semaphore>* waitSemaphoresFIXED = waitSemaphores)
 		fixed (int* nativeFenceFdFIXED = &nativeFenceFd)
-		return vkQueueSignalReleaseImageANDROID(queue, (uint)waitSemaphores.Length, waitSemaphoresFIXED, image, nativeFenceFdFIXED);
+		{
+			return vkQueueSignalReleaseImageANDROID(queue, (uint)waitSemaphores.Length, waitSemaphoresFIXED, image, nativeFenceFdFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetShaderInfoAMD(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Pipeline></c>, <c>Vk.ShaderStageFlags</c>, <c>Vk.AMD.ShaderInfoType</c>, <c>ulong*</c>, <c>void*</c>)</summary>
@@ -3666,7 +4893,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetShaderInfoAMD(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Pipeline> pipeline, Vk.ShaderStageFlags shaderStage, Vk.AMD.ShaderInfoType infoType, out ulong infoSize, void* pInfo)
 	{
 		fixed (ulong* infoSizeFIXED = &infoSize)
-		return vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, infoSizeFIXED, pInfo);
+		{
+			return vkGetShaderInfoAMD(device, pipeline, shaderStage, infoType, infoSizeFIXED, pInfo);
+		}
+
 	}
 
 	/// <summary>vkSetLocalDimmingAMD(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>, <c>Vk.Bool32</c>)</summary>
@@ -3686,7 +4916,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.EXT.CalibratedTimestampInfo* timestampInfosFIXED = timestampInfos)
 		fixed (ulong* timestampsFIXED = timestamps)
 		fixed (ulong* maxDeviationFIXED = &maxDeviation)
-		return vkGetCalibratedTimestampsEXT(device, (uint)timestampInfos.Length, timestampInfosFIXED, timestampsFIXED, maxDeviationFIXED);
+		{
+			return vkGetCalibratedTimestampsEXT(device, (uint)timestampInfos.Length, timestampInfosFIXED, timestampsFIXED, maxDeviationFIXED);
+		}
+
 	}
 
 	/// <summary>vkSetDebugUtilsObjectNameEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.EXT.DebugUtilsObjectNameInfo*</c>)</summary>
@@ -3699,7 +4932,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result SetDebugUtilsObjectNameEXT(Vk.Handle<Vk.Device> device, in Vk.EXT.DebugUtilsObjectNameInfo nameInfo)
 	{
 		fixed (Vk.EXT.DebugUtilsObjectNameInfo* nameInfoFIXED = &nameInfo)
-		return vkSetDebugUtilsObjectNameEXT(device, nameInfoFIXED);
+		{
+			return vkSetDebugUtilsObjectNameEXT(device, nameInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkSetDebugUtilsObjectTagEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.EXT.DebugUtilsObjectTagInfo*</c>)</summary>
@@ -3712,7 +4948,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result SetDebugUtilsObjectTagEXT(Vk.Handle<Vk.Device> device, in Vk.EXT.DebugUtilsObjectTagInfo tagInfo)
 	{
 		fixed (Vk.EXT.DebugUtilsObjectTagInfo* tagInfoFIXED = &tagInfo)
-		return vkSetDebugUtilsObjectTagEXT(device, tagInfoFIXED);
+		{
+			return vkSetDebugUtilsObjectTagEXT(device, tagInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkQueueBeginDebugUtilsLabelEXT(<c>Vk.Handle<Vk.Queue></c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
@@ -3725,7 +4964,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void QueueBeginDebugUtilsLabelEXT(Vk.Handle<Vk.Queue> queue, in Vk.EXT.DebugUtilsLabel labelInfo)
 	{
 		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
-		vkQueueBeginDebugUtilsLabelEXT(queue, labelInfoFIXED);
+		{
+			vkQueueBeginDebugUtilsLabelEXT(queue, labelInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkQueueEndDebugUtilsLabelEXT(<c>Vk.Handle<Vk.Queue></c>)</summary>
@@ -3743,7 +4985,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void QueueInsertDebugUtilsLabelEXT(Vk.Handle<Vk.Queue> queue, in Vk.EXT.DebugUtilsLabel labelInfo)
 	{
 		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
-		vkQueueInsertDebugUtilsLabelEXT(queue, labelInfoFIXED);
+		{
+			vkQueueInsertDebugUtilsLabelEXT(queue, labelInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBeginDebugUtilsLabelEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.EXT.DebugUtilsLabel*</c>)</summary>
@@ -3756,7 +5001,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBeginDebugUtilsLabelEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.EXT.DebugUtilsLabel labelInfo)
 	{
 		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
-		vkCmdBeginDebugUtilsLabelEXT(commandBuffer, labelInfoFIXED);
+		{
+			vkCmdBeginDebugUtilsLabelEXT(commandBuffer, labelInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdEndDebugUtilsLabelEXT(<c>Vk.Handle<Vk.CommandBuffer></c>)</summary>
@@ -3774,7 +5022,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdInsertDebugUtilsLabelEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.EXT.DebugUtilsLabel labelInfo)
 	{
 		fixed (Vk.EXT.DebugUtilsLabel* labelInfoFIXED = &labelInfo)
-		vkCmdInsertDebugUtilsLabelEXT(commandBuffer, labelInfoFIXED);
+		{
+			vkCmdInsertDebugUtilsLabelEXT(commandBuffer, labelInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetMemoryHostPointerPropertiesEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ExternalMemoryHandleTypeFlags</c>, <c>void*</c>, <c>Vk.EXT.MemoryHostPointerProperties*</c>)</summary>
@@ -3787,7 +5038,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetMemoryHostPointerPropertiesEXT(Vk.Handle<Vk.Device> device, Vk.ExternalMemoryHandleTypeFlags handleType, void* pHostPointer, out Vk.EXT.MemoryHostPointerProperties memoryHostPointerProperties)
 	{
 		fixed (Vk.EXT.MemoryHostPointerProperties* memoryHostPointerPropertiesFIXED = &memoryHostPointerProperties)
-		return vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, memoryHostPointerPropertiesFIXED);
+		{
+			return vkGetMemoryHostPointerPropertiesEXT(device, handleType, pHostPointer, memoryHostPointerPropertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdWriteBufferMarkerAMD(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.PipelineStageFlags</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>uint</c>)</summary>
@@ -3807,7 +5061,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.RenderPassCreateInfo2* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.RenderPass>* renderPassFIXED = &renderPass)
-		return vkCreateRenderPass2(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+		{
+			return vkCreateRenderPass2(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateRenderPass2KHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.RenderPassCreateInfo2*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.RenderPass>*</c>)</summary>
@@ -3822,7 +5079,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.RenderPassCreateInfo2* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.RenderPass>* renderPassFIXED = &renderPass)
-		return vkCreateRenderPass2KHR(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+		{
+			return vkCreateRenderPass2KHR(device, createInfoFIXED, allocatorFIXED, renderPassFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBeginRenderPass2(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.RenderPassBeginInfo*</c>, <c>Vk.SubpassBeginInfo*</c>)</summary>
@@ -3836,7 +5096,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.RenderPassBeginInfo* renderPassBeginFIXED = &renderPassBegin)
 		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
-		vkCmdBeginRenderPass2(commandBuffer, renderPassBeginFIXED, subpassBeginInfoFIXED);
+		{
+			vkCmdBeginRenderPass2(commandBuffer, renderPassBeginFIXED, subpassBeginInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBeginRenderPass2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.RenderPassBeginInfo*</c>, <c>Vk.SubpassBeginInfo*</c>)</summary>
@@ -3850,7 +5113,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.RenderPassBeginInfo* renderPassBeginFIXED = &renderPassBegin)
 		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
-		vkCmdBeginRenderPass2KHR(commandBuffer, renderPassBeginFIXED, subpassBeginInfoFIXED);
+		{
+			vkCmdBeginRenderPass2KHR(commandBuffer, renderPassBeginFIXED, subpassBeginInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdNextSubpass2(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.SubpassBeginInfo*</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
@@ -3864,7 +5130,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
 		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
-		vkCmdNextSubpass2(commandBuffer, subpassBeginInfoFIXED, subpassEndInfoFIXED);
+		{
+			vkCmdNextSubpass2(commandBuffer, subpassBeginInfoFIXED, subpassEndInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdNextSubpass2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.SubpassBeginInfo*</c>, <c>Vk.SubpassEndInfo*</c>)</summary>
@@ -3878,7 +5147,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.SubpassBeginInfo* subpassBeginInfoFIXED = &subpassBeginInfo)
 		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
-		vkCmdNextSubpass2KHR(commandBuffer, subpassBeginInfoFIXED, subpassEndInfoFIXED);
+		{
+			vkCmdNextSubpass2KHR(commandBuffer, subpassBeginInfoFIXED, subpassEndInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdEndRenderPass2(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.SubpassEndInfo*</c>)</summary>
@@ -3891,7 +5163,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdEndRenderPass2(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.SubpassEndInfo subpassEndInfo)
 	{
 		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
-		vkCmdEndRenderPass2(commandBuffer, subpassEndInfoFIXED);
+		{
+			vkCmdEndRenderPass2(commandBuffer, subpassEndInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdEndRenderPass2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.SubpassEndInfo*</c>)</summary>
@@ -3904,7 +5179,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdEndRenderPass2KHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.SubpassEndInfo subpassEndInfo)
 	{
 		fixed (Vk.SubpassEndInfo* subpassEndInfoFIXED = &subpassEndInfo)
-		vkCmdEndRenderPass2KHR(commandBuffer, subpassEndInfoFIXED);
+		{
+			vkCmdEndRenderPass2KHR(commandBuffer, subpassEndInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSemaphoreCounterValue(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Semaphore></c>, <c>ulong*</c>)</summary>
@@ -3917,7 +5195,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetSemaphoreCounterValue(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Semaphore> semaphore, out ulong value)
 	{
 		fixed (ulong* valueFIXED = &value)
-		return vkGetSemaphoreCounterValue(device, semaphore, valueFIXED);
+		{
+			return vkGetSemaphoreCounterValue(device, semaphore, valueFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetSemaphoreCounterValueKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.Semaphore></c>, <c>ulong*</c>)</summary>
@@ -3930,7 +5211,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetSemaphoreCounterValueKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Semaphore> semaphore, out ulong value)
 	{
 		fixed (ulong* valueFIXED = &value)
-		return vkGetSemaphoreCounterValueKHR(device, semaphore, valueFIXED);
+		{
+			return vkGetSemaphoreCounterValueKHR(device, semaphore, valueFIXED);
+		}
+
 	}
 
 	/// <summary>vkWaitSemaphores(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SemaphoreWaitInfo*</c>, <c>ulong</c>)</summary>
@@ -3943,7 +5227,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result WaitSemaphores(Vk.Handle<Vk.Device> device, in Vk.SemaphoreWaitInfo waitInfo, ulong timeout)
 	{
 		fixed (Vk.SemaphoreWaitInfo* waitInfoFIXED = &waitInfo)
-		return vkWaitSemaphores(device, waitInfoFIXED, timeout);
+		{
+			return vkWaitSemaphores(device, waitInfoFIXED, timeout);
+		}
+
 	}
 
 	/// <summary>vkWaitSemaphoresKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SemaphoreWaitInfo*</c>, <c>ulong</c>)</summary>
@@ -3956,7 +5243,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result WaitSemaphoresKHR(Vk.Handle<Vk.Device> device, in Vk.SemaphoreWaitInfo waitInfo, ulong timeout)
 	{
 		fixed (Vk.SemaphoreWaitInfo* waitInfoFIXED = &waitInfo)
-		return vkWaitSemaphoresKHR(device, waitInfoFIXED, timeout);
+		{
+			return vkWaitSemaphoresKHR(device, waitInfoFIXED, timeout);
+		}
+
 	}
 
 	/// <summary>vkSignalSemaphore(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SemaphoreSignalInfo*</c>)</summary>
@@ -3969,7 +5259,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result SignalSemaphore(Vk.Handle<Vk.Device> device, in Vk.SemaphoreSignalInfo signalInfo)
 	{
 		fixed (Vk.SemaphoreSignalInfo* signalInfoFIXED = &signalInfo)
-		return vkSignalSemaphore(device, signalInfoFIXED);
+		{
+			return vkSignalSemaphore(device, signalInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkSignalSemaphoreKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.SemaphoreSignalInfo*</c>)</summary>
@@ -3982,7 +5275,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result SignalSemaphoreKHR(Vk.Handle<Vk.Device> device, in Vk.SemaphoreSignalInfo signalInfo)
 	{
 		fixed (Vk.SemaphoreSignalInfo* signalInfoFIXED = &signalInfo)
-		return vkSignalSemaphoreKHR(device, signalInfoFIXED);
+		{
+			return vkSignalSemaphoreKHR(device, signalInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetAndroidHardwareBufferPropertiesANDROID(<c>Vk.Handle<Vk.Device></c>, <c>void*</c>, <c>Vk.ANDROID.AndroidHardwareBufferProperties*</c>)</summary>
@@ -3995,7 +5291,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetAndroidHardwareBufferPropertiesANDROID(Vk.Handle<Vk.Device> device, void* buffer, out Vk.ANDROID.AndroidHardwareBufferProperties properties)
 	{
 		fixed (Vk.ANDROID.AndroidHardwareBufferProperties* propertiesFIXED = &properties)
-		return vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, propertiesFIXED);
+		{
+			return vkGetAndroidHardwareBufferPropertiesANDROID(device, buffer, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetMemoryAndroidHardwareBufferANDROID(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo*</c>, <c>void**</c>)</summary>
@@ -4008,7 +5307,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetMemoryAndroidHardwareBufferANDROID(Vk.Handle<Vk.Device> device, in Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo info, void** pBuffer)
 	{
 		fixed (Vk.ANDROID.MemoryGetAndroidHardwareBufferInfo* infoFIXED = &info)
-		return vkGetMemoryAndroidHardwareBufferANDROID(device, infoFIXED, pBuffer);
+		{
+			return vkGetMemoryAndroidHardwareBufferANDROID(device, infoFIXED, pBuffer);
+		}
+
 	}
 
 	/// <summary>vkCmdDrawIndirectCount(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>uint</c>, <c>uint</c>)</summary>
@@ -4053,11 +5355,25 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetQueueCheckpointDataNV(<c>Vk.Handle<Vk.Queue></c>, <c>uint*</c>, <c>Vk.NV.CheckpointData*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetQueueCheckpointDataNV(Vk.Handle<Vk.Queue> queue, out uint checkpointDataCount, in Span<Vk.NV.CheckpointData> checkpointData)
+	public void GetQueueCheckpointDataNV(Vk.Handle<Vk.Queue> queue, in Span<Vk.NV.CheckpointData> checkpointData)
 	{
-		fixed (uint* checkpointDataCountFIXED = &checkpointDataCount)
 		fixed (Vk.NV.CheckpointData* checkpointDataFIXED = checkpointData)
-		vkGetQueueCheckpointDataNV(queue, checkpointDataCountFIXED, checkpointDataFIXED);
+		{
+			uint checkpointDataLength = (uint)checkpointData.Length;
+			vkGetQueueCheckpointDataNV(queue, &checkpointDataLength, checkpointDataFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetQueueCheckpointDataNV(<c>Vk.Handle<Vk.Queue></c>, <c>uint*</c>, <c>Vk.NV.CheckpointData*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetQueueCheckpointDataNV(Vk.Handle<Vk.Queue> queue, out Vk.NV.CheckpointData[] checkpointData)
+	{
+		uint COUNT = 0;
+		vkGetQueueCheckpointDataNV(queue, &COUNT, null);
+		checkpointData = new Vk.NV.CheckpointData[COUNT];
+		fixed (Vk.NV.CheckpointData* checkpointDataFIXED = checkpointData)
+		vkGetQueueCheckpointDataNV(queue, &COUNT, checkpointDataFIXED);
 	}
 
 	/// <summary>vkCmdBindTransformFeedbackBuffersEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>Vk.Handle<Vk.Buffer>*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>)</summary>
@@ -4072,7 +5388,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.Handle<Vk.Buffer>* buffersFIXED = buffers)
 		fixed (Vk.DeviceSize* offsetsFIXED = offsets)
 		fixed (Vk.DeviceSize* sizesFIXED = sizes)
-		vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED, sizesFIXED);
+		{
+			vkCmdBindTransformFeedbackBuffersEXT(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED, sizesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBeginTransformFeedbackEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>Vk.Handle<Vk.Buffer>*</c>, <c>Vk.DeviceSize*</c>)</summary>
@@ -4086,7 +5405,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.Handle<Vk.Buffer>* counterBuffersFIXED = counterBuffers)
 		fixed (Vk.DeviceSize* counterBufferOffsetsFIXED = counterBufferOffsets)
-		vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, (uint)counterBuffers.Length, counterBuffersFIXED, counterBufferOffsetsFIXED);
+		{
+			vkCmdBeginTransformFeedbackEXT(commandBuffer, firstCounterBuffer, (uint)counterBuffers.Length, counterBuffersFIXED, counterBufferOffsetsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdEndTransformFeedbackEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>Vk.Handle<Vk.Buffer>*</c>, <c>Vk.DeviceSize*</c>)</summary>
@@ -4100,7 +5422,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.Handle<Vk.Buffer>* counterBuffersFIXED = counterBuffers)
 		fixed (Vk.DeviceSize* counterBufferOffsetsFIXED = counterBufferOffsets)
-		vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, (uint)counterBuffers.Length, counterBuffersFIXED, counterBufferOffsetsFIXED);
+		{
+			vkCmdEndTransformFeedbackEXT(commandBuffer, firstCounterBuffer, (uint)counterBuffers.Length, counterBuffersFIXED, counterBufferOffsetsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBeginQueryIndexedEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.QueryPool></c>, <c>uint</c>, <c>Vk.QueryControlFlags</c>, <c>uint</c>)</summary>
@@ -4128,7 +5453,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetExclusiveScissorNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, uint firstExclusiveScissor, in ReadOnlySpan<Vk.Rect2D> exclusiveScissors)
 	{
 		fixed (Vk.Rect2D* exclusiveScissorsFIXED = exclusiveScissors)
-		vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, (uint)exclusiveScissors.Length, exclusiveScissorsFIXED);
+		{
+			vkCmdSetExclusiveScissorNV(commandBuffer, firstExclusiveScissor, (uint)exclusiveScissors.Length, exclusiveScissorsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBindShadingRateImageNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.ImageView></c>, <c>Vk.ImageLayout</c>)</summary>
@@ -4146,7 +5474,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetViewportShadingRatePaletteNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, uint firstViewport, in ReadOnlySpan<Vk.NV.ShadingRatePalette> shadingRatePalettes)
 	{
 		fixed (Vk.NV.ShadingRatePalette* shadingRatePalettesFIXED = shadingRatePalettes)
-		vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, (uint)shadingRatePalettes.Length, shadingRatePalettesFIXED);
+		{
+			vkCmdSetViewportShadingRatePaletteNV(commandBuffer, firstViewport, (uint)shadingRatePalettes.Length, shadingRatePalettesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetCoarseSampleOrderNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.NV.CoarseSampleOrderType</c>, <c>uint</c>, <c>Vk.NV.CoarseSampleOrderCustom*</c>)</summary>
@@ -4159,7 +5490,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetCoarseSampleOrderNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.NV.CoarseSampleOrderType sampleOrderType, in ReadOnlySpan<Vk.NV.CoarseSampleOrderCustom> customSampleOrders)
 	{
 		fixed (Vk.NV.CoarseSampleOrderCustom* customSampleOrdersFIXED = customSampleOrders)
-		vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, (uint)customSampleOrders.Length, customSampleOrdersFIXED);
+		{
+			vkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, (uint)customSampleOrders.Length, customSampleOrdersFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdDrawMeshTasksNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>)</summary>
@@ -4194,7 +5528,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.NV.AccelerationStructureCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.NV.AccelerationStructure>* accelerationStructureFIXED = &accelerationStructure)
-		return vkCreateAccelerationStructureNV(device, createInfoFIXED, allocatorFIXED, accelerationStructureFIXED);
+		{
+			return vkCreateAccelerationStructureNV(device, createInfoFIXED, allocatorFIXED, accelerationStructureFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyAccelerationStructureKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -4207,7 +5544,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyAccelerationStructureKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.AccelerationStructure> accelerationStructure, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyAccelerationStructureKHR(device, accelerationStructure, allocatorFIXED);
+		{
+			vkDestroyAccelerationStructureKHR(device, accelerationStructure, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyAccelerationStructureNV(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -4220,7 +5560,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyAccelerationStructureNV(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.AccelerationStructure> accelerationStructure, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyAccelerationStructureNV(device, accelerationStructure, allocatorFIXED);
+		{
+			vkDestroyAccelerationStructureNV(device, accelerationStructure, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetAccelerationStructureMemoryRequirementsKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.AccelerationStructureMemoryRequirementsInfo*</c>, <c>Vk.MemoryRequirements2*</c>)</summary>
@@ -4234,7 +5577,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.KHR.AccelerationStructureMemoryRequirementsInfo* infoFIXED = &info)
 		fixed (Vk.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetAccelerationStructureMemoryRequirementsKHR(device, infoFIXED, memoryRequirementsFIXED);
+		{
+			vkGetAccelerationStructureMemoryRequirementsKHR(device, infoFIXED, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetAccelerationStructureMemoryRequirementsNV(<c>Vk.Handle<Vk.Device></c>, <c>Vk.NV.AccelerationStructureMemoryRequirementsInfo*</c>, <c>Vk.KHR.MemoryRequirements2*</c>)</summary>
@@ -4248,7 +5594,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.NV.AccelerationStructureMemoryRequirementsInfo* infoFIXED = &info)
 		fixed (Vk.KHR.MemoryRequirements2* memoryRequirementsFIXED = &memoryRequirements)
-		vkGetAccelerationStructureMemoryRequirementsNV(device, infoFIXED, memoryRequirementsFIXED);
+		{
+			vkGetAccelerationStructureMemoryRequirementsNV(device, infoFIXED, memoryRequirementsFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindAccelerationStructureMemoryKHR(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.KHR.BindAccelerationStructureMemoryInfo*</c>)</summary>
@@ -4261,7 +5610,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BindAccelerationStructureMemoryKHR(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.KHR.BindAccelerationStructureMemoryInfo> bindInfos)
 	{
 		fixed (Vk.KHR.BindAccelerationStructureMemoryInfo* bindInfosFIXED = bindInfos)
-		return vkBindAccelerationStructureMemoryKHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+		{
+			return vkBindAccelerationStructureMemoryKHR(device, (uint)bindInfos.Length, bindInfosFIXED);
+		}
+
 	}
 
 	/// <summary>vkBindAccelerationStructureMemoryNV(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.KHR.BindAccelerationStructureMemoryInfo*</c>)</summary>
@@ -4274,7 +5626,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BindAccelerationStructureMemoryNV(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.KHR.BindAccelerationStructureMemoryInfo> bindInfos)
 	{
 		fixed (Vk.KHR.BindAccelerationStructureMemoryInfo* bindInfosFIXED = bindInfos)
-		return vkBindAccelerationStructureMemoryNV(device, (uint)bindInfos.Length, bindInfosFIXED);
+		{
+			return vkBindAccelerationStructureMemoryNV(device, (uint)bindInfos.Length, bindInfosFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyAccelerationStructureNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure></c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure></c>, <c>Vk.KHR.CopyAccelerationStructureMode</c>)</summary>
@@ -4292,7 +5647,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyAccelerationStructureKHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.CopyAccelerationStructureInfo info)
 	{
 		fixed (Vk.KHR.CopyAccelerationStructureInfo* infoFIXED = &info)
-		vkCmdCopyAccelerationStructureKHR(commandBuffer, infoFIXED);
+		{
+			vkCmdCopyAccelerationStructureKHR(commandBuffer, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCopyAccelerationStructureKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.CopyAccelerationStructureInfo*</c>)</summary>
@@ -4305,7 +5663,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CopyAccelerationStructureKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.CopyAccelerationStructureInfo info)
 	{
 		fixed (Vk.KHR.CopyAccelerationStructureInfo* infoFIXED = &info)
-		return vkCopyAccelerationStructureKHR(device, infoFIXED);
+		{
+			return vkCopyAccelerationStructureKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyAccelerationStructureToMemoryKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.CopyAccelerationStructureToMemoryInfo*</c>)</summary>
@@ -4318,7 +5679,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyAccelerationStructureToMemoryKHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.CopyAccelerationStructureToMemoryInfo info)
 	{
 		fixed (Vk.KHR.CopyAccelerationStructureToMemoryInfo* infoFIXED = &info)
-		vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, infoFIXED);
+		{
+			vkCmdCopyAccelerationStructureToMemoryKHR(commandBuffer, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCopyAccelerationStructureToMemoryKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.CopyAccelerationStructureToMemoryInfo*</c>)</summary>
@@ -4331,7 +5695,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CopyAccelerationStructureToMemoryKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.CopyAccelerationStructureToMemoryInfo info)
 	{
 		fixed (Vk.KHR.CopyAccelerationStructureToMemoryInfo* infoFIXED = &info)
-		return vkCopyAccelerationStructureToMemoryKHR(device, infoFIXED);
+		{
+			return vkCopyAccelerationStructureToMemoryKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyMemoryToAccelerationStructureKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.CopyMemoryToAccelerationStructureInfo*</c>)</summary>
@@ -4344,7 +5711,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyMemoryToAccelerationStructureKHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.CopyMemoryToAccelerationStructureInfo info)
 	{
 		fixed (Vk.KHR.CopyMemoryToAccelerationStructureInfo* infoFIXED = &info)
-		vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, infoFIXED);
+		{
+			vkCmdCopyMemoryToAccelerationStructureKHR(commandBuffer, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCopyMemoryToAccelerationStructureKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.CopyMemoryToAccelerationStructureInfo*</c>)</summary>
@@ -4357,7 +5727,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CopyMemoryToAccelerationStructureKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.CopyMemoryToAccelerationStructureInfo info)
 	{
 		fixed (Vk.KHR.CopyMemoryToAccelerationStructureInfo* infoFIXED = &info)
-		return vkCopyMemoryToAccelerationStructureKHR(device, infoFIXED);
+		{
+			return vkCopyMemoryToAccelerationStructureKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdWriteAccelerationStructuresPropertiesKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure>*</c>, <c>Vk.QueryType</c>, <c>Vk.Handle<Vk.QueryPool></c>, <c>uint</c>)</summary>
@@ -4370,7 +5743,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdWriteAccelerationStructuresPropertiesKHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in ReadOnlySpan<Vk.Handle<Vk.KHR.AccelerationStructure>> accelerationStructures, Vk.QueryType queryType, Vk.Handle<Vk.QueryPool> queryPool, uint firstQuery)
 	{
 		fixed (Vk.Handle<Vk.KHR.AccelerationStructure>* accelerationStructuresFIXED = accelerationStructures)
-		vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, queryPool, firstQuery);
+		{
+			vkCmdWriteAccelerationStructuresPropertiesKHR(commandBuffer, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, queryPool, firstQuery);
+		}
+
 	}
 
 	/// <summary>vkCmdWriteAccelerationStructuresPropertiesNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure>*</c>, <c>Vk.QueryType</c>, <c>Vk.Handle<Vk.QueryPool></c>, <c>uint</c>)</summary>
@@ -4383,7 +5759,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdWriteAccelerationStructuresPropertiesNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, in ReadOnlySpan<Vk.Handle<Vk.KHR.AccelerationStructure>> accelerationStructures, Vk.QueryType queryType, Vk.Handle<Vk.QueryPool> queryPool, uint firstQuery)
 	{
 		fixed (Vk.Handle<Vk.KHR.AccelerationStructure>* accelerationStructuresFIXED = accelerationStructures)
-		vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, queryPool, firstQuery);
+		{
+			vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, queryPool, firstQuery);
+		}
+
 	}
 
 	/// <summary>vkCmdBuildAccelerationStructureNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.NV.AccelerationStructureInfo*</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.Bool32</c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure></c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>)</summary>
@@ -4396,7 +5775,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBuildAccelerationStructureNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.NV.AccelerationStructureInfo info, Vk.Handle<Vk.Buffer> instanceData, Vk.DeviceSize instanceOffset, Vk.Bool32 update, Vk.Handle<Vk.KHR.AccelerationStructure> dst, Vk.Handle<Vk.KHR.AccelerationStructure> src, Vk.Handle<Vk.Buffer> scratch, Vk.DeviceSize scratchOffset)
 	{
 		fixed (Vk.NV.AccelerationStructureInfo* infoFIXED = &info)
-		vkCmdBuildAccelerationStructureNV(commandBuffer, infoFIXED, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+		{
+			vkCmdBuildAccelerationStructureNV(commandBuffer, infoFIXED, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+		}
+
 	}
 
 	/// <summary>vkWriteAccelerationStructuresPropertiesKHR(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.Handle<Vk.KHR.AccelerationStructure>*</c>, <c>Vk.QueryType</c>, <c>ulong</c>, <c>void*</c>, <c>ulong</c>)</summary>
@@ -4409,7 +5791,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result WriteAccelerationStructuresPropertiesKHR(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.Handle<Vk.KHR.AccelerationStructure>> accelerationStructures, Vk.QueryType queryType, ulong dataSize, void* pData, ulong stride)
 	{
 		fixed (Vk.Handle<Vk.KHR.AccelerationStructure>* accelerationStructuresFIXED = accelerationStructures)
-		return vkWriteAccelerationStructuresPropertiesKHR(device, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, dataSize, pData, stride);
+		{
+			return vkWriteAccelerationStructuresPropertiesKHR(device, (uint)accelerationStructures.Length, accelerationStructuresFIXED, queryType, dataSize, pData, stride);
+		}
+
 	}
 
 	/// <summary>vkCmdTraceRaysKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
@@ -4425,7 +5810,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.KHR.StridedBufferRegion* missShaderBindingTableFIXED = &missShaderBindingTable)
 		fixed (Vk.KHR.StridedBufferRegion* hitShaderBindingTableFIXED = &hitShaderBindingTable)
 		fixed (Vk.KHR.StridedBufferRegion* callableShaderBindingTableFIXED = &callableShaderBindingTable)
-		vkCmdTraceRaysKHR(commandBuffer, raygenShaderBindingTableFIXED, missShaderBindingTableFIXED, hitShaderBindingTableFIXED, callableShaderBindingTableFIXED, width, height, depth);
+		{
+			vkCmdTraceRaysKHR(commandBuffer, raygenShaderBindingTableFIXED, missShaderBindingTableFIXED, hitShaderBindingTableFIXED, callableShaderBindingTableFIXED, width, height, depth);
+		}
+
 	}
 
 	/// <summary>vkCmdTraceRaysNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>Vk.DeviceSize</c>, <c>uint</c>, <c>uint</c>, <c>uint</c>)</summary>
@@ -4465,7 +5853,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.NV.RayTracingPipelineCreateInfo* createInfosFIXED = createInfos)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Pipeline>* pipelinesFIXED = pipelines)
-		return vkCreateRayTracingPipelinesNV(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		{
+			return vkCreateRayTracingPipelinesNV(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateRayTracingPipelinesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.PipelineCache></c>, <c>uint</c>, <c>Vk.KHR.RayTracingPipelineCreateInfo*</c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.Pipeline>*</c>)</summary>
@@ -4480,7 +5871,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.KHR.RayTracingPipelineCreateInfo* createInfosFIXED = createInfos)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.Pipeline>* pipelinesFIXED = pipelines)
-		return vkCreateRayTracingPipelinesKHR(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		{
+			return vkCreateRayTracingPipelinesKHR(device, pipelineCache, (uint)createInfos.Length, createInfosFIXED, allocatorFIXED, pipelinesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdTraceRaysIndirectKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.KHR.StridedBufferRegion*</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>)</summary>
@@ -4496,7 +5890,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.KHR.StridedBufferRegion* missShaderBindingTableFIXED = &missShaderBindingTable)
 		fixed (Vk.KHR.StridedBufferRegion* hitShaderBindingTableFIXED = &hitShaderBindingTable)
 		fixed (Vk.KHR.StridedBufferRegion* callableShaderBindingTableFIXED = &callableShaderBindingTable)
-		vkCmdTraceRaysIndirectKHR(commandBuffer, raygenShaderBindingTableFIXED, missShaderBindingTableFIXED, hitShaderBindingTableFIXED, callableShaderBindingTableFIXED, buffer, offset);
+		{
+			vkCmdTraceRaysIndirectKHR(commandBuffer, raygenShaderBindingTableFIXED, missShaderBindingTableFIXED, hitShaderBindingTableFIXED, callableShaderBindingTableFIXED, buffer, offset);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceAccelerationStructureCompatibilityKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.AccelerationStructureVersion*</c>)</summary>
@@ -4509,7 +5906,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetDeviceAccelerationStructureCompatibilityKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.AccelerationStructureVersion version)
 	{
 		fixed (Vk.KHR.AccelerationStructureVersion* versionFIXED = &version)
-		return vkGetDeviceAccelerationStructureCompatibilityKHR(device, versionFIXED);
+		{
+			return vkGetDeviceAccelerationStructureCompatibilityKHR(device, versionFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetImageViewHandleNVX(<c>Vk.Handle<Vk.Device></c>, <c>Vk.NVX.ImageViewHandleInfo*</c>)</summary>
@@ -4522,7 +5922,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public uint GetImageViewHandleNVX(Vk.Handle<Vk.Device> device, in Vk.NVX.ImageViewHandleInfo info)
 	{
 		fixed (Vk.NVX.ImageViewHandleInfo* infoFIXED = &info)
-		return vkGetImageViewHandleNVX(device, infoFIXED);
+		{
+			return vkGetImageViewHandleNVX(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetImageViewAddressNVX(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.ImageView></c>, <c>Vk.NVX.ImageViewAddressProperties*</c>)</summary>
@@ -4535,7 +5938,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetImageViewAddressNVX(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.ImageView> imageView, out Vk.NVX.ImageViewAddressProperties properties)
 	{
 		fixed (Vk.NVX.ImageViewAddressProperties* propertiesFIXED = &properties)
-		return vkGetImageViewAddressNVX(device, imageView, propertiesFIXED);
+		{
+			return vkGetImageViewAddressNVX(device, imageView, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceGroupSurfacePresentModes2EXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PhysicalDeviceSurfaceInfo2*</c>, <c>Vk.KHR.DeviceGroupPresentModeFlags*</c>)</summary>
@@ -4549,7 +5955,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.KHR.PhysicalDeviceSurfaceInfo2* surfaceInfoFIXED = &surfaceInfo)
 		fixed (Vk.KHR.DeviceGroupPresentModeFlags* modesFIXED = &modes)
-		return vkGetDeviceGroupSurfacePresentModes2EXT(device, surfaceInfoFIXED, modesFIXED);
+		{
+			return vkGetDeviceGroupSurfacePresentModes2EXT(device, surfaceInfoFIXED, modesFIXED);
+		}
+
 	}
 
 	/// <summary>vkAcquireFullScreenExclusiveModeEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.Swapchain></c>)</summary>
@@ -4572,7 +5981,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result AcquireProfilingLockKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.AcquireProfilingLockInfo info)
 	{
 		fixed (Vk.KHR.AcquireProfilingLockInfo* infoFIXED = &info)
-		return vkAcquireProfilingLockKHR(device, infoFIXED);
+		{
+			return vkAcquireProfilingLockKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkReleaseProfilingLockKHR(<c>Vk.Handle<Vk.Device></c>)</summary>
@@ -4590,7 +6002,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetImageDrmFormatModifierPropertiesEXT(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.Image> image, out Vk.EXT.ImageDrmFormatModifierProperties properties)
 	{
 		fixed (Vk.EXT.ImageDrmFormatModifierProperties* propertiesFIXED = &properties)
-		return vkGetImageDrmFormatModifierPropertiesEXT(device, image, propertiesFIXED);
+		{
+			return vkGetImageDrmFormatModifierPropertiesEXT(device, image, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferOpaqueCaptureAddress(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
@@ -4603,7 +6018,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetBufferOpaqueCaptureAddress(Vk.Handle<Vk.Device> device, in Vk.BufferDeviceAddressInfo info)
 	{
 		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
-		return vkGetBufferOpaqueCaptureAddress(device, infoFIXED);
+		{
+			return vkGetBufferOpaqueCaptureAddress(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferOpaqueCaptureAddressKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
@@ -4616,7 +6034,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetBufferOpaqueCaptureAddressKHR(Vk.Handle<Vk.Device> device, in Vk.BufferDeviceAddressInfo info)
 	{
 		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
-		return vkGetBufferOpaqueCaptureAddressKHR(device, infoFIXED);
+		{
+			return vkGetBufferOpaqueCaptureAddressKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferDeviceAddress(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
@@ -4629,7 +6050,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetBufferDeviceAddress(Vk.Handle<Vk.Device> device, in Vk.BufferDeviceAddressInfo info)
 	{
 		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
-		return vkGetBufferDeviceAddress(device, infoFIXED);
+		{
+			return vkGetBufferDeviceAddress(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferDeviceAddressKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
@@ -4642,7 +6066,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetBufferDeviceAddressKHR(Vk.Handle<Vk.Device> device, in Vk.BufferDeviceAddressInfo info)
 	{
 		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
-		return vkGetBufferDeviceAddressKHR(device, infoFIXED);
+		{
+			return vkGetBufferDeviceAddressKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetBufferDeviceAddressEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.BufferDeviceAddressInfo*</c>)</summary>
@@ -4655,7 +6082,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetBufferDeviceAddressEXT(Vk.Handle<Vk.Device> device, in Vk.BufferDeviceAddressInfo info)
 	{
 		fixed (Vk.BufferDeviceAddressInfo* infoFIXED = &info)
-		return vkGetBufferDeviceAddressEXT(device, infoFIXED);
+		{
+			return vkGetBufferDeviceAddressEXT(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkInitializePerformanceApiINTEL(<c>Vk.Handle<Vk.Device></c>, <c>Vk.INTEL.InitializePerformanceApiInfo*</c>)</summary>
@@ -4668,7 +6098,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result InitializePerformanceApiINTEL(Vk.Handle<Vk.Device> device, in Vk.INTEL.InitializePerformanceApiInfo initializeInfo)
 	{
 		fixed (Vk.INTEL.InitializePerformanceApiInfo* initializeInfoFIXED = &initializeInfo)
-		return vkInitializePerformanceApiINTEL(device, initializeInfoFIXED);
+		{
+			return vkInitializePerformanceApiINTEL(device, initializeInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkUninitializePerformanceApiINTEL(<c>Vk.Handle<Vk.Device></c>)</summary>
@@ -4686,7 +6119,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CmdSetPerformanceMarkerINTEL(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.INTEL.PerformanceMarkerInfo markerInfo)
 	{
 		fixed (Vk.INTEL.PerformanceMarkerInfo* markerInfoFIXED = &markerInfo)
-		return vkCmdSetPerformanceMarkerINTEL(commandBuffer, markerInfoFIXED);
+		{
+			return vkCmdSetPerformanceMarkerINTEL(commandBuffer, markerInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetPerformanceStreamMarkerINTEL(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.INTEL.PerformanceStreamMarkerInfo*</c>)</summary>
@@ -4699,7 +6135,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CmdSetPerformanceStreamMarkerINTEL(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.INTEL.PerformanceStreamMarkerInfo markerInfo)
 	{
 		fixed (Vk.INTEL.PerformanceStreamMarkerInfo* markerInfoFIXED = &markerInfo)
-		return vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, markerInfoFIXED);
+		{
+			return vkCmdSetPerformanceStreamMarkerINTEL(commandBuffer, markerInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetPerformanceOverrideINTEL(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.INTEL.PerformanceOverrideInfo*</c>)</summary>
@@ -4712,7 +6151,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result CmdSetPerformanceOverrideINTEL(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.INTEL.PerformanceOverrideInfo overrideInfo)
 	{
 		fixed (Vk.INTEL.PerformanceOverrideInfo* overrideInfoFIXED = &overrideInfo)
-		return vkCmdSetPerformanceOverrideINTEL(commandBuffer, overrideInfoFIXED);
+		{
+			return vkCmdSetPerformanceOverrideINTEL(commandBuffer, overrideInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkAcquirePerformanceConfigurationINTEL(<c>Vk.Handle<Vk.Device></c>, <c>Vk.INTEL.PerformanceConfigurationAcquireInfo*</c>, <c>Vk.Handle<Vk.INTEL.PerformanceConfiguration>*</c>)</summary>
@@ -4726,7 +6168,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.INTEL.PerformanceConfigurationAcquireInfo* acquireInfoFIXED = &acquireInfo)
 		fixed (Vk.Handle<Vk.INTEL.PerformanceConfiguration>* configurationFIXED = &configuration)
-		return vkAcquirePerformanceConfigurationINTEL(device, acquireInfoFIXED, configurationFIXED);
+		{
+			return vkAcquirePerformanceConfigurationINTEL(device, acquireInfoFIXED, configurationFIXED);
+		}
+
 	}
 
 	/// <summary>vkReleasePerformanceConfigurationINTEL(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.INTEL.PerformanceConfiguration></c>)</summary>
@@ -4749,7 +6194,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result GetPerformanceParameterINTEL(Vk.Handle<Vk.Device> device, Vk.INTEL.PerformanceParameterType parameter, out Vk.INTEL.PerformanceValue value)
 	{
 		fixed (Vk.INTEL.PerformanceValue* valueFIXED = &value)
-		return vkGetPerformanceParameterINTEL(device, parameter, valueFIXED);
+		{
+			return vkGetPerformanceParameterINTEL(device, parameter, valueFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceMemoryOpaqueCaptureAddress(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DeviceMemoryOpaqueCaptureAddressInfo*</c>)</summary>
@@ -4762,7 +6210,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetDeviceMemoryOpaqueCaptureAddress(Vk.Handle<Vk.Device> device, in Vk.DeviceMemoryOpaqueCaptureAddressInfo info)
 	{
 		fixed (Vk.DeviceMemoryOpaqueCaptureAddressInfo* infoFIXED = &info)
-		return vkGetDeviceMemoryOpaqueCaptureAddress(device, infoFIXED);
+		{
+			return vkGetDeviceMemoryOpaqueCaptureAddress(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeviceMemoryOpaqueCaptureAddressKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.DeviceMemoryOpaqueCaptureAddressInfo*</c>)</summary>
@@ -4775,7 +6226,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetDeviceMemoryOpaqueCaptureAddressKHR(Vk.Handle<Vk.Device> device, in Vk.DeviceMemoryOpaqueCaptureAddressInfo info)
 	{
 		fixed (Vk.DeviceMemoryOpaqueCaptureAddressInfo* infoFIXED = &info)
-		return vkGetDeviceMemoryOpaqueCaptureAddressKHR(device, infoFIXED);
+		{
+			return vkGetDeviceMemoryOpaqueCaptureAddressKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPipelineExecutablePropertiesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableProperties*</c>)</summary>
@@ -4785,12 +6239,34 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetPipelineExecutablePropertiesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPipelineExecutablePropertiesKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineInfo pipelineInfo, out uint executableCount, in Span<Vk.KHR.PipelineExecutableProperties> properties)
+	public Vk.Result GetPipelineExecutablePropertiesKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineInfo pipelineInfo, in Span<Vk.KHR.PipelineExecutableProperties> properties)
 	{
 		fixed (Vk.KHR.PipelineInfo* pipelineInfoFIXED = &pipelineInfo)
-		fixed (uint* executableCountFIXED = &executableCount)
 		fixed (Vk.KHR.PipelineExecutableProperties* propertiesFIXED = properties)
-		return vkGetPipelineExecutablePropertiesKHR(device, pipelineInfoFIXED, executableCountFIXED, propertiesFIXED);
+		{
+			uint propertiesLength = (uint)properties.Length;
+			return vkGetPipelineExecutablePropertiesKHR(device, pipelineInfoFIXED, &propertiesLength, propertiesFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPipelineExecutablePropertiesKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableProperties*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPipelineExecutablePropertiesKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineInfo pipelineInfo, out Vk.KHR.PipelineExecutableProperties[] properties)
+	{
+		fixed (Vk.KHR.PipelineInfo* pipelineInfoFIXED = &pipelineInfo)
+		{
+			uint COUNT = 0;
+			var res = vkGetPipelineExecutablePropertiesKHR(device, pipelineInfoFIXED, &COUNT, null);
+			if (res != Vk.Result.Success) {
+				properties = Array.Empty<Vk.KHR.PipelineExecutableProperties>();
+				return res;
+			}
+			properties = new Vk.KHR.PipelineExecutableProperties[COUNT];
+			fixed (Vk.KHR.PipelineExecutableProperties* propertiesFIXED = properties)
+			return vkGetPipelineExecutablePropertiesKHR(device, pipelineInfoFIXED, &COUNT, propertiesFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPipelineExecutableStatisticsKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableStatistic*</c>)</summary>
@@ -4800,12 +6276,34 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetPipelineExecutableStatisticsKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableStatistic*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPipelineExecutableStatisticsKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineExecutableInfo executableInfo, out uint statisticCount, in Span<Vk.KHR.PipelineExecutableStatistic> statistics)
+	public Vk.Result GetPipelineExecutableStatisticsKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineExecutableInfo executableInfo, in Span<Vk.KHR.PipelineExecutableStatistic> statistics)
 	{
 		fixed (Vk.KHR.PipelineExecutableInfo* executableInfoFIXED = &executableInfo)
-		fixed (uint* statisticCountFIXED = &statisticCount)
 		fixed (Vk.KHR.PipelineExecutableStatistic* statisticsFIXED = statistics)
-		return vkGetPipelineExecutableStatisticsKHR(device, executableInfoFIXED, statisticCountFIXED, statisticsFIXED);
+		{
+			uint statisticsLength = (uint)statistics.Length;
+			return vkGetPipelineExecutableStatisticsKHR(device, executableInfoFIXED, &statisticsLength, statisticsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPipelineExecutableStatisticsKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableStatistic*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPipelineExecutableStatisticsKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineExecutableInfo executableInfo, out Vk.KHR.PipelineExecutableStatistic[] statistics)
+	{
+		fixed (Vk.KHR.PipelineExecutableInfo* executableInfoFIXED = &executableInfo)
+		{
+			uint COUNT = 0;
+			var res = vkGetPipelineExecutableStatisticsKHR(device, executableInfoFIXED, &COUNT, null);
+			if (res != Vk.Result.Success) {
+				statistics = Array.Empty<Vk.KHR.PipelineExecutableStatistic>();
+				return res;
+			}
+			statistics = new Vk.KHR.PipelineExecutableStatistic[COUNT];
+			fixed (Vk.KHR.PipelineExecutableStatistic* statisticsFIXED = statistics)
+			return vkGetPipelineExecutableStatisticsKHR(device, executableInfoFIXED, &COUNT, statisticsFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetPipelineExecutableInternalRepresentationsKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableInternalRepresentation*</c>)</summary>
@@ -4815,12 +6313,34 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	/// <summary>vkGetPipelineExecutableInternalRepresentationsKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableInternalRepresentation*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPipelineExecutableInternalRepresentationsKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineExecutableInfo executableInfo, out uint internalRepresentationCount, in Span<Vk.KHR.PipelineExecutableInternalRepresentation> internalRepresentations)
+	public Vk.Result GetPipelineExecutableInternalRepresentationsKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineExecutableInfo executableInfo, in Span<Vk.KHR.PipelineExecutableInternalRepresentation> internalRepresentations)
 	{
 		fixed (Vk.KHR.PipelineExecutableInfo* executableInfoFIXED = &executableInfo)
-		fixed (uint* internalRepresentationCountFIXED = &internalRepresentationCount)
 		fixed (Vk.KHR.PipelineExecutableInternalRepresentation* internalRepresentationsFIXED = internalRepresentations)
-		return vkGetPipelineExecutableInternalRepresentationsKHR(device, executableInfoFIXED, internalRepresentationCountFIXED, internalRepresentationsFIXED);
+		{
+			uint internalRepresentationsLength = (uint)internalRepresentations.Length;
+			return vkGetPipelineExecutableInternalRepresentationsKHR(device, executableInfoFIXED, &internalRepresentationsLength, internalRepresentationsFIXED);
+		}
+
+	}
+
+	/// <summary>vkGetPipelineExecutableInternalRepresentationsKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.PipelineExecutableInfo*</c>, <c>uint*</c>, <c>Vk.KHR.PipelineExecutableInternalRepresentation*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPipelineExecutableInternalRepresentationsKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.PipelineExecutableInfo executableInfo, out Vk.KHR.PipelineExecutableInternalRepresentation[] internalRepresentations)
+	{
+		fixed (Vk.KHR.PipelineExecutableInfo* executableInfoFIXED = &executableInfo)
+		{
+			uint COUNT = 0;
+			var res = vkGetPipelineExecutableInternalRepresentationsKHR(device, executableInfoFIXED, &COUNT, null);
+			if (res != Vk.Result.Success) {
+				internalRepresentations = Array.Empty<Vk.KHR.PipelineExecutableInternalRepresentation>();
+				return res;
+			}
+			internalRepresentations = new Vk.KHR.PipelineExecutableInternalRepresentation[COUNT];
+			fixed (Vk.KHR.PipelineExecutableInternalRepresentation* internalRepresentationsFIXED = internalRepresentations)
+			return vkGetPipelineExecutableInternalRepresentationsKHR(device, executableInfoFIXED, &COUNT, internalRepresentationsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetLineStippleEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>ushort</c>)</summary>
@@ -4840,7 +6360,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.KHR.AccelerationStructureCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.AccelerationStructure>* accelerationStructureFIXED = &accelerationStructure)
-		return vkCreateAccelerationStructureKHR(device, createInfoFIXED, allocatorFIXED, accelerationStructureFIXED);
+		{
+			return vkCreateAccelerationStructureKHR(device, createInfoFIXED, allocatorFIXED, accelerationStructureFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBuildAccelerationStructureKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.KHR.AccelerationStructureBuildOffsetInfo**</c>)</summary>
@@ -4853,7 +6376,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBuildAccelerationStructureKHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in ReadOnlySpan<Vk.KHR.AccelerationStructureBuildGeometryInfo> infos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
 	{
 		fixed (Vk.KHR.AccelerationStructureBuildGeometryInfo* infosFIXED = infos)
-		vkCmdBuildAccelerationStructureKHR(commandBuffer, (uint)infos.Length, infosFIXED, ppOffsetInfos);
+		{
+			vkCmdBuildAccelerationStructureKHR(commandBuffer, (uint)infos.Length, infosFIXED, ppOffsetInfos);
+		}
+
 	}
 
 	/// <summary>vkCmdBuildAccelerationStructureIndirectKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.Handle<Vk.Buffer></c>, <c>Vk.DeviceSize</c>, <c>uint</c>)</summary>
@@ -4866,7 +6392,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBuildAccelerationStructureIndirectKHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.AccelerationStructureBuildGeometryInfo info, Vk.Handle<Vk.Buffer> indirectBuffer, Vk.DeviceSize indirectOffset, uint indirectStride)
 	{
 		fixed (Vk.KHR.AccelerationStructureBuildGeometryInfo* infoFIXED = &info)
-		vkCmdBuildAccelerationStructureIndirectKHR(commandBuffer, infoFIXED, indirectBuffer, indirectOffset, indirectStride);
+		{
+			vkCmdBuildAccelerationStructureIndirectKHR(commandBuffer, infoFIXED, indirectBuffer, indirectOffset, indirectStride);
+		}
+
 	}
 
 	/// <summary>vkBuildAccelerationStructureKHR(<c>Vk.Handle<Vk.Device></c>, <c>uint</c>, <c>Vk.KHR.AccelerationStructureBuildGeometryInfo*</c>, <c>Vk.KHR.AccelerationStructureBuildOffsetInfo**</c>)</summary>
@@ -4879,7 +6408,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public Vk.Result BuildAccelerationStructureKHR(Vk.Handle<Vk.Device> device, in ReadOnlySpan<Vk.KHR.AccelerationStructureBuildGeometryInfo> infos, Vk.KHR.AccelerationStructureBuildOffsetInfo** ppOffsetInfos)
 	{
 		fixed (Vk.KHR.AccelerationStructureBuildGeometryInfo* infosFIXED = infos)
-		return vkBuildAccelerationStructureKHR(device, (uint)infos.Length, infosFIXED, ppOffsetInfos);
+		{
+			return vkBuildAccelerationStructureKHR(device, (uint)infos.Length, infosFIXED, ppOffsetInfos);
+		}
+
 	}
 
 	/// <summary>vkGetAccelerationStructureDeviceAddressKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.KHR.AccelerationStructureDeviceAddressInfo*</c>)</summary>
@@ -4892,7 +6424,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public ulong GetAccelerationStructureDeviceAddressKHR(Vk.Handle<Vk.Device> device, in Vk.KHR.AccelerationStructureDeviceAddressInfo info)
 	{
 		fixed (Vk.KHR.AccelerationStructureDeviceAddressInfo* infoFIXED = &info)
-		return vkGetAccelerationStructureDeviceAddressKHR(device, infoFIXED);
+		{
+			return vkGetAccelerationStructureDeviceAddressKHR(device, infoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCreateDeferredOperationKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.AllocationCallbacks*</c>, <c>Vk.Handle<Vk.KHR.DeferredOperation>*</c>)</summary>
@@ -4906,7 +6441,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.KHR.DeferredOperation>* deferredOperationFIXED = &deferredOperation)
-		return vkCreateDeferredOperationKHR(device, allocatorFIXED, deferredOperationFIXED);
+		{
+			return vkCreateDeferredOperationKHR(device, allocatorFIXED, deferredOperationFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyDeferredOperationKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.DeferredOperation></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -4919,7 +6457,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyDeferredOperationKHR(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.KHR.DeferredOperation> operation, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyDeferredOperationKHR(device, operation, allocatorFIXED);
+		{
+			vkDestroyDeferredOperationKHR(device, operation, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkGetDeferredOperationMaxConcurrencyKHR(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.KHR.DeferredOperation></c>)</summary>
@@ -4962,7 +6503,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetViewportWithCountEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in ReadOnlySpan<Vk.Viewport> viewports)
 	{
 		fixed (Vk.Viewport* viewportsFIXED = viewports)
-		vkCmdSetViewportWithCountEXT(commandBuffer, (uint)viewports.Length, viewportsFIXED);
+		{
+			vkCmdSetViewportWithCountEXT(commandBuffer, (uint)viewports.Length, viewportsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetScissorWithCountEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>Vk.Rect2D*</c>)</summary>
@@ -4975,7 +6519,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdSetScissorWithCountEXT(Vk.Handle<Vk.CommandBuffer> commandBuffer, in ReadOnlySpan<Vk.Rect2D> scissors)
 	{
 		fixed (Vk.Rect2D* scissorsFIXED = scissors)
-		vkCmdSetScissorWithCountEXT(commandBuffer, (uint)scissors.Length, scissorsFIXED);
+		{
+			vkCmdSetScissorWithCountEXT(commandBuffer, (uint)scissors.Length, scissorsFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBindVertexBuffers2EXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>uint</c>, <c>uint</c>, <c>Vk.Handle<Vk.Buffer>*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>, <c>Vk.DeviceSize*</c>)</summary>
@@ -4991,7 +6538,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.DeviceSize* offsetsFIXED = offsets)
 		fixed (Vk.DeviceSize* sizesFIXED = sizes)
 		fixed (Vk.DeviceSize* stridesFIXED = strides)
-		vkCmdBindVertexBuffers2EXT(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED, sizesFIXED, stridesFIXED);
+		{
+			vkCmdBindVertexBuffers2EXT(commandBuffer, firstBinding, (uint)buffers.Length, buffersFIXED, offsetsFIXED, sizesFIXED, stridesFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetDepthTestEnableEXT(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Bool32</c>)</summary>
@@ -5036,7 +6586,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		fixed (Vk.EXT.PrivateDataSlotCreateInfo* createInfoFIXED = &createInfo)
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
 		fixed (Vk.Handle<Vk.EXT.PrivateDataSlot>* privateDataSlotFIXED = &privateDataSlot)
-		return vkCreatePrivateDataSlotEXT(device, createInfoFIXED, allocatorFIXED, privateDataSlotFIXED);
+		{
+			return vkCreatePrivateDataSlotEXT(device, createInfoFIXED, allocatorFIXED, privateDataSlotFIXED);
+		}
+
 	}
 
 	/// <summary>vkDestroyPrivateDataSlotEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.Handle<Vk.EXT.PrivateDataSlot></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -5049,7 +6602,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void DestroyPrivateDataSlotEXT(Vk.Handle<Vk.Device> device, Vk.Handle<Vk.EXT.PrivateDataSlot> privateDataSlot, in Vk.AllocationCallbacks allocator)
 	{
 		fixed (Vk.AllocationCallbacks* allocatorFIXED = &allocator)
-		vkDestroyPrivateDataSlotEXT(device, privateDataSlot, allocatorFIXED);
+		{
+			vkDestroyPrivateDataSlotEXT(device, privateDataSlot, allocatorFIXED);
+		}
+
 	}
 
 	/// <summary>vkSetPrivateDataEXT(<c>Vk.Handle<Vk.Device></c>, <c>Vk.ObjectType</c>, <c>ulong</c>, <c>Vk.Handle<Vk.EXT.PrivateDataSlot></c>, <c>ulong</c>)</summary>
@@ -5067,7 +6623,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void GetPrivateDataEXT(Vk.Handle<Vk.Device> device, Vk.ObjectType objectType, ulong objectHandle, Vk.Handle<Vk.EXT.PrivateDataSlot> privateDataSlot, out ulong data)
 	{
 		fixed (ulong* dataFIXED = &data)
-		vkGetPrivateDataEXT(device, objectType, objectHandle, privateDataSlot, dataFIXED);
+		{
+			vkGetPrivateDataEXT(device, objectType, objectHandle, privateDataSlot, dataFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyBuffer2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.CopyBufferInfo2*</c>)</summary>
@@ -5080,7 +6639,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyBuffer2KHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.CopyBufferInfo2 copyBufferInfo)
 	{
 		fixed (Vk.KHR.CopyBufferInfo2* copyBufferInfoFIXED = &copyBufferInfo)
-		vkCmdCopyBuffer2KHR(commandBuffer, copyBufferInfoFIXED);
+		{
+			vkCmdCopyBuffer2KHR(commandBuffer, copyBufferInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyImage2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.CopyImageInfo2*</c>)</summary>
@@ -5093,7 +6655,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyImage2KHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.CopyImageInfo2 copyImageInfo)
 	{
 		fixed (Vk.KHR.CopyImageInfo2* copyImageInfoFIXED = &copyImageInfo)
-		vkCmdCopyImage2KHR(commandBuffer, copyImageInfoFIXED);
+		{
+			vkCmdCopyImage2KHR(commandBuffer, copyImageInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdBlitImage2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.BlitImageInfo2*</c>)</summary>
@@ -5106,7 +6671,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdBlitImage2KHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.BlitImageInfo2 blitImageInfo)
 	{
 		fixed (Vk.KHR.BlitImageInfo2* blitImageInfoFIXED = &blitImageInfo)
-		vkCmdBlitImage2KHR(commandBuffer, blitImageInfoFIXED);
+		{
+			vkCmdBlitImage2KHR(commandBuffer, blitImageInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyBufferToImage2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.CopyBufferToImageInfo2*</c>)</summary>
@@ -5119,7 +6687,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyBufferToImage2KHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.CopyBufferToImageInfo2 copyBufferToImageInfo)
 	{
 		fixed (Vk.KHR.CopyBufferToImageInfo2* copyBufferToImageInfoFIXED = &copyBufferToImageInfo)
-		vkCmdCopyBufferToImage2KHR(commandBuffer, copyBufferToImageInfoFIXED);
+		{
+			vkCmdCopyBufferToImage2KHR(commandBuffer, copyBufferToImageInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdCopyImageToBuffer2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.CopyImageToBufferInfo2*</c>)</summary>
@@ -5132,7 +6703,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdCopyImageToBuffer2KHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.CopyImageToBufferInfo2 copyImageToBufferInfo)
 	{
 		fixed (Vk.KHR.CopyImageToBufferInfo2* copyImageToBufferInfoFIXED = &copyImageToBufferInfo)
-		vkCmdCopyImageToBuffer2KHR(commandBuffer, copyImageToBufferInfoFIXED);
+		{
+			vkCmdCopyImageToBuffer2KHR(commandBuffer, copyImageToBufferInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdResolveImage2KHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.KHR.ResolveImageInfo2*</c>)</summary>
@@ -5145,7 +6719,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	public void CmdResolveImage2KHR(Vk.Handle<Vk.CommandBuffer> commandBuffer, in Vk.KHR.ResolveImageInfo2 resolveImageInfo)
 	{
 		fixed (Vk.KHR.ResolveImageInfo2* resolveImageInfoFIXED = &resolveImageInfo)
-		vkCmdResolveImage2KHR(commandBuffer, resolveImageInfoFIXED);
+		{
+			vkCmdResolveImage2KHR(commandBuffer, resolveImageInfoFIXED);
+		}
+
 	}
 
 	/// <summary>vkCmdSetFragmentShadingRateKHR(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.Extent2D*</c>, <c>Vk.KHR.FragmentShadingRateCombinerOp*</c>)</summary>
@@ -5159,7 +6736,10 @@ public unsafe sealed partial class DeviceFunctionTable
 	{
 		fixed (Vk.Extent2D* fragmentSizeFIXED = &fragmentSize)
 		fixed (Vk.KHR.FragmentShadingRateCombinerOp* combinerOpsFIXED = &combinerOps)
-		vkCmdSetFragmentShadingRateKHR(commandBuffer, fragmentSizeFIXED, combinerOpsFIXED);
+		{
+			vkCmdSetFragmentShadingRateKHR(commandBuffer, fragmentSizeFIXED, combinerOpsFIXED);
+		}
+
 	}
 
 }

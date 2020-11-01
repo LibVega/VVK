@@ -122,7 +122,7 @@ public unsafe partial class AccelerationStructure : IHandleType<AccelerationStru
 	public void DestroyAccelerationStructureKHR(Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroyAccelerationStructureKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyAccelerationStructureKHR");
-		Functions.vkDestroyAccelerationStructureKHR(Device.Handle, Handle, pAllocator);
+		Functions.DestroyAccelerationStructureKHR(Device.Handle, Handle, pAllocator);
 	}
 
 	/// <summary>vkDestroyAccelerationStructureKHR</summary>
@@ -138,7 +138,7 @@ public unsafe partial class AccelerationStructure : IHandleType<AccelerationStru
 	public void DestroyAccelerationStructureNV(Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroyAccelerationStructureNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyAccelerationStructureNV");
-		Functions.vkDestroyAccelerationStructureNV(Device.Handle, Handle, pAllocator);
+		Functions.DestroyAccelerationStructureNV(Device.Handle, Handle, pAllocator);
 	}
 
 	/// <summary>vkDestroyAccelerationStructureNV</summary>
@@ -154,7 +154,7 @@ public unsafe partial class AccelerationStructure : IHandleType<AccelerationStru
 	public Vk.Result GetAccelerationStructureHandleNV(ulong dataSize, void* pData)
 	{
 		if (Functions.vkGetAccelerationStructureHandleNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetAccelerationStructureHandleNV");
-		return Functions.vkGetAccelerationStructureHandleNV(Device.Handle, Handle, dataSize, pData);
+		return Functions.GetAccelerationStructureHandleNV(Device.Handle, Handle, dataSize, pData);
 	}
 
 }
@@ -197,7 +197,7 @@ public unsafe partial class DeferredOperation : IHandleType<DeferredOperation>
 	public void DestroyDeferredOperationKHR(Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroyDeferredOperationKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyDeferredOperationKHR");
-		Functions.vkDestroyDeferredOperationKHR(Device.Handle, Handle, pAllocator);
+		Functions.DestroyDeferredOperationKHR(Device.Handle, Handle, pAllocator);
 	}
 
 	/// <summary>vkDestroyDeferredOperationKHR</summary>
@@ -213,7 +213,7 @@ public unsafe partial class DeferredOperation : IHandleType<DeferredOperation>
 	public uint GetDeferredOperationMaxConcurrencyKHR()
 	{
 		if (Functions.vkGetDeferredOperationMaxConcurrencyKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDeferredOperationMaxConcurrencyKHR");
-		return Functions.vkGetDeferredOperationMaxConcurrencyKHR(Device.Handle, Handle);
+		return Functions.GetDeferredOperationMaxConcurrencyKHR(Device.Handle, Handle);
 	}
 
 	/// <summary>vkGetDeferredOperationResultKHR</summary>
@@ -221,7 +221,7 @@ public unsafe partial class DeferredOperation : IHandleType<DeferredOperation>
 	public Vk.Result GetDeferredOperationResultKHR()
 	{
 		if (Functions.vkGetDeferredOperationResultKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDeferredOperationResultKHR");
-		return Functions.vkGetDeferredOperationResultKHR(Device.Handle, Handle);
+		return Functions.GetDeferredOperationResultKHR(Device.Handle, Handle);
 	}
 
 	/// <summary>vkDeferredOperationJoinKHR</summary>
@@ -229,7 +229,7 @@ public unsafe partial class DeferredOperation : IHandleType<DeferredOperation>
 	public Vk.Result DeferredOperationJoinKHR()
 	{
 		if (Functions.vkDeferredOperationJoinKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkDeferredOperationJoinKHR");
-		return Functions.vkDeferredOperationJoinKHR(Device.Handle, Handle);
+		return Functions.DeferredOperationJoinKHR(Device.Handle, Handle);
 	}
 
 }
@@ -270,15 +270,23 @@ public unsafe partial class Display : IHandleType<Display>
 	public Vk.Result GetDisplayModePropertiesKHR(uint* pPropertyCount, Vk.KHR.DisplayModeProperties* pProperties)
 	{
 		if (Functions.vkGetDisplayModePropertiesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDisplayModePropertiesKHR");
-		return Functions.vkGetDisplayModePropertiesKHR(Parent.Handle, Handle, pPropertyCount, pProperties);
+		return Functions.GetDisplayModePropertiesKHR(Parent.Handle, Handle, pPropertyCount, pProperties);
 	}
 
 	/// <summary>vkGetDisplayModePropertiesKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayModePropertiesKHR(out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties> properties)
+	public Vk.Result GetDisplayModePropertiesKHR(in Span<Vk.KHR.DisplayModeProperties> properties)
 	{
 		if (Functions.vkGetDisplayModePropertiesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDisplayModePropertiesKHR");
-		return Functions.GetDisplayModePropertiesKHR(Parent.Handle, Handle, out propertyCount, properties);
+		return Functions.GetDisplayModePropertiesKHR(Parent.Handle, Handle, properties);
+	}
+
+	/// <summary>vkGetDisplayModePropertiesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayModePropertiesKHR(out Vk.KHR.DisplayModeProperties[] properties)
+	{
+		if (Functions.vkGetDisplayModePropertiesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDisplayModePropertiesKHR");
+		return Functions.GetDisplayModePropertiesKHR(Parent.Handle, Handle, out properties);
 	}
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
@@ -286,7 +294,7 @@ public unsafe partial class Display : IHandleType<Display>
 	public Vk.Result CreateDisplayModeKHR(Vk.KHR.DisplayModeCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.KHR.DisplayMode>* pMode)
 	{
 		if (Functions.vkCreateDisplayModeKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateDisplayModeKHR");
-		return Functions.vkCreateDisplayModeKHR(Parent.Handle, Handle, pCreateInfo, pAllocator, pMode);
+		return Functions.CreateDisplayModeKHR(Parent.Handle, Handle, pCreateInfo, pAllocator, pMode);
 	}
 
 	/// <summary>vkCreateDisplayModeKHR</summary>
@@ -295,7 +303,7 @@ public unsafe partial class Display : IHandleType<Display>
 	{
 		if (Functions.vkCreateDisplayModeKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateDisplayModeKHR");
 		Vk.Handle<Vk.KHR.DisplayMode> HANDLE;
-		var RESULT = Functions.vkCreateDisplayModeKHR(Parent.Handle, Handle, pCreateInfo, pAllocator, &HANDLE);
+		var RESULT = Functions.CreateDisplayModeKHR(Parent.Handle, Handle, pCreateInfo, pAllocator, &HANDLE);
 		pMode = (RESULT == Result.Success) ? new(this, HANDLE) : Vk.KHR.DisplayMode.Null;
 		return RESULT;
 	}
@@ -324,7 +332,7 @@ public unsafe partial class Display : IHandleType<Display>
 	public Vk.Result ReleaseDisplayEXT()
 	{
 		if (Functions.vkReleaseDisplayEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkReleaseDisplayEXT");
-		return Functions.vkReleaseDisplayEXT(Parent.Handle, Handle);
+		return Functions.ReleaseDisplayEXT(Parent.Handle, Handle);
 	}
 
 	/// <summary>vkGetDisplayModeProperties2KHR</summary>
@@ -332,15 +340,23 @@ public unsafe partial class Display : IHandleType<Display>
 	public Vk.Result GetDisplayModeProperties2KHR(uint* pPropertyCount, Vk.KHR.DisplayModeProperties2* pProperties)
 	{
 		if (Functions.vkGetDisplayModeProperties2KHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDisplayModeProperties2KHR");
-		return Functions.vkGetDisplayModeProperties2KHR(Parent.Handle, Handle, pPropertyCount, pProperties);
+		return Functions.GetDisplayModeProperties2KHR(Parent.Handle, Handle, pPropertyCount, pProperties);
 	}
 
 	/// <summary>vkGetDisplayModeProperties2KHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetDisplayModeProperties2KHR(out uint propertyCount, in Span<Vk.KHR.DisplayModeProperties2> properties)
+	public Vk.Result GetDisplayModeProperties2KHR(in Span<Vk.KHR.DisplayModeProperties2> properties)
 	{
 		if (Functions.vkGetDisplayModeProperties2KHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDisplayModeProperties2KHR");
-		return Functions.GetDisplayModeProperties2KHR(Parent.Handle, Handle, out propertyCount, properties);
+		return Functions.GetDisplayModeProperties2KHR(Parent.Handle, Handle, properties);
+	}
+
+	/// <summary>vkGetDisplayModeProperties2KHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetDisplayModeProperties2KHR(out Vk.KHR.DisplayModeProperties2[] properties)
+	{
+		if (Functions.vkGetDisplayModeProperties2KHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDisplayModeProperties2KHR");
+		return Functions.GetDisplayModeProperties2KHR(Parent.Handle, Handle, out properties);
 	}
 
 }
@@ -414,7 +430,7 @@ public unsafe partial class Surface : IHandleType<Surface>
 	public void DestroySurfaceKHR(Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroySurfaceKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroySurfaceKHR");
-		Functions.vkDestroySurfaceKHR(Instance.Handle, Handle, pAllocator);
+		Functions.DestroySurfaceKHR(Instance.Handle, Handle, pAllocator);
 	}
 
 	/// <summary>vkDestroySurfaceKHR</summary>
@@ -465,7 +481,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public void DestroySwapchainKHR(Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroySwapchainKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroySwapchainKHR");
-		Functions.vkDestroySwapchainKHR(Device.Handle, Handle, pAllocator);
+		Functions.DestroySwapchainKHR(Device.Handle, Handle, pAllocator);
 	}
 
 	/// <summary>vkDestroySwapchainKHR</summary>
@@ -481,15 +497,23 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result GetSwapchainImagesKHR(uint* pSwapchainImageCount, Vk.Handle<Vk.Image>* pSwapchainImages)
 	{
 		if (Functions.vkGetSwapchainImagesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetSwapchainImagesKHR");
-		return Functions.vkGetSwapchainImagesKHR(Device.Handle, Handle, pSwapchainImageCount, pSwapchainImages);
+		return Functions.GetSwapchainImagesKHR(Device.Handle, Handle, pSwapchainImageCount, pSwapchainImages);
 	}
 
 	/// <summary>vkGetSwapchainImagesKHR</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetSwapchainImagesKHR(out uint swapchainImageCount, in Span<Vk.Handle<Vk.Image>> swapchainImages)
+	public Vk.Result GetSwapchainImagesKHR(in Span<Vk.Handle<Vk.Image>> swapchainImages)
 	{
 		if (Functions.vkGetSwapchainImagesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetSwapchainImagesKHR");
-		return Functions.GetSwapchainImagesKHR(Device.Handle, Handle, out swapchainImageCount, swapchainImages);
+		return Functions.GetSwapchainImagesKHR(Device.Handle, Handle, swapchainImages);
+	}
+
+	/// <summary>vkGetSwapchainImagesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetSwapchainImagesKHR(out Vk.Handle<Vk.Image>[] swapchainImages)
+	{
+		if (Functions.vkGetSwapchainImagesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetSwapchainImagesKHR");
+		return Functions.GetSwapchainImagesKHR(Device.Handle, Handle, out swapchainImages);
 	}
 
 	/// <summary>vkAcquireNextImageKHR</summary>
@@ -497,7 +521,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result AcquireNextImageKHR(ulong timeout, Vk.Handle<Vk.Semaphore> semaphore, Vk.Handle<Vk.Fence> fence, uint* pImageIndex)
 	{
 		if (Functions.vkAcquireNextImageKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkAcquireNextImageKHR");
-		return Functions.vkAcquireNextImageKHR(Device.Handle, Handle, timeout, semaphore, fence, pImageIndex);
+		return Functions.AcquireNextImageKHR(Device.Handle, Handle, timeout, semaphore, fence, pImageIndex);
 	}
 
 	/// <summary>vkAcquireNextImageKHR</summary>
@@ -513,7 +537,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result GetSwapchainCounterEXT(Vk.EXT.SurfaceCounterFlags counter, ulong* pCounterValue)
 	{
 		if (Functions.vkGetSwapchainCounterEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetSwapchainCounterEXT");
-		return Functions.vkGetSwapchainCounterEXT(Device.Handle, Handle, counter, pCounterValue);
+		return Functions.GetSwapchainCounterEXT(Device.Handle, Handle, counter, pCounterValue);
 	}
 
 	/// <summary>vkGetSwapchainCounterEXT</summary>
@@ -529,7 +553,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result GetSwapchainStatusKHR()
 	{
 		if (Functions.vkGetSwapchainStatusKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetSwapchainStatusKHR");
-		return Functions.vkGetSwapchainStatusKHR(Device.Handle, Handle);
+		return Functions.GetSwapchainStatusKHR(Device.Handle, Handle);
 	}
 
 	/// <summary>vkGetRefreshCycleDurationGOOGLE</summary>
@@ -537,7 +561,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result GetRefreshCycleDurationGOOGLE(Vk.GOOGLE.RefreshCycleDuration* pDisplayTimingProperties)
 	{
 		if (Functions.vkGetRefreshCycleDurationGOOGLE == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetRefreshCycleDurationGOOGLE");
-		return Functions.vkGetRefreshCycleDurationGOOGLE(Device.Handle, Handle, pDisplayTimingProperties);
+		return Functions.GetRefreshCycleDurationGOOGLE(Device.Handle, Handle, pDisplayTimingProperties);
 	}
 
 	/// <summary>vkGetRefreshCycleDurationGOOGLE</summary>
@@ -553,15 +577,23 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result GetPastPresentationTimingGOOGLE(uint* pPresentationTimingCount, Vk.GOOGLE.PastPresentationTiming* pPresentationTimings)
 	{
 		if (Functions.vkGetPastPresentationTimingGOOGLE == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetPastPresentationTimingGOOGLE");
-		return Functions.vkGetPastPresentationTimingGOOGLE(Device.Handle, Handle, pPresentationTimingCount, pPresentationTimings);
+		return Functions.GetPastPresentationTimingGOOGLE(Device.Handle, Handle, pPresentationTimingCount, pPresentationTimings);
 	}
 
 	/// <summary>vkGetPastPresentationTimingGOOGLE</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result GetPastPresentationTimingGOOGLE(out uint presentationTimingCount, in Span<Vk.GOOGLE.PastPresentationTiming> presentationTimings)
+	public Vk.Result GetPastPresentationTimingGOOGLE(in Span<Vk.GOOGLE.PastPresentationTiming> presentationTimings)
 	{
 		if (Functions.vkGetPastPresentationTimingGOOGLE == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetPastPresentationTimingGOOGLE");
-		return Functions.GetPastPresentationTimingGOOGLE(Device.Handle, Handle, out presentationTimingCount, presentationTimings);
+		return Functions.GetPastPresentationTimingGOOGLE(Device.Handle, Handle, presentationTimings);
+	}
+
+	/// <summary>vkGetPastPresentationTimingGOOGLE</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result GetPastPresentationTimingGOOGLE(out Vk.GOOGLE.PastPresentationTiming[] presentationTimings)
+	{
+		if (Functions.vkGetPastPresentationTimingGOOGLE == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetPastPresentationTimingGOOGLE");
+		return Functions.GetPastPresentationTimingGOOGLE(Device.Handle, Handle, out presentationTimings);
 	}
 
 	/// <summary>vkSetLocalDimmingAMD</summary>
@@ -569,7 +601,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public void SetLocalDimmingAMD(Vk.Bool32 localDimmingEnable)
 	{
 		if (Functions.vkSetLocalDimmingAMD == null) throw new Vk.Extras.FunctionNotLoadedException("vkSetLocalDimmingAMD");
-		Functions.vkSetLocalDimmingAMD(Device.Handle, Handle, localDimmingEnable);
+		Functions.SetLocalDimmingAMD(Device.Handle, Handle, localDimmingEnable);
 	}
 
 	/// <summary>vkAcquireFullScreenExclusiveModeEXT</summary>
@@ -577,7 +609,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result AcquireFullScreenExclusiveModeEXT()
 	{
 		if (Functions.vkAcquireFullScreenExclusiveModeEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkAcquireFullScreenExclusiveModeEXT");
-		return Functions.vkAcquireFullScreenExclusiveModeEXT(Device.Handle, Handle);
+		return Functions.AcquireFullScreenExclusiveModeEXT(Device.Handle, Handle);
 	}
 
 	/// <summary>vkReleaseFullScreenExclusiveModeEXT</summary>
@@ -585,7 +617,7 @@ public unsafe partial class Swapchain : IHandleType<Swapchain>
 	public Vk.Result ReleaseFullScreenExclusiveModeEXT()
 	{
 		if (Functions.vkReleaseFullScreenExclusiveModeEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkReleaseFullScreenExclusiveModeEXT");
-		return Functions.vkReleaseFullScreenExclusiveModeEXT(Device.Handle, Handle);
+		return Functions.ReleaseFullScreenExclusiveModeEXT(Device.Handle, Handle);
 	}
 
 }

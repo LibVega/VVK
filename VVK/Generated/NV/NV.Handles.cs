@@ -52,7 +52,7 @@ public unsafe partial class IndirectCommandsLayout : IHandleType<IndirectCommand
 	public void DestroyIndirectCommandsLayoutNV(Vk.AllocationCallbacks* pAllocator)
 	{
 		if (Functions.vkDestroyIndirectCommandsLayoutNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkDestroyIndirectCommandsLayoutNV");
-		Functions.vkDestroyIndirectCommandsLayoutNV(Device.Handle, Handle, pAllocator);
+		Functions.DestroyIndirectCommandsLayoutNV(Device.Handle, Handle, pAllocator);
 	}
 
 	/// <summary>vkDestroyIndirectCommandsLayoutNV</summary>

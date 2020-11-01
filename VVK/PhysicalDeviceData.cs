@@ -119,7 +119,7 @@ namespace Vk
 			TotalMemory = new Vk.DeviceSize((ulong)_memoryHeaps.Sum(heap => (long)heap.Size.Value));
 			TotalLocalMemory = new Vk.DeviceSize((ulong)_memoryHeaps.Sum(heap => 
 				((heap.Flags & MemoryHeapFlags.DeviceLocal) > 0) ? (long)heap.Size.Value : 0));
-			_queueFamilies = GetQueueFamilies(device);
+			device.GetPhysicalDeviceQueueFamilyProperties(out _queueFamilies);
 		}
 
 		/// <summary>
@@ -300,25 +300,6 @@ namespace Vk
 			for (uint i = 0; i < props.MemoryHeapCount; ++i) {
 				heaps[i] = heapPtr[i];
 			}
-		}
-
-		/// <summary>
-		/// Gets the queue families for the device.
-		/// </summary>
-		/// <param name="device">The device to get the queue families for.</param>
-		public static Vk.QueueFamilyProperties[] GetQueueFamilies(Vk.PhysicalDevice device)
-		{
-			if (!device) {
-				throw new ArgumentNullException(nameof(device), "Cannot pass null device or device handle");
-			}
-
-			uint count = 0;
-			device.GetPhysicalDeviceQueueFamilyProperties(&count, null);
-			var props = new Vk.QueueFamilyProperties[(int)count];
-			fixed (Vk.QueueFamilyProperties* ptr = props) {
-				device.GetPhysicalDeviceQueueFamilyProperties(&count, ptr);
-			}
-			return props;
 		}
 	}
 }

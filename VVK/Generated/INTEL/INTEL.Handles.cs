@@ -52,7 +52,7 @@ public unsafe partial class PerformanceConfiguration : IHandleType<PerformanceCo
 	public Vk.Result ReleasePerformanceConfigurationINTEL()
 	{
 		if (Functions.vkReleasePerformanceConfigurationINTEL == null) throw new Vk.Extras.FunctionNotLoadedException("vkReleasePerformanceConfigurationINTEL");
-		return Functions.vkReleasePerformanceConfigurationINTEL(Device.Handle, Handle);
+		return Functions.ReleasePerformanceConfigurationINTEL(Device.Handle, Handle);
 	}
 
 }

@@ -56,7 +56,7 @@ namespace Vk
 
 			// Get Data
 			ApiVersion = GetApiVersion();
-			_devices = GetPhysicalDevices(instance);
+			instance.EnumeratePhysicalDevices(out _devices).Throw("EnumeratePhysicalDevices");
 			_extensions = GetExtensions(null).Select(ext => ext.ExtensionName.ToString()).ToArray();
 			_layers = GetLayers().Select(lay => lay.LayerName.ToString()).ToArray();
 		}
@@ -69,19 +69,6 @@ namespace Vk
 			uint version = 0;
 			InstanceFunctionTable.EnumerateInstanceVersion(&version).Throw("EnumerateInstanceVersion");
 			return new Vk.Version(version);
-		}
-
-		/// <summary>
-		/// Gets the physical devices associated with the instance.
-		/// </summary>
-		/// <param name="instance">The instance to get the physical devices for.</param>
-		public static Vk.PhysicalDevice[] GetPhysicalDevices(Vk.Instance instance)
-		{
-			if (!instance) {
-				throw new ArgumentNullException(nameof(instance), "Cannot pass null instance or null instance handle");
-			}
-			instance.EnumeratePhysicalDevices(out var devices).Throw("EnumeratePhysicalDevices");
-			return devices;
 		}
 
 		/// <summary>
