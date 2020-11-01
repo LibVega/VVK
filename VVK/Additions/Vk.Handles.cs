@@ -13,34 +13,26 @@ namespace Vk
 	public unsafe partial class Instance
 	{
 		/// <summary>vkEnumeratePhysicalDevices</summary>
-		public Vk.Result EnumeratePhysicalDevices(uint* pPhysicalDeviceCount, out Vk.PhysicalDevice[] physicalDevices)
+		public Vk.Result EnumeratePhysicalDevices(out Vk.PhysicalDevice[] physicalDevices)
 		{
 			if (Functions.vkEnumeratePhysicalDevices == null) throw new Vk.Extras.FunctionNotLoadedException("vkEnumeratePhysicalDevices");
 			physicalDevices = Array.Empty<Vk.PhysicalDevice>();
 
-			var res = Functions.vkEnumeratePhysicalDevices(Handle, pPhysicalDeviceCount, null);
+			uint count = 0;
+			var res = Functions.vkEnumeratePhysicalDevices(Handle, &count, null);
 			if (res != Vk.Result.Success) {
 				return res;
 			}
 
-			var hptr = stackalloc Vk.Handle<Vk.PhysicalDevice>[(int)*pPhysicalDeviceCount];
-			res = Functions.vkEnumeratePhysicalDevices(Handle, pPhysicalDeviceCount, hptr);
+			var hptr = stackalloc Vk.Handle<Vk.PhysicalDevice>[(int)count];
+			res = Functions.vkEnumeratePhysicalDevices(Handle, &count, hptr);
 			if (res == Vk.Result.Success) {
-				physicalDevices = new Vk.PhysicalDevice[*pPhysicalDeviceCount];
-				for (uint i = 0; i < *pPhysicalDeviceCount; ++i) {
+				physicalDevices = new Vk.PhysicalDevice[count];
+				for (uint i = 0; i < count; ++i) {
 					physicalDevices[i] = new Vk.PhysicalDevice(this, hptr[i]);
 				}
 			}
 			return res;
-		}
-
-		/// <summary>vkEnumeratePhysicalDevices</summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Vk.Result EnumeratePhysicalDevices(out uint physicalDeviceCount, out Vk.PhysicalDevice[] physicalDevices)
-		{
-			fixed (uint* countPtr = &physicalDeviceCount) {
-				return EnumeratePhysicalDevices(countPtr, out physicalDevices);
-			}
 		}
 	}
 
@@ -48,34 +40,26 @@ namespace Vk
 	public unsafe partial class PhysicalDevice
 	{
 		/// <summary>vkGetDisplayPlaneSupportedDisplaysKHR</summary>
-		public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, uint* pDisplayCount, out Vk.KHR.Display[] displays)
+		public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, out Vk.KHR.Display[] displays)
 		{
 			if (Functions.vkGetDisplayPlaneSupportedDisplaysKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDisplayPlaneSupportedDisplaysKHR");
 			displays = Array.Empty<Vk.KHR.Display>();
 
-			var res = Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, pDisplayCount, null);
+			uint count = 0;
+			var res = Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, &count, null);
 			if (res != Vk.Result.Success) {
 				return res;
 			}
 
-			var hptr = stackalloc Vk.Handle<Vk.KHR.Display>[(int)*pDisplayCount];
-			res = Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, pDisplayCount, hptr);
+			var hptr = stackalloc Vk.Handle<Vk.KHR.Display>[(int)count];
+			res = Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, &count, hptr);
 			if (res == Vk.Result.Success) {
-				displays = new Vk.KHR.Display[*pDisplayCount];
-				for (uint i = 0; i < *pDisplayCount; ++i) {
+				displays = new Vk.KHR.Display[count];
+				for (uint i = 0; i < count; ++i) {
 					displays[i] = new Vk.KHR.Display(this, hptr[i]);
 				}
 			}
 			return res;
-		}
-
-		/// <summary>vkGetDisplayPlaneSupportedDisplaysKHR</summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Vk.Result GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, out uint displayCount, out Vk.KHR.Display[] displays)
-		{
-			fixed (uint* pDisplayCount = &displayCount) {
-				return GetDisplayPlaneSupportedDisplaysKHR(planeIndex, pDisplayCount, out displays);
-			}
 		}
 	}
 

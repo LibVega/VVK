@@ -13,34 +13,26 @@ namespace Vk.KHR
 	public unsafe partial class Swapchain
 	{
 		/// <summary>vkGetSwapchainImagesKHR</summary>
-		public Vk.Result GetSwapchainImagesKHR(uint* pSwapchainImageCount, out Vk.Image[] swapchainImages)
+		public Vk.Result GetSwapchainImagesKHR(out Vk.Image[] swapchainImages)
 		{
 			if (Functions.vkGetSwapchainImagesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetSwapchainImagesKHR");
 			swapchainImages = Array.Empty<Vk.Image>();
 
-			var res = Functions.vkGetSwapchainImagesKHR(Device, Handle, pSwapchainImageCount, null);
+			uint count = 0;
+			var res = Functions.vkGetSwapchainImagesKHR(Device, Handle, &count, null);
 			if (res != Vk.Result.Success) {
 				return res;
 			}
 
-			var hptr = stackalloc Vk.Handle<Vk.Image>[(int)*pSwapchainImageCount];
-			res = Functions.vkGetSwapchainImagesKHR(Device, Handle, pSwapchainImageCount, hptr);
+			var hptr = stackalloc Vk.Handle<Vk.Image>[(int)count];
+			res = Functions.vkGetSwapchainImagesKHR(Device, Handle, &count, hptr);
 			if (res == Vk.Result.Success) {
-				swapchainImages = new Vk.Image[*pSwapchainImageCount];
-				for (uint i = 0; i < *pSwapchainImageCount; ++i) {
+				swapchainImages = new Vk.Image[count];
+				for (uint i = 0; i < count; ++i) {
 					swapchainImages[i] = new Vk.Image(Device, hptr[i]);
 				}
 			}
 			return res;
-		}
-
-		/// <summary>vkGetSwapchainImagesKHR</summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Vk.Result GetSwapchainImagesKHR(out uint swapchainImageCount, out Vk.Image[] swapchainImages)
-		{
-			fixed (uint* pSwapchainImageCount = &swapchainImageCount) {
-				return GetSwapchainImagesKHR(pSwapchainImageCount, out swapchainImages);
-			}
 		}
 	}
 }
