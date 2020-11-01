@@ -2440,6 +2440,38 @@ public unsafe partial class Device : IHandleType<Device>
 		return RESULT;
 	}
 
+	/// <summary>vkCreateGraphicsPipelines</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateGraphicsPipelines(Vk.Handle<Vk.PipelineCache> pipelineCache, uint createInfoCount, Vk.GraphicsPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
+	{
+		if (Functions.vkCreateGraphicsPipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateGraphicsPipelines");
+		return Functions.vkCreateGraphicsPipelines(Handle, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+	}
+
+	/// <summary>vkCreateGraphicsPipelines</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateGraphicsPipelines(Vk.Handle<Vk.PipelineCache> pipelineCache, in ReadOnlySpan<Vk.GraphicsPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
+	{
+		if (Functions.vkCreateGraphicsPipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateGraphicsPipelines");
+		return Functions.CreateGraphicsPipelines(Handle, pipelineCache, createInfos, allocator, pipelines);
+	}
+
+	/// <summary>vkCreateComputePipelines</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateComputePipelines(Vk.Handle<Vk.PipelineCache> pipelineCache, uint createInfoCount, Vk.ComputePipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
+	{
+		if (Functions.vkCreateComputePipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateComputePipelines");
+		return Functions.vkCreateComputePipelines(Handle, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+	}
+
+	/// <summary>vkCreateComputePipelines</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateComputePipelines(Vk.Handle<Vk.PipelineCache> pipelineCache, in ReadOnlySpan<Vk.ComputePipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
+	{
+		if (Functions.vkCreateComputePipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateComputePipelines");
+		return Functions.CreateComputePipelines(Handle, pipelineCache, createInfos, allocator, pipelines);
+	}
+
 	/// <summary>vkCreatePipelineLayout</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public Vk.Result CreatePipelineLayout(Vk.PipelineLayoutCreateInfo* pCreateInfo, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.PipelineLayout>* pPipelineLayout)
@@ -4124,6 +4156,38 @@ public unsafe partial class Device : IHandleType<Device>
 	{
 		if (Functions.vkWriteAccelerationStructuresPropertiesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkWriteAccelerationStructuresPropertiesKHR");
 		return Functions.WriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructures, queryType, dataSize, pData, stride);
+	}
+
+	/// <summary>vkCreateRayTracingPipelinesNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRayTracingPipelinesNV(Vk.Handle<Vk.PipelineCache> pipelineCache, uint createInfoCount, Vk.NV.RayTracingPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
+	{
+		if (Functions.vkCreateRayTracingPipelinesNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesNV");
+		return Functions.vkCreateRayTracingPipelinesNV(Handle, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+	}
+
+	/// <summary>vkCreateRayTracingPipelinesNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRayTracingPipelinesNV(Vk.Handle<Vk.PipelineCache> pipelineCache, in ReadOnlySpan<Vk.NV.RayTracingPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
+	{
+		if (Functions.vkCreateRayTracingPipelinesNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesNV");
+		return Functions.CreateRayTracingPipelinesNV(Handle, pipelineCache, createInfos, allocator, pipelines);
+	}
+
+	/// <summary>vkCreateRayTracingPipelinesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRayTracingPipelinesKHR(Vk.Handle<Vk.PipelineCache> pipelineCache, uint createInfoCount, Vk.KHR.RayTracingPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
+	{
+		if (Functions.vkCreateRayTracingPipelinesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesKHR");
+		return Functions.vkCreateRayTracingPipelinesKHR(Handle, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+	}
+
+	/// <summary>vkCreateRayTracingPipelinesKHR</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public Vk.Result CreateRayTracingPipelinesKHR(Vk.Handle<Vk.PipelineCache> pipelineCache, in ReadOnlySpan<Vk.KHR.RayTracingPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
+	{
+		if (Functions.vkCreateRayTracingPipelinesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesKHR");
+		return Functions.CreateRayTracingPipelinesKHR(Handle, pipelineCache, createInfos, allocator, pipelines);
 	}
 
 	/// <summary>vkGetDeviceAccelerationStructureCompatibilityKHR</summary>
@@ -7790,70 +7854,6 @@ public unsafe partial class PipelineCache : IHandleType<PipelineCache>
 	{
 		if (Functions.vkMergePipelineCaches == null) throw new Vk.Extras.FunctionNotLoadedException("vkMergePipelineCaches");
 		return Functions.MergePipelineCaches(Device.Handle, Handle, srcCaches);
-	}
-
-	/// <summary>vkCreateGraphicsPipelines</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateGraphicsPipelines(uint createInfoCount, Vk.GraphicsPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
-	{
-		if (Functions.vkCreateGraphicsPipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateGraphicsPipelines");
-		return Functions.vkCreateGraphicsPipelines(Device.Handle, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-	}
-
-	/// <summary>vkCreateGraphicsPipelines</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateGraphicsPipelines(in ReadOnlySpan<Vk.GraphicsPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
-	{
-		if (Functions.vkCreateGraphicsPipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateGraphicsPipelines");
-		return Functions.CreateGraphicsPipelines(Device.Handle, Handle, createInfos, allocator, pipelines);
-	}
-
-	/// <summary>vkCreateComputePipelines</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateComputePipelines(uint createInfoCount, Vk.ComputePipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
-	{
-		if (Functions.vkCreateComputePipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateComputePipelines");
-		return Functions.vkCreateComputePipelines(Device.Handle, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-	}
-
-	/// <summary>vkCreateComputePipelines</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateComputePipelines(in ReadOnlySpan<Vk.ComputePipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
-	{
-		if (Functions.vkCreateComputePipelines == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateComputePipelines");
-		return Functions.CreateComputePipelines(Device.Handle, Handle, createInfos, allocator, pipelines);
-	}
-
-	/// <summary>vkCreateRayTracingPipelinesNV</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRayTracingPipelinesNV(uint createInfoCount, Vk.NV.RayTracingPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
-	{
-		if (Functions.vkCreateRayTracingPipelinesNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesNV");
-		return Functions.vkCreateRayTracingPipelinesNV(Device.Handle, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-	}
-
-	/// <summary>vkCreateRayTracingPipelinesNV</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRayTracingPipelinesNV(in ReadOnlySpan<Vk.NV.RayTracingPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
-	{
-		if (Functions.vkCreateRayTracingPipelinesNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesNV");
-		return Functions.CreateRayTracingPipelinesNV(Device.Handle, Handle, createInfos, allocator, pipelines);
-	}
-
-	/// <summary>vkCreateRayTracingPipelinesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRayTracingPipelinesKHR(uint createInfoCount, Vk.KHR.RayTracingPipelineCreateInfo* pCreateInfos, Vk.AllocationCallbacks* pAllocator, Vk.Handle<Vk.Pipeline>* pPipelines)
-	{
-		if (Functions.vkCreateRayTracingPipelinesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesKHR");
-		return Functions.vkCreateRayTracingPipelinesKHR(Device.Handle, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-	}
-
-	/// <summary>vkCreateRayTracingPipelinesKHR</summary>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result CreateRayTracingPipelinesKHR(in ReadOnlySpan<Vk.KHR.RayTracingPipelineCreateInfo> createInfos, in Vk.AllocationCallbacks allocator, in Span<Vk.Handle<Vk.Pipeline>> pipelines)
-	{
-		if (Functions.vkCreateRayTracingPipelinesKHR == null) throw new Vk.Extras.FunctionNotLoadedException("vkCreateRayTracingPipelinesKHR");
-		return Functions.CreateRayTracingPipelinesKHR(Device.Handle, Handle, createInfos, allocator, pipelines);
 	}
 
 }

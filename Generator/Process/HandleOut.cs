@@ -155,7 +155,12 @@ namespace Gen
 			}
 
 			// Check second argument first
-			if ((cmd.Arguments.Count >= 2) && cmd.Arguments[1].Type.StartsWith("Vk.Handle<")) {
+			// The optional and "vkDestroy/Free" check are for handles that are actually a valid argument to what is
+			//    a first-argument command. Most of the "vkDestroy*" and "vkFree*" commands fall under this, and should 
+			//    be a second arg command, so there is an additional check for that.
+			if ((cmd.Arguments.Count >= 2) && cmd.Arguments[1].Type.StartsWith("Vk.Handle<") && 
+					(!cmd.Arguments[1].Optional || cmd.Name.StartsWith("vkDestroy") || cmd.Name.StartsWith("vkFree") ||
+					cmd.Name.StartsWith("vkRelease"))) {
 				var hname = cmd.Arguments[1].Type.Substring("Vk.Handle<".Length).TrimEnd('>');
 				if (hname == ProcessedName) {
 					_commands.Add(MakeSecondArgCommand(Parent!, cmd, false));
