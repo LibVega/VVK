@@ -41,9 +41,9 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetDeviceProcAddr(<c>Vk.Handle<Vk.Device></c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, Vk.NativeString name)
+	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, Vk.NativeString? name)
 	{
-		return vkGetDeviceProcAddr(device, name.Data);
+		return vkGetDeviceProcAddr(device, (name is not null) ? name.Data : (byte*)null);
 	}
 
 	/// <summary>vkGetInstanceProcAddr(<c>Vk.Handle<Vk.Instance></c>, <c>byte*</c>)</summary>
@@ -53,9 +53,9 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkGetInstanceProcAddr(<c>Vk.Handle<Vk.Instance></c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, Vk.NativeString name)
+	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, Vk.NativeString? name)
 	{
-		return vkGetInstanceProcAddr(instance, name.Data);
+		return vkGetInstanceProcAddr(instance, (name is not null) ? name.Data : (byte*)null);
 	}
 
 	/// <summary>vkEnumerateInstanceVersion(<c>uint*</c>)</summary>
@@ -113,29 +113,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, in Span<Vk.ExtensionProperties> properties)
+	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString? layerName, in Span<Vk.ExtensionProperties> properties)
 	{
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
 		{
 			uint propertiesLength = (uint)properties.Length;
-			return vkEnumerateInstanceExtensionProperties(layerName.Data, &propertiesLength, propertiesFIXED);
+			return vkEnumerateInstanceExtensionProperties((layerName is not null) ? layerName.Data : (byte*)null, &propertiesLength, propertiesFIXED);
 		}
 
 	}
 
 	/// <summary>vkEnumerateInstanceExtensionProperties(<c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, out Vk.ExtensionProperties[] properties)
+	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString? layerName, out Vk.ExtensionProperties[] properties)
 	{
 		uint COUNT = 0;
-		var res = vkEnumerateInstanceExtensionProperties(layerName.Data, &COUNT, null);
+		var res = vkEnumerateInstanceExtensionProperties((layerName is not null) ? layerName.Data : (byte*)null, &COUNT, null);
 		if (res != Vk.Result.Success) {
 			properties = Array.Empty<Vk.ExtensionProperties>();
 			return res;
 		}
 		properties = new Vk.ExtensionProperties[COUNT];
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
-		return vkEnumerateInstanceExtensionProperties(layerName.Data, &COUNT, propertiesFIXED);
+		return vkEnumerateInstanceExtensionProperties((layerName is not null) ? layerName.Data : (byte*)null, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkDestroyInstance(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.AllocationCallbacks*</c>)</summary>
@@ -351,29 +351,29 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString layerName, in Span<Vk.ExtensionProperties> properties)
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString? layerName, in Span<Vk.ExtensionProperties> properties)
 	{
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
 		{
 			uint propertiesLength = (uint)properties.Length;
-			return vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, &propertiesLength, propertiesFIXED);
+			return vkEnumerateDeviceExtensionProperties(physicalDevice, (layerName is not null) ? layerName.Data : (byte*)null, &propertiesLength, propertiesFIXED);
 		}
 
 	}
 
 	/// <summary>vkEnumerateDeviceExtensionProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>byte*</c>, <c>uint*</c>, <c>Vk.ExtensionProperties*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString layerName, out Vk.ExtensionProperties[] properties)
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.Handle<Vk.PhysicalDevice> physicalDevice, Vk.NativeString? layerName, out Vk.ExtensionProperties[] properties)
 	{
 		uint COUNT = 0;
-		var res = vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, &COUNT, null);
+		var res = vkEnumerateDeviceExtensionProperties(physicalDevice, (layerName is not null) ? layerName.Data : (byte*)null, &COUNT, null);
 		if (res != Vk.Result.Success) {
 			properties = Array.Empty<Vk.ExtensionProperties>();
 			return res;
 		}
 		properties = new Vk.ExtensionProperties[COUNT];
 		fixed (Vk.ExtensionProperties* propertiesFIXED = properties)
-		return vkEnumerateDeviceExtensionProperties(physicalDevice, layerName.Data, &COUNT, propertiesFIXED);
+		return vkEnumerateDeviceExtensionProperties(physicalDevice, (layerName is not null) ? layerName.Data : (byte*)null, &COUNT, propertiesFIXED);
 	}
 
 	/// <summary>vkGetPhysicalDeviceSparseImageFormatProperties(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.SampleCountFlags</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageTiling</c>, <c>uint*</c>, <c>Vk.SparseImageFormatProperties*</c>)</summary>
@@ -924,9 +924,9 @@ public unsafe sealed partial class InstanceFunctionTable
 
 	/// <summary>vkDebugReportMessageEXT(<c>Vk.Handle<Vk.Instance></c>, <c>Vk.EXT.DebugReportFlags</c>, <c>Vk.EXT.DebugReportObjectType</c>, <c>ulong</c>, <c>ulong</c>, <c>int</c>, <c>byte*</c>, <c>byte*</c>)</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DebugReportMessageEXT(Vk.Handle<Vk.Instance> instance, Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, Vk.NativeString layerPrefix, Vk.NativeString message)
+	public void DebugReportMessageEXT(Vk.Handle<Vk.Instance> instance, Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, Vk.NativeString? layerPrefix, Vk.NativeString? message)
 	{
-		vkDebugReportMessageEXT(instance, flags, objectType, @object, location, messageCode, layerPrefix.Data, message.Data);
+		vkDebugReportMessageEXT(instance, flags, objectType, @object, location, messageCode, (layerPrefix is not null) ? layerPrefix.Data : (byte*)null, (message is not null) ? message.Data : (byte*)null);
 	}
 
 	/// <summary>vkGetPhysicalDeviceExternalImageFormatPropertiesNV(<c>Vk.Handle<Vk.PhysicalDevice></c>, <c>Vk.Format</c>, <c>Vk.ImageType</c>, <c>Vk.ImageTiling</c>, <c>Vk.ImageUsageFlags</c>, <c>Vk.ImageCreateFlags</c>, <c>Vk.NV.ExternalMemoryHandleTypeFlags</c>, <c>Vk.NV.ExternalImageFormatProperties*</c>)</summary>

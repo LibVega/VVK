@@ -154,13 +154,17 @@ namespace Gen
 					hasAlt = true;
 				}
 				else if (tname == "byte*") {
-					altArgs.Add(new(altname, "Vk.NativeString", $"{altname}.Data", arg.Const, arg.Optional, arg));
-					altAltArgs.Add(new(altname, "Vk.NativeString", $"{altname}.Data", arg.Const, arg.Optional, arg));
+					altArgs.Add(new(altname, "Vk.NativeString?",
+						$"({altname} is not null) ? {altname}.Data : (byte*)null", arg.Const, arg.Optional, arg));
+					altAltArgs.Add(new(altname, "Vk.NativeString?", 
+						$"({altname} is not null) ? {altname}.Data : (byte*)null", arg.Const, arg.Optional, arg));
 					hasAlt = true;
 				}
 				else if (tname == "byte**") {
-					altArgs.Add(new(altname, "Vk.NativeStringList", $"{altname}.Data", arg.Const, arg.Optional, arg));
-					altAltArgs.Add(new(altname, "Vk.NativeStringList", $"{altname}.Data", arg.Const, arg.Optional, arg));
+					altArgs.Add(new(altname, "Vk.NativeStringList?",
+						$"({altname} is not null) ? {altname}.Data : (byte**)null", arg.Const, arg.Optional, arg));
+					altAltArgs.Add(new(altname, "Vk.NativeStringList?",
+						$"({altname} is not null) ? {altname}.Data : (byte**)null", arg.Const, arg.Optional, arg));
 					hasAlt = true;
 				}
 				else {

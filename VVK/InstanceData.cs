@@ -31,16 +31,17 @@ namespace Vk
 		/// </summary>
 		public IReadOnlyList<Vk.PhysicalDevice> PhysicalDevices => _devices;
 		private readonly Vk.PhysicalDevice[] _devices;
+
 		/// <summary>
 		/// The list of names of extensions supported by the instance.
 		/// </summary>
-		public IReadOnlyList<string> ExtensionNames => _extensions;
-		private readonly string[] _extensions;
+		public static IReadOnlyList<string> ExtensionNames => _extensions;
+		private static readonly string[] _extensions;
 		/// <summary>
 		/// The list of names of debug layers supported by the instance.
 		/// </summary>
-		public IReadOnlyList<string> LayerNames => _layers;
-		private readonly string[] _layers;
+		public static IReadOnlyList<string> LayerNames => _layers;
+		private static readonly string[] _layers;
 		#endregion // Fields
 
 		/// <summary>
@@ -57,8 +58,6 @@ namespace Vk
 			// Get Data
 			ApiVersion = GetApiVersion();
 			instance.EnumeratePhysicalDevices(out _devices).Throw("EnumeratePhysicalDevices");
-			_extensions = GetExtensions(null).Select(ext => ext.ExtensionName.ToString()).ToArray();
-			_layers = GetLayers().Select(lay => lay.LayerName.ToString()).ToArray();
 		}
 
 		/// <summary>
@@ -117,6 +116,12 @@ namespace Vk
 					.Throw("EnumerateInstanceExtensionProperties");
 			}
 			return props;
+		}
+
+		static InstanceData()
+		{
+			_extensions = GetExtensions(null).Select(ext => ext.ExtensionName.ToString()).ToArray();
+			_layers = GetLayers().Select(lay => lay.LayerName.ToString()).ToArray();
 		}
 	}
 }

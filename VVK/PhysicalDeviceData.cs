@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Vk.Extras;
 
 namespace Vk
 {
@@ -99,6 +100,12 @@ namespace Vk
 		/// The number of queue families available on the device.
 		/// </summary>
 		public uint QueueFamilyCount => (uint)_queueFamilies.Length;
+
+		/// <summary>
+		/// The extensions supported by the device.
+		/// </summary>
+		public IReadOnlyList<string> ExtensionNames => _extensions;
+		private readonly string[] _extensions;
 		#endregion // Fields
 
 		/// <summary>
@@ -120,6 +127,7 @@ namespace Vk
 			TotalLocalMemory = new Vk.DeviceSize((ulong)_memoryHeaps.Sum(heap => 
 				((heap.Flags & MemoryHeapFlags.DeviceLocal) > 0) ? (long)heap.Size.Value : 0));
 			device.GetPhysicalDeviceQueueFamilyProperties(out _queueFamilies);
+			_extensions = GetExtensions(device).Select(ext => ext.ExtensionName.ToString()).ToArray();
 		}
 
 		/// <summary>
@@ -300,6 +308,17 @@ namespace Vk
 			for (uint i = 0; i < props.MemoryHeapCount; ++i) {
 				heaps[i] = heapPtr[i];
 			}
+		}
+
+
+		public static Vk.ExtensionProperties[] GetExtensions(Vk.PhysicalDevice device)
+		{
+			if (!device) {
+				throw new ArgumentNullException(nameof(device), "Cannot pass null device or device handle");
+			}
+
+			device.EnumerateDeviceExtensionProperties(null, out var props).Throw("EnumerateDeviceExtensionProperties");
+			return props;
 		}
 	}
 }

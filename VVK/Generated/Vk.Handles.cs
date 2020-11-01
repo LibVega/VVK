@@ -131,7 +131,7 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkGetDeviceProcAddr</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, Vk.NativeString name)
+	public static delegate* unmanaged<void> GetDeviceProcAddr(Vk.Handle<Vk.Device> device, Vk.NativeString? name)
 	{
 		if (InstanceFunctionTable.vkGetDeviceProcAddr == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetDeviceProcAddr");
 		return InstanceFunctionTable.GetDeviceProcAddr(device, name);
@@ -147,7 +147,7 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkGetInstanceProcAddr</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, Vk.NativeString name)
+	public static delegate* unmanaged<void> GetInstanceProcAddr(Vk.Handle<Vk.Instance> instance, Vk.NativeString? name)
 	{
 		if (InstanceFunctionTable.vkGetInstanceProcAddr == null) throw new Vk.Extras.FunctionNotLoadedException("vkGetInstanceProcAddr");
 		return InstanceFunctionTable.GetInstanceProcAddr(instance, name);
@@ -195,7 +195,7 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkEnumerateInstanceExtensionProperties</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString layerName, in Span<Vk.ExtensionProperties> properties)
+	public static Vk.Result EnumerateInstanceExtensionProperties(Vk.NativeString? layerName, in Span<Vk.ExtensionProperties> properties)
 	{
 		if (InstanceFunctionTable.vkEnumerateInstanceExtensionProperties == null) throw new Vk.Extras.FunctionNotLoadedException("vkEnumerateInstanceExtensionProperties");
 		return InstanceFunctionTable.EnumerateInstanceExtensionProperties(layerName, properties);
@@ -629,7 +629,7 @@ public unsafe partial class Instance : IHandleType<Instance>
 
 	/// <summary>vkDebugReportMessageEXT</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DebugReportMessageEXT(Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, Vk.NativeString layerPrefix, Vk.NativeString message)
+	public void DebugReportMessageEXT(Vk.EXT.DebugReportFlags flags, Vk.EXT.DebugReportObjectType objectType, ulong @object, ulong location, int messageCode, Vk.NativeString? layerPrefix, Vk.NativeString? message)
 	{
 		if (Functions.vkDebugReportMessageEXT == null) throw new Vk.Extras.FunctionNotLoadedException("vkDebugReportMessageEXT");
 		Functions.DebugReportMessageEXT(Handle, flags, objectType, @object, location, messageCode, layerPrefix, message);
@@ -1098,7 +1098,7 @@ public unsafe partial class PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkEnumerateDeviceExtensionProperties</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(Vk.NativeString layerName, in Span<Vk.ExtensionProperties> properties)
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.NativeString? layerName, in Span<Vk.ExtensionProperties> properties)
 	{
 		if (Functions.vkEnumerateDeviceExtensionProperties == null) throw new Vk.Extras.FunctionNotLoadedException("vkEnumerateDeviceExtensionProperties");
 		return Functions.EnumerateDeviceExtensionProperties(Handle, layerName, properties);
@@ -1106,7 +1106,7 @@ public unsafe partial class PhysicalDevice : IHandleType<PhysicalDevice>
 
 	/// <summary>vkEnumerateDeviceExtensionProperties</summary>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vk.Result EnumerateDeviceExtensionProperties(Vk.NativeString layerName, out Vk.ExtensionProperties[] properties)
+	public Vk.Result EnumerateDeviceExtensionProperties(Vk.NativeString? layerName, out Vk.ExtensionProperties[] properties)
 	{
 		if (Functions.vkEnumerateDeviceExtensionProperties == null) throw new Vk.Extras.FunctionNotLoadedException("vkEnumerateDeviceExtensionProperties");
 		return Functions.EnumerateDeviceExtensionProperties(Handle, layerName, out properties);
