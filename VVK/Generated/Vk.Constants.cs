@@ -470,6 +470,8 @@ public static class Constants
 	public const uint QCOM_render_pass_store_ops_SPEC_VERSION = 2;
 	public const string EXT_FRAGMENT_DENSITY_MAP_2_EXTENSION_NAME = "VK_EXT_fragment_density_map2";
 	public const uint EXT_FRAGMENT_DENSITY_MAP_2_SPEC_VERSION = 1;
+	public const string QCOM_rotated_copy_commands_EXTENSION_NAME = "VK_QCOM_rotated_copy_commands";
+	public const uint QCOM_rotated_copy_commands_SPEC_VERSION = 0;
 	public const string EXT_IMAGE_ROBUSTNESS_EXTENSION_NAME = "VK_EXT_image_robustness";
 	public const uint EXT_IMAGE_ROBUSTNESS_SPEC_VERSION = 1;
 	public const string KHR_COPY_COMMANDS_2_EXTENSION_NAME = "VK_KHR_copy_commands2";

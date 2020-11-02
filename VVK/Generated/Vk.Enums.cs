@@ -2110,6 +2110,7 @@ public enum StructureType : int
 	DeviceDiagnosticsConfigCreateInfoNV = 1000300001,
 	PhysicalDeviceFragmentDensityMap2FeaturesEXT = 1000332000,
 	PhysicalDeviceFragmentDensityMap2PropertiesEXT = 1000332001,
+	CopyCommandTransformInfoQCOM = 1000333000,
 	PhysicalDeviceImageRobustnessFeaturesEXT = 1000335000,
 	CopyBufferInfo2KHR = 1000337000,
 	CopyImageInfo2KHR = 1000337001,

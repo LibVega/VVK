@@ -64,6 +64,55 @@ public unsafe partial struct RenderPassTransformBeginInfo : IEquatable<RenderPas
 }
 
 [StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct CopyCommandTransformInfo : IEquatable<CopyCommandTransformInfo>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.CopyCommandTransformInfoQCOM;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.KHR.SurfaceTransformFlags Transform;
+	public CopyCommandTransformInfo(
+		in Vk.KHR.SurfaceTransformFlags transform = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		Transform = transform;
+	}
+
+
+	public readonly override bool Equals(object? obj) => (obj is CopyCommandTransformInfo o) && (this == o);
+	readonly bool IEquatable<CopyCommandTransformInfo>.Equals(CopyCommandTransformInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Transform.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in CopyCommandTransformInfo l, in CopyCommandTransformInfo r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Transform == r.Transform)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in CopyCommandTransformInfo l, in CopyCommandTransformInfo r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Transform != r.Transform)
+			;
+	}
+
+
+	/// <summary>Creates a new CopyCommandTransformInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out CopyCommandTransformInfo value) => value = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct CommandBufferInheritanceRenderPassTransformInfo : IEquatable<CommandBufferInheritanceRenderPassTransformInfo>
 {
 	public const Vk.StructureType TYPE = Vk.StructureType.CommandBufferInheritanceRenderPassTransformInfoQCOM;
