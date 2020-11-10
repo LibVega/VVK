@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
     <RootNamespace>Vk</RootNamespace>
-    <Version>1.2.159.0</Version>
+    <Version>1.2.160.0</Version>
     <Authors>Sean Moss</Authors>
     <Company>N/A</Company>
     <Description>C# bindings and utilities for Vulkan in .NET 5</Description>
@@ -15,8 +15,8 @@
     <PackageTags>Vulkan, Graphics, Wrapper, Utilities</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.2.159.0</AssemblyVersion>
-    <FileVersion>1.2.159.0</FileVersion>
+    <AssemblyVersion>1.2.160.0</AssemblyVersion>
+    <FileVersion>1.2.160.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

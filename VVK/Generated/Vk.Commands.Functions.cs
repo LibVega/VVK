@@ -6742,6 +6742,22 @@ public unsafe sealed partial class DeviceFunctionTable
 
 	}
 
+	/// <summary>vkCmdSetFragmentShadingRateEnumNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.NV.FragmentShadingRate</c>, <c>Vk.KHR.FragmentShadingRateCombinerOp*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetFragmentShadingRateEnumNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.NV.FragmentShadingRate shadingRate, Vk.KHR.FragmentShadingRateCombinerOp* combinerOps)
+		=> vkCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOps);
+
+	/// <summary>vkCmdSetFragmentShadingRateEnumNV(<c>Vk.Handle<Vk.CommandBuffer></c>, <c>Vk.NV.FragmentShadingRate</c>, <c>Vk.KHR.FragmentShadingRateCombinerOp*</c>)</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetFragmentShadingRateEnumNV(Vk.Handle<Vk.CommandBuffer> commandBuffer, Vk.NV.FragmentShadingRate shadingRate, in Vk.KHR.FragmentShadingRateCombinerOp combinerOps)
+	{
+		fixed (Vk.KHR.FragmentShadingRateCombinerOp* combinerOpsFIXED = &combinerOps)
+		{
+			vkCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOpsFIXED);
+		}
+
+	}
+
 }
 
 } // namespace Vk

@@ -230,6 +230,28 @@ public enum ComponentType : int
 	Uint64NV = 10,
 }
 
+public enum FragmentShadingRate : int
+{
+	E1InvocationPerPixelNV = 0,
+	E1InvocationPer1X2PixelsNV = 1,
+	E1InvocationPer2X1PixelsNV = 4,
+	E1InvocationPer2X2PixelsNV = 5,
+	E1InvocationPer2X4PixelsNV = 6,
+	E1InvocationPer4X2PixelsNV = 9,
+	E1InvocationPer4X4PixelsNV = 10,
+	E2InvocationsPerPixelNV = 11,
+	E4InvocationsPerPixelNV = 12,
+	E8InvocationsPerPixelNV = 13,
+	E16InvocationsPerPixelNV = 14,
+	NoInvocationsNV = 15,
+}
+
+public enum FragmentShadingRateType : int
+{
+	FragmentSizeNV = 0,
+	EnumsNV = 1,
+}
+
 public enum ShadingRatePaletteEntry : int
 {
 	NoInvocationsNV = 0,

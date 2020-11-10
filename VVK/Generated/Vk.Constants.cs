@@ -468,6 +468,8 @@ public static class Constants
 	public const uint NV_DEVICE_DIAGNOSTICS_CONFIG_SPEC_VERSION = 1;
 	public const string QCOM_render_pass_store_ops_EXTENSION_NAME = "VK_QCOM_render_pass_store_ops";
 	public const uint QCOM_render_pass_store_ops_SPEC_VERSION = 2;
+	public const string NV_FRAGMENT_SHADING_RATE_ENUMS_EXTENSION_NAME = "VK_NV_fragment_shading_rate_enums";
+	public const uint NV_FRAGMENT_SHADING_RATE_ENUMS_SPEC_VERSION = 1;
 	public const string EXT_FRAGMENT_DENSITY_MAP_2_EXTENSION_NAME = "VK_EXT_fragment_density_map2";
 	public const uint EXT_FRAGMENT_DENSITY_MAP_2_SPEC_VERSION = 1;
 	public const string QCOM_rotated_copy_commands_EXTENSION_NAME = "VK_QCOM_rotated_copy_commands";

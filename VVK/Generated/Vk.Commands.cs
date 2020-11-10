@@ -853,6 +853,7 @@ public unsafe sealed partial class DeviceFunctionTable
 	public readonly delegate* unmanaged<Vk.Handle<Vk.CommandBuffer>, Vk.KHR.CopyImageToBufferInfo2*, void> vkCmdCopyImageToBuffer2KHR = null;
 	public readonly delegate* unmanaged<Vk.Handle<Vk.CommandBuffer>, Vk.KHR.ResolveImageInfo2*, void> vkCmdResolveImage2KHR = null;
 	public readonly delegate* unmanaged<Vk.Handle<Vk.CommandBuffer>, Vk.Extent2D*, Vk.KHR.FragmentShadingRateCombinerOp*, void> vkCmdSetFragmentShadingRateKHR = null;
+	public readonly delegate* unmanaged<Vk.Handle<Vk.CommandBuffer>, Vk.NV.FragmentShadingRate, Vk.KHR.FragmentShadingRateCombinerOp*, void> vkCmdSetFragmentShadingRateEnumNV = null;
 
 	/// <summary>Creates a new function table with all null pointers.</summary>
 	public DeviceFunctionTable() { }
@@ -2300,6 +2301,10 @@ public unsafe sealed partial class DeviceFunctionTable
 		if (TryLoadFunc(dev, "vkCmdSetFragmentShadingRateKHR", out addr)) {
 			vkCmdSetFragmentShadingRateKHR =
 				(delegate* unmanaged<Vk.Handle<Vk.CommandBuffer>, Vk.Extent2D*, Vk.KHR.FragmentShadingRateCombinerOp*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdSetFragmentShadingRateEnumNV", out addr)) {
+			vkCmdSetFragmentShadingRateEnumNV =
+				(delegate* unmanaged<Vk.Handle<Vk.CommandBuffer>, Vk.NV.FragmentShadingRate, Vk.KHR.FragmentShadingRateCombinerOp*, void>)addr;
 		}
 	}
 

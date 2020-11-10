@@ -4234,4 +4234,172 @@ public unsafe partial struct DeviceDiagnosticsConfigCreateInfo : IEquatable<Devi
 	public static void New(out DeviceDiagnosticsConfigCreateInfo value) => value = new() { sType = TYPE };
 }
 
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceFragmentShadingRateEnumsFeatures : IEquatable<PhysicalDeviceFragmentShadingRateEnumsFeatures>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceFragmentShadingRateEnumsFeaturesNV;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.Bool32 FragmentShadingRateEnums;
+	public Vk.Bool32 SupersampleFragmentShadingRates;
+	public Vk.Bool32 NoInvocationFragmentShadingRates;
+	public PhysicalDeviceFragmentShadingRateEnumsFeatures(
+		in Vk.Bool32 fragmentShadingRateEnums = default,
+		in Vk.Bool32 supersampleFragmentShadingRates = default,
+		in Vk.Bool32 noInvocationFragmentShadingRates = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		FragmentShadingRateEnums = fragmentShadingRateEnums;
+		SupersampleFragmentShadingRates = supersampleFragmentShadingRates;
+		NoInvocationFragmentShadingRates = noInvocationFragmentShadingRates;
+	}
+
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentShadingRateEnumsFeatures o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFragmentShadingRateEnumsFeatures>.Equals(PhysicalDeviceFragmentShadingRateEnumsFeatures obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ FragmentShadingRateEnums.GetHashCode() ^ SupersampleFragmentShadingRates.GetHashCode()
+			^ NoInvocationFragmentShadingRates.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in PhysicalDeviceFragmentShadingRateEnumsFeatures l, in PhysicalDeviceFragmentShadingRateEnumsFeatures r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.FragmentShadingRateEnums == r.FragmentShadingRateEnums) && (l.SupersampleFragmentShadingRates == r.SupersampleFragmentShadingRates)
+			&& (l.NoInvocationFragmentShadingRates == r.NoInvocationFragmentShadingRates)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in PhysicalDeviceFragmentShadingRateEnumsFeatures l, in PhysicalDeviceFragmentShadingRateEnumsFeatures r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.FragmentShadingRateEnums != r.FragmentShadingRateEnums) || (l.SupersampleFragmentShadingRates != r.SupersampleFragmentShadingRates)
+			|| (l.NoInvocationFragmentShadingRates != r.NoInvocationFragmentShadingRates)
+			;
+	}
+
+
+	/// <summary>Creates a new PhysicalDeviceFragmentShadingRateEnumsFeatures value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceFragmentShadingRateEnumsFeatures value) => value = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PhysicalDeviceFragmentShadingRateEnumsProperties : IEquatable<PhysicalDeviceFragmentShadingRateEnumsProperties>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PhysicalDeviceFragmentShadingRateEnumsPropertiesNV;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.SampleCountFlags MaxFragmentShadingRateInvocationCount;
+	public PhysicalDeviceFragmentShadingRateEnumsProperties(
+		in Vk.SampleCountFlags maxFragmentShadingRateInvocationCount = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxFragmentShadingRateInvocationCount = maxFragmentShadingRateInvocationCount;
+	}
+
+
+	public readonly override bool Equals(object? obj) => (obj is PhysicalDeviceFragmentShadingRateEnumsProperties o) && (this == o);
+	readonly bool IEquatable<PhysicalDeviceFragmentShadingRateEnumsProperties>.Equals(PhysicalDeviceFragmentShadingRateEnumsProperties obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxFragmentShadingRateInvocationCount.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in PhysicalDeviceFragmentShadingRateEnumsProperties l, in PhysicalDeviceFragmentShadingRateEnumsProperties r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxFragmentShadingRateInvocationCount == r.MaxFragmentShadingRateInvocationCount)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in PhysicalDeviceFragmentShadingRateEnumsProperties l, in PhysicalDeviceFragmentShadingRateEnumsProperties r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxFragmentShadingRateInvocationCount != r.MaxFragmentShadingRateInvocationCount)
+			;
+	}
+
+
+	/// <summary>Creates a new PhysicalDeviceFragmentShadingRateEnumsProperties value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PhysicalDeviceFragmentShadingRateEnumsProperties value) => value = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct PipelineFragmentShadingRateEnumStateCreateInfo : IEquatable<PipelineFragmentShadingRateEnumStateCreateInfo>
+{
+	public const Vk.StructureType TYPE = Vk.StructureType.PipelineFragmentShadingRateEnumStateCreateInfoNV;
+
+	public Vk.StructureType sType;
+	public void* pNext;
+	public Vk.NV.FragmentShadingRateType ShadingRateType;
+	public Vk.NV.FragmentShadingRate ShadingRate;
+	public Vk.KHR.FragmentShadingRateCombinerOp CombinerOps_0;
+	public Vk.KHR.FragmentShadingRateCombinerOp CombinerOps_1;
+	public PipelineFragmentShadingRateEnumStateCreateInfo(
+		in Vk.NV.FragmentShadingRateType shadingRateType = default,
+		in Vk.NV.FragmentShadingRate shadingRate = default,
+		in Vk.KHR.FragmentShadingRateCombinerOp combinerOps0 = default,
+		in Vk.KHR.FragmentShadingRateCombinerOp combinerOps1 = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShadingRateType = shadingRateType;
+		ShadingRate = shadingRate;
+		CombinerOps_0 = combinerOps0;
+		CombinerOps_1 = combinerOps1;
+	}
+
+
+	public readonly override bool Equals(object? obj) => (obj is PipelineFragmentShadingRateEnumStateCreateInfo o) && (this == o);
+	readonly bool IEquatable<PipelineFragmentShadingRateEnumStateCreateInfo>.Equals(PipelineFragmentShadingRateEnumStateCreateInfo obj) => (this == obj);
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShadingRateType.GetHashCode() ^ ShadingRate.GetHashCode()
+			^ CombinerOps_0.GetHashCode() ^ CombinerOps_1.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in PipelineFragmentShadingRateEnumStateCreateInfo l, in PipelineFragmentShadingRateEnumStateCreateInfo r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShadingRateType == r.ShadingRateType) && (l.ShadingRate == r.ShadingRate)
+			&& (l.CombinerOps_0 == r.CombinerOps_0) && (l.CombinerOps_1 == r.CombinerOps_1)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in PipelineFragmentShadingRateEnumStateCreateInfo l, in PipelineFragmentShadingRateEnumStateCreateInfo r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShadingRateType != r.ShadingRateType) || (l.ShadingRate != r.ShadingRate)
+			|| (l.CombinerOps_0 != r.CombinerOps_0) || (l.CombinerOps_1 != r.CombinerOps_1)
+			;
+	}
+
+
+	/// <summary>Creates a new PipelineFragmentShadingRateEnumStateCreateInfo value with the correct default fields.</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out PipelineFragmentShadingRateEnumStateCreateInfo value) => value = new() { sType = TYPE };
+}
+
 } // namespace Vk.NV

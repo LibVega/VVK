@@ -6660,6 +6660,22 @@ public unsafe partial class CommandBuffer : IHandleType<CommandBuffer>
 		Functions.CmdSetFragmentShadingRateKHR(Handle, fragmentSize, combinerOps);
 	}
 
+	/// <summary>vkCmdSetFragmentShadingRateEnumNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetFragmentShadingRateEnumNV(Vk.NV.FragmentShadingRate shadingRate, Vk.KHR.FragmentShadingRateCombinerOp* combinerOps)
+	{
+		if (Functions.vkCmdSetFragmentShadingRateEnumNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkCmdSetFragmentShadingRateEnumNV");
+		Functions.CmdSetFragmentShadingRateEnumNV(Handle, shadingRate, combinerOps);
+	}
+
+	/// <summary>vkCmdSetFragmentShadingRateEnumNV</summary>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SetFragmentShadingRateEnumNV(Vk.NV.FragmentShadingRate shadingRate, in Vk.KHR.FragmentShadingRateCombinerOp combinerOps)
+	{
+		if (Functions.vkCmdSetFragmentShadingRateEnumNV == null) throw new Vk.Extras.FunctionNotLoadedException("vkCmdSetFragmentShadingRateEnumNV");
+		Functions.CmdSetFragmentShadingRateEnumNV(Handle, shadingRate, combinerOps);
+	}
+
 }
 
 public unsafe partial class DeviceMemory : IHandleType<DeviceMemory>
