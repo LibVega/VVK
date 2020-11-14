@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/VegaLib/VVK/blob/master/LICENSE)
 [![NuGet](https://img.shields.io/nuget/v/VVK)](https://www.nuget.org/packages/VVK/)
+[![Build Status](https://travis-ci.com/VegaLib/VVK.svg?branch=master)](https://travis-ci.com/VegaLib/VVK)
 
 Low-overhead Vulkan API bindings for .NET 5 and C# 9.
 

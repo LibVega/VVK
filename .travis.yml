@@ -1,0 +1,8 @@
+langauge: csharp
+dist: bionic
+mono: none
+dotnet: 5.0.100
+
+script:
+  - dotnet restore
+  - dotnet build
