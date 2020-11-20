@@ -36,6 +36,26 @@ namespace Gen
 					return;
 				}
 			}
+
+			// Load the specification
+			VulkanSpec vkspec;
+#if DEBUG
+			if (!VulkanSpec.TryLoad(ArgParse.InputFile, out vkspec!)) {
+				PrintError("Failed to load specification file");
+				return;
+			}
+#else
+			try {
+				if (!VulkanSpec.TryLoad(ArgParse.InputFile, out vkspec!)) {
+					PrintError("Failed to load specification file");
+					return;
+				}
+			}
+			catch (Exception e) {
+				PrintError($"Unhandled specification load exception");
+				PrintError($"{e.GetType()} - {e.Message}");
+			}
+#endif // DEBUG
 		}
 
 		// Prints a standard message to the console
