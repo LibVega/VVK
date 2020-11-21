@@ -96,7 +96,7 @@ namespace Gen
 					Program.PrintError($"Invalid bitpos value for enum value '{name}'");
 					return false;
 				}
-				var value = (uint)(1 << (int)bitpos);
+				var value = bitpos;
 				_values.Add(new(name, value.ToString(), true));
 				return true;
 			}

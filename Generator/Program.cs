@@ -38,21 +38,41 @@ namespace Gen
 			}
 
 			// Load the specification
-			VulkanSpec vkspec;
+			VulkanSpec? vkspec = null;
 #if DEBUG
-			if (!VulkanSpec.TryLoad(ArgParse.InputFile, out vkspec!)) {
+			if (!VulkanSpec.TryLoad(ArgParse.InputFile, out vkspec)) {
 				PrintError("Failed to load specification file");
 				return;
 			}
 #else
 			try {
-				if (!VulkanSpec.TryLoad(ArgParse.InputFile, out vkspec!)) {
+				if (!VulkanSpec.TryLoad(ArgParse.InputFile, out vkspec)) {
 					PrintError("Failed to load specification file");
 					return;
 				}
 			}
 			catch (Exception e) {
 				PrintError($"Unhandled specification load exception");
+				PrintError($"{e.GetType()} - {e.Message}");
+			}
+#endif // DEBUG
+
+			// Process the specification
+			ProcessedSpec? procspec = null;
+#if DEBUG
+			if (!ProcessedSpec.TryProcess(vkspec!, out procspec)) {
+				PrintError("Failed to process specification");
+				return;
+			}
+#else
+			try {
+				if (!ProcessedSpec.TryProcess(vkspec!, out procspec)) {
+					PrintError("Failed to process specification");
+					return;
+				}
+			}
+			catch (Exception e) {
+				PrintError($"Unhandled specification process exception");
 				PrintError($"{e.GetType()} - {e.Message}");
 			}
 #endif // DEBUG
