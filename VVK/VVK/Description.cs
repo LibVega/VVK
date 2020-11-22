@@ -69,8 +69,9 @@ namespace Vulkan.VVK
 		}
 		#endregion // Ctor
 
-		public override int GetHashCode() => ((IFixedString)this).GetHashCode();
-		public override bool Equals(object? obj) => ((IFixedString)this).Equals(obj);
+		public override string ToString() => IFixedString.ToString(this);
+		public override int GetHashCode() => IFixedString.GetHashCode(this);
+		public override bool Equals(object? obj) => IFixedString.Equals(this, obj);
 
 		ref byte IFixedString.GetPinnableReference() => ref _data[0];
 

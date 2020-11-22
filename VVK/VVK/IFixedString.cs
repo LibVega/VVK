@@ -17,45 +17,45 @@ namespace Vulkan.VVK
 		/// <summary>
 		/// Gets the total character capacity of the string (not including reserved null terminator space).
 		/// </summary>
-		uint Capacity { get; }
+		public uint Capacity { get; }
 		/// <summary>
 		/// Gets the C# string object representation of this data.
 		/// </summary>
-		string StringValue => ToString() ?? String.Empty;
+		public string StringValue => ToString(this) ?? String.Empty;
 		/// <summary>
 		/// Gets the length of the current string stored in this buffer.
 		/// </summary>
-		uint Length => GetLength();
+		public uint Length => GetLength(this);
 
 		/// <summary>
 		/// Calculates the length of the string stored in this buffer.
 		/// </summary>
-		uint GetLength()
+		public static uint GetLength(IFixedString fs)
 		{
-			fixed (byte* data = this) {
-				return (uint)NativeString.Strlen(data, Capacity);
+			fixed (byte* dataptr = fs) {
+				return (uint)NativeString.Strlen(dataptr, fs.Capacity);
 			}
 		}
 
 		/// <summary>
 		/// Gets a string representation of the fixed string.
 		/// </summary>
-		string? ToString()
+		public static string ToString(IFixedString fs)
 		{
-			fixed (byte* data = this) {
-				return Marshal.PtrToStringUTF8(new IntPtr(data), (int)GetLength());
+			fixed (byte* data = fs) {
+				return Marshal.PtrToStringUTF8(new IntPtr(data)) ?? String.Empty;
 			}
 		}
 
 		/// <summary>
 		/// Gets a hashcode for the string.
 		/// </summary>
-		int GetHashCode()
+		public static int GetHashCode(IFixedString fs)
 		{
-			var len = Length;
+			var len = fs.Length;
 			int hash = 0;
 			int shift = 0;
-			fixed (byte* data = this) {
+			fixed (byte* data = fs) {
 				for (int i = 0; i < len; ++i) {
 					hash ^= (data[i] << shift);
 					shift = (shift + 8) % 32;
@@ -64,8 +64,8 @@ namespace Vulkan.VVK
 			return hash;
 		}
 
-		bool Equals(object? obj) =>
-			((obj is IFixedString fs) && Equals(fs)) || ((obj is string str) && Equals(str));
+		public static bool Equals(IFixedString fs, object? obj) =>
+			((obj is IFixedString fs2) && fs.Equals(fs2)) || ((obj is string str) && fs.Equals(str));
 
 		bool IEquatable<IFixedString>.Equals(IFixedString? other)
 		{
@@ -86,6 +86,6 @@ namespace Vulkan.VVK
 		/// <summary>
 		/// Gets a reference object that can be used to pin the string data in this type.
 		/// </summary>
-		ref byte GetPinnableReference();
+		public ref byte GetPinnableReference();
 	}
 }
