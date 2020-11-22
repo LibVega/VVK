@@ -20,7 +20,7 @@ namespace Vulkan
 		/// </summary>
 		public readonly VkVersion CoreVersion = new();
 
-		// Load an instance function, throwing an exception if not available
+		// Load a device function, throwing an exception if not available
 		private static void* LoadFunc(VulkanHandle<VkDevice> dev, string name)
 		{
 			var namePtr = stackalloc byte[name.Length * 4]; // Worst case scenario
@@ -34,7 +34,7 @@ namespace Vulkan
 			return addr;
 		}
 
-		// Load an instance function, returning of the load was successful
+		// Load a device function, returning of the load was successful
 		private static bool TryLoadFunc(VulkanHandle<VkDevice> dev, string name, out void* addr)
 		{
 			var namePtr = stackalloc byte[name.Length * 4]; // Worst case scenario

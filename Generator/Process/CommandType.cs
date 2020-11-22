@@ -87,7 +87,8 @@ namespace Gen
 					}
 					parType = funcType.TypeString;
 				}
-				@params.Add(new(par.Name, parType, par.PtrDepth, par.Const, par.Optional));
+				var parname = NameHelper.GetSafeArgName(par.Name);
+				@params.Add(new(parname, parType, par.PtrDepth, par.Const, par.Optional));
 				BUILDER.Append(parType);
 				BUILDER.Append(", ");
 			}

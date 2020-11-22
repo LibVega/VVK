@@ -84,7 +84,7 @@ namespace Gen
 		};
 		// Known C# keywords that can clash with generated names
 		private static readonly List<string> KEYWORDS = new() { 
-			"object"
+			"object", "event"
 		};
 
 		// Known handle types
