@@ -268,6 +268,26 @@ namespace Gen
 					block.WriteLine("}");
 					block.WriteLine(); 
 				}
+				else if (@struct.IsUnion) {
+					foreach (var field in @struct.Fields) {
+						var fname = NameHelper.GetSafeArgName(field.Name);
+						if (field.ArraySize is not null) {
+							block.WriteLine($"public {@struct.Name}(");
+							for (uint i = 0; i < field.ArraySize; ++i) {
+								block.WriteLine($"\tin {field.Type} {fname}_{i}{((i != field.ArraySize - 1) ? ", " : "")}");
+							}
+							block.WriteLine(") {");
+							for (uint i = 0; i < field.ArraySize; ++i) {
+								block.WriteLine('\t' + (field.IsFixed ? $"{field.Name}[{i}]" : $"{field.Name}_{i}") + $" = {fname}_{i};");
+							}
+							block.WriteLine("}");
+						}
+						else {
+							block.WriteLine($"public {@struct.Name}(in {field.Type} {fname}) : this() => {field.Name} = {fname};");
+						}
+						block.WriteLine();
+					}
+				}
 
 				// Equality
 				block.WriteLine($"public readonly override bool Equals(object? o) => (o is {@struct.Name} s) && (this == s);");
@@ -297,19 +317,21 @@ namespace Gen
 				using (var op = block.PushBlock($"public static bool operator != (in {@struct.Name} l, in {@struct.Name} r)")) {
 					op.WriteLine("return");
 					for (int i = 0; i < comparisons.Count; i += 4) {
-						op.WriteLine('\t' + (i != 0 ? "|| " : "") + String.Join(" || ", 
+						op.WriteLine('\t' + (i != 0 ? "|| " : "") + String.Join(" || ",
 							comparisons.Skip(i).Take(4).Select(cmp => cmp.Replace("==", "!="))));
 					}
 					op.WriteLine("\t;");
 				}
 
-				// New function
-				block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-				if (@struct.IsTyped) {
-					block.WriteLine($"public static void New(out {@struct.Name} s) => s = new() {{ sType = TYPE }};");
-				}
-				else {
-					block.WriteLine($"public static void New(out {@struct.Name} s) => s = new();");
+				if (!@struct.IsUnion) {
+					// New function
+					block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+					if (@struct.IsTyped) {
+						block.WriteLine($"public static void New(out {@struct.Name} s) => s = new() {{ sType = TYPE }};");
+					}
+					else {
+						block.WriteLine($"public static void New(out {@struct.Name} s) => s = new();");
+					} 
 				}
 			}
 		}

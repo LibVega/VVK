@@ -5264,6 +5264,42 @@ public unsafe partial struct VkClearColorValue : IEquatable<VkClearColorValue>
 	[FieldOffset(0)]
 	public fixed uint Uint32[4];
 
+	public VkClearColorValue(
+		in float float32_0, 
+		in float float32_1, 
+		in float float32_2, 
+		in float float32_3
+	) {
+		Float32[0] = float32_0;
+		Float32[1] = float32_1;
+		Float32[2] = float32_2;
+		Float32[3] = float32_3;
+	}
+
+	public VkClearColorValue(
+		in int int32_0, 
+		in int int32_1, 
+		in int int32_2, 
+		in int int32_3
+	) {
+		Int32[0] = int32_0;
+		Int32[1] = int32_1;
+		Int32[2] = int32_2;
+		Int32[3] = int32_3;
+	}
+
+	public VkClearColorValue(
+		in uint uint32_0, 
+		in uint uint32_1, 
+		in uint uint32_2, 
+		in uint uint32_3
+	) {
+		Uint32[0] = uint32_0;
+		Uint32[1] = uint32_1;
+		Uint32[2] = uint32_2;
+		Uint32[3] = uint32_3;
+	}
+
 	public readonly override bool Equals(object? o) => (o is VkClearColorValue s) && (this == s);
 	readonly bool IEquatable<VkClearColorValue>.Equals(VkClearColorValue o) => o == this;
 
@@ -5297,8 +5333,6 @@ public unsafe partial struct VkClearColorValue : IEquatable<VkClearColorValue>
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkClearColorValue s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -5354,6 +5388,10 @@ public unsafe partial struct VkClearValue : IEquatable<VkClearValue>
 	[FieldOffset(0)]
 	public VkClearDepthStencilValue DepthStencil;
 
+	public VkClearValue(in VkClearColorValue color) : this() => Color = color;
+
+	public VkClearValue(in VkClearDepthStencilValue depthStencil) : this() => DepthStencil = depthStencil;
+
 	public readonly override bool Equals(object? o) => (o is VkClearValue s) && (this == s);
 	readonly bool IEquatable<VkClearValue>.Equals(VkClearValue o) => o == this;
 
@@ -5381,8 +5419,6 @@ public unsafe partial struct VkClearValue : IEquatable<VkClearValue>
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkClearValue s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]

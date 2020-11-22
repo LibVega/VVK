@@ -75,6 +75,16 @@ public unsafe partial struct VkPerformanceValueDataINTEL : IEquatable<VkPerforma
 	[FieldOffset(0)]
 	public byte* ValueString;
 
+	public VkPerformanceValueDataINTEL(in uint value32) : this() => Value32 = value32;
+
+	public VkPerformanceValueDataINTEL(in ulong value64) : this() => Value64 = value64;
+
+	public VkPerformanceValueDataINTEL(in float valueFloat) : this() => ValueFloat = valueFloat;
+
+	public VkPerformanceValueDataINTEL(in VkBool32 valueBool) : this() => ValueBool = valueBool;
+
+	public VkPerformanceValueDataINTEL(in byte* valueString) : this() => ValueString = valueString;
+
 	public readonly override bool Equals(object? o) => (o is VkPerformanceValueDataINTEL s) && (this == s);
 	readonly bool IEquatable<VkPerformanceValueDataINTEL>.Equals(VkPerformanceValueDataINTEL o) => o == this;
 
@@ -105,8 +115,6 @@ public unsafe partial struct VkPerformanceValueDataINTEL : IEquatable<VkPerforma
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkPerformanceValueDataINTEL s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]

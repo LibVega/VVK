@@ -9364,6 +9364,18 @@ public unsafe partial struct VkPerformanceCounterResultKHR : IEquatable<VkPerfor
 	[FieldOffset(0)]
 	public double Float64;
 
+	public VkPerformanceCounterResultKHR(in int int32) : this() => Int32 = int32;
+
+	public VkPerformanceCounterResultKHR(in long int64) : this() => Int64 = int64;
+
+	public VkPerformanceCounterResultKHR(in uint uint32) : this() => Uint32 = uint32;
+
+	public VkPerformanceCounterResultKHR(in ulong uint64) : this() => Uint64 = uint64;
+
+	public VkPerformanceCounterResultKHR(in float float32) : this() => Float32 = float32;
+
+	public VkPerformanceCounterResultKHR(in double float64) : this() => Float64 = float64;
+
 	public readonly override bool Equals(object? o) => (o is VkPerformanceCounterResultKHR s) && (this == s);
 	readonly bool IEquatable<VkPerformanceCounterResultKHR>.Equals(VkPerformanceCounterResultKHR o) => o == this;
 
@@ -9394,8 +9406,6 @@ public unsafe partial struct VkPerformanceCounterResultKHR : IEquatable<VkPerfor
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkPerformanceCounterResultKHR s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -9914,6 +9924,14 @@ public unsafe partial struct VkPipelineExecutableStatisticValueKHR : IEquatable<
 	[FieldOffset(0)]
 	public double F64;
 
+	public VkPipelineExecutableStatisticValueKHR(in VkBool32 b32) : this() => B32 = b32;
+
+	public VkPipelineExecutableStatisticValueKHR(in long i64) : this() => I64 = i64;
+
+	public VkPipelineExecutableStatisticValueKHR(in ulong u64) : this() => U64 = u64;
+
+	public VkPipelineExecutableStatisticValueKHR(in double f64) : this() => F64 = f64;
+
 	public readonly override bool Equals(object? o) => (o is VkPipelineExecutableStatisticValueKHR s) && (this == s);
 	readonly bool IEquatable<VkPipelineExecutableStatisticValueKHR>.Equals(VkPipelineExecutableStatisticValueKHR o) => o == this;
 
@@ -9941,8 +9959,6 @@ public unsafe partial struct VkPipelineExecutableStatisticValueKHR : IEquatable<
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkPipelineExecutableStatisticValueKHR s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10172,6 +10188,10 @@ public unsafe partial struct VkDeviceOrHostAddressKHR : IEquatable<VkDeviceOrHos
 	[FieldOffset(0)]
 	public void* HostAddress;
 
+	public VkDeviceOrHostAddressKHR(in ulong deviceAddress) : this() => DeviceAddress = deviceAddress;
+
+	public VkDeviceOrHostAddressKHR(in void* hostAddress) : this() => HostAddress = hostAddress;
+
 	public readonly override bool Equals(object? o) => (o is VkDeviceOrHostAddressKHR s) && (this == s);
 	readonly bool IEquatable<VkDeviceOrHostAddressKHR>.Equals(VkDeviceOrHostAddressKHR o) => o == this;
 
@@ -10199,8 +10219,6 @@ public unsafe partial struct VkDeviceOrHostAddressKHR : IEquatable<VkDeviceOrHos
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkDeviceOrHostAddressKHR s) => s = new();
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -10210,6 +10228,10 @@ public unsafe partial struct VkDeviceOrHostAddressConstKHR : IEquatable<VkDevice
 	public ulong DeviceAddress;
 	[FieldOffset(0)]
 	public void* HostAddress;
+
+	public VkDeviceOrHostAddressConstKHR(in ulong deviceAddress) : this() => DeviceAddress = deviceAddress;
+
+	public VkDeviceOrHostAddressConstKHR(in void* hostAddress) : this() => HostAddress = hostAddress;
 
 	public readonly override bool Equals(object? o) => (o is VkDeviceOrHostAddressConstKHR s) && (this == s);
 	readonly bool IEquatable<VkDeviceOrHostAddressConstKHR>.Equals(VkDeviceOrHostAddressConstKHR o) => o == this;
@@ -10238,8 +10260,6 @@ public unsafe partial struct VkDeviceOrHostAddressConstKHR : IEquatable<VkDevice
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkDeviceOrHostAddressConstKHR s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10420,6 +10440,12 @@ public unsafe partial struct VkAccelerationStructureGeometryDataKHR : IEquatable
 	[FieldOffset(0)]
 	public VkAccelerationStructureGeometryInstancesDataKHR Instances;
 
+	public VkAccelerationStructureGeometryDataKHR(in VkAccelerationStructureGeometryTrianglesDataKHR triangles) : this() => Triangles = triangles;
+
+	public VkAccelerationStructureGeometryDataKHR(in VkAccelerationStructureGeometryAabbsDataKHR aabbs) : this() => Aabbs = aabbs;
+
+	public VkAccelerationStructureGeometryDataKHR(in VkAccelerationStructureGeometryInstancesDataKHR instances) : this() => Instances = instances;
+
 	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureGeometryDataKHR s) && (this == s);
 	readonly bool IEquatable<VkAccelerationStructureGeometryDataKHR>.Equals(VkAccelerationStructureGeometryDataKHR o) => o == this;
 
@@ -10447,8 +10473,6 @@ public unsafe partial struct VkAccelerationStructureGeometryDataKHR : IEquatable
 			;
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkAccelerationStructureGeometryDataKHR s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
