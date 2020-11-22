@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Vk.Extras
+namespace Vulkan
 {
 	/// <summary>
 	/// Contains utility functionality for working with <see cref="Vk.Result"/> values.
@@ -19,7 +19,7 @@ namespace Vk.Extras
 		/// </summary>
 		/// <param name="result">The result to check.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsError(this Vk.Result result) => (int)result < 0;
+		public static bool IsError(this VkResult result) => (int)result < 0;
 
 		/// <summary>
 		/// Gets if the result value represents an error.
@@ -27,7 +27,7 @@ namespace Vk.Extras
 		/// <param name="result">The result to check.</param>
 		/// <param name="copy">The copied result value.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsError(this Vk.Result result, out Vk.Result copy)
+		public static bool IsError(this VkResult result, out VkResult copy)
 		{
 			copy = result;
 			return (int)result < 0;
@@ -38,7 +38,7 @@ namespace Vk.Extras
 		/// </summary>
 		/// <param name="result">The result to check.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsSuccess(this Vk.Result result) => result == Vk.Result.Success;
+		public static bool IsSuccess(this VkResult result) => result == VkResult.Success;
 
 		/// <summary>
 		/// Gets if the result is <see cref="Vk.Result.Success"/>.
@@ -46,10 +46,10 @@ namespace Vk.Extras
 		/// <param name="result">The result to check.</param>
 		/// <param name="copy">The copied result value.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsSuccess(this Vk.Result result, out Vk.Result copy)
+		public static bool IsSuccess(this VkResult result, out VkResult copy)
 		{
 			copy = result;
-			return result == Vk.Result.Success;
+			return result == VkResult.Success;
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace Vk.Extras
 		/// </summary>
 		/// <param name="result">The result to check.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsStatus(this Vk.Result result) => (int)result >= 0;
+		public static bool IsStatus(this VkResult result) => (int)result >= 0;
 
 		/// <summary>
 		/// Gets if the result is a status value, either <see cref="Vk.Result.Success"/> or some other non-error value.
@@ -65,7 +65,7 @@ namespace Vk.Extras
 		/// <param name="result">The result to check.</param>
 		/// <param name="copy">The copied result value.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsStatus(this Vk.Result result, out Vk.Result copy)
+		public static bool IsStatus(this VkResult result, out VkResult copy)
 		{
 			copy = result;
 			return (int)result >= 0;
@@ -77,11 +77,11 @@ namespace Vk.Extras
 		/// <param name="result">The result to throw for.</param>
 		/// <param name="message">The optional user message to add to the exception.</param>
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		public static void Throw(this Vk.Result result, string? message = null)
+		public static void Throw(this VkResult result, string? message = null)
 		{
-			if (result != Vk.Result.Success) {
-				if (message is null) throw new ResultException(result);
-				else throw new ResultException(result, message);
+			if (result != VkResult.Success) {
+				if (message is null) throw new VVK.ResultException(result);
+				else throw new VVK.ResultException(result, message);
 			}
 		}
 	}

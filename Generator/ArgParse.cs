@@ -19,6 +19,9 @@ namespace Gen
 		// The specified input file (defaults to "./vk.xml")
 		public static string InputFile { get; private set; } = "./vk.xml";
 
+		// If all output except for errors should be stopped
+		public static bool Quiet { get; private set; } = false;
+
 		// If the output should be verbose
 		public static bool Verbose { get; private set; } = false;
 
@@ -54,10 +57,22 @@ namespace Gen
 				var idx = args.IndexOf("-i");
 				if (idx != -1) {
 					if (idx == (args.Count - 1)) {
-						Program.PrintError("No input file specified", true);
+						Program.PrintError("No input file specified");
 						return false;
 					}
 					InputFile = args[idx + 1];
+				}
+			}
+
+			// Check for the output path override
+			{
+				int idx = args.IndexOf("-o");
+				if (idx != -1) {
+					if (idx == (args.Count - 1)) {
+						Program.PrintError("No output path specified");
+						return false;
+					}
+					OutputPath = args[idx + 1];
 				}
 			}
 
@@ -66,16 +81,9 @@ namespace Gen
 				Verbose = true;
 			}
 
-			// Check for the output path override
-			{
-				int idx = args.IndexOf("-o");
-				if (idx != -1) {
-					if (idx == (args.Count - 1)) {
-						Program.PrintError("No output path specified", true);
-						return false;
-					}
-					OutputPath = args[idx + 1];
-				}
+			// Check for quiet flag
+			if (args.Contains("-q") || args.Contains("-quiet")) {
+				Quiet = true;
 			}
 
 			// Return success
@@ -94,8 +102,9 @@ namespace Gen
 			 "\n" +
 			 "   h;help;?         - Prints this help statement, then exits.\n" +
 			 "   i                - Specifies the input file (defaults to './vk.xml').\n" +
-			 "   v                - Use more verbose output messages.\n" +
 			 "   o                - Specifies the output directory (defaults to './Generated').\n" +
+			 "   v                - Use more verbose output messages.\n" +
+			 "   q;quiet          - Supress all console output except for errors.\n" +
 			 "\n" +
 			 "   All arguments can be specified with either '-', '--', or '/'.\n"
 		);

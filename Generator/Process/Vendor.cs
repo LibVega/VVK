@@ -6,41 +6,37 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Gen
 {
-	// Contains the types and enums present based on vendor
+	// Represents an API vendor, and the associated types
 	public sealed class Vendor
 	{
 		#region Fields
-		// The name of the vendor (used to parse spec names and as the C# output namespace)
-		public readonly string Name;
-		// The qualified name of the C# namespace for this vendor
-		public string NamespaceName => IsCore ? "Vk" : $"Vk.{Name}";
-		// If this is the core vendor
-		public bool IsCore => Name.Length == 0;
-		// The display name of the vendor (taking into account if the vendor is core)
-		public string DisplayName => IsCore ? "Core Vulkan" : Name;
+		// The vendor tag
+		public readonly string Tag;
+		// If this vendor represents the core objects
+		public bool IsCore => Tag == "Core";
 
-		// The enums contained in this Vendor
-		public readonly Dictionary<string, EnumOut> Enums;
-		// The structs contained in this Vendor
-		public readonly Dictionary<string, StructOut> Structs;
-		// The handles contained in this Vendor
-		public readonly Dictionary<string, HandleOut> Handles;
+		// The types associated with this vendor
+		public IReadOnlyDictionary<string, BitmaskType> Bitmasks => _bitmasks;
+		private readonly Dictionary<string, BitmaskType> _bitmasks = new();
+		public IReadOnlyDictionary<string, HandleType> Handles => _handles;
+		private readonly Dictionary<string, HandleType> _handles = new();
+		public IReadOnlyDictionary<string, EnumType> Enums => _enums;
+		private readonly Dictionary<string, EnumType> _enums = new();
+		public IReadOnlyDictionary<string, StructType> Structs => _structs;
+		private readonly Dictionary<string, StructType> _structs = new();
 		#endregion // Fields
 
-		public Vendor(string name)
+		public Vendor(string tag)
 		{
-			Name = name;
-			Enums = new();
-			Structs = new();
-			Handles = new();
+			Tag = tag;
 		}
 
-		// Combines the filename with the directory for the vendor
-		public string GetSourceFilename(string srctype) =>
-			IsCore ? $"Vk.{srctype}.cs" : Path.Combine(Name, $"{Name}.{srctype}.cs");
+		public void AddType(BitmaskType type) => _bitmasks.Add(type.Name, type);
+		public void AddType(HandleType type) => _handles.Add(type.Name, type);
+		public void AddType(EnumType type) => _enums.Add(type.Name, type);
+		public void AddType(StructType type) => _structs.Add(type.Name, type);
 	}
 }
