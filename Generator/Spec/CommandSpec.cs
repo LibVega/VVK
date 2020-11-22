@@ -35,6 +35,8 @@ namespace Gen
 		// The command parameters
 		public IReadOnlyList<Param> Params => Alias?.Params ?? _params!;
 		private readonly List<Param>? _params;
+		// The feature level (core commands only)
+		public uint? FeatureLevel { get; private set; } = null;
 
 		// The potential aliased command
 		public readonly CommandSpec? Alias;
@@ -51,6 +53,13 @@ namespace Gen
 		{
 			Name = name;
 			Alias = alias;
+		}
+
+		public bool SetFeatureLevel(uint level)
+		{
+			if (FeatureLevel.HasValue) return false;
+			FeatureLevel = level;
+			return true;
 		}
 
 		// Try parse

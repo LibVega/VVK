@@ -282,9 +282,12 @@ namespace Gen
 					Program.PrintError("Feature level is missing number");
 					return false;
 				}
-				if (numAttr.Value == "1.0") {
-					continue; // Skip over feature level 1.0 since it doesn't add anything
-				}
+				uint featLevel = numAttr.Value switch {
+					"1.0" => 10,
+					"1.1" => 11,
+					"1.2" => 12,
+					_ => throw new Exception("Unknown feature level")
+				};
 
 				// Loop over require nodes
 				foreach (var childReq in featureNode.SelectNodes("require")!) {
@@ -297,6 +300,20 @@ namespace Gen
 					uint _ = 0;
 					if (!_ProcessRequireNode(reqNode, spec, null, out var count, ref _)) {
 						return false;
+					}
+
+					// Find command feature levels
+					foreach (var cmdNode in reqNode.SelectNodes("command")!) {
+						if ((cmdNode as XmlElement)?.GetAttributeNode("name") is XmlAttribute cmdNameAttr) {
+							if (!spec._commands.TryGetValue(cmdNameAttr.Value, out var cmdSpec)) {
+								Program.PrintError($"Failed to find command '{cmdNameAttr.Value}' to set feature level");
+								return false;
+							}
+							if (!cmdSpec.SetFeatureLevel(featLevel)) {
+								Program.PrintError($"Duplicate feature level for '{cmdNameAttr.Value}");
+								return false;
+							}
+						}
 					}
 
 					// Report

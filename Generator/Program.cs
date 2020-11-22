@@ -76,6 +76,25 @@ namespace Gen
 				PrintError($"{e.GetType()} - {e.Message}");
 			}
 #endif // DEBUG
+
+// Generate the specification
+#if DEBUG
+			if (!APIGenerator.Generate(procspec!)) {
+				PrintError("Failed to generate API");
+				return;
+			}
+#else
+			try {
+				if (!APIGenerator.Generate(procspec!)) {
+					PrintError("Failed to generate API");
+					return;
+				}
+			}
+			catch (Exception e) {
+				PrintError($"Unhandled api generation exception");
+				PrintError($"{e.GetType()} - {e.Message}");
+			}
+#endif // DEBUG
 		}
 
 		// Prints a standard message to the console

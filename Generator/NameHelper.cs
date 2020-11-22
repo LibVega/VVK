@@ -28,7 +28,7 @@ namespace Gen
 		// Vulkan types that are remapped to other types
 		private static readonly Dictionary<string, string> VULKAN_REMAP_TYPES = new() {
 			{ "VkDeviceSize",    "ulong" },
-			{ "VKDeviceAddress", "ulong" },
+			{ "VkDeviceAddress", "ulong" },
 			{ "VkSampleMask",    "uint"  },
 			{ "VkFlags",         "uint"  }
 		};
@@ -70,7 +70,7 @@ namespace Gen
 		};
 		// Mapping of API constant array sizes to types
 		private static readonly Dictionary<string, string> FIXED_TYPE_MAPPING = new() {
-			{ "VK_MAX_PHYSICAL_DEVICE_NAME_SIZE", "VVK.DeviceName" },
+			{ "VK_MAX_PHYSICAL_DEVICE_NAME_SIZE", "VVK.PhysicalDeviceName" },
 			{ "VK_UUID_SIZE", "VVK.UUID" },
 			{ "VK_LUID_SIZE", "VVK.LUID" },
 			{ "VK_MAX_EXTENSION_NAME_SIZE", "VVK.ExtensionName" },
@@ -81,6 +81,10 @@ namespace Gen
 		// Known types that can be used in fixed buffers
 		private static readonly List<string> FIXED_BUFFER_TYPES = new() { 
 			"byte", "sbyte", "ushort", "short", "uint", "int", "ulong", "long", "float", "double"
+		};
+		// Known C# keywords that can clash with generated names
+		private static readonly List<string> KEYWORDS = new() { 
+			"object"
 		};
 
 		// Known handle types
@@ -189,13 +193,16 @@ namespace Gen
 		// The output type name will have pointers, if needed
 		public static string? ConvertToOutputType(string typeName, uint ptrDepth = 0, string? arraySize = null)
 		{
-			// Starts with Vk? - just pass through (unless specific remapped type)
+			// Starts with Vk? - just pass through (unless specific remapped type, or flags type)
 			if (typeName.StartsWith("Vk")) {
 				if (VULKAN_REMAP_TYPES.TryGetValue(typeName, out var remap)) {
 					return (ptrDepth == 0) ? remap : (remap + new string('*', (int)ptrDepth));
 				}
 				if (HANDLE_TYPES.Contains(typeName)) {
-					typeName = $"VkHandle<{typeName}>";
+					typeName = $"VulkanHandle<{typeName}>";
+				}
+				else if (typeName.Contains("FlagBits")) {
+					typeName = typeName.Replace("FlagBits", "Flags");
 				}
 				return (ptrDepth == 0) ? typeName : (typeName + new string('*', (int)ptrDepth));
 			}
@@ -232,6 +239,16 @@ namespace Gen
 				}
 			}
 			return null;
+		}
+
+		// Gets a safe lowercase field or arg name, which is aware of C# keywords
+		public static string GetSafeArgName(string name)
+		{
+			name = Char.ToLowerInvariant(name[0]) + ((name.Length > 1) ? name.Substring(1) : String.Empty);
+			if (KEYWORDS.Contains(name)) {
+				name = '@' + name;
+			}
+			return name;
 		}
 
 		// Checks if a type can be used in a C# fixed buffer

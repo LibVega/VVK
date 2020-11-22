@@ -26,6 +26,8 @@ namespace Gen
 		// The name of the parent spec 
 		public string? ParentName => _parentOverride ?? Spec.Parent;
 		private readonly string? _parentOverride;
+		// The function parent of the handle (will be either VkInstance or VkDevice)
+		public string? FunctionParent { get; private set; }
 
 		// The parent type (not populated until the second pass)
 		public HandleType? Parent { get; private set; }
@@ -53,8 +55,34 @@ namespace Gen
 			return true;
 		}
 
+		// Try to set the function parent
+		public bool TrySetFunctionParent(Dictionary<string, HandleType> found)
+		{
+			if (Parent is null) {
+				FunctionParent = "VkInstance";
+			}
+			else if (Name == "VkDevice") {
+				FunctionParent = "VkDevice";
+			}
+			else {
+				var parentType = Parent;
+				while (parentType is not null) {
+					if ((parentType.Name == "VkInstance") || (parentType.Name == "VkDevice")) {
+						FunctionParent = parentType.Name;
+						break;
+					}
+					parentType = parentType.Parent;
+				}
+				if (FunctionParent is null) {
+					Program.PrintError($"Found handle chain that does not end in VkInstance for '{Name}'");
+					return false;
+				}
+			}
+			return true;
+		}
+
 		// Try process
-		public static bool TryProcess(HandleSpec spec, VulkanSpec vkspec, out HandleType? type)
+		public static bool TryProcess(HandleSpec spec, out HandleType? type)
 		{
 			// Check for override
 			string? pover = null;

@@ -36,9 +36,12 @@ namespace Gen
 		{
 			type = null;
 
+			// Get managed pointer type
+			bool isManaged = spec.Name != "PFN_vkVoidFunction";
+
 			// Build the function pointer string
 			BUILDER.Clear();
-			BUILDER.Append("delegate* managed<");
+			BUILDER.Append($"delegate* {(isManaged ? "managed" : "unmanaged")}<");
 			foreach (var arg in spec.Args) {
 				// Get type string
 				if (NameHelper.ConvertToOutputType(arg.Type, arg.PtrDepth) is not string argType) {

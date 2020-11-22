@@ -6,8 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace Gen
 {
@@ -16,7 +14,9 @@ namespace Gen
 	{
 		// List of known struct types that should be skipped for processing
 		private static readonly List<string> SKIP_STRUCTS = new() { 
-			"VkBaseOutStructure", "VkBaseInStructure"
+			"VkBaseOutStructure", "VkBaseInStructure",
+			"VkNativeBufferANDROID", "VkSwapchainImageCreateInfoANDROID",
+			"VkPhysicalDevicePresentationPropertiesANDROID", "VkNativeBufferUsage2ANDROID"
 		};
 
 		#region Fields
@@ -64,32 +64,19 @@ namespace Gen
 		{
 			spec = new();
 
-			using var tmpFile = new StreamWriter(
-				File.Open(Path.Combine(ArgParse.OutputPath, "gen.txt"), FileMode.Create, FileAccess.Write, FileShare.None)
-			);
-
 			// Process bitmasks
-			tmpFile.WriteLine("BITMASKS");
-			tmpFile.WriteLine("========");
 			foreach (var bitmask in vkspec.Bitmasks) {
 				if (!BitmaskType.TryProcess(bitmask.Value, vkspec, spec._bitmasks, out var type)) {
 					return false;
 				}
 				spec._bitmasks.Add(type!.Name, type);
-				tmpFile.WriteLine(type.Name);
-				foreach (var entry in type.Entries) {
-					tmpFile.WriteLine($"\t{entry.Name} = {entry.Value}");
-				}
 				Program.PrintVerbose($"Processed bitmask type '{type.Name}'");
 			}
-			Program.Print($"Procesed {spec._bitmasks.Count} bitmask types");
-			tmpFile.WriteLine(); tmpFile.WriteLine(); tmpFile.WriteLine();
+			Program.Print($"Processed {spec._bitmasks.Count} bitmask types");
 
 			// Process handles
-			tmpFile.WriteLine("HANDLES");
-			tmpFile.WriteLine("=======");
 			foreach (var handle in vkspec.Handles) {
-				if (!HandleType.TryProcess(handle.Value, vkspec, out var type)) {
+				if (!HandleType.TryProcess(handle.Value, out var type)) {
 					return false;
 				}
 				spec._handles.Add(type!.Name, type);
@@ -98,15 +85,16 @@ namespace Gen
 				if (!handle.Value.TrySetParent(spec._handles)) {
 					return false;
 				}
-				Program.PrintVerbose($"Processed handle type '{handle.Value.Name}'");
-				tmpFile.WriteLine($"{handle.Value.Name} (parent = {handle.Value.Parent?.Name})");
 			}
-			Program.Print($"Procesed {spec._handles.Count} handle types");
-			tmpFile.WriteLine(); tmpFile.WriteLine(); tmpFile.WriteLine();
+			foreach (var handle in spec._handles) {
+				if (!handle.Value.TrySetFunctionParent(spec._handles)) {
+					return false;
+				}
+				Program.PrintVerbose($"Processed handle type '{handle.Value.Name}'");
+			}
+			Program.Print($"Processed {spec._handles.Count} handle types");
 
 			// Process enums
-			tmpFile.WriteLine("ENUMS");
-			tmpFile.WriteLine("=====");
 			foreach (var @enum in vkspec.Enums) {
 				if (@enum.Value.Name.Contains("FlagBits")) {
 					continue; // Skip enums that have already been used by bitmasks
@@ -115,48 +103,31 @@ namespace Gen
 					return false;
 				}
 				spec._enums.Add(type!.Name, type);
-				tmpFile.WriteLine(type.Name);
-				foreach (var entry in type.Entries) {
-					tmpFile.WriteLine($"\t{entry.Name} = {entry.Value}");
-				}
 				Program.PrintVerbose($"Processed enum type '{type.Name}'");
 			}
-			Program.Print($"Procesed {spec._enums.Count} enum types");
-			tmpFile.WriteLine(); tmpFile.WriteLine(); tmpFile.WriteLine();
+			Program.Print($"Processed {spec._enums.Count} enum types");
 
 			// Process constants
-			tmpFile.WriteLine("CONSTANTS");
-			tmpFile.WriteLine("=========");
 			foreach (var @const in vkspec.Constants) {
 				if (!ConstantValue.TryProcess(@const.Value, out var value)) {
 					return false;
 				}
 				spec._constants.Add(value!.Name, value);
-				tmpFile.WriteLine((value.Type != ConstantValue.ValueType.Float)
-					? $"{value.Name} = {value.ValueInt} ({value.Type})" 
-					: $"{value.Name} = {value.ValueFloat}f");
 				Program.PrintVerbose($"Processed constant value '{value.Name}'");
 			}
-			Program.Print($"Procesed {spec._constants.Count} constants");
-			tmpFile.WriteLine(); tmpFile.WriteLine(); tmpFile.WriteLine();
+			Program.Print($"Processed {spec._constants.Count} constants");
 
 			// Process functions
-			tmpFile.WriteLine("FUNCTIONS");
-			tmpFile.WriteLine("=========");
 			foreach (var func in vkspec.Functions) {
 				if (!FuncType.TryProcess(func.Value, out var type)) {
 					return false;
 				}
 				spec._functions.Add(type!.TypeName, type);
-				tmpFile.WriteLine($"{type.TypeName} := {type.TypeString}");
 				Program.PrintVerbose($"Processed function type '{type.TypeName}'");
 			}
-			Program.Print($"Procesed {spec._functions.Count} functions");
-			tmpFile.WriteLine(); tmpFile.WriteLine(); tmpFile.WriteLine();
+			Program.Print($"Processed {spec._functions.Count} functions");
 
 			// Process structs
-			tmpFile.WriteLine("STRUCTS");
-			tmpFile.WriteLine("=======");
 			foreach (var @struct in vkspec.Structs) {
 				if (SKIP_STRUCTS.Contains(@struct.Key)) {
 					continue;
@@ -166,34 +137,25 @@ namespace Gen
 					return false;
 				}
 				spec._structs.Add(type!.Name, type);
-				tmpFile.WriteLine(type.Name);
-				foreach (var field in type.Fields) {
-					tmpFile.WriteLine($"\t{field.Type} {field.Name}{((field.ArraySize is not null) ? $"[{field.ArraySize}]" : "")}");
-				}
 				Program.PrintVerbose($"Processed struct type '{type.Name}'");
 			}
-			Program.Print($"Procesed {spec._structs.Count} struct types");
-			tmpFile.WriteLine(); tmpFile.WriteLine(); tmpFile.WriteLine();
+			Program.Print($"Processed {spec._structs.Count} struct types");
 
 			// Process commnads
-			tmpFile.WriteLine("COMMANDS");
-			tmpFile.WriteLine("========");
 			foreach (var cmd in vkspec.Commands) {
-				if (!CommandType.TryProcess(cmd.Value, out var type)) {
+				if (!CommandType.TryProcess(cmd.Value, spec._functions, out var type)) {
 					return false;
 				}
 				spec._commands.Add(type!.Name, type);
-				tmpFile.WriteLine($"{type.Name} := {type.TypeString}");
 				Program.PrintVerbose($"Processed command type '{type.Name}'");
 			}
-			Program.Print($"Procesed {spec._commands.Count} commands");
-			tmpFile.WriteLine(); tmpFile.WriteLine(); tmpFile.WriteLine();
+			Program.Print($"Processed {spec._commands.Count} commands");
 
 			// Pass through extensions
 			foreach (var ext in vkspec.Extensions) {
 				spec._extensions.Add(ext.Key, ext.Value);
 			}
-			Program.Print($"Procesed {spec._extensions.Count} extensions");
+			Program.Print($"Processed {spec._extensions.Count} extensions");
 
 			// Create and assign vendors
 			spec._vendors.Add("Core", new("Core"));
