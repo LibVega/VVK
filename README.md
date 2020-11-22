@@ -28,22 +28,24 @@ This is an abridged version of the usage guide found on the Wiki.
 
 ### Naming
 
-* All types are in the `Vk` namespace. Types in extension vendors are further divided into namespaces (e.g. `Vk.KHR`, `Vk.EXT`, `Vk.NV`, ...).
-* All constant values are in the `Vk.Constants` static class.
+* All library types are in the `Vulkan` namespace.
+* Vulkan API types have unchanged names.
+* All constant values are in the `VkConstants` static class.
+* Additional utility types are in the `Vulkan` and `Vulkan.VVK` namespaces.
 
 ### Typing
 
 * All enum and bitmask types are `enum`s in the API.
 * All composite types are `struct`s.
 * Handles are split into two types:
-  * `Vk.Handle<Vk.TYPE>` for the raw object handles (pointers)
-  * `Vk.TYPE` for composite handle objects, which hold the handle parent object and related references, in addition to the raw handle. They also have the functions associated with the specific handle type. These are class types.
-*  There are special types for native strings (`Vk.NativeString`) and fixed strings (`Vk.FixedString`).
+  * `VulkanHandle<VkTYPE>` for the raw object handles (pointers)
+  * `VkTYPE` for composite handle objects, which hold the handle parent object and related references, in addition to the raw handle. They also have the functions associated with the specific handle type. These are class types.
+*  There are special types for native strings (`VVK.NativeString`) and fixed strings (those extending `VVK.IFixedString`).
 * All struct types have a static `New()` function used to setup their fields properly. This is important for "typed" structs (that start with a `VkStructureType` field), as this sets up their `sType` field correctly. Struct constructors with parameters will also set the `sType` field to the correct value. ***It is important to remember to use `New()` or a constructor with parameters, or always manually init the type.***
 
 ### Functions
 
 * Functions are placed into function tables.
 * Functions are loaded with `vkGetInstanceProcAddr` and `vkGetDeviceProcAddr`.
-* Functions in the tables take raw pointers, but there are additionally functions in the handle types that take `in` and `out` variables.
-* Global functions are in `Vk.Instance`, and `Vk.InstanceFunctionTable`.
+* Functions in the tables take raw pointers, but there are additionally functions in the handle types that take `in`, `ref`, and `out` variables.
+* Global functions are in `VkInstance`, and `InstanceFunctionTable`.
