@@ -194,10 +194,10 @@ namespace Gen
 				}
 
 				// Detect the leading handle types
-				var handleName0 = cmd.Params[0].Type.Substring("VulkanHandle<".Length).TrimEnd('>');
-				var handleName1 = ((cmd.Params.Count > 1) && cmd.Params[1].Type.StartsWith("VulkanHandle"))
-					? cmd.Params[1].Type.Substring("VulkanHandle<".Length).TrimEnd('>') : null;
-				if ((handleName1 is not null) && (cmd.Params[1].PtrDepth != 0)) {
+				var handleName0 = cmd.ParamSets[0][0].Type.Substring("VulkanHandle<".Length).TrimEnd('>');
+				var handleName1 = ((cmd.ParamSets[0].Count > 1) && cmd.ParamSets[0][1].Type.StartsWith("VulkanHandle"))
+					? cmd.ParamSets[0][1].Type.Substring("VulkanHandle<".Length).TrimEnd('>') : null;
+				if ((handleName1 is not null) && (cmd.ParamSets[0][1].PtrDepth != 0)) {
 					handleName1 = null;
 				}
 				HandleType? handle0 = null, handle1 = null;

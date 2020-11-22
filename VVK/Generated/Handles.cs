@@ -36,89 +36,302 @@ public unsafe sealed partial class VkInstance : IVulkanHandle<VkInstance>
 	public static implicit operator VulkanHandle<VkInstance> (VkInstance? h) => h?.Handle ?? VulkanHandle<VkInstance>.Null;
 	public static implicit operator bool (VkInstance? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static VkResult CreateInstance(VkInstanceCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkInstance>* pInstance)
 		=> InstanceFunctionTable.vkCreateInstance(pCreateInfo, pAllocator, pInstance);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static VkResult CreateInstance(in VkInstanceCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkInstance> pInstance)
+	{
+		fixed (VkInstanceCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkInstance>* pInstanceFIXED = &pInstance)
+		return InstanceFunctionTable.vkCreateInstance(pCreateInfoFIXED, pAllocator, pInstanceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static delegate* unmanaged<void> GetDeviceProcAddr(VulkanHandle<VkDevice> device, byte* pName)
 		=> InstanceFunctionTable.vkGetDeviceProcAddr(device, pName);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static delegate* unmanaged<void> GetInstanceProcAddr(VulkanHandle<VkInstance> instance, byte* pName)
 		=> InstanceFunctionTable.vkGetInstanceProcAddr(instance, pName);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static VkResult EnumerateInstanceVersion(uint* pApiVersion)
 		=> InstanceFunctionTable.vkEnumerateInstanceVersion(pApiVersion);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static VkResult EnumerateInstanceVersion(out uint pApiVersion)
+	{
+		fixed (uint* pApiVersionFIXED = &pApiVersion)
+		return InstanceFunctionTable.vkEnumerateInstanceVersion(pApiVersionFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static VkResult EnumerateInstanceLayerProperties(uint* pPropertyCount, VkLayerProperties* pProperties)
 		=> InstanceFunctionTable.vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static VkResult EnumerateInstanceLayerProperties(ref uint pPropertyCount, VkLayerProperties* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return InstanceFunctionTable.vkEnumerateInstanceLayerProperties(pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static VkResult EnumerateInstanceExtensionProperties(byte* pLayerName, uint* pPropertyCount, VkExtensionProperties* pProperties)
 		=> InstanceFunctionTable.vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static VkResult EnumerateInstanceExtensionProperties(byte* pLayerName, ref uint pPropertyCount, VkExtensionProperties* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return InstanceFunctionTable.vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyInstance(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyInstance(Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult EnumeratePhysicalDevices(uint* pPhysicalDeviceCount, VulkanHandle<VkPhysicalDevice>* pPhysicalDevices)
 		=> Functions.vkEnumeratePhysicalDevices(Handle, pPhysicalDeviceCount, pPhysicalDevices);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult EnumeratePhysicalDevices(ref uint pPhysicalDeviceCount, VulkanHandle<VkPhysicalDevice>* pPhysicalDevices)
+	{
+		fixed (uint* pPhysicalDeviceCountFIXED = &pPhysicalDeviceCount)
+		return Functions.vkEnumeratePhysicalDevices(Handle, pPhysicalDeviceCountFIXED, pPhysicalDevices);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateAndroidSurfaceKHR(VkAndroidSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateAndroidSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateAndroidSurfaceKHR(in VkAndroidSurfaceCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkAndroidSurfaceCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateAndroidSurfaceKHR(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDisplayPlaneSurfaceKHR(VkDisplaySurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateDisplayPlaneSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDisplayPlaneSurfaceKHR(in VkDisplaySurfaceCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkDisplaySurfaceCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateDisplayPlaneSurfaceKHR(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateViSurfaceNN(VkViSurfaceCreateInfoNN* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateViSurfaceNN(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateViSurfaceNN(in VkViSurfaceCreateInfoNN pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkViSurfaceCreateInfoNN* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateViSurfaceNN(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateWaylandSurfaceKHR(VkWaylandSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateWaylandSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateWaylandSurfaceKHR(in VkWaylandSurfaceCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkWaylandSurfaceCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateWaylandSurfaceKHR(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateWin32SurfaceKHR(VkWin32SurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateWin32SurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateWin32SurfaceKHR(in VkWin32SurfaceCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkWin32SurfaceCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateWin32SurfaceKHR(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateXlibSurfaceKHR(VkXlibSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateXlibSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateXlibSurfaceKHR(in VkXlibSurfaceCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkXlibSurfaceCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateXlibSurfaceKHR(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateXcbSurfaceKHR(VkXcbSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateXcbSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateXcbSurfaceKHR(in VkXcbSurfaceCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkXcbSurfaceCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateXcbSurfaceKHR(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDirectFBSurfaceEXT(VkDirectFBSurfaceCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateDirectFBSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDirectFBSurfaceEXT(in VkDirectFBSurfaceCreateInfoEXT pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkDirectFBSurfaceCreateInfoEXT* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateDirectFBSurfaceEXT(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateImagePipeSurfaceFUCHSIA(VkImagePipeSurfaceCreateInfoFUCHSIA* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateImagePipeSurfaceFUCHSIA(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateImagePipeSurfaceFUCHSIA(in VkImagePipeSurfaceCreateInfoFUCHSIA pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkImagePipeSurfaceCreateInfoFUCHSIA* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateImagePipeSurfaceFUCHSIA(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateStreamDescriptorSurfaceGGP(VkStreamDescriptorSurfaceCreateInfoGGP* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateStreamDescriptorSurfaceGGP(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateStreamDescriptorSurfaceGGP(in VkStreamDescriptorSurfaceCreateInfoGGP pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkStreamDescriptorSurfaceCreateInfoGGP* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateStreamDescriptorSurfaceGGP(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDebugReportCallbackEXT(VkDebugReportCallbackCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDebugReportCallbackEXT>* pCallback)
 		=> Functions.vkCreateDebugReportCallbackEXT(Handle, pCreateInfo, pAllocator, pCallback);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDebugReportCallbackEXT(in VkDebugReportCallbackCreateInfoEXT pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDebugReportCallbackEXT> pCallback)
+	{
+		fixed (VkDebugReportCallbackCreateInfoEXT* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDebugReportCallbackEXT>* pCallbackFIXED = &pCallback)
+		return Functions.vkCreateDebugReportCallbackEXT(Handle, pCreateInfoFIXED, pAllocator, pCallbackFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DebugReportMessageEXT(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objectType, ulong @object, ulong location, int messageCode, byte* pLayerPrefix, byte* pMessage)
 		=> Functions.vkDebugReportMessageEXT(Handle, flags, objectType, @object, location, messageCode, pLayerPrefix, pMessage);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult EnumeratePhysicalDeviceGroups(uint* pPhysicalDeviceGroupCount, VkPhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 		=> Functions.vkEnumeratePhysicalDeviceGroups(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult EnumeratePhysicalDeviceGroups(ref uint pPhysicalDeviceGroupCount, VkPhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+	{
+		fixed (uint* pPhysicalDeviceGroupCountFIXED = &pPhysicalDeviceGroupCount)
+		return Functions.vkEnumeratePhysicalDeviceGroups(Handle, pPhysicalDeviceGroupCountFIXED, pPhysicalDeviceGroupProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult EnumeratePhysicalDeviceGroupsKHR(uint* pPhysicalDeviceGroupCount, VkPhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
 		=> Functions.vkEnumeratePhysicalDeviceGroupsKHR(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult EnumeratePhysicalDeviceGroupsKHR(ref uint pPhysicalDeviceGroupCount, VkPhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+	{
+		fixed (uint* pPhysicalDeviceGroupCountFIXED = &pPhysicalDeviceGroupCount)
+		return Functions.vkEnumeratePhysicalDeviceGroupsKHR(Handle, pPhysicalDeviceGroupCountFIXED, pPhysicalDeviceGroupProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateIOSSurfaceMVK(VkIOSSurfaceCreateInfoMVK* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateIOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateIOSSurfaceMVK(in VkIOSSurfaceCreateInfoMVK pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkIOSSurfaceCreateInfoMVK* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateIOSSurfaceMVK(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateMacOSSurfaceMVK(VkMacOSSurfaceCreateInfoMVK* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateMacOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateMacOSSurfaceMVK(in VkMacOSSurfaceCreateInfoMVK pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkMacOSSurfaceCreateInfoMVK* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateMacOSSurfaceMVK(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateMetalSurfaceEXT(VkMetalSurfaceCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateMetalSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateMetalSurfaceEXT(in VkMetalSurfaceCreateInfoEXT pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkMetalSurfaceCreateInfoEXT* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateMetalSurfaceEXT(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDebugUtilsMessengerEXT(VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDebugUtilsMessengerEXT>* pMessenger)
 		=> Functions.vkCreateDebugUtilsMessengerEXT(Handle, pCreateInfo, pAllocator, pMessenger);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDebugUtilsMessengerEXT(in VkDebugUtilsMessengerCreateInfoEXT pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDebugUtilsMessengerEXT> pMessenger)
+	{
+		fixed (VkDebugUtilsMessengerCreateInfoEXT* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDebugUtilsMessengerEXT>* pMessengerFIXED = &pMessenger)
+		return Functions.vkCreateDebugUtilsMessengerEXT(Handle, pCreateInfoFIXED, pAllocator, pMessengerFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SubmitDebugUtilsMessageEXT(VkDebugUtilsMessageSeverityFlagsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageTypes, VkDebugUtilsMessengerCallbackDataEXT* pCallbackData)
 		=> Functions.vkSubmitDebugUtilsMessageEXT(Handle, messageSeverity, messageTypes, pCallbackData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void SubmitDebugUtilsMessageEXT(VkDebugUtilsMessageSeverityFlagsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageTypes, in VkDebugUtilsMessengerCallbackDataEXT pCallbackData)
+	{
+		fixed (VkDebugUtilsMessengerCallbackDataEXT* pCallbackDataFIXED = &pCallbackData)
+		Functions.vkSubmitDebugUtilsMessageEXT(Handle, messageSeverity, messageTypes, pCallbackDataFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateHeadlessSurfaceEXT(VkHeadlessSurfaceCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
 		=> Functions.vkCreateHeadlessSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateHeadlessSurfaceEXT(in VkHeadlessSurfaceCreateInfoEXT pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSurfaceKHR> pSurface)
+	{
+		fixed (VkHeadlessSurfaceCreateInfoEXT* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSurfaceKHR>* pSurfaceFIXED = &pSurface)
+		return Functions.vkCreateHeadlessSurfaceEXT(Handle, pCreateInfoFIXED, pAllocator, pSurfaceFIXED);
+	}
 
 }
 
@@ -147,191 +360,661 @@ public unsafe sealed partial class VkPhysicalDevice : IVulkanHandle<VkPhysicalDe
 	public static implicit operator VulkanHandle<VkPhysicalDevice> (VkPhysicalDevice? h) => h?.Handle ?? VulkanHandle<VkPhysicalDevice>.Null;
 	public static implicit operator bool (VkPhysicalDevice? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties(VkPhysicalDeviceProperties* pProperties)
 		=> Functions.vkGetPhysicalDeviceProperties(Handle, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceProperties(out VkPhysicalDeviceProperties pProperties)
+	{
+		fixed (VkPhysicalDeviceProperties* pPropertiesFIXED = &pProperties)
+		Functions.vkGetPhysicalDeviceProperties(Handle, pPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties(uint* pQueueFamilyPropertyCount, VkQueueFamilyProperties* pQueueFamilyProperties)
 		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties(Handle, pQueueFamilyPropertyCount, pQueueFamilyProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties(ref uint pQueueFamilyPropertyCount, VkQueueFamilyProperties* pQueueFamilyProperties)
+	{
+		fixed (uint* pQueueFamilyPropertyCountFIXED = &pQueueFamilyPropertyCount)
+		Functions.vkGetPhysicalDeviceQueueFamilyProperties(Handle, pQueueFamilyPropertyCountFIXED, pQueueFamilyProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties(VkPhysicalDeviceMemoryProperties* pMemoryProperties)
 		=> Functions.vkGetPhysicalDeviceMemoryProperties(Handle, pMemoryProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMemoryProperties(out VkPhysicalDeviceMemoryProperties pMemoryProperties)
+	{
+		fixed (VkPhysicalDeviceMemoryProperties* pMemoryPropertiesFIXED = &pMemoryProperties)
+		Functions.vkGetPhysicalDeviceMemoryProperties(Handle, pMemoryPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures(VkPhysicalDeviceFeatures* pFeatures)
 		=> Functions.vkGetPhysicalDeviceFeatures(Handle, pFeatures);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFeatures(out VkPhysicalDeviceFeatures pFeatures)
+	{
+		fixed (VkPhysicalDeviceFeatures* pFeaturesFIXED = &pFeatures)
+		Functions.vkGetPhysicalDeviceFeatures(Handle, pFeaturesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties(VkFormat format, VkFormatProperties* pFormatProperties)
 		=> Functions.vkGetPhysicalDeviceFormatProperties(Handle, format, pFormatProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFormatProperties(VkFormat format, out VkFormatProperties pFormatProperties)
+	{
+		fixed (VkFormatProperties* pFormatPropertiesFIXED = &pFormatProperties)
+		Functions.vkGetPhysicalDeviceFormatProperties(Handle, format, pFormatPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceImageFormatProperties(VkFormat format, VkImageType type, VkImageTiling tiling, VkImageUsageFlags usage, VkImageCreateFlags flags, VkImageFormatProperties* pImageFormatProperties)
 		=> Functions.vkGetPhysicalDeviceImageFormatProperties(Handle, format, type, tiling, usage, flags, pImageFormatProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceImageFormatProperties(VkFormat format, VkImageType type, VkImageTiling tiling, VkImageUsageFlags usage, VkImageCreateFlags flags, out VkImageFormatProperties pImageFormatProperties)
+	{
+		fixed (VkImageFormatProperties* pImageFormatPropertiesFIXED = &pImageFormatProperties)
+		return Functions.vkGetPhysicalDeviceImageFormatProperties(Handle, format, type, tiling, usage, flags, pImageFormatPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDevice(VkDeviceCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDevice>* pDevice)
 		=> Functions.vkCreateDevice(Handle, pCreateInfo, pAllocator, pDevice);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDevice(in VkDeviceCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDevice> pDevice)
+	{
+		fixed (VkDeviceCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDevice>* pDeviceFIXED = &pDevice)
+		return Functions.vkCreateDevice(Handle, pCreateInfoFIXED, pAllocator, pDeviceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult EnumerateDeviceLayerProperties(uint* pPropertyCount, VkLayerProperties* pProperties)
 		=> Functions.vkEnumerateDeviceLayerProperties(Handle, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult EnumerateDeviceLayerProperties(ref uint pPropertyCount, VkLayerProperties* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkEnumerateDeviceLayerProperties(Handle, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult EnumerateDeviceExtensionProperties(byte* pLayerName, uint* pPropertyCount, VkExtensionProperties* pProperties)
 		=> Functions.vkEnumerateDeviceExtensionProperties(Handle, pLayerName, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult EnumerateDeviceExtensionProperties(byte* pLayerName, ref uint pPropertyCount, VkExtensionProperties* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkEnumerateDeviceExtensionProperties(Handle, pLayerName, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties(VkFormat format, VkImageType type, VkSampleCountFlags samples, VkImageUsageFlags usage, VkImageTiling tiling, uint* pPropertyCount, VkSparseImageFormatProperties* pProperties)
 		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties(Handle, format, type, samples, usage, tiling, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties(VkFormat format, VkImageType type, VkSampleCountFlags samples, VkImageUsageFlags usage, VkImageTiling tiling, ref uint pPropertyCount, VkSparseImageFormatProperties* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		Functions.vkGetPhysicalDeviceSparseImageFormatProperties(Handle, format, type, samples, usage, tiling, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceDisplayPropertiesKHR(uint* pPropertyCount, VkDisplayPropertiesKHR* pProperties)
 		=> Functions.vkGetPhysicalDeviceDisplayPropertiesKHR(Handle, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceDisplayPropertiesKHR(ref uint pPropertyCount, VkDisplayPropertiesKHR* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkGetPhysicalDeviceDisplayPropertiesKHR(Handle, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceDisplayPlanePropertiesKHR(uint* pPropertyCount, VkDisplayPlanePropertiesKHR* pProperties)
 		=> Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR(Handle, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceDisplayPlanePropertiesKHR(ref uint pPropertyCount, VkDisplayPlanePropertiesKHR* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR(Handle, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, uint* pDisplayCount, VulkanHandle<VkDisplayKHR>* pDisplays)
 		=> Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, pDisplayCount, pDisplays);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, ref uint pDisplayCount, VulkanHandle<VkDisplayKHR>* pDisplays)
+	{
+		fixed (uint* pDisplayCountFIXED = &pDisplayCount)
+		return Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, pDisplayCountFIXED, pDisplays);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDisplayPlaneCapabilitiesKHR(VulkanHandle<VkDisplayModeKHR> mode, uint planeIndex, VkDisplayPlaneCapabilitiesKHR* pCapabilities)
 		=> Functions.vkGetDisplayPlaneCapabilitiesKHR(Handle, mode, planeIndex, pCapabilities);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDisplayPlaneCapabilitiesKHR(VulkanHandle<VkDisplayModeKHR> mode, uint planeIndex, out VkDisplayPlaneCapabilitiesKHR pCapabilities)
+	{
+		fixed (VkDisplayPlaneCapabilitiesKHR* pCapabilitiesFIXED = &pCapabilities)
+		return Functions.vkGetDisplayPlaneCapabilitiesKHR(Handle, mode, planeIndex, pCapabilitiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceSupportKHR(uint queueFamilyIndex, VulkanHandle<VkSurfaceKHR> surface, VkBool32* pSupported)
 		=> Functions.vkGetPhysicalDeviceSurfaceSupportKHR(Handle, queueFamilyIndex, surface, pSupported);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfaceSupportKHR(uint queueFamilyIndex, VulkanHandle<VkSurfaceKHR> surface, out VkBool32 pSupported)
+	{
+		fixed (VkBool32* pSupportedFIXED = &pSupported)
+		return Functions.vkGetPhysicalDeviceSurfaceSupportKHR(Handle, queueFamilyIndex, surface, pSupportedFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceCapabilitiesKHR(VulkanHandle<VkSurfaceKHR> surface, VkSurfaceCapabilitiesKHR* pSurfaceCapabilities)
 		=> Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(Handle, surface, pSurfaceCapabilities);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfaceCapabilitiesKHR(VulkanHandle<VkSurfaceKHR> surface, out VkSurfaceCapabilitiesKHR pSurfaceCapabilities)
+	{
+		fixed (VkSurfaceCapabilitiesKHR* pSurfaceCapabilitiesFIXED = &pSurfaceCapabilities)
+		return Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(Handle, surface, pSurfaceCapabilitiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceFormatsKHR(VulkanHandle<VkSurfaceKHR> surface, uint* pSurfaceFormatCount, VkSurfaceFormatKHR* pSurfaceFormats)
 		=> Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(Handle, surface, pSurfaceFormatCount, pSurfaceFormats);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfaceFormatsKHR(VulkanHandle<VkSurfaceKHR> surface, ref uint pSurfaceFormatCount, VkSurfaceFormatKHR* pSurfaceFormats)
+	{
+		fixed (uint* pSurfaceFormatCountFIXED = &pSurfaceFormatCount)
+		return Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(Handle, surface, pSurfaceFormatCountFIXED, pSurfaceFormats);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfacePresentModesKHR(VulkanHandle<VkSurfaceKHR> surface, uint* pPresentModeCount, VkPresentModeKHR* pPresentModes)
 		=> Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(Handle, surface, pPresentModeCount, pPresentModes);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfacePresentModesKHR(VulkanHandle<VkSurfaceKHR> surface, ref uint pPresentModeCount, VkPresentModeKHR* pPresentModes)
+	{
+		fixed (uint* pPresentModeCountFIXED = &pPresentModeCount)
+		return Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(Handle, surface, pPresentModeCountFIXED, pPresentModes);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkBool32 GetPhysicalDeviceWaylandPresentationSupportKHR(uint queueFamilyIndex, void* display)
 		=> Functions.vkGetPhysicalDeviceWaylandPresentationSupportKHR(Handle, queueFamilyIndex, display);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkBool32 GetPhysicalDeviceWin32PresentationSupportKHR(uint queueFamilyIndex)
 		=> Functions.vkGetPhysicalDeviceWin32PresentationSupportKHR(Handle, queueFamilyIndex);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkBool32 GetPhysicalDeviceXlibPresentationSupportKHR(uint queueFamilyIndex, void* dpy, ulong visualID)
 		=> Functions.vkGetPhysicalDeviceXlibPresentationSupportKHR(Handle, queueFamilyIndex, dpy, visualID);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkBool32 GetPhysicalDeviceXcbPresentationSupportKHR(uint queueFamilyIndex, void* connection, uint visual_id)
 		=> Functions.vkGetPhysicalDeviceXcbPresentationSupportKHR(Handle, queueFamilyIndex, connection, visual_id);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkBool32 GetPhysicalDeviceDirectFBPresentationSupportEXT(uint queueFamilyIndex, void* dfb)
 		=> Functions.vkGetPhysicalDeviceDirectFBPresentationSupportEXT(Handle, queueFamilyIndex, dfb);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceExternalImageFormatPropertiesNV(VkFormat format, VkImageType type, VkImageTiling tiling, VkImageUsageFlags usage, VkImageCreateFlags flags, VkExternalMemoryHandleTypeFlagsNV externalHandleType, VkExternalImageFormatPropertiesNV* pExternalImageFormatProperties)
 		=> Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV(Handle, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceExternalImageFormatPropertiesNV(VkFormat format, VkImageType type, VkImageTiling tiling, VkImageUsageFlags usage, VkImageCreateFlags flags, VkExternalMemoryHandleTypeFlagsNV externalHandleType, out VkExternalImageFormatPropertiesNV pExternalImageFormatProperties)
+	{
+		fixed (VkExternalImageFormatPropertiesNV* pExternalImageFormatPropertiesFIXED = &pExternalImageFormatProperties)
+		return Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV(Handle, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures2(VkPhysicalDeviceFeatures2* pFeatures)
 		=> Functions.vkGetPhysicalDeviceFeatures2(Handle, pFeatures);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFeatures2(out VkPhysicalDeviceFeatures2 pFeatures)
+	{
+		fixed (VkPhysicalDeviceFeatures2* pFeaturesFIXED = &pFeatures)
+		Functions.vkGetPhysicalDeviceFeatures2(Handle, pFeaturesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFeatures2KHR(VkPhysicalDeviceFeatures2* pFeatures)
 		=> Functions.vkGetPhysicalDeviceFeatures2KHR(Handle, pFeatures);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFeatures2KHR(out VkPhysicalDeviceFeatures2 pFeatures)
+	{
+		fixed (VkPhysicalDeviceFeatures2* pFeaturesFIXED = &pFeatures)
+		Functions.vkGetPhysicalDeviceFeatures2KHR(Handle, pFeaturesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties2(VkPhysicalDeviceProperties2* pProperties)
 		=> Functions.vkGetPhysicalDeviceProperties2(Handle, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceProperties2(out VkPhysicalDeviceProperties2 pProperties)
+	{
+		fixed (VkPhysicalDeviceProperties2* pPropertiesFIXED = &pProperties)
+		Functions.vkGetPhysicalDeviceProperties2(Handle, pPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceProperties2KHR(VkPhysicalDeviceProperties2* pProperties)
 		=> Functions.vkGetPhysicalDeviceProperties2KHR(Handle, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceProperties2KHR(out VkPhysicalDeviceProperties2 pProperties)
+	{
+		fixed (VkPhysicalDeviceProperties2* pPropertiesFIXED = &pProperties)
+		Functions.vkGetPhysicalDeviceProperties2KHR(Handle, pPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties2(VkFormat format, VkFormatProperties2* pFormatProperties)
 		=> Functions.vkGetPhysicalDeviceFormatProperties2(Handle, format, pFormatProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFormatProperties2(VkFormat format, out VkFormatProperties2 pFormatProperties)
+	{
+		fixed (VkFormatProperties2* pFormatPropertiesFIXED = &pFormatProperties)
+		Functions.vkGetPhysicalDeviceFormatProperties2(Handle, format, pFormatPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceFormatProperties2KHR(VkFormat format, VkFormatProperties2* pFormatProperties)
 		=> Functions.vkGetPhysicalDeviceFormatProperties2KHR(Handle, format, pFormatProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceFormatProperties2KHR(VkFormat format, out VkFormatProperties2 pFormatProperties)
+	{
+		fixed (VkFormatProperties2* pFormatPropertiesFIXED = &pFormatProperties)
+		Functions.vkGetPhysicalDeviceFormatProperties2KHR(Handle, format, pFormatPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceImageFormatProperties2(VkPhysicalDeviceImageFormatInfo2* pImageFormatInfo, VkImageFormatProperties2* pImageFormatProperties)
 		=> Functions.vkGetPhysicalDeviceImageFormatProperties2(Handle, pImageFormatInfo, pImageFormatProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceImageFormatProperties2(in VkPhysicalDeviceImageFormatInfo2 pImageFormatInfo, out VkImageFormatProperties2 pImageFormatProperties)
+	{
+		fixed (VkPhysicalDeviceImageFormatInfo2* pImageFormatInfoFIXED = &pImageFormatInfo)
+		fixed (VkImageFormatProperties2* pImageFormatPropertiesFIXED = &pImageFormatProperties)
+		return Functions.vkGetPhysicalDeviceImageFormatProperties2(Handle, pImageFormatInfoFIXED, pImageFormatPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceImageFormatProperties2KHR(VkPhysicalDeviceImageFormatInfo2* pImageFormatInfo, VkImageFormatProperties2* pImageFormatProperties)
 		=> Functions.vkGetPhysicalDeviceImageFormatProperties2KHR(Handle, pImageFormatInfo, pImageFormatProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceImageFormatProperties2KHR(in VkPhysicalDeviceImageFormatInfo2 pImageFormatInfo, out VkImageFormatProperties2 pImageFormatProperties)
+	{
+		fixed (VkPhysicalDeviceImageFormatInfo2* pImageFormatInfoFIXED = &pImageFormatInfo)
+		fixed (VkImageFormatProperties2* pImageFormatPropertiesFIXED = &pImageFormatProperties)
+		return Functions.vkGetPhysicalDeviceImageFormatProperties2KHR(Handle, pImageFormatInfoFIXED, pImageFormatPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties2(uint* pQueueFamilyPropertyCount, VkQueueFamilyProperties2* pQueueFamilyProperties)
 		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties2(Handle, pQueueFamilyPropertyCount, pQueueFamilyProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties2(ref uint pQueueFamilyPropertyCount, VkQueueFamilyProperties2* pQueueFamilyProperties)
+	{
+		fixed (uint* pQueueFamilyPropertyCountFIXED = &pQueueFamilyPropertyCount)
+		Functions.vkGetPhysicalDeviceQueueFamilyProperties2(Handle, pQueueFamilyPropertyCountFIXED, pQueueFamilyProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyProperties2KHR(uint* pQueueFamilyPropertyCount, VkQueueFamilyProperties2* pQueueFamilyProperties)
 		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties2KHR(Handle, pQueueFamilyPropertyCount, pQueueFamilyProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyProperties2KHR(ref uint pQueueFamilyPropertyCount, VkQueueFamilyProperties2* pQueueFamilyProperties)
+	{
+		fixed (uint* pQueueFamilyPropertyCountFIXED = &pQueueFamilyPropertyCount)
+		Functions.vkGetPhysicalDeviceQueueFamilyProperties2KHR(Handle, pQueueFamilyPropertyCountFIXED, pQueueFamilyProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties2(VkPhysicalDeviceMemoryProperties2* pMemoryProperties)
 		=> Functions.vkGetPhysicalDeviceMemoryProperties2(Handle, pMemoryProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMemoryProperties2(out VkPhysicalDeviceMemoryProperties2 pMemoryProperties)
+	{
+		fixed (VkPhysicalDeviceMemoryProperties2* pMemoryPropertiesFIXED = &pMemoryProperties)
+		Functions.vkGetPhysicalDeviceMemoryProperties2(Handle, pMemoryPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMemoryProperties2KHR(VkPhysicalDeviceMemoryProperties2* pMemoryProperties)
 		=> Functions.vkGetPhysicalDeviceMemoryProperties2KHR(Handle, pMemoryProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMemoryProperties2KHR(out VkPhysicalDeviceMemoryProperties2 pMemoryProperties)
+	{
+		fixed (VkPhysicalDeviceMemoryProperties2* pMemoryPropertiesFIXED = &pMemoryProperties)
+		Functions.vkGetPhysicalDeviceMemoryProperties2KHR(Handle, pMemoryPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties2(VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, VkSparseImageFormatProperties2* pProperties)
 		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties2(Handle, pFormatInfo, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties2(in VkPhysicalDeviceSparseImageFormatInfo2 pFormatInfo, ref uint pPropertyCount, VkSparseImageFormatProperties2* pProperties)
+	{
+		fixed (VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfoFIXED = &pFormatInfo)
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		Functions.vkGetPhysicalDeviceSparseImageFormatProperties2(Handle, pFormatInfoFIXED, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, VkSparseImageFormatProperties2* pProperties)
 		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties2KHR(Handle, pFormatInfo, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(in VkPhysicalDeviceSparseImageFormatInfo2 pFormatInfo, ref uint pPropertyCount, VkSparseImageFormatProperties2* pProperties)
+	{
+		fixed (VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfoFIXED = &pFormatInfo)
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		Functions.vkGetPhysicalDeviceSparseImageFormatProperties2KHR(Handle, pFormatInfoFIXED, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalBufferProperties(VkPhysicalDeviceExternalBufferInfo* pExternalBufferInfo, VkExternalBufferProperties* pExternalBufferProperties)
 		=> Functions.vkGetPhysicalDeviceExternalBufferProperties(Handle, pExternalBufferInfo, pExternalBufferProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalBufferProperties(in VkPhysicalDeviceExternalBufferInfo pExternalBufferInfo, out VkExternalBufferProperties pExternalBufferProperties)
+	{
+		fixed (VkPhysicalDeviceExternalBufferInfo* pExternalBufferInfoFIXED = &pExternalBufferInfo)
+		fixed (VkExternalBufferProperties* pExternalBufferPropertiesFIXED = &pExternalBufferProperties)
+		Functions.vkGetPhysicalDeviceExternalBufferProperties(Handle, pExternalBufferInfoFIXED, pExternalBufferPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalBufferPropertiesKHR(VkPhysicalDeviceExternalBufferInfo* pExternalBufferInfo, VkExternalBufferProperties* pExternalBufferProperties)
 		=> Functions.vkGetPhysicalDeviceExternalBufferPropertiesKHR(Handle, pExternalBufferInfo, pExternalBufferProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalBufferPropertiesKHR(in VkPhysicalDeviceExternalBufferInfo pExternalBufferInfo, out VkExternalBufferProperties pExternalBufferProperties)
+	{
+		fixed (VkPhysicalDeviceExternalBufferInfo* pExternalBufferInfoFIXED = &pExternalBufferInfo)
+		fixed (VkExternalBufferProperties* pExternalBufferPropertiesFIXED = &pExternalBufferProperties)
+		Functions.vkGetPhysicalDeviceExternalBufferPropertiesKHR(Handle, pExternalBufferInfoFIXED, pExternalBufferPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalSemaphoreProperties(VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, VkExternalSemaphoreProperties* pExternalSemaphoreProperties)
 		=> Functions.vkGetPhysicalDeviceExternalSemaphoreProperties(Handle, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalSemaphoreProperties(in VkPhysicalDeviceExternalSemaphoreInfo pExternalSemaphoreInfo, out VkExternalSemaphoreProperties pExternalSemaphoreProperties)
+	{
+		fixed (VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfoFIXED = &pExternalSemaphoreInfo)
+		fixed (VkExternalSemaphoreProperties* pExternalSemaphorePropertiesFIXED = &pExternalSemaphoreProperties)
+		Functions.vkGetPhysicalDeviceExternalSemaphoreProperties(Handle, pExternalSemaphoreInfoFIXED, pExternalSemaphorePropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalSemaphorePropertiesKHR(VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, VkExternalSemaphoreProperties* pExternalSemaphoreProperties)
 		=> Functions.vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(Handle, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalSemaphorePropertiesKHR(in VkPhysicalDeviceExternalSemaphoreInfo pExternalSemaphoreInfo, out VkExternalSemaphoreProperties pExternalSemaphoreProperties)
+	{
+		fixed (VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfoFIXED = &pExternalSemaphoreInfo)
+		fixed (VkExternalSemaphoreProperties* pExternalSemaphorePropertiesFIXED = &pExternalSemaphoreProperties)
+		Functions.vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(Handle, pExternalSemaphoreInfoFIXED, pExternalSemaphorePropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalFenceProperties(VkPhysicalDeviceExternalFenceInfo* pExternalFenceInfo, VkExternalFenceProperties* pExternalFenceProperties)
 		=> Functions.vkGetPhysicalDeviceExternalFenceProperties(Handle, pExternalFenceInfo, pExternalFenceProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalFenceProperties(in VkPhysicalDeviceExternalFenceInfo pExternalFenceInfo, out VkExternalFenceProperties pExternalFenceProperties)
+	{
+		fixed (VkPhysicalDeviceExternalFenceInfo* pExternalFenceInfoFIXED = &pExternalFenceInfo)
+		fixed (VkExternalFenceProperties* pExternalFencePropertiesFIXED = &pExternalFenceProperties)
+		Functions.vkGetPhysicalDeviceExternalFenceProperties(Handle, pExternalFenceInfoFIXED, pExternalFencePropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceExternalFencePropertiesKHR(VkPhysicalDeviceExternalFenceInfo* pExternalFenceInfo, VkExternalFenceProperties* pExternalFenceProperties)
 		=> Functions.vkGetPhysicalDeviceExternalFencePropertiesKHR(Handle, pExternalFenceInfo, pExternalFenceProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceExternalFencePropertiesKHR(in VkPhysicalDeviceExternalFenceInfo pExternalFenceInfo, out VkExternalFenceProperties pExternalFenceProperties)
+	{
+		fixed (VkPhysicalDeviceExternalFenceInfo* pExternalFenceInfoFIXED = &pExternalFenceInfo)
+		fixed (VkExternalFenceProperties* pExternalFencePropertiesFIXED = &pExternalFenceProperties)
+		Functions.vkGetPhysicalDeviceExternalFencePropertiesKHR(Handle, pExternalFenceInfoFIXED, pExternalFencePropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AcquireXlibDisplayEXT(void* dpy, VulkanHandle<VkDisplayKHR> display)
 		=> Functions.vkAcquireXlibDisplayEXT(Handle, dpy, display);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, VulkanHandle<VkDisplayKHR>* pDisplay)
 		=> Functions.vkGetRandROutputDisplayEXT(Handle, dpy, rrOutput, pDisplay);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, out VulkanHandle<VkDisplayKHR> pDisplay)
+	{
+		fixed (VulkanHandle<VkDisplayKHR>* pDisplayFIXED = &pDisplay)
+		return Functions.vkGetRandROutputDisplayEXT(Handle, dpy, rrOutput, pDisplayFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceCapabilities2EXT(VulkanHandle<VkSurfaceKHR> surface, VkSurfaceCapabilities2EXT* pSurfaceCapabilities)
 		=> Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(Handle, surface, pSurfaceCapabilities);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfaceCapabilities2EXT(VulkanHandle<VkSurfaceKHR> surface, out VkSurfaceCapabilities2EXT pSurfaceCapabilities)
+	{
+		fixed (VkSurfaceCapabilities2EXT* pSurfaceCapabilitiesFIXED = &pSurfaceCapabilities)
+		return Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(Handle, surface, pSurfaceCapabilitiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDevicePresentRectanglesKHR(VulkanHandle<VkSurfaceKHR> surface, uint* pRectCount, VkRect2D* pRects)
 		=> Functions.vkGetPhysicalDevicePresentRectanglesKHR(Handle, surface, pRectCount, pRects);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDevicePresentRectanglesKHR(VulkanHandle<VkSurfaceKHR> surface, ref uint pRectCount, VkRect2D* pRects)
+	{
+		fixed (uint* pRectCountFIXED = &pRectCount)
+		return Functions.vkGetPhysicalDevicePresentRectanglesKHR(Handle, surface, pRectCountFIXED, pRects);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceMultisamplePropertiesEXT(VkSampleCountFlags samples, VkMultisamplePropertiesEXT* pMultisampleProperties)
 		=> Functions.vkGetPhysicalDeviceMultisamplePropertiesEXT(Handle, samples, pMultisampleProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceMultisamplePropertiesEXT(VkSampleCountFlags samples, out VkMultisamplePropertiesEXT pMultisampleProperties)
+	{
+		fixed (VkMultisamplePropertiesEXT* pMultisamplePropertiesFIXED = &pMultisampleProperties)
+		Functions.vkGetPhysicalDeviceMultisamplePropertiesEXT(Handle, samples, pMultisamplePropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceCapabilities2KHR(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, VkSurfaceCapabilities2KHR* pSurfaceCapabilities)
 		=> Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR(Handle, pSurfaceInfo, pSurfaceCapabilities);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfaceCapabilities2KHR(in VkPhysicalDeviceSurfaceInfo2KHR pSurfaceInfo, out VkSurfaceCapabilities2KHR pSurfaceCapabilities)
+	{
+		fixed (VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfoFIXED = &pSurfaceInfo)
+		fixed (VkSurfaceCapabilities2KHR* pSurfaceCapabilitiesFIXED = &pSurfaceCapabilities)
+		return Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR(Handle, pSurfaceInfoFIXED, pSurfaceCapabilitiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceFormats2KHR(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, uint* pSurfaceFormatCount, VkSurfaceFormat2KHR* pSurfaceFormats)
 		=> Functions.vkGetPhysicalDeviceSurfaceFormats2KHR(Handle, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfaceFormats2KHR(in VkPhysicalDeviceSurfaceInfo2KHR pSurfaceInfo, ref uint pSurfaceFormatCount, VkSurfaceFormat2KHR* pSurfaceFormats)
+	{
+		fixed (VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfoFIXED = &pSurfaceInfo)
+		fixed (uint* pSurfaceFormatCountFIXED = &pSurfaceFormatCount)
+		return Functions.vkGetPhysicalDeviceSurfaceFormats2KHR(Handle, pSurfaceInfoFIXED, pSurfaceFormatCountFIXED, pSurfaceFormats);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceDisplayProperties2KHR(uint* pPropertyCount, VkDisplayProperties2KHR* pProperties)
 		=> Functions.vkGetPhysicalDeviceDisplayProperties2KHR(Handle, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceDisplayProperties2KHR(ref uint pPropertyCount, VkDisplayProperties2KHR* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkGetPhysicalDeviceDisplayProperties2KHR(Handle, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceDisplayPlaneProperties2KHR(uint* pPropertyCount, VkDisplayPlaneProperties2KHR* pProperties)
 		=> Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR(Handle, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceDisplayPlaneProperties2KHR(ref uint pPropertyCount, VkDisplayPlaneProperties2KHR* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR(Handle, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDisplayPlaneCapabilities2KHR(VkDisplayPlaneInfo2KHR* pDisplayPlaneInfo, VkDisplayPlaneCapabilities2KHR* pCapabilities)
 		=> Functions.vkGetDisplayPlaneCapabilities2KHR(Handle, pDisplayPlaneInfo, pCapabilities);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDisplayPlaneCapabilities2KHR(in VkDisplayPlaneInfo2KHR pDisplayPlaneInfo, out VkDisplayPlaneCapabilities2KHR pCapabilities)
+	{
+		fixed (VkDisplayPlaneInfo2KHR* pDisplayPlaneInfoFIXED = &pDisplayPlaneInfo)
+		fixed (VkDisplayPlaneCapabilities2KHR* pCapabilitiesFIXED = &pCapabilities)
+		return Functions.vkGetDisplayPlaneCapabilities2KHR(Handle, pDisplayPlaneInfoFIXED, pCapabilitiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceCalibrateableTimeDomainsEXT(uint* pTimeDomainCount, VkTimeDomainEXT* pTimeDomains)
 		=> Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(Handle, pTimeDomainCount, pTimeDomains);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceCalibrateableTimeDomainsEXT(ref uint pTimeDomainCount, VkTimeDomainEXT* pTimeDomains)
+	{
+		fixed (uint* pTimeDomainCountFIXED = &pTimeDomainCount)
+		return Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(Handle, pTimeDomainCountFIXED, pTimeDomains);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceCooperativeMatrixPropertiesNV(uint* pPropertyCount, VkCooperativeMatrixPropertiesNV* pProperties)
 		=> Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(Handle, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceCooperativeMatrixPropertiesNV(ref uint pPropertyCount, VkCooperativeMatrixPropertiesNV* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(Handle, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfacePresentModes2EXT(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, uint* pPresentModeCount, VkPresentModeKHR* pPresentModes)
 		=> Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT(Handle, pSurfaceInfo, pPresentModeCount, pPresentModes);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSurfacePresentModes2EXT(in VkPhysicalDeviceSurfaceInfo2KHR pSurfaceInfo, ref uint pPresentModeCount, VkPresentModeKHR* pPresentModes)
+	{
+		fixed (VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfoFIXED = &pSurfaceInfo)
+		fixed (uint* pPresentModeCountFIXED = &pPresentModeCount)
+		return Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT(Handle, pSurfaceInfoFIXED, pPresentModeCountFIXED, pPresentModes);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(uint queueFamilyIndex, uint* pCounterCount, VkPerformanceCounterKHR* pCounters, VkPerformanceCounterDescriptionKHR* pCounterDescriptions)
 		=> Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Handle, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(uint queueFamilyIndex, ref uint pCounterCount, VkPerformanceCounterKHR* pCounters, VkPerformanceCounterDescriptionKHR* pCounterDescriptions)
+	{
+		fixed (uint* pCounterCountFIXED = &pCounterCount)
+		return Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Handle, queueFamilyIndex, pCounterCountFIXED, pCounters, pCounterDescriptions);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(VkQueryPoolPerformanceCreateInfoKHR* pPerformanceQueryCreateInfo, uint* pNumPasses)
 		=> Functions.vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(Handle, pPerformanceQueryCreateInfo, pNumPasses);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(in VkQueryPoolPerformanceCreateInfoKHR pPerformanceQueryCreateInfo, out uint pNumPasses)
+	{
+		fixed (VkQueryPoolPerformanceCreateInfoKHR* pPerformanceQueryCreateInfoFIXED = &pPerformanceQueryCreateInfo)
+		fixed (uint* pNumPassesFIXED = &pNumPasses)
+		Functions.vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(Handle, pPerformanceQueryCreateInfoFIXED, pNumPassesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(uint* pCombinationCount, VkFramebufferMixedSamplesCombinationNV* pCombinations)
 		=> Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Handle, pCombinationCount, pCombinations);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(ref uint pCombinationCount, VkFramebufferMixedSamplesCombinationNV* pCombinations)
+	{
+		fixed (uint* pCombinationCountFIXED = &pCombinationCount)
+		return Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Handle, pCombinationCountFIXED, pCombinations);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceToolPropertiesEXT(uint* pToolCount, VkPhysicalDeviceToolPropertiesEXT* pToolProperties)
 		=> Functions.vkGetPhysicalDeviceToolPropertiesEXT(Handle, pToolCount, pToolProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceToolPropertiesEXT(ref uint pToolCount, VkPhysicalDeviceToolPropertiesEXT* pToolProperties)
+	{
+		fixed (uint* pToolCountFIXED = &pToolCount)
+		return Functions.vkGetPhysicalDeviceToolPropertiesEXT(Handle, pToolCountFIXED, pToolProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceFragmentShadingRatesKHR(uint* pFragmentShadingRateCount, VkPhysicalDeviceFragmentShadingRateKHR* pFragmentShadingRates)
 		=> Functions.vkGetPhysicalDeviceFragmentShadingRatesKHR(Handle, pFragmentShadingRateCount, pFragmentShadingRates);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPhysicalDeviceFragmentShadingRatesKHR(ref uint pFragmentShadingRateCount, VkPhysicalDeviceFragmentShadingRateKHR* pFragmentShadingRates)
+	{
+		fixed (uint* pFragmentShadingRateCountFIXED = &pFragmentShadingRateCount)
+		return Functions.vkGetPhysicalDeviceFragmentShadingRatesKHR(Handle, pFragmentShadingRateCountFIXED, pFragmentShadingRates);
+	}
 
 }
 
@@ -360,377 +1043,1273 @@ public unsafe sealed partial class VkDevice : IVulkanHandle<VkDevice>
 	public static implicit operator VulkanHandle<VkDevice> (VkDevice? h) => h?.Handle ?? VulkanHandle<VkDevice>.Null;
 	public static implicit operator bool (VkDevice? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDevice(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDevice(Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue(uint queueFamilyIndex, uint queueIndex, VulkanHandle<VkQueue>* pQueue)
 		=> Functions.vkGetDeviceQueue(Handle, queueFamilyIndex, queueIndex, pQueue);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceQueue(uint queueFamilyIndex, uint queueIndex, out VulkanHandle<VkQueue> pQueue)
+	{
+		fixed (VulkanHandle<VkQueue>* pQueueFIXED = &pQueue)
+		Functions.vkGetDeviceQueue(Handle, queueFamilyIndex, queueIndex, pQueueFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult DeviceWaitIdle()
 		=> Functions.vkDeviceWaitIdle(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AllocateMemory(VkMemoryAllocateInfo* pAllocateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDeviceMemory>* pMemory)
 		=> Functions.vkAllocateMemory(Handle, pAllocateInfo, pAllocator, pMemory);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AllocateMemory(in VkMemoryAllocateInfo pAllocateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDeviceMemory> pMemory)
+	{
+		fixed (VkMemoryAllocateInfo* pAllocateInfoFIXED = &pAllocateInfo)
+		fixed (VulkanHandle<VkDeviceMemory>* pMemoryFIXED = &pMemory)
+		return Functions.vkAllocateMemory(Handle, pAllocateInfoFIXED, pAllocator, pMemoryFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult FlushMappedMemoryRanges(uint memoryRangeCount, VkMappedMemoryRange* pMemoryRanges)
 		=> Functions.vkFlushMappedMemoryRanges(Handle, memoryRangeCount, pMemoryRanges);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult InvalidateMappedMemoryRanges(uint memoryRangeCount, VkMappedMemoryRange* pMemoryRanges)
 		=> Functions.vkInvalidateMappedMemoryRanges(Handle, memoryRangeCount, pMemoryRanges);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateFence(VkFenceCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFence>* pFence)
 		=> Functions.vkCreateFence(Handle, pCreateInfo, pAllocator, pFence);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateFence(in VkFenceCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkFence> pFence)
+	{
+		fixed (VkFenceCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkFence>* pFenceFIXED = &pFence)
+		return Functions.vkCreateFence(Handle, pCreateInfoFIXED, pAllocator, pFenceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ResetFences(uint fenceCount, VulkanHandle<VkFence>* pFences)
 		=> Functions.vkResetFences(Handle, fenceCount, pFences);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult WaitForFences(uint fenceCount, VulkanHandle<VkFence>* pFences, VkBool32 waitAll, ulong timeout)
 		=> Functions.vkWaitForFences(Handle, fenceCount, pFences, waitAll, timeout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateSemaphore(VkSemaphoreCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSemaphore>* pSemaphore)
 		=> Functions.vkCreateSemaphore(Handle, pCreateInfo, pAllocator, pSemaphore);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateSemaphore(in VkSemaphoreCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSemaphore> pSemaphore)
+	{
+		fixed (VkSemaphoreCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSemaphore>* pSemaphoreFIXED = &pSemaphore)
+		return Functions.vkCreateSemaphore(Handle, pCreateInfoFIXED, pAllocator, pSemaphoreFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateEvent(VkEventCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkEvent>* pEvent)
 		=> Functions.vkCreateEvent(Handle, pCreateInfo, pAllocator, pEvent);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateEvent(in VkEventCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkEvent> pEvent)
+	{
+		fixed (VkEventCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkEvent>* pEventFIXED = &pEvent)
+		return Functions.vkCreateEvent(Handle, pCreateInfoFIXED, pAllocator, pEventFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateQueryPool(VkQueryPoolCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkQueryPool>* pQueryPool)
 		=> Functions.vkCreateQueryPool(Handle, pCreateInfo, pAllocator, pQueryPool);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateQueryPool(in VkQueryPoolCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkQueryPool> pQueryPool)
+	{
+		fixed (VkQueryPoolCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkQueryPool>* pQueryPoolFIXED = &pQueryPool)
+		return Functions.vkCreateQueryPool(Handle, pCreateInfoFIXED, pAllocator, pQueryPoolFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateBuffer(VkBufferCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkBuffer>* pBuffer)
 		=> Functions.vkCreateBuffer(Handle, pCreateInfo, pAllocator, pBuffer);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateBuffer(in VkBufferCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkBuffer> pBuffer)
+	{
+		fixed (VkBufferCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkBuffer>* pBufferFIXED = &pBuffer)
+		return Functions.vkCreateBuffer(Handle, pCreateInfoFIXED, pAllocator, pBufferFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateBufferView(VkBufferViewCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkBufferView>* pView)
 		=> Functions.vkCreateBufferView(Handle, pCreateInfo, pAllocator, pView);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateBufferView(in VkBufferViewCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkBufferView> pView)
+	{
+		fixed (VkBufferViewCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkBufferView>* pViewFIXED = &pView)
+		return Functions.vkCreateBufferView(Handle, pCreateInfoFIXED, pAllocator, pViewFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateImage(VkImageCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkImage>* pImage)
 		=> Functions.vkCreateImage(Handle, pCreateInfo, pAllocator, pImage);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateImage(in VkImageCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkImage> pImage)
+	{
+		fixed (VkImageCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkImage>* pImageFIXED = &pImage)
+		return Functions.vkCreateImage(Handle, pCreateInfoFIXED, pAllocator, pImageFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateImageView(VkImageViewCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkImageView>* pView)
 		=> Functions.vkCreateImageView(Handle, pCreateInfo, pAllocator, pView);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateImageView(in VkImageViewCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkImageView> pView)
+	{
+		fixed (VkImageViewCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkImageView>* pViewFIXED = &pView)
+		return Functions.vkCreateImageView(Handle, pCreateInfoFIXED, pAllocator, pViewFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateShaderModule(VkShaderModuleCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkShaderModule>* pShaderModule)
 		=> Functions.vkCreateShaderModule(Handle, pCreateInfo, pAllocator, pShaderModule);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateShaderModule(in VkShaderModuleCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkShaderModule> pShaderModule)
+	{
+		fixed (VkShaderModuleCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkShaderModule>* pShaderModuleFIXED = &pShaderModule)
+		return Functions.vkCreateShaderModule(Handle, pCreateInfoFIXED, pAllocator, pShaderModuleFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreatePipelineCache(VkPipelineCacheCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipelineCache>* pPipelineCache)
 		=> Functions.vkCreatePipelineCache(Handle, pCreateInfo, pAllocator, pPipelineCache);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreatePipelineCache(in VkPipelineCacheCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkPipelineCache> pPipelineCache)
+	{
+		fixed (VkPipelineCacheCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkPipelineCache>* pPipelineCacheFIXED = &pPipelineCache)
+		return Functions.vkCreatePipelineCache(Handle, pCreateInfoFIXED, pAllocator, pPipelineCacheFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreatePipelineLayout(VkPipelineLayoutCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipelineLayout>* pPipelineLayout)
 		=> Functions.vkCreatePipelineLayout(Handle, pCreateInfo, pAllocator, pPipelineLayout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreatePipelineLayout(in VkPipelineLayoutCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkPipelineLayout> pPipelineLayout)
+	{
+		fixed (VkPipelineLayoutCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkPipelineLayout>* pPipelineLayoutFIXED = &pPipelineLayout)
+		return Functions.vkCreatePipelineLayout(Handle, pCreateInfoFIXED, pAllocator, pPipelineLayoutFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateSampler(VkSamplerCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSampler>* pSampler)
 		=> Functions.vkCreateSampler(Handle, pCreateInfo, pAllocator, pSampler);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateSampler(in VkSamplerCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSampler> pSampler)
+	{
+		fixed (VkSamplerCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSampler>* pSamplerFIXED = &pSampler)
+		return Functions.vkCreateSampler(Handle, pCreateInfoFIXED, pAllocator, pSamplerFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDescriptorSetLayout(VkDescriptorSetLayoutCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorSetLayout>* pSetLayout)
 		=> Functions.vkCreateDescriptorSetLayout(Handle, pCreateInfo, pAllocator, pSetLayout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDescriptorSetLayout(in VkDescriptorSetLayoutCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDescriptorSetLayout> pSetLayout)
+	{
+		fixed (VkDescriptorSetLayoutCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDescriptorSetLayout>* pSetLayoutFIXED = &pSetLayout)
+		return Functions.vkCreateDescriptorSetLayout(Handle, pCreateInfoFIXED, pAllocator, pSetLayoutFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDescriptorPool(VkDescriptorPoolCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorPool>* pDescriptorPool)
 		=> Functions.vkCreateDescriptorPool(Handle, pCreateInfo, pAllocator, pDescriptorPool);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDescriptorPool(in VkDescriptorPoolCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDescriptorPool> pDescriptorPool)
+	{
+		fixed (VkDescriptorPoolCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDescriptorPool>* pDescriptorPoolFIXED = &pDescriptorPool)
+		return Functions.vkCreateDescriptorPool(Handle, pCreateInfoFIXED, pAllocator, pDescriptorPoolFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AllocateDescriptorSets(VkDescriptorSetAllocateInfo* pAllocateInfo, VulkanHandle<VkDescriptorSet>* pDescriptorSets)
 		=> Functions.vkAllocateDescriptorSets(Handle, pAllocateInfo, pDescriptorSets);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AllocateDescriptorSets(in VkDescriptorSetAllocateInfo pAllocateInfo, VulkanHandle<VkDescriptorSet>* pDescriptorSets)
+	{
+		fixed (VkDescriptorSetAllocateInfo* pAllocateInfoFIXED = &pAllocateInfo)
+		return Functions.vkAllocateDescriptorSets(Handle, pAllocateInfoFIXED, pDescriptorSets);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateDescriptorSets(uint descriptorWriteCount, VkWriteDescriptorSet* pDescriptorWrites, uint descriptorCopyCount, VkCopyDescriptorSet* pDescriptorCopies)
 		=> Functions.vkUpdateDescriptorSets(Handle, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateFramebuffer(VkFramebufferCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFramebuffer>* pFramebuffer)
 		=> Functions.vkCreateFramebuffer(Handle, pCreateInfo, pAllocator, pFramebuffer);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateFramebuffer(in VkFramebufferCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkFramebuffer> pFramebuffer)
+	{
+		fixed (VkFramebufferCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkFramebuffer>* pFramebufferFIXED = &pFramebuffer)
+		return Functions.vkCreateFramebuffer(Handle, pCreateInfoFIXED, pAllocator, pFramebufferFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateRenderPass(VkRenderPassCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkRenderPass>* pRenderPass)
 		=> Functions.vkCreateRenderPass(Handle, pCreateInfo, pAllocator, pRenderPass);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateRenderPass(in VkRenderPassCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkRenderPass> pRenderPass)
+	{
+		fixed (VkRenderPassCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkRenderPass>* pRenderPassFIXED = &pRenderPass)
+		return Functions.vkCreateRenderPass(Handle, pCreateInfoFIXED, pAllocator, pRenderPassFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateCommandPool(VkCommandPoolCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkCommandPool>* pCommandPool)
 		=> Functions.vkCreateCommandPool(Handle, pCreateInfo, pAllocator, pCommandPool);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateCommandPool(in VkCommandPoolCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkCommandPool> pCommandPool)
+	{
+		fixed (VkCommandPoolCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkCommandPool>* pCommandPoolFIXED = &pCommandPool)
+		return Functions.vkCreateCommandPool(Handle, pCreateInfoFIXED, pAllocator, pCommandPoolFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AllocateCommandBuffers(VkCommandBufferAllocateInfo* pAllocateInfo, VulkanHandle<VkCommandBuffer>* pCommandBuffers)
 		=> Functions.vkAllocateCommandBuffers(Handle, pAllocateInfo, pCommandBuffers);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AllocateCommandBuffers(in VkCommandBufferAllocateInfo pAllocateInfo, VulkanHandle<VkCommandBuffer>* pCommandBuffers)
+	{
+		fixed (VkCommandBufferAllocateInfo* pAllocateInfoFIXED = &pAllocateInfo)
+		return Functions.vkAllocateCommandBuffers(Handle, pAllocateInfoFIXED, pCommandBuffers);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateSharedSwapchainsKHR(uint swapchainCount, VkSwapchainCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSwapchainKHR>* pSwapchains)
 		=> Functions.vkCreateSharedSwapchainsKHR(Handle, swapchainCount, pCreateInfos, pAllocator, pSwapchains);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateSwapchainKHR(VkSwapchainCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSwapchainKHR>* pSwapchain)
 		=> Functions.vkCreateSwapchainKHR(Handle, pCreateInfo, pAllocator, pSwapchain);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateSwapchainKHR(in VkSwapchainCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSwapchainKHR> pSwapchain)
+	{
+		fixed (VkSwapchainCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSwapchainKHR>* pSwapchainFIXED = &pSwapchain)
+		return Functions.vkCreateSwapchainKHR(Handle, pCreateInfoFIXED, pAllocator, pSwapchainFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult DebugMarkerSetObjectNameEXT(VkDebugMarkerObjectNameInfoEXT* pNameInfo)
 		=> Functions.vkDebugMarkerSetObjectNameEXT(Handle, pNameInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult DebugMarkerSetObjectNameEXT(in VkDebugMarkerObjectNameInfoEXT pNameInfo)
+	{
+		fixed (VkDebugMarkerObjectNameInfoEXT* pNameInfoFIXED = &pNameInfo)
+		return Functions.vkDebugMarkerSetObjectNameEXT(Handle, pNameInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult DebugMarkerSetObjectTagEXT(VkDebugMarkerObjectTagInfoEXT* pTagInfo)
 		=> Functions.vkDebugMarkerSetObjectTagEXT(Handle, pTagInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult DebugMarkerSetObjectTagEXT(in VkDebugMarkerObjectTagInfoEXT pTagInfo)
+	{
+		fixed (VkDebugMarkerObjectTagInfoEXT* pTagInfoFIXED = &pTagInfo)
+		return Functions.vkDebugMarkerSetObjectTagEXT(Handle, pTagInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetGeneratedCommandsMemoryRequirementsNV(VkGeneratedCommandsMemoryRequirementsInfoNV* pInfo, VkMemoryRequirements2* pMemoryRequirements)
 		=> Functions.vkGetGeneratedCommandsMemoryRequirementsNV(Handle, pInfo, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetGeneratedCommandsMemoryRequirementsNV(in VkGeneratedCommandsMemoryRequirementsInfoNV pInfo, out VkMemoryRequirements2 pMemoryRequirements)
+	{
+		fixed (VkGeneratedCommandsMemoryRequirementsInfoNV* pInfoFIXED = &pInfo)
+		fixed (VkMemoryRequirements2* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetGeneratedCommandsMemoryRequirementsNV(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateIndirectCommandsLayoutNV(VkIndirectCommandsLayoutCreateInfoNV* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkIndirectCommandsLayoutNV>* pIndirectCommandsLayout)
 		=> Functions.vkCreateIndirectCommandsLayoutNV(Handle, pCreateInfo, pAllocator, pIndirectCommandsLayout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateIndirectCommandsLayoutNV(in VkIndirectCommandsLayoutCreateInfoNV pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkIndirectCommandsLayoutNV> pIndirectCommandsLayout)
+	{
+		fixed (VkIndirectCommandsLayoutCreateInfoNV* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkIndirectCommandsLayoutNV>* pIndirectCommandsLayoutFIXED = &pIndirectCommandsLayout)
+		return Functions.vkCreateIndirectCommandsLayoutNV(Handle, pCreateInfoFIXED, pAllocator, pIndirectCommandsLayoutFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetMemoryWin32HandleKHR(VkMemoryGetWin32HandleInfoKHR* pGetWin32HandleInfo, void** pHandle)
 		=> Functions.vkGetMemoryWin32HandleKHR(Handle, pGetWin32HandleInfo, pHandle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetMemoryWin32HandleKHR(in VkMemoryGetWin32HandleInfoKHR pGetWin32HandleInfo, out void* pHandle)
+	{
+		fixed (VkMemoryGetWin32HandleInfoKHR* pGetWin32HandleInfoFIXED = &pGetWin32HandleInfo)
+		fixed (void** pHandleFIXED = &pHandle)
+		return Functions.vkGetMemoryWin32HandleKHR(Handle, pGetWin32HandleInfoFIXED, pHandleFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetMemoryWin32HandlePropertiesKHR(VkExternalMemoryHandleTypeFlags handleType, void* handle, VkMemoryWin32HandlePropertiesKHR* pMemoryWin32HandleProperties)
 		=> Functions.vkGetMemoryWin32HandlePropertiesKHR(Handle, handleType, handle, pMemoryWin32HandleProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetMemoryWin32HandlePropertiesKHR(VkExternalMemoryHandleTypeFlags handleType, void* handle, out VkMemoryWin32HandlePropertiesKHR pMemoryWin32HandleProperties)
+	{
+		fixed (VkMemoryWin32HandlePropertiesKHR* pMemoryWin32HandlePropertiesFIXED = &pMemoryWin32HandleProperties)
+		return Functions.vkGetMemoryWin32HandlePropertiesKHR(Handle, handleType, handle, pMemoryWin32HandlePropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetMemoryFdKHR(VkMemoryGetFdInfoKHR* pGetFdInfo, int* pFd)
 		=> Functions.vkGetMemoryFdKHR(Handle, pGetFdInfo, pFd);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetMemoryFdKHR(in VkMemoryGetFdInfoKHR pGetFdInfo, out int pFd)
+	{
+		fixed (VkMemoryGetFdInfoKHR* pGetFdInfoFIXED = &pGetFdInfo)
+		fixed (int* pFdFIXED = &pFd)
+		return Functions.vkGetMemoryFdKHR(Handle, pGetFdInfoFIXED, pFdFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetMemoryFdPropertiesKHR(VkExternalMemoryHandleTypeFlags handleType, int fd, VkMemoryFdPropertiesKHR* pMemoryFdProperties)
 		=> Functions.vkGetMemoryFdPropertiesKHR(Handle, handleType, fd, pMemoryFdProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetMemoryFdPropertiesKHR(VkExternalMemoryHandleTypeFlags handleType, int fd, out VkMemoryFdPropertiesKHR pMemoryFdProperties)
+	{
+		fixed (VkMemoryFdPropertiesKHR* pMemoryFdPropertiesFIXED = &pMemoryFdProperties)
+		return Functions.vkGetMemoryFdPropertiesKHR(Handle, handleType, fd, pMemoryFdPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSemaphoreWin32HandleKHR(VkSemaphoreGetWin32HandleInfoKHR* pGetWin32HandleInfo, void** pHandle)
 		=> Functions.vkGetSemaphoreWin32HandleKHR(Handle, pGetWin32HandleInfo, pHandle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSemaphoreWin32HandleKHR(in VkSemaphoreGetWin32HandleInfoKHR pGetWin32HandleInfo, out void* pHandle)
+	{
+		fixed (VkSemaphoreGetWin32HandleInfoKHR* pGetWin32HandleInfoFIXED = &pGetWin32HandleInfo)
+		fixed (void** pHandleFIXED = &pHandle)
+		return Functions.vkGetSemaphoreWin32HandleKHR(Handle, pGetWin32HandleInfoFIXED, pHandleFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ImportSemaphoreWin32HandleKHR(VkImportSemaphoreWin32HandleInfoKHR* pImportSemaphoreWin32HandleInfo)
 		=> Functions.vkImportSemaphoreWin32HandleKHR(Handle, pImportSemaphoreWin32HandleInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult ImportSemaphoreWin32HandleKHR(in VkImportSemaphoreWin32HandleInfoKHR pImportSemaphoreWin32HandleInfo)
+	{
+		fixed (VkImportSemaphoreWin32HandleInfoKHR* pImportSemaphoreWin32HandleInfoFIXED = &pImportSemaphoreWin32HandleInfo)
+		return Functions.vkImportSemaphoreWin32HandleKHR(Handle, pImportSemaphoreWin32HandleInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSemaphoreFdKHR(VkSemaphoreGetFdInfoKHR* pGetFdInfo, int* pFd)
 		=> Functions.vkGetSemaphoreFdKHR(Handle, pGetFdInfo, pFd);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSemaphoreFdKHR(in VkSemaphoreGetFdInfoKHR pGetFdInfo, out int pFd)
+	{
+		fixed (VkSemaphoreGetFdInfoKHR* pGetFdInfoFIXED = &pGetFdInfo)
+		fixed (int* pFdFIXED = &pFd)
+		return Functions.vkGetSemaphoreFdKHR(Handle, pGetFdInfoFIXED, pFdFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ImportSemaphoreFdKHR(VkImportSemaphoreFdInfoKHR* pImportSemaphoreFdInfo)
 		=> Functions.vkImportSemaphoreFdKHR(Handle, pImportSemaphoreFdInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult ImportSemaphoreFdKHR(in VkImportSemaphoreFdInfoKHR pImportSemaphoreFdInfo)
+	{
+		fixed (VkImportSemaphoreFdInfoKHR* pImportSemaphoreFdInfoFIXED = &pImportSemaphoreFdInfo)
+		return Functions.vkImportSemaphoreFdKHR(Handle, pImportSemaphoreFdInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetFenceWin32HandleKHR(VkFenceGetWin32HandleInfoKHR* pGetWin32HandleInfo, void** pHandle)
 		=> Functions.vkGetFenceWin32HandleKHR(Handle, pGetWin32HandleInfo, pHandle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetFenceWin32HandleKHR(in VkFenceGetWin32HandleInfoKHR pGetWin32HandleInfo, out void* pHandle)
+	{
+		fixed (VkFenceGetWin32HandleInfoKHR* pGetWin32HandleInfoFIXED = &pGetWin32HandleInfo)
+		fixed (void** pHandleFIXED = &pHandle)
+		return Functions.vkGetFenceWin32HandleKHR(Handle, pGetWin32HandleInfoFIXED, pHandleFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ImportFenceWin32HandleKHR(VkImportFenceWin32HandleInfoKHR* pImportFenceWin32HandleInfo)
 		=> Functions.vkImportFenceWin32HandleKHR(Handle, pImportFenceWin32HandleInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult ImportFenceWin32HandleKHR(in VkImportFenceWin32HandleInfoKHR pImportFenceWin32HandleInfo)
+	{
+		fixed (VkImportFenceWin32HandleInfoKHR* pImportFenceWin32HandleInfoFIXED = &pImportFenceWin32HandleInfo)
+		return Functions.vkImportFenceWin32HandleKHR(Handle, pImportFenceWin32HandleInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetFenceFdKHR(VkFenceGetFdInfoKHR* pGetFdInfo, int* pFd)
 		=> Functions.vkGetFenceFdKHR(Handle, pGetFdInfo, pFd);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetFenceFdKHR(in VkFenceGetFdInfoKHR pGetFdInfo, out int pFd)
+	{
+		fixed (VkFenceGetFdInfoKHR* pGetFdInfoFIXED = &pGetFdInfo)
+		fixed (int* pFdFIXED = &pFd)
+		return Functions.vkGetFenceFdKHR(Handle, pGetFdInfoFIXED, pFdFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ImportFenceFdKHR(VkImportFenceFdInfoKHR* pImportFenceFdInfo)
 		=> Functions.vkImportFenceFdKHR(Handle, pImportFenceFdInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult ImportFenceFdKHR(in VkImportFenceFdInfoKHR pImportFenceFdInfo)
+	{
+		fixed (VkImportFenceFdInfoKHR* pImportFenceFdInfoFIXED = &pImportFenceFdInfo)
+		return Functions.vkImportFenceFdKHR(Handle, pImportFenceFdInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult DisplayPowerControlEXT(VulkanHandle<VkDisplayKHR> display, VkDisplayPowerInfoEXT* pDisplayPowerInfo)
 		=> Functions.vkDisplayPowerControlEXT(Handle, display, pDisplayPowerInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult DisplayPowerControlEXT(VulkanHandle<VkDisplayKHR> display, in VkDisplayPowerInfoEXT pDisplayPowerInfo)
+	{
+		fixed (VkDisplayPowerInfoEXT* pDisplayPowerInfoFIXED = &pDisplayPowerInfo)
+		return Functions.vkDisplayPowerControlEXT(Handle, display, pDisplayPowerInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult RegisterDeviceEventEXT(VkDeviceEventInfoEXT* pDeviceEventInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFence>* pFence)
 		=> Functions.vkRegisterDeviceEventEXT(Handle, pDeviceEventInfo, pAllocator, pFence);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult RegisterDeviceEventEXT(in VkDeviceEventInfoEXT pDeviceEventInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkFence> pFence)
+	{
+		fixed (VkDeviceEventInfoEXT* pDeviceEventInfoFIXED = &pDeviceEventInfo)
+		fixed (VulkanHandle<VkFence>* pFenceFIXED = &pFence)
+		return Functions.vkRegisterDeviceEventEXT(Handle, pDeviceEventInfoFIXED, pAllocator, pFenceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult RegisterDisplayEventEXT(VulkanHandle<VkDisplayKHR> display, VkDisplayEventInfoEXT* pDisplayEventInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFence>* pFence)
 		=> Functions.vkRegisterDisplayEventEXT(Handle, display, pDisplayEventInfo, pAllocator, pFence);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult RegisterDisplayEventEXT(VulkanHandle<VkDisplayKHR> display, in VkDisplayEventInfoEXT pDisplayEventInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkFence> pFence)
+	{
+		fixed (VkDisplayEventInfoEXT* pDisplayEventInfoFIXED = &pDisplayEventInfo)
+		fixed (VulkanHandle<VkFence>* pFenceFIXED = &pFence)
+		return Functions.vkRegisterDisplayEventEXT(Handle, display, pDisplayEventInfoFIXED, pAllocator, pFenceFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceGroupPeerMemoryFeatures(uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, VkPeerMemoryFeatureFlags* pPeerMemoryFeatures)
 		=> Functions.vkGetDeviceGroupPeerMemoryFeatures(Handle, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceGroupPeerMemoryFeatures(uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, out VkPeerMemoryFeatureFlags pPeerMemoryFeatures)
+	{
+		fixed (VkPeerMemoryFeatureFlags* pPeerMemoryFeaturesFIXED = &pPeerMemoryFeatures)
+		Functions.vkGetDeviceGroupPeerMemoryFeatures(Handle, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeaturesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceGroupPeerMemoryFeaturesKHR(uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, VkPeerMemoryFeatureFlags* pPeerMemoryFeatures)
 		=> Functions.vkGetDeviceGroupPeerMemoryFeaturesKHR(Handle, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceGroupPeerMemoryFeaturesKHR(uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, out VkPeerMemoryFeatureFlags pPeerMemoryFeatures)
+	{
+		fixed (VkPeerMemoryFeatureFlags* pPeerMemoryFeaturesFIXED = &pPeerMemoryFeatures)
+		Functions.vkGetDeviceGroupPeerMemoryFeaturesKHR(Handle, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeaturesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindBufferMemory2(uint bindInfoCount, VkBindBufferMemoryInfo* pBindInfos)
 		=> Functions.vkBindBufferMemory2(Handle, bindInfoCount, pBindInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindBufferMemory2KHR(uint bindInfoCount, VkBindBufferMemoryInfo* pBindInfos)
 		=> Functions.vkBindBufferMemory2KHR(Handle, bindInfoCount, pBindInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindImageMemory2(uint bindInfoCount, VkBindImageMemoryInfo* pBindInfos)
 		=> Functions.vkBindImageMemory2(Handle, bindInfoCount, pBindInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindImageMemory2KHR(uint bindInfoCount, VkBindImageMemoryInfo* pBindInfos)
 		=> Functions.vkBindImageMemory2KHR(Handle, bindInfoCount, pBindInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDeviceGroupPresentCapabilitiesKHR(VkDeviceGroupPresentCapabilitiesKHR* pDeviceGroupPresentCapabilities)
 		=> Functions.vkGetDeviceGroupPresentCapabilitiesKHR(Handle, pDeviceGroupPresentCapabilities);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDeviceGroupPresentCapabilitiesKHR(out VkDeviceGroupPresentCapabilitiesKHR pDeviceGroupPresentCapabilities)
+	{
+		fixed (VkDeviceGroupPresentCapabilitiesKHR* pDeviceGroupPresentCapabilitiesFIXED = &pDeviceGroupPresentCapabilities)
+		return Functions.vkGetDeviceGroupPresentCapabilitiesKHR(Handle, pDeviceGroupPresentCapabilitiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDeviceGroupSurfacePresentModesKHR(VulkanHandle<VkSurfaceKHR> surface, VkDeviceGroupPresentModeFlagsKHR* pModes)
 		=> Functions.vkGetDeviceGroupSurfacePresentModesKHR(Handle, surface, pModes);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDeviceGroupSurfacePresentModesKHR(VulkanHandle<VkSurfaceKHR> surface, ref VkDeviceGroupPresentModeFlagsKHR pModes)
+	{
+		fixed (VkDeviceGroupPresentModeFlagsKHR* pModesFIXED = &pModes)
+		return Functions.vkGetDeviceGroupSurfacePresentModesKHR(Handle, surface, pModesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AcquireNextImage2KHR(VkAcquireNextImageInfoKHR* pAcquireInfo, uint* pImageIndex)
 		=> Functions.vkAcquireNextImage2KHR(Handle, pAcquireInfo, pImageIndex);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AcquireNextImage2KHR(in VkAcquireNextImageInfoKHR pAcquireInfo, out uint pImageIndex)
+	{
+		fixed (VkAcquireNextImageInfoKHR* pAcquireInfoFIXED = &pAcquireInfo)
+		fixed (uint* pImageIndexFIXED = &pImageIndex)
+		return Functions.vkAcquireNextImage2KHR(Handle, pAcquireInfoFIXED, pImageIndexFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDescriptorUpdateTemplate(VkDescriptorUpdateTemplateCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorUpdateTemplate>* pDescriptorUpdateTemplate)
 		=> Functions.vkCreateDescriptorUpdateTemplate(Handle, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDescriptorUpdateTemplate(in VkDescriptorUpdateTemplateCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDescriptorUpdateTemplate> pDescriptorUpdateTemplate)
+	{
+		fixed (VkDescriptorUpdateTemplateCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDescriptorUpdateTemplate>* pDescriptorUpdateTemplateFIXED = &pDescriptorUpdateTemplate)
+		return Functions.vkCreateDescriptorUpdateTemplate(Handle, pCreateInfoFIXED, pAllocator, pDescriptorUpdateTemplateFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDescriptorUpdateTemplateKHR(VkDescriptorUpdateTemplateCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorUpdateTemplate>* pDescriptorUpdateTemplate)
 		=> Functions.vkCreateDescriptorUpdateTemplateKHR(Handle, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDescriptorUpdateTemplateKHR(in VkDescriptorUpdateTemplateCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDescriptorUpdateTemplate> pDescriptorUpdateTemplate)
+	{
+		fixed (VkDescriptorUpdateTemplateCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDescriptorUpdateTemplate>* pDescriptorUpdateTemplateFIXED = &pDescriptorUpdateTemplate)
+		return Functions.vkCreateDescriptorUpdateTemplateKHR(Handle, pCreateInfoFIXED, pAllocator, pDescriptorUpdateTemplateFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateDescriptorSetWithTemplate(VulkanHandle<VkDescriptorSet> descriptorSet, VulkanHandle<VkDescriptorUpdateTemplate> descriptorUpdateTemplate, void* pData)
 		=> Functions.vkUpdateDescriptorSetWithTemplate(Handle, descriptorSet, descriptorUpdateTemplate, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UpdateDescriptorSetWithTemplateKHR(VulkanHandle<VkDescriptorSet> descriptorSet, VulkanHandle<VkDescriptorUpdateTemplate> descriptorUpdateTemplate, void* pData)
 		=> Functions.vkUpdateDescriptorSetWithTemplateKHR(Handle, descriptorSet, descriptorUpdateTemplate, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetHdrMetadataEXT(uint swapchainCount, VulkanHandle<VkSwapchainKHR>* pSwapchains, VkHdrMetadataEXT* pMetadata)
 		=> Functions.vkSetHdrMetadataEXT(Handle, swapchainCount, pSwapchains, pMetadata);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements2(VkBufferMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
 		=> Functions.vkGetBufferMemoryRequirements2(Handle, pInfo, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetBufferMemoryRequirements2(in VkBufferMemoryRequirementsInfo2 pInfo, out VkMemoryRequirements2 pMemoryRequirements)
+	{
+		fixed (VkBufferMemoryRequirementsInfo2* pInfoFIXED = &pInfo)
+		fixed (VkMemoryRequirements2* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetBufferMemoryRequirements2(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements2KHR(VkBufferMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
 		=> Functions.vkGetBufferMemoryRequirements2KHR(Handle, pInfo, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetBufferMemoryRequirements2KHR(in VkBufferMemoryRequirementsInfo2 pInfo, out VkMemoryRequirements2 pMemoryRequirements)
+	{
+		fixed (VkBufferMemoryRequirementsInfo2* pInfoFIXED = &pInfo)
+		fixed (VkMemoryRequirements2* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetBufferMemoryRequirements2KHR(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements2(VkImageMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
 		=> Functions.vkGetImageMemoryRequirements2(Handle, pInfo, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageMemoryRequirements2(in VkImageMemoryRequirementsInfo2 pInfo, out VkMemoryRequirements2 pMemoryRequirements)
+	{
+		fixed (VkImageMemoryRequirementsInfo2* pInfoFIXED = &pInfo)
+		fixed (VkMemoryRequirements2* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetImageMemoryRequirements2(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements2KHR(VkImageMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
 		=> Functions.vkGetImageMemoryRequirements2KHR(Handle, pInfo, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageMemoryRequirements2KHR(in VkImageMemoryRequirementsInfo2 pInfo, out VkMemoryRequirements2 pMemoryRequirements)
+	{
+		fixed (VkImageMemoryRequirementsInfo2* pInfoFIXED = &pInfo)
+		fixed (VkMemoryRequirements2* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetImageMemoryRequirements2KHR(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements2(VkImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements2* pSparseMemoryRequirements)
 		=> Functions.vkGetImageSparseMemoryRequirements2(Handle, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements2(in VkImageSparseMemoryRequirementsInfo2 pInfo, ref uint pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements2* pSparseMemoryRequirements)
+	{
+		fixed (VkImageSparseMemoryRequirementsInfo2* pInfoFIXED = &pInfo)
+		fixed (uint* pSparseMemoryRequirementCountFIXED = &pSparseMemoryRequirementCount)
+		Functions.vkGetImageSparseMemoryRequirements2(Handle, pInfoFIXED, pSparseMemoryRequirementCountFIXED, pSparseMemoryRequirements);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements2KHR(VkImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements2* pSparseMemoryRequirements)
 		=> Functions.vkGetImageSparseMemoryRequirements2KHR(Handle, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements2KHR(in VkImageSparseMemoryRequirementsInfo2 pInfo, ref uint pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements2* pSparseMemoryRequirements)
+	{
+		fixed (VkImageSparseMemoryRequirementsInfo2* pInfoFIXED = &pInfo)
+		fixed (uint* pSparseMemoryRequirementCountFIXED = &pSparseMemoryRequirementCount)
+		Functions.vkGetImageSparseMemoryRequirements2KHR(Handle, pInfoFIXED, pSparseMemoryRequirementCountFIXED, pSparseMemoryRequirements);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateSamplerYcbcrConversion(VkSamplerYcbcrConversionCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSamplerYcbcrConversion>* pYcbcrConversion)
 		=> Functions.vkCreateSamplerYcbcrConversion(Handle, pCreateInfo, pAllocator, pYcbcrConversion);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateSamplerYcbcrConversion(in VkSamplerYcbcrConversionCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSamplerYcbcrConversion> pYcbcrConversion)
+	{
+		fixed (VkSamplerYcbcrConversionCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSamplerYcbcrConversion>* pYcbcrConversionFIXED = &pYcbcrConversion)
+		return Functions.vkCreateSamplerYcbcrConversion(Handle, pCreateInfoFIXED, pAllocator, pYcbcrConversionFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateSamplerYcbcrConversionKHR(VkSamplerYcbcrConversionCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSamplerYcbcrConversion>* pYcbcrConversion)
 		=> Functions.vkCreateSamplerYcbcrConversionKHR(Handle, pCreateInfo, pAllocator, pYcbcrConversion);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateSamplerYcbcrConversionKHR(in VkSamplerYcbcrConversionCreateInfo pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkSamplerYcbcrConversion> pYcbcrConversion)
+	{
+		fixed (VkSamplerYcbcrConversionCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkSamplerYcbcrConversion>* pYcbcrConversionFIXED = &pYcbcrConversion)
+		return Functions.vkCreateSamplerYcbcrConversionKHR(Handle, pCreateInfoFIXED, pAllocator, pYcbcrConversionFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceQueue2(VkDeviceQueueInfo2* pQueueInfo, VulkanHandle<VkQueue>* pQueue)
 		=> Functions.vkGetDeviceQueue2(Handle, pQueueInfo, pQueue);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceQueue2(in VkDeviceQueueInfo2 pQueueInfo, out VulkanHandle<VkQueue> pQueue)
+	{
+		fixed (VkDeviceQueueInfo2* pQueueInfoFIXED = &pQueueInfo)
+		fixed (VulkanHandle<VkQueue>* pQueueFIXED = &pQueue)
+		Functions.vkGetDeviceQueue2(Handle, pQueueInfoFIXED, pQueueFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateValidationCacheEXT(VkValidationCacheCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkValidationCacheEXT>* pValidationCache)
 		=> Functions.vkCreateValidationCacheEXT(Handle, pCreateInfo, pAllocator, pValidationCache);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateValidationCacheEXT(in VkValidationCacheCreateInfoEXT pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkValidationCacheEXT> pValidationCache)
+	{
+		fixed (VkValidationCacheCreateInfoEXT* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkValidationCacheEXT>* pValidationCacheFIXED = &pValidationCache)
+		return Functions.vkCreateValidationCacheEXT(Handle, pCreateInfoFIXED, pAllocator, pValidationCacheFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDescriptorSetLayoutSupport(VkDescriptorSetLayoutCreateInfo* pCreateInfo, VkDescriptorSetLayoutSupport* pSupport)
 		=> Functions.vkGetDescriptorSetLayoutSupport(Handle, pCreateInfo, pSupport);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDescriptorSetLayoutSupport(in VkDescriptorSetLayoutCreateInfo pCreateInfo, out VkDescriptorSetLayoutSupport pSupport)
+	{
+		fixed (VkDescriptorSetLayoutCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VkDescriptorSetLayoutSupport* pSupportFIXED = &pSupport)
+		Functions.vkGetDescriptorSetLayoutSupport(Handle, pCreateInfoFIXED, pSupportFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDescriptorSetLayoutSupportKHR(VkDescriptorSetLayoutCreateInfo* pCreateInfo, VkDescriptorSetLayoutSupport* pSupport)
 		=> Functions.vkGetDescriptorSetLayoutSupportKHR(Handle, pCreateInfo, pSupport);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDescriptorSetLayoutSupportKHR(in VkDescriptorSetLayoutCreateInfo pCreateInfo, out VkDescriptorSetLayoutSupport pSupport)
+	{
+		fixed (VkDescriptorSetLayoutCreateInfo* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VkDescriptorSetLayoutSupport* pSupportFIXED = &pSupport)
+		Functions.vkGetDescriptorSetLayoutSupportKHR(Handle, pCreateInfoFIXED, pSupportFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSwapchainGrallocUsageANDROID(VkFormat format, VkImageUsageFlags imageUsage, int* grallocUsage)
 		=> Functions.vkGetSwapchainGrallocUsageANDROID(Handle, format, imageUsage, grallocUsage);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSwapchainGrallocUsageANDROID(VkFormat format, VkImageUsageFlags imageUsage, out int grallocUsage)
+	{
+		fixed (int* grallocUsageFIXED = &grallocUsage)
+		return Functions.vkGetSwapchainGrallocUsageANDROID(Handle, format, imageUsage, grallocUsageFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSwapchainGrallocUsage2ANDROID(VkFormat format, VkImageUsageFlags imageUsage, VkSwapchainImageUsageFlagsANDROID swapchainImageUsage, ulong* grallocConsumerUsage, ulong* grallocProducerUsage)
 		=> Functions.vkGetSwapchainGrallocUsage2ANDROID(Handle, format, imageUsage, swapchainImageUsage, grallocConsumerUsage, grallocProducerUsage);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSwapchainGrallocUsage2ANDROID(VkFormat format, VkImageUsageFlags imageUsage, VkSwapchainImageUsageFlagsANDROID swapchainImageUsage, out ulong grallocConsumerUsage, out ulong grallocProducerUsage)
+	{
+		fixed (ulong* grallocConsumerUsageFIXED = &grallocConsumerUsage)
+		fixed (ulong* grallocProducerUsageFIXED = &grallocProducerUsage)
+		return Functions.vkGetSwapchainGrallocUsage2ANDROID(Handle, format, imageUsage, swapchainImageUsage, grallocConsumerUsageFIXED, grallocProducerUsageFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetCalibratedTimestampsEXT(uint timestampCount, VkCalibratedTimestampInfoEXT* pTimestampInfos, ulong* pTimestamps, ulong* pMaxDeviation)
 		=> Functions.vkGetCalibratedTimestampsEXT(Handle, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetCalibratedTimestampsEXT(uint timestampCount, VkCalibratedTimestampInfoEXT* pTimestampInfos, ulong* pTimestamps, out ulong pMaxDeviation)
+	{
+		fixed (ulong* pMaxDeviationFIXED = &pMaxDeviation)
+		return Functions.vkGetCalibratedTimestampsEXT(Handle, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviationFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult SetDebugUtilsObjectNameEXT(VkDebugUtilsObjectNameInfoEXT* pNameInfo)
 		=> Functions.vkSetDebugUtilsObjectNameEXT(Handle, pNameInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult SetDebugUtilsObjectNameEXT(in VkDebugUtilsObjectNameInfoEXT pNameInfo)
+	{
+		fixed (VkDebugUtilsObjectNameInfoEXT* pNameInfoFIXED = &pNameInfo)
+		return Functions.vkSetDebugUtilsObjectNameEXT(Handle, pNameInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult SetDebugUtilsObjectTagEXT(VkDebugUtilsObjectTagInfoEXT* pTagInfo)
 		=> Functions.vkSetDebugUtilsObjectTagEXT(Handle, pTagInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult SetDebugUtilsObjectTagEXT(in VkDebugUtilsObjectTagInfoEXT pTagInfo)
+	{
+		fixed (VkDebugUtilsObjectTagInfoEXT* pTagInfoFIXED = &pTagInfo)
+		return Functions.vkSetDebugUtilsObjectTagEXT(Handle, pTagInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetMemoryHostPointerPropertiesEXT(VkExternalMemoryHandleTypeFlags handleType, void* pHostPointer, VkMemoryHostPointerPropertiesEXT* pMemoryHostPointerProperties)
 		=> Functions.vkGetMemoryHostPointerPropertiesEXT(Handle, handleType, pHostPointer, pMemoryHostPointerProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetMemoryHostPointerPropertiesEXT(VkExternalMemoryHandleTypeFlags handleType, void* pHostPointer, out VkMemoryHostPointerPropertiesEXT pMemoryHostPointerProperties)
+	{
+		fixed (VkMemoryHostPointerPropertiesEXT* pMemoryHostPointerPropertiesFIXED = &pMemoryHostPointerProperties)
+		return Functions.vkGetMemoryHostPointerPropertiesEXT(Handle, handleType, pHostPointer, pMemoryHostPointerPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateRenderPass2(VkRenderPassCreateInfo2* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkRenderPass>* pRenderPass)
 		=> Functions.vkCreateRenderPass2(Handle, pCreateInfo, pAllocator, pRenderPass);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateRenderPass2(in VkRenderPassCreateInfo2 pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkRenderPass> pRenderPass)
+	{
+		fixed (VkRenderPassCreateInfo2* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkRenderPass>* pRenderPassFIXED = &pRenderPass)
+		return Functions.vkCreateRenderPass2(Handle, pCreateInfoFIXED, pAllocator, pRenderPassFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateRenderPass2KHR(VkRenderPassCreateInfo2* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkRenderPass>* pRenderPass)
 		=> Functions.vkCreateRenderPass2KHR(Handle, pCreateInfo, pAllocator, pRenderPass);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateRenderPass2KHR(in VkRenderPassCreateInfo2 pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkRenderPass> pRenderPass)
+	{
+		fixed (VkRenderPassCreateInfo2* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkRenderPass>* pRenderPassFIXED = &pRenderPass)
+		return Functions.vkCreateRenderPass2KHR(Handle, pCreateInfoFIXED, pAllocator, pRenderPassFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult WaitSemaphores(VkSemaphoreWaitInfo* pWaitInfo, ulong timeout)
 		=> Functions.vkWaitSemaphores(Handle, pWaitInfo, timeout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult WaitSemaphores(in VkSemaphoreWaitInfo pWaitInfo, ulong timeout)
+	{
+		fixed (VkSemaphoreWaitInfo* pWaitInfoFIXED = &pWaitInfo)
+		return Functions.vkWaitSemaphores(Handle, pWaitInfoFIXED, timeout);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult WaitSemaphoresKHR(VkSemaphoreWaitInfo* pWaitInfo, ulong timeout)
 		=> Functions.vkWaitSemaphoresKHR(Handle, pWaitInfo, timeout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult WaitSemaphoresKHR(in VkSemaphoreWaitInfo pWaitInfo, ulong timeout)
+	{
+		fixed (VkSemaphoreWaitInfo* pWaitInfoFIXED = &pWaitInfo)
+		return Functions.vkWaitSemaphoresKHR(Handle, pWaitInfoFIXED, timeout);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult SignalSemaphore(VkSemaphoreSignalInfo* pSignalInfo)
 		=> Functions.vkSignalSemaphore(Handle, pSignalInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult SignalSemaphore(in VkSemaphoreSignalInfo pSignalInfo)
+	{
+		fixed (VkSemaphoreSignalInfo* pSignalInfoFIXED = &pSignalInfo)
+		return Functions.vkSignalSemaphore(Handle, pSignalInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult SignalSemaphoreKHR(VkSemaphoreSignalInfo* pSignalInfo)
 		=> Functions.vkSignalSemaphoreKHR(Handle, pSignalInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult SignalSemaphoreKHR(in VkSemaphoreSignalInfo pSignalInfo)
+	{
+		fixed (VkSemaphoreSignalInfo* pSignalInfoFIXED = &pSignalInfo)
+		return Functions.vkSignalSemaphoreKHR(Handle, pSignalInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetAndroidHardwareBufferPropertiesANDROID(void* buffer, VkAndroidHardwareBufferPropertiesANDROID* pProperties)
 		=> Functions.vkGetAndroidHardwareBufferPropertiesANDROID(Handle, buffer, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetAndroidHardwareBufferPropertiesANDROID(void* buffer, out VkAndroidHardwareBufferPropertiesANDROID pProperties)
+	{
+		fixed (VkAndroidHardwareBufferPropertiesANDROID* pPropertiesFIXED = &pProperties)
+		return Functions.vkGetAndroidHardwareBufferPropertiesANDROID(Handle, buffer, pPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetMemoryAndroidHardwareBufferANDROID(VkMemoryGetAndroidHardwareBufferInfoANDROID* pInfo, void** pBuffer)
 		=> Functions.vkGetMemoryAndroidHardwareBufferANDROID(Handle, pInfo, pBuffer);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetMemoryAndroidHardwareBufferANDROID(in VkMemoryGetAndroidHardwareBufferInfoANDROID pInfo, out void* pBuffer)
+	{
+		fixed (VkMemoryGetAndroidHardwareBufferInfoANDROID* pInfoFIXED = &pInfo)
+		fixed (void** pBufferFIXED = &pBuffer)
+		return Functions.vkGetMemoryAndroidHardwareBufferANDROID(Handle, pInfoFIXED, pBufferFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateAccelerationStructureNV(VkAccelerationStructureCreateInfoNV* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkAccelerationStructureNV>* pAccelerationStructure)
 		=> Functions.vkCreateAccelerationStructureNV(Handle, pCreateInfo, pAllocator, pAccelerationStructure);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateAccelerationStructureNV(in VkAccelerationStructureCreateInfoNV pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkAccelerationStructureNV> pAccelerationStructure)
+	{
+		fixed (VkAccelerationStructureCreateInfoNV* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkAccelerationStructureNV>* pAccelerationStructureFIXED = &pAccelerationStructure)
+		return Functions.vkCreateAccelerationStructureNV(Handle, pCreateInfoFIXED, pAllocator, pAccelerationStructureFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetAccelerationStructureMemoryRequirementsKHR(VkAccelerationStructureMemoryRequirementsInfoKHR* pInfo, VkMemoryRequirements2* pMemoryRequirements)
 		=> Functions.vkGetAccelerationStructureMemoryRequirementsKHR(Handle, pInfo, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetAccelerationStructureMemoryRequirementsKHR(in VkAccelerationStructureMemoryRequirementsInfoKHR pInfo, out VkMemoryRequirements2 pMemoryRequirements)
+	{
+		fixed (VkAccelerationStructureMemoryRequirementsInfoKHR* pInfoFIXED = &pInfo)
+		fixed (VkMemoryRequirements2* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetAccelerationStructureMemoryRequirementsKHR(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetAccelerationStructureMemoryRequirementsNV(VkAccelerationStructureMemoryRequirementsInfoNV* pInfo, VkMemoryRequirements2KHR* pMemoryRequirements)
 		=> Functions.vkGetAccelerationStructureMemoryRequirementsNV(Handle, pInfo, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetAccelerationStructureMemoryRequirementsNV(in VkAccelerationStructureMemoryRequirementsInfoNV pInfo, out VkMemoryRequirements2KHR pMemoryRequirements)
+	{
+		fixed (VkAccelerationStructureMemoryRequirementsInfoNV* pInfoFIXED = &pInfo)
+		fixed (VkMemoryRequirements2KHR* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetAccelerationStructureMemoryRequirementsNV(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindAccelerationStructureMemoryKHR(uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
 		=> Functions.vkBindAccelerationStructureMemoryKHR(Handle, bindInfoCount, pBindInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindAccelerationStructureMemoryNV(uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
 		=> Functions.vkBindAccelerationStructureMemoryNV(Handle, bindInfoCount, pBindInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CopyAccelerationStructureKHR(VkCopyAccelerationStructureInfoKHR* pInfo)
 		=> Functions.vkCopyAccelerationStructureKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyAccelerationStructureKHR(in VkCopyAccelerationStructureInfoKHR pInfo)
+	{
+		fixed (VkCopyAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkCopyAccelerationStructureKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CopyAccelerationStructureToMemoryKHR(VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
 		=> Functions.vkCopyAccelerationStructureToMemoryKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyAccelerationStructureToMemoryKHR(in VkCopyAccelerationStructureToMemoryInfoKHR pInfo)
+	{
+		fixed (VkCopyAccelerationStructureToMemoryInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkCopyAccelerationStructureToMemoryKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CopyMemoryToAccelerationStructureKHR(VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
 		=> Functions.vkCopyMemoryToAccelerationStructureKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyMemoryToAccelerationStructureKHR(in VkCopyMemoryToAccelerationStructureInfoKHR pInfo)
+	{
+		fixed (VkCopyMemoryToAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkCopyMemoryToAccelerationStructureKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult WriteAccelerationStructuresPropertiesKHR(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, ulong dataSize, void* pData, ulong stride)
 		=> Functions.vkWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDeviceAccelerationStructureCompatibilityKHR(VkAccelerationStructureVersionKHR* version)
 		=> Functions.vkGetDeviceAccelerationStructureCompatibilityKHR(Handle, version);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDeviceAccelerationStructureCompatibilityKHR(in VkAccelerationStructureVersionKHR version)
+	{
+		fixed (VkAccelerationStructureVersionKHR* versionFIXED = &version)
+		return Functions.vkGetDeviceAccelerationStructureCompatibilityKHR(Handle, versionFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public uint GetImageViewHandleNVX(VkImageViewHandleInfoNVX* pInfo)
 		=> Functions.vkGetImageViewHandleNVX(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public uint GetImageViewHandleNVX(in VkImageViewHandleInfoNVX pInfo)
+	{
+		fixed (VkImageViewHandleInfoNVX* pInfoFIXED = &pInfo)
+		return Functions.vkGetImageViewHandleNVX(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDeviceGroupSurfacePresentModes2EXT(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, VkDeviceGroupPresentModeFlagsKHR* pModes)
 		=> Functions.vkGetDeviceGroupSurfacePresentModes2EXT(Handle, pSurfaceInfo, pModes);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDeviceGroupSurfacePresentModes2EXT(in VkPhysicalDeviceSurfaceInfo2KHR pSurfaceInfo, ref VkDeviceGroupPresentModeFlagsKHR pModes)
+	{
+		fixed (VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfoFIXED = &pSurfaceInfo)
+		fixed (VkDeviceGroupPresentModeFlagsKHR* pModesFIXED = &pModes)
+		return Functions.vkGetDeviceGroupSurfacePresentModes2EXT(Handle, pSurfaceInfoFIXED, pModesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AcquireProfilingLockKHR(VkAcquireProfilingLockInfoKHR* pInfo)
 		=> Functions.vkAcquireProfilingLockKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AcquireProfilingLockKHR(in VkAcquireProfilingLockInfoKHR pInfo)
+	{
+		fixed (VkAcquireProfilingLockInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkAcquireProfilingLockKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ReleaseProfilingLockKHR()
 		=> Functions.vkReleaseProfilingLockKHR(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferOpaqueCaptureAddress(VkBufferDeviceAddressInfo* pInfo)
 		=> Functions.vkGetBufferOpaqueCaptureAddress(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferOpaqueCaptureAddress(in VkBufferDeviceAddressInfo pInfo)
+	{
+		fixed (VkBufferDeviceAddressInfo* pInfoFIXED = &pInfo)
+		return Functions.vkGetBufferOpaqueCaptureAddress(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferOpaqueCaptureAddressKHR(VkBufferDeviceAddressInfo* pInfo)
 		=> Functions.vkGetBufferOpaqueCaptureAddressKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferOpaqueCaptureAddressKHR(in VkBufferDeviceAddressInfo pInfo)
+	{
+		fixed (VkBufferDeviceAddressInfo* pInfoFIXED = &pInfo)
+		return Functions.vkGetBufferOpaqueCaptureAddressKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddress(VkBufferDeviceAddressInfo* pInfo)
 		=> Functions.vkGetBufferDeviceAddress(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferDeviceAddress(in VkBufferDeviceAddressInfo pInfo)
+	{
+		fixed (VkBufferDeviceAddressInfo* pInfoFIXED = &pInfo)
+		return Functions.vkGetBufferDeviceAddress(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddressKHR(VkBufferDeviceAddressInfo* pInfo)
 		=> Functions.vkGetBufferDeviceAddressKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferDeviceAddressKHR(in VkBufferDeviceAddressInfo pInfo)
+	{
+		fixed (VkBufferDeviceAddressInfo* pInfoFIXED = &pInfo)
+		return Functions.vkGetBufferDeviceAddressKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetBufferDeviceAddressEXT(VkBufferDeviceAddressInfo* pInfo)
 		=> Functions.vkGetBufferDeviceAddressEXT(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetBufferDeviceAddressEXT(in VkBufferDeviceAddressInfo pInfo)
+	{
+		fixed (VkBufferDeviceAddressInfo* pInfoFIXED = &pInfo)
+		return Functions.vkGetBufferDeviceAddressEXT(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult InitializePerformanceApiINTEL(VkInitializePerformanceApiInfoINTEL* pInitializeInfo)
 		=> Functions.vkInitializePerformanceApiINTEL(Handle, pInitializeInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult InitializePerformanceApiINTEL(in VkInitializePerformanceApiInfoINTEL pInitializeInfo)
+	{
+		fixed (VkInitializePerformanceApiInfoINTEL* pInitializeInfoFIXED = &pInitializeInfo)
+		return Functions.vkInitializePerformanceApiINTEL(Handle, pInitializeInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UninitializePerformanceApiINTEL()
 		=> Functions.vkUninitializePerformanceApiINTEL(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AcquirePerformanceConfigurationINTEL(VkPerformanceConfigurationAcquireInfoINTEL* pAcquireInfo, VulkanHandle<VkPerformanceConfigurationINTEL>* pConfiguration)
 		=> Functions.vkAcquirePerformanceConfigurationINTEL(Handle, pAcquireInfo, pConfiguration);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AcquirePerformanceConfigurationINTEL(in VkPerformanceConfigurationAcquireInfoINTEL pAcquireInfo, out VulkanHandle<VkPerformanceConfigurationINTEL> pConfiguration)
+	{
+		fixed (VkPerformanceConfigurationAcquireInfoINTEL* pAcquireInfoFIXED = &pAcquireInfo)
+		fixed (VulkanHandle<VkPerformanceConfigurationINTEL>* pConfigurationFIXED = &pConfiguration)
+		return Functions.vkAcquirePerformanceConfigurationINTEL(Handle, pAcquireInfoFIXED, pConfigurationFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPerformanceParameterINTEL(VkPerformanceParameterTypeINTEL parameter, VkPerformanceValueINTEL* pValue)
 		=> Functions.vkGetPerformanceParameterINTEL(Handle, parameter, pValue);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPerformanceParameterINTEL(VkPerformanceParameterTypeINTEL parameter, out VkPerformanceValueINTEL pValue)
+	{
+		fixed (VkPerformanceValueINTEL* pValueFIXED = &pValue)
+		return Functions.vkGetPerformanceParameterINTEL(Handle, parameter, pValueFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetDeviceMemoryOpaqueCaptureAddress(VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo)
 		=> Functions.vkGetDeviceMemoryOpaqueCaptureAddress(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetDeviceMemoryOpaqueCaptureAddress(in VkDeviceMemoryOpaqueCaptureAddressInfo pInfo)
+	{
+		fixed (VkDeviceMemoryOpaqueCaptureAddressInfo* pInfoFIXED = &pInfo)
+		return Functions.vkGetDeviceMemoryOpaqueCaptureAddress(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetDeviceMemoryOpaqueCaptureAddressKHR(VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo)
 		=> Functions.vkGetDeviceMemoryOpaqueCaptureAddressKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetDeviceMemoryOpaqueCaptureAddressKHR(in VkDeviceMemoryOpaqueCaptureAddressInfo pInfo)
+	{
+		fixed (VkDeviceMemoryOpaqueCaptureAddressInfo* pInfoFIXED = &pInfo)
+		return Functions.vkGetDeviceMemoryOpaqueCaptureAddressKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPipelineExecutablePropertiesKHR(VkPipelineInfoKHR* pPipelineInfo, uint* pExecutableCount, VkPipelineExecutablePropertiesKHR* pProperties)
 		=> Functions.vkGetPipelineExecutablePropertiesKHR(Handle, pPipelineInfo, pExecutableCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPipelineExecutablePropertiesKHR(in VkPipelineInfoKHR pPipelineInfo, ref uint pExecutableCount, VkPipelineExecutablePropertiesKHR* pProperties)
+	{
+		fixed (VkPipelineInfoKHR* pPipelineInfoFIXED = &pPipelineInfo)
+		fixed (uint* pExecutableCountFIXED = &pExecutableCount)
+		return Functions.vkGetPipelineExecutablePropertiesKHR(Handle, pPipelineInfoFIXED, pExecutableCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPipelineExecutableStatisticsKHR(VkPipelineExecutableInfoKHR* pExecutableInfo, uint* pStatisticCount, VkPipelineExecutableStatisticKHR* pStatistics)
 		=> Functions.vkGetPipelineExecutableStatisticsKHR(Handle, pExecutableInfo, pStatisticCount, pStatistics);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPipelineExecutableStatisticsKHR(in VkPipelineExecutableInfoKHR pExecutableInfo, ref uint pStatisticCount, VkPipelineExecutableStatisticKHR* pStatistics)
+	{
+		fixed (VkPipelineExecutableInfoKHR* pExecutableInfoFIXED = &pExecutableInfo)
+		fixed (uint* pStatisticCountFIXED = &pStatisticCount)
+		return Functions.vkGetPipelineExecutableStatisticsKHR(Handle, pExecutableInfoFIXED, pStatisticCountFIXED, pStatistics);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPipelineExecutableInternalRepresentationsKHR(VkPipelineExecutableInfoKHR* pExecutableInfo, uint* pInternalRepresentationCount, VkPipelineExecutableInternalRepresentationKHR* pInternalRepresentations)
 		=> Functions.vkGetPipelineExecutableInternalRepresentationsKHR(Handle, pExecutableInfo, pInternalRepresentationCount, pInternalRepresentations);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPipelineExecutableInternalRepresentationsKHR(in VkPipelineExecutableInfoKHR pExecutableInfo, ref uint pInternalRepresentationCount, VkPipelineExecutableInternalRepresentationKHR* pInternalRepresentations)
+	{
+		fixed (VkPipelineExecutableInfoKHR* pExecutableInfoFIXED = &pExecutableInfo)
+		fixed (uint* pInternalRepresentationCountFIXED = &pInternalRepresentationCount)
+		return Functions.vkGetPipelineExecutableInternalRepresentationsKHR(Handle, pExecutableInfoFIXED, pInternalRepresentationCountFIXED, pInternalRepresentations);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateAccelerationStructureKHR(VkAccelerationStructureCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructure)
 		=> Functions.vkCreateAccelerationStructureKHR(Handle, pCreateInfo, pAllocator, pAccelerationStructure);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateAccelerationStructureKHR(in VkAccelerationStructureCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkAccelerationStructureKHR> pAccelerationStructure)
+	{
+		fixed (VkAccelerationStructureCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructureFIXED = &pAccelerationStructure)
+		return Functions.vkCreateAccelerationStructureKHR(Handle, pCreateInfoFIXED, pAllocator, pAccelerationStructureFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BuildAccelerationStructureKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
 		=> Functions.vkBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetAccelerationStructureDeviceAddressKHR(VkAccelerationStructureDeviceAddressInfoKHR* pInfo)
 		=> Functions.vkGetAccelerationStructureDeviceAddressKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetAccelerationStructureDeviceAddressKHR(in VkAccelerationStructureDeviceAddressInfoKHR pInfo)
+	{
+		fixed (VkAccelerationStructureDeviceAddressInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkGetAccelerationStructureDeviceAddressKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDeferredOperationKHR(VkAllocationCallbacks* pAllocator, VulkanHandle<VkDeferredOperationKHR>* pDeferredOperation)
 		=> Functions.vkCreateDeferredOperationKHR(Handle, pAllocator, pDeferredOperation);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDeferredOperationKHR(VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDeferredOperationKHR> pDeferredOperation)
+	{
+		fixed (VulkanHandle<VkDeferredOperationKHR>* pDeferredOperationFIXED = &pDeferredOperation)
+		return Functions.vkCreateDeferredOperationKHR(Handle, pAllocator, pDeferredOperationFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreatePrivateDataSlotEXT(VkPrivateDataSlotCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPrivateDataSlotEXT>* pPrivateDataSlot)
 		=> Functions.vkCreatePrivateDataSlotEXT(Handle, pCreateInfo, pAllocator, pPrivateDataSlot);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreatePrivateDataSlotEXT(in VkPrivateDataSlotCreateInfoEXT pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkPrivateDataSlotEXT> pPrivateDataSlot)
+	{
+		fixed (VkPrivateDataSlotCreateInfoEXT* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkPrivateDataSlotEXT>* pPrivateDataSlotFIXED = &pPrivateDataSlot)
+		return Functions.vkCreatePrivateDataSlotEXT(Handle, pCreateInfoFIXED, pAllocator, pPrivateDataSlotFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult SetPrivateDataEXT(VkObjectType objectType, ulong objectHandle, VulkanHandle<VkPrivateDataSlotEXT> privateDataSlot, ulong data)
 		=> Functions.vkSetPrivateDataEXT(Handle, objectType, objectHandle, privateDataSlot, data);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetPrivateDataEXT(VkObjectType objectType, ulong objectHandle, VulkanHandle<VkPrivateDataSlotEXT> privateDataSlot, ulong* pData)
 		=> Functions.vkGetPrivateDataEXT(Handle, objectType, objectHandle, privateDataSlot, pData);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetPrivateDataEXT(VkObjectType objectType, ulong objectHandle, VulkanHandle<VkPrivateDataSlotEXT> privateDataSlot, out ulong pData)
+	{
+		fixed (ulong* pDataFIXED = &pData)
+		Functions.vkGetPrivateDataEXT(Handle, objectType, objectHandle, privateDataSlot, pDataFIXED);
+	}
 
 }
 
@@ -759,33 +2338,78 @@ public unsafe sealed partial class VkQueue : IVulkanHandle<VkQueue>
 	public static implicit operator VulkanHandle<VkQueue> (VkQueue? h) => h?.Handle ?? VulkanHandle<VkQueue>.Null;
 	public static implicit operator bool (VkQueue? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult QueueSubmit(uint submitCount, VkSubmitInfo* pSubmits, VulkanHandle<VkFence> fence)
 		=> Functions.vkQueueSubmit(Handle, submitCount, pSubmits, fence);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult QueueWaitIdle()
 		=> Functions.vkQueueWaitIdle(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult QueueBindSparse(uint bindInfoCount, VkBindSparseInfo* pBindInfo, VulkanHandle<VkFence> fence)
 		=> Functions.vkQueueBindSparse(Handle, bindInfoCount, pBindInfo, fence);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult QueuePresentKHR(VkPresentInfoKHR* pPresentInfo)
 		=> Functions.vkQueuePresentKHR(Handle, pPresentInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult QueuePresentKHR(in VkPresentInfoKHR pPresentInfo)
+	{
+		fixed (VkPresentInfoKHR* pPresentInfoFIXED = &pPresentInfo)
+		return Functions.vkQueuePresentKHR(Handle, pPresentInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult QueueSignalReleaseImageANDROID(uint waitSemaphoreCount, VulkanHandle<VkSemaphore>* pWaitSemaphores, VulkanHandle<VkImage> image, int* pNativeFenceFd)
 		=> Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult QueueSignalReleaseImageANDROID(uint waitSemaphoreCount, VulkanHandle<VkSemaphore>* pWaitSemaphores, VulkanHandle<VkImage> image, out int pNativeFenceFd)
+	{
+		fixed (int* pNativeFenceFdFIXED = &pNativeFenceFd)
+		return Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFdFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void QueueBeginDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
 		=> Functions.vkQueueBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void QueueBeginDebugUtilsLabelEXT(in VkDebugUtilsLabelEXT pLabelInfo)
+	{
+		fixed (VkDebugUtilsLabelEXT* pLabelInfoFIXED = &pLabelInfo)
+		Functions.vkQueueBeginDebugUtilsLabelEXT(Handle, pLabelInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void QueueEndDebugUtilsLabelEXT()
 		=> Functions.vkQueueEndDebugUtilsLabelEXT(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void QueueInsertDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
 		=> Functions.vkQueueInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void QueueInsertDebugUtilsLabelEXT(in VkDebugUtilsLabelEXT pLabelInfo)
+	{
+		fixed (VkDebugUtilsLabelEXT* pLabelInfoFIXED = &pLabelInfo)
+		Functions.vkQueueInsertDebugUtilsLabelEXT(Handle, pLabelInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetQueueCheckpointDataNV(uint* pCheckpointDataCount, VkCheckpointDataNV* pCheckpointData)
 		=> Functions.vkGetQueueCheckpointDataNV(Handle, pCheckpointDataCount, pCheckpointData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetQueueCheckpointDataNV(ref uint pCheckpointDataCount, VkCheckpointDataNV* pCheckpointData)
+	{
+		fixed (uint* pCheckpointDataCountFIXED = &pCheckpointDataCount)
+		Functions.vkGetQueueCheckpointDataNV(Handle, pCheckpointDataCountFIXED, pCheckpointData);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult QueueSetPerformanceConfigurationINTEL(VulkanHandle<VkPerformanceConfigurationINTEL> configuration)
 		=> Functions.vkQueueSetPerformanceConfigurationINTEL(Handle, configuration);
 
@@ -816,395 +2440,795 @@ public unsafe sealed partial class VkCommandBuffer : IVulkanHandle<VkCommandBuff
 	public static implicit operator VulkanHandle<VkCommandBuffer> (VkCommandBuffer? h) => h?.Handle ?? VulkanHandle<VkCommandBuffer>.Null;
 	public static implicit operator bool (VkCommandBuffer? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BeginCommandBuffer(VkCommandBufferBeginInfo* pBeginInfo)
 		=> Functions.vkBeginCommandBuffer(Handle, pBeginInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult BeginCommandBuffer(in VkCommandBufferBeginInfo pBeginInfo)
+	{
+		fixed (VkCommandBufferBeginInfo* pBeginInfoFIXED = &pBeginInfo)
+		return Functions.vkBeginCommandBuffer(Handle, pBeginInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult EndCommandBuffer()
 		=> Functions.vkEndCommandBuffer(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ResetCommandBuffer(VkCommandBufferResetFlags flags)
 		=> Functions.vkResetCommandBuffer(Handle, flags);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindPipeline(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipeline> pipeline)
 		=> Functions.vkCmdBindPipeline(Handle, pipelineBindPoint, pipeline);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetViewport(uint firstViewport, uint viewportCount, VkViewport* pViewports)
 		=> Functions.vkCmdSetViewport(Handle, firstViewport, viewportCount, pViewports);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetScissor(uint firstScissor, uint scissorCount, VkRect2D* pScissors)
 		=> Functions.vkCmdSetScissor(Handle, firstScissor, scissorCount, pScissors);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetLineWidth(float lineWidth)
 		=> Functions.vkCmdSetLineWidth(Handle, lineWidth);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDepthBias(float depthBiasConstantFactor, float depthBiasClamp, float depthBiasSlopeFactor)
 		=> Functions.vkCmdSetDepthBias(Handle, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetBlendConstants(float* blendConstants)
 		=> Functions.vkCmdSetBlendConstants(Handle, blendConstants);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetBlendConstants(in float blendConstants)
+	{
+		fixed (float* blendConstantsFIXED = &blendConstants)
+		Functions.vkCmdSetBlendConstants(Handle, blendConstantsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDepthBounds(float minDepthBounds, float maxDepthBounds)
 		=> Functions.vkCmdSetDepthBounds(Handle, minDepthBounds, maxDepthBounds);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetStencilCompareMask(VkStencilFaceFlags faceMask, uint compareMask)
 		=> Functions.vkCmdSetStencilCompareMask(Handle, faceMask, compareMask);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetStencilWriteMask(VkStencilFaceFlags faceMask, uint writeMask)
 		=> Functions.vkCmdSetStencilWriteMask(Handle, faceMask, writeMask);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetStencilReference(VkStencilFaceFlags faceMask, uint reference)
 		=> Functions.vkCmdSetStencilReference(Handle, faceMask, reference);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindDescriptorSets(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipelineLayout> layout, uint firstSet, uint descriptorSetCount, VulkanHandle<VkDescriptorSet>* pDescriptorSets, uint dynamicOffsetCount, uint* pDynamicOffsets)
 		=> Functions.vkCmdBindDescriptorSets(Handle, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindIndexBuffer(VulkanHandle<VkBuffer> buffer, ulong offset, VkIndexType indexType)
 		=> Functions.vkCmdBindIndexBuffer(Handle, buffer, offset, indexType);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindVertexBuffers(uint firstBinding, uint bindingCount, VulkanHandle<VkBuffer>* pBuffers, ulong* pOffsets)
 		=> Functions.vkCmdBindVertexBuffers(Handle, firstBinding, bindingCount, pBuffers, pOffsets);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDraw(uint vertexCount, uint instanceCount, uint firstVertex, uint firstInstance)
 		=> Functions.vkCmdDraw(Handle, vertexCount, instanceCount, firstVertex, firstInstance);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndexed(uint indexCount, uint instanceCount, uint firstIndex, int vertexOffset, uint firstInstance)
 		=> Functions.vkCmdDrawIndexed(Handle, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndirect(VulkanHandle<VkBuffer> buffer, ulong offset, uint drawCount, uint stride)
 		=> Functions.vkCmdDrawIndirect(Handle, buffer, offset, drawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndexedIndirect(VulkanHandle<VkBuffer> buffer, ulong offset, uint drawCount, uint stride)
 		=> Functions.vkCmdDrawIndexedIndirect(Handle, buffer, offset, drawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDispatch(uint groupCountX, uint groupCountY, uint groupCountZ)
 		=> Functions.vkCmdDispatch(Handle, groupCountX, groupCountY, groupCountZ);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDispatchIndirect(VulkanHandle<VkBuffer> buffer, ulong offset)
 		=> Functions.vkCmdDispatchIndirect(Handle, buffer, offset);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyBuffer(VulkanHandle<VkBuffer> srcBuffer, VulkanHandle<VkBuffer> dstBuffer, uint regionCount, VkBufferCopy* pRegions)
 		=> Functions.vkCmdCopyBuffer(Handle, srcBuffer, dstBuffer, regionCount, pRegions);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImage(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkImageCopy* pRegions)
 		=> Functions.vkCmdCopyImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBlitImage(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkImageBlit* pRegions, VkFilter filter)
 		=> Functions.vkCmdBlitImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyBufferToImage(VulkanHandle<VkBuffer> srcBuffer, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkBufferImageCopy* pRegions)
 		=> Functions.vkCmdCopyBufferToImage(Handle, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImageToBuffer(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkBuffer> dstBuffer, uint regionCount, VkBufferImageCopy* pRegions)
 		=> Functions.vkCmdCopyImageToBuffer(Handle, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdUpdateBuffer(VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, ulong dataSize, void* pData)
 		=> Functions.vkCmdUpdateBuffer(Handle, dstBuffer, dstOffset, dataSize, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdFillBuffer(VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, ulong size, uint data)
 		=> Functions.vkCmdFillBuffer(Handle, dstBuffer, dstOffset, size, data);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdClearColorImage(VulkanHandle<VkImage> image, VkImageLayout imageLayout, VkClearColorValue* pColor, uint rangeCount, VkImageSubresourceRange* pRanges)
 		=> Functions.vkCmdClearColorImage(Handle, image, imageLayout, pColor, rangeCount, pRanges);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdClearColorImage(VulkanHandle<VkImage> image, VkImageLayout imageLayout, in VkClearColorValue pColor, uint rangeCount, VkImageSubresourceRange* pRanges)
+	{
+		fixed (VkClearColorValue* pColorFIXED = &pColor)
+		Functions.vkCmdClearColorImage(Handle, image, imageLayout, pColorFIXED, rangeCount, pRanges);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdClearDepthStencilImage(VulkanHandle<VkImage> image, VkImageLayout imageLayout, VkClearDepthStencilValue* pDepthStencil, uint rangeCount, VkImageSubresourceRange* pRanges)
 		=> Functions.vkCmdClearDepthStencilImage(Handle, image, imageLayout, pDepthStencil, rangeCount, pRanges);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdClearDepthStencilImage(VulkanHandle<VkImage> image, VkImageLayout imageLayout, in VkClearDepthStencilValue pDepthStencil, uint rangeCount, VkImageSubresourceRange* pRanges)
+	{
+		fixed (VkClearDepthStencilValue* pDepthStencilFIXED = &pDepthStencil)
+		Functions.vkCmdClearDepthStencilImage(Handle, image, imageLayout, pDepthStencilFIXED, rangeCount, pRanges);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdClearAttachments(uint attachmentCount, VkClearAttachment* pAttachments, uint rectCount, VkClearRect* pRects)
 		=> Functions.vkCmdClearAttachments(Handle, attachmentCount, pAttachments, rectCount, pRects);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdResolveImage(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkImageResolve* pRegions)
 		=> Functions.vkCmdResolveImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetEvent(VulkanHandle<VkEvent> @event, VkPipelineStageFlags stageMask)
 		=> Functions.vkCmdSetEvent(Handle, @event, stageMask);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdResetEvent(VulkanHandle<VkEvent> @event, VkPipelineStageFlags stageMask)
 		=> Functions.vkCmdResetEvent(Handle, @event, stageMask);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdWaitEvents(uint eventCount, VulkanHandle<VkEvent>* pEvents, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, uint memoryBarrierCount, VkMemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, VkBufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, VkImageMemoryBarrier* pImageMemoryBarriers)
 		=> Functions.vkCmdWaitEvents(Handle, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags, uint memoryBarrierCount, VkMemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, VkBufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, VkImageMemoryBarrier* pImageMemoryBarriers)
 		=> Functions.vkCmdPipelineBarrier(Handle, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginQuery(VulkanHandle<VkQueryPool> queryPool, uint query, VkQueryControlFlags flags)
 		=> Functions.vkCmdBeginQuery(Handle, queryPool, query, flags);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndQuery(VulkanHandle<VkQueryPool> queryPool, uint query)
 		=> Functions.vkCmdEndQuery(Handle, queryPool, query);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginConditionalRenderingEXT(VkConditionalRenderingBeginInfoEXT* pConditionalRenderingBegin)
 		=> Functions.vkCmdBeginConditionalRenderingEXT(Handle, pConditionalRenderingBegin);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginConditionalRenderingEXT(in VkConditionalRenderingBeginInfoEXT pConditionalRenderingBegin)
+	{
+		fixed (VkConditionalRenderingBeginInfoEXT* pConditionalRenderingBeginFIXED = &pConditionalRenderingBegin)
+		Functions.vkCmdBeginConditionalRenderingEXT(Handle, pConditionalRenderingBeginFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndConditionalRenderingEXT()
 		=> Functions.vkCmdEndConditionalRenderingEXT(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdResetQueryPool(VulkanHandle<VkQueryPool> queryPool, uint firstQuery, uint queryCount)
 		=> Functions.vkCmdResetQueryPool(Handle, queryPool, firstQuery, queryCount);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdWriteTimestamp(VkPipelineStageFlags pipelineStage, VulkanHandle<VkQueryPool> queryPool, uint query)
 		=> Functions.vkCmdWriteTimestamp(Handle, pipelineStage, queryPool, query);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyQueryPoolResults(VulkanHandle<VkQueryPool> queryPool, uint firstQuery, uint queryCount, VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, ulong stride, VkQueryResultFlags flags)
 		=> Functions.vkCmdCopyQueryPoolResults(Handle, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPushConstants(VulkanHandle<VkPipelineLayout> layout, VkShaderStageFlags stageFlags, uint offset, uint size, void* pValues)
 		=> Functions.vkCmdPushConstants(Handle, layout, stageFlags, offset, size, pValues);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginRenderPass(VkRenderPassBeginInfo* pRenderPassBegin, VkSubpassContents contents)
 		=> Functions.vkCmdBeginRenderPass(Handle, pRenderPassBegin, contents);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginRenderPass(in VkRenderPassBeginInfo pRenderPassBegin, VkSubpassContents contents)
+	{
+		fixed (VkRenderPassBeginInfo* pRenderPassBeginFIXED = &pRenderPassBegin)
+		Functions.vkCmdBeginRenderPass(Handle, pRenderPassBeginFIXED, contents);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdNextSubpass(VkSubpassContents contents)
 		=> Functions.vkCmdNextSubpass(Handle, contents);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndRenderPass()
 		=> Functions.vkCmdEndRenderPass(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdExecuteCommands(uint commandBufferCount, VulkanHandle<VkCommandBuffer>* pCommandBuffers)
 		=> Functions.vkCmdExecuteCommands(Handle, commandBufferCount, pCommandBuffers);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDebugMarkerBeginEXT(VkDebugMarkerMarkerInfoEXT* pMarkerInfo)
 		=> Functions.vkCmdDebugMarkerBeginEXT(Handle, pMarkerInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdDebugMarkerBeginEXT(in VkDebugMarkerMarkerInfoEXT pMarkerInfo)
+	{
+		fixed (VkDebugMarkerMarkerInfoEXT* pMarkerInfoFIXED = &pMarkerInfo)
+		Functions.vkCmdDebugMarkerBeginEXT(Handle, pMarkerInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDebugMarkerEndEXT()
 		=> Functions.vkCmdDebugMarkerEndEXT(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDebugMarkerInsertEXT(VkDebugMarkerMarkerInfoEXT* pMarkerInfo)
 		=> Functions.vkCmdDebugMarkerInsertEXT(Handle, pMarkerInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdDebugMarkerInsertEXT(in VkDebugMarkerMarkerInfoEXT pMarkerInfo)
+	{
+		fixed (VkDebugMarkerMarkerInfoEXT* pMarkerInfoFIXED = &pMarkerInfo)
+		Functions.vkCmdDebugMarkerInsertEXT(Handle, pMarkerInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdExecuteGeneratedCommandsNV(VkBool32 isPreprocessed, VkGeneratedCommandsInfoNV* pGeneratedCommandsInfo)
 		=> Functions.vkCmdExecuteGeneratedCommandsNV(Handle, isPreprocessed, pGeneratedCommandsInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdExecuteGeneratedCommandsNV(VkBool32 isPreprocessed, in VkGeneratedCommandsInfoNV pGeneratedCommandsInfo)
+	{
+		fixed (VkGeneratedCommandsInfoNV* pGeneratedCommandsInfoFIXED = &pGeneratedCommandsInfo)
+		Functions.vkCmdExecuteGeneratedCommandsNV(Handle, isPreprocessed, pGeneratedCommandsInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPreprocessGeneratedCommandsNV(VkGeneratedCommandsInfoNV* pGeneratedCommandsInfo)
 		=> Functions.vkCmdPreprocessGeneratedCommandsNV(Handle, pGeneratedCommandsInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdPreprocessGeneratedCommandsNV(in VkGeneratedCommandsInfoNV pGeneratedCommandsInfo)
+	{
+		fixed (VkGeneratedCommandsInfoNV* pGeneratedCommandsInfoFIXED = &pGeneratedCommandsInfo)
+		Functions.vkCmdPreprocessGeneratedCommandsNV(Handle, pGeneratedCommandsInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindPipelineShaderGroupNV(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipeline> pipeline, uint groupIndex)
 		=> Functions.vkCmdBindPipelineShaderGroupNV(Handle, pipelineBindPoint, pipeline, groupIndex);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPushDescriptorSetKHR(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipelineLayout> layout, uint set, uint descriptorWriteCount, VkWriteDescriptorSet* pDescriptorWrites)
 		=> Functions.vkCmdPushDescriptorSetKHR(Handle, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDeviceMask(uint deviceMask)
 		=> Functions.vkCmdSetDeviceMask(Handle, deviceMask);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDeviceMaskKHR(uint deviceMask)
 		=> Functions.vkCmdSetDeviceMaskKHR(Handle, deviceMask);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDispatchBase(uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
 		=> Functions.vkCmdDispatchBase(Handle, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDispatchBaseKHR(uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
 		=> Functions.vkCmdDispatchBaseKHR(Handle, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdPushDescriptorSetWithTemplateKHR(VulkanHandle<VkDescriptorUpdateTemplate> descriptorUpdateTemplate, VulkanHandle<VkPipelineLayout> layout, uint set, void* pData)
 		=> Functions.vkCmdPushDescriptorSetWithTemplateKHR(Handle, descriptorUpdateTemplate, layout, set, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetViewportWScalingNV(uint firstViewport, uint viewportCount, VkViewportWScalingNV* pViewportWScalings)
 		=> Functions.vkCmdSetViewportWScalingNV(Handle, firstViewport, viewportCount, pViewportWScalings);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDiscardRectangleEXT(uint firstDiscardRectangle, uint discardRectangleCount, VkRect2D* pDiscardRectangles)
 		=> Functions.vkCmdSetDiscardRectangleEXT(Handle, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetSampleLocationsEXT(VkSampleLocationsInfoEXT* pSampleLocationsInfo)
 		=> Functions.vkCmdSetSampleLocationsEXT(Handle, pSampleLocationsInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetSampleLocationsEXT(in VkSampleLocationsInfoEXT pSampleLocationsInfo)
+	{
+		fixed (VkSampleLocationsInfoEXT* pSampleLocationsInfoFIXED = &pSampleLocationsInfo)
+		Functions.vkCmdSetSampleLocationsEXT(Handle, pSampleLocationsInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
 		=> Functions.vkCmdBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginDebugUtilsLabelEXT(in VkDebugUtilsLabelEXT pLabelInfo)
+	{
+		fixed (VkDebugUtilsLabelEXT* pLabelInfoFIXED = &pLabelInfo)
+		Functions.vkCmdBeginDebugUtilsLabelEXT(Handle, pLabelInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndDebugUtilsLabelEXT()
 		=> Functions.vkCmdEndDebugUtilsLabelEXT(Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdInsertDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
 		=> Functions.vkCmdInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdInsertDebugUtilsLabelEXT(in VkDebugUtilsLabelEXT pLabelInfo)
+	{
+		fixed (VkDebugUtilsLabelEXT* pLabelInfoFIXED = &pLabelInfo)
+		Functions.vkCmdInsertDebugUtilsLabelEXT(Handle, pLabelInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdWriteBufferMarkerAMD(VkPipelineStageFlags pipelineStage, VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, uint marker)
 		=> Functions.vkCmdWriteBufferMarkerAMD(Handle, pipelineStage, dstBuffer, dstOffset, marker);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginRenderPass2(VkRenderPassBeginInfo* pRenderPassBegin, VkSubpassBeginInfo* pSubpassBeginInfo)
 		=> Functions.vkCmdBeginRenderPass2(Handle, pRenderPassBegin, pSubpassBeginInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginRenderPass2(in VkRenderPassBeginInfo pRenderPassBegin, in VkSubpassBeginInfo pSubpassBeginInfo)
+	{
+		fixed (VkRenderPassBeginInfo* pRenderPassBeginFIXED = &pRenderPassBegin)
+		fixed (VkSubpassBeginInfo* pSubpassBeginInfoFIXED = &pSubpassBeginInfo)
+		Functions.vkCmdBeginRenderPass2(Handle, pRenderPassBeginFIXED, pSubpassBeginInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginRenderPass2KHR(VkRenderPassBeginInfo* pRenderPassBegin, VkSubpassBeginInfo* pSubpassBeginInfo)
 		=> Functions.vkCmdBeginRenderPass2KHR(Handle, pRenderPassBegin, pSubpassBeginInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBeginRenderPass2KHR(in VkRenderPassBeginInfo pRenderPassBegin, in VkSubpassBeginInfo pSubpassBeginInfo)
+	{
+		fixed (VkRenderPassBeginInfo* pRenderPassBeginFIXED = &pRenderPassBegin)
+		fixed (VkSubpassBeginInfo* pSubpassBeginInfoFIXED = &pSubpassBeginInfo)
+		Functions.vkCmdBeginRenderPass2KHR(Handle, pRenderPassBeginFIXED, pSubpassBeginInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdNextSubpass2(VkSubpassBeginInfo* pSubpassBeginInfo, VkSubpassEndInfo* pSubpassEndInfo)
 		=> Functions.vkCmdNextSubpass2(Handle, pSubpassBeginInfo, pSubpassEndInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdNextSubpass2(in VkSubpassBeginInfo pSubpassBeginInfo, in VkSubpassEndInfo pSubpassEndInfo)
+	{
+		fixed (VkSubpassBeginInfo* pSubpassBeginInfoFIXED = &pSubpassBeginInfo)
+		fixed (VkSubpassEndInfo* pSubpassEndInfoFIXED = &pSubpassEndInfo)
+		Functions.vkCmdNextSubpass2(Handle, pSubpassBeginInfoFIXED, pSubpassEndInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdNextSubpass2KHR(VkSubpassBeginInfo* pSubpassBeginInfo, VkSubpassEndInfo* pSubpassEndInfo)
 		=> Functions.vkCmdNextSubpass2KHR(Handle, pSubpassBeginInfo, pSubpassEndInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdNextSubpass2KHR(in VkSubpassBeginInfo pSubpassBeginInfo, in VkSubpassEndInfo pSubpassEndInfo)
+	{
+		fixed (VkSubpassBeginInfo* pSubpassBeginInfoFIXED = &pSubpassBeginInfo)
+		fixed (VkSubpassEndInfo* pSubpassEndInfoFIXED = &pSubpassEndInfo)
+		Functions.vkCmdNextSubpass2KHR(Handle, pSubpassBeginInfoFIXED, pSubpassEndInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndRenderPass2(VkSubpassEndInfo* pSubpassEndInfo)
 		=> Functions.vkCmdEndRenderPass2(Handle, pSubpassEndInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdEndRenderPass2(in VkSubpassEndInfo pSubpassEndInfo)
+	{
+		fixed (VkSubpassEndInfo* pSubpassEndInfoFIXED = &pSubpassEndInfo)
+		Functions.vkCmdEndRenderPass2(Handle, pSubpassEndInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndRenderPass2KHR(VkSubpassEndInfo* pSubpassEndInfo)
 		=> Functions.vkCmdEndRenderPass2KHR(Handle, pSubpassEndInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdEndRenderPass2KHR(in VkSubpassEndInfo pSubpassEndInfo)
+	{
+		fixed (VkSubpassEndInfo* pSubpassEndInfoFIXED = &pSubpassEndInfo)
+		Functions.vkCmdEndRenderPass2KHR(Handle, pSubpassEndInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndirectCount(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
 		=> Functions.vkCmdDrawIndirectCount(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndirectCountKHR(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
 		=> Functions.vkCmdDrawIndirectCountKHR(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndirectCountAMD(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
 		=> Functions.vkCmdDrawIndirectCountAMD(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndexedIndirectCount(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
 		=> Functions.vkCmdDrawIndexedIndirectCount(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndexedIndirectCountKHR(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
 		=> Functions.vkCmdDrawIndexedIndirectCountKHR(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndexedIndirectCountAMD(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
 		=> Functions.vkCmdDrawIndexedIndirectCountAMD(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetCheckpointNV(void* pCheckpointMarker)
 		=> Functions.vkCmdSetCheckpointNV(Handle, pCheckpointMarker);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindTransformFeedbackBuffersEXT(uint firstBinding, uint bindingCount, VulkanHandle<VkBuffer>* pBuffers, ulong* pOffsets, ulong* pSizes)
 		=> Functions.vkCmdBindTransformFeedbackBuffersEXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, VulkanHandle<VkBuffer>* pCounterBuffers, ulong* pCounterBufferOffsets)
 		=> Functions.vkCmdBeginTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, VulkanHandle<VkBuffer>* pCounterBuffers, ulong* pCounterBufferOffsets)
 		=> Functions.vkCmdEndTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBeginQueryIndexedEXT(VulkanHandle<VkQueryPool> queryPool, uint query, VkQueryControlFlags flags, uint index)
 		=> Functions.vkCmdBeginQueryIndexedEXT(Handle, queryPool, query, flags, index);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdEndQueryIndexedEXT(VulkanHandle<VkQueryPool> queryPool, uint query, uint index)
 		=> Functions.vkCmdEndQueryIndexedEXT(Handle, queryPool, query, index);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawIndirectByteCountEXT(uint instanceCount, uint firstInstance, VulkanHandle<VkBuffer> counterBuffer, ulong counterBufferOffset, uint counterOffset, uint vertexStride)
 		=> Functions.vkCmdDrawIndirectByteCountEXT(Handle, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetExclusiveScissorNV(uint firstExclusiveScissor, uint exclusiveScissorCount, VkRect2D* pExclusiveScissors)
 		=> Functions.vkCmdSetExclusiveScissorNV(Handle, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindShadingRateImageNV(VulkanHandle<VkImageView> imageView, VkImageLayout imageLayout)
 		=> Functions.vkCmdBindShadingRateImageNV(Handle, imageView, imageLayout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetViewportShadingRatePaletteNV(uint firstViewport, uint viewportCount, VkShadingRatePaletteNV* pShadingRatePalettes)
 		=> Functions.vkCmdSetViewportShadingRatePaletteNV(Handle, firstViewport, viewportCount, pShadingRatePalettes);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetCoarseSampleOrderNV(VkCoarseSampleOrderTypeNV sampleOrderType, uint customSampleOrderCount, VkCoarseSampleOrderCustomNV* pCustomSampleOrders)
 		=> Functions.vkCmdSetCoarseSampleOrderNV(Handle, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawMeshTasksNV(uint taskCount, uint firstTask)
 		=> Functions.vkCmdDrawMeshTasksNV(Handle, taskCount, firstTask);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawMeshTasksIndirectNV(VulkanHandle<VkBuffer> buffer, ulong offset, uint drawCount, uint stride)
 		=> Functions.vkCmdDrawMeshTasksIndirectNV(Handle, buffer, offset, drawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdDrawMeshTasksIndirectCountNV(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
 		=> Functions.vkCmdDrawMeshTasksIndirectCountNV(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyAccelerationStructureNV(VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VkCopyAccelerationStructureModeKHR mode)
 		=> Functions.vkCmdCopyAccelerationStructureNV(Handle, dst, src, mode);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyAccelerationStructureKHR(VkCopyAccelerationStructureInfoKHR* pInfo)
 		=> Functions.vkCmdCopyAccelerationStructureKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyAccelerationStructureKHR(in VkCopyAccelerationStructureInfoKHR pInfo)
+	{
+		fixed (VkCopyAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
+		Functions.vkCmdCopyAccelerationStructureKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyAccelerationStructureToMemoryKHR(VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
 		=> Functions.vkCmdCopyAccelerationStructureToMemoryKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyAccelerationStructureToMemoryKHR(in VkCopyAccelerationStructureToMemoryInfoKHR pInfo)
+	{
+		fixed (VkCopyAccelerationStructureToMemoryInfoKHR* pInfoFIXED = &pInfo)
+		Functions.vkCmdCopyAccelerationStructureToMemoryKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyMemoryToAccelerationStructureKHR(VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
 		=> Functions.vkCmdCopyMemoryToAccelerationStructureKHR(Handle, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyMemoryToAccelerationStructureKHR(in VkCopyMemoryToAccelerationStructureInfoKHR pInfo)
+	{
+		fixed (VkCopyMemoryToAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
+		Functions.vkCmdCopyMemoryToAccelerationStructureKHR(Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdWriteAccelerationStructuresPropertiesKHR(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
 		=> Functions.vkCmdWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdWriteAccelerationStructuresPropertiesNV(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
 		=> Functions.vkCmdWriteAccelerationStructuresPropertiesNV(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBuildAccelerationStructureNV(VkAccelerationStructureInfoNV* pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
 		=> Functions.vkCmdBuildAccelerationStructureNV(Handle, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBuildAccelerationStructureNV(in VkAccelerationStructureInfoNV pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
+	{
+		fixed (VkAccelerationStructureInfoNV* pInfoFIXED = &pInfo)
+		Functions.vkCmdBuildAccelerationStructureNV(Handle, pInfoFIXED, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdTraceRaysKHR(VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, uint width, uint height, uint depth)
 		=> Functions.vkCmdTraceRaysKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdTraceRaysKHR(in VkStridedBufferRegionKHR pRaygenShaderBindingTable, in VkStridedBufferRegionKHR pMissShaderBindingTable, in VkStridedBufferRegionKHR pHitShaderBindingTable, in VkStridedBufferRegionKHR pCallableShaderBindingTable, uint width, uint height, uint depth)
+	{
+		fixed (VkStridedBufferRegionKHR* pRaygenShaderBindingTableFIXED = &pRaygenShaderBindingTable)
+		fixed (VkStridedBufferRegionKHR* pMissShaderBindingTableFIXED = &pMissShaderBindingTable)
+		fixed (VkStridedBufferRegionKHR* pHitShaderBindingTableFIXED = &pHitShaderBindingTable)
+		fixed (VkStridedBufferRegionKHR* pCallableShaderBindingTableFIXED = &pCallableShaderBindingTable)
+		Functions.vkCmdTraceRaysKHR(Handle, pRaygenShaderBindingTableFIXED, pMissShaderBindingTableFIXED, pHitShaderBindingTableFIXED, pCallableShaderBindingTableFIXED, width, height, depth);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdTraceRaysNV(VulkanHandle<VkBuffer> raygenShaderBindingTableBuffer, ulong raygenShaderBindingOffset, VulkanHandle<VkBuffer> missShaderBindingTableBuffer, ulong missShaderBindingOffset, ulong missShaderBindingStride, VulkanHandle<VkBuffer> hitShaderBindingTableBuffer, ulong hitShaderBindingOffset, ulong hitShaderBindingStride, VulkanHandle<VkBuffer> callableShaderBindingTableBuffer, ulong callableShaderBindingOffset, ulong callableShaderBindingStride, uint width, uint height, uint depth)
 		=> Functions.vkCmdTraceRaysNV(Handle, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdTraceRaysIndirectKHR(VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, VulkanHandle<VkBuffer> buffer, ulong offset)
 		=> Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdTraceRaysIndirectKHR(in VkStridedBufferRegionKHR pRaygenShaderBindingTable, in VkStridedBufferRegionKHR pMissShaderBindingTable, in VkStridedBufferRegionKHR pHitShaderBindingTable, in VkStridedBufferRegionKHR pCallableShaderBindingTable, VulkanHandle<VkBuffer> buffer, ulong offset)
+	{
+		fixed (VkStridedBufferRegionKHR* pRaygenShaderBindingTableFIXED = &pRaygenShaderBindingTable)
+		fixed (VkStridedBufferRegionKHR* pMissShaderBindingTableFIXED = &pMissShaderBindingTable)
+		fixed (VkStridedBufferRegionKHR* pHitShaderBindingTableFIXED = &pHitShaderBindingTable)
+		fixed (VkStridedBufferRegionKHR* pCallableShaderBindingTableFIXED = &pCallableShaderBindingTable)
+		Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTableFIXED, pMissShaderBindingTableFIXED, pHitShaderBindingTableFIXED, pCallableShaderBindingTableFIXED, buffer, offset);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CmdSetPerformanceMarkerINTEL(VkPerformanceMarkerInfoINTEL* pMarkerInfo)
 		=> Functions.vkCmdSetPerformanceMarkerINTEL(Handle, pMarkerInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CmdSetPerformanceMarkerINTEL(in VkPerformanceMarkerInfoINTEL pMarkerInfo)
+	{
+		fixed (VkPerformanceMarkerInfoINTEL* pMarkerInfoFIXED = &pMarkerInfo)
+		return Functions.vkCmdSetPerformanceMarkerINTEL(Handle, pMarkerInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CmdSetPerformanceStreamMarkerINTEL(VkPerformanceStreamMarkerInfoINTEL* pMarkerInfo)
 		=> Functions.vkCmdSetPerformanceStreamMarkerINTEL(Handle, pMarkerInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CmdSetPerformanceStreamMarkerINTEL(in VkPerformanceStreamMarkerInfoINTEL pMarkerInfo)
+	{
+		fixed (VkPerformanceStreamMarkerInfoINTEL* pMarkerInfoFIXED = &pMarkerInfo)
+		return Functions.vkCmdSetPerformanceStreamMarkerINTEL(Handle, pMarkerInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CmdSetPerformanceOverrideINTEL(VkPerformanceOverrideInfoINTEL* pOverrideInfo)
 		=> Functions.vkCmdSetPerformanceOverrideINTEL(Handle, pOverrideInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CmdSetPerformanceOverrideINTEL(in VkPerformanceOverrideInfoINTEL pOverrideInfo)
+	{
+		fixed (VkPerformanceOverrideInfoINTEL* pOverrideInfoFIXED = &pOverrideInfo)
+		return Functions.vkCmdSetPerformanceOverrideINTEL(Handle, pOverrideInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetLineStippleEXT(uint lineStippleFactor, ushort lineStipplePattern)
 		=> Functions.vkCmdSetLineStippleEXT(Handle, lineStippleFactor, lineStipplePattern);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBuildAccelerationStructureKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
 		=> Functions.vkCmdBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBuildAccelerationStructureIndirectKHR(VkAccelerationStructureBuildGeometryInfoKHR* pInfo, VulkanHandle<VkBuffer> indirectBuffer, ulong indirectOffset, uint indirectStride)
 		=> Functions.vkCmdBuildAccelerationStructureIndirectKHR(Handle, pInfo, indirectBuffer, indirectOffset, indirectStride);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBuildAccelerationStructureIndirectKHR(in VkAccelerationStructureBuildGeometryInfoKHR pInfo, VulkanHandle<VkBuffer> indirectBuffer, ulong indirectOffset, uint indirectStride)
+	{
+		fixed (VkAccelerationStructureBuildGeometryInfoKHR* pInfoFIXED = &pInfo)
+		Functions.vkCmdBuildAccelerationStructureIndirectKHR(Handle, pInfoFIXED, indirectBuffer, indirectOffset, indirectStride);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetCullModeEXT(VkCullModeFlags cullMode)
 		=> Functions.vkCmdSetCullModeEXT(Handle, cullMode);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetFrontFaceEXT(VkFrontFace frontFace)
 		=> Functions.vkCmdSetFrontFaceEXT(Handle, frontFace);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetPrimitiveTopologyEXT(VkPrimitiveTopology primitiveTopology)
 		=> Functions.vkCmdSetPrimitiveTopologyEXT(Handle, primitiveTopology);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetViewportWithCountEXT(uint viewportCount, VkViewport* pViewports)
 		=> Functions.vkCmdSetViewportWithCountEXT(Handle, viewportCount, pViewports);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetScissorWithCountEXT(uint scissorCount, VkRect2D* pScissors)
 		=> Functions.vkCmdSetScissorWithCountEXT(Handle, scissorCount, pScissors);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBindVertexBuffers2EXT(uint firstBinding, uint bindingCount, VulkanHandle<VkBuffer>* pBuffers, ulong* pOffsets, ulong* pSizes, ulong* pStrides)
 		=> Functions.vkCmdBindVertexBuffers2EXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDepthTestEnableEXT(VkBool32 depthTestEnable)
 		=> Functions.vkCmdSetDepthTestEnableEXT(Handle, depthTestEnable);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDepthWriteEnableEXT(VkBool32 depthWriteEnable)
 		=> Functions.vkCmdSetDepthWriteEnableEXT(Handle, depthWriteEnable);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDepthCompareOpEXT(VkCompareOp depthCompareOp)
 		=> Functions.vkCmdSetDepthCompareOpEXT(Handle, depthCompareOp);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetDepthBoundsTestEnableEXT(VkBool32 depthBoundsTestEnable)
 		=> Functions.vkCmdSetDepthBoundsTestEnableEXT(Handle, depthBoundsTestEnable);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetStencilTestEnableEXT(VkBool32 stencilTestEnable)
 		=> Functions.vkCmdSetStencilTestEnableEXT(Handle, stencilTestEnable);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetStencilOpEXT(VkStencilFaceFlags faceMask, VkStencilOp failOp, VkStencilOp passOp, VkStencilOp depthFailOp, VkCompareOp compareOp)
 		=> Functions.vkCmdSetStencilOpEXT(Handle, faceMask, failOp, passOp, depthFailOp, compareOp);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyBuffer2KHR(VkCopyBufferInfo2KHR* pCopyBufferInfo)
 		=> Functions.vkCmdCopyBuffer2KHR(Handle, pCopyBufferInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyBuffer2KHR(in VkCopyBufferInfo2KHR pCopyBufferInfo)
+	{
+		fixed (VkCopyBufferInfo2KHR* pCopyBufferInfoFIXED = &pCopyBufferInfo)
+		Functions.vkCmdCopyBuffer2KHR(Handle, pCopyBufferInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImage2KHR(VkCopyImageInfo2KHR* pCopyImageInfo)
 		=> Functions.vkCmdCopyImage2KHR(Handle, pCopyImageInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyImage2KHR(in VkCopyImageInfo2KHR pCopyImageInfo)
+	{
+		fixed (VkCopyImageInfo2KHR* pCopyImageInfoFIXED = &pCopyImageInfo)
+		Functions.vkCmdCopyImage2KHR(Handle, pCopyImageInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdBlitImage2KHR(VkBlitImageInfo2KHR* pBlitImageInfo)
 		=> Functions.vkCmdBlitImage2KHR(Handle, pBlitImageInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdBlitImage2KHR(in VkBlitImageInfo2KHR pBlitImageInfo)
+	{
+		fixed (VkBlitImageInfo2KHR* pBlitImageInfoFIXED = &pBlitImageInfo)
+		Functions.vkCmdBlitImage2KHR(Handle, pBlitImageInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyBufferToImage2KHR(VkCopyBufferToImageInfo2KHR* pCopyBufferToImageInfo)
 		=> Functions.vkCmdCopyBufferToImage2KHR(Handle, pCopyBufferToImageInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyBufferToImage2KHR(in VkCopyBufferToImageInfo2KHR pCopyBufferToImageInfo)
+	{
+		fixed (VkCopyBufferToImageInfo2KHR* pCopyBufferToImageInfoFIXED = &pCopyBufferToImageInfo)
+		Functions.vkCmdCopyBufferToImage2KHR(Handle, pCopyBufferToImageInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdCopyImageToBuffer2KHR(VkCopyImageToBufferInfo2KHR* pCopyImageToBufferInfo)
 		=> Functions.vkCmdCopyImageToBuffer2KHR(Handle, pCopyImageToBufferInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdCopyImageToBuffer2KHR(in VkCopyImageToBufferInfo2KHR pCopyImageToBufferInfo)
+	{
+		fixed (VkCopyImageToBufferInfo2KHR* pCopyImageToBufferInfoFIXED = &pCopyImageToBufferInfo)
+		Functions.vkCmdCopyImageToBuffer2KHR(Handle, pCopyImageToBufferInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdResolveImage2KHR(VkResolveImageInfo2KHR* pResolveImageInfo)
 		=> Functions.vkCmdResolveImage2KHR(Handle, pResolveImageInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdResolveImage2KHR(in VkResolveImageInfo2KHR pResolveImageInfo)
+	{
+		fixed (VkResolveImageInfo2KHR* pResolveImageInfoFIXED = &pResolveImageInfo)
+		Functions.vkCmdResolveImage2KHR(Handle, pResolveImageInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetFragmentShadingRateKHR(VkExtent2D* pFragmentSize, VkFragmentShadingRateCombinerOpKHR* combinerOps)
 		=> Functions.vkCmdSetFragmentShadingRateKHR(Handle, pFragmentSize, combinerOps);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetFragmentShadingRateKHR(in VkExtent2D pFragmentSize, in VkFragmentShadingRateCombinerOpKHR combinerOps)
+	{
+		fixed (VkExtent2D* pFragmentSizeFIXED = &pFragmentSize)
+		fixed (VkFragmentShadingRateCombinerOpKHR* combinerOpsFIXED = &combinerOps)
+		Functions.vkCmdSetFragmentShadingRateKHR(Handle, pFragmentSizeFIXED, combinerOpsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetFragmentShadingRateEnumNV(VkFragmentShadingRateNV shadingRate, VkFragmentShadingRateCombinerOpKHR* combinerOps)
 		=> Functions.vkCmdSetFragmentShadingRateEnumNV(Handle, shadingRate, combinerOps);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetFragmentShadingRateEnumNV(VkFragmentShadingRateNV shadingRate, in VkFragmentShadingRateCombinerOpKHR combinerOps)
+	{
+		fixed (VkFragmentShadingRateCombinerOpKHR* combinerOpsFIXED = &combinerOps)
+		Functions.vkCmdSetFragmentShadingRateEnumNV(Handle, shadingRate, combinerOpsFIXED);
+	}
 
 }
 
@@ -1233,20 +3257,46 @@ public unsafe sealed partial class VkDeviceMemory : IVulkanHandle<VkDeviceMemory
 	public static implicit operator VulkanHandle<VkDeviceMemory> (VkDeviceMemory? h) => h?.Handle ?? VulkanHandle<VkDeviceMemory>.Null;
 	public static implicit operator bool (VkDeviceMemory? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void FreeMemory(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkFreeMemory(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult MapMemory(ulong offset, ulong size, VkMemoryMapFlags flags, void** ppData)
 		=> Functions.vkMapMemory(Parent, Handle, offset, size, flags, ppData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult MapMemory(ulong offset, ulong size, VkMemoryMapFlags flags, ref void* ppData)
+	{
+		fixed (void** ppDataFIXED = &ppData)
+		return Functions.vkMapMemory(Parent, Handle, offset, size, flags, ppDataFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void UnmapMemory()
 		=> Functions.vkUnmapMemory(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetDeviceMemoryCommitment(ulong* pCommittedMemoryInBytes)
 		=> Functions.vkGetDeviceMemoryCommitment(Parent, Handle, pCommittedMemoryInBytes);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetDeviceMemoryCommitment(out ulong pCommittedMemoryInBytes)
+	{
+		fixed (ulong* pCommittedMemoryInBytesFIXED = &pCommittedMemoryInBytes)
+		Functions.vkGetDeviceMemoryCommitment(Parent, Handle, pCommittedMemoryInBytesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetMemoryWin32HandleNV(VkExternalMemoryHandleTypeFlagsNV handleType, void** pHandle)
 		=> Functions.vkGetMemoryWin32HandleNV(Parent, Handle, handleType, pHandle);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetMemoryWin32HandleNV(VkExternalMemoryHandleTypeFlagsNV handleType, out void* pHandle)
+	{
+		fixed (void** pHandleFIXED = &pHandle)
+		return Functions.vkGetMemoryWin32HandleNV(Parent, Handle, handleType, pHandleFIXED);
+	}
 
 }
 
@@ -1275,18 +3325,23 @@ public unsafe sealed partial class VkCommandPool : IVulkanHandle<VkCommandPool>
 	public static implicit operator VulkanHandle<VkCommandPool> (VkCommandPool? h) => h?.Handle ?? VulkanHandle<VkCommandPool>.Null;
 	public static implicit operator bool (VkCommandPool? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyCommandPool(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyCommandPool(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ResetCommandPool(VkCommandPoolResetFlags flags)
 		=> Functions.vkResetCommandPool(Parent, Handle, flags);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void FreeCommandBuffers(uint commandBufferCount, VulkanHandle<VkCommandBuffer>* pCommandBuffers)
 		=> Functions.vkFreeCommandBuffers(Parent, Handle, commandBufferCount, pCommandBuffers);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void TrimCommandPool(VkCommandPoolTrimFlags flags)
 		=> Functions.vkTrimCommandPool(Parent, Handle, flags);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void TrimCommandPoolKHR(VkCommandPoolTrimFlags flags)
 		=> Functions.vkTrimCommandPoolKHR(Parent, Handle, flags);
 
@@ -1317,12 +3372,22 @@ public unsafe sealed partial class VkBuffer : IVulkanHandle<VkBuffer>
 	public static implicit operator VulkanHandle<VkBuffer> (VkBuffer? h) => h?.Handle ?? VulkanHandle<VkBuffer>.Null;
 	public static implicit operator bool (VkBuffer? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetBufferMemoryRequirements(VkMemoryRequirements* pMemoryRequirements)
 		=> Functions.vkGetBufferMemoryRequirements(Parent, Handle, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetBufferMemoryRequirements(out VkMemoryRequirements pMemoryRequirements)
+	{
+		fixed (VkMemoryRequirements* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetBufferMemoryRequirements(Parent, Handle, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindBufferMemory(VulkanHandle<VkDeviceMemory> memory, ulong memoryOffset)
 		=> Functions.vkBindBufferMemory(Parent, Handle, memory, memoryOffset);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyBuffer(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyBuffer(Parent, Handle, pAllocator);
 
@@ -1353,6 +3418,7 @@ public unsafe sealed partial class VkBufferView : IVulkanHandle<VkBufferView>
 	public static implicit operator VulkanHandle<VkBufferView> (VkBufferView? h) => h?.Handle ?? VulkanHandle<VkBufferView>.Null;
 	public static implicit operator bool (VkBufferView? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyBufferView(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyBufferView(Parent, Handle, pAllocator);
 
@@ -1383,26 +3449,62 @@ public unsafe sealed partial class VkImage : IVulkanHandle<VkImage>
 	public static implicit operator VulkanHandle<VkImage> (VkImage? h) => h?.Handle ?? VulkanHandle<VkImage>.Null;
 	public static implicit operator bool (VkImage? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageMemoryRequirements(VkMemoryRequirements* pMemoryRequirements)
 		=> Functions.vkGetImageMemoryRequirements(Parent, Handle, pMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageMemoryRequirements(out VkMemoryRequirements pMemoryRequirements)
+	{
+		fixed (VkMemoryRequirements* pMemoryRequirementsFIXED = &pMemoryRequirements)
+		Functions.vkGetImageMemoryRequirements(Parent, Handle, pMemoryRequirementsFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult BindImageMemory(VulkanHandle<VkDeviceMemory> memory, ulong memoryOffset)
 		=> Functions.vkBindImageMemory(Parent, Handle, memory, memoryOffset);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSparseMemoryRequirements(uint* pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements* pSparseMemoryRequirements)
 		=> Functions.vkGetImageSparseMemoryRequirements(Parent, Handle, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSparseMemoryRequirements(ref uint pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements* pSparseMemoryRequirements)
+	{
+		fixed (uint* pSparseMemoryRequirementCountFIXED = &pSparseMemoryRequirementCount)
+		Functions.vkGetImageSparseMemoryRequirements(Parent, Handle, pSparseMemoryRequirementCountFIXED, pSparseMemoryRequirements);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyImage(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyImage(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetImageSubresourceLayout(VkImageSubresource* pSubresource, VkSubresourceLayout* pLayout)
 		=> Functions.vkGetImageSubresourceLayout(Parent, Handle, pSubresource, pLayout);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetImageSubresourceLayout(in VkImageSubresource pSubresource, out VkSubresourceLayout pLayout)
+	{
+		fixed (VkImageSubresource* pSubresourceFIXED = &pSubresource)
+		fixed (VkSubresourceLayout* pLayoutFIXED = &pLayout)
+		Functions.vkGetImageSubresourceLayout(Parent, Handle, pSubresourceFIXED, pLayoutFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AcquireImageANDROID(int nativeFenceFd, VulkanHandle<VkSemaphore> semaphore, VulkanHandle<VkFence> fence)
 		=> Functions.vkAcquireImageANDROID(Parent, Handle, nativeFenceFd, semaphore, fence);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetImageDrmFormatModifierPropertiesEXT(VkImageDrmFormatModifierPropertiesEXT* pProperties)
 		=> Functions.vkGetImageDrmFormatModifierPropertiesEXT(Parent, Handle, pProperties);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetImageDrmFormatModifierPropertiesEXT(out VkImageDrmFormatModifierPropertiesEXT pProperties)
+	{
+		fixed (VkImageDrmFormatModifierPropertiesEXT* pPropertiesFIXED = &pProperties)
+		return Functions.vkGetImageDrmFormatModifierPropertiesEXT(Parent, Handle, pPropertiesFIXED);
+	}
 
 }
 
@@ -1431,11 +3533,20 @@ public unsafe sealed partial class VkImageView : IVulkanHandle<VkImageView>
 	public static implicit operator VulkanHandle<VkImageView> (VkImageView? h) => h?.Handle ?? VulkanHandle<VkImageView>.Null;
 	public static implicit operator bool (VkImageView? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyImageView(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyImageView(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetImageViewAddressNVX(VkImageViewAddressPropertiesNVX* pProperties)
 		=> Functions.vkGetImageViewAddressNVX(Parent, Handle, pProperties);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetImageViewAddressNVX(out VkImageViewAddressPropertiesNVX pProperties)
+	{
+		fixed (VkImageViewAddressPropertiesNVX* pPropertiesFIXED = &pProperties)
+		return Functions.vkGetImageViewAddressNVX(Parent, Handle, pPropertiesFIXED);
+	}
 
 }
 
@@ -1464,6 +3575,7 @@ public unsafe sealed partial class VkShaderModule : IVulkanHandle<VkShaderModule
 	public static implicit operator VulkanHandle<VkShaderModule> (VkShaderModule? h) => h?.Handle ?? VulkanHandle<VkShaderModule>.Null;
 	public static implicit operator bool (VkShaderModule? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyShaderModule(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyShaderModule(Parent, Handle, pAllocator);
 
@@ -1494,21 +3606,34 @@ public unsafe sealed partial class VkPipeline : IVulkanHandle<VkPipeline>
 	public static implicit operator VulkanHandle<VkPipeline> (VkPipeline? h) => h?.Handle ?? VulkanHandle<VkPipeline>.Null;
 	public static implicit operator bool (VkPipeline? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipeline(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyPipeline(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetShaderInfoAMD(VkShaderStageFlags shaderStage, VkShaderInfoTypeAMD infoType, ulong* pInfoSize, void* pInfo)
 		=> Functions.vkGetShaderInfoAMD(Parent, Handle, shaderStage, infoType, pInfoSize, pInfo);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetShaderInfoAMD(VkShaderStageFlags shaderStage, VkShaderInfoTypeAMD infoType, ref ulong pInfoSize, void* pInfo)
+	{
+		fixed (ulong* pInfoSizeFIXED = &pInfoSize)
+		return Functions.vkGetShaderInfoAMD(Parent, Handle, shaderStage, infoType, pInfoSizeFIXED, pInfo);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CompileDeferredNV(uint shader)
 		=> Functions.vkCompileDeferredNV(Parent, Handle, shader);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetRayTracingShaderGroupHandlesKHR(uint firstGroup, uint groupCount, ulong dataSize, void* pData)
 		=> Functions.vkGetRayTracingShaderGroupHandlesKHR(Parent, Handle, firstGroup, groupCount, dataSize, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetRayTracingShaderGroupHandlesNV(uint firstGroup, uint groupCount, ulong dataSize, void* pData)
 		=> Functions.vkGetRayTracingShaderGroupHandlesNV(Parent, Handle, firstGroup, groupCount, dataSize, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetRayTracingCaptureReplayShaderGroupHandlesKHR(uint firstGroup, uint groupCount, ulong dataSize, void* pData)
 		=> Functions.vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(Parent, Handle, firstGroup, groupCount, dataSize, pData);
 
@@ -1539,6 +3664,7 @@ public unsafe sealed partial class VkPipelineLayout : IVulkanHandle<VkPipelineLa
 	public static implicit operator VulkanHandle<VkPipelineLayout> (VkPipelineLayout? h) => h?.Handle ?? VulkanHandle<VkPipelineLayout>.Null;
 	public static implicit operator bool (VkPipelineLayout? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipelineLayout(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyPipelineLayout(Parent, Handle, pAllocator);
 
@@ -1569,6 +3695,7 @@ public unsafe sealed partial class VkSampler : IVulkanHandle<VkSampler>
 	public static implicit operator VulkanHandle<VkSampler> (VkSampler? h) => h?.Handle ?? VulkanHandle<VkSampler>.Null;
 	public static implicit operator bool (VkSampler? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySampler(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroySampler(Parent, Handle, pAllocator);
 
@@ -1626,6 +3753,7 @@ public unsafe sealed partial class VkDescriptorSetLayout : IVulkanHandle<VkDescr
 	public static implicit operator VulkanHandle<VkDescriptorSetLayout> (VkDescriptorSetLayout? h) => h?.Handle ?? VulkanHandle<VkDescriptorSetLayout>.Null;
 	public static implicit operator bool (VkDescriptorSetLayout? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorSetLayout(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDescriptorSetLayout(Parent, Handle, pAllocator);
 
@@ -1656,12 +3784,15 @@ public unsafe sealed partial class VkDescriptorPool : IVulkanHandle<VkDescriptor
 	public static implicit operator VulkanHandle<VkDescriptorPool> (VkDescriptorPool? h) => h?.Handle ?? VulkanHandle<VkDescriptorPool>.Null;
 	public static implicit operator bool (VkDescriptorPool? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorPool(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDescriptorPool(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ResetDescriptorPool(VkDescriptorPoolResetFlags flags)
 		=> Functions.vkResetDescriptorPool(Parent, Handle, flags);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult FreeDescriptorSets(uint descriptorSetCount, VulkanHandle<VkDescriptorSet>* pDescriptorSets)
 		=> Functions.vkFreeDescriptorSets(Parent, Handle, descriptorSetCount, pDescriptorSets);
 
@@ -1692,9 +3823,11 @@ public unsafe sealed partial class VkFence : IVulkanHandle<VkFence>
 	public static implicit operator VulkanHandle<VkFence> (VkFence? h) => h?.Handle ?? VulkanHandle<VkFence>.Null;
 	public static implicit operator bool (VkFence? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyFence(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyFence(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetFenceStatus()
 		=> Functions.vkGetFenceStatus(Parent, Handle);
 
@@ -1725,14 +3858,31 @@ public unsafe sealed partial class VkSemaphore : IVulkanHandle<VkSemaphore>
 	public static implicit operator VulkanHandle<VkSemaphore> (VkSemaphore? h) => h?.Handle ?? VulkanHandle<VkSemaphore>.Null;
 	public static implicit operator bool (VkSemaphore? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySemaphore(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroySemaphore(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSemaphoreCounterValue(ulong* pValue)
 		=> Functions.vkGetSemaphoreCounterValue(Parent, Handle, pValue);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSemaphoreCounterValue(out ulong pValue)
+	{
+		fixed (ulong* pValueFIXED = &pValue)
+		return Functions.vkGetSemaphoreCounterValue(Parent, Handle, pValueFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSemaphoreCounterValueKHR(ulong* pValue)
 		=> Functions.vkGetSemaphoreCounterValueKHR(Parent, Handle, pValue);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSemaphoreCounterValueKHR(out ulong pValue)
+	{
+		fixed (ulong* pValueFIXED = &pValue)
+		return Functions.vkGetSemaphoreCounterValueKHR(Parent, Handle, pValueFIXED);
+	}
 
 }
 
@@ -1761,15 +3911,19 @@ public unsafe sealed partial class VkEvent : IVulkanHandle<VkEvent>
 	public static implicit operator VulkanHandle<VkEvent> (VkEvent? h) => h?.Handle ?? VulkanHandle<VkEvent>.Null;
 	public static implicit operator bool (VkEvent? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyEvent(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyEvent(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetEventStatus()
 		=> Functions.vkGetEventStatus(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult SetEvent()
 		=> Functions.vkSetEvent(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ResetEvent()
 		=> Functions.vkResetEvent(Parent, Handle);
 
@@ -1800,15 +3954,19 @@ public unsafe sealed partial class VkQueryPool : IVulkanHandle<VkQueryPool>
 	public static implicit operator VulkanHandle<VkQueryPool> (VkQueryPool? h) => h?.Handle ?? VulkanHandle<VkQueryPool>.Null;
 	public static implicit operator bool (VkQueryPool? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyQueryPool(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyQueryPool(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetQueryPoolResults(uint firstQuery, uint queryCount, ulong dataSize, void* pData, ulong stride, VkQueryResultFlags flags)
 		=> Functions.vkGetQueryPoolResults(Parent, Handle, firstQuery, queryCount, dataSize, pData, stride, flags);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ResetQueryPool(uint firstQuery, uint queryCount)
 		=> Functions.vkResetQueryPool(Parent, Handle, firstQuery, queryCount);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void ResetQueryPoolEXT(uint firstQuery, uint queryCount)
 		=> Functions.vkResetQueryPoolEXT(Parent, Handle, firstQuery, queryCount);
 
@@ -1839,6 +3997,7 @@ public unsafe sealed partial class VkFramebuffer : IVulkanHandle<VkFramebuffer>
 	public static implicit operator VulkanHandle<VkFramebuffer> (VkFramebuffer? h) => h?.Handle ?? VulkanHandle<VkFramebuffer>.Null;
 	public static implicit operator bool (VkFramebuffer? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyFramebuffer(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyFramebuffer(Parent, Handle, pAllocator);
 
@@ -1869,11 +4028,20 @@ public unsafe sealed partial class VkRenderPass : IVulkanHandle<VkRenderPass>
 	public static implicit operator VulkanHandle<VkRenderPass> (VkRenderPass? h) => h?.Handle ?? VulkanHandle<VkRenderPass>.Null;
 	public static implicit operator bool (VkRenderPass? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyRenderPass(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyRenderPass(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetRenderAreaGranularity(VkExtent2D* pGranularity)
 		=> Functions.vkGetRenderAreaGranularity(Parent, Handle, pGranularity);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetRenderAreaGranularity(out VkExtent2D pGranularity)
+	{
+		fixed (VkExtent2D* pGranularityFIXED = &pGranularity)
+		Functions.vkGetRenderAreaGranularity(Parent, Handle, pGranularityFIXED);
+	}
 
 }
 
@@ -1902,24 +4070,38 @@ public unsafe sealed partial class VkPipelineCache : IVulkanHandle<VkPipelineCac
 	public static implicit operator VulkanHandle<VkPipelineCache> (VkPipelineCache? h) => h?.Handle ?? VulkanHandle<VkPipelineCache>.Null;
 	public static implicit operator bool (VkPipelineCache? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyPipelineCache(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyPipelineCache(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPipelineCacheData(ulong* pDataSize, void* pData)
 		=> Functions.vkGetPipelineCacheData(Parent, Handle, pDataSize, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPipelineCacheData(ref ulong pDataSize, void* pData)
+	{
+		fixed (ulong* pDataSizeFIXED = &pDataSize)
+		return Functions.vkGetPipelineCacheData(Parent, Handle, pDataSizeFIXED, pData);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult MergePipelineCaches(uint srcCacheCount, VulkanHandle<VkPipelineCache>* pSrcCaches)
 		=> Functions.vkMergePipelineCaches(Parent, Handle, srcCacheCount, pSrcCaches);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateGraphicsPipelines(uint createInfoCount, VkGraphicsPipelineCreateInfo* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
 		=> Functions.vkCreateGraphicsPipelines(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateComputePipelines(uint createInfoCount, VkComputePipelineCreateInfo* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
 		=> Functions.vkCreateComputePipelines(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateRayTracingPipelinesNV(uint createInfoCount, VkRayTracingPipelineCreateInfoNV* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
 		=> Functions.vkCreateRayTracingPipelinesNV(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateRayTracingPipelinesKHR(uint createInfoCount, VkRayTracingPipelineCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
 		=> Functions.vkCreateRayTracingPipelinesKHR(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 
@@ -1950,9 +4132,11 @@ public unsafe sealed partial class VkDescriptorUpdateTemplate : IVulkanHandle<Vk
 	public static implicit operator VulkanHandle<VkDescriptorUpdateTemplate> (VkDescriptorUpdateTemplate? h) => h?.Handle ?? VulkanHandle<VkDescriptorUpdateTemplate>.Null;
 	public static implicit operator bool (VkDescriptorUpdateTemplate? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorUpdateTemplate(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDescriptorUpdateTemplate(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDescriptorUpdateTemplateKHR(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDescriptorUpdateTemplateKHR(Parent, Handle, pAllocator);
 
@@ -1983,9 +4167,11 @@ public unsafe sealed partial class VkSamplerYcbcrConversion : IVulkanHandle<VkSa
 	public static implicit operator VulkanHandle<VkSamplerYcbcrConversion> (VkSamplerYcbcrConversion? h) => h?.Handle ?? VulkanHandle<VkSamplerYcbcrConversion>.Null;
 	public static implicit operator bool (VkSamplerYcbcrConversion? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySamplerYcbcrConversion(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroySamplerYcbcrConversion(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySamplerYcbcrConversionKHR(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroySamplerYcbcrConversionKHR(Parent, Handle, pAllocator);
 

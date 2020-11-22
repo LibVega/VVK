@@ -100,28 +100,59 @@ namespace Gen
 
 				// Handle functions
 				foreach (var cmd in handle.Commands) {
-					// If this is a (parent, handle, ...) function
-					var parentArg = (cmd.Params.Count > 1) && (cmd.Params[1].Type == $"VulkanHandle<{handle.Name}>");
+					var hasRet = cmd.ReturnType != "void";
+					var retStr = hasRet ? "return " : String.Empty;
 
-					var fnname = cmd.Name.Substring("vk".Length);
-					if (cmd.Scope == CommandType.CommandScope.Global) {
-						var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
-						var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
-						block.WriteLine($"public static {cmd.ReturnType} {fnname}({protostr})");
-						block.WriteLine($"\t=> InstanceFunctionTable.{cmd.Name}({callstr});");
-					}
-					else {
-						var protostr = String.Join(", ", cmd.Params.Skip(parentArg ? 2 : 1).Select(par => $"{par.Type} {par.Name}"));
-						var callstr = String.Join(", ", cmd.Params.Skip(parentArg ? 2 : 1).Select(par => par.Name));
-						block.WriteLine($"public {cmd.ReturnType} {fnname}({protostr})");
-						if (parentArg) {
-							block.WriteLine($"\t=> Functions.{cmd.Name}(Parent, Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
+					foreach (var pset in cmd.ParamSets) {
+						// If this is a (parent, handle, ...) function
+						var parentArg = (pset.Count > 1) && (pset[1].Type == $"VulkanHandle<{handle.Name}>");
+						var anyFix = pset.Any(par => par.NeedsFix);
+
+						var fnname = cmd.Name.Substring("vk".Length);
+						block.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+						if (cmd.Scope == CommandType.CommandScope.Global) {
+							var protostr = String.Join(", ", pset.Select(par => $"{par.Type} {par.Name}"));
+							var callstr = String.Join(", ", pset.Select(par => par.NeedsFix ? (par.Name + "FIXED") : par.Name));
+							if (anyFix) {
+								using var func = block.PushBlock($"public static {cmd.ReturnType} {fnname}({protostr})");
+								foreach (var par in pset.Where(par => par.NeedsFix)) {
+									func.WriteLine($"fixed ({par.Type.Substring(par.Type.IndexOf(' ') + 1)}* {par.Name}FIXED = &{par.Name})");
+								}
+								func.WriteLine($"{retStr}InstanceFunctionTable.{cmd.Name}({callstr});");
+							}
+							else {
+								block.WriteLine($"public static {cmd.ReturnType} {fnname}({protostr})");
+								block.WriteLine($"\t=> InstanceFunctionTable.{cmd.Name}({callstr});");
+								block.WriteLine();
+							}
 						}
 						else {
-							block.WriteLine($"\t=> Functions.{cmd.Name}(Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
-						} 
+							var protostr = String.Join(", ", pset.Skip(parentArg ? 2 : 1).Select(par => $"{par.Type} {par.Name}"));
+							var callstr = String.Join(", ", pset.Skip(parentArg ? 2 : 1).Select(par => par.NeedsFix ? (par.Name + "FIXED") : par.Name));
+							if (anyFix) {
+								using var func = block.PushBlock($"public {cmd.ReturnType} {fnname}({protostr})");
+								foreach (var par in pset.Where(par => par.NeedsFix)) {
+									func.WriteLine($"fixed ({par.Type.Substring(par.Type.IndexOf(' ') + 1)}* {par.Name}FIXED = &{par.Name})");
+								}
+								if (parentArg) {
+									func.WriteLine($"{retStr}Functions.{cmd.Name}(Parent, Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
+								}
+								else {
+									func.WriteLine($"{retStr}Functions.{cmd.Name}(Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
+								}
+							}
+							else {
+								block.WriteLine($"public {cmd.ReturnType} {fnname}({protostr})");
+								if (parentArg) {
+									block.WriteLine($"\t=> Functions.{cmd.Name}(Parent, Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
+								}
+								else {
+									block.WriteLine($"\t=> Functions.{cmd.Name}(Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
+								}
+								block.WriteLine();
+							}
+						}
 					}
-					block.WriteLine();
 				}
 			}
 		}

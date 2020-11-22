@@ -38,6 +38,7 @@ public unsafe sealed partial class VkIndirectCommandsLayoutNV : IVulkanHandle<Vk
 	public static implicit operator VulkanHandle<VkIndirectCommandsLayoutNV> (VkIndirectCommandsLayoutNV? h) => h?.Handle ?? VulkanHandle<VkIndirectCommandsLayoutNV>.Null;
 	public static implicit operator bool (VkIndirectCommandsLayoutNV? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyIndirectCommandsLayoutNV(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyIndirectCommandsLayoutNV(Parent, Handle, pAllocator);
 

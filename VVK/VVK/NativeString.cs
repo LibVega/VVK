@@ -126,6 +126,8 @@ namespace Vulkan.VVK
 			(l is null != r is null) || ((l is not null) && (l!.Length != r!.Length || Strcmp(r!.Data, l!) != 0));
 
 		public static implicit operator string (NativeString? str) => str?.ToString() ?? String.Empty;
+
+		public static implicit operator byte* (NativeString? str) => (str is not null) ? str.Data : null;
 		#endregion // Operators
 
 		#region IDisposable

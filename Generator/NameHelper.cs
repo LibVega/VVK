@@ -230,6 +230,9 @@ namespace Gen
 			return null;
 		}
 
+		// Gets if a type is a platform-specific type
+		public static bool IsPlatformType(string typeName) => PLATFORM_TYPE_MAPPING.ContainsKey(typeName);
+
 		// Gets the vendor for the type, if any is present
 		public static string? GetTypeVendor(string typeName)
 		{

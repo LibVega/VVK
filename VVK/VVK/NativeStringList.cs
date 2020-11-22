@@ -114,6 +114,10 @@ namespace Vulkan.VVK
 		}
 		#endregion // IDisposable
 
+		#region Operators
+		public static implicit operator byte** (NativeStringList? list) => (list is not null) ? list.Data : null;
+		#endregion // Operators
+
 		private static byte** InitPointerBlock(uint capacity)
 		{
 			var data = (byte**)Marshal.AllocHGlobal((int)capacity * sizeof(byte*)).ToPointer();

@@ -38,6 +38,7 @@ public unsafe sealed partial class VkPerformanceConfigurationINTEL : IVulkanHand
 	public static implicit operator VulkanHandle<VkPerformanceConfigurationINTEL> (VkPerformanceConfigurationINTEL? h) => h?.Handle ?? VulkanHandle<VkPerformanceConfigurationINTEL>.Null;
 	public static implicit operator bool (VkPerformanceConfigurationINTEL? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ReleasePerformanceConfigurationINTEL()
 		=> Functions.vkReleasePerformanceConfigurationINTEL(Parent, Handle);
 

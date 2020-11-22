@@ -92,12 +92,15 @@ public unsafe sealed partial class VkAccelerationStructureKHR : IVulkanHandle<Vk
 	public static implicit operator VulkanHandle<VkAccelerationStructureKHR> (VkAccelerationStructureKHR? h) => h?.Handle ?? VulkanHandle<VkAccelerationStructureKHR>.Null;
 	public static implicit operator bool (VkAccelerationStructureKHR? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureKHR(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyAccelerationStructureKHR(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyAccelerationStructureNV(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyAccelerationStructureNV(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetAccelerationStructureHandleNV(ulong dataSize, void* pData)
 		=> Functions.vkGetAccelerationStructureHandleNV(Parent, Handle, dataSize, pData);
 
@@ -128,15 +131,19 @@ public unsafe sealed partial class VkDeferredOperationKHR : IVulkanHandle<VkDefe
 	public static implicit operator VulkanHandle<VkDeferredOperationKHR> (VkDeferredOperationKHR? h) => h?.Handle ?? VulkanHandle<VkDeferredOperationKHR>.Null;
 	public static implicit operator bool (VkDeferredOperationKHR? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDeferredOperationKHR(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyDeferredOperationKHR(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public uint GetDeferredOperationMaxConcurrencyKHR()
 		=> Functions.vkGetDeferredOperationMaxConcurrencyKHR(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDeferredOperationResultKHR()
 		=> Functions.vkGetDeferredOperationResultKHR(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult DeferredOperationJoinKHR()
 		=> Functions.vkDeferredOperationJoinKHR(Parent, Handle);
 
@@ -167,17 +174,43 @@ public unsafe sealed partial class VkDisplayKHR : IVulkanHandle<VkDisplayKHR>
 	public static implicit operator VulkanHandle<VkDisplayKHR> (VkDisplayKHR? h) => h?.Handle ?? VulkanHandle<VkDisplayKHR>.Null;
 	public static implicit operator bool (VkDisplayKHR? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDisplayModePropertiesKHR(uint* pPropertyCount, VkDisplayModePropertiesKHR* pProperties)
 		=> Functions.vkGetDisplayModePropertiesKHR(Parent, Handle, pPropertyCount, pProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDisplayModePropertiesKHR(ref uint pPropertyCount, VkDisplayModePropertiesKHR* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkGetDisplayModePropertiesKHR(Parent, Handle, pPropertyCountFIXED, pProperties);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateDisplayModeKHR(VkDisplayModeCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDisplayModeKHR>* pMode)
 		=> Functions.vkCreateDisplayModeKHR(Parent, Handle, pCreateInfo, pAllocator, pMode);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateDisplayModeKHR(in VkDisplayModeCreateInfoKHR pCreateInfo, VkAllocationCallbacks* pAllocator, out VulkanHandle<VkDisplayModeKHR> pMode)
+	{
+		fixed (VkDisplayModeCreateInfoKHR* pCreateInfoFIXED = &pCreateInfo)
+		fixed (VulkanHandle<VkDisplayModeKHR>* pModeFIXED = &pMode)
+		return Functions.vkCreateDisplayModeKHR(Parent, Handle, pCreateInfoFIXED, pAllocator, pModeFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ReleaseDisplayEXT()
 		=> Functions.vkReleaseDisplayEXT(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDisplayModeProperties2KHR(uint* pPropertyCount, VkDisplayModeProperties2KHR* pProperties)
 		=> Functions.vkGetDisplayModeProperties2KHR(Parent, Handle, pPropertyCount, pProperties);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetDisplayModeProperties2KHR(ref uint pPropertyCount, VkDisplayModeProperties2KHR* pProperties)
+	{
+		fixed (uint* pPropertyCountFIXED = &pPropertyCount)
+		return Functions.vkGetDisplayModeProperties2KHR(Parent, Handle, pPropertyCountFIXED, pProperties);
+	}
 
 }
 
@@ -233,6 +266,7 @@ public unsafe sealed partial class VkSurfaceKHR : IVulkanHandle<VkSurfaceKHR>
 	public static implicit operator VulkanHandle<VkSurfaceKHR> (VkSurfaceKHR? h) => h?.Handle ?? VulkanHandle<VkSurfaceKHR>.Null;
 	public static implicit operator bool (VkSurfaceKHR? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySurfaceKHR(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroySurfaceKHR(Parent, Handle, pAllocator);
 
@@ -263,33 +297,78 @@ public unsafe sealed partial class VkSwapchainKHR : IVulkanHandle<VkSwapchainKHR
 	public static implicit operator VulkanHandle<VkSwapchainKHR> (VkSwapchainKHR? h) => h?.Handle ?? VulkanHandle<VkSwapchainKHR>.Null;
 	public static implicit operator bool (VkSwapchainKHR? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroySwapchainKHR(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroySwapchainKHR(Parent, Handle, pAllocator);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSwapchainImagesKHR(uint* pSwapchainImageCount, VulkanHandle<VkImage>* pSwapchainImages)
 		=> Functions.vkGetSwapchainImagesKHR(Parent, Handle, pSwapchainImageCount, pSwapchainImages);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSwapchainImagesKHR(ref uint pSwapchainImageCount, VulkanHandle<VkImage>* pSwapchainImages)
+	{
+		fixed (uint* pSwapchainImageCountFIXED = &pSwapchainImageCount)
+		return Functions.vkGetSwapchainImagesKHR(Parent, Handle, pSwapchainImageCountFIXED, pSwapchainImages);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AcquireNextImageKHR(ulong timeout, VulkanHandle<VkSemaphore> semaphore, VulkanHandle<VkFence> fence, uint* pImageIndex)
 		=> Functions.vkAcquireNextImageKHR(Parent, Handle, timeout, semaphore, fence, pImageIndex);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AcquireNextImageKHR(ulong timeout, VulkanHandle<VkSemaphore> semaphore, VulkanHandle<VkFence> fence, out uint pImageIndex)
+	{
+		fixed (uint* pImageIndexFIXED = &pImageIndex)
+		return Functions.vkAcquireNextImageKHR(Parent, Handle, timeout, semaphore, fence, pImageIndexFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSwapchainCounterEXT(VkSurfaceCounterFlagsEXT counter, ulong* pCounterValue)
 		=> Functions.vkGetSwapchainCounterEXT(Parent, Handle, counter, pCounterValue);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetSwapchainCounterEXT(VkSurfaceCounterFlagsEXT counter, out ulong pCounterValue)
+	{
+		fixed (ulong* pCounterValueFIXED = &pCounterValue)
+		return Functions.vkGetSwapchainCounterEXT(Parent, Handle, counter, pCounterValueFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetSwapchainStatusKHR()
 		=> Functions.vkGetSwapchainStatusKHR(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetRefreshCycleDurationGOOGLE(VkRefreshCycleDurationGOOGLE* pDisplayTimingProperties)
 		=> Functions.vkGetRefreshCycleDurationGOOGLE(Parent, Handle, pDisplayTimingProperties);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetRefreshCycleDurationGOOGLE(out VkRefreshCycleDurationGOOGLE pDisplayTimingProperties)
+	{
+		fixed (VkRefreshCycleDurationGOOGLE* pDisplayTimingPropertiesFIXED = &pDisplayTimingProperties)
+		return Functions.vkGetRefreshCycleDurationGOOGLE(Parent, Handle, pDisplayTimingPropertiesFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPastPresentationTimingGOOGLE(uint* pPresentationTimingCount, VkPastPresentationTimingGOOGLE* pPresentationTimings)
 		=> Functions.vkGetPastPresentationTimingGOOGLE(Parent, Handle, pPresentationTimingCount, pPresentationTimings);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetPastPresentationTimingGOOGLE(ref uint pPresentationTimingCount, VkPastPresentationTimingGOOGLE* pPresentationTimings)
+	{
+		fixed (uint* pPresentationTimingCountFIXED = &pPresentationTimingCount)
+		return Functions.vkGetPastPresentationTimingGOOGLE(Parent, Handle, pPresentationTimingCountFIXED, pPresentationTimings);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void SetLocalDimmingAMD(VkBool32 localDimmingEnable)
 		=> Functions.vkSetLocalDimmingAMD(Parent, Handle, localDimmingEnable);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult AcquireFullScreenExclusiveModeEXT()
 		=> Functions.vkAcquireFullScreenExclusiveModeEXT(Parent, Handle);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult ReleaseFullScreenExclusiveModeEXT()
 		=> Functions.vkReleaseFullScreenExclusiveModeEXT(Parent, Handle);
 

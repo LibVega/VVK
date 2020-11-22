@@ -23,7 +23,7 @@ namespace Gen
 			uint PtrDepth,     // The pointer depth for the param type
 			bool Const,        // If the param is const
 			string? LengthStr, // The optional length specifier for the param
-			bool Optional      // If the param is marked as optional
+			bool? Optional     // Optional param, false = "false"/none, true = "true", null = other
 		);
 
 		#region Fields
@@ -146,9 +146,17 @@ namespace Gen
 			}
 
 			// Check for optional flag
-			bool opt = false;
+			bool? opt = false;
 			if (node.GetAttributeNode("optional") is XmlAttribute optAttr) {
-				opt = optAttr.Value == "true";
+				if (optAttr.Value == "false") {
+					opt = false;
+				}
+				else if (optAttr.Value == "true") {
+					opt = true;
+				}
+				else {
+					opt = null;
+				}
 			}
 
 			// Return

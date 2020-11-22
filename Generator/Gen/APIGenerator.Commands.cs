@@ -85,8 +85,8 @@ namespace Gen
 			using (var table = file.PushBlock("public unsafe sealed partial class InstanceFunctionTable")) {
 				// Global functions
 				foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope == CommandType.CommandScope.Global)) {
-					var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
-					var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
+					var protostr = String.Join(", ", cmd.ParamSets[0].Select(par => $"{par.Type} {par.Name}"));
+					var callstr = String.Join(", ", cmd.ParamSets[0].Select(par => par.Name));
 					var fnname = cmd.Name.Substring("vk".Length);
 					table.WriteLine( "[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					using var func = table.PushBlock($"public static {cmd.ReturnType} {fnname}({protostr})");
@@ -98,8 +98,8 @@ namespace Gen
 
 				// Instance functions
 				foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope == CommandType.CommandScope.Instance)) {
-					var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
-					var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
+					var protostr = String.Join(", ", cmd.ParamSets[0].Select(par => $"{par.Type} {par.Name}"));
+					var callstr = String.Join(", ", cmd.ParamSets[0].Select(par => par.Name));
 					var fnname = cmd.Name.Substring("vk".Length);
 					table.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					using var func = table.PushBlock($"public {cmd.ReturnType} {fnname}({protostr})");
@@ -165,8 +165,8 @@ namespace Gen
 			using (var table = file.PushBlock("public unsafe sealed partial class DeviceFunctionTable")) {
 				// Device functions
 				foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope == CommandType.CommandScope.Device)) {
-					var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
-					var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
+					var protostr = String.Join(", ", cmd.ParamSets[0].Select(par => $"{par.Type} {par.Name}"));
+					var callstr = String.Join(", ", cmd.ParamSets[0].Select(par => par.Name));
 					var fnname = cmd.Name.Substring("vk".Length);
 					table.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					using var func = table.PushBlock($"public {cmd.ReturnType} {fnname}({protostr})");
@@ -281,8 +281,8 @@ namespace Gen
 			using (var table = file.PushBlock("public unsafe static partial class StaticFunctionTable")) {
 				// Global functions
 				foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope == CommandType.CommandScope.Global)) {
-					var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
-					var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
+					var protostr = String.Join(", ", cmd.ParamSets[0].Select(par => $"{par.Type} {par.Name}"));
+					var callstr = String.Join(", ", cmd.ParamSets[0].Select(par => par.Name));
 					table.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					using var func = table.PushBlock($"public static {cmd.ReturnType} {cmd.Name}({protostr})");
 					if ((cmd.Spec.FeatureLevel is null) || (cmd.Spec.FeatureLevel > 10)) {
@@ -293,8 +293,8 @@ namespace Gen
 
 				// Instance functions
 				foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope == CommandType.CommandScope.Instance)) {
-					var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
-					var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
+					var protostr = String.Join(", ", cmd.ParamSets[0].Select(par => $"{par.Type} {par.Name}"));
+					var callstr = String.Join(", ", cmd.ParamSets[0].Select(par => par.Name));
 					table.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					using var func = table.PushBlock($"public static {cmd.ReturnType} {cmd.Name}({protostr})");
 					func.WriteLine($"if (_{cmd.Name} == null) throw new VVK.FunctionNotLoadedException(\"{cmd.Name}\");");
@@ -303,8 +303,8 @@ namespace Gen
 
 				// Device functions
 				foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope == CommandType.CommandScope.Device)) {
-					var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
-					var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
+					var protostr = String.Join(", ", cmd.ParamSets[0].Select(par => $"{par.Type} {par.Name}"));
+					var callstr = String.Join(", ", cmd.ParamSets[0].Select(par => par.Name));
 					table.WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 					using var func = table.PushBlock($"public static {cmd.ReturnType} {cmd.Name}({protostr})");
 					func.WriteLine($"if (_{cmd.Name} == null) throw new VVK.FunctionNotLoadedException(\"{cmd.Name}\");");
