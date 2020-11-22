@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gen
 {
@@ -151,6 +152,12 @@ namespace Gen
 			}
 			Program.Print($"Processed {spec._commands.Count} commands");
 
+			// Assign commands
+			if (!AssignCommands(spec)) {
+				return false;
+			}
+			Program.Print("Assigned commands");
+
 			// Pass through extensions
 			foreach (var ext in vkspec.Extensions) {
 				spec._extensions.Add(ext.Key, ext.Value);
@@ -164,6 +171,53 @@ namespace Gen
 			}
 			AssignVendors(spec);
 			Program.Print($"Processed {spec._vendors.Count} vendors");
+
+			return true;
+		}
+		
+		// Assigns commands to handle types
+		private static bool AssignCommands(ProcessedSpec spec)
+		{
+			// Assign all global commands to VkInstance
+			var instType = spec.Handles["VkInstance"]!;
+			foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope == CommandType.CommandScope.Global)) {
+				instType.AddCommand(cmd);
+			}
+
+			// Assign remaining commands
+			var cmdBufferType = spec.Handles["VkCommandBuffer"]!;
+			foreach (var cmd in spec.Commands.Values.Where(cmd => cmd.Scope != CommandType.CommandScope.Global)) {
+				// Check for some obvious assignments
+				if (cmd.Name.StartsWith("vkCmd")) {
+					cmdBufferType.AddCommand(cmd);
+					continue;
+				}
+
+				// Detect the leading handle types
+				var handleName0 = cmd.Params[0].Type.Substring("VulkanHandle<".Length).TrimEnd('>');
+				var handleName1 = ((cmd.Params.Count > 1) && cmd.Params[1].Type.StartsWith("VulkanHandle"))
+					? cmd.Params[1].Type.Substring("VulkanHandle<".Length).TrimEnd('>') : null;
+				if ((handleName1 is not null) && (cmd.Params[1].PtrDepth != 0)) {
+					handleName1 = null;
+				}
+				HandleType? handle0 = null, handle1 = null;
+				if (!spec.Handles.TryGetValue(handleName0, out handle0)) {
+					Program.PrintError($"Failed to get handle type '{handleName0}' for command '{cmd.Name}'");
+					return false;
+				}
+				if ((handleName1 is not null) && !spec.Handles.TryGetValue(handleName1, out handle1)) {
+					Program.PrintError($"Failed to get handle type '{handleName1}' for command '{cmd.Name}'");
+					return false;
+				}
+
+				// Check the handle types
+				if ((handle1 is not null) && (handle0.Name == handle1.ParentName)) {
+					handle1.AddCommand(cmd); // This is a function with (parent, handle, ...) as the arguments
+				}
+				else {
+					handle0.AddCommand(cmd); // This is a function with (handle, ...) as the arguments
+				}
+			}
 
 			return true;
 		}

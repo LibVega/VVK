@@ -27,7 +27,8 @@ namespace Gen
 			string Type,   // The param type
 			uint PtrDepth, // The pointer depth of the param type
 			bool Const,    // If the param is marked as const
-			bool Optional  // If the param is marked as optional
+			bool Optional, // If the param is marked as optional
+			string? LenStr // The optional length string for pointers
 		);
 
 		// Possible command scopes
@@ -88,7 +89,7 @@ namespace Gen
 					parType = funcType.TypeString;
 				}
 				var parname = NameHelper.GetSafeArgName(par.Name);
-				@params.Add(new(parname, parType, par.PtrDepth, par.Const, par.Optional));
+				@params.Add(new(parname, parType, par.PtrDepth, par.Const, par.Optional, par.LengthStr));
 				BUILDER.Append(parType);
 				BUILDER.Append(", ");
 			}

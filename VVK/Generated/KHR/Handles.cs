@@ -37,6 +37,7 @@ public unsafe sealed partial class VkDescriptorUpdateTemplateKHR : IVulkanHandle
 
 	public static implicit operator VulkanHandle<VkDescriptorUpdateTemplateKHR> (VkDescriptorUpdateTemplateKHR? h) => h?.Handle ?? VulkanHandle<VkDescriptorUpdateTemplateKHR>.Null;
 	public static implicit operator bool (VkDescriptorUpdateTemplateKHR? h) => h?.IsValid ?? false;
+
 }
 
 public unsafe sealed partial class VkSamplerYcbcrConversionKHR : IVulkanHandle<VkSamplerYcbcrConversionKHR>
@@ -63,6 +64,7 @@ public unsafe sealed partial class VkSamplerYcbcrConversionKHR : IVulkanHandle<V
 
 	public static implicit operator VulkanHandle<VkSamplerYcbcrConversionKHR> (VkSamplerYcbcrConversionKHR? h) => h?.Handle ?? VulkanHandle<VkSamplerYcbcrConversionKHR>.Null;
 	public static implicit operator bool (VkSamplerYcbcrConversionKHR? h) => h?.IsValid ?? false;
+
 }
 
 public unsafe sealed partial class VkAccelerationStructureKHR : IVulkanHandle<VkAccelerationStructureKHR>
@@ -89,6 +91,16 @@ public unsafe sealed partial class VkAccelerationStructureKHR : IVulkanHandle<Vk
 
 	public static implicit operator VulkanHandle<VkAccelerationStructureKHR> (VkAccelerationStructureKHR? h) => h?.Handle ?? VulkanHandle<VkAccelerationStructureKHR>.Null;
 	public static implicit operator bool (VkAccelerationStructureKHR? h) => h?.IsValid ?? false;
+
+	public void DestroyAccelerationStructureKHR(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyAccelerationStructureKHR(Parent, Handle, pAllocator);
+
+	public void DestroyAccelerationStructureNV(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyAccelerationStructureNV(Parent, Handle, pAllocator);
+
+	public VkResult GetAccelerationStructureHandleNV(ulong dataSize, void* pData)
+		=> Functions.vkGetAccelerationStructureHandleNV(Parent, Handle, dataSize, pData);
+
 }
 
 public unsafe sealed partial class VkDeferredOperationKHR : IVulkanHandle<VkDeferredOperationKHR>
@@ -115,6 +127,19 @@ public unsafe sealed partial class VkDeferredOperationKHR : IVulkanHandle<VkDefe
 
 	public static implicit operator VulkanHandle<VkDeferredOperationKHR> (VkDeferredOperationKHR? h) => h?.Handle ?? VulkanHandle<VkDeferredOperationKHR>.Null;
 	public static implicit operator bool (VkDeferredOperationKHR? h) => h?.IsValid ?? false;
+
+	public void DestroyDeferredOperationKHR(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDeferredOperationKHR(Parent, Handle, pAllocator);
+
+	public uint GetDeferredOperationMaxConcurrencyKHR()
+		=> Functions.vkGetDeferredOperationMaxConcurrencyKHR(Parent, Handle);
+
+	public VkResult GetDeferredOperationResultKHR()
+		=> Functions.vkGetDeferredOperationResultKHR(Parent, Handle);
+
+	public VkResult DeferredOperationJoinKHR()
+		=> Functions.vkDeferredOperationJoinKHR(Parent, Handle);
+
 }
 
 public unsafe sealed partial class VkDisplayKHR : IVulkanHandle<VkDisplayKHR>
@@ -141,6 +166,19 @@ public unsafe sealed partial class VkDisplayKHR : IVulkanHandle<VkDisplayKHR>
 
 	public static implicit operator VulkanHandle<VkDisplayKHR> (VkDisplayKHR? h) => h?.Handle ?? VulkanHandle<VkDisplayKHR>.Null;
 	public static implicit operator bool (VkDisplayKHR? h) => h?.IsValid ?? false;
+
+	public VkResult GetDisplayModePropertiesKHR(uint* pPropertyCount, VkDisplayModePropertiesKHR* pProperties)
+		=> Functions.vkGetDisplayModePropertiesKHR(Parent, Handle, pPropertyCount, pProperties);
+
+	public VkResult CreateDisplayModeKHR(VkDisplayModeCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDisplayModeKHR>* pMode)
+		=> Functions.vkCreateDisplayModeKHR(Parent, Handle, pCreateInfo, pAllocator, pMode);
+
+	public VkResult ReleaseDisplayEXT()
+		=> Functions.vkReleaseDisplayEXT(Parent, Handle);
+
+	public VkResult GetDisplayModeProperties2KHR(uint* pPropertyCount, VkDisplayModeProperties2KHR* pProperties)
+		=> Functions.vkGetDisplayModeProperties2KHR(Parent, Handle, pPropertyCount, pProperties);
+
 }
 
 public unsafe sealed partial class VkDisplayModeKHR : IVulkanHandle<VkDisplayModeKHR>
@@ -167,6 +205,7 @@ public unsafe sealed partial class VkDisplayModeKHR : IVulkanHandle<VkDisplayMod
 
 	public static implicit operator VulkanHandle<VkDisplayModeKHR> (VkDisplayModeKHR? h) => h?.Handle ?? VulkanHandle<VkDisplayModeKHR>.Null;
 	public static implicit operator bool (VkDisplayModeKHR? h) => h?.IsValid ?? false;
+
 }
 
 public unsafe sealed partial class VkSurfaceKHR : IVulkanHandle<VkSurfaceKHR>
@@ -193,6 +232,10 @@ public unsafe sealed partial class VkSurfaceKHR : IVulkanHandle<VkSurfaceKHR>
 
 	public static implicit operator VulkanHandle<VkSurfaceKHR> (VkSurfaceKHR? h) => h?.Handle ?? VulkanHandle<VkSurfaceKHR>.Null;
 	public static implicit operator bool (VkSurfaceKHR? h) => h?.IsValid ?? false;
+
+	public void DestroySurfaceKHR(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroySurfaceKHR(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkSwapchainKHR : IVulkanHandle<VkSwapchainKHR>
@@ -219,6 +262,37 @@ public unsafe sealed partial class VkSwapchainKHR : IVulkanHandle<VkSwapchainKHR
 
 	public static implicit operator VulkanHandle<VkSwapchainKHR> (VkSwapchainKHR? h) => h?.Handle ?? VulkanHandle<VkSwapchainKHR>.Null;
 	public static implicit operator bool (VkSwapchainKHR? h) => h?.IsValid ?? false;
+
+	public void DestroySwapchainKHR(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroySwapchainKHR(Parent, Handle, pAllocator);
+
+	public VkResult GetSwapchainImagesKHR(uint* pSwapchainImageCount, VulkanHandle<VkImage>* pSwapchainImages)
+		=> Functions.vkGetSwapchainImagesKHR(Parent, Handle, pSwapchainImageCount, pSwapchainImages);
+
+	public VkResult AcquireNextImageKHR(ulong timeout, VulkanHandle<VkSemaphore> semaphore, VulkanHandle<VkFence> fence, uint* pImageIndex)
+		=> Functions.vkAcquireNextImageKHR(Parent, Handle, timeout, semaphore, fence, pImageIndex);
+
+	public VkResult GetSwapchainCounterEXT(VkSurfaceCounterFlagsEXT counter, ulong* pCounterValue)
+		=> Functions.vkGetSwapchainCounterEXT(Parent, Handle, counter, pCounterValue);
+
+	public VkResult GetSwapchainStatusKHR()
+		=> Functions.vkGetSwapchainStatusKHR(Parent, Handle);
+
+	public VkResult GetRefreshCycleDurationGOOGLE(VkRefreshCycleDurationGOOGLE* pDisplayTimingProperties)
+		=> Functions.vkGetRefreshCycleDurationGOOGLE(Parent, Handle, pDisplayTimingProperties);
+
+	public VkResult GetPastPresentationTimingGOOGLE(uint* pPresentationTimingCount, VkPastPresentationTimingGOOGLE* pPresentationTimings)
+		=> Functions.vkGetPastPresentationTimingGOOGLE(Parent, Handle, pPresentationTimingCount, pPresentationTimings);
+
+	public void SetLocalDimmingAMD(VkBool32 localDimmingEnable)
+		=> Functions.vkSetLocalDimmingAMD(Parent, Handle, localDimmingEnable);
+
+	public VkResult AcquireFullScreenExclusiveModeEXT()
+		=> Functions.vkAcquireFullScreenExclusiveModeEXT(Parent, Handle);
+
+	public VkResult ReleaseFullScreenExclusiveModeEXT()
+		=> Functions.vkReleaseFullScreenExclusiveModeEXT(Parent, Handle);
+
 }
 
 

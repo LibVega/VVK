@@ -37,6 +37,16 @@ public unsafe sealed partial class VkValidationCacheEXT : IVulkanHandle<VkValida
 
 	public static implicit operator VulkanHandle<VkValidationCacheEXT> (VkValidationCacheEXT? h) => h?.Handle ?? VulkanHandle<VkValidationCacheEXT>.Null;
 	public static implicit operator bool (VkValidationCacheEXT? h) => h?.IsValid ?? false;
+
+	public void DestroyValidationCacheEXT(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyValidationCacheEXT(Parent, Handle, pAllocator);
+
+	public VkResult GetValidationCacheDataEXT(ulong* pDataSize, void* pData)
+		=> Functions.vkGetValidationCacheDataEXT(Parent, Handle, pDataSize, pData);
+
+	public VkResult MergeValidationCachesEXT(uint srcCacheCount, VulkanHandle<VkValidationCacheEXT>* pSrcCaches)
+		=> Functions.vkMergeValidationCachesEXT(Parent, Handle, srcCacheCount, pSrcCaches);
+
 }
 
 public unsafe sealed partial class VkPrivateDataSlotEXT : IVulkanHandle<VkPrivateDataSlotEXT>
@@ -63,6 +73,10 @@ public unsafe sealed partial class VkPrivateDataSlotEXT : IVulkanHandle<VkPrivat
 
 	public static implicit operator VulkanHandle<VkPrivateDataSlotEXT> (VkPrivateDataSlotEXT? h) => h?.Handle ?? VulkanHandle<VkPrivateDataSlotEXT>.Null;
 	public static implicit operator bool (VkPrivateDataSlotEXT? h) => h?.IsValid ?? false;
+
+	public void DestroyPrivateDataSlotEXT(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyPrivateDataSlotEXT(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkDebugReportCallbackEXT : IVulkanHandle<VkDebugReportCallbackEXT>
@@ -89,6 +103,10 @@ public unsafe sealed partial class VkDebugReportCallbackEXT : IVulkanHandle<VkDe
 
 	public static implicit operator VulkanHandle<VkDebugReportCallbackEXT> (VkDebugReportCallbackEXT? h) => h?.Handle ?? VulkanHandle<VkDebugReportCallbackEXT>.Null;
 	public static implicit operator bool (VkDebugReportCallbackEXT? h) => h?.IsValid ?? false;
+
+	public void DestroyDebugReportCallbackEXT(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDebugReportCallbackEXT(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkDebugUtilsMessengerEXT : IVulkanHandle<VkDebugUtilsMessengerEXT>
@@ -115,6 +133,10 @@ public unsafe sealed partial class VkDebugUtilsMessengerEXT : IVulkanHandle<VkDe
 
 	public static implicit operator VulkanHandle<VkDebugUtilsMessengerEXT> (VkDebugUtilsMessengerEXT? h) => h?.Handle ?? VulkanHandle<VkDebugUtilsMessengerEXT>.Null;
 	public static implicit operator bool (VkDebugUtilsMessengerEXT? h) => h?.IsValid ?? false;
+
+	public void DestroyDebugUtilsMessengerEXT(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDebugUtilsMessengerEXT(Parent, Handle, pAllocator);
+
 }
 
 

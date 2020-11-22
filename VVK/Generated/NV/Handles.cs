@@ -37,6 +37,10 @@ public unsafe sealed partial class VkIndirectCommandsLayoutNV : IVulkanHandle<Vk
 
 	public static implicit operator VulkanHandle<VkIndirectCommandsLayoutNV> (VkIndirectCommandsLayoutNV? h) => h?.Handle ?? VulkanHandle<VkIndirectCommandsLayoutNV>.Null;
 	public static implicit operator bool (VkIndirectCommandsLayoutNV? h) => h?.IsValid ?? false;
+
+	public void DestroyIndirectCommandsLayoutNV(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyIndirectCommandsLayoutNV(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkAccelerationStructureNV : IVulkanHandle<VkAccelerationStructureNV>
@@ -63,6 +67,7 @@ public unsafe sealed partial class VkAccelerationStructureNV : IVulkanHandle<VkA
 
 	public static implicit operator VulkanHandle<VkAccelerationStructureNV> (VkAccelerationStructureNV? h) => h?.Handle ?? VulkanHandle<VkAccelerationStructureNV>.Null;
 	public static implicit operator bool (VkAccelerationStructureNV? h) => h?.IsValid ?? false;
+
 }
 
 

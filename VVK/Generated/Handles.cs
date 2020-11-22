@@ -35,6 +35,91 @@ public unsafe sealed partial class VkInstance : IVulkanHandle<VkInstance>
 
 	public static implicit operator VulkanHandle<VkInstance> (VkInstance? h) => h?.Handle ?? VulkanHandle<VkInstance>.Null;
 	public static implicit operator bool (VkInstance? h) => h?.IsValid ?? false;
+
+	public static VkResult CreateInstance(VkInstanceCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkInstance>* pInstance)
+		=> InstanceFunctionTable.vkCreateInstance(pCreateInfo, pAllocator, pInstance);
+
+	public static delegate* unmanaged<void> GetDeviceProcAddr(VulkanHandle<VkDevice> device, byte* pName)
+		=> InstanceFunctionTable.vkGetDeviceProcAddr(device, pName);
+
+	public static delegate* unmanaged<void> GetInstanceProcAddr(VulkanHandle<VkInstance> instance, byte* pName)
+		=> InstanceFunctionTable.vkGetInstanceProcAddr(instance, pName);
+
+	public static VkResult EnumerateInstanceVersion(uint* pApiVersion)
+		=> InstanceFunctionTable.vkEnumerateInstanceVersion(pApiVersion);
+
+	public static VkResult EnumerateInstanceLayerProperties(uint* pPropertyCount, VkLayerProperties* pProperties)
+		=> InstanceFunctionTable.vkEnumerateInstanceLayerProperties(pPropertyCount, pProperties);
+
+	public static VkResult EnumerateInstanceExtensionProperties(byte* pLayerName, uint* pPropertyCount, VkExtensionProperties* pProperties)
+		=> InstanceFunctionTable.vkEnumerateInstanceExtensionProperties(pLayerName, pPropertyCount, pProperties);
+
+	public void DestroyInstance(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyInstance(Handle, pAllocator);
+
+	public VkResult EnumeratePhysicalDevices(uint* pPhysicalDeviceCount, VulkanHandle<VkPhysicalDevice>* pPhysicalDevices)
+		=> Functions.vkEnumeratePhysicalDevices(Handle, pPhysicalDeviceCount, pPhysicalDevices);
+
+	public VkResult CreateAndroidSurfaceKHR(VkAndroidSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateAndroidSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateDisplayPlaneSurfaceKHR(VkDisplaySurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateDisplayPlaneSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateViSurfaceNN(VkViSurfaceCreateInfoNN* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateViSurfaceNN(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateWaylandSurfaceKHR(VkWaylandSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateWaylandSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateWin32SurfaceKHR(VkWin32SurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateWin32SurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateXlibSurfaceKHR(VkXlibSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateXlibSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateXcbSurfaceKHR(VkXcbSurfaceCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateXcbSurfaceKHR(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateDirectFBSurfaceEXT(VkDirectFBSurfaceCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateDirectFBSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateImagePipeSurfaceFUCHSIA(VkImagePipeSurfaceCreateInfoFUCHSIA* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateImagePipeSurfaceFUCHSIA(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateStreamDescriptorSurfaceGGP(VkStreamDescriptorSurfaceCreateInfoGGP* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateStreamDescriptorSurfaceGGP(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateDebugReportCallbackEXT(VkDebugReportCallbackCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDebugReportCallbackEXT>* pCallback)
+		=> Functions.vkCreateDebugReportCallbackEXT(Handle, pCreateInfo, pAllocator, pCallback);
+
+	public void DebugReportMessageEXT(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objectType, ulong @object, ulong location, int messageCode, byte* pLayerPrefix, byte* pMessage)
+		=> Functions.vkDebugReportMessageEXT(Handle, flags, objectType, @object, location, messageCode, pLayerPrefix, pMessage);
+
+	public VkResult EnumeratePhysicalDeviceGroups(uint* pPhysicalDeviceGroupCount, VkPhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+		=> Functions.vkEnumeratePhysicalDeviceGroups(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
+
+	public VkResult EnumeratePhysicalDeviceGroupsKHR(uint* pPhysicalDeviceGroupCount, VkPhysicalDeviceGroupProperties* pPhysicalDeviceGroupProperties)
+		=> Functions.vkEnumeratePhysicalDeviceGroupsKHR(Handle, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
+
+	public VkResult CreateIOSSurfaceMVK(VkIOSSurfaceCreateInfoMVK* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateIOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateMacOSSurfaceMVK(VkMacOSSurfaceCreateInfoMVK* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateMacOSSurfaceMVK(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateMetalSurfaceEXT(VkMetalSurfaceCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateMetalSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
+
+	public VkResult CreateDebugUtilsMessengerEXT(VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDebugUtilsMessengerEXT>* pMessenger)
+		=> Functions.vkCreateDebugUtilsMessengerEXT(Handle, pCreateInfo, pAllocator, pMessenger);
+
+	public void SubmitDebugUtilsMessageEXT(VkDebugUtilsMessageSeverityFlagsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageTypes, VkDebugUtilsMessengerCallbackDataEXT* pCallbackData)
+		=> Functions.vkSubmitDebugUtilsMessageEXT(Handle, messageSeverity, messageTypes, pCallbackData);
+
+	public VkResult CreateHeadlessSurfaceEXT(VkHeadlessSurfaceCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSurfaceKHR>* pSurface)
+		=> Functions.vkCreateHeadlessSurfaceEXT(Handle, pCreateInfo, pAllocator, pSurface);
+
 }
 
 public unsafe sealed partial class VkPhysicalDevice : IVulkanHandle<VkPhysicalDevice>
@@ -61,6 +146,193 @@ public unsafe sealed partial class VkPhysicalDevice : IVulkanHandle<VkPhysicalDe
 
 	public static implicit operator VulkanHandle<VkPhysicalDevice> (VkPhysicalDevice? h) => h?.Handle ?? VulkanHandle<VkPhysicalDevice>.Null;
 	public static implicit operator bool (VkPhysicalDevice? h) => h?.IsValid ?? false;
+
+	public void GetPhysicalDeviceProperties(VkPhysicalDeviceProperties* pProperties)
+		=> Functions.vkGetPhysicalDeviceProperties(Handle, pProperties);
+
+	public void GetPhysicalDeviceQueueFamilyProperties(uint* pQueueFamilyPropertyCount, VkQueueFamilyProperties* pQueueFamilyProperties)
+		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties(Handle, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+
+	public void GetPhysicalDeviceMemoryProperties(VkPhysicalDeviceMemoryProperties* pMemoryProperties)
+		=> Functions.vkGetPhysicalDeviceMemoryProperties(Handle, pMemoryProperties);
+
+	public void GetPhysicalDeviceFeatures(VkPhysicalDeviceFeatures* pFeatures)
+		=> Functions.vkGetPhysicalDeviceFeatures(Handle, pFeatures);
+
+	public void GetPhysicalDeviceFormatProperties(VkFormat format, VkFormatProperties* pFormatProperties)
+		=> Functions.vkGetPhysicalDeviceFormatProperties(Handle, format, pFormatProperties);
+
+	public VkResult GetPhysicalDeviceImageFormatProperties(VkFormat format, VkImageType type, VkImageTiling tiling, VkImageUsageFlags usage, VkImageCreateFlags flags, VkImageFormatProperties* pImageFormatProperties)
+		=> Functions.vkGetPhysicalDeviceImageFormatProperties(Handle, format, type, tiling, usage, flags, pImageFormatProperties);
+
+	public VkResult CreateDevice(VkDeviceCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDevice>* pDevice)
+		=> Functions.vkCreateDevice(Handle, pCreateInfo, pAllocator, pDevice);
+
+	public VkResult EnumerateDeviceLayerProperties(uint* pPropertyCount, VkLayerProperties* pProperties)
+		=> Functions.vkEnumerateDeviceLayerProperties(Handle, pPropertyCount, pProperties);
+
+	public VkResult EnumerateDeviceExtensionProperties(byte* pLayerName, uint* pPropertyCount, VkExtensionProperties* pProperties)
+		=> Functions.vkEnumerateDeviceExtensionProperties(Handle, pLayerName, pPropertyCount, pProperties);
+
+	public void GetPhysicalDeviceSparseImageFormatProperties(VkFormat format, VkImageType type, VkSampleCountFlags samples, VkImageUsageFlags usage, VkImageTiling tiling, uint* pPropertyCount, VkSparseImageFormatProperties* pProperties)
+		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties(Handle, format, type, samples, usage, tiling, pPropertyCount, pProperties);
+
+	public VkResult GetPhysicalDeviceDisplayPropertiesKHR(uint* pPropertyCount, VkDisplayPropertiesKHR* pProperties)
+		=> Functions.vkGetPhysicalDeviceDisplayPropertiesKHR(Handle, pPropertyCount, pProperties);
+
+	public VkResult GetPhysicalDeviceDisplayPlanePropertiesKHR(uint* pPropertyCount, VkDisplayPlanePropertiesKHR* pProperties)
+		=> Functions.vkGetPhysicalDeviceDisplayPlanePropertiesKHR(Handle, pPropertyCount, pProperties);
+
+	public VkResult GetDisplayPlaneSupportedDisplaysKHR(uint planeIndex, uint* pDisplayCount, VulkanHandle<VkDisplayKHR>* pDisplays)
+		=> Functions.vkGetDisplayPlaneSupportedDisplaysKHR(Handle, planeIndex, pDisplayCount, pDisplays);
+
+	public VkResult GetDisplayPlaneCapabilitiesKHR(VulkanHandle<VkDisplayModeKHR> mode, uint planeIndex, VkDisplayPlaneCapabilitiesKHR* pCapabilities)
+		=> Functions.vkGetDisplayPlaneCapabilitiesKHR(Handle, mode, planeIndex, pCapabilities);
+
+	public VkResult GetPhysicalDeviceSurfaceSupportKHR(uint queueFamilyIndex, VulkanHandle<VkSurfaceKHR> surface, VkBool32* pSupported)
+		=> Functions.vkGetPhysicalDeviceSurfaceSupportKHR(Handle, queueFamilyIndex, surface, pSupported);
+
+	public VkResult GetPhysicalDeviceSurfaceCapabilitiesKHR(VulkanHandle<VkSurfaceKHR> surface, VkSurfaceCapabilitiesKHR* pSurfaceCapabilities)
+		=> Functions.vkGetPhysicalDeviceSurfaceCapabilitiesKHR(Handle, surface, pSurfaceCapabilities);
+
+	public VkResult GetPhysicalDeviceSurfaceFormatsKHR(VulkanHandle<VkSurfaceKHR> surface, uint* pSurfaceFormatCount, VkSurfaceFormatKHR* pSurfaceFormats)
+		=> Functions.vkGetPhysicalDeviceSurfaceFormatsKHR(Handle, surface, pSurfaceFormatCount, pSurfaceFormats);
+
+	public VkResult GetPhysicalDeviceSurfacePresentModesKHR(VulkanHandle<VkSurfaceKHR> surface, uint* pPresentModeCount, VkPresentModeKHR* pPresentModes)
+		=> Functions.vkGetPhysicalDeviceSurfacePresentModesKHR(Handle, surface, pPresentModeCount, pPresentModes);
+
+	public VkBool32 GetPhysicalDeviceWaylandPresentationSupportKHR(uint queueFamilyIndex, void* display)
+		=> Functions.vkGetPhysicalDeviceWaylandPresentationSupportKHR(Handle, queueFamilyIndex, display);
+
+	public VkBool32 GetPhysicalDeviceWin32PresentationSupportKHR(uint queueFamilyIndex)
+		=> Functions.vkGetPhysicalDeviceWin32PresentationSupportKHR(Handle, queueFamilyIndex);
+
+	public VkBool32 GetPhysicalDeviceXlibPresentationSupportKHR(uint queueFamilyIndex, void* dpy, ulong visualID)
+		=> Functions.vkGetPhysicalDeviceXlibPresentationSupportKHR(Handle, queueFamilyIndex, dpy, visualID);
+
+	public VkBool32 GetPhysicalDeviceXcbPresentationSupportKHR(uint queueFamilyIndex, void* connection, uint visual_id)
+		=> Functions.vkGetPhysicalDeviceXcbPresentationSupportKHR(Handle, queueFamilyIndex, connection, visual_id);
+
+	public VkBool32 GetPhysicalDeviceDirectFBPresentationSupportEXT(uint queueFamilyIndex, void* dfb)
+		=> Functions.vkGetPhysicalDeviceDirectFBPresentationSupportEXT(Handle, queueFamilyIndex, dfb);
+
+	public VkResult GetPhysicalDeviceExternalImageFormatPropertiesNV(VkFormat format, VkImageType type, VkImageTiling tiling, VkImageUsageFlags usage, VkImageCreateFlags flags, VkExternalMemoryHandleTypeFlagsNV externalHandleType, VkExternalImageFormatPropertiesNV* pExternalImageFormatProperties)
+		=> Functions.vkGetPhysicalDeviceExternalImageFormatPropertiesNV(Handle, format, type, tiling, usage, flags, externalHandleType, pExternalImageFormatProperties);
+
+	public void GetPhysicalDeviceFeatures2(VkPhysicalDeviceFeatures2* pFeatures)
+		=> Functions.vkGetPhysicalDeviceFeatures2(Handle, pFeatures);
+
+	public void GetPhysicalDeviceFeatures2KHR(VkPhysicalDeviceFeatures2* pFeatures)
+		=> Functions.vkGetPhysicalDeviceFeatures2KHR(Handle, pFeatures);
+
+	public void GetPhysicalDeviceProperties2(VkPhysicalDeviceProperties2* pProperties)
+		=> Functions.vkGetPhysicalDeviceProperties2(Handle, pProperties);
+
+	public void GetPhysicalDeviceProperties2KHR(VkPhysicalDeviceProperties2* pProperties)
+		=> Functions.vkGetPhysicalDeviceProperties2KHR(Handle, pProperties);
+
+	public void GetPhysicalDeviceFormatProperties2(VkFormat format, VkFormatProperties2* pFormatProperties)
+		=> Functions.vkGetPhysicalDeviceFormatProperties2(Handle, format, pFormatProperties);
+
+	public void GetPhysicalDeviceFormatProperties2KHR(VkFormat format, VkFormatProperties2* pFormatProperties)
+		=> Functions.vkGetPhysicalDeviceFormatProperties2KHR(Handle, format, pFormatProperties);
+
+	public VkResult GetPhysicalDeviceImageFormatProperties2(VkPhysicalDeviceImageFormatInfo2* pImageFormatInfo, VkImageFormatProperties2* pImageFormatProperties)
+		=> Functions.vkGetPhysicalDeviceImageFormatProperties2(Handle, pImageFormatInfo, pImageFormatProperties);
+
+	public VkResult GetPhysicalDeviceImageFormatProperties2KHR(VkPhysicalDeviceImageFormatInfo2* pImageFormatInfo, VkImageFormatProperties2* pImageFormatProperties)
+		=> Functions.vkGetPhysicalDeviceImageFormatProperties2KHR(Handle, pImageFormatInfo, pImageFormatProperties);
+
+	public void GetPhysicalDeviceQueueFamilyProperties2(uint* pQueueFamilyPropertyCount, VkQueueFamilyProperties2* pQueueFamilyProperties)
+		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties2(Handle, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+
+	public void GetPhysicalDeviceQueueFamilyProperties2KHR(uint* pQueueFamilyPropertyCount, VkQueueFamilyProperties2* pQueueFamilyProperties)
+		=> Functions.vkGetPhysicalDeviceQueueFamilyProperties2KHR(Handle, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+
+	public void GetPhysicalDeviceMemoryProperties2(VkPhysicalDeviceMemoryProperties2* pMemoryProperties)
+		=> Functions.vkGetPhysicalDeviceMemoryProperties2(Handle, pMemoryProperties);
+
+	public void GetPhysicalDeviceMemoryProperties2KHR(VkPhysicalDeviceMemoryProperties2* pMemoryProperties)
+		=> Functions.vkGetPhysicalDeviceMemoryProperties2KHR(Handle, pMemoryProperties);
+
+	public void GetPhysicalDeviceSparseImageFormatProperties2(VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, VkSparseImageFormatProperties2* pProperties)
+		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties2(Handle, pFormatInfo, pPropertyCount, pProperties);
+
+	public void GetPhysicalDeviceSparseImageFormatProperties2KHR(VkPhysicalDeviceSparseImageFormatInfo2* pFormatInfo, uint* pPropertyCount, VkSparseImageFormatProperties2* pProperties)
+		=> Functions.vkGetPhysicalDeviceSparseImageFormatProperties2KHR(Handle, pFormatInfo, pPropertyCount, pProperties);
+
+	public void GetPhysicalDeviceExternalBufferProperties(VkPhysicalDeviceExternalBufferInfo* pExternalBufferInfo, VkExternalBufferProperties* pExternalBufferProperties)
+		=> Functions.vkGetPhysicalDeviceExternalBufferProperties(Handle, pExternalBufferInfo, pExternalBufferProperties);
+
+	public void GetPhysicalDeviceExternalBufferPropertiesKHR(VkPhysicalDeviceExternalBufferInfo* pExternalBufferInfo, VkExternalBufferProperties* pExternalBufferProperties)
+		=> Functions.vkGetPhysicalDeviceExternalBufferPropertiesKHR(Handle, pExternalBufferInfo, pExternalBufferProperties);
+
+	public void GetPhysicalDeviceExternalSemaphoreProperties(VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, VkExternalSemaphoreProperties* pExternalSemaphoreProperties)
+		=> Functions.vkGetPhysicalDeviceExternalSemaphoreProperties(Handle, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+
+	public void GetPhysicalDeviceExternalSemaphorePropertiesKHR(VkPhysicalDeviceExternalSemaphoreInfo* pExternalSemaphoreInfo, VkExternalSemaphoreProperties* pExternalSemaphoreProperties)
+		=> Functions.vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(Handle, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+
+	public void GetPhysicalDeviceExternalFenceProperties(VkPhysicalDeviceExternalFenceInfo* pExternalFenceInfo, VkExternalFenceProperties* pExternalFenceProperties)
+		=> Functions.vkGetPhysicalDeviceExternalFenceProperties(Handle, pExternalFenceInfo, pExternalFenceProperties);
+
+	public void GetPhysicalDeviceExternalFencePropertiesKHR(VkPhysicalDeviceExternalFenceInfo* pExternalFenceInfo, VkExternalFenceProperties* pExternalFenceProperties)
+		=> Functions.vkGetPhysicalDeviceExternalFencePropertiesKHR(Handle, pExternalFenceInfo, pExternalFenceProperties);
+
+	public VkResult AcquireXlibDisplayEXT(void* dpy, VulkanHandle<VkDisplayKHR> display)
+		=> Functions.vkAcquireXlibDisplayEXT(Handle, dpy, display);
+
+	public VkResult GetRandROutputDisplayEXT(void* dpy, ulong rrOutput, VulkanHandle<VkDisplayKHR>* pDisplay)
+		=> Functions.vkGetRandROutputDisplayEXT(Handle, dpy, rrOutput, pDisplay);
+
+	public VkResult GetPhysicalDeviceSurfaceCapabilities2EXT(VulkanHandle<VkSurfaceKHR> surface, VkSurfaceCapabilities2EXT* pSurfaceCapabilities)
+		=> Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(Handle, surface, pSurfaceCapabilities);
+
+	public VkResult GetPhysicalDevicePresentRectanglesKHR(VulkanHandle<VkSurfaceKHR> surface, uint* pRectCount, VkRect2D* pRects)
+		=> Functions.vkGetPhysicalDevicePresentRectanglesKHR(Handle, surface, pRectCount, pRects);
+
+	public void GetPhysicalDeviceMultisamplePropertiesEXT(VkSampleCountFlags samples, VkMultisamplePropertiesEXT* pMultisampleProperties)
+		=> Functions.vkGetPhysicalDeviceMultisamplePropertiesEXT(Handle, samples, pMultisampleProperties);
+
+	public VkResult GetPhysicalDeviceSurfaceCapabilities2KHR(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, VkSurfaceCapabilities2KHR* pSurfaceCapabilities)
+		=> Functions.vkGetPhysicalDeviceSurfaceCapabilities2KHR(Handle, pSurfaceInfo, pSurfaceCapabilities);
+
+	public VkResult GetPhysicalDeviceSurfaceFormats2KHR(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, uint* pSurfaceFormatCount, VkSurfaceFormat2KHR* pSurfaceFormats)
+		=> Functions.vkGetPhysicalDeviceSurfaceFormats2KHR(Handle, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats);
+
+	public VkResult GetPhysicalDeviceDisplayProperties2KHR(uint* pPropertyCount, VkDisplayProperties2KHR* pProperties)
+		=> Functions.vkGetPhysicalDeviceDisplayProperties2KHR(Handle, pPropertyCount, pProperties);
+
+	public VkResult GetPhysicalDeviceDisplayPlaneProperties2KHR(uint* pPropertyCount, VkDisplayPlaneProperties2KHR* pProperties)
+		=> Functions.vkGetPhysicalDeviceDisplayPlaneProperties2KHR(Handle, pPropertyCount, pProperties);
+
+	public VkResult GetDisplayPlaneCapabilities2KHR(VkDisplayPlaneInfo2KHR* pDisplayPlaneInfo, VkDisplayPlaneCapabilities2KHR* pCapabilities)
+		=> Functions.vkGetDisplayPlaneCapabilities2KHR(Handle, pDisplayPlaneInfo, pCapabilities);
+
+	public VkResult GetPhysicalDeviceCalibrateableTimeDomainsEXT(uint* pTimeDomainCount, VkTimeDomainEXT* pTimeDomains)
+		=> Functions.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(Handle, pTimeDomainCount, pTimeDomains);
+
+	public VkResult GetPhysicalDeviceCooperativeMatrixPropertiesNV(uint* pPropertyCount, VkCooperativeMatrixPropertiesNV* pProperties)
+		=> Functions.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(Handle, pPropertyCount, pProperties);
+
+	public VkResult GetPhysicalDeviceSurfacePresentModes2EXT(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, uint* pPresentModeCount, VkPresentModeKHR* pPresentModes)
+		=> Functions.vkGetPhysicalDeviceSurfacePresentModes2EXT(Handle, pSurfaceInfo, pPresentModeCount, pPresentModes);
+
+	public VkResult EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(uint queueFamilyIndex, uint* pCounterCount, VkPerformanceCounterKHR* pCounters, VkPerformanceCounterDescriptionKHR* pCounterDescriptions)
+		=> Functions.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(Handle, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
+
+	public void GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(VkQueryPoolPerformanceCreateInfoKHR* pPerformanceQueryCreateInfo, uint* pNumPasses)
+		=> Functions.vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(Handle, pPerformanceQueryCreateInfo, pNumPasses);
+
+	public VkResult GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(uint* pCombinationCount, VkFramebufferMixedSamplesCombinationNV* pCombinations)
+		=> Functions.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(Handle, pCombinationCount, pCombinations);
+
+	public VkResult GetPhysicalDeviceToolPropertiesEXT(uint* pToolCount, VkPhysicalDeviceToolPropertiesEXT* pToolProperties)
+		=> Functions.vkGetPhysicalDeviceToolPropertiesEXT(Handle, pToolCount, pToolProperties);
+
+	public VkResult GetPhysicalDeviceFragmentShadingRatesKHR(uint* pFragmentShadingRateCount, VkPhysicalDeviceFragmentShadingRateKHR* pFragmentShadingRates)
+		=> Functions.vkGetPhysicalDeviceFragmentShadingRatesKHR(Handle, pFragmentShadingRateCount, pFragmentShadingRates);
+
 }
 
 public unsafe sealed partial class VkDevice : IVulkanHandle<VkDevice>
@@ -87,6 +359,379 @@ public unsafe sealed partial class VkDevice : IVulkanHandle<VkDevice>
 
 	public static implicit operator VulkanHandle<VkDevice> (VkDevice? h) => h?.Handle ?? VulkanHandle<VkDevice>.Null;
 	public static implicit operator bool (VkDevice? h) => h?.IsValid ?? false;
+
+	public void DestroyDevice(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDevice(Handle, pAllocator);
+
+	public void GetDeviceQueue(uint queueFamilyIndex, uint queueIndex, VulkanHandle<VkQueue>* pQueue)
+		=> Functions.vkGetDeviceQueue(Handle, queueFamilyIndex, queueIndex, pQueue);
+
+	public VkResult DeviceWaitIdle()
+		=> Functions.vkDeviceWaitIdle(Handle);
+
+	public VkResult AllocateMemory(VkMemoryAllocateInfo* pAllocateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDeviceMemory>* pMemory)
+		=> Functions.vkAllocateMemory(Handle, pAllocateInfo, pAllocator, pMemory);
+
+	public VkResult FlushMappedMemoryRanges(uint memoryRangeCount, VkMappedMemoryRange* pMemoryRanges)
+		=> Functions.vkFlushMappedMemoryRanges(Handle, memoryRangeCount, pMemoryRanges);
+
+	public VkResult InvalidateMappedMemoryRanges(uint memoryRangeCount, VkMappedMemoryRange* pMemoryRanges)
+		=> Functions.vkInvalidateMappedMemoryRanges(Handle, memoryRangeCount, pMemoryRanges);
+
+	public VkResult CreateFence(VkFenceCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFence>* pFence)
+		=> Functions.vkCreateFence(Handle, pCreateInfo, pAllocator, pFence);
+
+	public VkResult ResetFences(uint fenceCount, VulkanHandle<VkFence>* pFences)
+		=> Functions.vkResetFences(Handle, fenceCount, pFences);
+
+	public VkResult WaitForFences(uint fenceCount, VulkanHandle<VkFence>* pFences, VkBool32 waitAll, ulong timeout)
+		=> Functions.vkWaitForFences(Handle, fenceCount, pFences, waitAll, timeout);
+
+	public VkResult CreateSemaphore(VkSemaphoreCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSemaphore>* pSemaphore)
+		=> Functions.vkCreateSemaphore(Handle, pCreateInfo, pAllocator, pSemaphore);
+
+	public VkResult CreateEvent(VkEventCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkEvent>* pEvent)
+		=> Functions.vkCreateEvent(Handle, pCreateInfo, pAllocator, pEvent);
+
+	public VkResult CreateQueryPool(VkQueryPoolCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkQueryPool>* pQueryPool)
+		=> Functions.vkCreateQueryPool(Handle, pCreateInfo, pAllocator, pQueryPool);
+
+	public VkResult CreateBuffer(VkBufferCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkBuffer>* pBuffer)
+		=> Functions.vkCreateBuffer(Handle, pCreateInfo, pAllocator, pBuffer);
+
+	public VkResult CreateBufferView(VkBufferViewCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkBufferView>* pView)
+		=> Functions.vkCreateBufferView(Handle, pCreateInfo, pAllocator, pView);
+
+	public VkResult CreateImage(VkImageCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkImage>* pImage)
+		=> Functions.vkCreateImage(Handle, pCreateInfo, pAllocator, pImage);
+
+	public VkResult CreateImageView(VkImageViewCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkImageView>* pView)
+		=> Functions.vkCreateImageView(Handle, pCreateInfo, pAllocator, pView);
+
+	public VkResult CreateShaderModule(VkShaderModuleCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkShaderModule>* pShaderModule)
+		=> Functions.vkCreateShaderModule(Handle, pCreateInfo, pAllocator, pShaderModule);
+
+	public VkResult CreatePipelineCache(VkPipelineCacheCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipelineCache>* pPipelineCache)
+		=> Functions.vkCreatePipelineCache(Handle, pCreateInfo, pAllocator, pPipelineCache);
+
+	public VkResult CreatePipelineLayout(VkPipelineLayoutCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipelineLayout>* pPipelineLayout)
+		=> Functions.vkCreatePipelineLayout(Handle, pCreateInfo, pAllocator, pPipelineLayout);
+
+	public VkResult CreateSampler(VkSamplerCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSampler>* pSampler)
+		=> Functions.vkCreateSampler(Handle, pCreateInfo, pAllocator, pSampler);
+
+	public VkResult CreateDescriptorSetLayout(VkDescriptorSetLayoutCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorSetLayout>* pSetLayout)
+		=> Functions.vkCreateDescriptorSetLayout(Handle, pCreateInfo, pAllocator, pSetLayout);
+
+	public VkResult CreateDescriptorPool(VkDescriptorPoolCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorPool>* pDescriptorPool)
+		=> Functions.vkCreateDescriptorPool(Handle, pCreateInfo, pAllocator, pDescriptorPool);
+
+	public VkResult AllocateDescriptorSets(VkDescriptorSetAllocateInfo* pAllocateInfo, VulkanHandle<VkDescriptorSet>* pDescriptorSets)
+		=> Functions.vkAllocateDescriptorSets(Handle, pAllocateInfo, pDescriptorSets);
+
+	public void UpdateDescriptorSets(uint descriptorWriteCount, VkWriteDescriptorSet* pDescriptorWrites, uint descriptorCopyCount, VkCopyDescriptorSet* pDescriptorCopies)
+		=> Functions.vkUpdateDescriptorSets(Handle, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount, pDescriptorCopies);
+
+	public VkResult CreateFramebuffer(VkFramebufferCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFramebuffer>* pFramebuffer)
+		=> Functions.vkCreateFramebuffer(Handle, pCreateInfo, pAllocator, pFramebuffer);
+
+	public VkResult CreateRenderPass(VkRenderPassCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkRenderPass>* pRenderPass)
+		=> Functions.vkCreateRenderPass(Handle, pCreateInfo, pAllocator, pRenderPass);
+
+	public VkResult CreateCommandPool(VkCommandPoolCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkCommandPool>* pCommandPool)
+		=> Functions.vkCreateCommandPool(Handle, pCreateInfo, pAllocator, pCommandPool);
+
+	public VkResult AllocateCommandBuffers(VkCommandBufferAllocateInfo* pAllocateInfo, VulkanHandle<VkCommandBuffer>* pCommandBuffers)
+		=> Functions.vkAllocateCommandBuffers(Handle, pAllocateInfo, pCommandBuffers);
+
+	public VkResult CreateSharedSwapchainsKHR(uint swapchainCount, VkSwapchainCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSwapchainKHR>* pSwapchains)
+		=> Functions.vkCreateSharedSwapchainsKHR(Handle, swapchainCount, pCreateInfos, pAllocator, pSwapchains);
+
+	public VkResult CreateSwapchainKHR(VkSwapchainCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSwapchainKHR>* pSwapchain)
+		=> Functions.vkCreateSwapchainKHR(Handle, pCreateInfo, pAllocator, pSwapchain);
+
+	public VkResult DebugMarkerSetObjectNameEXT(VkDebugMarkerObjectNameInfoEXT* pNameInfo)
+		=> Functions.vkDebugMarkerSetObjectNameEXT(Handle, pNameInfo);
+
+	public VkResult DebugMarkerSetObjectTagEXT(VkDebugMarkerObjectTagInfoEXT* pTagInfo)
+		=> Functions.vkDebugMarkerSetObjectTagEXT(Handle, pTagInfo);
+
+	public void GetGeneratedCommandsMemoryRequirementsNV(VkGeneratedCommandsMemoryRequirementsInfoNV* pInfo, VkMemoryRequirements2* pMemoryRequirements)
+		=> Functions.vkGetGeneratedCommandsMemoryRequirementsNV(Handle, pInfo, pMemoryRequirements);
+
+	public VkResult CreateIndirectCommandsLayoutNV(VkIndirectCommandsLayoutCreateInfoNV* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkIndirectCommandsLayoutNV>* pIndirectCommandsLayout)
+		=> Functions.vkCreateIndirectCommandsLayoutNV(Handle, pCreateInfo, pAllocator, pIndirectCommandsLayout);
+
+	public VkResult GetMemoryWin32HandleKHR(VkMemoryGetWin32HandleInfoKHR* pGetWin32HandleInfo, void** pHandle)
+		=> Functions.vkGetMemoryWin32HandleKHR(Handle, pGetWin32HandleInfo, pHandle);
+
+	public VkResult GetMemoryWin32HandlePropertiesKHR(VkExternalMemoryHandleTypeFlags handleType, void* handle, VkMemoryWin32HandlePropertiesKHR* pMemoryWin32HandleProperties)
+		=> Functions.vkGetMemoryWin32HandlePropertiesKHR(Handle, handleType, handle, pMemoryWin32HandleProperties);
+
+	public VkResult GetMemoryFdKHR(VkMemoryGetFdInfoKHR* pGetFdInfo, int* pFd)
+		=> Functions.vkGetMemoryFdKHR(Handle, pGetFdInfo, pFd);
+
+	public VkResult GetMemoryFdPropertiesKHR(VkExternalMemoryHandleTypeFlags handleType, int fd, VkMemoryFdPropertiesKHR* pMemoryFdProperties)
+		=> Functions.vkGetMemoryFdPropertiesKHR(Handle, handleType, fd, pMemoryFdProperties);
+
+	public VkResult GetSemaphoreWin32HandleKHR(VkSemaphoreGetWin32HandleInfoKHR* pGetWin32HandleInfo, void** pHandle)
+		=> Functions.vkGetSemaphoreWin32HandleKHR(Handle, pGetWin32HandleInfo, pHandle);
+
+	public VkResult ImportSemaphoreWin32HandleKHR(VkImportSemaphoreWin32HandleInfoKHR* pImportSemaphoreWin32HandleInfo)
+		=> Functions.vkImportSemaphoreWin32HandleKHR(Handle, pImportSemaphoreWin32HandleInfo);
+
+	public VkResult GetSemaphoreFdKHR(VkSemaphoreGetFdInfoKHR* pGetFdInfo, int* pFd)
+		=> Functions.vkGetSemaphoreFdKHR(Handle, pGetFdInfo, pFd);
+
+	public VkResult ImportSemaphoreFdKHR(VkImportSemaphoreFdInfoKHR* pImportSemaphoreFdInfo)
+		=> Functions.vkImportSemaphoreFdKHR(Handle, pImportSemaphoreFdInfo);
+
+	public VkResult GetFenceWin32HandleKHR(VkFenceGetWin32HandleInfoKHR* pGetWin32HandleInfo, void** pHandle)
+		=> Functions.vkGetFenceWin32HandleKHR(Handle, pGetWin32HandleInfo, pHandle);
+
+	public VkResult ImportFenceWin32HandleKHR(VkImportFenceWin32HandleInfoKHR* pImportFenceWin32HandleInfo)
+		=> Functions.vkImportFenceWin32HandleKHR(Handle, pImportFenceWin32HandleInfo);
+
+	public VkResult GetFenceFdKHR(VkFenceGetFdInfoKHR* pGetFdInfo, int* pFd)
+		=> Functions.vkGetFenceFdKHR(Handle, pGetFdInfo, pFd);
+
+	public VkResult ImportFenceFdKHR(VkImportFenceFdInfoKHR* pImportFenceFdInfo)
+		=> Functions.vkImportFenceFdKHR(Handle, pImportFenceFdInfo);
+
+	public VkResult DisplayPowerControlEXT(VulkanHandle<VkDisplayKHR> display, VkDisplayPowerInfoEXT* pDisplayPowerInfo)
+		=> Functions.vkDisplayPowerControlEXT(Handle, display, pDisplayPowerInfo);
+
+	public VkResult RegisterDeviceEventEXT(VkDeviceEventInfoEXT* pDeviceEventInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFence>* pFence)
+		=> Functions.vkRegisterDeviceEventEXT(Handle, pDeviceEventInfo, pAllocator, pFence);
+
+	public VkResult RegisterDisplayEventEXT(VulkanHandle<VkDisplayKHR> display, VkDisplayEventInfoEXT* pDisplayEventInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkFence>* pFence)
+		=> Functions.vkRegisterDisplayEventEXT(Handle, display, pDisplayEventInfo, pAllocator, pFence);
+
+	public void GetDeviceGroupPeerMemoryFeatures(uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, VkPeerMemoryFeatureFlags* pPeerMemoryFeatures)
+		=> Functions.vkGetDeviceGroupPeerMemoryFeatures(Handle, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
+
+	public void GetDeviceGroupPeerMemoryFeaturesKHR(uint heapIndex, uint localDeviceIndex, uint remoteDeviceIndex, VkPeerMemoryFeatureFlags* pPeerMemoryFeatures)
+		=> Functions.vkGetDeviceGroupPeerMemoryFeaturesKHR(Handle, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
+
+	public VkResult BindBufferMemory2(uint bindInfoCount, VkBindBufferMemoryInfo* pBindInfos)
+		=> Functions.vkBindBufferMemory2(Handle, bindInfoCount, pBindInfos);
+
+	public VkResult BindBufferMemory2KHR(uint bindInfoCount, VkBindBufferMemoryInfo* pBindInfos)
+		=> Functions.vkBindBufferMemory2KHR(Handle, bindInfoCount, pBindInfos);
+
+	public VkResult BindImageMemory2(uint bindInfoCount, VkBindImageMemoryInfo* pBindInfos)
+		=> Functions.vkBindImageMemory2(Handle, bindInfoCount, pBindInfos);
+
+	public VkResult BindImageMemory2KHR(uint bindInfoCount, VkBindImageMemoryInfo* pBindInfos)
+		=> Functions.vkBindImageMemory2KHR(Handle, bindInfoCount, pBindInfos);
+
+	public VkResult GetDeviceGroupPresentCapabilitiesKHR(VkDeviceGroupPresentCapabilitiesKHR* pDeviceGroupPresentCapabilities)
+		=> Functions.vkGetDeviceGroupPresentCapabilitiesKHR(Handle, pDeviceGroupPresentCapabilities);
+
+	public VkResult GetDeviceGroupSurfacePresentModesKHR(VulkanHandle<VkSurfaceKHR> surface, VkDeviceGroupPresentModeFlagsKHR* pModes)
+		=> Functions.vkGetDeviceGroupSurfacePresentModesKHR(Handle, surface, pModes);
+
+	public VkResult AcquireNextImage2KHR(VkAcquireNextImageInfoKHR* pAcquireInfo, uint* pImageIndex)
+		=> Functions.vkAcquireNextImage2KHR(Handle, pAcquireInfo, pImageIndex);
+
+	public VkResult CreateDescriptorUpdateTemplate(VkDescriptorUpdateTemplateCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorUpdateTemplate>* pDescriptorUpdateTemplate)
+		=> Functions.vkCreateDescriptorUpdateTemplate(Handle, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
+
+	public VkResult CreateDescriptorUpdateTemplateKHR(VkDescriptorUpdateTemplateCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkDescriptorUpdateTemplate>* pDescriptorUpdateTemplate)
+		=> Functions.vkCreateDescriptorUpdateTemplateKHR(Handle, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
+
+	public void UpdateDescriptorSetWithTemplate(VulkanHandle<VkDescriptorSet> descriptorSet, VulkanHandle<VkDescriptorUpdateTemplate> descriptorUpdateTemplate, void* pData)
+		=> Functions.vkUpdateDescriptorSetWithTemplate(Handle, descriptorSet, descriptorUpdateTemplate, pData);
+
+	public void UpdateDescriptorSetWithTemplateKHR(VulkanHandle<VkDescriptorSet> descriptorSet, VulkanHandle<VkDescriptorUpdateTemplate> descriptorUpdateTemplate, void* pData)
+		=> Functions.vkUpdateDescriptorSetWithTemplateKHR(Handle, descriptorSet, descriptorUpdateTemplate, pData);
+
+	public void SetHdrMetadataEXT(uint swapchainCount, VulkanHandle<VkSwapchainKHR>* pSwapchains, VkHdrMetadataEXT* pMetadata)
+		=> Functions.vkSetHdrMetadataEXT(Handle, swapchainCount, pSwapchains, pMetadata);
+
+	public void GetBufferMemoryRequirements2(VkBufferMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
+		=> Functions.vkGetBufferMemoryRequirements2(Handle, pInfo, pMemoryRequirements);
+
+	public void GetBufferMemoryRequirements2KHR(VkBufferMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
+		=> Functions.vkGetBufferMemoryRequirements2KHR(Handle, pInfo, pMemoryRequirements);
+
+	public void GetImageMemoryRequirements2(VkImageMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
+		=> Functions.vkGetImageMemoryRequirements2(Handle, pInfo, pMemoryRequirements);
+
+	public void GetImageMemoryRequirements2KHR(VkImageMemoryRequirementsInfo2* pInfo, VkMemoryRequirements2* pMemoryRequirements)
+		=> Functions.vkGetImageMemoryRequirements2KHR(Handle, pInfo, pMemoryRequirements);
+
+	public void GetImageSparseMemoryRequirements2(VkImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements2* pSparseMemoryRequirements)
+		=> Functions.vkGetImageSparseMemoryRequirements2(Handle, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+
+	public void GetImageSparseMemoryRequirements2KHR(VkImageSparseMemoryRequirementsInfo2* pInfo, uint* pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements2* pSparseMemoryRequirements)
+		=> Functions.vkGetImageSparseMemoryRequirements2KHR(Handle, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+
+	public VkResult CreateSamplerYcbcrConversion(VkSamplerYcbcrConversionCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSamplerYcbcrConversion>* pYcbcrConversion)
+		=> Functions.vkCreateSamplerYcbcrConversion(Handle, pCreateInfo, pAllocator, pYcbcrConversion);
+
+	public VkResult CreateSamplerYcbcrConversionKHR(VkSamplerYcbcrConversionCreateInfo* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkSamplerYcbcrConversion>* pYcbcrConversion)
+		=> Functions.vkCreateSamplerYcbcrConversionKHR(Handle, pCreateInfo, pAllocator, pYcbcrConversion);
+
+	public void GetDeviceQueue2(VkDeviceQueueInfo2* pQueueInfo, VulkanHandle<VkQueue>* pQueue)
+		=> Functions.vkGetDeviceQueue2(Handle, pQueueInfo, pQueue);
+
+	public VkResult CreateValidationCacheEXT(VkValidationCacheCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkValidationCacheEXT>* pValidationCache)
+		=> Functions.vkCreateValidationCacheEXT(Handle, pCreateInfo, pAllocator, pValidationCache);
+
+	public void GetDescriptorSetLayoutSupport(VkDescriptorSetLayoutCreateInfo* pCreateInfo, VkDescriptorSetLayoutSupport* pSupport)
+		=> Functions.vkGetDescriptorSetLayoutSupport(Handle, pCreateInfo, pSupport);
+
+	public void GetDescriptorSetLayoutSupportKHR(VkDescriptorSetLayoutCreateInfo* pCreateInfo, VkDescriptorSetLayoutSupport* pSupport)
+		=> Functions.vkGetDescriptorSetLayoutSupportKHR(Handle, pCreateInfo, pSupport);
+
+	public VkResult GetSwapchainGrallocUsageANDROID(VkFormat format, VkImageUsageFlags imageUsage, int* grallocUsage)
+		=> Functions.vkGetSwapchainGrallocUsageANDROID(Handle, format, imageUsage, grallocUsage);
+
+	public VkResult GetSwapchainGrallocUsage2ANDROID(VkFormat format, VkImageUsageFlags imageUsage, VkSwapchainImageUsageFlagsANDROID swapchainImageUsage, ulong* grallocConsumerUsage, ulong* grallocProducerUsage)
+		=> Functions.vkGetSwapchainGrallocUsage2ANDROID(Handle, format, imageUsage, swapchainImageUsage, grallocConsumerUsage, grallocProducerUsage);
+
+	public VkResult GetCalibratedTimestampsEXT(uint timestampCount, VkCalibratedTimestampInfoEXT* pTimestampInfos, ulong* pTimestamps, ulong* pMaxDeviation)
+		=> Functions.vkGetCalibratedTimestampsEXT(Handle, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
+
+	public VkResult SetDebugUtilsObjectNameEXT(VkDebugUtilsObjectNameInfoEXT* pNameInfo)
+		=> Functions.vkSetDebugUtilsObjectNameEXT(Handle, pNameInfo);
+
+	public VkResult SetDebugUtilsObjectTagEXT(VkDebugUtilsObjectTagInfoEXT* pTagInfo)
+		=> Functions.vkSetDebugUtilsObjectTagEXT(Handle, pTagInfo);
+
+	public VkResult GetMemoryHostPointerPropertiesEXT(VkExternalMemoryHandleTypeFlags handleType, void* pHostPointer, VkMemoryHostPointerPropertiesEXT* pMemoryHostPointerProperties)
+		=> Functions.vkGetMemoryHostPointerPropertiesEXT(Handle, handleType, pHostPointer, pMemoryHostPointerProperties);
+
+	public VkResult CreateRenderPass2(VkRenderPassCreateInfo2* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkRenderPass>* pRenderPass)
+		=> Functions.vkCreateRenderPass2(Handle, pCreateInfo, pAllocator, pRenderPass);
+
+	public VkResult CreateRenderPass2KHR(VkRenderPassCreateInfo2* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkRenderPass>* pRenderPass)
+		=> Functions.vkCreateRenderPass2KHR(Handle, pCreateInfo, pAllocator, pRenderPass);
+
+	public VkResult WaitSemaphores(VkSemaphoreWaitInfo* pWaitInfo, ulong timeout)
+		=> Functions.vkWaitSemaphores(Handle, pWaitInfo, timeout);
+
+	public VkResult WaitSemaphoresKHR(VkSemaphoreWaitInfo* pWaitInfo, ulong timeout)
+		=> Functions.vkWaitSemaphoresKHR(Handle, pWaitInfo, timeout);
+
+	public VkResult SignalSemaphore(VkSemaphoreSignalInfo* pSignalInfo)
+		=> Functions.vkSignalSemaphore(Handle, pSignalInfo);
+
+	public VkResult SignalSemaphoreKHR(VkSemaphoreSignalInfo* pSignalInfo)
+		=> Functions.vkSignalSemaphoreKHR(Handle, pSignalInfo);
+
+	public VkResult GetAndroidHardwareBufferPropertiesANDROID(void* buffer, VkAndroidHardwareBufferPropertiesANDROID* pProperties)
+		=> Functions.vkGetAndroidHardwareBufferPropertiesANDROID(Handle, buffer, pProperties);
+
+	public VkResult GetMemoryAndroidHardwareBufferANDROID(VkMemoryGetAndroidHardwareBufferInfoANDROID* pInfo, void** pBuffer)
+		=> Functions.vkGetMemoryAndroidHardwareBufferANDROID(Handle, pInfo, pBuffer);
+
+	public VkResult CreateAccelerationStructureNV(VkAccelerationStructureCreateInfoNV* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkAccelerationStructureNV>* pAccelerationStructure)
+		=> Functions.vkCreateAccelerationStructureNV(Handle, pCreateInfo, pAllocator, pAccelerationStructure);
+
+	public void GetAccelerationStructureMemoryRequirementsKHR(VkAccelerationStructureMemoryRequirementsInfoKHR* pInfo, VkMemoryRequirements2* pMemoryRequirements)
+		=> Functions.vkGetAccelerationStructureMemoryRequirementsKHR(Handle, pInfo, pMemoryRequirements);
+
+	public void GetAccelerationStructureMemoryRequirementsNV(VkAccelerationStructureMemoryRequirementsInfoNV* pInfo, VkMemoryRequirements2KHR* pMemoryRequirements)
+		=> Functions.vkGetAccelerationStructureMemoryRequirementsNV(Handle, pInfo, pMemoryRequirements);
+
+	public VkResult BindAccelerationStructureMemoryKHR(uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
+		=> Functions.vkBindAccelerationStructureMemoryKHR(Handle, bindInfoCount, pBindInfos);
+
+	public VkResult BindAccelerationStructureMemoryNV(uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
+		=> Functions.vkBindAccelerationStructureMemoryNV(Handle, bindInfoCount, pBindInfos);
+
+	public VkResult CopyAccelerationStructureKHR(VkCopyAccelerationStructureInfoKHR* pInfo)
+		=> Functions.vkCopyAccelerationStructureKHR(Handle, pInfo);
+
+	public VkResult CopyAccelerationStructureToMemoryKHR(VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
+		=> Functions.vkCopyAccelerationStructureToMemoryKHR(Handle, pInfo);
+
+	public VkResult CopyMemoryToAccelerationStructureKHR(VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
+		=> Functions.vkCopyMemoryToAccelerationStructureKHR(Handle, pInfo);
+
+	public VkResult WriteAccelerationStructuresPropertiesKHR(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, ulong dataSize, void* pData, ulong stride)
+		=> Functions.vkWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride);
+
+	public VkResult GetDeviceAccelerationStructureCompatibilityKHR(VkAccelerationStructureVersionKHR* version)
+		=> Functions.vkGetDeviceAccelerationStructureCompatibilityKHR(Handle, version);
+
+	public uint GetImageViewHandleNVX(VkImageViewHandleInfoNVX* pInfo)
+		=> Functions.vkGetImageViewHandleNVX(Handle, pInfo);
+
+	public VkResult GetDeviceGroupSurfacePresentModes2EXT(VkPhysicalDeviceSurfaceInfo2KHR* pSurfaceInfo, VkDeviceGroupPresentModeFlagsKHR* pModes)
+		=> Functions.vkGetDeviceGroupSurfacePresentModes2EXT(Handle, pSurfaceInfo, pModes);
+
+	public VkResult AcquireProfilingLockKHR(VkAcquireProfilingLockInfoKHR* pInfo)
+		=> Functions.vkAcquireProfilingLockKHR(Handle, pInfo);
+
+	public void ReleaseProfilingLockKHR()
+		=> Functions.vkReleaseProfilingLockKHR(Handle);
+
+	public ulong GetBufferOpaqueCaptureAddress(VkBufferDeviceAddressInfo* pInfo)
+		=> Functions.vkGetBufferOpaqueCaptureAddress(Handle, pInfo);
+
+	public ulong GetBufferOpaqueCaptureAddressKHR(VkBufferDeviceAddressInfo* pInfo)
+		=> Functions.vkGetBufferOpaqueCaptureAddressKHR(Handle, pInfo);
+
+	public ulong GetBufferDeviceAddress(VkBufferDeviceAddressInfo* pInfo)
+		=> Functions.vkGetBufferDeviceAddress(Handle, pInfo);
+
+	public ulong GetBufferDeviceAddressKHR(VkBufferDeviceAddressInfo* pInfo)
+		=> Functions.vkGetBufferDeviceAddressKHR(Handle, pInfo);
+
+	public ulong GetBufferDeviceAddressEXT(VkBufferDeviceAddressInfo* pInfo)
+		=> Functions.vkGetBufferDeviceAddressEXT(Handle, pInfo);
+
+	public VkResult InitializePerformanceApiINTEL(VkInitializePerformanceApiInfoINTEL* pInitializeInfo)
+		=> Functions.vkInitializePerformanceApiINTEL(Handle, pInitializeInfo);
+
+	public void UninitializePerformanceApiINTEL()
+		=> Functions.vkUninitializePerformanceApiINTEL(Handle);
+
+	public VkResult AcquirePerformanceConfigurationINTEL(VkPerformanceConfigurationAcquireInfoINTEL* pAcquireInfo, VulkanHandle<VkPerformanceConfigurationINTEL>* pConfiguration)
+		=> Functions.vkAcquirePerformanceConfigurationINTEL(Handle, pAcquireInfo, pConfiguration);
+
+	public VkResult GetPerformanceParameterINTEL(VkPerformanceParameterTypeINTEL parameter, VkPerformanceValueINTEL* pValue)
+		=> Functions.vkGetPerformanceParameterINTEL(Handle, parameter, pValue);
+
+	public ulong GetDeviceMemoryOpaqueCaptureAddress(VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo)
+		=> Functions.vkGetDeviceMemoryOpaqueCaptureAddress(Handle, pInfo);
+
+	public ulong GetDeviceMemoryOpaqueCaptureAddressKHR(VkDeviceMemoryOpaqueCaptureAddressInfo* pInfo)
+		=> Functions.vkGetDeviceMemoryOpaqueCaptureAddressKHR(Handle, pInfo);
+
+	public VkResult GetPipelineExecutablePropertiesKHR(VkPipelineInfoKHR* pPipelineInfo, uint* pExecutableCount, VkPipelineExecutablePropertiesKHR* pProperties)
+		=> Functions.vkGetPipelineExecutablePropertiesKHR(Handle, pPipelineInfo, pExecutableCount, pProperties);
+
+	public VkResult GetPipelineExecutableStatisticsKHR(VkPipelineExecutableInfoKHR* pExecutableInfo, uint* pStatisticCount, VkPipelineExecutableStatisticKHR* pStatistics)
+		=> Functions.vkGetPipelineExecutableStatisticsKHR(Handle, pExecutableInfo, pStatisticCount, pStatistics);
+
+	public VkResult GetPipelineExecutableInternalRepresentationsKHR(VkPipelineExecutableInfoKHR* pExecutableInfo, uint* pInternalRepresentationCount, VkPipelineExecutableInternalRepresentationKHR* pInternalRepresentations)
+		=> Functions.vkGetPipelineExecutableInternalRepresentationsKHR(Handle, pExecutableInfo, pInternalRepresentationCount, pInternalRepresentations);
+
+	public VkResult CreateAccelerationStructureKHR(VkAccelerationStructureCreateInfoKHR* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructure)
+		=> Functions.vkCreateAccelerationStructureKHR(Handle, pCreateInfo, pAllocator, pAccelerationStructure);
+
+	public VkResult BuildAccelerationStructureKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
+		=> Functions.vkBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
+
+	public ulong GetAccelerationStructureDeviceAddressKHR(VkAccelerationStructureDeviceAddressInfoKHR* pInfo)
+		=> Functions.vkGetAccelerationStructureDeviceAddressKHR(Handle, pInfo);
+
+	public VkResult CreateDeferredOperationKHR(VkAllocationCallbacks* pAllocator, VulkanHandle<VkDeferredOperationKHR>* pDeferredOperation)
+		=> Functions.vkCreateDeferredOperationKHR(Handle, pAllocator, pDeferredOperation);
+
+	public VkResult CreatePrivateDataSlotEXT(VkPrivateDataSlotCreateInfoEXT* pCreateInfo, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPrivateDataSlotEXT>* pPrivateDataSlot)
+		=> Functions.vkCreatePrivateDataSlotEXT(Handle, pCreateInfo, pAllocator, pPrivateDataSlot);
+
+	public VkResult SetPrivateDataEXT(VkObjectType objectType, ulong objectHandle, VulkanHandle<VkPrivateDataSlotEXT> privateDataSlot, ulong data)
+		=> Functions.vkSetPrivateDataEXT(Handle, objectType, objectHandle, privateDataSlot, data);
+
+	public void GetPrivateDataEXT(VkObjectType objectType, ulong objectHandle, VulkanHandle<VkPrivateDataSlotEXT> privateDataSlot, ulong* pData)
+		=> Functions.vkGetPrivateDataEXT(Handle, objectType, objectHandle, privateDataSlot, pData);
+
 }
 
 public unsafe sealed partial class VkQueue : IVulkanHandle<VkQueue>
@@ -113,6 +758,37 @@ public unsafe sealed partial class VkQueue : IVulkanHandle<VkQueue>
 
 	public static implicit operator VulkanHandle<VkQueue> (VkQueue? h) => h?.Handle ?? VulkanHandle<VkQueue>.Null;
 	public static implicit operator bool (VkQueue? h) => h?.IsValid ?? false;
+
+	public VkResult QueueSubmit(uint submitCount, VkSubmitInfo* pSubmits, VulkanHandle<VkFence> fence)
+		=> Functions.vkQueueSubmit(Handle, submitCount, pSubmits, fence);
+
+	public VkResult QueueWaitIdle()
+		=> Functions.vkQueueWaitIdle(Handle);
+
+	public VkResult QueueBindSparse(uint bindInfoCount, VkBindSparseInfo* pBindInfo, VulkanHandle<VkFence> fence)
+		=> Functions.vkQueueBindSparse(Handle, bindInfoCount, pBindInfo, fence);
+
+	public VkResult QueuePresentKHR(VkPresentInfoKHR* pPresentInfo)
+		=> Functions.vkQueuePresentKHR(Handle, pPresentInfo);
+
+	public VkResult QueueSignalReleaseImageANDROID(uint waitSemaphoreCount, VulkanHandle<VkSemaphore>* pWaitSemaphores, VulkanHandle<VkImage> image, int* pNativeFenceFd)
+		=> Functions.vkQueueSignalReleaseImageANDROID(Handle, waitSemaphoreCount, pWaitSemaphores, image, pNativeFenceFd);
+
+	public void QueueBeginDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
+		=> Functions.vkQueueBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
+
+	public void QueueEndDebugUtilsLabelEXT()
+		=> Functions.vkQueueEndDebugUtilsLabelEXT(Handle);
+
+	public void QueueInsertDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
+		=> Functions.vkQueueInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
+
+	public void GetQueueCheckpointDataNV(uint* pCheckpointDataCount, VkCheckpointDataNV* pCheckpointData)
+		=> Functions.vkGetQueueCheckpointDataNV(Handle, pCheckpointDataCount, pCheckpointData);
+
+	public VkResult QueueSetPerformanceConfigurationINTEL(VulkanHandle<VkPerformanceConfigurationINTEL> configuration)
+		=> Functions.vkQueueSetPerformanceConfigurationINTEL(Handle, configuration);
+
 }
 
 public unsafe sealed partial class VkCommandBuffer : IVulkanHandle<VkCommandBuffer>
@@ -139,6 +815,397 @@ public unsafe sealed partial class VkCommandBuffer : IVulkanHandle<VkCommandBuff
 
 	public static implicit operator VulkanHandle<VkCommandBuffer> (VkCommandBuffer? h) => h?.Handle ?? VulkanHandle<VkCommandBuffer>.Null;
 	public static implicit operator bool (VkCommandBuffer? h) => h?.IsValid ?? false;
+
+	public VkResult BeginCommandBuffer(VkCommandBufferBeginInfo* pBeginInfo)
+		=> Functions.vkBeginCommandBuffer(Handle, pBeginInfo);
+
+	public VkResult EndCommandBuffer()
+		=> Functions.vkEndCommandBuffer(Handle);
+
+	public VkResult ResetCommandBuffer(VkCommandBufferResetFlags flags)
+		=> Functions.vkResetCommandBuffer(Handle, flags);
+
+	public void CmdBindPipeline(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipeline> pipeline)
+		=> Functions.vkCmdBindPipeline(Handle, pipelineBindPoint, pipeline);
+
+	public void CmdSetViewport(uint firstViewport, uint viewportCount, VkViewport* pViewports)
+		=> Functions.vkCmdSetViewport(Handle, firstViewport, viewportCount, pViewports);
+
+	public void CmdSetScissor(uint firstScissor, uint scissorCount, VkRect2D* pScissors)
+		=> Functions.vkCmdSetScissor(Handle, firstScissor, scissorCount, pScissors);
+
+	public void CmdSetLineWidth(float lineWidth)
+		=> Functions.vkCmdSetLineWidth(Handle, lineWidth);
+
+	public void CmdSetDepthBias(float depthBiasConstantFactor, float depthBiasClamp, float depthBiasSlopeFactor)
+		=> Functions.vkCmdSetDepthBias(Handle, depthBiasConstantFactor, depthBiasClamp, depthBiasSlopeFactor);
+
+	public void CmdSetBlendConstants(float* blendConstants)
+		=> Functions.vkCmdSetBlendConstants(Handle, blendConstants);
+
+	public void CmdSetDepthBounds(float minDepthBounds, float maxDepthBounds)
+		=> Functions.vkCmdSetDepthBounds(Handle, minDepthBounds, maxDepthBounds);
+
+	public void CmdSetStencilCompareMask(VkStencilFaceFlags faceMask, uint compareMask)
+		=> Functions.vkCmdSetStencilCompareMask(Handle, faceMask, compareMask);
+
+	public void CmdSetStencilWriteMask(VkStencilFaceFlags faceMask, uint writeMask)
+		=> Functions.vkCmdSetStencilWriteMask(Handle, faceMask, writeMask);
+
+	public void CmdSetStencilReference(VkStencilFaceFlags faceMask, uint reference)
+		=> Functions.vkCmdSetStencilReference(Handle, faceMask, reference);
+
+	public void CmdBindDescriptorSets(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipelineLayout> layout, uint firstSet, uint descriptorSetCount, VulkanHandle<VkDescriptorSet>* pDescriptorSets, uint dynamicOffsetCount, uint* pDynamicOffsets)
+		=> Functions.vkCmdBindDescriptorSets(Handle, pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
+
+	public void CmdBindIndexBuffer(VulkanHandle<VkBuffer> buffer, ulong offset, VkIndexType indexType)
+		=> Functions.vkCmdBindIndexBuffer(Handle, buffer, offset, indexType);
+
+	public void CmdBindVertexBuffers(uint firstBinding, uint bindingCount, VulkanHandle<VkBuffer>* pBuffers, ulong* pOffsets)
+		=> Functions.vkCmdBindVertexBuffers(Handle, firstBinding, bindingCount, pBuffers, pOffsets);
+
+	public void CmdDraw(uint vertexCount, uint instanceCount, uint firstVertex, uint firstInstance)
+		=> Functions.vkCmdDraw(Handle, vertexCount, instanceCount, firstVertex, firstInstance);
+
+	public void CmdDrawIndexed(uint indexCount, uint instanceCount, uint firstIndex, int vertexOffset, uint firstInstance)
+		=> Functions.vkCmdDrawIndexed(Handle, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+
+	public void CmdDrawIndirect(VulkanHandle<VkBuffer> buffer, ulong offset, uint drawCount, uint stride)
+		=> Functions.vkCmdDrawIndirect(Handle, buffer, offset, drawCount, stride);
+
+	public void CmdDrawIndexedIndirect(VulkanHandle<VkBuffer> buffer, ulong offset, uint drawCount, uint stride)
+		=> Functions.vkCmdDrawIndexedIndirect(Handle, buffer, offset, drawCount, stride);
+
+	public void CmdDispatch(uint groupCountX, uint groupCountY, uint groupCountZ)
+		=> Functions.vkCmdDispatch(Handle, groupCountX, groupCountY, groupCountZ);
+
+	public void CmdDispatchIndirect(VulkanHandle<VkBuffer> buffer, ulong offset)
+		=> Functions.vkCmdDispatchIndirect(Handle, buffer, offset);
+
+	public void CmdCopyBuffer(VulkanHandle<VkBuffer> srcBuffer, VulkanHandle<VkBuffer> dstBuffer, uint regionCount, VkBufferCopy* pRegions)
+		=> Functions.vkCmdCopyBuffer(Handle, srcBuffer, dstBuffer, regionCount, pRegions);
+
+	public void CmdCopyImage(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkImageCopy* pRegions)
+		=> Functions.vkCmdCopyImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+
+	public void CmdBlitImage(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkImageBlit* pRegions, VkFilter filter)
+		=> Functions.vkCmdBlitImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions, filter);
+
+	public void CmdCopyBufferToImage(VulkanHandle<VkBuffer> srcBuffer, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkBufferImageCopy* pRegions)
+		=> Functions.vkCmdCopyBufferToImage(Handle, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
+
+	public void CmdCopyImageToBuffer(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkBuffer> dstBuffer, uint regionCount, VkBufferImageCopy* pRegions)
+		=> Functions.vkCmdCopyImageToBuffer(Handle, srcImage, srcImageLayout, dstBuffer, regionCount, pRegions);
+
+	public void CmdUpdateBuffer(VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, ulong dataSize, void* pData)
+		=> Functions.vkCmdUpdateBuffer(Handle, dstBuffer, dstOffset, dataSize, pData);
+
+	public void CmdFillBuffer(VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, ulong size, uint data)
+		=> Functions.vkCmdFillBuffer(Handle, dstBuffer, dstOffset, size, data);
+
+	public void CmdClearColorImage(VulkanHandle<VkImage> image, VkImageLayout imageLayout, VkClearColorValue* pColor, uint rangeCount, VkImageSubresourceRange* pRanges)
+		=> Functions.vkCmdClearColorImage(Handle, image, imageLayout, pColor, rangeCount, pRanges);
+
+	public void CmdClearDepthStencilImage(VulkanHandle<VkImage> image, VkImageLayout imageLayout, VkClearDepthStencilValue* pDepthStencil, uint rangeCount, VkImageSubresourceRange* pRanges)
+		=> Functions.vkCmdClearDepthStencilImage(Handle, image, imageLayout, pDepthStencil, rangeCount, pRanges);
+
+	public void CmdClearAttachments(uint attachmentCount, VkClearAttachment* pAttachments, uint rectCount, VkClearRect* pRects)
+		=> Functions.vkCmdClearAttachments(Handle, attachmentCount, pAttachments, rectCount, pRects);
+
+	public void CmdResolveImage(VulkanHandle<VkImage> srcImage, VkImageLayout srcImageLayout, VulkanHandle<VkImage> dstImage, VkImageLayout dstImageLayout, uint regionCount, VkImageResolve* pRegions)
+		=> Functions.vkCmdResolveImage(Handle, srcImage, srcImageLayout, dstImage, dstImageLayout, regionCount, pRegions);
+
+	public void CmdSetEvent(VulkanHandle<VkEvent> @event, VkPipelineStageFlags stageMask)
+		=> Functions.vkCmdSetEvent(Handle, @event, stageMask);
+
+	public void CmdResetEvent(VulkanHandle<VkEvent> @event, VkPipelineStageFlags stageMask)
+		=> Functions.vkCmdResetEvent(Handle, @event, stageMask);
+
+	public void CmdWaitEvents(uint eventCount, VulkanHandle<VkEvent>* pEvents, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, uint memoryBarrierCount, VkMemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, VkBufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, VkImageMemoryBarrier* pImageMemoryBarriers)
+		=> Functions.vkCmdWaitEvents(Handle, eventCount, pEvents, srcStageMask, dstStageMask, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+
+	public void CmdPipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags, uint memoryBarrierCount, VkMemoryBarrier* pMemoryBarriers, uint bufferMemoryBarrierCount, VkBufferMemoryBarrier* pBufferMemoryBarriers, uint imageMemoryBarrierCount, VkImageMemoryBarrier* pImageMemoryBarriers)
+		=> Functions.vkCmdPipelineBarrier(Handle, srcStageMask, dstStageMask, dependencyFlags, memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount, pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+
+	public void CmdBeginQuery(VulkanHandle<VkQueryPool> queryPool, uint query, VkQueryControlFlags flags)
+		=> Functions.vkCmdBeginQuery(Handle, queryPool, query, flags);
+
+	public void CmdEndQuery(VulkanHandle<VkQueryPool> queryPool, uint query)
+		=> Functions.vkCmdEndQuery(Handle, queryPool, query);
+
+	public void CmdBeginConditionalRenderingEXT(VkConditionalRenderingBeginInfoEXT* pConditionalRenderingBegin)
+		=> Functions.vkCmdBeginConditionalRenderingEXT(Handle, pConditionalRenderingBegin);
+
+	public void CmdEndConditionalRenderingEXT()
+		=> Functions.vkCmdEndConditionalRenderingEXT(Handle);
+
+	public void CmdResetQueryPool(VulkanHandle<VkQueryPool> queryPool, uint firstQuery, uint queryCount)
+		=> Functions.vkCmdResetQueryPool(Handle, queryPool, firstQuery, queryCount);
+
+	public void CmdWriteTimestamp(VkPipelineStageFlags pipelineStage, VulkanHandle<VkQueryPool> queryPool, uint query)
+		=> Functions.vkCmdWriteTimestamp(Handle, pipelineStage, queryPool, query);
+
+	public void CmdCopyQueryPoolResults(VulkanHandle<VkQueryPool> queryPool, uint firstQuery, uint queryCount, VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, ulong stride, VkQueryResultFlags flags)
+		=> Functions.vkCmdCopyQueryPoolResults(Handle, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags);
+
+	public void CmdPushConstants(VulkanHandle<VkPipelineLayout> layout, VkShaderStageFlags stageFlags, uint offset, uint size, void* pValues)
+		=> Functions.vkCmdPushConstants(Handle, layout, stageFlags, offset, size, pValues);
+
+	public void CmdBeginRenderPass(VkRenderPassBeginInfo* pRenderPassBegin, VkSubpassContents contents)
+		=> Functions.vkCmdBeginRenderPass(Handle, pRenderPassBegin, contents);
+
+	public void CmdNextSubpass(VkSubpassContents contents)
+		=> Functions.vkCmdNextSubpass(Handle, contents);
+
+	public void CmdEndRenderPass()
+		=> Functions.vkCmdEndRenderPass(Handle);
+
+	public void CmdExecuteCommands(uint commandBufferCount, VulkanHandle<VkCommandBuffer>* pCommandBuffers)
+		=> Functions.vkCmdExecuteCommands(Handle, commandBufferCount, pCommandBuffers);
+
+	public void CmdDebugMarkerBeginEXT(VkDebugMarkerMarkerInfoEXT* pMarkerInfo)
+		=> Functions.vkCmdDebugMarkerBeginEXT(Handle, pMarkerInfo);
+
+	public void CmdDebugMarkerEndEXT()
+		=> Functions.vkCmdDebugMarkerEndEXT(Handle);
+
+	public void CmdDebugMarkerInsertEXT(VkDebugMarkerMarkerInfoEXT* pMarkerInfo)
+		=> Functions.vkCmdDebugMarkerInsertEXT(Handle, pMarkerInfo);
+
+	public void CmdExecuteGeneratedCommandsNV(VkBool32 isPreprocessed, VkGeneratedCommandsInfoNV* pGeneratedCommandsInfo)
+		=> Functions.vkCmdExecuteGeneratedCommandsNV(Handle, isPreprocessed, pGeneratedCommandsInfo);
+
+	public void CmdPreprocessGeneratedCommandsNV(VkGeneratedCommandsInfoNV* pGeneratedCommandsInfo)
+		=> Functions.vkCmdPreprocessGeneratedCommandsNV(Handle, pGeneratedCommandsInfo);
+
+	public void CmdBindPipelineShaderGroupNV(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipeline> pipeline, uint groupIndex)
+		=> Functions.vkCmdBindPipelineShaderGroupNV(Handle, pipelineBindPoint, pipeline, groupIndex);
+
+	public void CmdPushDescriptorSetKHR(VkPipelineBindPoint pipelineBindPoint, VulkanHandle<VkPipelineLayout> layout, uint set, uint descriptorWriteCount, VkWriteDescriptorSet* pDescriptorWrites)
+		=> Functions.vkCmdPushDescriptorSetKHR(Handle, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
+
+	public void CmdSetDeviceMask(uint deviceMask)
+		=> Functions.vkCmdSetDeviceMask(Handle, deviceMask);
+
+	public void CmdSetDeviceMaskKHR(uint deviceMask)
+		=> Functions.vkCmdSetDeviceMaskKHR(Handle, deviceMask);
+
+	public void CmdDispatchBase(uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
+		=> Functions.vkCmdDispatchBase(Handle, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
+
+	public void CmdDispatchBaseKHR(uint baseGroupX, uint baseGroupY, uint baseGroupZ, uint groupCountX, uint groupCountY, uint groupCountZ)
+		=> Functions.vkCmdDispatchBaseKHR(Handle, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
+
+	public void CmdPushDescriptorSetWithTemplateKHR(VulkanHandle<VkDescriptorUpdateTemplate> descriptorUpdateTemplate, VulkanHandle<VkPipelineLayout> layout, uint set, void* pData)
+		=> Functions.vkCmdPushDescriptorSetWithTemplateKHR(Handle, descriptorUpdateTemplate, layout, set, pData);
+
+	public void CmdSetViewportWScalingNV(uint firstViewport, uint viewportCount, VkViewportWScalingNV* pViewportWScalings)
+		=> Functions.vkCmdSetViewportWScalingNV(Handle, firstViewport, viewportCount, pViewportWScalings);
+
+	public void CmdSetDiscardRectangleEXT(uint firstDiscardRectangle, uint discardRectangleCount, VkRect2D* pDiscardRectangles)
+		=> Functions.vkCmdSetDiscardRectangleEXT(Handle, firstDiscardRectangle, discardRectangleCount, pDiscardRectangles);
+
+	public void CmdSetSampleLocationsEXT(VkSampleLocationsInfoEXT* pSampleLocationsInfo)
+		=> Functions.vkCmdSetSampleLocationsEXT(Handle, pSampleLocationsInfo);
+
+	public void CmdBeginDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
+		=> Functions.vkCmdBeginDebugUtilsLabelEXT(Handle, pLabelInfo);
+
+	public void CmdEndDebugUtilsLabelEXT()
+		=> Functions.vkCmdEndDebugUtilsLabelEXT(Handle);
+
+	public void CmdInsertDebugUtilsLabelEXT(VkDebugUtilsLabelEXT* pLabelInfo)
+		=> Functions.vkCmdInsertDebugUtilsLabelEXT(Handle, pLabelInfo);
+
+	public void CmdWriteBufferMarkerAMD(VkPipelineStageFlags pipelineStage, VulkanHandle<VkBuffer> dstBuffer, ulong dstOffset, uint marker)
+		=> Functions.vkCmdWriteBufferMarkerAMD(Handle, pipelineStage, dstBuffer, dstOffset, marker);
+
+	public void CmdBeginRenderPass2(VkRenderPassBeginInfo* pRenderPassBegin, VkSubpassBeginInfo* pSubpassBeginInfo)
+		=> Functions.vkCmdBeginRenderPass2(Handle, pRenderPassBegin, pSubpassBeginInfo);
+
+	public void CmdBeginRenderPass2KHR(VkRenderPassBeginInfo* pRenderPassBegin, VkSubpassBeginInfo* pSubpassBeginInfo)
+		=> Functions.vkCmdBeginRenderPass2KHR(Handle, pRenderPassBegin, pSubpassBeginInfo);
+
+	public void CmdNextSubpass2(VkSubpassBeginInfo* pSubpassBeginInfo, VkSubpassEndInfo* pSubpassEndInfo)
+		=> Functions.vkCmdNextSubpass2(Handle, pSubpassBeginInfo, pSubpassEndInfo);
+
+	public void CmdNextSubpass2KHR(VkSubpassBeginInfo* pSubpassBeginInfo, VkSubpassEndInfo* pSubpassEndInfo)
+		=> Functions.vkCmdNextSubpass2KHR(Handle, pSubpassBeginInfo, pSubpassEndInfo);
+
+	public void CmdEndRenderPass2(VkSubpassEndInfo* pSubpassEndInfo)
+		=> Functions.vkCmdEndRenderPass2(Handle, pSubpassEndInfo);
+
+	public void CmdEndRenderPass2KHR(VkSubpassEndInfo* pSubpassEndInfo)
+		=> Functions.vkCmdEndRenderPass2KHR(Handle, pSubpassEndInfo);
+
+	public void CmdDrawIndirectCount(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
+		=> Functions.vkCmdDrawIndirectCount(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+
+	public void CmdDrawIndirectCountKHR(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
+		=> Functions.vkCmdDrawIndirectCountKHR(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+
+	public void CmdDrawIndirectCountAMD(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
+		=> Functions.vkCmdDrawIndirectCountAMD(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+
+	public void CmdDrawIndexedIndirectCount(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
+		=> Functions.vkCmdDrawIndexedIndirectCount(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+
+	public void CmdDrawIndexedIndirectCountKHR(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
+		=> Functions.vkCmdDrawIndexedIndirectCountKHR(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+
+	public void CmdDrawIndexedIndirectCountAMD(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
+		=> Functions.vkCmdDrawIndexedIndirectCountAMD(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+
+	public void CmdSetCheckpointNV(void* pCheckpointMarker)
+		=> Functions.vkCmdSetCheckpointNV(Handle, pCheckpointMarker);
+
+	public void CmdBindTransformFeedbackBuffersEXT(uint firstBinding, uint bindingCount, VulkanHandle<VkBuffer>* pBuffers, ulong* pOffsets, ulong* pSizes)
+		=> Functions.vkCmdBindTransformFeedbackBuffersEXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes);
+
+	public void CmdBeginTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, VulkanHandle<VkBuffer>* pCounterBuffers, ulong* pCounterBufferOffsets)
+		=> Functions.vkCmdBeginTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+
+	public void CmdEndTransformFeedbackEXT(uint firstCounterBuffer, uint counterBufferCount, VulkanHandle<VkBuffer>* pCounterBuffers, ulong* pCounterBufferOffsets)
+		=> Functions.vkCmdEndTransformFeedbackEXT(Handle, firstCounterBuffer, counterBufferCount, pCounterBuffers, pCounterBufferOffsets);
+
+	public void CmdBeginQueryIndexedEXT(VulkanHandle<VkQueryPool> queryPool, uint query, VkQueryControlFlags flags, uint index)
+		=> Functions.vkCmdBeginQueryIndexedEXT(Handle, queryPool, query, flags, index);
+
+	public void CmdEndQueryIndexedEXT(VulkanHandle<VkQueryPool> queryPool, uint query, uint index)
+		=> Functions.vkCmdEndQueryIndexedEXT(Handle, queryPool, query, index);
+
+	public void CmdDrawIndirectByteCountEXT(uint instanceCount, uint firstInstance, VulkanHandle<VkBuffer> counterBuffer, ulong counterBufferOffset, uint counterOffset, uint vertexStride)
+		=> Functions.vkCmdDrawIndirectByteCountEXT(Handle, instanceCount, firstInstance, counterBuffer, counterBufferOffset, counterOffset, vertexStride);
+
+	public void CmdSetExclusiveScissorNV(uint firstExclusiveScissor, uint exclusiveScissorCount, VkRect2D* pExclusiveScissors)
+		=> Functions.vkCmdSetExclusiveScissorNV(Handle, firstExclusiveScissor, exclusiveScissorCount, pExclusiveScissors);
+
+	public void CmdBindShadingRateImageNV(VulkanHandle<VkImageView> imageView, VkImageLayout imageLayout)
+		=> Functions.vkCmdBindShadingRateImageNV(Handle, imageView, imageLayout);
+
+	public void CmdSetViewportShadingRatePaletteNV(uint firstViewport, uint viewportCount, VkShadingRatePaletteNV* pShadingRatePalettes)
+		=> Functions.vkCmdSetViewportShadingRatePaletteNV(Handle, firstViewport, viewportCount, pShadingRatePalettes);
+
+	public void CmdSetCoarseSampleOrderNV(VkCoarseSampleOrderTypeNV sampleOrderType, uint customSampleOrderCount, VkCoarseSampleOrderCustomNV* pCustomSampleOrders)
+		=> Functions.vkCmdSetCoarseSampleOrderNV(Handle, sampleOrderType, customSampleOrderCount, pCustomSampleOrders);
+
+	public void CmdDrawMeshTasksNV(uint taskCount, uint firstTask)
+		=> Functions.vkCmdDrawMeshTasksNV(Handle, taskCount, firstTask);
+
+	public void CmdDrawMeshTasksIndirectNV(VulkanHandle<VkBuffer> buffer, ulong offset, uint drawCount, uint stride)
+		=> Functions.vkCmdDrawMeshTasksIndirectNV(Handle, buffer, offset, drawCount, stride);
+
+	public void CmdDrawMeshTasksIndirectCountNV(VulkanHandle<VkBuffer> buffer, ulong offset, VulkanHandle<VkBuffer> countBuffer, ulong countBufferOffset, uint maxDrawCount, uint stride)
+		=> Functions.vkCmdDrawMeshTasksIndirectCountNV(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
+
+	public void CmdCopyAccelerationStructureNV(VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VkCopyAccelerationStructureModeKHR mode)
+		=> Functions.vkCmdCopyAccelerationStructureNV(Handle, dst, src, mode);
+
+	public void CmdCopyAccelerationStructureKHR(VkCopyAccelerationStructureInfoKHR* pInfo)
+		=> Functions.vkCmdCopyAccelerationStructureKHR(Handle, pInfo);
+
+	public void CmdCopyAccelerationStructureToMemoryKHR(VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
+		=> Functions.vkCmdCopyAccelerationStructureToMemoryKHR(Handle, pInfo);
+
+	public void CmdCopyMemoryToAccelerationStructureKHR(VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
+		=> Functions.vkCmdCopyMemoryToAccelerationStructureKHR(Handle, pInfo);
+
+	public void CmdWriteAccelerationStructuresPropertiesKHR(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
+		=> Functions.vkCmdWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+
+	public void CmdWriteAccelerationStructuresPropertiesNV(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
+		=> Functions.vkCmdWriteAccelerationStructuresPropertiesNV(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
+
+	public void CmdBuildAccelerationStructureNV(VkAccelerationStructureInfoNV* pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
+		=> Functions.vkCmdBuildAccelerationStructureNV(Handle, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
+
+	public void CmdTraceRaysKHR(VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, uint width, uint height, uint depth)
+		=> Functions.vkCmdTraceRaysKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
+
+	public void CmdTraceRaysNV(VulkanHandle<VkBuffer> raygenShaderBindingTableBuffer, ulong raygenShaderBindingOffset, VulkanHandle<VkBuffer> missShaderBindingTableBuffer, ulong missShaderBindingOffset, ulong missShaderBindingStride, VulkanHandle<VkBuffer> hitShaderBindingTableBuffer, ulong hitShaderBindingOffset, ulong hitShaderBindingStride, VulkanHandle<VkBuffer> callableShaderBindingTableBuffer, ulong callableShaderBindingOffset, ulong callableShaderBindingStride, uint width, uint height, uint depth)
+		=> Functions.vkCmdTraceRaysNV(Handle, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
+
+	public void CmdTraceRaysIndirectKHR(VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, VulkanHandle<VkBuffer> buffer, ulong offset)
+		=> Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
+
+	public VkResult CmdSetPerformanceMarkerINTEL(VkPerformanceMarkerInfoINTEL* pMarkerInfo)
+		=> Functions.vkCmdSetPerformanceMarkerINTEL(Handle, pMarkerInfo);
+
+	public VkResult CmdSetPerformanceStreamMarkerINTEL(VkPerformanceStreamMarkerInfoINTEL* pMarkerInfo)
+		=> Functions.vkCmdSetPerformanceStreamMarkerINTEL(Handle, pMarkerInfo);
+
+	public VkResult CmdSetPerformanceOverrideINTEL(VkPerformanceOverrideInfoINTEL* pOverrideInfo)
+		=> Functions.vkCmdSetPerformanceOverrideINTEL(Handle, pOverrideInfo);
+
+	public void CmdSetLineStippleEXT(uint lineStippleFactor, ushort lineStipplePattern)
+		=> Functions.vkCmdSetLineStippleEXT(Handle, lineStippleFactor, lineStipplePattern);
+
+	public void CmdBuildAccelerationStructureKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
+		=> Functions.vkCmdBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
+
+	public void CmdBuildAccelerationStructureIndirectKHR(VkAccelerationStructureBuildGeometryInfoKHR* pInfo, VulkanHandle<VkBuffer> indirectBuffer, ulong indirectOffset, uint indirectStride)
+		=> Functions.vkCmdBuildAccelerationStructureIndirectKHR(Handle, pInfo, indirectBuffer, indirectOffset, indirectStride);
+
+	public void CmdSetCullModeEXT(VkCullModeFlags cullMode)
+		=> Functions.vkCmdSetCullModeEXT(Handle, cullMode);
+
+	public void CmdSetFrontFaceEXT(VkFrontFace frontFace)
+		=> Functions.vkCmdSetFrontFaceEXT(Handle, frontFace);
+
+	public void CmdSetPrimitiveTopologyEXT(VkPrimitiveTopology primitiveTopology)
+		=> Functions.vkCmdSetPrimitiveTopologyEXT(Handle, primitiveTopology);
+
+	public void CmdSetViewportWithCountEXT(uint viewportCount, VkViewport* pViewports)
+		=> Functions.vkCmdSetViewportWithCountEXT(Handle, viewportCount, pViewports);
+
+	public void CmdSetScissorWithCountEXT(uint scissorCount, VkRect2D* pScissors)
+		=> Functions.vkCmdSetScissorWithCountEXT(Handle, scissorCount, pScissors);
+
+	public void CmdBindVertexBuffers2EXT(uint firstBinding, uint bindingCount, VulkanHandle<VkBuffer>* pBuffers, ulong* pOffsets, ulong* pSizes, ulong* pStrides)
+		=> Functions.vkCmdBindVertexBuffers2EXT(Handle, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
+
+	public void CmdSetDepthTestEnableEXT(VkBool32 depthTestEnable)
+		=> Functions.vkCmdSetDepthTestEnableEXT(Handle, depthTestEnable);
+
+	public void CmdSetDepthWriteEnableEXT(VkBool32 depthWriteEnable)
+		=> Functions.vkCmdSetDepthWriteEnableEXT(Handle, depthWriteEnable);
+
+	public void CmdSetDepthCompareOpEXT(VkCompareOp depthCompareOp)
+		=> Functions.vkCmdSetDepthCompareOpEXT(Handle, depthCompareOp);
+
+	public void CmdSetDepthBoundsTestEnableEXT(VkBool32 depthBoundsTestEnable)
+		=> Functions.vkCmdSetDepthBoundsTestEnableEXT(Handle, depthBoundsTestEnable);
+
+	public void CmdSetStencilTestEnableEXT(VkBool32 stencilTestEnable)
+		=> Functions.vkCmdSetStencilTestEnableEXT(Handle, stencilTestEnable);
+
+	public void CmdSetStencilOpEXT(VkStencilFaceFlags faceMask, VkStencilOp failOp, VkStencilOp passOp, VkStencilOp depthFailOp, VkCompareOp compareOp)
+		=> Functions.vkCmdSetStencilOpEXT(Handle, faceMask, failOp, passOp, depthFailOp, compareOp);
+
+	public void CmdCopyBuffer2KHR(VkCopyBufferInfo2KHR* pCopyBufferInfo)
+		=> Functions.vkCmdCopyBuffer2KHR(Handle, pCopyBufferInfo);
+
+	public void CmdCopyImage2KHR(VkCopyImageInfo2KHR* pCopyImageInfo)
+		=> Functions.vkCmdCopyImage2KHR(Handle, pCopyImageInfo);
+
+	public void CmdBlitImage2KHR(VkBlitImageInfo2KHR* pBlitImageInfo)
+		=> Functions.vkCmdBlitImage2KHR(Handle, pBlitImageInfo);
+
+	public void CmdCopyBufferToImage2KHR(VkCopyBufferToImageInfo2KHR* pCopyBufferToImageInfo)
+		=> Functions.vkCmdCopyBufferToImage2KHR(Handle, pCopyBufferToImageInfo);
+
+	public void CmdCopyImageToBuffer2KHR(VkCopyImageToBufferInfo2KHR* pCopyImageToBufferInfo)
+		=> Functions.vkCmdCopyImageToBuffer2KHR(Handle, pCopyImageToBufferInfo);
+
+	public void CmdResolveImage2KHR(VkResolveImageInfo2KHR* pResolveImageInfo)
+		=> Functions.vkCmdResolveImage2KHR(Handle, pResolveImageInfo);
+
+	public void CmdSetFragmentShadingRateKHR(VkExtent2D* pFragmentSize, VkFragmentShadingRateCombinerOpKHR* combinerOps)
+		=> Functions.vkCmdSetFragmentShadingRateKHR(Handle, pFragmentSize, combinerOps);
+
+	public void CmdSetFragmentShadingRateEnumNV(VkFragmentShadingRateNV shadingRate, VkFragmentShadingRateCombinerOpKHR* combinerOps)
+		=> Functions.vkCmdSetFragmentShadingRateEnumNV(Handle, shadingRate, combinerOps);
+
 }
 
 public unsafe sealed partial class VkDeviceMemory : IVulkanHandle<VkDeviceMemory>
@@ -165,6 +1232,22 @@ public unsafe sealed partial class VkDeviceMemory : IVulkanHandle<VkDeviceMemory
 
 	public static implicit operator VulkanHandle<VkDeviceMemory> (VkDeviceMemory? h) => h?.Handle ?? VulkanHandle<VkDeviceMemory>.Null;
 	public static implicit operator bool (VkDeviceMemory? h) => h?.IsValid ?? false;
+
+	public void FreeMemory(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkFreeMemory(Parent, Handle, pAllocator);
+
+	public VkResult MapMemory(ulong offset, ulong size, VkMemoryMapFlags flags, void** ppData)
+		=> Functions.vkMapMemory(Parent, Handle, offset, size, flags, ppData);
+
+	public void UnmapMemory()
+		=> Functions.vkUnmapMemory(Parent, Handle);
+
+	public void GetDeviceMemoryCommitment(ulong* pCommittedMemoryInBytes)
+		=> Functions.vkGetDeviceMemoryCommitment(Parent, Handle, pCommittedMemoryInBytes);
+
+	public VkResult GetMemoryWin32HandleNV(VkExternalMemoryHandleTypeFlagsNV handleType, void** pHandle)
+		=> Functions.vkGetMemoryWin32HandleNV(Parent, Handle, handleType, pHandle);
+
 }
 
 public unsafe sealed partial class VkCommandPool : IVulkanHandle<VkCommandPool>
@@ -191,6 +1274,22 @@ public unsafe sealed partial class VkCommandPool : IVulkanHandle<VkCommandPool>
 
 	public static implicit operator VulkanHandle<VkCommandPool> (VkCommandPool? h) => h?.Handle ?? VulkanHandle<VkCommandPool>.Null;
 	public static implicit operator bool (VkCommandPool? h) => h?.IsValid ?? false;
+
+	public void DestroyCommandPool(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyCommandPool(Parent, Handle, pAllocator);
+
+	public VkResult ResetCommandPool(VkCommandPoolResetFlags flags)
+		=> Functions.vkResetCommandPool(Parent, Handle, flags);
+
+	public void FreeCommandBuffers(uint commandBufferCount, VulkanHandle<VkCommandBuffer>* pCommandBuffers)
+		=> Functions.vkFreeCommandBuffers(Parent, Handle, commandBufferCount, pCommandBuffers);
+
+	public void TrimCommandPool(VkCommandPoolTrimFlags flags)
+		=> Functions.vkTrimCommandPool(Parent, Handle, flags);
+
+	public void TrimCommandPoolKHR(VkCommandPoolTrimFlags flags)
+		=> Functions.vkTrimCommandPoolKHR(Parent, Handle, flags);
+
 }
 
 public unsafe sealed partial class VkBuffer : IVulkanHandle<VkBuffer>
@@ -217,6 +1316,16 @@ public unsafe sealed partial class VkBuffer : IVulkanHandle<VkBuffer>
 
 	public static implicit operator VulkanHandle<VkBuffer> (VkBuffer? h) => h?.Handle ?? VulkanHandle<VkBuffer>.Null;
 	public static implicit operator bool (VkBuffer? h) => h?.IsValid ?? false;
+
+	public void GetBufferMemoryRequirements(VkMemoryRequirements* pMemoryRequirements)
+		=> Functions.vkGetBufferMemoryRequirements(Parent, Handle, pMemoryRequirements);
+
+	public VkResult BindBufferMemory(VulkanHandle<VkDeviceMemory> memory, ulong memoryOffset)
+		=> Functions.vkBindBufferMemory(Parent, Handle, memory, memoryOffset);
+
+	public void DestroyBuffer(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyBuffer(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkBufferView : IVulkanHandle<VkBufferView>
@@ -243,6 +1352,10 @@ public unsafe sealed partial class VkBufferView : IVulkanHandle<VkBufferView>
 
 	public static implicit operator VulkanHandle<VkBufferView> (VkBufferView? h) => h?.Handle ?? VulkanHandle<VkBufferView>.Null;
 	public static implicit operator bool (VkBufferView? h) => h?.IsValid ?? false;
+
+	public void DestroyBufferView(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyBufferView(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkImage : IVulkanHandle<VkImage>
@@ -269,6 +1382,28 @@ public unsafe sealed partial class VkImage : IVulkanHandle<VkImage>
 
 	public static implicit operator VulkanHandle<VkImage> (VkImage? h) => h?.Handle ?? VulkanHandle<VkImage>.Null;
 	public static implicit operator bool (VkImage? h) => h?.IsValid ?? false;
+
+	public void GetImageMemoryRequirements(VkMemoryRequirements* pMemoryRequirements)
+		=> Functions.vkGetImageMemoryRequirements(Parent, Handle, pMemoryRequirements);
+
+	public VkResult BindImageMemory(VulkanHandle<VkDeviceMemory> memory, ulong memoryOffset)
+		=> Functions.vkBindImageMemory(Parent, Handle, memory, memoryOffset);
+
+	public void GetImageSparseMemoryRequirements(uint* pSparseMemoryRequirementCount, VkSparseImageMemoryRequirements* pSparseMemoryRequirements)
+		=> Functions.vkGetImageSparseMemoryRequirements(Parent, Handle, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
+
+	public void DestroyImage(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyImage(Parent, Handle, pAllocator);
+
+	public void GetImageSubresourceLayout(VkImageSubresource* pSubresource, VkSubresourceLayout* pLayout)
+		=> Functions.vkGetImageSubresourceLayout(Parent, Handle, pSubresource, pLayout);
+
+	public VkResult AcquireImageANDROID(int nativeFenceFd, VulkanHandle<VkSemaphore> semaphore, VulkanHandle<VkFence> fence)
+		=> Functions.vkAcquireImageANDROID(Parent, Handle, nativeFenceFd, semaphore, fence);
+
+	public VkResult GetImageDrmFormatModifierPropertiesEXT(VkImageDrmFormatModifierPropertiesEXT* pProperties)
+		=> Functions.vkGetImageDrmFormatModifierPropertiesEXT(Parent, Handle, pProperties);
+
 }
 
 public unsafe sealed partial class VkImageView : IVulkanHandle<VkImageView>
@@ -295,6 +1430,13 @@ public unsafe sealed partial class VkImageView : IVulkanHandle<VkImageView>
 
 	public static implicit operator VulkanHandle<VkImageView> (VkImageView? h) => h?.Handle ?? VulkanHandle<VkImageView>.Null;
 	public static implicit operator bool (VkImageView? h) => h?.IsValid ?? false;
+
+	public void DestroyImageView(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyImageView(Parent, Handle, pAllocator);
+
+	public VkResult GetImageViewAddressNVX(VkImageViewAddressPropertiesNVX* pProperties)
+		=> Functions.vkGetImageViewAddressNVX(Parent, Handle, pProperties);
+
 }
 
 public unsafe sealed partial class VkShaderModule : IVulkanHandle<VkShaderModule>
@@ -321,6 +1463,10 @@ public unsafe sealed partial class VkShaderModule : IVulkanHandle<VkShaderModule
 
 	public static implicit operator VulkanHandle<VkShaderModule> (VkShaderModule? h) => h?.Handle ?? VulkanHandle<VkShaderModule>.Null;
 	public static implicit operator bool (VkShaderModule? h) => h?.IsValid ?? false;
+
+	public void DestroyShaderModule(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyShaderModule(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkPipeline : IVulkanHandle<VkPipeline>
@@ -347,6 +1493,25 @@ public unsafe sealed partial class VkPipeline : IVulkanHandle<VkPipeline>
 
 	public static implicit operator VulkanHandle<VkPipeline> (VkPipeline? h) => h?.Handle ?? VulkanHandle<VkPipeline>.Null;
 	public static implicit operator bool (VkPipeline? h) => h?.IsValid ?? false;
+
+	public void DestroyPipeline(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyPipeline(Parent, Handle, pAllocator);
+
+	public VkResult GetShaderInfoAMD(VkShaderStageFlags shaderStage, VkShaderInfoTypeAMD infoType, ulong* pInfoSize, void* pInfo)
+		=> Functions.vkGetShaderInfoAMD(Parent, Handle, shaderStage, infoType, pInfoSize, pInfo);
+
+	public VkResult CompileDeferredNV(uint shader)
+		=> Functions.vkCompileDeferredNV(Parent, Handle, shader);
+
+	public VkResult GetRayTracingShaderGroupHandlesKHR(uint firstGroup, uint groupCount, ulong dataSize, void* pData)
+		=> Functions.vkGetRayTracingShaderGroupHandlesKHR(Parent, Handle, firstGroup, groupCount, dataSize, pData);
+
+	public VkResult GetRayTracingShaderGroupHandlesNV(uint firstGroup, uint groupCount, ulong dataSize, void* pData)
+		=> Functions.vkGetRayTracingShaderGroupHandlesNV(Parent, Handle, firstGroup, groupCount, dataSize, pData);
+
+	public VkResult GetRayTracingCaptureReplayShaderGroupHandlesKHR(uint firstGroup, uint groupCount, ulong dataSize, void* pData)
+		=> Functions.vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(Parent, Handle, firstGroup, groupCount, dataSize, pData);
+
 }
 
 public unsafe sealed partial class VkPipelineLayout : IVulkanHandle<VkPipelineLayout>
@@ -373,6 +1538,10 @@ public unsafe sealed partial class VkPipelineLayout : IVulkanHandle<VkPipelineLa
 
 	public static implicit operator VulkanHandle<VkPipelineLayout> (VkPipelineLayout? h) => h?.Handle ?? VulkanHandle<VkPipelineLayout>.Null;
 	public static implicit operator bool (VkPipelineLayout? h) => h?.IsValid ?? false;
+
+	public void DestroyPipelineLayout(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyPipelineLayout(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkSampler : IVulkanHandle<VkSampler>
@@ -399,6 +1568,10 @@ public unsafe sealed partial class VkSampler : IVulkanHandle<VkSampler>
 
 	public static implicit operator VulkanHandle<VkSampler> (VkSampler? h) => h?.Handle ?? VulkanHandle<VkSampler>.Null;
 	public static implicit operator bool (VkSampler? h) => h?.IsValid ?? false;
+
+	public void DestroySampler(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroySampler(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkDescriptorSet : IVulkanHandle<VkDescriptorSet>
@@ -425,6 +1598,7 @@ public unsafe sealed partial class VkDescriptorSet : IVulkanHandle<VkDescriptorS
 
 	public static implicit operator VulkanHandle<VkDescriptorSet> (VkDescriptorSet? h) => h?.Handle ?? VulkanHandle<VkDescriptorSet>.Null;
 	public static implicit operator bool (VkDescriptorSet? h) => h?.IsValid ?? false;
+
 }
 
 public unsafe sealed partial class VkDescriptorSetLayout : IVulkanHandle<VkDescriptorSetLayout>
@@ -451,6 +1625,10 @@ public unsafe sealed partial class VkDescriptorSetLayout : IVulkanHandle<VkDescr
 
 	public static implicit operator VulkanHandle<VkDescriptorSetLayout> (VkDescriptorSetLayout? h) => h?.Handle ?? VulkanHandle<VkDescriptorSetLayout>.Null;
 	public static implicit operator bool (VkDescriptorSetLayout? h) => h?.IsValid ?? false;
+
+	public void DestroyDescriptorSetLayout(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDescriptorSetLayout(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkDescriptorPool : IVulkanHandle<VkDescriptorPool>
@@ -477,6 +1655,16 @@ public unsafe sealed partial class VkDescriptorPool : IVulkanHandle<VkDescriptor
 
 	public static implicit operator VulkanHandle<VkDescriptorPool> (VkDescriptorPool? h) => h?.Handle ?? VulkanHandle<VkDescriptorPool>.Null;
 	public static implicit operator bool (VkDescriptorPool? h) => h?.IsValid ?? false;
+
+	public void DestroyDescriptorPool(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDescriptorPool(Parent, Handle, pAllocator);
+
+	public VkResult ResetDescriptorPool(VkDescriptorPoolResetFlags flags)
+		=> Functions.vkResetDescriptorPool(Parent, Handle, flags);
+
+	public VkResult FreeDescriptorSets(uint descriptorSetCount, VulkanHandle<VkDescriptorSet>* pDescriptorSets)
+		=> Functions.vkFreeDescriptorSets(Parent, Handle, descriptorSetCount, pDescriptorSets);
+
 }
 
 public unsafe sealed partial class VkFence : IVulkanHandle<VkFence>
@@ -503,6 +1691,13 @@ public unsafe sealed partial class VkFence : IVulkanHandle<VkFence>
 
 	public static implicit operator VulkanHandle<VkFence> (VkFence? h) => h?.Handle ?? VulkanHandle<VkFence>.Null;
 	public static implicit operator bool (VkFence? h) => h?.IsValid ?? false;
+
+	public void DestroyFence(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyFence(Parent, Handle, pAllocator);
+
+	public VkResult GetFenceStatus()
+		=> Functions.vkGetFenceStatus(Parent, Handle);
+
 }
 
 public unsafe sealed partial class VkSemaphore : IVulkanHandle<VkSemaphore>
@@ -529,6 +1724,16 @@ public unsafe sealed partial class VkSemaphore : IVulkanHandle<VkSemaphore>
 
 	public static implicit operator VulkanHandle<VkSemaphore> (VkSemaphore? h) => h?.Handle ?? VulkanHandle<VkSemaphore>.Null;
 	public static implicit operator bool (VkSemaphore? h) => h?.IsValid ?? false;
+
+	public void DestroySemaphore(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroySemaphore(Parent, Handle, pAllocator);
+
+	public VkResult GetSemaphoreCounterValue(ulong* pValue)
+		=> Functions.vkGetSemaphoreCounterValue(Parent, Handle, pValue);
+
+	public VkResult GetSemaphoreCounterValueKHR(ulong* pValue)
+		=> Functions.vkGetSemaphoreCounterValueKHR(Parent, Handle, pValue);
+
 }
 
 public unsafe sealed partial class VkEvent : IVulkanHandle<VkEvent>
@@ -555,6 +1760,19 @@ public unsafe sealed partial class VkEvent : IVulkanHandle<VkEvent>
 
 	public static implicit operator VulkanHandle<VkEvent> (VkEvent? h) => h?.Handle ?? VulkanHandle<VkEvent>.Null;
 	public static implicit operator bool (VkEvent? h) => h?.IsValid ?? false;
+
+	public void DestroyEvent(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyEvent(Parent, Handle, pAllocator);
+
+	public VkResult GetEventStatus()
+		=> Functions.vkGetEventStatus(Parent, Handle);
+
+	public VkResult SetEvent()
+		=> Functions.vkSetEvent(Parent, Handle);
+
+	public VkResult ResetEvent()
+		=> Functions.vkResetEvent(Parent, Handle);
+
 }
 
 public unsafe sealed partial class VkQueryPool : IVulkanHandle<VkQueryPool>
@@ -581,6 +1799,19 @@ public unsafe sealed partial class VkQueryPool : IVulkanHandle<VkQueryPool>
 
 	public static implicit operator VulkanHandle<VkQueryPool> (VkQueryPool? h) => h?.Handle ?? VulkanHandle<VkQueryPool>.Null;
 	public static implicit operator bool (VkQueryPool? h) => h?.IsValid ?? false;
+
+	public void DestroyQueryPool(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyQueryPool(Parent, Handle, pAllocator);
+
+	public VkResult GetQueryPoolResults(uint firstQuery, uint queryCount, ulong dataSize, void* pData, ulong stride, VkQueryResultFlags flags)
+		=> Functions.vkGetQueryPoolResults(Parent, Handle, firstQuery, queryCount, dataSize, pData, stride, flags);
+
+	public void ResetQueryPool(uint firstQuery, uint queryCount)
+		=> Functions.vkResetQueryPool(Parent, Handle, firstQuery, queryCount);
+
+	public void ResetQueryPoolEXT(uint firstQuery, uint queryCount)
+		=> Functions.vkResetQueryPoolEXT(Parent, Handle, firstQuery, queryCount);
+
 }
 
 public unsafe sealed partial class VkFramebuffer : IVulkanHandle<VkFramebuffer>
@@ -607,6 +1838,10 @@ public unsafe sealed partial class VkFramebuffer : IVulkanHandle<VkFramebuffer>
 
 	public static implicit operator VulkanHandle<VkFramebuffer> (VkFramebuffer? h) => h?.Handle ?? VulkanHandle<VkFramebuffer>.Null;
 	public static implicit operator bool (VkFramebuffer? h) => h?.IsValid ?? false;
+
+	public void DestroyFramebuffer(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyFramebuffer(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkRenderPass : IVulkanHandle<VkRenderPass>
@@ -633,6 +1868,13 @@ public unsafe sealed partial class VkRenderPass : IVulkanHandle<VkRenderPass>
 
 	public static implicit operator VulkanHandle<VkRenderPass> (VkRenderPass? h) => h?.Handle ?? VulkanHandle<VkRenderPass>.Null;
 	public static implicit operator bool (VkRenderPass? h) => h?.IsValid ?? false;
+
+	public void DestroyRenderPass(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyRenderPass(Parent, Handle, pAllocator);
+
+	public void GetRenderAreaGranularity(VkExtent2D* pGranularity)
+		=> Functions.vkGetRenderAreaGranularity(Parent, Handle, pGranularity);
+
 }
 
 public unsafe sealed partial class VkPipelineCache : IVulkanHandle<VkPipelineCache>
@@ -659,6 +1901,28 @@ public unsafe sealed partial class VkPipelineCache : IVulkanHandle<VkPipelineCac
 
 	public static implicit operator VulkanHandle<VkPipelineCache> (VkPipelineCache? h) => h?.Handle ?? VulkanHandle<VkPipelineCache>.Null;
 	public static implicit operator bool (VkPipelineCache? h) => h?.IsValid ?? false;
+
+	public void DestroyPipelineCache(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyPipelineCache(Parent, Handle, pAllocator);
+
+	public VkResult GetPipelineCacheData(ulong* pDataSize, void* pData)
+		=> Functions.vkGetPipelineCacheData(Parent, Handle, pDataSize, pData);
+
+	public VkResult MergePipelineCaches(uint srcCacheCount, VulkanHandle<VkPipelineCache>* pSrcCaches)
+		=> Functions.vkMergePipelineCaches(Parent, Handle, srcCacheCount, pSrcCaches);
+
+	public VkResult CreateGraphicsPipelines(uint createInfoCount, VkGraphicsPipelineCreateInfo* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
+		=> Functions.vkCreateGraphicsPipelines(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+
+	public VkResult CreateComputePipelines(uint createInfoCount, VkComputePipelineCreateInfo* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
+		=> Functions.vkCreateComputePipelines(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+
+	public VkResult CreateRayTracingPipelinesNV(uint createInfoCount, VkRayTracingPipelineCreateInfoNV* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
+		=> Functions.vkCreateRayTracingPipelinesNV(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+
+	public VkResult CreateRayTracingPipelinesKHR(uint createInfoCount, VkRayTracingPipelineCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
+		=> Functions.vkCreateRayTracingPipelinesKHR(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+
 }
 
 public unsafe sealed partial class VkDescriptorUpdateTemplate : IVulkanHandle<VkDescriptorUpdateTemplate>
@@ -685,6 +1949,13 @@ public unsafe sealed partial class VkDescriptorUpdateTemplate : IVulkanHandle<Vk
 
 	public static implicit operator VulkanHandle<VkDescriptorUpdateTemplate> (VkDescriptorUpdateTemplate? h) => h?.Handle ?? VulkanHandle<VkDescriptorUpdateTemplate>.Null;
 	public static implicit operator bool (VkDescriptorUpdateTemplate? h) => h?.IsValid ?? false;
+
+	public void DestroyDescriptorUpdateTemplate(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDescriptorUpdateTemplate(Parent, Handle, pAllocator);
+
+	public void DestroyDescriptorUpdateTemplateKHR(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyDescriptorUpdateTemplateKHR(Parent, Handle, pAllocator);
+
 }
 
 public unsafe sealed partial class VkSamplerYcbcrConversion : IVulkanHandle<VkSamplerYcbcrConversion>
@@ -711,6 +1982,13 @@ public unsafe sealed partial class VkSamplerYcbcrConversion : IVulkanHandle<VkSa
 
 	public static implicit operator VulkanHandle<VkSamplerYcbcrConversion> (VkSamplerYcbcrConversion? h) => h?.Handle ?? VulkanHandle<VkSamplerYcbcrConversion>.Null;
 	public static implicit operator bool (VkSamplerYcbcrConversion? h) => h?.IsValid ?? false;
+
+	public void DestroySamplerYcbcrConversion(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroySamplerYcbcrConversion(Parent, Handle, pAllocator);
+
+	public void DestroySamplerYcbcrConversionKHR(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroySamplerYcbcrConversionKHR(Parent, Handle, pAllocator);
+
 }
 
 

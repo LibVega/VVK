@@ -29,6 +29,10 @@ namespace Gen
 		// The function parent of the handle (will be either VkInstance or VkDevice)
 		public string? FunctionParent { get; private set; }
 
+		// The command types assigned to this handle
+		public IReadOnlyList<CommandType> Commands => _commands;
+		private readonly List<CommandType> _commands = new();
+
 		// The parent type (not populated until the second pass)
 		public HandleType? Parent { get; private set; }
 		#endregion // Fields
@@ -80,6 +84,8 @@ namespace Gen
 			}
 			return true;
 		}
+
+		public void AddCommand(CommandType cmd) => _commands.Add(cmd);
 
 		// Try process
 		public static bool TryProcess(HandleSpec spec, out HandleType? type)

@@ -96,6 +96,33 @@ namespace Gen
 				// Casting
 				block.WriteLine($"public static implicit operator VulkanHandle<{handle.Name}> ({handle.Name}? h) => h?.Handle ?? VulkanHandle<{handle.Name}>.Null;");
 				block.WriteLine($"public static implicit operator bool ({handle.Name}? h) => h?.IsValid ?? false;");
+				block.WriteLine();
+
+				// Handle functions
+				foreach (var cmd in handle.Commands) {
+					// If this is a (parent, handle, ...) function
+					var parentArg = (cmd.Params.Count > 1) && (cmd.Params[1].Type == $"VulkanHandle<{handle.Name}>");
+
+					var fnname = cmd.Name.Substring("vk".Length);
+					if (cmd.Scope == CommandType.CommandScope.Global) {
+						var protostr = String.Join(", ", cmd.Params.Select(par => $"{par.Type} {par.Name}"));
+						var callstr = String.Join(", ", cmd.Params.Select(par => par.Name));
+						block.WriteLine($"public static {cmd.ReturnType} {fnname}({protostr})");
+						block.WriteLine($"\t=> InstanceFunctionTable.{cmd.Name}({callstr});");
+					}
+					else {
+						var protostr = String.Join(", ", cmd.Params.Skip(parentArg ? 2 : 1).Select(par => $"{par.Type} {par.Name}"));
+						var callstr = String.Join(", ", cmd.Params.Skip(parentArg ? 2 : 1).Select(par => par.Name));
+						block.WriteLine($"public {cmd.ReturnType} {fnname}({protostr})");
+						if (parentArg) {
+							block.WriteLine($"\t=> Functions.{cmd.Name}(Parent, Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
+						}
+						else {
+							block.WriteLine($"\t=> Functions.{cmd.Name}(Handle{(callstr.Length > 0 ? ", " : "")}{callstr});");
+						} 
+					}
+					block.WriteLine();
+				}
 			}
 		}
 
