@@ -44,6 +44,13 @@ public enum VkBuildAccelerationStructureFlagsKHR : uint
 }
 
 [Flags]
+public enum VkAccelerationStructureCreateFlagsKHR : uint
+{
+	NoFlags = 0,
+	DeviceAddressCaptureReplay = 1,
+}
+
+[Flags]
 public enum VkDescriptorUpdateTemplateCreateFlagsKHR : uint
 {
 	NoFlags = 0,

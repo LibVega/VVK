@@ -1978,18 +1978,6 @@ public unsafe sealed partial class VkDevice : IVulkanHandle<VkDevice>
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetAccelerationStructureMemoryRequirementsKHR(VkAccelerationStructureMemoryRequirementsInfoKHR* pInfo, VkMemoryRequirements2* pMemoryRequirements)
-		=> Functions.vkGetAccelerationStructureMemoryRequirementsKHR(Handle, pInfo, pMemoryRequirements);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void GetAccelerationStructureMemoryRequirementsKHR(in VkAccelerationStructureMemoryRequirementsInfoKHR pInfo, out VkMemoryRequirements2 pMemoryRequirements)
-	{
-		fixed (VkAccelerationStructureMemoryRequirementsInfoKHR* pInfoFIXED = &pInfo)
-		fixed (VkMemoryRequirements2* pMemoryRequirementsFIXED = &pMemoryRequirements)
-		Functions.vkGetAccelerationStructureMemoryRequirementsKHR(Handle, pInfoFIXED, pMemoryRequirementsFIXED);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void GetAccelerationStructureMemoryRequirementsNV(VkAccelerationStructureMemoryRequirementsInfoNV* pInfo, VkMemoryRequirements2KHR* pMemoryRequirements)
 		=> Functions.vkGetAccelerationStructureMemoryRequirementsNV(Handle, pInfo, pMemoryRequirements);
 
@@ -2002,59 +1990,23 @@ public unsafe sealed partial class VkDevice : IVulkanHandle<VkDevice>
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult BindAccelerationStructureMemoryKHR(uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
-		=> Functions.vkBindAccelerationStructureMemoryKHR(Handle, bindInfoCount, pBindInfos);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult BindAccelerationStructureMemoryNV(uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
+	public VkResult BindAccelerationStructureMemoryNV(uint bindInfoCount, VkBindAccelerationStructureMemoryInfoNV* pBindInfos)
 		=> Functions.vkBindAccelerationStructureMemoryNV(Handle, bindInfoCount, pBindInfos);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult CopyAccelerationStructureKHR(VkCopyAccelerationStructureInfoKHR* pInfo)
-		=> Functions.vkCopyAccelerationStructureKHR(Handle, pInfo);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult CopyAccelerationStructureKHR(in VkCopyAccelerationStructureInfoKHR pInfo)
-	{
-		fixed (VkCopyAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
-		return Functions.vkCopyAccelerationStructureKHR(Handle, pInfoFIXED);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult CopyAccelerationStructureToMemoryKHR(VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
-		=> Functions.vkCopyAccelerationStructureToMemoryKHR(Handle, pInfo);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult CopyAccelerationStructureToMemoryKHR(in VkCopyAccelerationStructureToMemoryInfoKHR pInfo)
-	{
-		fixed (VkCopyAccelerationStructureToMemoryInfoKHR* pInfoFIXED = &pInfo)
-		return Functions.vkCopyAccelerationStructureToMemoryKHR(Handle, pInfoFIXED);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult CopyMemoryToAccelerationStructureKHR(VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
-		=> Functions.vkCopyMemoryToAccelerationStructureKHR(Handle, pInfo);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult CopyMemoryToAccelerationStructureKHR(in VkCopyMemoryToAccelerationStructureInfoKHR pInfo)
-	{
-		fixed (VkCopyMemoryToAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
-		return Functions.vkCopyMemoryToAccelerationStructureKHR(Handle, pInfoFIXED);
-	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult WriteAccelerationStructuresPropertiesKHR(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, ulong dataSize, void* pData, ulong stride)
 		=> Functions.vkWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, dataSize, pData, stride);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult GetDeviceAccelerationStructureCompatibilityKHR(VkAccelerationStructureVersionKHR* version)
-		=> Functions.vkGetDeviceAccelerationStructureCompatibilityKHR(Handle, version);
+	public void GetDeviceAccelerationStructureCompatibilityKHR(VkAccelerationStructureVersionInfoKHR* pVersionInfo, VkAccelerationStructureCompatibilityKHR* pCompatibility)
+		=> Functions.vkGetDeviceAccelerationStructureCompatibilityKHR(Handle, pVersionInfo, pCompatibility);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult GetDeviceAccelerationStructureCompatibilityKHR(in VkAccelerationStructureVersionKHR version)
+	public void GetDeviceAccelerationStructureCompatibilityKHR(in VkAccelerationStructureVersionInfoKHR pVersionInfo, out VkAccelerationStructureCompatibilityKHR pCompatibility)
 	{
-		fixed (VkAccelerationStructureVersionKHR* versionFIXED = &version)
-		return Functions.vkGetDeviceAccelerationStructureCompatibilityKHR(Handle, versionFIXED);
+		fixed (VkAccelerationStructureVersionInfoKHR* pVersionInfoFIXED = &pVersionInfo)
+		fixed (VkAccelerationStructureCompatibilityKHR* pCompatibilityFIXED = &pCompatibility)
+		Functions.vkGetDeviceAccelerationStructureCompatibilityKHR(Handle, pVersionInfoFIXED, pCompatibilityFIXED);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2259,10 +2211,6 @@ public unsafe sealed partial class VkDevice : IVulkanHandle<VkDevice>
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult BuildAccelerationStructureKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
-		=> Functions.vkBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public ulong GetAccelerationStructureDeviceAddressKHR(VkAccelerationStructureDeviceAddressInfoKHR* pInfo)
 		=> Functions.vkGetAccelerationStructureDeviceAddressKHR(Handle, pInfo);
 
@@ -2309,6 +2257,18 @@ public unsafe sealed partial class VkDevice : IVulkanHandle<VkDevice>
 	{
 		fixed (ulong* pDataFIXED = &pData)
 		Functions.vkGetPrivateDataEXT(Handle, objectType, objectHandle, privateDataSlot, pDataFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetAccelerationStructureBuildSizesKHR(VkAccelerationStructureBuildTypeKHR buildType, VkAccelerationStructureBuildGeometryInfoKHR* pBuildInfo, uint* pMaxPrimitiveCounts, VkAccelerationStructureBuildSizesInfoKHR* pSizeInfo)
+		=> Functions.vkGetAccelerationStructureBuildSizesKHR(Handle, buildType, pBuildInfo, pMaxPrimitiveCounts, pSizeInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void GetAccelerationStructureBuildSizesKHR(VkAccelerationStructureBuildTypeKHR buildType, in VkAccelerationStructureBuildGeometryInfoKHR pBuildInfo, uint* pMaxPrimitiveCounts, out VkAccelerationStructureBuildSizesInfoKHR pSizeInfo)
+	{
+		fixed (VkAccelerationStructureBuildGeometryInfoKHR* pBuildInfoFIXED = &pBuildInfo)
+		fixed (VkAccelerationStructureBuildSizesInfoKHR* pSizeInfoFIXED = &pSizeInfo)
+		Functions.vkGetAccelerationStructureBuildSizesKHR(Handle, buildType, pBuildInfoFIXED, pMaxPrimitiveCounts, pSizeInfoFIXED);
 	}
 
 }
@@ -2954,7 +2914,7 @@ public unsafe sealed partial class VkCommandBuffer : IVulkanHandle<VkCommandBuff
 		=> Functions.vkCmdDrawMeshTasksIndirectCountNV(Handle, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdCopyAccelerationStructureNV(VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VkCopyAccelerationStructureModeKHR mode)
+	public void CmdCopyAccelerationStructureNV(VulkanHandle<VkAccelerationStructureNV> dst, VulkanHandle<VkAccelerationStructureNV> src, VkCopyAccelerationStructureModeKHR mode)
 		=> Functions.vkCmdCopyAccelerationStructureNV(Handle, dst, src, mode);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2995,31 +2955,31 @@ public unsafe sealed partial class VkCommandBuffer : IVulkanHandle<VkCommandBuff
 		=> Functions.vkCmdWriteAccelerationStructuresPropertiesKHR(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdWriteAccelerationStructuresPropertiesNV(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
+	public void CmdWriteAccelerationStructuresPropertiesNV(uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureNV>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
 		=> Functions.vkCmdWriteAccelerationStructuresPropertiesNV(Handle, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureNV(VkAccelerationStructureInfoNV* pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
+	public void CmdBuildAccelerationStructureNV(VkAccelerationStructureInfoNV* pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureNV> dst, VulkanHandle<VkAccelerationStructureNV> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
 		=> Functions.vkCmdBuildAccelerationStructureNV(Handle, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureNV(in VkAccelerationStructureInfoNV pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
+	public void CmdBuildAccelerationStructureNV(in VkAccelerationStructureInfoNV pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureNV> dst, VulkanHandle<VkAccelerationStructureNV> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
 	{
 		fixed (VkAccelerationStructureInfoNV* pInfoFIXED = &pInfo)
 		Functions.vkCmdBuildAccelerationStructureNV(Handle, pInfoFIXED, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysKHR(VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, uint width, uint height, uint depth)
+	public void CmdTraceRaysKHR(VkStridedDeviceAddressRegionKHR* pRaygenShaderBindingTable, VkStridedDeviceAddressRegionKHR* pMissShaderBindingTable, VkStridedDeviceAddressRegionKHR* pHitShaderBindingTable, VkStridedDeviceAddressRegionKHR* pCallableShaderBindingTable, uint width, uint height, uint depth)
 		=> Functions.vkCmdTraceRaysKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysKHR(in VkStridedBufferRegionKHR pRaygenShaderBindingTable, in VkStridedBufferRegionKHR pMissShaderBindingTable, in VkStridedBufferRegionKHR pHitShaderBindingTable, in VkStridedBufferRegionKHR pCallableShaderBindingTable, uint width, uint height, uint depth)
+	public void CmdTraceRaysKHR(in VkStridedDeviceAddressRegionKHR pRaygenShaderBindingTable, in VkStridedDeviceAddressRegionKHR pMissShaderBindingTable, in VkStridedDeviceAddressRegionKHR pHitShaderBindingTable, in VkStridedDeviceAddressRegionKHR pCallableShaderBindingTable, uint width, uint height, uint depth)
 	{
-		fixed (VkStridedBufferRegionKHR* pRaygenShaderBindingTableFIXED = &pRaygenShaderBindingTable)
-		fixed (VkStridedBufferRegionKHR* pMissShaderBindingTableFIXED = &pMissShaderBindingTable)
-		fixed (VkStridedBufferRegionKHR* pHitShaderBindingTableFIXED = &pHitShaderBindingTable)
-		fixed (VkStridedBufferRegionKHR* pCallableShaderBindingTableFIXED = &pCallableShaderBindingTable)
+		fixed (VkStridedDeviceAddressRegionKHR* pRaygenShaderBindingTableFIXED = &pRaygenShaderBindingTable)
+		fixed (VkStridedDeviceAddressRegionKHR* pMissShaderBindingTableFIXED = &pMissShaderBindingTable)
+		fixed (VkStridedDeviceAddressRegionKHR* pHitShaderBindingTableFIXED = &pHitShaderBindingTable)
+		fixed (VkStridedDeviceAddressRegionKHR* pCallableShaderBindingTableFIXED = &pCallableShaderBindingTable)
 		Functions.vkCmdTraceRaysKHR(Handle, pRaygenShaderBindingTableFIXED, pMissShaderBindingTableFIXED, pHitShaderBindingTableFIXED, pCallableShaderBindingTableFIXED, width, height, depth);
 	}
 
@@ -3028,18 +2988,22 @@ public unsafe sealed partial class VkCommandBuffer : IVulkanHandle<VkCommandBuff
 		=> Functions.vkCmdTraceRaysNV(Handle, raygenShaderBindingTableBuffer, raygenShaderBindingOffset, missShaderBindingTableBuffer, missShaderBindingOffset, missShaderBindingStride, hitShaderBindingTableBuffer, hitShaderBindingOffset, hitShaderBindingStride, callableShaderBindingTableBuffer, callableShaderBindingOffset, callableShaderBindingStride, width, height, depth);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysIndirectKHR(VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, VulkanHandle<VkBuffer> buffer, ulong offset)
-		=> Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
+	public void CmdTraceRaysIndirectKHR(VkStridedDeviceAddressRegionKHR* pRaygenShaderBindingTable, VkStridedDeviceAddressRegionKHR* pMissShaderBindingTable, VkStridedDeviceAddressRegionKHR* pHitShaderBindingTable, VkStridedDeviceAddressRegionKHR* pCallableShaderBindingTable, ulong indirectDeviceAddress)
+		=> Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, indirectDeviceAddress);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdTraceRaysIndirectKHR(in VkStridedBufferRegionKHR pRaygenShaderBindingTable, in VkStridedBufferRegionKHR pMissShaderBindingTable, in VkStridedBufferRegionKHR pHitShaderBindingTable, in VkStridedBufferRegionKHR pCallableShaderBindingTable, VulkanHandle<VkBuffer> buffer, ulong offset)
+	public void CmdTraceRaysIndirectKHR(in VkStridedDeviceAddressRegionKHR pRaygenShaderBindingTable, in VkStridedDeviceAddressRegionKHR pMissShaderBindingTable, in VkStridedDeviceAddressRegionKHR pHitShaderBindingTable, in VkStridedDeviceAddressRegionKHR pCallableShaderBindingTable, ulong indirectDeviceAddress)
 	{
-		fixed (VkStridedBufferRegionKHR* pRaygenShaderBindingTableFIXED = &pRaygenShaderBindingTable)
-		fixed (VkStridedBufferRegionKHR* pMissShaderBindingTableFIXED = &pMissShaderBindingTable)
-		fixed (VkStridedBufferRegionKHR* pHitShaderBindingTableFIXED = &pHitShaderBindingTable)
-		fixed (VkStridedBufferRegionKHR* pCallableShaderBindingTableFIXED = &pCallableShaderBindingTable)
-		Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTableFIXED, pMissShaderBindingTableFIXED, pHitShaderBindingTableFIXED, pCallableShaderBindingTableFIXED, buffer, offset);
+		fixed (VkStridedDeviceAddressRegionKHR* pRaygenShaderBindingTableFIXED = &pRaygenShaderBindingTable)
+		fixed (VkStridedDeviceAddressRegionKHR* pMissShaderBindingTableFIXED = &pMissShaderBindingTable)
+		fixed (VkStridedDeviceAddressRegionKHR* pHitShaderBindingTableFIXED = &pHitShaderBindingTable)
+		fixed (VkStridedDeviceAddressRegionKHR* pCallableShaderBindingTableFIXED = &pCallableShaderBindingTable)
+		Functions.vkCmdTraceRaysIndirectKHR(Handle, pRaygenShaderBindingTableFIXED, pMissShaderBindingTableFIXED, pHitShaderBindingTableFIXED, pCallableShaderBindingTableFIXED, indirectDeviceAddress);
 	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void CmdSetRayTracingPipelineStackSizeKHR(uint pipelineStackSize)
+		=> Functions.vkCmdSetRayTracingPipelineStackSizeKHR(Handle, pipelineStackSize);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CmdSetPerformanceMarkerINTEL(VkPerformanceMarkerInfoINTEL* pMarkerInfo)
@@ -3079,19 +3043,12 @@ public unsafe sealed partial class VkCommandBuffer : IVulkanHandle<VkCommandBuff
 		=> Functions.vkCmdSetLineStippleEXT(Handle, lineStippleFactor, lineStipplePattern);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
-		=> Functions.vkCmdBuildAccelerationStructureKHR(Handle, infoCount, pInfos, ppOffsetInfos);
+	public void CmdBuildAccelerationStructuresKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildRangeInfoKHR** ppBuildRangeInfos)
+		=> Functions.vkCmdBuildAccelerationStructuresKHR(Handle, infoCount, pInfos, ppBuildRangeInfos);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureIndirectKHR(VkAccelerationStructureBuildGeometryInfoKHR* pInfo, VulkanHandle<VkBuffer> indirectBuffer, ulong indirectOffset, uint indirectStride)
-		=> Functions.vkCmdBuildAccelerationStructureIndirectKHR(Handle, pInfo, indirectBuffer, indirectOffset, indirectStride);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void CmdBuildAccelerationStructureIndirectKHR(in VkAccelerationStructureBuildGeometryInfoKHR pInfo, VulkanHandle<VkBuffer> indirectBuffer, ulong indirectOffset, uint indirectStride)
-	{
-		fixed (VkAccelerationStructureBuildGeometryInfoKHR* pInfoFIXED = &pInfo)
-		Functions.vkCmdBuildAccelerationStructureIndirectKHR(Handle, pInfoFIXED, indirectBuffer, indirectOffset, indirectStride);
-	}
+	public void CmdBuildAccelerationStructuresIndirectKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, ulong* pIndirectDeviceAddresses, uint* pIndirectStrides, uint** ppMaxPrimitiveCounts)
+		=> Functions.vkCmdBuildAccelerationStructuresIndirectKHR(Handle, infoCount, pInfos, pIndirectDeviceAddresses, pIndirectStrides, ppMaxPrimitiveCounts);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void CmdSetCullModeEXT(VkCullModeFlags cullMode)
@@ -3637,6 +3594,10 @@ public unsafe sealed partial class VkPipeline : IVulkanHandle<VkPipeline>
 	public VkResult GetRayTracingCaptureReplayShaderGroupHandlesKHR(uint firstGroup, uint groupCount, ulong dataSize, void* pData)
 		=> Functions.vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(Parent, Handle, firstGroup, groupCount, dataSize, pData);
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public ulong GetRayTracingShaderGroupStackSizeKHR(uint group, VkShaderGroupShaderKHR groupShader)
+		=> Functions.vkGetRayTracingShaderGroupStackSizeKHR(Parent, Handle, group, groupShader);
+
 }
 
 public unsafe sealed partial class VkPipelineLayout : IVulkanHandle<VkPipelineLayout>
@@ -4100,10 +4061,6 @@ public unsafe sealed partial class VkPipelineCache : IVulkanHandle<VkPipelineCac
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult CreateRayTracingPipelinesNV(uint createInfoCount, VkRayTracingPipelineCreateInfoNV* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
 		=> Functions.vkCreateRayTracingPipelinesNV(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult CreateRayTracingPipelinesKHR(uint createInfoCount, VkRayTracingPipelineCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
-		=> Functions.vkCreateRayTracingPipelinesKHR(Parent, Handle, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 
 }
 

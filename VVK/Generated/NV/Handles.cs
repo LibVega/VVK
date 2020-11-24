@@ -69,6 +69,14 @@ public unsafe sealed partial class VkAccelerationStructureNV : IVulkanHandle<VkA
 	public static implicit operator VulkanHandle<VkAccelerationStructureNV> (VkAccelerationStructureNV? h) => h?.Handle ?? VulkanHandle<VkAccelerationStructureNV>.Null;
 	public static implicit operator bool (VkAccelerationStructureNV? h) => h?.IsValid ?? false;
 
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void DestroyAccelerationStructureNV(VkAllocationCallbacks* pAllocator)
+		=> Functions.vkDestroyAccelerationStructureNV(Parent, Handle, pAllocator);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetAccelerationStructureHandleNV(ulong dataSize, void* pData)
+		=> Functions.vkGetAccelerationStructureHandleNV(Parent, Handle, dataSize, pData);
+
 }
 
 

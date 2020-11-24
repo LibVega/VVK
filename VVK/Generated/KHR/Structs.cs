@@ -8100,9 +8100,10 @@ public unsafe partial struct VkRayTracingPipelineCreateInfoKHR : IEquatable<VkRa
 	public VkPipelineShaderStageCreateInfo* Stages;
 	public uint GroupCount;
 	public VkRayTracingShaderGroupCreateInfoKHR* Groups;
-	public uint MaxRecursionDepth;
-	public VkPipelineLibraryCreateInfoKHR Libraries;
+	public uint MaxPipelineRayRecursionDepth;
+	public VkPipelineLibraryCreateInfoKHR* LibraryInfo;
 	public VkRayTracingPipelineInterfaceCreateInfoKHR* LibraryInterface;
+	public VkPipelineDynamicStateCreateInfo* DynamicState;
 	public VulkanHandle<VkPipelineLayout> Layout;
 	public VulkanHandle<VkPipeline> BasePipelineHandle;
 	public int BasePipelineIndex;
@@ -8113,9 +8114,10 @@ public unsafe partial struct VkRayTracingPipelineCreateInfoKHR : IEquatable<VkRa
 		VkPipelineShaderStageCreateInfo* stages = default,
 		uint groupCount = default,
 		VkRayTracingShaderGroupCreateInfoKHR* groups = default,
-		uint maxRecursionDepth = default,
-		VkPipelineLibraryCreateInfoKHR libraries = default,
+		uint maxPipelineRayRecursionDepth = default,
+		VkPipelineLibraryCreateInfoKHR* libraryInfo = default,
 		VkRayTracingPipelineInterfaceCreateInfoKHR* libraryInterface = default,
+		VkPipelineDynamicStateCreateInfo* dynamicState = default,
 		VulkanHandle<VkPipelineLayout> layout = default,
 		VulkanHandle<VkPipeline> basePipelineHandle = default,
 		int basePipelineIndex = default
@@ -8127,9 +8129,10 @@ public unsafe partial struct VkRayTracingPipelineCreateInfoKHR : IEquatable<VkRa
 		Stages = stages;
 		GroupCount = groupCount;
 		Groups = groups;
-		MaxRecursionDepth = maxRecursionDepth;
-		Libraries = libraries;
+		MaxPipelineRayRecursionDepth = maxPipelineRayRecursionDepth;
+		LibraryInfo = libraryInfo;
 		LibraryInterface = libraryInterface;
+		DynamicState = dynamicState;
 		Layout = layout;
 		BasePipelineHandle = basePipelineHandle;
 		BasePipelineIndex = basePipelineIndex;
@@ -8143,9 +8146,9 @@ public unsafe partial struct VkRayTracingPipelineCreateInfoKHR : IEquatable<VkRa
 	{
 		return
 			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Flags.GetHashCode() ^ StageCount.GetHashCode()
-			^ ((ulong)Stages).GetHashCode() ^ GroupCount.GetHashCode() ^ ((ulong)Groups).GetHashCode() ^ MaxRecursionDepth.GetHashCode()
-			^ Libraries.GetHashCode() ^ ((ulong)LibraryInterface).GetHashCode() ^ Layout.GetHashCode() ^ BasePipelineHandle.GetHashCode()
-			^ BasePipelineIndex.GetHashCode()
+			^ ((ulong)Stages).GetHashCode() ^ GroupCount.GetHashCode() ^ ((ulong)Groups).GetHashCode() ^ MaxPipelineRayRecursionDepth.GetHashCode()
+			^ ((ulong)LibraryInfo).GetHashCode() ^ ((ulong)LibraryInterface).GetHashCode() ^ ((ulong)DynamicState).GetHashCode() ^ Layout.GetHashCode()
+			^ BasePipelineHandle.GetHashCode() ^ BasePipelineIndex.GetHashCode()
 			;
 	}
 
@@ -8154,9 +8157,9 @@ public unsafe partial struct VkRayTracingPipelineCreateInfoKHR : IEquatable<VkRa
 	{
 		return
 			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Flags == r.Flags) && (l.StageCount == r.StageCount)
-			&& (l.Stages == r.Stages) && (l.GroupCount == r.GroupCount) && (l.Groups == r.Groups) && (l.MaxRecursionDepth == r.MaxRecursionDepth)
-			&& (l.Libraries == r.Libraries) && (l.LibraryInterface == r.LibraryInterface) && (l.Layout == r.Layout) && (l.BasePipelineHandle == r.BasePipelineHandle)
-			&& (l.BasePipelineIndex == r.BasePipelineIndex)
+			&& (l.Stages == r.Stages) && (l.GroupCount == r.GroupCount) && (l.Groups == r.Groups) && (l.MaxPipelineRayRecursionDepth == r.MaxPipelineRayRecursionDepth)
+			&& (l.LibraryInfo == r.LibraryInfo) && (l.LibraryInterface == r.LibraryInterface) && (l.DynamicState == r.DynamicState) && (l.Layout == r.Layout)
+			&& (l.BasePipelineHandle == r.BasePipelineHandle) && (l.BasePipelineIndex == r.BasePipelineIndex)
 			;
 	}
 
@@ -8165,77 +8168,14 @@ public unsafe partial struct VkRayTracingPipelineCreateInfoKHR : IEquatable<VkRa
 	{
 		return
 			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Flags != r.Flags) || (l.StageCount != r.StageCount)
-			|| (l.Stages != r.Stages) || (l.GroupCount != r.GroupCount) || (l.Groups != r.Groups) || (l.MaxRecursionDepth != r.MaxRecursionDepth)
-			|| (l.Libraries != r.Libraries) || (l.LibraryInterface != r.LibraryInterface) || (l.Layout != r.Layout) || (l.BasePipelineHandle != r.BasePipelineHandle)
-			|| (l.BasePipelineIndex != r.BasePipelineIndex)
+			|| (l.Stages != r.Stages) || (l.GroupCount != r.GroupCount) || (l.Groups != r.Groups) || (l.MaxPipelineRayRecursionDepth != r.MaxPipelineRayRecursionDepth)
+			|| (l.LibraryInfo != r.LibraryInfo) || (l.LibraryInterface != r.LibraryInterface) || (l.DynamicState != r.DynamicState) || (l.Layout != r.Layout)
+			|| (l.BasePipelineHandle != r.BasePipelineHandle) || (l.BasePipelineIndex != r.BasePipelineIndex)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out VkRayTracingPipelineCreateInfoKHR s) => s = new() { sType = TYPE };
-}
-
-[StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkBindAccelerationStructureMemoryInfoKHR : IEquatable<VkBindAccelerationStructureMemoryInfoKHR>
-{
-	public const VkStructureType TYPE = VkStructureType.BindAccelerationStructureMemoryInfoKhr;
-
-	public VkStructureType sType;
-	public void* pNext;
-	public VulkanHandle<VkAccelerationStructureKHR> AccelerationStructure;
-	public VulkanHandle<VkDeviceMemory> Memory;
-	public ulong MemoryOffset;
-	public uint DeviceIndexCount;
-	public uint* DeviceIndices;
-
-	public VkBindAccelerationStructureMemoryInfoKHR(
-		VulkanHandle<VkAccelerationStructureKHR> accelerationStructure = default,
-		VulkanHandle<VkDeviceMemory> memory = default,
-		ulong memoryOffset = default,
-		uint deviceIndexCount = default,
-		uint* deviceIndices = default
-	) {
-		sType = TYPE;
-		pNext = null;
-		AccelerationStructure = accelerationStructure;
-		Memory = memory;
-		MemoryOffset = memoryOffset;
-		DeviceIndexCount = deviceIndexCount;
-		DeviceIndices = deviceIndices;
-	}
-
-	public readonly override bool Equals(object? o) => (o is VkBindAccelerationStructureMemoryInfoKHR s) && (this == s);
-	readonly bool IEquatable<VkBindAccelerationStructureMemoryInfoKHR>.Equals(VkBindAccelerationStructureMemoryInfoKHR o) => o == this;
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public readonly override int GetHashCode()
-	{
-		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AccelerationStructure.GetHashCode() ^ Memory.GetHashCode()
-			^ MemoryOffset.GetHashCode() ^ DeviceIndexCount.GetHashCode() ^ ((ulong)DeviceIndices).GetHashCode()
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkBindAccelerationStructureMemoryInfoKHR l, in VkBindAccelerationStructureMemoryInfoKHR r)
-	{
-		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AccelerationStructure == r.AccelerationStructure) && (l.Memory == r.Memory)
-			&& (l.MemoryOffset == r.MemoryOffset) && (l.DeviceIndexCount == r.DeviceIndexCount) && (l.DeviceIndices == r.DeviceIndices)
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkBindAccelerationStructureMemoryInfoKHR l, in VkBindAccelerationStructureMemoryInfoKHR r)
-	{
-		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AccelerationStructure != r.AccelerationStructure) || (l.Memory != r.Memory)
-			|| (l.MemoryOffset != r.MemoryOffset) || (l.DeviceIndexCount != r.DeviceIndexCount) || (l.DeviceIndices != r.DeviceIndices)
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkBindAccelerationStructureMemoryInfoKHR s) => s = new() { sType = TYPE };
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -8290,267 +8230,375 @@ public unsafe partial struct VkWriteDescriptorSetAccelerationStructureKHR : IEqu
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkAccelerationStructureMemoryRequirementsInfoKHR : IEquatable<VkAccelerationStructureMemoryRequirementsInfoKHR>
+public unsafe partial struct VkPhysicalDeviceAccelerationStructureFeaturesKHR : IEquatable<VkPhysicalDeviceAccelerationStructureFeaturesKHR>
 {
-	public const VkStructureType TYPE = VkStructureType.AccelerationStructureMemoryRequirementsInfoKhr;
+	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceAccelerationStructureFeaturesKhr;
 
 	public VkStructureType sType;
 	public void* pNext;
-	public VkAccelerationStructureMemoryRequirementsTypeKHR Type;
-	public VkAccelerationStructureBuildTypeKHR BuildType;
-	public VulkanHandle<VkAccelerationStructureKHR> AccelerationStructure;
+	public VkBool32 AccelerationStructure;
+	public VkBool32 AccelerationStructureCaptureReplay;
+	public VkBool32 AccelerationStructureIndirectBuild;
+	public VkBool32 AccelerationStructureHostCommands;
+	public VkBool32 DescriptorBindingAccelerationStructureUpdateAfterBind;
 
-	public VkAccelerationStructureMemoryRequirementsInfoKHR(
-		VkAccelerationStructureMemoryRequirementsTypeKHR type = default,
-		VkAccelerationStructureBuildTypeKHR buildType = default,
-		VulkanHandle<VkAccelerationStructureKHR> accelerationStructure = default
+	public VkPhysicalDeviceAccelerationStructureFeaturesKHR(
+		VkBool32 accelerationStructure = default,
+		VkBool32 accelerationStructureCaptureReplay = default,
+		VkBool32 accelerationStructureIndirectBuild = default,
+		VkBool32 accelerationStructureHostCommands = default,
+		VkBool32 descriptorBindingAccelerationStructureUpdateAfterBind = default
 	) {
 		sType = TYPE;
 		pNext = null;
-		Type = type;
-		BuildType = buildType;
 		AccelerationStructure = accelerationStructure;
+		AccelerationStructureCaptureReplay = accelerationStructureCaptureReplay;
+		AccelerationStructureIndirectBuild = accelerationStructureIndirectBuild;
+		AccelerationStructureHostCommands = accelerationStructureHostCommands;
+		DescriptorBindingAccelerationStructureUpdateAfterBind = descriptorBindingAccelerationStructureUpdateAfterBind;
 	}
 
-	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureMemoryRequirementsInfoKHR s) && (this == s);
-	readonly bool IEquatable<VkAccelerationStructureMemoryRequirementsInfoKHR>.Equals(VkAccelerationStructureMemoryRequirementsInfoKHR o) => o == this;
+	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceAccelerationStructureFeaturesKHR s) && (this == s);
+	readonly bool IEquatable<VkPhysicalDeviceAccelerationStructureFeaturesKHR>.Equals(VkPhysicalDeviceAccelerationStructureFeaturesKHR o) => o == this;
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
 		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Type.GetHashCode() ^ BuildType.GetHashCode()
-			^ AccelerationStructure.GetHashCode()
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AccelerationStructure.GetHashCode() ^ AccelerationStructureCaptureReplay.GetHashCode()
+			^ AccelerationStructureIndirectBuild.GetHashCode() ^ AccelerationStructureHostCommands.GetHashCode() ^ DescriptorBindingAccelerationStructureUpdateAfterBind.GetHashCode()
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkAccelerationStructureMemoryRequirementsInfoKHR l, in VkAccelerationStructureMemoryRequirementsInfoKHR r)
+	public static bool operator == (in VkPhysicalDeviceAccelerationStructureFeaturesKHR l, in VkPhysicalDeviceAccelerationStructureFeaturesKHR r)
 	{
 		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Type == r.Type) && (l.BuildType == r.BuildType)
-			&& (l.AccelerationStructure == r.AccelerationStructure)
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AccelerationStructure == r.AccelerationStructure) && (l.AccelerationStructureCaptureReplay == r.AccelerationStructureCaptureReplay)
+			&& (l.AccelerationStructureIndirectBuild == r.AccelerationStructureIndirectBuild) && (l.AccelerationStructureHostCommands == r.AccelerationStructureHostCommands) && (l.DescriptorBindingAccelerationStructureUpdateAfterBind == r.DescriptorBindingAccelerationStructureUpdateAfterBind)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkAccelerationStructureMemoryRequirementsInfoKHR l, in VkAccelerationStructureMemoryRequirementsInfoKHR r)
+	public static bool operator != (in VkPhysicalDeviceAccelerationStructureFeaturesKHR l, in VkPhysicalDeviceAccelerationStructureFeaturesKHR r)
 	{
 		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Type != r.Type) || (l.BuildType != r.BuildType)
-			|| (l.AccelerationStructure != r.AccelerationStructure)
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AccelerationStructure != r.AccelerationStructure) || (l.AccelerationStructureCaptureReplay != r.AccelerationStructureCaptureReplay)
+			|| (l.AccelerationStructureIndirectBuild != r.AccelerationStructureIndirectBuild) || (l.AccelerationStructureHostCommands != r.AccelerationStructureHostCommands) || (l.DescriptorBindingAccelerationStructureUpdateAfterBind != r.DescriptorBindingAccelerationStructureUpdateAfterBind)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkAccelerationStructureMemoryRequirementsInfoKHR s) => s = new() { sType = TYPE };
+	public static void New(out VkPhysicalDeviceAccelerationStructureFeaturesKHR s) => s = new() { sType = TYPE };
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkPhysicalDeviceRayTracingFeaturesKHR : IEquatable<VkPhysicalDeviceRayTracingFeaturesKHR>
+public unsafe partial struct VkPhysicalDeviceRayTracingPipelineFeaturesKHR : IEquatable<VkPhysicalDeviceRayTracingPipelineFeaturesKHR>
 {
-	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceRayTracingFeaturesKhr;
+	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceRayTracingPipelineFeaturesKhr;
 
 	public VkStructureType sType;
 	public void* pNext;
-	public VkBool32 RayTracing;
-	public VkBool32 RayTracingShaderGroupHandleCaptureReplay;
-	public VkBool32 RayTracingShaderGroupHandleCaptureReplayMixed;
-	public VkBool32 RayTracingAccelerationStructureCaptureReplay;
-	public VkBool32 RayTracingIndirectTraceRays;
-	public VkBool32 RayTracingIndirectAccelerationStructureBuild;
-	public VkBool32 RayTracingHostAccelerationStructureCommands;
-	public VkBool32 RayQuery;
-	public VkBool32 RayTracingPrimitiveCulling;
+	public VkBool32 RayTracingPipeline;
+	public VkBool32 RayTracingPipelineShaderGroupHandleCaptureReplay;
+	public VkBool32 RayTracingPipelineShaderGroupHandleCaptureReplayMixed;
+	public VkBool32 RayTracingPipelineTraceRaysIndirect;
+	public VkBool32 RayTraversalPrimitiveCulling;
 
-	public VkPhysicalDeviceRayTracingFeaturesKHR(
-		VkBool32 rayTracing = default,
-		VkBool32 rayTracingShaderGroupHandleCaptureReplay = default,
-		VkBool32 rayTracingShaderGroupHandleCaptureReplayMixed = default,
-		VkBool32 rayTracingAccelerationStructureCaptureReplay = default,
-		VkBool32 rayTracingIndirectTraceRays = default,
-		VkBool32 rayTracingIndirectAccelerationStructureBuild = default,
-		VkBool32 rayTracingHostAccelerationStructureCommands = default,
-		VkBool32 rayQuery = default,
-		VkBool32 rayTracingPrimitiveCulling = default
+	public VkPhysicalDeviceRayTracingPipelineFeaturesKHR(
+		VkBool32 rayTracingPipeline = default,
+		VkBool32 rayTracingPipelineShaderGroupHandleCaptureReplay = default,
+		VkBool32 rayTracingPipelineShaderGroupHandleCaptureReplayMixed = default,
+		VkBool32 rayTracingPipelineTraceRaysIndirect = default,
+		VkBool32 rayTraversalPrimitiveCulling = default
 	) {
 		sType = TYPE;
 		pNext = null;
-		RayTracing = rayTracing;
-		RayTracingShaderGroupHandleCaptureReplay = rayTracingShaderGroupHandleCaptureReplay;
-		RayTracingShaderGroupHandleCaptureReplayMixed = rayTracingShaderGroupHandleCaptureReplayMixed;
-		RayTracingAccelerationStructureCaptureReplay = rayTracingAccelerationStructureCaptureReplay;
-		RayTracingIndirectTraceRays = rayTracingIndirectTraceRays;
-		RayTracingIndirectAccelerationStructureBuild = rayTracingIndirectAccelerationStructureBuild;
-		RayTracingHostAccelerationStructureCommands = rayTracingHostAccelerationStructureCommands;
-		RayQuery = rayQuery;
-		RayTracingPrimitiveCulling = rayTracingPrimitiveCulling;
+		RayTracingPipeline = rayTracingPipeline;
+		RayTracingPipelineShaderGroupHandleCaptureReplay = rayTracingPipelineShaderGroupHandleCaptureReplay;
+		RayTracingPipelineShaderGroupHandleCaptureReplayMixed = rayTracingPipelineShaderGroupHandleCaptureReplayMixed;
+		RayTracingPipelineTraceRaysIndirect = rayTracingPipelineTraceRaysIndirect;
+		RayTraversalPrimitiveCulling = rayTraversalPrimitiveCulling;
 	}
 
-	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceRayTracingFeaturesKHR s) && (this == s);
-	readonly bool IEquatable<VkPhysicalDeviceRayTracingFeaturesKHR>.Equals(VkPhysicalDeviceRayTracingFeaturesKHR o) => o == this;
+	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceRayTracingPipelineFeaturesKHR s) && (this == s);
+	readonly bool IEquatable<VkPhysicalDeviceRayTracingPipelineFeaturesKHR>.Equals(VkPhysicalDeviceRayTracingPipelineFeaturesKHR o) => o == this;
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
 		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RayTracing.GetHashCode() ^ RayTracingShaderGroupHandleCaptureReplay.GetHashCode()
-			^ RayTracingShaderGroupHandleCaptureReplayMixed.GetHashCode() ^ RayTracingAccelerationStructureCaptureReplay.GetHashCode() ^ RayTracingIndirectTraceRays.GetHashCode() ^ RayTracingIndirectAccelerationStructureBuild.GetHashCode()
-			^ RayTracingHostAccelerationStructureCommands.GetHashCode() ^ RayQuery.GetHashCode() ^ RayTracingPrimitiveCulling.GetHashCode()
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RayTracingPipeline.GetHashCode() ^ RayTracingPipelineShaderGroupHandleCaptureReplay.GetHashCode()
+			^ RayTracingPipelineShaderGroupHandleCaptureReplayMixed.GetHashCode() ^ RayTracingPipelineTraceRaysIndirect.GetHashCode() ^ RayTraversalPrimitiveCulling.GetHashCode()
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkPhysicalDeviceRayTracingFeaturesKHR l, in VkPhysicalDeviceRayTracingFeaturesKHR r)
+	public static bool operator == (in VkPhysicalDeviceRayTracingPipelineFeaturesKHR l, in VkPhysicalDeviceRayTracingPipelineFeaturesKHR r)
 	{
 		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RayTracing == r.RayTracing) && (l.RayTracingShaderGroupHandleCaptureReplay == r.RayTracingShaderGroupHandleCaptureReplay)
-			&& (l.RayTracingShaderGroupHandleCaptureReplayMixed == r.RayTracingShaderGroupHandleCaptureReplayMixed) && (l.RayTracingAccelerationStructureCaptureReplay == r.RayTracingAccelerationStructureCaptureReplay) && (l.RayTracingIndirectTraceRays == r.RayTracingIndirectTraceRays) && (l.RayTracingIndirectAccelerationStructureBuild == r.RayTracingIndirectAccelerationStructureBuild)
-			&& (l.RayTracingHostAccelerationStructureCommands == r.RayTracingHostAccelerationStructureCommands) && (l.RayQuery == r.RayQuery) && (l.RayTracingPrimitiveCulling == r.RayTracingPrimitiveCulling)
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RayTracingPipeline == r.RayTracingPipeline) && (l.RayTracingPipelineShaderGroupHandleCaptureReplay == r.RayTracingPipelineShaderGroupHandleCaptureReplay)
+			&& (l.RayTracingPipelineShaderGroupHandleCaptureReplayMixed == r.RayTracingPipelineShaderGroupHandleCaptureReplayMixed) && (l.RayTracingPipelineTraceRaysIndirect == r.RayTracingPipelineTraceRaysIndirect) && (l.RayTraversalPrimitiveCulling == r.RayTraversalPrimitiveCulling)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkPhysicalDeviceRayTracingFeaturesKHR l, in VkPhysicalDeviceRayTracingFeaturesKHR r)
+	public static bool operator != (in VkPhysicalDeviceRayTracingPipelineFeaturesKHR l, in VkPhysicalDeviceRayTracingPipelineFeaturesKHR r)
 	{
 		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RayTracing != r.RayTracing) || (l.RayTracingShaderGroupHandleCaptureReplay != r.RayTracingShaderGroupHandleCaptureReplay)
-			|| (l.RayTracingShaderGroupHandleCaptureReplayMixed != r.RayTracingShaderGroupHandleCaptureReplayMixed) || (l.RayTracingAccelerationStructureCaptureReplay != r.RayTracingAccelerationStructureCaptureReplay) || (l.RayTracingIndirectTraceRays != r.RayTracingIndirectTraceRays) || (l.RayTracingIndirectAccelerationStructureBuild != r.RayTracingIndirectAccelerationStructureBuild)
-			|| (l.RayTracingHostAccelerationStructureCommands != r.RayTracingHostAccelerationStructureCommands) || (l.RayQuery != r.RayQuery) || (l.RayTracingPrimitiveCulling != r.RayTracingPrimitiveCulling)
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RayTracingPipeline != r.RayTracingPipeline) || (l.RayTracingPipelineShaderGroupHandleCaptureReplay != r.RayTracingPipelineShaderGroupHandleCaptureReplay)
+			|| (l.RayTracingPipelineShaderGroupHandleCaptureReplayMixed != r.RayTracingPipelineShaderGroupHandleCaptureReplayMixed) || (l.RayTracingPipelineTraceRaysIndirect != r.RayTracingPipelineTraceRaysIndirect) || (l.RayTraversalPrimitiveCulling != r.RayTraversalPrimitiveCulling)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkPhysicalDeviceRayTracingFeaturesKHR s) => s = new() { sType = TYPE };
+	public static void New(out VkPhysicalDeviceRayTracingPipelineFeaturesKHR s) => s = new() { sType = TYPE };
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkPhysicalDeviceRayTracingPropertiesKHR : IEquatable<VkPhysicalDeviceRayTracingPropertiesKHR>
+public unsafe partial struct VkPhysicalDeviceRayQueryFeaturesKHR : IEquatable<VkPhysicalDeviceRayQueryFeaturesKHR>
 {
-	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceRayTracingPropertiesKhr;
+	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceRayQueryFeaturesKhr;
+
+	public VkStructureType sType;
+	public void* pNext;
+	public VkBool32 RayQuery;
+
+	public VkPhysicalDeviceRayQueryFeaturesKHR(
+		VkBool32 rayQuery = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		RayQuery = rayQuery;
+	}
+
+	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceRayQueryFeaturesKHR s) && (this == s);
+	readonly bool IEquatable<VkPhysicalDeviceRayQueryFeaturesKHR>.Equals(VkPhysicalDeviceRayQueryFeaturesKHR o) => o == this;
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ RayQuery.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in VkPhysicalDeviceRayQueryFeaturesKHR l, in VkPhysicalDeviceRayQueryFeaturesKHR r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.RayQuery == r.RayQuery)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in VkPhysicalDeviceRayQueryFeaturesKHR l, in VkPhysicalDeviceRayQueryFeaturesKHR r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.RayQuery != r.RayQuery)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out VkPhysicalDeviceRayQueryFeaturesKHR s) => s = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct VkPhysicalDeviceAccelerationStructurePropertiesKHR : IEquatable<VkPhysicalDeviceAccelerationStructurePropertiesKHR>
+{
+	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceAccelerationStructurePropertiesKhr;
+
+	public VkStructureType sType;
+	public void* pNext;
+	public ulong MaxGeometryCount;
+	public ulong MaxInstanceCount;
+	public ulong MaxPrimitiveCount;
+	public uint MaxPerStageDescriptorAccelerationStructures;
+	public uint MaxPerStageDescriptorUpdateAfterBindAccelerationStructures;
+	public uint MaxDescriptorSetAccelerationStructures;
+	public uint MaxDescriptorSetUpdateAfterBindAccelerationStructures;
+	public uint MinAccelerationStructureScratchOffsetAlignment;
+
+	public VkPhysicalDeviceAccelerationStructurePropertiesKHR(
+		ulong maxGeometryCount = default,
+		ulong maxInstanceCount = default,
+		ulong maxPrimitiveCount = default,
+		uint maxPerStageDescriptorAccelerationStructures = default,
+		uint maxPerStageDescriptorUpdateAfterBindAccelerationStructures = default,
+		uint maxDescriptorSetAccelerationStructures = default,
+		uint maxDescriptorSetUpdateAfterBindAccelerationStructures = default,
+		uint minAccelerationStructureScratchOffsetAlignment = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		MaxGeometryCount = maxGeometryCount;
+		MaxInstanceCount = maxInstanceCount;
+		MaxPrimitiveCount = maxPrimitiveCount;
+		MaxPerStageDescriptorAccelerationStructures = maxPerStageDescriptorAccelerationStructures;
+		MaxPerStageDescriptorUpdateAfterBindAccelerationStructures = maxPerStageDescriptorUpdateAfterBindAccelerationStructures;
+		MaxDescriptorSetAccelerationStructures = maxDescriptorSetAccelerationStructures;
+		MaxDescriptorSetUpdateAfterBindAccelerationStructures = maxDescriptorSetUpdateAfterBindAccelerationStructures;
+		MinAccelerationStructureScratchOffsetAlignment = minAccelerationStructureScratchOffsetAlignment;
+	}
+
+	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceAccelerationStructurePropertiesKHR s) && (this == s);
+	readonly bool IEquatable<VkPhysicalDeviceAccelerationStructurePropertiesKHR>.Equals(VkPhysicalDeviceAccelerationStructurePropertiesKHR o) => o == this;
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxGeometryCount.GetHashCode() ^ MaxInstanceCount.GetHashCode()
+			^ MaxPrimitiveCount.GetHashCode() ^ MaxPerStageDescriptorAccelerationStructures.GetHashCode() ^ MaxPerStageDescriptorUpdateAfterBindAccelerationStructures.GetHashCode() ^ MaxDescriptorSetAccelerationStructures.GetHashCode()
+			^ MaxDescriptorSetUpdateAfterBindAccelerationStructures.GetHashCode() ^ MinAccelerationStructureScratchOffsetAlignment.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in VkPhysicalDeviceAccelerationStructurePropertiesKHR l, in VkPhysicalDeviceAccelerationStructurePropertiesKHR r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxGeometryCount == r.MaxGeometryCount) && (l.MaxInstanceCount == r.MaxInstanceCount)
+			&& (l.MaxPrimitiveCount == r.MaxPrimitiveCount) && (l.MaxPerStageDescriptorAccelerationStructures == r.MaxPerStageDescriptorAccelerationStructures) && (l.MaxPerStageDescriptorUpdateAfterBindAccelerationStructures == r.MaxPerStageDescriptorUpdateAfterBindAccelerationStructures) && (l.MaxDescriptorSetAccelerationStructures == r.MaxDescriptorSetAccelerationStructures)
+			&& (l.MaxDescriptorSetUpdateAfterBindAccelerationStructures == r.MaxDescriptorSetUpdateAfterBindAccelerationStructures) && (l.MinAccelerationStructureScratchOffsetAlignment == r.MinAccelerationStructureScratchOffsetAlignment)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in VkPhysicalDeviceAccelerationStructurePropertiesKHR l, in VkPhysicalDeviceAccelerationStructurePropertiesKHR r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxGeometryCount != r.MaxGeometryCount) || (l.MaxInstanceCount != r.MaxInstanceCount)
+			|| (l.MaxPrimitiveCount != r.MaxPrimitiveCount) || (l.MaxPerStageDescriptorAccelerationStructures != r.MaxPerStageDescriptorAccelerationStructures) || (l.MaxPerStageDescriptorUpdateAfterBindAccelerationStructures != r.MaxPerStageDescriptorUpdateAfterBindAccelerationStructures) || (l.MaxDescriptorSetAccelerationStructures != r.MaxDescriptorSetAccelerationStructures)
+			|| (l.MaxDescriptorSetUpdateAfterBindAccelerationStructures != r.MaxDescriptorSetUpdateAfterBindAccelerationStructures) || (l.MinAccelerationStructureScratchOffsetAlignment != r.MinAccelerationStructureScratchOffsetAlignment)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out VkPhysicalDeviceAccelerationStructurePropertiesKHR s) => s = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct VkPhysicalDeviceRayTracingPipelinePropertiesKHR : IEquatable<VkPhysicalDeviceRayTracingPipelinePropertiesKHR>
+{
+	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceRayTracingPipelinePropertiesKhr;
 
 	public VkStructureType sType;
 	public void* pNext;
 	public uint ShaderGroupHandleSize;
-	public uint MaxRecursionDepth;
+	public uint MaxRayRecursionDepth;
 	public uint MaxShaderGroupStride;
 	public uint ShaderGroupBaseAlignment;
-	public ulong MaxGeometryCount;
-	public ulong MaxInstanceCount;
-	public ulong MaxPrimitiveCount;
-	public uint MaxDescriptorSetAccelerationStructures;
 	public uint ShaderGroupHandleCaptureReplaySize;
+	public uint MaxRayDispatchInvocationCount;
+	public uint ShaderGroupHandleAlignment;
+	public uint MaxRayHitAttributeSize;
 
-	public VkPhysicalDeviceRayTracingPropertiesKHR(
+	public VkPhysicalDeviceRayTracingPipelinePropertiesKHR(
 		uint shaderGroupHandleSize = default,
-		uint maxRecursionDepth = default,
+		uint maxRayRecursionDepth = default,
 		uint maxShaderGroupStride = default,
 		uint shaderGroupBaseAlignment = default,
-		ulong maxGeometryCount = default,
-		ulong maxInstanceCount = default,
-		ulong maxPrimitiveCount = default,
-		uint maxDescriptorSetAccelerationStructures = default,
-		uint shaderGroupHandleCaptureReplaySize = default
+		uint shaderGroupHandleCaptureReplaySize = default,
+		uint maxRayDispatchInvocationCount = default,
+		uint shaderGroupHandleAlignment = default,
+		uint maxRayHitAttributeSize = default
 	) {
 		sType = TYPE;
 		pNext = null;
 		ShaderGroupHandleSize = shaderGroupHandleSize;
-		MaxRecursionDepth = maxRecursionDepth;
+		MaxRayRecursionDepth = maxRayRecursionDepth;
 		MaxShaderGroupStride = maxShaderGroupStride;
 		ShaderGroupBaseAlignment = shaderGroupBaseAlignment;
-		MaxGeometryCount = maxGeometryCount;
-		MaxInstanceCount = maxInstanceCount;
-		MaxPrimitiveCount = maxPrimitiveCount;
-		MaxDescriptorSetAccelerationStructures = maxDescriptorSetAccelerationStructures;
 		ShaderGroupHandleCaptureReplaySize = shaderGroupHandleCaptureReplaySize;
+		MaxRayDispatchInvocationCount = maxRayDispatchInvocationCount;
+		ShaderGroupHandleAlignment = shaderGroupHandleAlignment;
+		MaxRayHitAttributeSize = maxRayHitAttributeSize;
 	}
 
-	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceRayTracingPropertiesKHR s) && (this == s);
-	readonly bool IEquatable<VkPhysicalDeviceRayTracingPropertiesKHR>.Equals(VkPhysicalDeviceRayTracingPropertiesKHR o) => o == this;
+	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceRayTracingPipelinePropertiesKHR s) && (this == s);
+	readonly bool IEquatable<VkPhysicalDeviceRayTracingPipelinePropertiesKHR>.Equals(VkPhysicalDeviceRayTracingPipelinePropertiesKHR o) => o == this;
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
 		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderGroupHandleSize.GetHashCode() ^ MaxRecursionDepth.GetHashCode()
-			^ MaxShaderGroupStride.GetHashCode() ^ ShaderGroupBaseAlignment.GetHashCode() ^ MaxGeometryCount.GetHashCode() ^ MaxInstanceCount.GetHashCode()
-			^ MaxPrimitiveCount.GetHashCode() ^ MaxDescriptorSetAccelerationStructures.GetHashCode() ^ ShaderGroupHandleCaptureReplaySize.GetHashCode()
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderGroupHandleSize.GetHashCode() ^ MaxRayRecursionDepth.GetHashCode()
+			^ MaxShaderGroupStride.GetHashCode() ^ ShaderGroupBaseAlignment.GetHashCode() ^ ShaderGroupHandleCaptureReplaySize.GetHashCode() ^ MaxRayDispatchInvocationCount.GetHashCode()
+			^ ShaderGroupHandleAlignment.GetHashCode() ^ MaxRayHitAttributeSize.GetHashCode()
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkPhysicalDeviceRayTracingPropertiesKHR l, in VkPhysicalDeviceRayTracingPropertiesKHR r)
+	public static bool operator == (in VkPhysicalDeviceRayTracingPipelinePropertiesKHR l, in VkPhysicalDeviceRayTracingPipelinePropertiesKHR r)
 	{
 		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderGroupHandleSize == r.ShaderGroupHandleSize) && (l.MaxRecursionDepth == r.MaxRecursionDepth)
-			&& (l.MaxShaderGroupStride == r.MaxShaderGroupStride) && (l.ShaderGroupBaseAlignment == r.ShaderGroupBaseAlignment) && (l.MaxGeometryCount == r.MaxGeometryCount) && (l.MaxInstanceCount == r.MaxInstanceCount)
-			&& (l.MaxPrimitiveCount == r.MaxPrimitiveCount) && (l.MaxDescriptorSetAccelerationStructures == r.MaxDescriptorSetAccelerationStructures) && (l.ShaderGroupHandleCaptureReplaySize == r.ShaderGroupHandleCaptureReplaySize)
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderGroupHandleSize == r.ShaderGroupHandleSize) && (l.MaxRayRecursionDepth == r.MaxRayRecursionDepth)
+			&& (l.MaxShaderGroupStride == r.MaxShaderGroupStride) && (l.ShaderGroupBaseAlignment == r.ShaderGroupBaseAlignment) && (l.ShaderGroupHandleCaptureReplaySize == r.ShaderGroupHandleCaptureReplaySize) && (l.MaxRayDispatchInvocationCount == r.MaxRayDispatchInvocationCount)
+			&& (l.ShaderGroupHandleAlignment == r.ShaderGroupHandleAlignment) && (l.MaxRayHitAttributeSize == r.MaxRayHitAttributeSize)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkPhysicalDeviceRayTracingPropertiesKHR l, in VkPhysicalDeviceRayTracingPropertiesKHR r)
+	public static bool operator != (in VkPhysicalDeviceRayTracingPipelinePropertiesKHR l, in VkPhysicalDeviceRayTracingPipelinePropertiesKHR r)
 	{
 		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderGroupHandleSize != r.ShaderGroupHandleSize) || (l.MaxRecursionDepth != r.MaxRecursionDepth)
-			|| (l.MaxShaderGroupStride != r.MaxShaderGroupStride) || (l.ShaderGroupBaseAlignment != r.ShaderGroupBaseAlignment) || (l.MaxGeometryCount != r.MaxGeometryCount) || (l.MaxInstanceCount != r.MaxInstanceCount)
-			|| (l.MaxPrimitiveCount != r.MaxPrimitiveCount) || (l.MaxDescriptorSetAccelerationStructures != r.MaxDescriptorSetAccelerationStructures) || (l.ShaderGroupHandleCaptureReplaySize != r.ShaderGroupHandleCaptureReplaySize)
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderGroupHandleSize != r.ShaderGroupHandleSize) || (l.MaxRayRecursionDepth != r.MaxRayRecursionDepth)
+			|| (l.MaxShaderGroupStride != r.MaxShaderGroupStride) || (l.ShaderGroupBaseAlignment != r.ShaderGroupBaseAlignment) || (l.ShaderGroupHandleCaptureReplaySize != r.ShaderGroupHandleCaptureReplaySize) || (l.MaxRayDispatchInvocationCount != r.MaxRayDispatchInvocationCount)
+			|| (l.ShaderGroupHandleAlignment != r.ShaderGroupHandleAlignment) || (l.MaxRayHitAttributeSize != r.MaxRayHitAttributeSize)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkPhysicalDeviceRayTracingPropertiesKHR s) => s = new() { sType = TYPE };
+	public static void New(out VkPhysicalDeviceRayTracingPipelinePropertiesKHR s) => s = new() { sType = TYPE };
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkStridedBufferRegionKHR : IEquatable<VkStridedBufferRegionKHR>
+public unsafe partial struct VkStridedDeviceAddressRegionKHR : IEquatable<VkStridedDeviceAddressRegionKHR>
 {
-	public VulkanHandle<VkBuffer> Buffer;
-	public ulong Offset;
+	public ulong DeviceAddress;
 	public ulong Stride;
 	public ulong Size;
 
-	public VkStridedBufferRegionKHR(
-		VulkanHandle<VkBuffer> buffer = default,
-		ulong offset = default,
+	public VkStridedDeviceAddressRegionKHR(
+		ulong deviceAddress = default,
 		ulong stride = default,
 		ulong size = default
 	) {
-		Buffer = buffer;
-		Offset = offset;
+		DeviceAddress = deviceAddress;
 		Stride = stride;
 		Size = size;
 	}
 
-	public readonly override bool Equals(object? o) => (o is VkStridedBufferRegionKHR s) && (this == s);
-	readonly bool IEquatable<VkStridedBufferRegionKHR>.Equals(VkStridedBufferRegionKHR o) => o == this;
+	public readonly override bool Equals(object? o) => (o is VkStridedDeviceAddressRegionKHR s) && (this == s);
+	readonly bool IEquatable<VkStridedDeviceAddressRegionKHR>.Equals(VkStridedDeviceAddressRegionKHR o) => o == this;
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
 	{
 		return
-			Buffer.GetHashCode() ^ Offset.GetHashCode() ^ Stride.GetHashCode() ^ Size.GetHashCode()
+			DeviceAddress.GetHashCode() ^ Stride.GetHashCode() ^ Size.GetHashCode()
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkStridedBufferRegionKHR l, in VkStridedBufferRegionKHR r)
+	public static bool operator == (in VkStridedDeviceAddressRegionKHR l, in VkStridedDeviceAddressRegionKHR r)
 	{
 		return
-			(l.Buffer == r.Buffer) && (l.Offset == r.Offset) && (l.Stride == r.Stride) && (l.Size == r.Size)
+			(l.DeviceAddress == r.DeviceAddress) && (l.Stride == r.Stride) && (l.Size == r.Size)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkStridedBufferRegionKHR l, in VkStridedBufferRegionKHR r)
+	public static bool operator != (in VkStridedDeviceAddressRegionKHR l, in VkStridedDeviceAddressRegionKHR r)
 	{
 		return
-			(l.Buffer != r.Buffer) || (l.Offset != r.Offset) || (l.Stride != r.Stride) || (l.Size != r.Size)
+			(l.DeviceAddress != r.DeviceAddress) || (l.Stride != r.Stride) || (l.Size != r.Size)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkStridedBufferRegionKHR s) => s = new();
+	public static void New(out VkStridedDeviceAddressRegionKHR s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10272,6 +10320,7 @@ public unsafe partial struct VkAccelerationStructureGeometryTrianglesDataKHR : I
 	public VkFormat VertexFormat;
 	public VkDeviceOrHostAddressConstKHR VertexData;
 	public ulong VertexStride;
+	public uint MaxVertex;
 	public VkIndexType IndexType;
 	public VkDeviceOrHostAddressConstKHR IndexData;
 	public VkDeviceOrHostAddressConstKHR TransformData;
@@ -10280,6 +10329,7 @@ public unsafe partial struct VkAccelerationStructureGeometryTrianglesDataKHR : I
 		VkFormat vertexFormat = default,
 		VkDeviceOrHostAddressConstKHR vertexData = default,
 		ulong vertexStride = default,
+		uint maxVertex = default,
 		VkIndexType indexType = default,
 		VkDeviceOrHostAddressConstKHR indexData = default,
 		VkDeviceOrHostAddressConstKHR transformData = default
@@ -10289,6 +10339,7 @@ public unsafe partial struct VkAccelerationStructureGeometryTrianglesDataKHR : I
 		VertexFormat = vertexFormat;
 		VertexData = vertexData;
 		VertexStride = vertexStride;
+		MaxVertex = maxVertex;
 		IndexType = indexType;
 		IndexData = indexData;
 		TransformData = transformData;
@@ -10302,7 +10353,8 @@ public unsafe partial struct VkAccelerationStructureGeometryTrianglesDataKHR : I
 	{
 		return
 			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ VertexFormat.GetHashCode() ^ VertexData.GetHashCode()
-			^ VertexStride.GetHashCode() ^ IndexType.GetHashCode() ^ IndexData.GetHashCode() ^ TransformData.GetHashCode()
+			^ VertexStride.GetHashCode() ^ MaxVertex.GetHashCode() ^ IndexType.GetHashCode() ^ IndexData.GetHashCode()
+			^ TransformData.GetHashCode()
 			;
 	}
 
@@ -10311,7 +10363,8 @@ public unsafe partial struct VkAccelerationStructureGeometryTrianglesDataKHR : I
 	{
 		return
 			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.VertexFormat == r.VertexFormat) && (l.VertexData == r.VertexData)
-			&& (l.VertexStride == r.VertexStride) && (l.IndexType == r.IndexType) && (l.IndexData == r.IndexData) && (l.TransformData == r.TransformData)
+			&& (l.VertexStride == r.VertexStride) && (l.MaxVertex == r.MaxVertex) && (l.IndexType == r.IndexType) && (l.IndexData == r.IndexData)
+			&& (l.TransformData == r.TransformData)
 			;
 	}
 
@@ -10320,7 +10373,8 @@ public unsafe partial struct VkAccelerationStructureGeometryTrianglesDataKHR : I
 	{
 		return
 			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.VertexFormat != r.VertexFormat) || (l.VertexData != r.VertexData)
-			|| (l.VertexStride != r.VertexStride) || (l.IndexType != r.IndexType) || (l.IndexData != r.IndexData) || (l.TransformData != r.TransformData)
+			|| (l.VertexStride != r.VertexStride) || (l.MaxVertex != r.MaxVertex) || (l.IndexType != r.IndexType) || (l.IndexData != r.IndexData)
+			|| (l.TransformData != r.TransformData)
 			;
 	}
 
@@ -10541,35 +10595,35 @@ public unsafe partial struct VkAccelerationStructureBuildGeometryInfoKHR : IEqua
 	public void* pNext;
 	public VkAccelerationStructureTypeKHR Type;
 	public VkBuildAccelerationStructureFlagsKHR Flags;
-	public VkBool32 Update;
+	public VkBuildAccelerationStructureModeKHR Mode;
 	public VulkanHandle<VkAccelerationStructureKHR> SrcAccelerationStructure;
 	public VulkanHandle<VkAccelerationStructureKHR> DstAccelerationStructure;
-	public VkBool32 GeometryArrayOfPointers;
 	public uint GeometryCount;
-	public VkAccelerationStructureGeometryKHR** Geometries;
+	public VkAccelerationStructureGeometryKHR* Geometries;
+	public VkAccelerationStructureGeometryKHR** GeometriesPtr;
 	public VkDeviceOrHostAddressKHR ScratchData;
 
 	public VkAccelerationStructureBuildGeometryInfoKHR(
 		VkAccelerationStructureTypeKHR type = default,
 		VkBuildAccelerationStructureFlagsKHR flags = default,
-		VkBool32 update = default,
+		VkBuildAccelerationStructureModeKHR mode = default,
 		VulkanHandle<VkAccelerationStructureKHR> srcAccelerationStructure = default,
 		VulkanHandle<VkAccelerationStructureKHR> dstAccelerationStructure = default,
-		VkBool32 geometryArrayOfPointers = default,
 		uint geometryCount = default,
-		VkAccelerationStructureGeometryKHR** geometries = default,
+		VkAccelerationStructureGeometryKHR* geometries = default,
+		VkAccelerationStructureGeometryKHR** geometriesPtr = default,
 		VkDeviceOrHostAddressKHR scratchData = default
 	) {
 		sType = TYPE;
 		pNext = null;
 		Type = type;
 		Flags = flags;
-		Update = update;
+		Mode = mode;
 		SrcAccelerationStructure = srcAccelerationStructure;
 		DstAccelerationStructure = dstAccelerationStructure;
-		GeometryArrayOfPointers = geometryArrayOfPointers;
 		GeometryCount = geometryCount;
 		Geometries = geometries;
+		GeometriesPtr = geometriesPtr;
 		ScratchData = scratchData;
 	}
 
@@ -10581,8 +10635,8 @@ public unsafe partial struct VkAccelerationStructureBuildGeometryInfoKHR : IEqua
 	{
 		return
 			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ Type.GetHashCode() ^ Flags.GetHashCode()
-			^ Update.GetHashCode() ^ SrcAccelerationStructure.GetHashCode() ^ DstAccelerationStructure.GetHashCode() ^ GeometryArrayOfPointers.GetHashCode()
-			^ GeometryCount.GetHashCode() ^ ((ulong)Geometries).GetHashCode() ^ ScratchData.GetHashCode()
+			^ Mode.GetHashCode() ^ SrcAccelerationStructure.GetHashCode() ^ DstAccelerationStructure.GetHashCode() ^ GeometryCount.GetHashCode()
+			^ ((ulong)Geometries).GetHashCode() ^ ((ulong)GeometriesPtr).GetHashCode() ^ ScratchData.GetHashCode()
 			;
 	}
 
@@ -10591,8 +10645,8 @@ public unsafe partial struct VkAccelerationStructureBuildGeometryInfoKHR : IEqua
 	{
 		return
 			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.Type == r.Type) && (l.Flags == r.Flags)
-			&& (l.Update == r.Update) && (l.SrcAccelerationStructure == r.SrcAccelerationStructure) && (l.DstAccelerationStructure == r.DstAccelerationStructure) && (l.GeometryArrayOfPointers == r.GeometryArrayOfPointers)
-			&& (l.GeometryCount == r.GeometryCount) && (l.Geometries == r.Geometries) && (l.ScratchData == r.ScratchData)
+			&& (l.Mode == r.Mode) && (l.SrcAccelerationStructure == r.SrcAccelerationStructure) && (l.DstAccelerationStructure == r.DstAccelerationStructure) && (l.GeometryCount == r.GeometryCount)
+			&& (l.Geometries == r.Geometries) && (l.GeometriesPtr == r.GeometriesPtr) && (l.ScratchData == r.ScratchData)
 			;
 	}
 
@@ -10601,8 +10655,8 @@ public unsafe partial struct VkAccelerationStructureBuildGeometryInfoKHR : IEqua
 	{
 		return
 			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.Type != r.Type) || (l.Flags != r.Flags)
-			|| (l.Update != r.Update) || (l.SrcAccelerationStructure != r.SrcAccelerationStructure) || (l.DstAccelerationStructure != r.DstAccelerationStructure) || (l.GeometryArrayOfPointers != r.GeometryArrayOfPointers)
-			|| (l.GeometryCount != r.GeometryCount) || (l.Geometries != r.Geometries) || (l.ScratchData != r.ScratchData)
+			|| (l.Mode != r.Mode) || (l.SrcAccelerationStructure != r.SrcAccelerationStructure) || (l.DstAccelerationStructure != r.DstAccelerationStructure) || (l.GeometryCount != r.GeometryCount)
+			|| (l.Geometries != r.Geometries) || (l.GeometriesPtr != r.GeometriesPtr) || (l.ScratchData != r.ScratchData)
 			;
 	}
 
@@ -10611,14 +10665,14 @@ public unsafe partial struct VkAccelerationStructureBuildGeometryInfoKHR : IEqua
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkAccelerationStructureBuildOffsetInfoKHR : IEquatable<VkAccelerationStructureBuildOffsetInfoKHR>
+public unsafe partial struct VkAccelerationStructureBuildRangeInfoKHR : IEquatable<VkAccelerationStructureBuildRangeInfoKHR>
 {
 	public uint PrimitiveCount;
 	public uint PrimitiveOffset;
 	public uint FirstVertex;
 	public uint TransformOffset;
 
-	public VkAccelerationStructureBuildOffsetInfoKHR(
+	public VkAccelerationStructureBuildRangeInfoKHR(
 		uint primitiveCount = default,
 		uint primitiveOffset = default,
 		uint firstVertex = default,
@@ -10630,8 +10684,8 @@ public unsafe partial struct VkAccelerationStructureBuildOffsetInfoKHR : IEquata
 		TransformOffset = transformOffset;
 	}
 
-	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureBuildOffsetInfoKHR s) && (this == s);
-	readonly bool IEquatable<VkAccelerationStructureBuildOffsetInfoKHR>.Equals(VkAccelerationStructureBuildOffsetInfoKHR o) => o == this;
+	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureBuildRangeInfoKHR s) && (this == s);
+	readonly bool IEquatable<VkAccelerationStructureBuildRangeInfoKHR>.Equals(VkAccelerationStructureBuildRangeInfoKHR o) => o == this;
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
@@ -10642,7 +10696,7 @@ public unsafe partial struct VkAccelerationStructureBuildOffsetInfoKHR : IEquata
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkAccelerationStructureBuildOffsetInfoKHR l, in VkAccelerationStructureBuildOffsetInfoKHR r)
+	public static bool operator == (in VkAccelerationStructureBuildRangeInfoKHR l, in VkAccelerationStructureBuildRangeInfoKHR r)
 	{
 		return
 			(l.PrimitiveCount == r.PrimitiveCount) && (l.PrimitiveOffset == r.PrimitiveOffset) && (l.FirstVertex == r.FirstVertex) && (l.TransformOffset == r.TransformOffset)
@@ -10650,7 +10704,7 @@ public unsafe partial struct VkAccelerationStructureBuildOffsetInfoKHR : IEquata
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkAccelerationStructureBuildOffsetInfoKHR l, in VkAccelerationStructureBuildOffsetInfoKHR r)
+	public static bool operator != (in VkAccelerationStructureBuildRangeInfoKHR l, in VkAccelerationStructureBuildRangeInfoKHR r)
 	{
 		return
 			(l.PrimitiveCount != r.PrimitiveCount) || (l.PrimitiveOffset != r.PrimitiveOffset) || (l.FirstVertex != r.FirstVertex) || (l.TransformOffset != r.TransformOffset)
@@ -10658,73 +10712,7 @@ public unsafe partial struct VkAccelerationStructureBuildOffsetInfoKHR : IEquata
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkAccelerationStructureBuildOffsetInfoKHR s) => s = new();
-}
-
-[StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkAccelerationStructureCreateGeometryTypeInfoKHR : IEquatable<VkAccelerationStructureCreateGeometryTypeInfoKHR>
-{
-	public const VkStructureType TYPE = VkStructureType.AccelerationStructureCreateGeometryTypeInfoKhr;
-
-	public VkStructureType sType;
-	public void* pNext;
-	public VkGeometryTypeKHR GeometryType;
-	public uint MaxPrimitiveCount;
-	public VkIndexType IndexType;
-	public uint MaxVertexCount;
-	public VkFormat VertexFormat;
-	public VkBool32 AllowsTransforms;
-
-	public VkAccelerationStructureCreateGeometryTypeInfoKHR(
-		VkGeometryTypeKHR geometryType = default,
-		uint maxPrimitiveCount = default,
-		VkIndexType indexType = default,
-		uint maxVertexCount = default,
-		VkFormat vertexFormat = default,
-		VkBool32 allowsTransforms = default
-	) {
-		sType = TYPE;
-		pNext = null;
-		GeometryType = geometryType;
-		MaxPrimitiveCount = maxPrimitiveCount;
-		IndexType = indexType;
-		MaxVertexCount = maxVertexCount;
-		VertexFormat = vertexFormat;
-		AllowsTransforms = allowsTransforms;
-	}
-
-	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureCreateGeometryTypeInfoKHR s) && (this == s);
-	readonly bool IEquatable<VkAccelerationStructureCreateGeometryTypeInfoKHR>.Equals(VkAccelerationStructureCreateGeometryTypeInfoKHR o) => o == this;
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public readonly override int GetHashCode()
-	{
-		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ GeometryType.GetHashCode() ^ MaxPrimitiveCount.GetHashCode()
-			^ IndexType.GetHashCode() ^ MaxVertexCount.GetHashCode() ^ VertexFormat.GetHashCode() ^ AllowsTransforms.GetHashCode()
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkAccelerationStructureCreateGeometryTypeInfoKHR l, in VkAccelerationStructureCreateGeometryTypeInfoKHR r)
-	{
-		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.GeometryType == r.GeometryType) && (l.MaxPrimitiveCount == r.MaxPrimitiveCount)
-			&& (l.IndexType == r.IndexType) && (l.MaxVertexCount == r.MaxVertexCount) && (l.VertexFormat == r.VertexFormat) && (l.AllowsTransforms == r.AllowsTransforms)
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkAccelerationStructureCreateGeometryTypeInfoKHR l, in VkAccelerationStructureCreateGeometryTypeInfoKHR r)
-	{
-		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.GeometryType != r.GeometryType) || (l.MaxPrimitiveCount != r.MaxPrimitiveCount)
-			|| (l.IndexType != r.IndexType) || (l.MaxVertexCount != r.MaxVertexCount) || (l.VertexFormat != r.VertexFormat) || (l.AllowsTransforms != r.AllowsTransforms)
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkAccelerationStructureCreateGeometryTypeInfoKHR s) => s = new() { sType = TYPE };
+	public static void New(out VkAccelerationStructureBuildRangeInfoKHR s) => s = new();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -10734,28 +10722,28 @@ public unsafe partial struct VkAccelerationStructureCreateInfoKHR : IEquatable<V
 
 	public VkStructureType sType;
 	public void* pNext;
-	public ulong CompactedSize;
+	public VkAccelerationStructureCreateFlagsKHR CreateFlags;
+	public VulkanHandle<VkBuffer> Buffer;
+	public ulong Offset;
+	public ulong Size;
 	public VkAccelerationStructureTypeKHR Type;
-	public VkBuildAccelerationStructureFlagsKHR Flags;
-	public uint MaxGeometryCount;
-	public VkAccelerationStructureCreateGeometryTypeInfoKHR* GeometryInfos;
 	public ulong DeviceAddress;
 
 	public VkAccelerationStructureCreateInfoKHR(
-		ulong compactedSize = default,
+		VkAccelerationStructureCreateFlagsKHR createFlags = default,
+		VulkanHandle<VkBuffer> buffer = default,
+		ulong offset = default,
+		ulong size = default,
 		VkAccelerationStructureTypeKHR type = default,
-		VkBuildAccelerationStructureFlagsKHR flags = default,
-		uint maxGeometryCount = default,
-		VkAccelerationStructureCreateGeometryTypeInfoKHR* geometryInfos = default,
 		ulong deviceAddress = default
 	) {
 		sType = TYPE;
 		pNext = null;
-		CompactedSize = compactedSize;
+		CreateFlags = createFlags;
+		Buffer = buffer;
+		Offset = offset;
+		Size = size;
 		Type = type;
-		Flags = flags;
-		MaxGeometryCount = maxGeometryCount;
-		GeometryInfos = geometryInfos;
 		DeviceAddress = deviceAddress;
 	}
 
@@ -10766,8 +10754,8 @@ public unsafe partial struct VkAccelerationStructureCreateInfoKHR : IEquatable<V
 	public readonly override int GetHashCode()
 	{
 		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ CompactedSize.GetHashCode() ^ Type.GetHashCode()
-			^ Flags.GetHashCode() ^ MaxGeometryCount.GetHashCode() ^ ((ulong)GeometryInfos).GetHashCode() ^ DeviceAddress.GetHashCode()
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ CreateFlags.GetHashCode() ^ Buffer.GetHashCode()
+			^ Offset.GetHashCode() ^ Size.GetHashCode() ^ Type.GetHashCode() ^ DeviceAddress.GetHashCode()
 			;
 	}
 
@@ -10775,8 +10763,8 @@ public unsafe partial struct VkAccelerationStructureCreateInfoKHR : IEquatable<V
 	public static bool operator == (in VkAccelerationStructureCreateInfoKHR l, in VkAccelerationStructureCreateInfoKHR r)
 	{
 		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.CompactedSize == r.CompactedSize) && (l.Type == r.Type)
-			&& (l.Flags == r.Flags) && (l.MaxGeometryCount == r.MaxGeometryCount) && (l.GeometryInfos == r.GeometryInfos) && (l.DeviceAddress == r.DeviceAddress)
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.CreateFlags == r.CreateFlags) && (l.Buffer == r.Buffer)
+			&& (l.Offset == r.Offset) && (l.Size == r.Size) && (l.Type == r.Type) && (l.DeviceAddress == r.DeviceAddress)
 			;
 	}
 
@@ -10784,8 +10772,8 @@ public unsafe partial struct VkAccelerationStructureCreateInfoKHR : IEquatable<V
 	public static bool operator != (in VkAccelerationStructureCreateInfoKHR l, in VkAccelerationStructureCreateInfoKHR r)
 	{
 		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.CompactedSize != r.CompactedSize) || (l.Type != r.Type)
-			|| (l.Flags != r.Flags) || (l.MaxGeometryCount != r.MaxGeometryCount) || (l.GeometryInfos != r.GeometryInfos) || (l.DeviceAddress != r.DeviceAddress)
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.CreateFlags != r.CreateFlags) || (l.Buffer != r.Buffer)
+			|| (l.Offset != r.Offset) || (l.Size != r.Size) || (l.Type != r.Type) || (l.DeviceAddress != r.DeviceAddress)
 			;
 	}
 
@@ -11032,15 +11020,15 @@ public unsafe partial struct VkAccelerationStructureDeviceAddressInfoKHR : IEqua
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkAccelerationStructureVersionKHR : IEquatable<VkAccelerationStructureVersionKHR>
+public unsafe partial struct VkAccelerationStructureVersionInfoKHR : IEquatable<VkAccelerationStructureVersionInfoKHR>
 {
-	public const VkStructureType TYPE = VkStructureType.AccelerationStructureVersionKhr;
+	public const VkStructureType TYPE = VkStructureType.AccelerationStructureVersionInfoKhr;
 
 	public VkStructureType sType;
 	public void* pNext;
 	public byte* VersionData;
 
-	public VkAccelerationStructureVersionKHR(
+	public VkAccelerationStructureVersionInfoKHR(
 		byte* versionData = default
 	) {
 		sType = TYPE;
@@ -11048,8 +11036,8 @@ public unsafe partial struct VkAccelerationStructureVersionKHR : IEquatable<VkAc
 		VersionData = versionData;
 	}
 
-	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureVersionKHR s) && (this == s);
-	readonly bool IEquatable<VkAccelerationStructureVersionKHR>.Equals(VkAccelerationStructureVersionKHR o) => o == this;
+	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureVersionInfoKHR s) && (this == s);
+	readonly bool IEquatable<VkAccelerationStructureVersionInfoKHR>.Equals(VkAccelerationStructureVersionInfoKHR o) => o == this;
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 	public readonly override int GetHashCode()
@@ -11060,7 +11048,7 @@ public unsafe partial struct VkAccelerationStructureVersionKHR : IEquatable<VkAc
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkAccelerationStructureVersionKHR l, in VkAccelerationStructureVersionKHR r)
+	public static bool operator == (in VkAccelerationStructureVersionInfoKHR l, in VkAccelerationStructureVersionInfoKHR r)
 	{
 		return
 			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.VersionData == r.VersionData)
@@ -11068,7 +11056,7 @@ public unsafe partial struct VkAccelerationStructureVersionKHR : IEquatable<VkAc
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkAccelerationStructureVersionKHR l, in VkAccelerationStructureVersionKHR r)
+	public static bool operator != (in VkAccelerationStructureVersionInfoKHR l, in VkAccelerationStructureVersionInfoKHR r)
 	{
 		return
 			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.VersionData != r.VersionData)
@@ -11076,7 +11064,7 @@ public unsafe partial struct VkAccelerationStructureVersionKHR : IEquatable<VkAc
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkAccelerationStructureVersionKHR s) => s = new() { sType = TYPE };
+	public static void New(out VkAccelerationStructureVersionInfoKHR s) => s = new() { sType = TYPE };
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -11257,20 +11245,17 @@ public unsafe partial struct VkRayTracingPipelineInterfaceCreateInfoKHR : IEquat
 
 	public VkStructureType sType;
 	public void* pNext;
-	public uint MaxPayloadSize;
-	public uint MaxAttributeSize;
-	public uint MaxCallableSize;
+	public uint MaxPipelineRayPayloadSize;
+	public uint MaxPipelineRayHitAttributeSize;
 
 	public VkRayTracingPipelineInterfaceCreateInfoKHR(
-		uint maxPayloadSize = default,
-		uint maxAttributeSize = default,
-		uint maxCallableSize = default
+		uint maxPipelineRayPayloadSize = default,
+		uint maxPipelineRayHitAttributeSize = default
 	) {
 		sType = TYPE;
 		pNext = null;
-		MaxPayloadSize = maxPayloadSize;
-		MaxAttributeSize = maxAttributeSize;
-		MaxCallableSize = maxCallableSize;
+		MaxPipelineRayPayloadSize = maxPipelineRayPayloadSize;
+		MaxPipelineRayHitAttributeSize = maxPipelineRayHitAttributeSize;
 	}
 
 	public readonly override bool Equals(object? o) => (o is VkRayTracingPipelineInterfaceCreateInfoKHR s) && (this == s);
@@ -11280,8 +11265,7 @@ public unsafe partial struct VkRayTracingPipelineInterfaceCreateInfoKHR : IEquat
 	public readonly override int GetHashCode()
 	{
 		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxPayloadSize.GetHashCode() ^ MaxAttributeSize.GetHashCode()
-			^ MaxCallableSize.GetHashCode()
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ MaxPipelineRayPayloadSize.GetHashCode() ^ MaxPipelineRayHitAttributeSize.GetHashCode()
 			;
 	}
 
@@ -11289,8 +11273,7 @@ public unsafe partial struct VkRayTracingPipelineInterfaceCreateInfoKHR : IEquat
 	public static bool operator == (in VkRayTracingPipelineInterfaceCreateInfoKHR l, in VkRayTracingPipelineInterfaceCreateInfoKHR r)
 	{
 		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxPayloadSize == r.MaxPayloadSize) && (l.MaxAttributeSize == r.MaxAttributeSize)
-			&& (l.MaxCallableSize == r.MaxCallableSize)
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.MaxPipelineRayPayloadSize == r.MaxPipelineRayPayloadSize) && (l.MaxPipelineRayHitAttributeSize == r.MaxPipelineRayHitAttributeSize)
 			;
 	}
 
@@ -11298,61 +11281,12 @@ public unsafe partial struct VkRayTracingPipelineInterfaceCreateInfoKHR : IEquat
 	public static bool operator != (in VkRayTracingPipelineInterfaceCreateInfoKHR l, in VkRayTracingPipelineInterfaceCreateInfoKHR r)
 	{
 		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxPayloadSize != r.MaxPayloadSize) || (l.MaxAttributeSize != r.MaxAttributeSize)
-			|| (l.MaxCallableSize != r.MaxCallableSize)
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.MaxPipelineRayPayloadSize != r.MaxPipelineRayPayloadSize) || (l.MaxPipelineRayHitAttributeSize != r.MaxPipelineRayHitAttributeSize)
 			;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out VkRayTracingPipelineInterfaceCreateInfoKHR s) => s = new() { sType = TYPE };
-}
-
-[StructLayout(LayoutKind.Sequential)]
-public unsafe partial struct VkDeferredOperationInfoKHR : IEquatable<VkDeferredOperationInfoKHR>
-{
-	public const VkStructureType TYPE = VkStructureType.DeferredOperationInfoKhr;
-
-	public VkStructureType sType;
-	public void* pNext;
-	public VulkanHandle<VkDeferredOperationKHR> OperationHandle;
-
-	public VkDeferredOperationInfoKHR(
-		VulkanHandle<VkDeferredOperationKHR> operationHandle = default
-	) {
-		sType = TYPE;
-		pNext = null;
-		OperationHandle = operationHandle;
-	}
-
-	public readonly override bool Equals(object? o) => (o is VkDeferredOperationInfoKHR s) && (this == s);
-	readonly bool IEquatable<VkDeferredOperationInfoKHR>.Equals(VkDeferredOperationInfoKHR o) => o == this;
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public readonly override int GetHashCode()
-	{
-		return
-			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ OperationHandle.GetHashCode()
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator == (in VkDeferredOperationInfoKHR l, in VkDeferredOperationInfoKHR r)
-	{
-		return
-			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.OperationHandle == r.OperationHandle)
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-	public static bool operator != (in VkDeferredOperationInfoKHR l, in VkDeferredOperationInfoKHR r)
-	{
-		return
-			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.OperationHandle != r.OperationHandle)
-			;
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void New(out VkDeferredOperationInfoKHR s) => s = new() { sType = TYPE };
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -12631,6 +12565,63 @@ public unsafe partial struct VkPhysicalDeviceShaderTerminateInvocationFeaturesKH
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void New(out VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR s) => s = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct VkAccelerationStructureBuildSizesInfoKHR : IEquatable<VkAccelerationStructureBuildSizesInfoKHR>
+{
+	public const VkStructureType TYPE = VkStructureType.AccelerationStructureBuildSizesInfoKhr;
+
+	public VkStructureType sType;
+	public void* pNext;
+	public ulong AccelerationStructureSize;
+	public ulong UpdateScratchSize;
+	public ulong BuildScratchSize;
+
+	public VkAccelerationStructureBuildSizesInfoKHR(
+		ulong accelerationStructureSize = default,
+		ulong updateScratchSize = default,
+		ulong buildScratchSize = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		AccelerationStructureSize = accelerationStructureSize;
+		UpdateScratchSize = updateScratchSize;
+		BuildScratchSize = buildScratchSize;
+	}
+
+	public readonly override bool Equals(object? o) => (o is VkAccelerationStructureBuildSizesInfoKHR s) && (this == s);
+	readonly bool IEquatable<VkAccelerationStructureBuildSizesInfoKHR>.Equals(VkAccelerationStructureBuildSizesInfoKHR o) => o == this;
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ AccelerationStructureSize.GetHashCode() ^ UpdateScratchSize.GetHashCode()
+			^ BuildScratchSize.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in VkAccelerationStructureBuildSizesInfoKHR l, in VkAccelerationStructureBuildSizesInfoKHR r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.AccelerationStructureSize == r.AccelerationStructureSize) && (l.UpdateScratchSize == r.UpdateScratchSize)
+			&& (l.BuildScratchSize == r.BuildScratchSize)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in VkAccelerationStructureBuildSizesInfoKHR l, in VkAccelerationStructureBuildSizesInfoKHR r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.AccelerationStructureSize != r.AccelerationStructureSize) || (l.UpdateScratchSize != r.UpdateScratchSize)
+			|| (l.BuildScratchSize != r.BuildScratchSize)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out VkAccelerationStructureBuildSizesInfoKHR s) => s = new() { sType = TYPE };
 }
 
 

@@ -94,7 +94,7 @@ public enum VkDebugReportObjectTypeEXT : int
 	SamplerYcbcrConversion = 1000156000,
 	DescriptorUpdateTemplate = 1000085000,
 	DescriptorUpdateTemplateKhr = 1000085000,
-	AccelerationStructureKhr = 1000165000,
+	AccelerationStructureKhr = 1000150000,
 	SamplerYcbcrConversionKhr = 1000156000,
 	AccelerationStructureNv = 1000165000,
 }

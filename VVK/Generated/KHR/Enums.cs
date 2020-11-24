@@ -36,6 +36,12 @@ public enum VkSemaphoreTypeKHR : int
 	TimelineKhr = 1,
 }
 
+public enum VkBuildAccelerationStructureModeKHR : int
+{
+	Build = 0,
+	Update = 1,
+}
+
 public enum VkCopyAccelerationStructureModeKHR : int
 {
 	Clone = 0,
@@ -48,13 +54,14 @@ public enum VkAccelerationStructureTypeKHR : int
 {
 	TopLevel = 0,
 	BottomLevel = 1,
+	Generic = 2,
 }
 
 public enum VkGeometryTypeKHR : int
 {
 	Triangles = 0,
 	Aabbs = 1,
-	Instances = 1000150000,
+	Instances = 2,
 }
 
 public enum VkRayTracingShaderGroupTypeKHR : int
@@ -64,18 +71,25 @@ public enum VkRayTracingShaderGroupTypeKHR : int
 	ProceduralHitGroup = 2,
 }
 
-public enum VkAccelerationStructureMemoryRequirementsTypeKHR : int
-{
-	Object = 0,
-	BuildScratch = 1,
-	UpdateScratch = 2,
-}
-
 public enum VkAccelerationStructureBuildTypeKHR : int
 {
 	Host = 0,
 	Device = 1,
 	HostOrDevice = 2,
+}
+
+public enum VkAccelerationStructureCompatibilityKHR : int
+{
+	Compatible = 0,
+	Incompatible = 1,
+}
+
+public enum VkShaderGroupShaderKHR : int
+{
+	General = 0,
+	ClosestHit = 1,
+	AnyHit = 2,
+	Intersection = 3,
 }
 
 public enum VkPerformanceCounterScopeKHR : int

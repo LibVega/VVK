@@ -96,14 +96,6 @@ public unsafe sealed partial class VkAccelerationStructureKHR : IVulkanHandle<Vk
 	public void DestroyAccelerationStructureKHR(VkAllocationCallbacks* pAllocator)
 		=> Functions.vkDestroyAccelerationStructureKHR(Parent, Handle, pAllocator);
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void DestroyAccelerationStructureNV(VkAllocationCallbacks* pAllocator)
-		=> Functions.vkDestroyAccelerationStructureNV(Parent, Handle, pAllocator);
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public VkResult GetAccelerationStructureHandleNV(ulong dataSize, void* pData)
-		=> Functions.vkGetAccelerationStructureHandleNV(Parent, Handle, dataSize, pData);
-
 }
 
 public unsafe sealed partial class VkDeferredOperationKHR : IVulkanHandle<VkDeferredOperationKHR>
@@ -130,6 +122,47 @@ public unsafe sealed partial class VkDeferredOperationKHR : IVulkanHandle<VkDefe
 
 	public static implicit operator VulkanHandle<VkDeferredOperationKHR> (VkDeferredOperationKHR? h) => h?.Handle ?? VulkanHandle<VkDeferredOperationKHR>.Null;
 	public static implicit operator bool (VkDeferredOperationKHR? h) => h?.IsValid ?? false;
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyAccelerationStructureKHR(VkCopyAccelerationStructureInfoKHR* pInfo)
+		=> Functions.vkCopyAccelerationStructureKHR(Parent, Handle, pInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyAccelerationStructureKHR(in VkCopyAccelerationStructureInfoKHR pInfo)
+	{
+		fixed (VkCopyAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkCopyAccelerationStructureKHR(Parent, Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyAccelerationStructureToMemoryKHR(VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
+		=> Functions.vkCopyAccelerationStructureToMemoryKHR(Parent, Handle, pInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyAccelerationStructureToMemoryKHR(in VkCopyAccelerationStructureToMemoryInfoKHR pInfo)
+	{
+		fixed (VkCopyAccelerationStructureToMemoryInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkCopyAccelerationStructureToMemoryKHR(Parent, Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyMemoryToAccelerationStructureKHR(VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
+		=> Functions.vkCopyMemoryToAccelerationStructureKHR(Parent, Handle, pInfo);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CopyMemoryToAccelerationStructureKHR(in VkCopyMemoryToAccelerationStructureInfoKHR pInfo)
+	{
+		fixed (VkCopyMemoryToAccelerationStructureInfoKHR* pInfoFIXED = &pInfo)
+		return Functions.vkCopyMemoryToAccelerationStructureKHR(Parent, Handle, pInfoFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult CreateRayTracingPipelinesKHR(VulkanHandle<VkPipelineCache> pipelineCache, uint createInfoCount, VkRayTracingPipelineCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
+		=> Functions.vkCreateRayTracingPipelinesKHR(Parent, Handle, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult BuildAccelerationStructuresKHR(uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildRangeInfoKHR** ppBuildRangeInfos)
+		=> Functions.vkBuildAccelerationStructuresKHR(Parent, Handle, infoCount, pInfos, ppBuildRangeInfos);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public void DestroyDeferredOperationKHR(VkAllocationCallbacks* pAllocator)

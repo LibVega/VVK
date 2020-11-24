@@ -268,8 +268,12 @@ public static class VkConstants
 	public const uint EXT_BLEND_OPERATION_ADVANCED_SPEC_VERSION = 2;
 	public const string NV_FRAGMENT_COVERAGE_TO_COLOR_EXTENSION_NAME = "VK_NV_fragment_coverage_to_color";
 	public const uint NV_FRAGMENT_COVERAGE_TO_COLOR_SPEC_VERSION = 1;
-	public const string KHR_RAY_TRACING_EXTENSION_NAME = "VK_KHR_ray_tracing";
-	public const uint KHR_RAY_TRACING_SPEC_VERSION = 8;
+	public const string KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME = "VK_KHR_acceleration_structure";
+	public const uint KHR_ACCELERATION_STRUCTURE_SPEC_VERSION = 11;
+	public const string KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME = "VK_KHR_ray_tracing_pipeline";
+	public const uint KHR_RAY_TRACING_PIPELINE_SPEC_VERSION = 1;
+	public const string KHR_RAY_QUERY_EXTENSION_NAME = "VK_KHR_ray_query";
+	public const uint KHR_RAY_QUERY_SPEC_VERSION = 1;
 	public const string NV_FRAMEBUFFER_MIXED_SAMPLES_EXTENSION_NAME = "VK_NV_framebuffer_mixed_samples";
 	public const uint NV_FRAMEBUFFER_MIXED_SAMPLES_SPEC_VERSION = 1;
 	public const string NV_FILL_RECTANGLE_EXTENSION_NAME = "VK_NV_fill_rectangle";
@@ -439,7 +443,7 @@ public static class VkConstants
 	public const string EXT_EXTENDED_DYNAMIC_STATE_EXTENSION_NAME = "VK_EXT_extended_dynamic_state";
 	public const uint EXT_EXTENDED_DYNAMIC_STATE_SPEC_VERSION = 1;
 	public const string KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME = "VK_KHR_deferred_host_operations";
-	public const uint KHR_DEFERRED_HOST_OPERATIONS_SPEC_VERSION = 3;
+	public const uint KHR_DEFERRED_HOST_OPERATIONS_SPEC_VERSION = 4;
 	public const string KHR_PIPELINE_EXECUTABLE_PROPERTIES_EXTENSION_NAME = "VK_KHR_pipeline_executable_properties";
 	public const uint KHR_PIPELINE_EXECUTABLE_PROPERTIES_SPEC_VERSION = 1;
 	public const string EXT_SHADER_DEMOTE_TO_HELPER_INVOCATION_EXTENSION_NAME = "VK_EXT_shader_demote_to_helper_invocation";

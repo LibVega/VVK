@@ -2524,17 +2524,10 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkDestroyAccelerationStructureNV(VulkanHandle<VkDevice> device, VulkanHandle<VkAccelerationStructureKHR> accelerationStructure, VkAllocationCallbacks* pAllocator)
+	public static void vkDestroyAccelerationStructureNV(VulkanHandle<VkDevice> device, VulkanHandle<VkAccelerationStructureNV> accelerationStructure, VkAllocationCallbacks* pAllocator)
 	{
 		if (_vkDestroyAccelerationStructureNV == null) throw new VVK.FunctionNotLoadedException("vkDestroyAccelerationStructureNV");
 		_vkDestroyAccelerationStructureNV(device, accelerationStructure, pAllocator);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkGetAccelerationStructureMemoryRequirementsKHR(VulkanHandle<VkDevice> device, VkAccelerationStructureMemoryRequirementsInfoKHR* pInfo, VkMemoryRequirements2* pMemoryRequirements)
-	{
-		if (_vkGetAccelerationStructureMemoryRequirementsKHR == null) throw new VVK.FunctionNotLoadedException("vkGetAccelerationStructureMemoryRequirementsKHR");
-		_vkGetAccelerationStructureMemoryRequirementsKHR(device, pInfo, pMemoryRequirements);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2545,21 +2538,14 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkBindAccelerationStructureMemoryKHR(VulkanHandle<VkDevice> device, uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
-	{
-		if (_vkBindAccelerationStructureMemoryKHR == null) throw new VVK.FunctionNotLoadedException("vkBindAccelerationStructureMemoryKHR");
-		return _vkBindAccelerationStructureMemoryKHR(device, bindInfoCount, pBindInfos);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkBindAccelerationStructureMemoryNV(VulkanHandle<VkDevice> device, uint bindInfoCount, VkBindAccelerationStructureMemoryInfoKHR* pBindInfos)
+	public static VkResult vkBindAccelerationStructureMemoryNV(VulkanHandle<VkDevice> device, uint bindInfoCount, VkBindAccelerationStructureMemoryInfoNV* pBindInfos)
 	{
 		if (_vkBindAccelerationStructureMemoryNV == null) throw new VVK.FunctionNotLoadedException("vkBindAccelerationStructureMemoryNV");
 		return _vkBindAccelerationStructureMemoryNV(device, bindInfoCount, pBindInfos);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkCmdCopyAccelerationStructureNV(VulkanHandle<VkCommandBuffer> commandBuffer, VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VkCopyAccelerationStructureModeKHR mode)
+	public static void vkCmdCopyAccelerationStructureNV(VulkanHandle<VkCommandBuffer> commandBuffer, VulkanHandle<VkAccelerationStructureNV> dst, VulkanHandle<VkAccelerationStructureNV> src, VkCopyAccelerationStructureModeKHR mode)
 	{
 		if (_vkCmdCopyAccelerationStructureNV == null) throw new VVK.FunctionNotLoadedException("vkCmdCopyAccelerationStructureNV");
 		_vkCmdCopyAccelerationStructureNV(commandBuffer, dst, src, mode);
@@ -2573,10 +2559,10 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkCopyAccelerationStructureKHR(VulkanHandle<VkDevice> device, VkCopyAccelerationStructureInfoKHR* pInfo)
+	public static VkResult vkCopyAccelerationStructureKHR(VulkanHandle<VkDevice> device, VulkanHandle<VkDeferredOperationKHR> deferredOperation, VkCopyAccelerationStructureInfoKHR* pInfo)
 	{
 		if (_vkCopyAccelerationStructureKHR == null) throw new VVK.FunctionNotLoadedException("vkCopyAccelerationStructureKHR");
-		return _vkCopyAccelerationStructureKHR(device, pInfo);
+		return _vkCopyAccelerationStructureKHR(device, deferredOperation, pInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2587,10 +2573,10 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkCopyAccelerationStructureToMemoryKHR(VulkanHandle<VkDevice> device, VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
+	public static VkResult vkCopyAccelerationStructureToMemoryKHR(VulkanHandle<VkDevice> device, VulkanHandle<VkDeferredOperationKHR> deferredOperation, VkCopyAccelerationStructureToMemoryInfoKHR* pInfo)
 	{
 		if (_vkCopyAccelerationStructureToMemoryKHR == null) throw new VVK.FunctionNotLoadedException("vkCopyAccelerationStructureToMemoryKHR");
-		return _vkCopyAccelerationStructureToMemoryKHR(device, pInfo);
+		return _vkCopyAccelerationStructureToMemoryKHR(device, deferredOperation, pInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2601,10 +2587,10 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkCopyMemoryToAccelerationStructureKHR(VulkanHandle<VkDevice> device, VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
+	public static VkResult vkCopyMemoryToAccelerationStructureKHR(VulkanHandle<VkDevice> device, VulkanHandle<VkDeferredOperationKHR> deferredOperation, VkCopyMemoryToAccelerationStructureInfoKHR* pInfo)
 	{
 		if (_vkCopyMemoryToAccelerationStructureKHR == null) throw new VVK.FunctionNotLoadedException("vkCopyMemoryToAccelerationStructureKHR");
-		return _vkCopyMemoryToAccelerationStructureKHR(device, pInfo);
+		return _vkCopyMemoryToAccelerationStructureKHR(device, deferredOperation, pInfo);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2615,14 +2601,14 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkCmdWriteAccelerationStructuresPropertiesNV(VulkanHandle<VkCommandBuffer> commandBuffer, uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureKHR>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
+	public static void vkCmdWriteAccelerationStructuresPropertiesNV(VulkanHandle<VkCommandBuffer> commandBuffer, uint accelerationStructureCount, VulkanHandle<VkAccelerationStructureNV>* pAccelerationStructures, VkQueryType queryType, VulkanHandle<VkQueryPool> queryPool, uint firstQuery)
 	{
 		if (_vkCmdWriteAccelerationStructuresPropertiesNV == null) throw new VVK.FunctionNotLoadedException("vkCmdWriteAccelerationStructuresPropertiesNV");
 		_vkCmdWriteAccelerationStructuresPropertiesNV(commandBuffer, accelerationStructureCount, pAccelerationStructures, queryType, queryPool, firstQuery);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkCmdBuildAccelerationStructureNV(VulkanHandle<VkCommandBuffer> commandBuffer, VkAccelerationStructureInfoNV* pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureKHR> dst, VulkanHandle<VkAccelerationStructureKHR> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
+	public static void vkCmdBuildAccelerationStructureNV(VulkanHandle<VkCommandBuffer> commandBuffer, VkAccelerationStructureInfoNV* pInfo, VulkanHandle<VkBuffer> instanceData, ulong instanceOffset, VkBool32 update, VulkanHandle<VkAccelerationStructureNV> dst, VulkanHandle<VkAccelerationStructureNV> src, VulkanHandle<VkBuffer> scratch, ulong scratchOffset)
 	{
 		if (_vkCmdBuildAccelerationStructureNV == null) throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureNV");
 		_vkCmdBuildAccelerationStructureNV(commandBuffer, pInfo, instanceData, instanceOffset, update, dst, src, scratch, scratchOffset);
@@ -2636,7 +2622,7 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkCmdTraceRaysKHR(VulkanHandle<VkCommandBuffer> commandBuffer, VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, uint width, uint height, uint depth)
+	public static void vkCmdTraceRaysKHR(VulkanHandle<VkCommandBuffer> commandBuffer, VkStridedDeviceAddressRegionKHR* pRaygenShaderBindingTable, VkStridedDeviceAddressRegionKHR* pMissShaderBindingTable, VkStridedDeviceAddressRegionKHR* pHitShaderBindingTable, VkStridedDeviceAddressRegionKHR* pCallableShaderBindingTable, uint width, uint height, uint depth)
 	{
 		if (_vkCmdTraceRaysKHR == null) throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysKHR");
 		_vkCmdTraceRaysKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, width, height, depth);
@@ -2671,7 +2657,7 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkGetAccelerationStructureHandleNV(VulkanHandle<VkDevice> device, VulkanHandle<VkAccelerationStructureKHR> accelerationStructure, ulong dataSize, void* pData)
+	public static VkResult vkGetAccelerationStructureHandleNV(VulkanHandle<VkDevice> device, VulkanHandle<VkAccelerationStructureNV> accelerationStructure, ulong dataSize, void* pData)
 	{
 		if (_vkGetAccelerationStructureHandleNV == null) throw new VVK.FunctionNotLoadedException("vkGetAccelerationStructureHandleNV");
 		return _vkGetAccelerationStructureHandleNV(device, accelerationStructure, dataSize, pData);
@@ -2685,24 +2671,38 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkCreateRayTracingPipelinesKHR(VulkanHandle<VkDevice> device, VulkanHandle<VkPipelineCache> pipelineCache, uint createInfoCount, VkRayTracingPipelineCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
+	public static VkResult vkCreateRayTracingPipelinesKHR(VulkanHandle<VkDevice> device, VulkanHandle<VkDeferredOperationKHR> deferredOperation, VulkanHandle<VkPipelineCache> pipelineCache, uint createInfoCount, VkRayTracingPipelineCreateInfoKHR* pCreateInfos, VkAllocationCallbacks* pAllocator, VulkanHandle<VkPipeline>* pPipelines)
 	{
 		if (_vkCreateRayTracingPipelinesKHR == null) throw new VVK.FunctionNotLoadedException("vkCreateRayTracingPipelinesKHR");
-		return _vkCreateRayTracingPipelinesKHR(device, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
+		return _vkCreateRayTracingPipelinesKHR(device, deferredOperation, pipelineCache, createInfoCount, pCreateInfos, pAllocator, pPipelines);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkCmdTraceRaysIndirectKHR(VulkanHandle<VkCommandBuffer> commandBuffer, VkStridedBufferRegionKHR* pRaygenShaderBindingTable, VkStridedBufferRegionKHR* pMissShaderBindingTable, VkStridedBufferRegionKHR* pHitShaderBindingTable, VkStridedBufferRegionKHR* pCallableShaderBindingTable, VulkanHandle<VkBuffer> buffer, ulong offset)
+	public static void vkCmdTraceRaysIndirectKHR(VulkanHandle<VkCommandBuffer> commandBuffer, VkStridedDeviceAddressRegionKHR* pRaygenShaderBindingTable, VkStridedDeviceAddressRegionKHR* pMissShaderBindingTable, VkStridedDeviceAddressRegionKHR* pHitShaderBindingTable, VkStridedDeviceAddressRegionKHR* pCallableShaderBindingTable, ulong indirectDeviceAddress)
 	{
 		if (_vkCmdTraceRaysIndirectKHR == null) throw new VVK.FunctionNotLoadedException("vkCmdTraceRaysIndirectKHR");
-		_vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, buffer, offset);
+		_vkCmdTraceRaysIndirectKHR(commandBuffer, pRaygenShaderBindingTable, pMissShaderBindingTable, pHitShaderBindingTable, pCallableShaderBindingTable, indirectDeviceAddress);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkGetDeviceAccelerationStructureCompatibilityKHR(VulkanHandle<VkDevice> device, VkAccelerationStructureVersionKHR* version)
+	public static void vkGetDeviceAccelerationStructureCompatibilityKHR(VulkanHandle<VkDevice> device, VkAccelerationStructureVersionInfoKHR* pVersionInfo, VkAccelerationStructureCompatibilityKHR* pCompatibility)
 	{
 		if (_vkGetDeviceAccelerationStructureCompatibilityKHR == null) throw new VVK.FunctionNotLoadedException("vkGetDeviceAccelerationStructureCompatibilityKHR");
-		return _vkGetDeviceAccelerationStructureCompatibilityKHR(device, version);
+		_vkGetDeviceAccelerationStructureCompatibilityKHR(device, pVersionInfo, pCompatibility);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static ulong vkGetRayTracingShaderGroupStackSizeKHR(VulkanHandle<VkDevice> device, VulkanHandle<VkPipeline> pipeline, uint group, VkShaderGroupShaderKHR groupShader)
+	{
+		if (_vkGetRayTracingShaderGroupStackSizeKHR == null) throw new VVK.FunctionNotLoadedException("vkGetRayTracingShaderGroupStackSizeKHR");
+		return _vkGetRayTracingShaderGroupStackSizeKHR(device, pipeline, group, groupShader);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void vkCmdSetRayTracingPipelineStackSizeKHR(VulkanHandle<VkCommandBuffer> commandBuffer, uint pipelineStackSize)
+	{
+		if (_vkCmdSetRayTracingPipelineStackSizeKHR == null) throw new VVK.FunctionNotLoadedException("vkCmdSetRayTracingPipelineStackSizeKHR");
+		_vkCmdSetRayTracingPipelineStackSizeKHR(commandBuffer, pipelineStackSize);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2909,24 +2909,24 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkCmdBuildAccelerationStructureKHR(VulkanHandle<VkCommandBuffer> commandBuffer, uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
+	public static void vkCmdBuildAccelerationStructuresKHR(VulkanHandle<VkCommandBuffer> commandBuffer, uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildRangeInfoKHR** ppBuildRangeInfos)
 	{
-		if (_vkCmdBuildAccelerationStructureKHR == null) throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureKHR");
-		_vkCmdBuildAccelerationStructureKHR(commandBuffer, infoCount, pInfos, ppOffsetInfos);
+		if (_vkCmdBuildAccelerationStructuresKHR == null) throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructuresKHR");
+		_vkCmdBuildAccelerationStructuresKHR(commandBuffer, infoCount, pInfos, ppBuildRangeInfos);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void vkCmdBuildAccelerationStructureIndirectKHR(VulkanHandle<VkCommandBuffer> commandBuffer, VkAccelerationStructureBuildGeometryInfoKHR* pInfo, VulkanHandle<VkBuffer> indirectBuffer, ulong indirectOffset, uint indirectStride)
+	public static void vkCmdBuildAccelerationStructuresIndirectKHR(VulkanHandle<VkCommandBuffer> commandBuffer, uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, ulong* pIndirectDeviceAddresses, uint* pIndirectStrides, uint** ppMaxPrimitiveCounts)
 	{
-		if (_vkCmdBuildAccelerationStructureIndirectKHR == null) throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructureIndirectKHR");
-		_vkCmdBuildAccelerationStructureIndirectKHR(commandBuffer, pInfo, indirectBuffer, indirectOffset, indirectStride);
+		if (_vkCmdBuildAccelerationStructuresIndirectKHR == null) throw new VVK.FunctionNotLoadedException("vkCmdBuildAccelerationStructuresIndirectKHR");
+		_vkCmdBuildAccelerationStructuresIndirectKHR(commandBuffer, infoCount, pInfos, pIndirectDeviceAddresses, pIndirectStrides, ppMaxPrimitiveCounts);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static VkResult vkBuildAccelerationStructureKHR(VulkanHandle<VkDevice> device, uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildOffsetInfoKHR** ppOffsetInfos)
+	public static VkResult vkBuildAccelerationStructuresKHR(VulkanHandle<VkDevice> device, VulkanHandle<VkDeferredOperationKHR> deferredOperation, uint infoCount, VkAccelerationStructureBuildGeometryInfoKHR* pInfos, VkAccelerationStructureBuildRangeInfoKHR** ppBuildRangeInfos)
 	{
-		if (_vkBuildAccelerationStructureKHR == null) throw new VVK.FunctionNotLoadedException("vkBuildAccelerationStructureKHR");
-		return _vkBuildAccelerationStructureKHR(device, infoCount, pInfos, ppOffsetInfos);
+		if (_vkBuildAccelerationStructuresKHR == null) throw new VVK.FunctionNotLoadedException("vkBuildAccelerationStructuresKHR");
+		return _vkBuildAccelerationStructuresKHR(device, deferredOperation, infoCount, pInfos, ppBuildRangeInfos);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3137,6 +3137,13 @@ public unsafe static partial class StaticFunctionTable
 	{
 		if (_vkCmdSetFragmentShadingRateEnumNV == null) throw new VVK.FunctionNotLoadedException("vkCmdSetFragmentShadingRateEnumNV");
 		_vkCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOps);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void vkGetAccelerationStructureBuildSizesKHR(VulkanHandle<VkDevice> device, VkAccelerationStructureBuildTypeKHR buildType, VkAccelerationStructureBuildGeometryInfoKHR* pBuildInfo, uint* pMaxPrimitiveCounts, VkAccelerationStructureBuildSizesInfoKHR* pSizeInfo)
+	{
+		if (_vkGetAccelerationStructureBuildSizesKHR == null) throw new VVK.FunctionNotLoadedException("vkGetAccelerationStructureBuildSizesKHR");
+		_vkGetAccelerationStructureBuildSizesKHR(device, buildType, pBuildInfo, pMaxPrimitiveCounts, pSizeInfo);
 	}
 
 }

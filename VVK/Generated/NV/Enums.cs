@@ -63,13 +63,14 @@ public enum VkAccelerationStructureTypeNV : int
 {
 	TopLevel = 0,
 	BottomLevel = 1,
+	Generic = 2,
 }
 
 public enum VkGeometryTypeNV : int
 {
 	Triangles = 0,
 	Aabbs = 1,
-	Instances = 1000150000,
+	Instances = 2,
 }
 
 public enum VkRayTracingShaderGroupTypeNV : int

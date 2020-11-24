@@ -3204,18 +3204,18 @@ public unsafe partial struct VkAccelerationStructureCreateInfoNV : IEquatable<Vk
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct VkBindAccelerationStructureMemoryInfoNV : IEquatable<VkBindAccelerationStructureMemoryInfoNV>
 {
-	public const VkStructureType TYPE = VkStructureType.BindAccelerationStructureMemoryInfoKhr;
+	public const VkStructureType TYPE = VkStructureType.BindAccelerationStructureMemoryInfoNv;
 
 	public VkStructureType sType;
 	public void* pNext;
-	public VulkanHandle<VkAccelerationStructureKHR> AccelerationStructure;
+	public VulkanHandle<VkAccelerationStructureNV> AccelerationStructure;
 	public VulkanHandle<VkDeviceMemory> Memory;
 	public ulong MemoryOffset;
 	public uint DeviceIndexCount;
 	public uint* DeviceIndices;
 
 	public VkBindAccelerationStructureMemoryInfoNV(
-		VulkanHandle<VkAccelerationStructureKHR> accelerationStructure = default,
+		VulkanHandle<VkAccelerationStructureNV> accelerationStructure = default,
 		VulkanHandle<VkDeviceMemory> memory = default,
 		ulong memoryOffset = default,
 		uint deviceIndexCount = default,
@@ -3267,16 +3267,16 @@ public unsafe partial struct VkBindAccelerationStructureMemoryInfoNV : IEquatabl
 [StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct VkWriteDescriptorSetAccelerationStructureNV : IEquatable<VkWriteDescriptorSetAccelerationStructureNV>
 {
-	public const VkStructureType TYPE = VkStructureType.WriteDescriptorSetAccelerationStructureKhr;
+	public const VkStructureType TYPE = VkStructureType.WriteDescriptorSetAccelerationStructureNv;
 
 	public VkStructureType sType;
 	public void* pNext;
 	public uint AccelerationStructureCount;
-	public VulkanHandle<VkAccelerationStructureKHR>* AccelerationStructures;
+	public VulkanHandle<VkAccelerationStructureNV>* AccelerationStructures;
 
 	public VkWriteDescriptorSetAccelerationStructureNV(
 		uint accelerationStructureCount = default,
-		VulkanHandle<VkAccelerationStructureKHR>* accelerationStructures = default
+		VulkanHandle<VkAccelerationStructureNV>* accelerationStructures = default
 	) {
 		sType = TYPE;
 		pNext = null;

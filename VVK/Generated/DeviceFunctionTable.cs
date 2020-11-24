@@ -278,32 +278,32 @@ public unsafe sealed partial class DeviceFunctionTable
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipeline>, uint, VkResult> vkCompileDeferredNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureCreateInfoNV*, VkAllocationCallbacks*, VulkanHandle<VkAccelerationStructureNV>*, VkResult> vkCreateAccelerationStructureNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureKHR>, VkAllocationCallbacks*, void> vkDestroyAccelerationStructureKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureKHR>, VkAllocationCallbacks*, void> vkDestroyAccelerationStructureNV = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureMemoryRequirementsInfoKHR*, VkMemoryRequirements2*, void> vkGetAccelerationStructureMemoryRequirementsKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureNV>, VkAllocationCallbacks*, void> vkDestroyAccelerationStructureNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureMemoryRequirementsInfoNV*, VkMemoryRequirements2KHR*, void> vkGetAccelerationStructureMemoryRequirementsNV = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkBindAccelerationStructureMemoryInfoKHR*, VkResult> vkBindAccelerationStructureMemoryKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkBindAccelerationStructureMemoryInfoKHR*, VkResult> vkBindAccelerationStructureMemoryNV = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VulkanHandle<VkAccelerationStructureKHR>, VulkanHandle<VkAccelerationStructureKHR>, VkCopyAccelerationStructureModeKHR, void> vkCmdCopyAccelerationStructureNV = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkBindAccelerationStructureMemoryInfoNV*, VkResult> vkBindAccelerationStructureMemoryNV = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VulkanHandle<VkAccelerationStructureNV>, VulkanHandle<VkAccelerationStructureNV>, VkCopyAccelerationStructureModeKHR, void> vkCmdCopyAccelerationStructureNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkCopyAccelerationStructureInfoKHR*, void> vkCmdCopyAccelerationStructureKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkCopyAccelerationStructureInfoKHR*, VkResult> vkCopyAccelerationStructureKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VkCopyAccelerationStructureInfoKHR*, VkResult> vkCopyAccelerationStructureKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkCopyAccelerationStructureToMemoryInfoKHR*, void> vkCmdCopyAccelerationStructureToMemoryKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkCopyAccelerationStructureToMemoryInfoKHR*, VkResult> vkCopyAccelerationStructureToMemoryKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VkCopyAccelerationStructureToMemoryInfoKHR*, VkResult> vkCopyAccelerationStructureToMemoryKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkCopyMemoryToAccelerationStructureInfoKHR*, void> vkCmdCopyMemoryToAccelerationStructureKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkCopyMemoryToAccelerationStructureInfoKHR*, VkResult> vkCopyMemoryToAccelerationStructureKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VkCopyMemoryToAccelerationStructureInfoKHR*, VkResult> vkCopyMemoryToAccelerationStructureKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VulkanHandle<VkAccelerationStructureKHR>*, VkQueryType, VulkanHandle<VkQueryPool>, uint, void> vkCmdWriteAccelerationStructuresPropertiesKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VulkanHandle<VkAccelerationStructureKHR>*, VkQueryType, VulkanHandle<VkQueryPool>, uint, void> vkCmdWriteAccelerationStructuresPropertiesNV = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkAccelerationStructureInfoNV*, VulkanHandle<VkBuffer>, ulong, VkBool32, VulkanHandle<VkAccelerationStructureKHR>, VulkanHandle<VkAccelerationStructureKHR>, VulkanHandle<VkBuffer>, ulong, void> vkCmdBuildAccelerationStructureNV = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VulkanHandle<VkAccelerationStructureNV>*, VkQueryType, VulkanHandle<VkQueryPool>, uint, void> vkCmdWriteAccelerationStructuresPropertiesNV = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkAccelerationStructureInfoNV*, VulkanHandle<VkBuffer>, ulong, VkBool32, VulkanHandle<VkAccelerationStructureNV>, VulkanHandle<VkAccelerationStructureNV>, VulkanHandle<VkBuffer>, ulong, void> vkCmdBuildAccelerationStructureNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, uint, VulkanHandle<VkAccelerationStructureKHR>*, VkQueryType, ulong, void*, ulong, VkResult> vkWriteAccelerationStructuresPropertiesKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, uint, uint, uint, void> vkCmdTraceRaysKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, uint, uint, uint, void> vkCmdTraceRaysKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VulkanHandle<VkBuffer>, ulong, VulkanHandle<VkBuffer>, ulong, ulong, VulkanHandle<VkBuffer>, ulong, ulong, VulkanHandle<VkBuffer>, ulong, ulong, uint, uint, uint, void> vkCmdTraceRaysNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipeline>, uint, uint, ulong, void*, VkResult> vkGetRayTracingShaderGroupHandlesKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipeline>, uint, uint, ulong, void*, VkResult> vkGetRayTracingShaderGroupHandlesNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipeline>, uint, uint, ulong, void*, VkResult> vkGetRayTracingCaptureReplayShaderGroupHandlesKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureKHR>, ulong, void*, VkResult> vkGetAccelerationStructureHandleNV = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureNV>, ulong, void*, VkResult> vkGetAccelerationStructureHandleNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipelineCache>, uint, VkRayTracingPipelineCreateInfoNV*, VkAllocationCallbacks*, VulkanHandle<VkPipeline>*, VkResult> vkCreateRayTracingPipelinesNV = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipelineCache>, uint, VkRayTracingPipelineCreateInfoKHR*, VkAllocationCallbacks*, VulkanHandle<VkPipeline>*, VkResult> vkCreateRayTracingPipelinesKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VulkanHandle<VkBuffer>, ulong, void> vkCmdTraceRaysIndirectKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureVersionKHR*, VkResult> vkGetDeviceAccelerationStructureCompatibilityKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VulkanHandle<VkPipelineCache>, uint, VkRayTracingPipelineCreateInfoKHR*, VkAllocationCallbacks*, VulkanHandle<VkPipeline>*, VkResult> vkCreateRayTracingPipelinesKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, ulong, void> vkCmdTraceRaysIndirectKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureVersionInfoKHR*, VkAccelerationStructureCompatibilityKHR*, void> vkGetDeviceAccelerationStructureCompatibilityKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipeline>, uint, VkShaderGroupShaderKHR, ulong> vkGetRayTracingShaderGroupStackSizeKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, void> vkCmdSetRayTracingPipelineStackSizeKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkImageViewHandleInfoNVX*, uint> vkGetImageViewHandleNVX = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkImageView>, VkImageViewAddressPropertiesNVX*, VkResult> vkGetImageViewAddressNVX = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkPhysicalDeviceSurfaceInfo2KHR*, VkDeviceGroupPresentModeFlagsKHR*, VkResult> vkGetDeviceGroupSurfacePresentModes2EXT = null;
@@ -333,9 +333,9 @@ public unsafe sealed partial class DeviceFunctionTable
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkPipelineExecutableInfoKHR*, uint*, VkPipelineExecutableInternalRepresentationKHR*, VkResult> vkGetPipelineExecutableInternalRepresentationsKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, ushort, void> vkCmdSetLineStippleEXT = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureCreateInfoKHR*, VkAllocationCallbacks*, VulkanHandle<VkAccelerationStructureKHR>*, VkResult> vkCreateAccelerationStructureKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildOffsetInfoKHR**, void> vkCmdBuildAccelerationStructureKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkAccelerationStructureBuildGeometryInfoKHR*, VulkanHandle<VkBuffer>, ulong, uint, void> vkCmdBuildAccelerationStructureIndirectKHR = null;
-	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildOffsetInfoKHR**, VkResult> vkBuildAccelerationStructureKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildRangeInfoKHR**, void> vkCmdBuildAccelerationStructuresKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, ulong*, uint*, uint**, void> vkCmdBuildAccelerationStructuresIndirectKHR = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildRangeInfoKHR**, VkResult> vkBuildAccelerationStructuresKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureDeviceAddressInfoKHR*, ulong> vkGetAccelerationStructureDeviceAddressKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAllocationCallbacks*, VulkanHandle<VkDeferredOperationKHR>*, VkResult> vkCreateDeferredOperationKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VkAllocationCallbacks*, void> vkDestroyDeferredOperationKHR = null;
@@ -366,6 +366,7 @@ public unsafe sealed partial class DeviceFunctionTable
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkResolveImageInfo2KHR*, void> vkCmdResolveImage2KHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkExtent2D*, VkFragmentShadingRateCombinerOpKHR*, void> vkCmdSetFragmentShadingRateKHR = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkFragmentShadingRateNV, VkFragmentShadingRateCombinerOpKHR*, void> vkCmdSetFragmentShadingRateEnumNV = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureBuildTypeKHR, VkAccelerationStructureBuildGeometryInfoKHR*, uint*, VkAccelerationStructureBuildSizesInfoKHR*, void> vkGetAccelerationStructureBuildSizesKHR = null;
 
 	/// <summary>Creates a new function table with all null pointers.</summary>
 	public DeviceFunctionTable() { }
@@ -951,59 +952,50 @@ public unsafe sealed partial class DeviceFunctionTable
 		if (TryLoadFunc(dev, "vkDestroyAccelerationStructureKHR", out addr)) {
 			vkDestroyAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureKHR>, VkAllocationCallbacks*, void>)addr;
 		}
-		vkDestroyAccelerationStructureNV = vkDestroyAccelerationStructureKHR;
-		if ((vkDestroyAccelerationStructureNV == null) && TryLoadFunc(dev, "vkDestroyAccelerationStructureNV", out addr)) {
-			vkDestroyAccelerationStructureNV = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureKHR>, VkAllocationCallbacks*, void>)addr;
-		}
-		if (TryLoadFunc(dev, "vkGetAccelerationStructureMemoryRequirementsKHR", out addr)) {
-			vkGetAccelerationStructureMemoryRequirementsKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureMemoryRequirementsInfoKHR*, VkMemoryRequirements2*, void>)addr;
+		if (TryLoadFunc(dev, "vkDestroyAccelerationStructureNV", out addr)) {
+			vkDestroyAccelerationStructureNV = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureNV>, VkAllocationCallbacks*, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkGetAccelerationStructureMemoryRequirementsNV", out addr)) {
 			vkGetAccelerationStructureMemoryRequirementsNV = (delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureMemoryRequirementsInfoNV*, VkMemoryRequirements2KHR*, void>)addr;
 		}
-		if (TryLoadFunc(dev, "vkBindAccelerationStructureMemoryKHR", out addr)) {
-			vkBindAccelerationStructureMemoryKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkBindAccelerationStructureMemoryInfoKHR*, VkResult>)addr;
-		}
-		vkBindAccelerationStructureMemoryNV = vkBindAccelerationStructureMemoryKHR;
-		if ((vkBindAccelerationStructureMemoryNV == null) && TryLoadFunc(dev, "vkBindAccelerationStructureMemoryNV", out addr)) {
-			vkBindAccelerationStructureMemoryNV = (delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkBindAccelerationStructureMemoryInfoKHR*, VkResult>)addr;
+		if (TryLoadFunc(dev, "vkBindAccelerationStructureMemoryNV", out addr)) {
+			vkBindAccelerationStructureMemoryNV = (delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkBindAccelerationStructureMemoryInfoNV*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdCopyAccelerationStructureNV", out addr)) {
-			vkCmdCopyAccelerationStructureNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VulkanHandle<VkAccelerationStructureKHR>, VulkanHandle<VkAccelerationStructureKHR>, VkCopyAccelerationStructureModeKHR, void>)addr;
+			vkCmdCopyAccelerationStructureNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VulkanHandle<VkAccelerationStructureNV>, VulkanHandle<VkAccelerationStructureNV>, VkCopyAccelerationStructureModeKHR, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdCopyAccelerationStructureKHR", out addr)) {
 			vkCmdCopyAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkCopyAccelerationStructureInfoKHR*, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCopyAccelerationStructureKHR", out addr)) {
-			vkCopyAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkCopyAccelerationStructureInfoKHR*, VkResult>)addr;
+			vkCopyAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VkCopyAccelerationStructureInfoKHR*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdCopyAccelerationStructureToMemoryKHR", out addr)) {
 			vkCmdCopyAccelerationStructureToMemoryKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkCopyAccelerationStructureToMemoryInfoKHR*, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCopyAccelerationStructureToMemoryKHR", out addr)) {
-			vkCopyAccelerationStructureToMemoryKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkCopyAccelerationStructureToMemoryInfoKHR*, VkResult>)addr;
+			vkCopyAccelerationStructureToMemoryKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VkCopyAccelerationStructureToMemoryInfoKHR*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdCopyMemoryToAccelerationStructureKHR", out addr)) {
 			vkCmdCopyMemoryToAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkCopyMemoryToAccelerationStructureInfoKHR*, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCopyMemoryToAccelerationStructureKHR", out addr)) {
-			vkCopyMemoryToAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkCopyMemoryToAccelerationStructureInfoKHR*, VkResult>)addr;
+			vkCopyMemoryToAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VkCopyMemoryToAccelerationStructureInfoKHR*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdWriteAccelerationStructuresPropertiesKHR", out addr)) {
 			vkCmdWriteAccelerationStructuresPropertiesKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VulkanHandle<VkAccelerationStructureKHR>*, VkQueryType, VulkanHandle<VkQueryPool>, uint, void>)addr;
 		}
-		vkCmdWriteAccelerationStructuresPropertiesNV = vkCmdWriteAccelerationStructuresPropertiesKHR;
-		if ((vkCmdWriteAccelerationStructuresPropertiesNV == null) && TryLoadFunc(dev, "vkCmdWriteAccelerationStructuresPropertiesNV", out addr)) {
-			vkCmdWriteAccelerationStructuresPropertiesNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VulkanHandle<VkAccelerationStructureKHR>*, VkQueryType, VulkanHandle<VkQueryPool>, uint, void>)addr;
+		if (TryLoadFunc(dev, "vkCmdWriteAccelerationStructuresPropertiesNV", out addr)) {
+			vkCmdWriteAccelerationStructuresPropertiesNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VulkanHandle<VkAccelerationStructureNV>*, VkQueryType, VulkanHandle<VkQueryPool>, uint, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdBuildAccelerationStructureNV", out addr)) {
-			vkCmdBuildAccelerationStructureNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkAccelerationStructureInfoNV*, VulkanHandle<VkBuffer>, ulong, VkBool32, VulkanHandle<VkAccelerationStructureKHR>, VulkanHandle<VkAccelerationStructureKHR>, VulkanHandle<VkBuffer>, ulong, void>)addr;
+			vkCmdBuildAccelerationStructureNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkAccelerationStructureInfoNV*, VulkanHandle<VkBuffer>, ulong, VkBool32, VulkanHandle<VkAccelerationStructureNV>, VulkanHandle<VkAccelerationStructureNV>, VulkanHandle<VkBuffer>, ulong, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkWriteAccelerationStructuresPropertiesKHR", out addr)) {
 			vkWriteAccelerationStructuresPropertiesKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, uint, VulkanHandle<VkAccelerationStructureKHR>*, VkQueryType, ulong, void*, ulong, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdTraceRaysKHR", out addr)) {
-			vkCmdTraceRaysKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, uint, uint, uint, void>)addr;
+			vkCmdTraceRaysKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, uint, uint, uint, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdTraceRaysNV", out addr)) {
 			vkCmdTraceRaysNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VulkanHandle<VkBuffer>, ulong, VulkanHandle<VkBuffer>, ulong, ulong, VulkanHandle<VkBuffer>, ulong, ulong, VulkanHandle<VkBuffer>, ulong, ulong, uint, uint, uint, void>)addr;
@@ -1019,19 +1011,25 @@ public unsafe sealed partial class DeviceFunctionTable
 			vkGetRayTracingCaptureReplayShaderGroupHandlesKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipeline>, uint, uint, ulong, void*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkGetAccelerationStructureHandleNV", out addr)) {
-			vkGetAccelerationStructureHandleNV = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureKHR>, ulong, void*, VkResult>)addr;
+			vkGetAccelerationStructureHandleNV = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkAccelerationStructureNV>, ulong, void*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCreateRayTracingPipelinesNV", out addr)) {
 			vkCreateRayTracingPipelinesNV = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipelineCache>, uint, VkRayTracingPipelineCreateInfoNV*, VkAllocationCallbacks*, VulkanHandle<VkPipeline>*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCreateRayTracingPipelinesKHR", out addr)) {
-			vkCreateRayTracingPipelinesKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipelineCache>, uint, VkRayTracingPipelineCreateInfoKHR*, VkAllocationCallbacks*, VulkanHandle<VkPipeline>*, VkResult>)addr;
+			vkCreateRayTracingPipelinesKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, VulkanHandle<VkPipelineCache>, uint, VkRayTracingPipelineCreateInfoKHR*, VkAllocationCallbacks*, VulkanHandle<VkPipeline>*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkCmdTraceRaysIndirectKHR", out addr)) {
-			vkCmdTraceRaysIndirectKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VkStridedBufferRegionKHR*, VulkanHandle<VkBuffer>, ulong, void>)addr;
+			vkCmdTraceRaysIndirectKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, VkStridedDeviceAddressRegionKHR*, ulong, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkGetDeviceAccelerationStructureCompatibilityKHR", out addr)) {
-			vkGetDeviceAccelerationStructureCompatibilityKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureVersionKHR*, VkResult>)addr;
+			vkGetDeviceAccelerationStructureCompatibilityKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureVersionInfoKHR*, VkAccelerationStructureCompatibilityKHR*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkGetRayTracingShaderGroupStackSizeKHR", out addr)) {
+			vkGetRayTracingShaderGroupStackSizeKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkPipeline>, uint, VkShaderGroupShaderKHR, ulong>)addr;
+		}
+		if (TryLoadFunc(dev, "vkCmdSetRayTracingPipelineStackSizeKHR", out addr)) {
+			vkCmdSetRayTracingPipelineStackSizeKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, void>)addr;
 		}
 		if (TryLoadFunc(dev, "vkGetImageViewHandleNVX", out addr)) {
 			vkGetImageViewHandleNVX = (delegate* unmanaged<VulkanHandle<VkDevice>, VkImageViewHandleInfoNVX*, uint>)addr;
@@ -1124,14 +1122,14 @@ public unsafe sealed partial class DeviceFunctionTable
 		if (TryLoadFunc(dev, "vkCreateAccelerationStructureKHR", out addr)) {
 			vkCreateAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureCreateInfoKHR*, VkAllocationCallbacks*, VulkanHandle<VkAccelerationStructureKHR>*, VkResult>)addr;
 		}
-		if (TryLoadFunc(dev, "vkCmdBuildAccelerationStructureKHR", out addr)) {
-			vkCmdBuildAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildOffsetInfoKHR**, void>)addr;
+		if (TryLoadFunc(dev, "vkCmdBuildAccelerationStructuresKHR", out addr)) {
+			vkCmdBuildAccelerationStructuresKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildRangeInfoKHR**, void>)addr;
 		}
-		if (TryLoadFunc(dev, "vkCmdBuildAccelerationStructureIndirectKHR", out addr)) {
-			vkCmdBuildAccelerationStructureIndirectKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkAccelerationStructureBuildGeometryInfoKHR*, VulkanHandle<VkBuffer>, ulong, uint, void>)addr;
+		if (TryLoadFunc(dev, "vkCmdBuildAccelerationStructuresIndirectKHR", out addr)) {
+			vkCmdBuildAccelerationStructuresIndirectKHR = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, ulong*, uint*, uint**, void>)addr;
 		}
-		if (TryLoadFunc(dev, "vkBuildAccelerationStructureKHR", out addr)) {
-			vkBuildAccelerationStructureKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildOffsetInfoKHR**, VkResult>)addr;
+		if (TryLoadFunc(dev, "vkBuildAccelerationStructuresKHR", out addr)) {
+			vkBuildAccelerationStructuresKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VulkanHandle<VkDeferredOperationKHR>, uint, VkAccelerationStructureBuildGeometryInfoKHR*, VkAccelerationStructureBuildRangeInfoKHR**, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkGetAccelerationStructureDeviceAddressKHR", out addr)) {
 			vkGetAccelerationStructureDeviceAddressKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureDeviceAddressInfoKHR*, ulong>)addr;
@@ -1222,6 +1220,9 @@ public unsafe sealed partial class DeviceFunctionTable
 		}
 		if (TryLoadFunc(dev, "vkCmdSetFragmentShadingRateEnumNV", out addr)) {
 			vkCmdSetFragmentShadingRateEnumNV = (delegate* unmanaged<VulkanHandle<VkCommandBuffer>, VkFragmentShadingRateNV, VkFragmentShadingRateCombinerOpKHR*, void>)addr;
+		}
+		if (TryLoadFunc(dev, "vkGetAccelerationStructureBuildSizesKHR", out addr)) {
+			vkGetAccelerationStructureBuildSizesKHR = (delegate* unmanaged<VulkanHandle<VkDevice>, VkAccelerationStructureBuildTypeKHR, VkAccelerationStructureBuildGeometryInfoKHR*, uint*, VkAccelerationStructureBuildSizesInfoKHR*, void>)addr;
 		}
 	}
 
