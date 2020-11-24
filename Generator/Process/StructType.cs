@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gen
 {
@@ -144,6 +145,17 @@ namespace Gen
 				bool fix = false;
 				if (fld.ArraySize is not null) {
 					fix = NameHelper.IsFixedBufferType(fType);
+				}
+
+				// Check for duplicate name 
+				if (fields.FirstOrDefault(fl => fl.Name == fName) is Field duplicate) {
+					if (fld.PtrDepth > 0) {
+						fName += "Ptr"; // Less than ideal, but only occurs in one place so far
+					}
+					else {
+						Program.PrintError($"Unresolvable duplicate field name '{spec.Name}.{fName}'");
+						return false;
+					}
 				}
 
 				// Add
