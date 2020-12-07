@@ -508,6 +508,20 @@ public unsafe static partial class StaticFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static VkResult vkAcquireWinrtDisplayNV(VulkanHandle<VkPhysicalDevice> physicalDevice, VulkanHandle<VkDisplayKHR> display)
+	{
+		if (_vkAcquireWinrtDisplayNV == null) throw new VVK.FunctionNotLoadedException("vkAcquireWinrtDisplayNV");
+		return _vkAcquireWinrtDisplayNV(physicalDevice, display);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static VkResult vkGetWinrtDisplayNV(VulkanHandle<VkPhysicalDevice> physicalDevice, uint deviceRelativeId, VulkanHandle<VkDisplayKHR>* pDisplay)
+	{
+		if (_vkGetWinrtDisplayNV == null) throw new VVK.FunctionNotLoadedException("vkGetWinrtDisplayNV");
+		return _vkGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static VkResult vkGetPhysicalDeviceSurfaceCapabilities2EXT(VulkanHandle<VkPhysicalDevice> physicalDevice, VulkanHandle<VkSurfaceKHR> surface, VkSurfaceCapabilities2EXT* pSurfaceCapabilities)
 	{
 		if (_vkGetPhysicalDeviceSurfaceCapabilities2EXT == null) throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceCapabilities2EXT");

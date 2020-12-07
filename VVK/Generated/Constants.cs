@@ -486,8 +486,12 @@ public static class VkConstants
 	public const uint KHR_COPY_COMMANDS2_SPEC_VERSION = 1;
 	public const string EXT_4444_FORMATS_EXTENSION_NAME = "VK_EXT_4444_formats";
 	public const uint EXT_4444_FORMATS_SPEC_VERSION = 1;
+	public const string NV_ACQUIRE_WINRT_DISPLAY_EXTENSION_NAME = "VK_NV_acquire_winrt_display";
+	public const uint NV_ACQUIRE_WINRT_DISPLAY_SPEC_VERSION = 1;
 	public const string EXT_DIRECTFB_SURFACE_EXTENSION_NAME = "VK_EXT_directfb_surface";
 	public const uint EXT_DIRECTFB_SURFACE_SPEC_VERSION = 1;
+	public const string VALVE_MUTABLE_DESCRIPTOR_TYPE_EXTENSION_NAME = "VK_VALVE_mutable_descriptor_type";
+	public const uint VALVE_MUTABLE_DESCRIPTOR_TYPE_SPEC_VERSION = 1;
 }
 
 

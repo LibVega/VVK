@@ -235,6 +235,10 @@ public unsafe sealed partial class VkDisplayKHR : IVulkanHandle<VkDisplayKHR>
 		=> Functions.vkReleaseDisplayEXT(Parent, Handle);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AcquireWinrtDisplayNV()
+		=> Functions.vkAcquireWinrtDisplayNV(Parent, Handle);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetDisplayModeProperties2KHR(uint* pPropertyCount, VkDisplayModeProperties2KHR* pProperties)
 		=> Functions.vkGetDisplayModeProperties2KHR(Parent, Handle, pPropertyCount, pProperties);
 

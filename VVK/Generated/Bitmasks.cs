@@ -124,6 +124,7 @@ public enum VkDescriptorSetLayoutCreateFlags : uint
 	UpdateAfterBindPool = 2,
 	PushDescriptorKhr = 1,
 	UpdateAfterBindPoolExt = 2,
+	HostOnlyPoolValve = 4,
 }
 
 [Flags]
@@ -646,6 +647,7 @@ public enum VkDescriptorPoolCreateFlags : uint
 	FreeDescriptorSet = 1,
 	UpdateAfterBind = 2,
 	UpdateAfterBindExt = 2,
+	HostOnlyValve = 4,
 }
 
 [Flags]

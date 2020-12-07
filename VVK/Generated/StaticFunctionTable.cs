@@ -89,6 +89,8 @@ public unsafe static partial class StaticFunctionTable
 	private static delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkDisplayKHR>, VkResult> _vkReleaseDisplayEXT = null;
 	private static delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, void*, VulkanHandle<VkDisplayKHR>, VkResult> _vkAcquireXlibDisplayEXT = null;
 	private static delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, void*, ulong, VulkanHandle<VkDisplayKHR>*, VkResult> _vkGetRandROutputDisplayEXT = null;
+	private static delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkDisplayKHR>, VkResult> _vkAcquireWinrtDisplayNV = null;
+	private static delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, uint, VulkanHandle<VkDisplayKHR>*, VkResult> _vkGetWinrtDisplayNV = null;
 	private static delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkSurfaceKHR>, VkSurfaceCapabilities2EXT*, VkResult> _vkGetPhysicalDeviceSurfaceCapabilities2EXT = null;
 	private static delegate* unmanaged<VulkanHandle<VkInstance>, uint*, VkPhysicalDeviceGroupProperties*, VkResult> _vkEnumeratePhysicalDeviceGroups = null;
 	private static delegate* unmanaged<VulkanHandle<VkInstance>, uint*, VkPhysicalDeviceGroupProperties*, VkResult> _vkEnumeratePhysicalDeviceGroupsKHR = null;
@@ -657,6 +659,12 @@ public unsafe static partial class StaticFunctionTable
 		if (TryLoadFunc(inst, "vkGetRandROutputDisplayEXT", out addr)) {
 			_vkGetRandROutputDisplayEXT = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, void*, ulong, VulkanHandle<VkDisplayKHR>*, VkResult>)addr;
 		}
+		if (TryLoadFunc(inst, "vkAcquireWinrtDisplayNV", out addr)) {
+			_vkAcquireWinrtDisplayNV = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkDisplayKHR>, VkResult>)addr;
+		}
+		if (TryLoadFunc(inst, "vkGetWinrtDisplayNV", out addr)) {
+			_vkGetWinrtDisplayNV = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, uint, VulkanHandle<VkDisplayKHR>*, VkResult>)addr;
+		}
 		if (TryLoadFunc(inst, "vkGetPhysicalDeviceSurfaceCapabilities2EXT", out addr)) {
 			_vkGetPhysicalDeviceSurfaceCapabilities2EXT = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkSurfaceKHR>, VkSurfaceCapabilities2EXT*, VkResult>)addr;
 		}
@@ -925,6 +933,12 @@ public unsafe static partial class StaticFunctionTable
 		}
 		if (TryLoadFunc(dev, "vkGetRandROutputDisplayEXT", out addr)) {
 			_vkGetRandROutputDisplayEXT = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, void*, ulong, VulkanHandle<VkDisplayKHR>*, VkResult>)addr;
+		}
+		if (TryLoadFunc(dev, "vkAcquireWinrtDisplayNV", out addr)) {
+			_vkAcquireWinrtDisplayNV = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkDisplayKHR>, VkResult>)addr;
+		}
+		if (TryLoadFunc(dev, "vkGetWinrtDisplayNV", out addr)) {
+			_vkGetWinrtDisplayNV = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, uint, VulkanHandle<VkDisplayKHR>*, VkResult>)addr;
 		}
 		if (TryLoadFunc(dev, "vkGetPhysicalDeviceSurfaceCapabilities2EXT", out addr)) {
 			_vkGetPhysicalDeviceSurfaceCapabilities2EXT = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkSurfaceKHR>, VkSurfaceCapabilities2EXT*, VkResult>)addr;

@@ -167,6 +167,7 @@ public enum VkDescriptorType : int
 	InlineUniformBlockExt = 1000138000,
 	AccelerationStructureKhr = 1000150000,
 	AccelerationStructureNv = 1000165000,
+	MutableValve = 1000351000,
 }
 
 public enum VkDynamicState : int
@@ -1285,6 +1286,8 @@ public enum VkStructureType : int
 	ImageResolve2Khr = 1000337010,
 	PhysicalDevice4444FormatsFeaturesExt = 1000340000,
 	DirectfbSurfaceCreateInfoExt = 1000346000,
+	PhysicalDeviceMutableDescriptorTypeFeaturesValve = 1000351000,
+	MutableDescriptorTypeCreateInfoValve = 1000351002,
 }
 
 public enum VkSystemAllocationScope : int
@@ -1466,6 +1469,7 @@ public enum VkVendorId : int
 	Kazan = 65539,
 	Codeplay = 65540,
 	Mesa = 65541,
+	Pocl = 65542,
 }
 
 public enum VkDriverId : int

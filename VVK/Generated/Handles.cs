@@ -836,6 +836,17 @@ public unsafe sealed partial class VkPhysicalDevice : IVulkanHandle<VkPhysicalDe
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetWinrtDisplayNV(uint deviceRelativeId, VulkanHandle<VkDisplayKHR>* pDisplay)
+		=> Functions.vkGetWinrtDisplayNV(Handle, deviceRelativeId, pDisplay);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetWinrtDisplayNV(uint deviceRelativeId, out VulkanHandle<VkDisplayKHR> pDisplay)
+	{
+		fixed (VulkanHandle<VkDisplayKHR>* pDisplayFIXED = &pDisplay)
+		return Functions.vkGetWinrtDisplayNV(Handle, deviceRelativeId, pDisplayFIXED);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceCapabilities2EXT(VulkanHandle<VkSurfaceKHR> surface, VkSurfaceCapabilities2EXT* pSurfaceCapabilities)
 		=> Functions.vkGetPhysicalDeviceSurfaceCapabilities2EXT(Handle, surface, pSurfaceCapabilities);
 

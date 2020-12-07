@@ -496,6 +496,20 @@ public unsafe sealed partial class InstanceFunctionTable
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult AcquireWinrtDisplayNV(VulkanHandle<VkPhysicalDevice> physicalDevice, VulkanHandle<VkDisplayKHR> display)
+	{
+		if (vkAcquireWinrtDisplayNV == null) throw new VVK.FunctionNotLoadedException("vkAcquireWinrtDisplayNV");
+		return vkAcquireWinrtDisplayNV(physicalDevice, display);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public VkResult GetWinrtDisplayNV(VulkanHandle<VkPhysicalDevice> physicalDevice, uint deviceRelativeId, VulkanHandle<VkDisplayKHR>* pDisplay)
+	{
+		if (vkGetWinrtDisplayNV == null) throw new VVK.FunctionNotLoadedException("vkGetWinrtDisplayNV");
+		return vkGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public VkResult GetPhysicalDeviceSurfaceCapabilities2EXT(VulkanHandle<VkPhysicalDevice> physicalDevice, VulkanHandle<VkSurfaceKHR> surface, VkSurfaceCapabilities2EXT* pSurfaceCapabilities)
 	{
 		if (vkGetPhysicalDeviceSurfaceCapabilities2EXT == null) throw new VVK.FunctionNotLoadedException("vkGetPhysicalDeviceSurfaceCapabilities2EXT");

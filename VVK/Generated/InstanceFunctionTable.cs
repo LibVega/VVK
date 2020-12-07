@@ -89,6 +89,8 @@ public unsafe sealed partial class InstanceFunctionTable
 	public readonly delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkDisplayKHR>, VkResult> vkReleaseDisplayEXT = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, void*, VulkanHandle<VkDisplayKHR>, VkResult> vkAcquireXlibDisplayEXT = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, void*, ulong, VulkanHandle<VkDisplayKHR>*, VkResult> vkGetRandROutputDisplayEXT = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkDisplayKHR>, VkResult> vkAcquireWinrtDisplayNV = null;
+	public readonly delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, uint, VulkanHandle<VkDisplayKHR>*, VkResult> vkGetWinrtDisplayNV = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkSurfaceKHR>, VkSurfaceCapabilities2EXT*, VkResult> vkGetPhysicalDeviceSurfaceCapabilities2EXT = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkInstance>, uint*, VkPhysicalDeviceGroupProperties*, VkResult> vkEnumeratePhysicalDeviceGroups = null;
 	public readonly delegate* unmanaged<VulkanHandle<VkInstance>, uint*, VkPhysicalDeviceGroupProperties*, VkResult> vkEnumeratePhysicalDeviceGroupsKHR = null;
@@ -307,6 +309,12 @@ public unsafe sealed partial class InstanceFunctionTable
 		}
 		if (TryLoadFunc(inst, "vkGetRandROutputDisplayEXT", out addr)) {
 			vkGetRandROutputDisplayEXT = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, void*, ulong, VulkanHandle<VkDisplayKHR>*, VkResult>)addr;
+		}
+		if (TryLoadFunc(inst, "vkAcquireWinrtDisplayNV", out addr)) {
+			vkAcquireWinrtDisplayNV = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkDisplayKHR>, VkResult>)addr;
+		}
+		if (TryLoadFunc(inst, "vkGetWinrtDisplayNV", out addr)) {
+			vkGetWinrtDisplayNV = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, uint, VulkanHandle<VkDisplayKHR>*, VkResult>)addr;
 		}
 		if (TryLoadFunc(inst, "vkGetPhysicalDeviceSurfaceCapabilities2EXT", out addr)) {
 			vkGetPhysicalDeviceSurfaceCapabilities2EXT = (delegate* unmanaged<VulkanHandle<VkPhysicalDevice>, VulkanHandle<VkSurfaceKHR>, VkSurfaceCapabilities2EXT*, VkResult>)addr;
