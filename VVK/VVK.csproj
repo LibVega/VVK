@@ -10,8 +10,8 @@
     <Company>N/A</Company>
     <Description>C# bindings and utilities for Vulkan in .NET 5</Description>
     <Copyright>Copyright © 2020-2021 Sean Moss</Copyright>
-    <PackageProjectUrl>https://github.com/VegaLib/VVK</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VegaLib/VVK</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/LibVega/VVK</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LibVega/VVK</RepositoryUrl>
     <PackageTags>Vulkan, Graphics, Wrapper, Utilities</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

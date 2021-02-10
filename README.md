@@ -1,8 +1,8 @@
 # VVK
 
-[![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/VegaLib/VVK/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/LibVega/VVK/blob/master/LICENSE)
 [![NuGet](https://img.shields.io/nuget/v/VVK)](https://www.nuget.org/packages/VVK/)
-[![Build Status](https://travis-ci.com/VegaLib/VVK.svg?branch=master)](https://travis-ci.com/VegaLib/VVK)
+[![Build Status](https://travis-ci.com/LibVega/VVK.svg?branch=master)](https://travis-ci.com/LibVega/VVK)
 
 Low-overhead Vulkan API bindings for .NET 5 and C# 9.
 
@@ -10,7 +10,7 @@ The API provides a low level, nearly one-to-one mapping to the C API, including 
 
 The majority of the API is generated from the `vk.xml` specification file released by Khronos. A few hand written utility types and extensions are present as well. The library can be easily updated by simply regerating against the latest specification file, and fixing any small issues that may arise with new spec versions. The source code for the generator is in this repo.
 
-A full usage guide, and other notes about the API and generator, can be found on [the Wiki](https://github.com/VegaLib/VVK/wiki).
+A full usage guide, and other notes about the API and generator, can be found on [the Wiki](https://github.com/LibVega/VVK/wiki).
 
 ## Contributing
 
