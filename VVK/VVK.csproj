@@ -5,18 +5,18 @@
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
     <RootNamespace>Vulkan</RootNamespace>
-    <Version>1.2.164.0</Version>
+    <Version>1.2.169.0</Version>
     <Authors>Sean Moss</Authors>
     <Company>N/A</Company>
     <Description>C# bindings and utilities for Vulkan in .NET 5</Description>
-    <Copyright>Copyright © 2020 Sean Moss</Copyright>
+    <Copyright>Copyright © 2020-2021 Sean Moss</Copyright>
     <PackageProjectUrl>https://github.com/VegaLib/VVK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/VegaLib/VVK</RepositoryUrl>
     <PackageTags>Vulkan, Graphics, Wrapper, Utilities</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.2.164.0</AssemblyVersion>
-    <FileVersion>1.2.164.0</FileVersion>
+    <AssemblyVersion>1.2.169.0</AssemblyVersion>
+    <FileVersion>1.2.169.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

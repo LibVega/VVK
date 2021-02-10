@@ -7,17 +7,17 @@
     <Platforms>x64</Platforms>
     <AssemblyName>VVKGen</AssemblyName>
     <Nullable>enable</Nullable>
-    <Version>1.2.164.0</Version>
+    <Version>1.2.169.0</Version>
     <Authors>Sean Moss</Authors>
     <Company>N/A</Company>
     <Product>VVK</Product>
     <Description>Command-line generator that reads the vk.xml specification and creates the VVK wrapper.</Description>
-    <Copyright>Copyright © 2020 Sean Moss</Copyright>
+    <Copyright>Copyright © 2020-2021 Sean Moss</Copyright>
     <PackageProjectUrl>https://github.com/VegaLib/VVK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/VegaLib/VVK</RepositoryUrl>
     <PackageTags>Vulkan, Graphics, Generator, Wrapper, API, C# 9</PackageTags>
-    <AssemblyVersion>1.2.164.0</AssemblyVersion>
-    <FileVersion>1.2.164.0</FileVersion>
+    <AssemblyVersion>1.2.169.0</AssemblyVersion>
+    <FileVersion>1.2.169.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

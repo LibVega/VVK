@@ -455,7 +455,7 @@ public static class VkConstants
 	public const string QCOM_RENDER_PASS_TRANSFORM_EXTENSION_NAME = "VK_QCOM_render_pass_transform";
 	public const uint QCOM_RENDER_PASS_TRANSFORM_SPEC_VERSION = 1;
 	public const string EXT_DEVICE_MEMORY_REPORT_EXTENSION_NAME = "VK_EXT_device_memory_report";
-	public const uint EXT_DEVICE_MEMORY_REPORT_SPEC_VERSION = 1;
+	public const uint EXT_DEVICE_MEMORY_REPORT_SPEC_VERSION = 2;
 	public const string EXT_ROBUSTNESS2_EXTENSION_NAME = "VK_EXT_robustness2";
 	public const uint EXT_ROBUSTNESS2_SPEC_VERSION = 1;
 	public const string EXT_CUSTOM_BORDER_COLOR_EXTENSION_NAME = "VK_EXT_custom_border_color";
@@ -474,6 +474,8 @@ public static class VkConstants
 	public const uint NV_DEVICE_DIAGNOSTICS_CONFIG_SPEC_VERSION = 1;
 	public const string QCOM_RENDER_PASS_STORE_OPS_EXTENSION_NAME = "VK_QCOM_render_pass_store_ops";
 	public const uint QCOM_RENDER_PASS_STORE_OPS_SPEC_VERSION = 2;
+	public const string KHR_ZERO_INITIALIZE_WORKGROUP_MEMORY_EXTENSION_NAME = "VK_KHR_zero_initialize_workgroup_memory";
+	public const uint KHR_ZERO_INITIALIZE_WORKGROUP_MEMORY_SPEC_VERSION = 1;
 	public const string NV_FRAGMENT_SHADING_RATE_ENUMS_EXTENSION_NAME = "VK_NV_fragment_shading_rate_enums";
 	public const uint NV_FRAGMENT_SHADING_RATE_ENUMS_SPEC_VERSION = 1;
 	public const string EXT_FRAGMENT_DENSITY_MAP2_EXTENSION_NAME = "VK_EXT_fragment_density_map2";
@@ -482,6 +484,8 @@ public static class VkConstants
 	public const uint QCOM_ROTATED_COPY_COMMANDS_SPEC_VERSION = 0;
 	public const string EXT_IMAGE_ROBUSTNESS_EXTENSION_NAME = "VK_EXT_image_robustness";
 	public const uint EXT_IMAGE_ROBUSTNESS_SPEC_VERSION = 1;
+	public const string KHR_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_EXTENSION_NAME = "VK_KHR_workgroup_memory_explicit_layout";
+	public const uint KHR_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_SPEC_VERSION = 1;
 	public const string KHR_COPY_COMMANDS2_EXTENSION_NAME = "VK_KHR_copy_commands2";
 	public const uint KHR_COPY_COMMANDS2_SPEC_VERSION = 1;
 	public const string EXT_4444_FORMATS_EXTENSION_NAME = "VK_EXT_4444_formats";

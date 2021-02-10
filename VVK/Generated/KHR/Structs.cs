@@ -11341,6 +11341,114 @@ public unsafe partial struct VkPipelineLibraryCreateInfoKHR : IEquatable<VkPipel
 }
 
 [StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR : IEquatable<VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR>
+{
+	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKhr;
+
+	public VkStructureType sType;
+	public void* pNext;
+	public VkBool32 ShaderZeroInitializeWorkgroupMemory;
+
+	public VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR(
+		VkBool32 shaderZeroInitializeWorkgroupMemory = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		ShaderZeroInitializeWorkgroupMemory = shaderZeroInitializeWorkgroupMemory;
+	}
+
+	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR s) && (this == s);
+	readonly bool IEquatable<VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR>.Equals(VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR o) => o == this;
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ ShaderZeroInitializeWorkgroupMemory.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR l, in VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.ShaderZeroInitializeWorkgroupMemory == r.ShaderZeroInitializeWorkgroupMemory)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR l, in VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.ShaderZeroInitializeWorkgroupMemory != r.ShaderZeroInitializeWorkgroupMemory)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR s) => s = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe partial struct VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR : IEquatable<VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR>
+{
+	public const VkStructureType TYPE = VkStructureType.PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKhr;
+
+	public VkStructureType sType;
+	public void* pNext;
+	public VkBool32 WorkgroupMemoryExplicitLayout;
+	public VkBool32 WorkgroupMemoryExplicitLayoutScalarBlockLayout;
+	public VkBool32 WorkgroupMemoryExplicitLayout8BitAccess;
+	public VkBool32 WorkgroupMemoryExplicitLayout16BitAccess;
+
+	public VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR(
+		VkBool32 workgroupMemoryExplicitLayout = default,
+		VkBool32 workgroupMemoryExplicitLayoutScalarBlockLayout = default,
+		VkBool32 workgroupMemoryExplicitLayout8BitAccess = default,
+		VkBool32 workgroupMemoryExplicitLayout16BitAccess = default
+	) {
+		sType = TYPE;
+		pNext = null;
+		WorkgroupMemoryExplicitLayout = workgroupMemoryExplicitLayout;
+		WorkgroupMemoryExplicitLayoutScalarBlockLayout = workgroupMemoryExplicitLayoutScalarBlockLayout;
+		WorkgroupMemoryExplicitLayout8BitAccess = workgroupMemoryExplicitLayout8BitAccess;
+		WorkgroupMemoryExplicitLayout16BitAccess = workgroupMemoryExplicitLayout16BitAccess;
+	}
+
+	public readonly override bool Equals(object? o) => (o is VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR s) && (this == s);
+	readonly bool IEquatable<VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR>.Equals(VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR o) => o == this;
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public readonly override int GetHashCode()
+	{
+		return
+			sType.GetHashCode() ^ ((ulong)pNext).GetHashCode() ^ WorkgroupMemoryExplicitLayout.GetHashCode() ^ WorkgroupMemoryExplicitLayoutScalarBlockLayout.GetHashCode()
+			^ WorkgroupMemoryExplicitLayout8BitAccess.GetHashCode() ^ WorkgroupMemoryExplicitLayout16BitAccess.GetHashCode()
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator == (in VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR l, in VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR r)
+	{
+		return
+			(l.sType == r.sType) && (l.pNext == r.pNext) && (l.WorkgroupMemoryExplicitLayout == r.WorkgroupMemoryExplicitLayout) && (l.WorkgroupMemoryExplicitLayoutScalarBlockLayout == r.WorkgroupMemoryExplicitLayoutScalarBlockLayout)
+			&& (l.WorkgroupMemoryExplicitLayout8BitAccess == r.WorkgroupMemoryExplicitLayout8BitAccess) && (l.WorkgroupMemoryExplicitLayout16BitAccess == r.WorkgroupMemoryExplicitLayout16BitAccess)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+	public static bool operator != (in VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR l, in VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR r)
+	{
+		return
+			(l.sType != r.sType) || (l.pNext != r.pNext) || (l.WorkgroupMemoryExplicitLayout != r.WorkgroupMemoryExplicitLayout) || (l.WorkgroupMemoryExplicitLayoutScalarBlockLayout != r.WorkgroupMemoryExplicitLayoutScalarBlockLayout)
+			|| (l.WorkgroupMemoryExplicitLayout8BitAccess != r.WorkgroupMemoryExplicitLayout8BitAccess) || (l.WorkgroupMemoryExplicitLayout16BitAccess != r.WorkgroupMemoryExplicitLayout16BitAccess)
+			;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void New(out VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR s) => s = new() { sType = TYPE };
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public unsafe partial struct VkPhysicalDevicePortabilitySubsetFeaturesKHR : IEquatable<VkPhysicalDevicePortabilitySubsetFeaturesKHR>
 {
 	public const VkStructureType TYPE = VkStructureType.PhysicalDevicePortabilitySubsetFeaturesKhr;
